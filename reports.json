@@ -1,27 +1,20 @@
 [
   {
-    "title": "ultraworkers/claw-code deep-dive / Rust rewrite Claude Code shape CLI / 9 crate 48.6K LOC / 9-lane parity all merged main / PHILOSOPHY 'Stop Staring at the Files' 3-layer system (OmX / clawhip / OmO) / 7-step provider routing (Anthropic / xAI / OpenAI-compat / DashScope / Ollama) / 12 sections / 8 stat cards / 9 lane checkpoints / 17 evidence pills (fetched / vault / recall / unfetched) / bilingual ZH-EN with localStorage persistence / TOC v1.4.4 collapsible / 87.8KB single HTML",
-    "file": "daily-reports/2026-07-15-ultraworkers-claw-code-deep-dive.html",
+    "title": "🆕 AI-Native Org Transformation Suite V4 — 4 公司 (IBM / Klarna / 乐天 / 星展银行) × 7 模块全景 (全景/四家公司/组织演化/任务市场/角色问责/机器审计/365天行动) · 100% proud 模式 polish · 数据语义 / 交互 100% 保留 · 加 4 项升级:sticky 渐变 nav / 4 公司 chip + active glow / 40px 大数字 KPI / 双主题 toggle + localStorage · 107KB 单 HTML · 0 外部依赖 / 0 npm / 0 CDN",
+    "file": "daily-reports/ai-native-org-transformation-v4.html",
     "date": "2026-07-15",
     "category": "research",
     "track": "brief",
-    "summary": "Github 194K stars / 109K forks. Rust workspace rewrites Claude Code shape CLI. Main binary claw. 9 crate (rusty-claude-cli / api / runtime / tools / commands / plugins / telemetry / claw-analog / claw-rag-service). 40 tool specs. mock parity harness 12 scenarios. 9-lane checkpoint all merged on main (Bash / CI fix / File-tool / Task / Team+Cron / MCP / LSP / Permission). Caveats: bash-validation still branch-only, CI not green every commit. Same-gen ecosystem omx / clawhip / lazycodex / gajae-code / oh-my-openagent. PHILOSOPHY argues museum exhibit / coordination system is the product / humans don't git push directly. Honest fetch report: sandbox web_extract blocked, git clone throttled, api.github.com + browser_console base64 decode pulled 6 core docs. Self-reported LOC/crate/tool-specs NOT independently cargo-build-verified.",
+    "summary": "Patrick 给出 v3 iframe+srcdoc 单文件 fragment · Master 重写为单文件 V4: 100% 保留 69 个 data-* 属性 + 13 个核心 JS function + 4 公司完整数据对象 (IBM 94% 智能闭环 / Klarna 11→<2 分钟 / 乐天 105 亿日元 / 星展 约 10 亿新元) + 6 模块 DOM · 升级: sticky 渐变 nav + 紫粉 hero + 4 公司 chip 切换 (IBM 蓝 / Klarna 玫粉 / 乐天红 / 星展红) + active dot glow · 40px KPI results (94% / 40% / +74 etc) · 暗/亮双主题 + localStorage 持久化 · SVG 节点实色填充 (guard 绿 / human 粉 / core 紫) + paint-order 描边 + drop-shadow glow · checkbox 自定义 + 进度条渐变 · 0 外部依赖 · 100% proud ship",
     "featured": true,
     "tags": [
-      "ultraworkers-claw-code",
-      "rust-cli-agent",
-      "claude-code-shape",
-      "parity-checkpoint",
-      "race-aware-ecosystem",
-      "bilingual-zh-en",
-      "toc-collapsible",
-      "museum-exhibit",
-      "ai-coordination",
-      "agent-trace-integrity",
-      "multi-source-fetch",
-      "open-source-deepdive"
+      "ai-native",
+      "org-transformation",
+      "ibm-klarna-rakuten-dbs",
+      "v4-proud",
+      "single-file-spa"
     ],
-    "added_at": "2026-07-15"
+    "added_at": "2026-07-15T14:00:00+08:00"
   },
   {
     "title": "🆕 ECC (Everything Claude Code) 深度解析 — 229K stars · 278 skills · 67 agents · 6-harness plugin · 跟我 Loop OS 90% 同源 sibling · 5 SKILL.md cherry-pick 今晚 ship 到 ~/.hermes/skills/ · Pattern ⑥ Ralphinho DAG 是 P1 关键缺口 · 14 sections · bilingual (ZH 默认 + EN 切换) · 58KB · TOC v1.4.4 collapsible · PITFALL 7-mark 验证全 PASS",

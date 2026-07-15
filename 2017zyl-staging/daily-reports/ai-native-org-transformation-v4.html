@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-Native Org Transformation Suite · V4</title>
+<meta name="description" content="面向 IBM / Klarna / 乐天 / 星展银行的智能原生组织转型操作系统：全景 · 转型基线 · 组织演化 · 企业任务市场 · 角色问责 · 机器审计 · 365 天行动手册。">
+<meta name="referrer" content="no-referrer">
+<style>
+/* =========================================================
+   V4 Design System — glass + neon + editorial
+   ========================================================= */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg:            #08090d;
+  --bg-elev-1:    rgba(20, 22, 30, 0.72);
+  --bg-elev-2:    rgba(30, 32, 42, 0.85);
+  --bg-elev-3:    rgba(40, 43, 56, 0.95);
+  --bg-glow-1:    radial-gradient(at 12% 8%,  #6c4cff22 0%, transparent 50%),
+                  radial-gradient(at 92% 4%,  #00d4ff1c 0%, transparent 55%),
+                  radial-gradient(at 85% 95%, #ff4c8a1f 0%, transparent 50%);
+  --fg:           #f4f4f7;
+  --fg-muted:     rgba(244, 244, 247, 0.58);
+  --fg-faint:     rgba(244, 244, 247, 0.35);
+  --fg-dim:       rgba(244, 244, 247, 0.14);
+  --border:       rgba(255, 255, 255, 0.07);
+  --border-bright:rgba(255, 255, 255, 0.18);
+  --ring:         #6c4cff;
+  --brand-primary:#c8b8ff;
+  --brand-accent: #00d4ff;
+  --brand-pink:   #ff4c8a;
+  --brand-warning:#ffb84c;
+  --brand-good:   #4cffa0;
+  --shadow-soft:  0 1px 0 rgba(255,255,255,0.06) inset, 0 20px 40px -20px rgba(0,0,0,0.6);
+  --shadow-glow:  0 0 0 1px var(--border-bright), 0 8px 28px -8px rgba(108, 76, 255, 0.35);
+  --viz-series-1: var(--brand-primary);
+  --viz-series-2: var(--brand-pink);
+  --viz-series-3: var(--brand-good);
+  --viz-series-4: #ff8de0;
+  --viz-series-5: #b69aff;
+  --viz-series-6: #5ee2d4;
+
+  /* Per-company accent */
+  --co-ibm:    #5aa6ff;
+  --co-klarna: #ff4c8a;
+  --co-rakuten:#bf0013;
+  --co-dbs:    #e53935;
+}
+
+
+:root:not([data-theme]) {
+  color-scheme: dark;
+  --bg:            #08090d;
+  --bg-elev-1:    rgba(20, 22, 30, 0.72);
+  --bg-elev-2:    rgba(30, 32, 42, 0.85);
+  --bg-elev-3:    rgba(40, 43, 56, 0.95);
+  --bg-glow-1:    radial-gradient(at 12% 8%,  #6c4cff22 0%, transparent 50%),
+                  radial-gradient(at 92% 4%,  #00d4ff1c 0%, transparent 55%),
+                  radial-gradient(at 85% 95%, #ff4c8a1f 0%, transparent 50%);
+  --fg:           #f4f4f7;
+  --fg-muted:     rgba(244, 244, 247, 0.58);
+  --fg-faint:     rgba(244, 244, 247, 0.35);
+  --fg-dim:       rgba(244, 244, 247, 0.14);
+  --border:       rgba(255, 255, 255, 0.07);
+  --border-bright:rgba(255, 255, 255, 0.18);
+  --ring:         #6c4cff;
+  --brand-primary:#c8b8ff;
+  --brand-accent: #00d4ff;
+  --brand-pink:   #ff4c8a;
+  --brand-warning:#ffb84c;
+  --brand-good:   #4cffa0;
+  --shadow-soft:  0 1px 0 rgba(255,255,255,0.06) inset, 0 20px 40px -20px rgba(0,0,0,0.6);
+  --shadow-glow:  0 0 0 1px var(--border-bright), 0 8px 28px -8px rgba(108, 76, 255, 0.35);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg:            #fafaff;
+  --bg-elev-1:    rgba(255, 255, 255, 0.7);
+  --bg-elev-2:    rgba(255, 255, 255, 0.95);
+  --bg-elev-3:    rgba(255, 255, 255, 1);
+  --bg-glow-1:    radial-gradient(at 12% 8%,  #6c4cff10 0%, transparent 50%),
+                  radial-gradient(at 92% 4%,  #00d4ff0a 0%, transparent 55%),
+                  radial-gradient(at 85% 95%, #ff4c8a0e 0%, transparent 50%);
+  --fg:           #0a0a12;
+  --fg-muted:     rgba(10, 10, 18, 0.55);
+  --fg-faint:     rgba(10, 10, 18, 0.32);
+  --fg-dim:       rgba(10, 10, 18, 0.10);
+  --border:       rgba(10, 10, 18, 0.07);
+  --border-bright:rgba(10, 10, 18, 0.16);
+  --ring:         #6c4cff;
+  --brand-primary:#5e3fff;
+  --brand-accent: #0088a8;
+  --brand-pink:   #d4336e;
+  --brand-warning:#b86b00;
+  --brand-good:   #008f4c;
+  --shadow-soft:  0 1px 0 rgba(255,255,255,1) inset, 0 12px 32px -16px rgba(10,10,18,0.10);
+  --shadow-glow:  0 0 0 1px var(--border-bright), 0 6px 24px -10px rgba(94, 63, 255, 0.20);
+}
+
+* { box-sizing: border-box; }
+:root {
+  --brand-primary: #c8b8ff;
+  --brand-accent: #00d4ff;
+  --brand-pink: #ff4c8a;
+  --brand-good: #4cffa0;
+  --brand-warning: #ffb84c;
+}
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Segoe UI", sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  background: var(--bg) var(--bg-glow-1) no-repeat fixed;
+  background-size: 100% 100vh;
+  color: var(--fg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--brand-accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* =========================================================
+   Layout — page frame
+   ========================================================= */
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 36px 80px;
+}
+
+/* Top brand band */
+.brandline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-elev-2);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 20px;
+  position: sticky;
+  top: 12px;
+  z-index: 30;
+}
+.brandmark {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 600; font-size: 14px; letter-spacing: 0.04em;
+}
+.brandmark .pulse {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--brand-primary);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand-primary) 18%, transparent),
+              0 0 16px color-mix(in oklab, var(--brand-primary) 50%, transparent);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(0.78); opacity: 0.7; }
+}
+.brandmark b { font-weight: 700; }
+.brandline .pillset {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.brandline .pillset .pill-label {
+  font-size: 11px; letter-spacing: 0.08em;
+  color: var(--fg-faint); text-transform: uppercase;
+  margin-right: 4px;
+}
+
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 6px; border-radius: 999px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font: inherit; color: inherit;
+}
+.theme-toggle .seg {
+  padding: 4px 9px; border-radius: 999px;
+  font-size: 11px; font-weight: 500;
+  color: var(--fg-muted);
+}
+.theme-toggle .seg.is-active {
+  background: var(--fg); color: var(--bg);
+}
+
+/* Company picker — chip-style segmented */
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--fg);
+  padding: 8px 32px 8px 14px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff80'%3E%3Cpath d='M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+[data-theme="light"] .form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000000a0'%3E%3Cpath d='M4.22 6.22a.75.75 0 011.06 0L8 8.94l2.72-2.72a.75.75 0 111.06 1.06l-3.25 3.25a.75.75 0 01-1.06 0L4.22 7.28a.75.75 0 010-1.06z'/%3E%3C/svg%3E");
+}
+.form-select:focus-visible {
+  outline: 2px solid var(--ring); outline-offset: 1px;
+}
+
+/* Nav rail — 7 modules */
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: 24px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-elev-1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav .btn {
+  flex: 1 1 0;
+  min-width: max-content;
+  white-space: nowrap;
+  border: 0;
+  background: transparent;
+  color: var(--fg-muted);
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color .18s, background .18s, transform .18s;
+  position: relative;
+}
+.nav .btn:hover { color: var(--fg); background: var(--bg-elev-2); }
+.nav .btn.btn-primary {
+  color: var(--fg);
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--brand-primary) 30%, var(--bg-elev-2)),
+      color-mix(in srgb, var(--brand-primary) 14%, var(--bg-elev-2)));
+  box-shadow: inset 0 1px 0 var(--border-bright),
+              0 4px 16px -8px color-mix(in srgb, var(--brand-primary) 60%, transparent);
+}
+.nav .btn.btn-primary::after {
+  content: "";
+  position: absolute; left: 16px; right: 16px; bottom: 3px;
+  height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
+}
+
+/* =========================================================
+   Panels & sections
+   ========================================================= */
+
+.panel { display: none; animation: fadein .35s ease both; }
+.panel.is-active { display: block; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  margin: 22px 0 18px;
+}
+.section-kicker {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-kicker::before {
+  content: ""; width: 18px; height: 1px;
+  background: linear-gradient(90deg, var(--brand-primary), transparent);
+  display: inline-block;
+}
+.section-name {
+  font-size: 26px; line-height: 1.3;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+.viz-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand-primary) 24%, var(--bg-elev-2));
+  color: var(--brand-primary);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 38%, var(--border));
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.text-muted  { color: var(--fg-muted); }
+.text-faint  { color: var(--fg-faint); }
+.text-small  { font-size: 12px; }
+.text-mono   { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+/* =========================================================
+   Cards
+   ========================================================= */
+
+.card {
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color .2s, transform .2s;
+}
+.card:hover { border-color: var(--border-bright); }
+
+.viz-stat {
+  display: flex; flex-direction: column; gap: 6px;
+  min-width: 0;
+}
+.viz-stat .viz-stat-value {
+  font-size: 22px; font-weight: 700;
+  color: var(--fg); letter-spacing: -0.01em;
+}
+
+.viz-grid { display: grid; gap: 14px; }
+.three-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 18px; }
+@media (max-width: 720px) { .three-stats { grid-template-columns: 1fr; } }
+
+/* =========================================================
+   Overview — SVG nodes
+   ========================================================= */
+
+.canvas {
+  position: relative; width: 100%; min-height: 460px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  background: var(--bg-elev-2);
+  margin-bottom: 14px;
+}
+.main-svg { display: block; width: 100%; height: auto; min-height: 460px; overflow: visible; }
+.svg-label { fill: #f4f4f7; font-weight: 700; text-anchor: middle; font-size: 14px; paint-order: stroke; stroke: rgba(8,9,13,0.6); stroke-width: 3; }
+.svg-sub   { fill: rgba(244,244,247,0.7); text-anchor: middle; font-size: 11px; paint-order: stroke; stroke: rgba(8,9,13,0.55); stroke-width: 2; }
+.svg-side  { fill: var(--fg-muted); font-weight: 600; font-size: 12px; }
+.svg-side  { fill: var(--fg-muted); font-weight: 500; }
+
+.node rect, .node circle {
+  fill: var(--node-bg, #1f2230);
+  stroke: var(--node-border, #2c3142); stroke-width: 1.2;
+  transition: fill .25s, stroke .25s;
+  cursor: pointer;
+}
+.node.core rect, .node.core circle { fill: color-mix(in srgb, var(--brand-primary) 30%, #1f2230); }
+.node.human rect, .node.human circle { fill: color-mix(in srgb, var(--brand-pink) 28%, #1f2230); }
+.node.guard rect, .node.guard circle { fill: color-mix(in srgb, var(--brand-good) 26%, #1f2230); }
+.node:hover rect, .node:hover circle,
+.node.is-selected rect, .node.is-selected circle {
+  stroke: var(--brand-primary); stroke-width: 2.2;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand-primary) 45%, transparent));
+}
+.node.is-selected rect, .node.is-selected circle {
+  fill: color-mix(in srgb, var(--brand-primary) 45%, #1f2230);
+}
+.edge        { fill: none; stroke: var(--border-bright); stroke-width: 1.5; }
+.edge.ai     { stroke: var(--brand-primary); }
+.edge.risk   { stroke: var(--brand-pink); stroke-dasharray: 4 4; }
+
+/* overview-detail */
+.overview-detail {
+  margin-top: 14px;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: grid; gap: 14px;
+}
+.overview-detail-head {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  font-size: 15px; font-weight: 600;
+}
+.overview-detail-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 720px) { .overview-detail-grid { grid-template-columns: 1fr; } }
+.overview-detail-item span { display: block; color: var(--fg-faint); margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.overview-detail-item div { color: var(--fg); line-height: 1.55; font-size: 14px; }
+
+/* =========================================================
+   Compare (benchmarks)
+   ========================================================= */
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px; align-items: start;
+  margin-bottom: 14px;
+}
+@media (max-width: 800px) { .split { grid-template-columns: 1fr; } }
+.compare-col { min-width: 0; }
+.compare-head {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 600; margin-bottom: 10px;
+  font-size: 15px;
+}
+.compare-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.compare-list li {
+  position: relative;
+  padding: 10px 14px 10px 18px;
+  border-radius: 12px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  line-height: 1.55; font-size: 13.5px;
+}
+.compare-list li::before {
+  content: "→"; position: absolute; left: 6px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--brand-accent); font-weight: 700;
+}
+
+/* =========================================================
+   KPI results — large
+   ========================================================= */
+
+.result-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+@media (max-width: 720px) { .result-strip { grid-template-columns: 1fr; } }
+.result {
+  background: linear-gradient(170deg,
+    color-mix(in srgb, var(--brand-primary) 22%, var(--bg-elev-2)),
+    var(--bg-elev-2) 65%);
+  border: 1px solid color-mix(in srgb, var(--brand-primary) 35%, var(--border));
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  position: relative; overflow: hidden;
+}
+.result-value {
+  font-size: 40px; line-height: 1.05;
+  font-weight: 700; letter-spacing: -0.02em;
+  color: var(--brand-primary);
+  margin-bottom: 6px;
+}
+.result-label { color: var(--fg-muted); font-size: 12px; }
+
+.source-row { display: flex; flex-wrap: wrap; gap: 16px; color: var(--fg-faint); }
+
+/* detail card — accent + lesson */
+.detail {
+  display: flex; align-items: baseline; gap: 10px;
+  font-size: 14px; line-height: 1.6;
+}
+.detail strong { font-weight: 700; color: var(--brand-primary); }
+
+/* =========================================================
+   Architecture — render dynamic SVG
+   ========================================================= */
+
+.arch-canvas { min-height: 480px; }
+
+/* =========================================================
+   Tasks
+   ========================================================= */
+
+.viz-controls {
+  display: flex; flex-wrap: wrap; align-items: end; gap: 12px;
+  margin-bottom: 14px;
+}
+.viz-controls .form-label {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 11px; color: var(--fg-faint);
+  text-transform: uppercase; letter-spacing: .08em;
+  flex: 1 1 200px; min-width: 200px;
+}
+.task-flow { display: flex; flex-direction: column; gap: 8px; }
+.task-row {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 12px;
+  padding: 12px 16px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 13.5px;
+}
+.task-row strong { font-weight: 600; color: var(--fg); }
+.task-owner { color: var(--fg-muted); }
+.task-row .viz-badge { white-space: nowrap; }
+
+/* =========================================================
+   Roles
+   ========================================================= */
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+@media (max-width: 800px) { .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 500px) { .role-grid { grid-template-columns: 1fr; } }
+.role-grid .btn {
+  width: 100%;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  padding: 12px 14px;
+  font-size: 13px; font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .18s ease;
+}
+.role-grid .btn:hover {
+  background: var(--bg-elev-2);
+  color: var(--fg);
+}
+.role-grid .btn.btn-primary {
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--brand-primary) 28%, var(--bg-elev-2)),
+      color-mix(in srgb, var(--brand-accent) 22%, var(--bg-elev-2)));
+  color: var(--fg);
+  border-color: var(--brand-primary);
+  box-shadow: 0 4px 14px -8px var(--brand-primary);
+}
+
+.role-line {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+.role-line:first-child { border-top: 0; padding-top: 0; }
+.role-line span { display: block; color: var(--fg-faint); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+.role-line div { font-size: 14px; line-height: 1.55; color: var(--fg); }
+
+/* =========================================================
+   Audit
+   ========================================================= */
+
+.audit-flow {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.audit-step, .phase {
+  display: flex; flex-direction: column; gap: 4px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer; text-align: left;
+  color: inherit; font: inherit;
+  transition: all .18s ease;
+}
+.audit-step:hover, .phase:hover {
+  background: var(--bg-elev-2);
+  border-color: var(--border-bright);
+}
+.audit-step.is-selected, .phase.is-selected {
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--brand-pink) 24%, var(--bg-elev-2)),
+      color-mix(in srgb, var(--brand-warning) 18%, var(--bg-elev-2)));
+  border-color: var(--brand-pink);
+  box-shadow: 0 4px 14px -8px var(--brand-pink);
+}
+.audit-step strong, .phase strong {
+  font-size: 13px; font-weight: 600; color: var(--fg);
+}
+.evidence-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px; margin-top: 14px;
+}
+.evidence-item {
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.evidence-item strong { color: var(--brand-good); font-weight: 600; font-size: 12.5px; }
+.evidence-item span { color: var(--fg-muted); font-size: 12px; line-height: 1.45; }
+
+/* =========================================================
+   Roadmap
+   ========================================================= */
+
+.roadmap {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px; margin-bottom: 14px;
+}
+.phase strong { display: block; font-size: 12px; color: var(--brand-accent); font-family: ui-monospace, Menlo, monospace; }
+.phase.is-selected strong { color: var(--brand-warning); }
+
+.manual-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px; margin-top: 12px;
+}
+@media (max-width: 720px) { .manual-grid { grid-template-columns: 1fr; } }
+.manual-block {
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.manual-block span { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg-faint); }
+.manual-block strong { color: var(--fg); font-weight: 600; font-size: 13.5px; }
+
+.checklist {
+  display: grid; gap: 8px; margin-top: 14px;
+}
+.form-check {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .18s ease;
+}
+.form-check:hover { background: var(--bg-elev-2); border-color: var(--border-bright); }
+.form-check-input {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px;
+  margin: 2px 0 0; flex-shrink: 0;
+  border: 1.5px solid var(--fg-muted);
+  border-radius: 5px; background: transparent;
+  cursor: pointer; transition: all .18s ease;
+  display: inline-grid; place-content: center;
+}
+.form-check-input:checked {
+  border-color: var(--brand-good);
+  background: var(--brand-good);
+}
+.form-check-input:checked::after {
+  content: ""; width: 5px; height: 9px;
+  border: 2px solid #08090d; border-top: 0; border-left: 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+.form-check-label {
+  font-size: 13.5px; color: var(--fg); line-height: 1.5;
+  user-select: none;
+}
+
+.progress-line {
+  margin-top: 16px;
+  height: 6px; border-radius: 999px;
+  background: var(--bg-elev-1);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent), var(--brand-pink));
+  transition: width .6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================
+   Footer signature
+   ========================================================= */
+
+.foot {
+  margin-top: 36px; padding: 22px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--fg-faint);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.foot .meta { display: flex; align-items: center; gap: 12px; }
+.foot .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-good); }
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* =========================================================
+   Print
+   ========================================================= */
+@media print {
+  .brandline, .nav, .theme-toggle { display: none; }
+  .panel { display: block !important; page-break-inside: avoid; margin-bottom: 22px; }
+  body { background: white; color: black; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="page" id="ai-native-bank-playbook">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-text">
+    <div class="kicker">AI-Native Org Transformation Suite · V4</div>
+    <h1>智能原生组织转型系统</h1>
+    <p class="subtitle">面向 <b>IBM</b> · <b>Klarna</b> · <b>乐天</b> · <b>星展银行</b> 的交互式组织转型操作系统。读一家公司如何消除旧部门、扩张机器能力、重构人机协作，并把可审计的智能引入端到端旅程。</p>
+  </div>
+  <div class="company-strip" id="hero-chips">
+    <button class="chip" data-chip="ibm" type="button" aria-label="查看 IBM"><span class="chip-dot" style="--c: var(--co-ibm)"></span>IBM</button>
+    <button class="chip" data-chip="klarna" type="button" aria-label="查看 Klarna"><span class="chip-dot" style="--c: var(--co-klarna)"></span>Klarna</button>
+    <button class="chip" data-chip="rakuten" type="button" aria-label="查看乐天"><span class="chip-dot" style="--c: var(--co-rakuten)"></span>乐天</button>
+    <button class="chip" data-chip="dbs" type="button" aria-label="查看星展银行"><span class="chip-dot" style="--c: var(--co-dbs)"></span>星展银行</button>
+  </div>
+  <div class="hero-meta">
+    <span class="meta-item"><span class="meta-dot"></span>实战案例 4 家</span>
+    <span class="meta-item">7 模块 · 24/7 全开放</span>
+    <span class="meta-item">V4 · 2026-07-15</span>
+    <div class="theme-toggle" role="group" aria-label="主题">
+      <button class="seg is-active" data-theme-set="dark" type="button">暗</button>
+      <button class="seg" data-theme-set="light" type="button">亮</button>
+    </div>
+  </div>
+</header>
+
+<style>
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "text  chips"
+    "meta  meta";
+  gap: 20px 36px;
+  align-items: end;
+  padding: 36px 28px 28px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--brand-primary) 12%, var(--bg-elev-2)),
+      var(--bg-elev-2) 60%);
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(at 90% 0%,  color-mix(in srgb, var(--brand-pink) 22%, transparent), transparent 55%),
+    radial-gradient(at 0% 110%, color-mix(in srgb, var(--brand-accent) 22%, transparent), transparent 55%);
+  pointer-events: none;
+}
+.hero-text { grid-area: text; min-width: 0; }
+.hero-text .kicker {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--brand-accent); font-weight: 700; margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.hero-text .kicker::before {
+  content: ""; width: 22px; height: 1px;
+  background: linear-gradient(90deg, var(--brand-accent), transparent);
+}
+.hero-text h1 {
+  margin: 0 0 14px;
+  font-size: clamp(28px, 4.6vw, 48px);
+  line-height: 1.08; font-weight: 800; letter-spacing: -0.025em;
+  color: var(--fg);
+}
+.hero-text .subtitle {
+  margin: 0; font-size: 15px; line-height: 1.7;
+  color: var(--fg-muted); max-width: 64ch;
+}
+.hero-text .subtitle b { color: var(--fg); font-weight: 700; }
+.hero-meta {
+  grid-area: meta;
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  font-size: 12px; color: var(--fg-faint);
+  border-top: 1px solid var(--border); padding-top: 18px;
+}
+.hero-meta .meta-item { display: inline-flex; align-items: center; gap: 6px; }
+.hero-meta .meta-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--brand-good);
+  box-shadow: 0 0 8px var(--brand-good);
+  animation: pulse 2s ease-in-out infinite;
+}
+.company-strip {
+  grid-area: chips; display: flex; flex-wrap: wrap; gap: 8px;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  font: inherit; font-size: 13px; font-weight: 500;
+  cursor: pointer;
+  transition: all .18s ease;
+}
+.chip:hover {
+  color: var(--fg);
+  background: var(--bg-elev-2);
+  border-color: var(--border-bright);
+  transform: translateY(-1px);
+}
+.chip.is-active {
+  color: var(--fg);
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--brand-primary) 30%, var(--bg-elev-2)),
+      color-mix(in srgb, var(--brand-accent) 22%, var(--bg-elev-2)));
+  border-color: var(--brand-primary);
+  box-shadow: 0 4px 18px -8px var(--brand-primary);
+}
+.chip-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--c, var(--brand-primary));
+  box-shadow: 0 0 8px color-mix(in oklab, var(--c, var(--brand-primary)) 50%, transparent);
+}
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas: "text" "chips" "meta";
+    padding: 24px 20px;
+  }
+  .company-strip { justify-content: flex-start; }
+}
+</style>
+
+<select class="form-select" data-global-company style="position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0" aria-hidden="true" tabindex="-1">
+      <option value="ibm">IBM</option>
+      <option value="klarna">Klarna</option>
+      <option value="rakuten">乐天</option>
+      <option value="dbs" selected>星展银行</option>
+    </select>
+<nav class="viz-controls nav" aria-label="内容导航">
+      <button class="btn btn-primary" type="button" data-panel="overview" aria-pressed="true">全景</button>
+      <button class="btn" type="button" data-panel="benchmarks" aria-pressed="false">四家公司</button>
+      <button class="btn" type="button" data-panel="architecture" aria-pressed="false">组织演化</button>
+      <button class="btn" type="button" data-panel="tasks" aria-pressed="false">任务市场</button>
+      <button class="btn" type="button" data-panel="roles" aria-pressed="false">角色问责</button>
+      <button class="btn" type="button" data-panel="audit" aria-pressed="false">机器审计</button>
+      <button class="btn" type="button" data-panel="roadmap" aria-pressed="false">365天行动</button>
+    </nav>
+
+    <section class="panel is-active" data-panel-view="overview">
+      <div class="section-head"><div><div class="section-kicker text-small">运营模式 · <span data-company-name>星展银行</span></div><div class="section-name" data-overview-title>从部门制银行转向客户使命网络</div></div><span class="text-small text-muted">点击任一层，查看使命与目标</span></div>
+      <div class="viz-grid three-stats">
+        <div class="card viz-stat"><span class="text-muted">组织基本单元</span><span class="viz-stat-value" data-overview-unit>客户使命</span><span class="text-small text-muted" data-overview-unit-note>替代产品与职能孤岛</span></div>
+        <div class="card viz-stat"><span class="text-muted">机器默认角色</span><span class="viz-stat-value" data-overview-machine>受控执行</span><span class="text-small text-muted" data-overview-machine-note>嵌入端到端旅程</span></div>
+        <div class="card viz-stat"><span class="text-muted">人类不可外包价值</span><span class="viz-stat-value" data-overview-human>判断·信任·问责</span><span class="text-small text-muted" data-overview-human-note>客户关系和风险责任</span></div>
+      </div>
+      <div class="canvas">
+        <svg class="main-svg" viewBox="0 0 900 430" role="img" aria-label="智能原生银行运营系统全景">
+          <defs>
+            <marker id="pb-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--border)"></path></marker>
+            <marker id="pb-arrow-ai" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--viz-series-1)"></path></marker>
+            <marker id="pb-arrow-risk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--viz-series-3)"></path></marker>
+          </defs>
+          <text x="20" y="28" class="svg-side text-small">目的层</text>
+          <text x="20" y="135" class="svg-side text-small">使命层</text>
+          <text x="20" y="260" class="svg-side text-small">智能层</text>
+          <text x="20" y="393" class="svg-side text-small">结果层</text>
+          <path class="edge risk" d="M450 63C450 88 450 90 450 112"></path>
+          <path class="edge" d="M450 160C360 195 300 210 245 240"></path>
+          <path class="edge ai" d="M450 160C450 195 450 210 450 240"></path>
+          <path class="edge risk" d="M450 160C540 195 600 210 655 240"></path>
+          <path class="edge ai" d="M245 290C300 340 370 350 420 370"></path>
+          <path class="edge ai" d="M450 290L450 365"></path>
+          <path class="edge risk" d="M655 290C600 340 530 350 480 370"></path>
+          <a href="#ai-overview-detail" data-overview-card="0" aria-label="银行宪法与董事会：查看使命与目标"><g class="node guard is-selected"><rect x="332" y="20" width="236" height="46" rx="12"></rect><text x="450" y="41" class="svg-label" data-overview-node="0">银行宪法与董事会</text><text x="450" y="57" class="svg-sub text-small" data-overview-sub="0">目的 · 红线 · 最终问责</text></g></a>
+          <a href="#ai-overview-detail" data-overview-card="1" aria-label="客户使命单元：查看使命与目标"><g class="node human"><rect x="280" y="112" width="340" height="50" rx="12"></rect><text x="450" y="135" class="svg-label" data-overview-node="1">客户使命单元</text><text x="450" y="152" class="svg-sub text-small" data-overview-sub="1">业务＋风险＋技术＋运营共同负责结果</text></g></a>
+          <a href="#ai-overview-detail" data-overview-card="2" aria-label="企业任务市场：查看使命与目标"><g class="node core"><rect x="140" y="240" width="210" height="50" rx="12"></rect><text x="245" y="263" class="svg-label" data-overview-node="2">企业任务市场</text><text x="245" y="280" class="svg-sub text-small" data-overview-sub="2">拆解 · 匹配 · 调度</text></g></a>
+          <a href="#ai-overview-detail" data-overview-card="3" aria-label="智能体编排与记忆：查看使命与目标"><g class="node core"><rect x="355" y="240" width="190" height="50" rx="12"></rect><text x="450" y="263" class="svg-label" data-overview-node="3">智能体编排与记忆</text><text x="450" y="280" class="svg-sub text-small" data-overview-sub="3">计划 · 执行 · 学习</text></g></a>
+          <a href="#ai-overview-detail" data-overview-card="4" aria-label="可审计控制平面：查看使命与目标"><g class="node guard"><rect x="550" y="240" width="210" height="50" rx="12"></rect><text x="655" y="263" class="svg-label" data-overview-node="4">可审计控制平面</text><text x="655" y="280" class="svg-sub text-small" data-overview-sub="4">权限 · 证据 · 阻断</text></g></a>
+          <a href="#ai-overview-detail" data-overview-card="5" aria-label="客户企业社会结果：查看使命与目标"><g class="node human"><rect x="305" y="365" width="290" height="50" rx="12"></rect><text x="450" y="388" class="svg-label" data-overview-node="5">客户 / 企业 / 社会结果</text><text x="450" y="405" class="svg-sub text-small" data-overview-sub="5">即时服务 · 可申诉 · 可补救</text></g></a>
+        </svg>
+      </div>
+      <div class="card overview-detail" id="ai-overview-detail" aria-live="polite">
+        <div class="overview-detail-head"><span class="viz-badge" data-overview-detail-layer>目的层</span><strong data-overview-detail-title>银行宪法与董事会</strong></div>
+        <div class="overview-detail-grid">
+          <div class="overview-detail-item"><span class="text-small">这一层的使命</span><div data-overview-detail-mission>定义银行服务客户与社会的目的，并划定机器不得跨越的边界。</div></div>
+          <div class="overview-detail-item"><span class="text-small">目标状态</span><div data-overview-detail-goal>每项高影响机器决定都有明确授权、停止条件与最终人类责任人。</div></div>
+        </div>
+      </div>
+      <div class="viz-row legend text-small text-muted"><span><i class="dot core"></i>机器智能</span><span><i class="dot human"></i>人类判断</span><span><i class="dot guard"></i>治理边界</span></div>
+    </section>
+
+    <section class="panel" data-panel-view="benchmarks">
+      <div class="section-head"><div><div class="section-kicker text-small">转型基线 · <span data-company-name>星展银行</span></div><div class="section-name">调整前后、可量化结果与核心方法</div></div></div>
+      <div class="split">
+        <div class="compare-col"><div class="compare-head"><span class="viz-badge">调整前</span><span data-company-before-title>碎片化人力资源服务</span></div><ul class="compare-list" data-company-before></ul></div>
+        <div class="compare-col"><div class="compare-head"><span class="viz-badge">调整后</span><span data-company-after-title>智能入口＋人类专家</span></div><ul class="compare-list" data-company-after></ul></div>
+      </div>
+      <div class="result-strip" data-company-results></div>
+      <div class="card detail"><strong data-company-pattern>重构职能</strong> · <span data-company-lesson>先消除、再简化、最后自动化；标准服务由机器闭环，复杂例外交给专家。</span></div>
+      <div class="source-row text-small" data-company-sources></div>
+    </section>
+
+    <section class="panel" data-panel-view="architecture">
+      <div class="section-head"><div><div class="section-kicker text-small">组织演化 · <span data-company-name>星展银行</span></div><div class="section-name" data-arch-title>固定部门如何演化为动态使命网络</div></div><div class="viz-controls" role="group" aria-label="演化阶段"><button class="btn btn-primary" type="button" data-arch-stage="0" aria-pressed="true">当前组织</button><button class="btn" type="button" data-arch-stage="1" aria-pressed="false">智能体协作</button><button class="btn" type="button" data-arch-stage="2" aria-pressed="false">通用智能自治</button></div></div>
+      <div class="viz-grid three-stats"><div class="card viz-stat"><span class="text-muted">基本单元</span><span class="viz-stat-value" data-arch-unit>部门</span></div><div class="card viz-stat"><span class="text-muted">机器权限</span><span class="viz-stat-value" data-arch-ai>建议</span></div><div class="card viz-stat"><span class="text-muted">人类价值</span><span class="viz-stat-value" data-arch-human>执行</span></div></div>
+      <div class="canvas"><svg class="main-svg" viewBox="0 0 900 430" role="img" aria-label="组织演化关系图"><g data-arch-edges></g><g data-arch-nodes></g></svg></div>
+      <div class="card detail"><strong data-arch-detail-title>董事会 / CEO</strong> · <span data-arch-detail>按部门配置预算，以财务结果和合规事件进行事后治理。</span></div>
+    </section>
+
+    <section class="panel" data-panel-view="tasks">
+      <div class="section-head"><div><div class="section-kicker text-small">企业任务市场 · <span data-company-name>星展银行</span></div><div class="section-name" data-task-title>把一个客户目标实时编译成人机任务网络</div></div></div>
+      <div class="task-board">
+        <div class="task-form">
+          <label class="form-label">使命<select class="form-select" data-task-mission></select></label>
+          <label class="form-label">影响等级<select class="form-select" data-task-risk><option value="low">低：可逆、标准</option><option value="medium" selected>中：影响客户权益</option><option value="high">高：重大且难撤销</option></select></label>
+          <div class="card detail"><strong data-task-rule>受控执行</strong> · <span data-task-rule-detail>机器可完成标准步骤；冲突、例外及关键决定升级给人类。</span></div>
+        </div>
+        <div class="task-flow" data-task-flow aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="panel" data-panel-view="roles">
+      <div class="section-head"><div><div class="section-kicker text-small">角色与问责 · <span data-company-name>星展银行</span></div><div class="section-name" data-role-section-title>九个角色不是新头衔，而是一套不可稀释的责任链</div></div></div>
+      <div class="role-layout">
+        <div class="card"><div class="role-grid" data-role-grid role="group" aria-label="选择责任角色"></div></div>
+        <div class="role-body">
+          <div class="card detail"><strong data-role-title>使命负责人</strong> · <span data-role-one>对端到端客户与经营结果负责。</span></div>
+          <div class="role-facts">
+            <div class="role-line"><span class="text-small">拥有的权力</span><div data-role-power></div></div>
+            <div class="role-line"><span class="text-small">必须交付</span><div data-role-deliverable></div></div>
+            <div class="role-line"><span class="text-small">不可转移的责任</span><div data-role-accountability></div></div>
+            <div class="role-line"><span class="text-small">核心指标</span><div data-role-metrics></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-panel-view="audit">
+      <div class="section-head"><div><div class="section-kicker text-small">可审计机器智能 · <span data-company-name>星展银行</span></div><div class="section-name" data-audit-heading>实务案例：一笔500万元中小企业授信如何被还原、重放、挑战和补救</div></div></div>
+      <div class="card case-banner"><strong>案例结果</strong> · <span data-audit-result>智能体建议授信450万元；因回款合同与流水不一致触发人工接管，最终批准300万元分期额度，并向客户解释调整依据。</span></div>
+      <div class="audit-flow" data-audit-flow></div>
+      <div class="card detail"><strong data-audit-title>资产登记</strong> · <span data-audit-detail>记录本次使用的授信智能体、现金流模型、客户数据、授权范围与最终责任人。</span></div>
+      <div class="evidence-grid" data-evidence-grid></div>
+      <div class="source-row text-small"><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noreferrer">美国国家标准与技术研究院智能风险框架</a><a href="https://www.iso.org/standard/42001" target="_blank" rel="noreferrer">国际智能管理体系标准42001</a><a href="https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm" target="_blank" rel="noreferrer">美国联储模型风险指引26-2</a></div>
+    </section>
+
+    <section class="panel" data-panel-view="roadmap">
+      <div class="section-head"><div><div class="section-kicker text-small">落地执行 · <span data-company-name>星展银行</span></div><div class="section-name" data-roadmap-title>365天操作手册：以中小企业融资旅程为首个改造案例</div></div><span class="viz-badge"><span data-progress-value>0</span>% 本阶段已完成</span></div>
+      <div class="roadmap" data-roadmap></div>
+      <div class="card detail"><strong data-phase-title>0–30天 · 发现</strong> · <span data-phase-outcome>选择两个客户旅程和一个后台职能，建立工作、能力与授权三张地图。</span></div>
+      <div class="manual-grid"><div class="manual-block"><span class="text-small">本阶段负责人</span><strong data-phase-owner></strong></div><div class="manual-block"><span class="text-small">固定会议节奏</span><strong data-phase-cadence></strong></div><div class="manual-block"><span class="text-small">验收闸门</span><strong data-phase-gate></strong></div></div>
+      <div class="checklist" data-checklist></div>
+      <div class="progress-line" aria-label="执行完成度"><div class="progress-fill" data-progress-fill></div></div>
+    </section>
+    <script>
+    (() => {
+      const root = document.getElementById('ai-native-bank-playbook');
+      const companies = {
+        ibm:{beforeTitle:'碎片化人力资源服务',afterTitle:'智能入口＋人类专家',before:['邮箱、电话、人力业务伙伴与约25个机器人并存','标准问题和事务依赖人工转派','人力资源专家被重复查询与流程工作占用'],after:['员工服务助手成为统一入口，关闭通用邮箱和电话入口','智能系统处理常规问题和约80类交易，复杂事项升级专家','人力资源团队转向组织设计、人才规划、员工关系与例外判断'],results:[['94%','常见问题智能闭环'],['40%','四年运营成本下降'],['+74','满意度由-35回升']],pattern:'重构职能',lesson:'先消除、再简化、最后自动化；标准服务由机器闭环，复杂例外交给专家。',sources:[['IBM人力资源转型','https://www.ibm.com/case-studies/ibm-transformation/hr'],['IBM员工服务助手','https://www.ibm.com/case-studies/ibm-askhr']]},
+        klarna:{beforeTitle:'人力随业务量线性增长',afterTitle:'智能优先＋自然流失控编',before:['客服依赖内部和外包坐席','营销依赖翻译、制图、客户管理与社媒代理商','收入增长通常需要同步增加人员和费用'],after:['智能助手成为客服第一层，复杂和高风险事项升级人工','离职岗位不自动补招，优先保留工程和关键人才','营销生产内化为小团队＋智能工作流'],results:[['11→<2分钟','客服解决时间'],['75%','营销代理费用下降'],['4倍','2026年一季度人均收入较2022年']],pattern:'重构人效',lesson:'先扩机器容量，再决定是否增加人力；把智能能力直接接入人员密度、外包费用和损益表。',sources:[['Klarna监管文件','https://www.sec.gov/Archives/edgar/data/2003292/000200329225000052/klarnagroupplc424b4.htm'],['Klarna 2026年一季度','https://investors.klarna.com/News--Events/news/news-details/2026/Klarna-Delivers-Strong-Start-to-2026-With-1Bn-Revenue-and-68M-Adj--Operating-Profit/']]},
+        rakuten:{beforeTitle:'70多个业务各自建设智能能力',afterTitle:'中央能力＋统一价值目标',before:['智能、数据和平台能力分散于各事业部','项目指标与业务损益缺少共同语言','重复投资，难以跨业务复用'],after:['设首席智能与数据官及集团智能数据事业部','中央提供模型、平台、模板与安全能力','“三个20%”统一营销、运营、客户效率目标'],results:[['105亿日元','2024财年智能利润贡献估算'],['64%以上','商家使用经营助手'],['三个20%','集团统一效率价值池']],pattern:'重构经营机制',lesson:'让每个智能项目进入同一价值地图；中央团队建公共能力，事业部对损益和客户结果负责。',sources:[['乐天2024财年业绩','https://global.rakuten.com/corp/investors/assets/doc/documents/24Q4transcript_E.pdf'],['乐天智能战略','https://global.rakuten.com/corp/ai/']]},
+        dbs:{beforeTitle:'部门项目与分散智能用例',afterTitle:'运营模式整体重构',before:['客户旅程跨产品、运营、风险与技术交接','智能能力多以垂直用例和项目存在','技术、流程、技能与组织变革不同步'],after:['以横向客户旅程打破部门孤岛','同时重构流程、人机协作、技能与组织','统一数据平台、控制框架和价值衡量'],results:[['9项','2025年完成的运营模式重构'],['25%','代码部署时间缩短'],['约10亿新元','2025年数据与智能经济价值']],pattern:'重构运营系统',lesson:'只有流程、角色、技能、治理和价值衡量一起改变，才算一次智能原生转型。',sources:[['星展银行首席执行官说明','https://www.dbs.com/annualreports/2025/ceo-reflections.html'],['星展银行首席信息官说明','https://www.dbs.com/annualreports/2025/cio-statement.html']]}
+      };
+
+      const archStages = [
+        {unit:'部门',ai:'建议',human:'执行',detail:['董事会 / CEO','按部门配置预算，以财务结果和合规事件进行事后治理。'],nodes:[['董事会 / CEO',450,55,'guard'],['零售银行',150,175,'human'],['公司银行',350,175,'human'],['财富管理',550,175,'human'],['运营中心',750,175,'human'],['风险合规',220,300,'guard'],['技术数据',450,300,'core'],['共享职能',680,300,'guard'],['客户',450,400,'human']],edges:[[0,1,''],[0,2,''],[0,3,''],[0,4,''],[1,5,'risk'],[2,5,'risk'],[3,6,''],[4,6,''],[5,8,''],[6,8,'ai'],[7,8,'']]},
+        {unit:'客户旅程',ai:'受控执行',human:'判断',detail:['价值与风险委员会','把预算从部门项目转向客户旅程和可验证价值池。'],nodes:[['价值与风险委员会',450,55,'guard'],['安居旅程',150,175,'human'],['企业成长',350,175,'human'],['财富健康',550,175,'human'],['韧性保护',750,175,'guard'],['智能体编排',220,300,'core'],['数据知识',450,300,'core'],['控制平面',680,300,'guard'],['客户结果',450,400,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[0,4,'risk'],[1,5,'ai'],[2,5,'ai'],[3,6,'ai'],[4,7,'risk'],[5,8,'ai'],[6,8,'ai'],[7,8,'risk']]},
+        {unit:'使命单元',ai:'边界内自治',human:'意图与问责',detail:['银行宪法层','董事会定义目的、红线、可撤销授权及最终责任。'],nodes:[['银行宪法层',450,55,'guard'],['客户信任责任人',190,175,'human'],['资本配置责任人',450,175,'human'],['社会价值责任人',710,175,'human'],['通用智能任务市场',450,285,'core'],['企业数字孪生',250,365,'core'],['自主防线网络',650,365,'guard'],['客户与社会结果',450,420,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[1,4,''],[2,4,''],[3,4,''],[4,5,'ai'],[4,6,'risk'],[5,7,'ai'],[6,7,'risk']]}
+      ];
+
+      const taskSets = {
+        sme:[['理解经营目标','客户经理＋意图智能体'],['获取与核验材料','数据与身份核验智能体'],['分析现金流与信用','信用智能体'],['模拟融资结构','方案智能体'],['检查政策与公平性','风险智能体'],['解释与最终授权','最终决策责任人']],
+        fraud:[['识别异常信号','监测智能体'],['聚合交易与设备证据','调查智能体'],['评估客户伤害','保护智能体'],['建议冻结或放行','决策智能体'],['处理复杂例外','欺诈专家'],['通知、申诉与恢复','客户信任责任人']],
+        hr:[['理解员工意图','员工服务入口智能体'],['检索适用政策','知识智能体'],['执行标准交易','流程智能体'],['检查权限与敏感性','人力控制智能体'],['处理员工关系例外','人类人力专家'],['记录结果与反馈','组织记忆管理员']]
+      };
+
+      const roles = [
+        {name:'使命负责人',one:'对端到端客户与经营结果负责。',power:'配置预算、改变流程、停止低价值工作和暂停智能体。',deliverable:'使命章程、客户结果树、价值台账。',accountability:'使命结果，不能只对收入负责。',metrics:'风险调整价值、周期、单位成本、客户努力度、申诉率。'},
+        {name:'智能劳动力经理',one:'运营人类与智能体组成的混合劳动力。',power:'分配任务、调整人机比例、降级或隔离智能体。',deliverable:'容量计划、智能体排班、健康与成本报告。',accountability:'工作是否以正确质量、时限和成本完成。',metrics:'成功率、升级率、任务积压、成本、错误逃逸率。'},
+        {name:'智能体产品负责人',one:'对单个智能体从设计到退役的全生命周期负责。',power:'定义能力、版本、准入、限制与退役。',deliverable:'智能体说明卡、测试标准、路线图、退役计划。',accountability:'智能体是否适合特定用途，不能转给模型供应商。',metrics:'任务成功率、可靠性、采用率、成本、已知局限。'},
+        {name:'模型风险责任人',one:'提供独立模型风险判断。',power:'阻止上线、降低自治等级、要求重验证和紧急暂停。',deliverable:'独立验证报告、限制条件、持续监测要求。',accountability:'风险意见的独立性和验证充分性。',metrics:'漂移、群体差异、鲁棒性、人工推翻率、风险事件。'},
+        {name:'决策架构师',one:'设计完整决策，而非只优化单个模型。',power:'定义事实、预测、规则、人类判断和权限如何组合。',deliverable:'决策蓝图、政策关系图、失效模式。',accountability:'决策链是否合理、可解释、可降级。',metrics:'决定质量、控制覆盖率、可解释率、单点故障。'},
+        {name:'人工接管负责人',one:'确保人在正确时刻真正接得住。',power:'设置触发器、服务时限、专家队列和接管权限。',deliverable:'升级矩阵、接管包、演练和反馈闭环。',accountability:'人工接管是否及时、有效且不让客户重复举证。',metrics:'响应时间、推翻率、重复升级率、接管后纠正率。'},
+        {name:'组织记忆管理员',one:'维护事实、程序、决策与结果四层企业记忆。',power:'规定来源、版本、保留、纠错、遗忘和访问规则。',deliverable:'知识谱系、记忆政策、冲突与过期处理。',accountability:'组织记忆的真实性、上下文和时间有效性。',metrics:'来源覆盖、过期率、冲突率、纠错时间、检索可信度。'},
+        {name:'客户信任责任人',one:'独立代表客户权利和信任。',power:'要求解释、人工复核、补偿或暂停某类自动决定。',deliverable:'客户信任报告、申诉机制、补救与公平审查。',accountability:'客户受到的真实影响，而非流程是否合规。',metrics:'申诉成功率、纠错时间、解释理解度、重复投诉。'},
+        {name:'最终决策责任人',one:'对特定高影响决定承担最终责任。',power:'授权、否决、撤销、缩小机器权限。',deliverable:'授权书、决策登记册、例外记录。',accountability:'最终决定及其后果，不能归咎于机器。',metrics:'结果质量、例外表现、错误补救、授权边界遵守率。'}
+      ];
+
+      const auditSteps = [
+        ['1','资产登记','本次调用授信智能体 SME-Credit-021、现金流模型 CF-v3.4、合同核验工具 DOC-08；最终责任人为中小企业信贷负责人。'],
+        ['2','机器身份','授信智能体只可读取该企业授权的数据、生成建议并提交审批；无权自行放款，单笔建议上限500万元。'],
+        ['3','版本谱系','固定保存2026-07-15生效的授信政策P-27、模型v3.4、提示词v12、客户数据快照及知识库版本。'],
+        ['4','决策证据','证据对象记录：机器建议450万元；合同回款与账户流水差异28%，触发规则R-19并转交人工。'],
+        ['5','持续监控','系统监控行业集中度、客户群体差异、人工推翻率和逾期表现；本单命中“证据冲突率超过15%”。'],
+        ['6','重放验证','审计人员用原模型、原政策和原数据重放后得到相同建议；去除异常合同后，额度回落至310万元。'],
+        ['7','解释补救','人工最终批准300万元分期额度；客户收到调整原因、人工复核入口和补充真实合同后重新评估的权利。']
+      ];
+
+      const evidence = [['决策编号','SME-20260715-00831'],['客户目标','获得500万元、期限6个月的流动资金'],['机器建议','450万元；置信度0.81'],['触发人工原因','合同回款与流水差异28%，超过15%阈值'],['参与版本','现金流模型v3.4、政策P-27、提示词v12'],['工具行动','读取流水、核验合同、模拟三种还款结构'],['人工决定','信贷经理批准300万元分期额度'],['客户权利','收到解释，可补充材料并申请独立人工复核'],['最终跟踪','90天后复查现金流、逾期和客户投诉']];
+
+      const phases = [
+        {days:'0–30天',name:'发现',outcome:'以中小企业融资为主案例，逐笔跟踪30个真实申请，建立工作、能力与授权三张地图。',owner:'公司银行负责人＋信贷风险负责人',cadence:'每日15分钟障碍会；每周五价值与风险评审',gate:'完成30单基线；80%以上任务可定位负责人、成本与证据',checks:['选定30笔有代表性的融资申请','记录每次交接、等待、返工和人工判断','形成任务、能力、授权三张地图','确认高影响决定与不可自动化红线','建立处理周期、单位成本、坏账和投诉基线','由业务、风险、技术共同签署问题定义']},
+        {days:'31–90天',name:'重构',outcome:'组建首个使命单元，让智能体完成材料核验、现金流分析和方案生成，最终授信仍由人类授权。',owner:'中小企业融资使命负责人',cadence:'每日运行复盘；每周模型与客户信任双评审',gate:'连续100单无越权；处理时间下降30%；所有升级均带完整接管包',checks:['完成授信决策蓝图与机器授权书','为每个智能体建立中文说明卡','上线证据冲突与低置信度升级规则','建立人工专家队列和两小时接管时限','让客户看到解释、复核和补充材料入口','用100笔影子运行对比人工基准']},
+        {days:'91–180天',name:'平台化',outcome:'把首个案例中的身份、知识、编排、审计和升级能力提取为公共服务，供欺诈调查旅程复用。',owner:'首席信息官＋智能平台负责人',cadence:'双周平台复用评审；每月独立风险验证',gate:'第二旅程复用率超过60%；每笔高影响决定可在30分钟内重放',checks:['上线统一智能体与模型登记册','实现机器身份、最小权限和到期撤销','建立政策、模型、提示词和数据版本谱系','生成统一决策证据对象','打通行动账、理由账和治理账','由独立模型风险团队完成重放测试']},
+        {days:'181–365天',name:'制度化',outcome:'将试点经验写入人力、预算、采购、绩效和审计制度，扩展至五个客户使命单元。',owner:'首席执行官＋价值与风险委员会',cadence:'每月使命投资组合会；每季度董事会信任报告',gate:'五个使命单元采用统一制度；节省容量有明确再投资、转岗或退出去向',checks:['新增人员前提交人机容量分析','新系统立项前证明公共智能层无法复用','将客户信任和机器风险纳入管理者绩效','建立节省容量的再投资与转岗规则','每季度发布机器决定、申诉和补救报告','完成一次全行机器失效与人工接管演练']}
+      ];
+      const names={ibm:'IBM',klarna:'Klarna',rakuten:'乐天',dbs:'星展银行'};
+      const overviewLayers=['目的层','使命层','任务层','智能层','控制层','结果层'];
+      let currentCompany='dbs';
+      let currentArchStage=0;
+
+      const overviewByCompany={
+        ibm:{title:'从分散人力服务渠道转向智能入口＋专家例外',unit:['服务请求','替代渠道和层级转派'],machine:['零接触服务','回答并直接执行标准交易'],human:['组织判断·员工关系','处理例外、敏感与战略事项'],nodes:[
+          ['人才与信任治理','政策 · 权利 · 最终问责','在全球人才政策与地区劳动规则之间，定义员工权利、机器边界和最终责任。','每项智能服务都有责任人、隐私红线、停止条件和员工申诉入口。'],
+          ['员工服务使命单元','人力＋技术＋员工关系共同负责','围绕员工问题闭环组织人力、技术、隐私与员工关系专家，而不是按职能转派。','共同经营一个服务结果树、一个优先级队列和一套员工体验指标。'],
+          ['人力任务市场','分类 · 路由 · 调度','把员工意图编译成可执行任务，并按技能、权限、风险和时限分配给机器或专家。','每个请求都能定位负责人、成本、证据和升级路径，消除重复询问与层层转派。'],
+          ['员工服务助手与组织记忆','回答 · 交易 · 学习','用统一入口调用可信政策、系统交易与历史案例，完成标准服务并从结果中学习。','标准问题和事务尽量零接触闭环；敏感事项携带完整上下文升级给人类专家。'],
+          ['隐私与劳动合规控制','权限 · 证据 · 申诉','持续执行最小权限、地区劳动政策、数据使用边界和人工复核权。','任一人力交易都可追溯、重放、撤销；政策冲突和敏感关系自动阻断并升级。'],
+          ['员工与经理体验','即时服务 · 专家接管','让员工和经理获得一致、快速、可信且不牺牲权利的服务。','缩短闭环周期、提升满意度和专家容量，同时降低重复咨询、返工与隐私事件。']
+        ]},
+        klarna:{title:'从人力随业务增长转向机器容量优先',unit:['客户互动','替代客服、营销与外包孤岛'],machine:['第一响应与生产','标准问题和内容默认由机器完成'],human:['复杂关系·金融责任','欺诈、争议与高价值创意'],nodes:[
+          ['单位经济与信任委员会','体验 · 成本 · 风险','把增长、单位互动成本、消费者保护和品牌信任放进同一经营决策。','任何机器容量扩张都同时满足体验、金融风险和单位经济三类门槛。'],
+          ['客户与增长使命单元','客服＋营销＋产品共同负责','让客服、营销、产品、欺诈与工程共同对一次客户互动的完整结果负责。','团队围绕解决率、客户信任与增长结果工作，而不是坐席利用率或内容产量。'],
+          ['互动任务市场','分流 · 生产 · 调度','把咨询、退款、争议和营销目标实时拆成机器任务与人工例外。','依据风险、价值、语言和技能动态分配工作，高价值与受监管事项优先交给专家。'],
+          ['客服助手与内部知识','回答 · 生成 · 学习','用统一知识与工具完成第一响应、标准退款准备、内容生成和多语言服务。','多数标准互动在分钟级闭环；每次人工纠正都回流为可复用知识和测试样本。'],
+          ['金融与品牌控制平面','权限 · 证据 · 阻断','约束退款、账户限制、营销发布与数据使用，防止机器越权伤害客户或品牌。','高风险动作可阻断、可解释、可复核；欺诈、争议和监管投诉始终保留人工接管。'],
+          ['消费者与商户结果','快速服务 · 人工申诉','用更快服务和更低成本创造可持续增长，同时守住消费者与商户信任。','解决时间和单位成本下降、人均收入上升，但满意度、投诉与补救表现不恶化。']
+        ]},
+        rakuten:{title:'从70多个业务各自建设转向集团智能经营系统',unit:['价值池','营销、运营、客户三个20%'],machine:['集团公共能力','模型、数据、模板跨业务复用'],human:['领域判断·资本配置','决定场景、投入和生态关系'],nodes:[
+          ['集团价值委员会与首席智能官','价值池 · 红线 · 资本','用统一价值语言配置集团智能资本，并定义消费者、商户与生态伙伴的信任边界。','所有重点项目进入营销、运营、客户三个价值池，利润归因可验证且不重复计算。'],
+          ['生态使命单元','事业部＋平台共同负责','让事业部领域团队与集团平台共同对一个生态增长结果负责。','中央能力不以交付模型为终点，事业部也不能把损益和客户结果外包给平台。'],
+          ['集团任务市场','排序 · 匹配 · 复用','把跨业务机会拆成任务，优先匹配集团已有能力、数据和行业专家。','新需求先复用再建设，按预期价值、风险与稀缺能力动态决定优先级。'],
+          ['共享智能与数据平台','搜索 · 推荐 · 生成','把搜索、推荐、生成、客服、分析与行业模板产品化为集团公共能力。','70多个业务能快速组合同一能力底座，减少重复平台、采购和模型维护。'],
+          ['生态安全控制平面','品牌 · 隐私 · 证据','统一执行跨业务数据边界、推荐公平、品牌政策和机器身份控制。','每次跨业务调用都有授权与证据；敏感推荐、健康声称和隐私冲突自动阻断。'],
+          ['消费者与商户价值','增长 · 效率 · 体验','让集团智能投入同时转化为消费者体验、商户经营增长与可验证利润。','三个20%可持续兑现，商户采用与平台复用上升，信任和申诉表现保持健康。']
+        ]},
+        dbs:{title:'从部门制银行转向客户使命网络',unit:['客户使命','替代产品与职能孤岛'],machine:['受控执行','嵌入端到端旅程'],human:['判断·信任·问责','客户关系和风险责任'],nodes:[
+          ['银行宪法与董事会','目的 · 红线 · 最终问责','定义银行服务客户与社会的目的，并划定机器不得跨越的风险、权利与伦理边界。','每项高影响机器决定都有明确授权、停止条件、申诉机制与最终人类责任人。'],
+          ['客户使命单元','业务＋风险＋技术＋运营','围绕一个端到端客户目标组织业务、风险、技术与运营，共同负责结果。','使命单元拥有预算和流程改变权，对风险调整价值、客户体验与合规结果共同问责。'],
+          ['企业任务市场','拆解 · 匹配 · 调度','把客户意图实时编译成人机任务网络，并按能力、权限、风险和成本动态调度。','任务不再随部门层层交接；每项工作都有最适执行者、完成时限、证据与升级路径。'],
+          ['智能体编排与记忆','计划 · 执行 · 学习','让智能体基于最新政策、客户上下文与组织记忆规划、执行、协作并学习。','标准旅程可端到端运行，成功路径沉淀复用；冲突、例外和低置信度立即升级人工。'],
+          ['可审计控制平面','权限 · 证据 · 阻断','对机器身份、最小权限、版本谱系、行动理由和人工接管进行实时治理。','每次机器行动都可追溯、重放、解释、撤销；越权或证据冲突能够自动阻断。'],
+          ['客户 / 企业 / 社会结果','即时服务 · 可申诉 · 可补救','把智能效率转化为更快、更公平、更可信的客户、企业与社会结果。','周期和单位成本下降、风险调整价值上升，同时客户始终能够理解、申诉并获得补救。']
+        ]}
+      };
+
+      const archByCompany={
+        dbs:archStages,
+        ibm:[
+          {unit:'人力职能',ai:'局部问答',human:'渠道与转派',detail:['首席人力资源官','预算按人力职能和地区配置，员工在邮箱、电话、业务伙伴和多个机器人间寻找答案。'],nodes:[['首席人力资源官',450,55,'guard'],['人力业务伙伴',150,175,'human'],['员工服务台',350,175,'human'],['薪酬福利',550,175,'human'],['人才团队',750,175,'human'],['邮箱与电话',220,300,'guard'],['25个机器人',450,300,'core'],['地区政策',680,300,'guard'],['员工与经理',450,400,'human']],edges:[[0,1,''],[0,2,''],[0,3,''],[0,4,''],[1,5,''],[2,5,''],[3,6,'ai'],[4,7,'risk'],[5,8,''],[6,8,'ai'],[7,8,'risk']]},
+          {unit:'服务使命',ai:'问答＋交易',human:'例外与关系',detail:['人才与信任委员会','预算转向员工服务结果；员工服务助手成为唯一入口，人类专家集中处理敏感与复杂事项。'],nodes:[['人才与信任委员会',450,55,'guard'],['员工服务使命',160,175,'human'],['经理赋能使命',370,175,'human'],['人才流动使命',580,175,'human'],['员工关系使命',760,175,'guard'],['员工服务助手',220,300,'core'],['人力知识与交易',450,300,'core'],['隐私劳动控制',680,300,'guard'],['员工体验',450,400,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[0,4,'risk'],[1,5,'ai'],[2,5,'ai'],[3,6,'ai'],[4,7,'risk'],[5,8,'ai'],[6,8,'ai'],[7,8,'risk']]},
+          {unit:'人才使命网络',ai:'边界内自治',human:'权利与组织判断',detail:['人才宪法层','董事会定义员工权利、机器管理边界和最终责任，智能系统动态组合人才与任务。'],nodes:[['人才宪法层',450,55,'guard'],['员工信任责任人',190,175,'human'],['人才资本责任人',450,175,'human'],['组织健康责任人',710,175,'human'],['通用智能人才市场',450,285,'core'],['组织数字孪生',250,365,'core'],['员工权利防线',650,365,'guard'],['人员与组织结果',450,420,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[1,4,''],[2,4,''],[3,4,''],[4,5,'ai'],[4,6,'risk'],[5,7,'ai'],[6,7,'risk']]}
+        ],
+        klarna:[
+          {unit:'职能团队',ai:'局部辅助',human:'大规模执行',detail:['首席执行官','客服、营销、运营和外包供应商按业务量扩张，收入增长通常伴随更多人员与费用。'],nodes:[['首席执行官',450,55,'guard'],['客户服务',150,175,'human'],['营销团队',350,175,'human'],['运营团队',550,175,'human'],['工程团队',750,175,'human'],['外包坐席',220,300,'human'],['营销代理商',450,300,'human'],['数据与工具',680,300,'core'],['消费者与商户',450,400,'human']],edges:[[0,1,''],[0,2,''],[0,3,''],[0,4,''],[1,5,''],[2,6,''],[3,7,'ai'],[5,8,''],[6,8,''],[7,8,'ai']]},
+          {unit:'互动使命',ai:'第一响应',human:'复杂例外',detail:['单位经济与信任委员会','以每次互动成本、客户满意度和金融风险共同约束客服与营销机器容量。'],nodes:[['单位经济与信任委员会',450,55,'guard'],['客户服务使命',160,175,'human'],['增长创意使命',370,175,'human'],['商户价值使命',580,175,'human'],['欺诈保护使命',760,175,'guard'],['客户服务助手',220,300,'core'],['内部知识与内容',450,300,'core'],['金融品牌控制',680,300,'guard'],['消费者与商户结果',450,400,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[0,4,'risk'],[1,5,'ai'],[2,6,'ai'],[3,6,'ai'],[4,7,'risk'],[5,8,'ai'],[6,8,'ai'],[7,8,'risk']]},
+          {unit:'价值网络',ai:'动态调度',human:'信任与创意',detail:['公司价值宪法','公司定义消费者保护、金融红线、品牌边界和机器自主扩张上限。'],nodes:[['公司价值宪法',450,55,'guard'],['消费者信任责任人',190,175,'human'],['增长组合责任人',450,175,'human'],['人才密度责任人',710,175,'human'],['通用智能互动市场',450,285,'core'],['单位经济数字孪生',250,365,'core'],['金融品牌防线',650,365,'guard'],['增长与信任结果',450,420,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[1,4,''],[2,4,''],[3,4,''],[4,5,'ai'],[4,6,'risk'],[5,7,'ai'],[6,7,'risk']]}
+        ],
+        rakuten:[
+          {unit:'事业部',ai:'分散试点',human:'跨部门协调',detail:['集团首席执行官','70多个业务分别建设数据和智能能力，项目价值口径不同、平台复用有限。'],nodes:[['集团首席执行官',450,55,'guard'],['电商',130,175,'human'],['金融科技',330,175,'human'],['移动通信',540,175,'human'],['旅行与媒体',750,175,'human'],['事业部智能团队',220,300,'core'],['分散数据平台',450,300,'core'],['各自风险控制',680,300,'guard'],['消费者与商户',450,400,'human']],edges:[[0,1,''],[0,2,''],[0,3,''],[0,4,''],[1,5,'ai'],[2,6,'ai'],[3,6,'ai'],[4,7,'risk'],[5,8,'ai'],[6,8,'ai'],[7,8,'risk']]},
+          {unit:'集团价值池',ai:'公共能力',human:'领域落地',detail:['集团价值委员会与首席智能官','以营销、运营、客户三个20%统一资源配置，中央平台与事业部共同负责结果。'],nodes:[['集团价值委员会',450,55,'guard'],['营销效率使命',160,175,'human'],['运营效率使命',370,175,'human'],['商户效率使命',580,175,'human'],['生态信任使命',760,175,'guard'],['共享智能平台',220,300,'core'],['数据与行业模板',450,300,'core'],['生态控制平面',680,300,'guard'],['生态增长结果',450,400,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[0,4,'risk'],[1,5,'ai'],[2,5,'ai'],[3,6,'ai'],[4,7,'risk'],[5,8,'ai'],[6,8,'ai'],[7,8,'risk']]},
+          {unit:'生态使命网络',ai:'跨业务自治',human:'资本与关系',detail:['生态价值宪法','集团定义消费者、商户和生态伙伴权利，通用智能按价值机会动态组队。'],nodes:[['生态价值宪法',450,55,'guard'],['消费者责任人',190,175,'human'],['商户责任人',450,175,'human'],['资本组合责任人',710,175,'human'],['通用智能生态市场',450,285,'core'],['生态数字孪生',250,365,'core'],['自主信任防线',650,365,'guard'],['生态价值结果',450,420,'human']],edges:[[0,1,'risk'],[0,2,'risk'],[0,3,'risk'],[1,4,''],[2,4,''],[3,4,''],[4,5,'ai'],[4,6,'risk'],[5,7,'ai'],[6,7,'risk']]}
+        ]
+      };
+
+      const taskCatalog={
+        ibm:{title:'把员工问题编译为机器交易与专家例外',options:[['employee','员工政策与事务'],['transfer','跨地区员工调动'],['talent','人才流动与技能']],sets:{employee:[['理解员工意图','员工服务入口智能体'],['检索地区政策','政策知识智能体'],['核验身份与权限','隐私控制智能体'],['执行标准事务','人力交易智能体'],['处理敏感例外','人类人力专家'],['记录结果与反馈','组织记忆管理员']],transfer:[['接收经理调动请求','经理服务智能体'],['核验岗位与成本中心','组织数据智能体'],['比较两地劳动政策','政策智能体'],['生成薪酬与迁移方案','人才流动智能体'],['处理政策冲突','人力业务伙伴'],['执行并通知员工','员工服务助手']],talent:[['识别关键技能缺口','技能图谱智能体'],['匹配内部人才','人才市场智能体'],['模拟组织影响','组织孪生'],['提出流动建议','人才智能体'],['完成经理与员工对话','人类人才顾问'],['更新技能与组织记忆','组织记忆管理员']]}},
+        klarna:{title:'把每次客户与商户互动编译为机器处理和人工例外',options:[['service','客户咨询与退款'],['marketing','营销内容生产'],['fraud','身份盗用与争议']],sets:{service:[['理解客户问题','客户服务助手'],['检索账户与交易','支付数据智能体'],['生成并执行标准方案','退款流程智能体'],['检查金融与投诉风险','风险控制智能体'],['处理复杂争议','人类客服专家'],['通知并记录结果','客户信任责任人']],marketing:[['接收活动目标','增长使命负责人'],['生成文案与图像','创意智能体'],['翻译与本地化','语言智能体'],['检查品牌与法规','品牌控制智能体'],['人类创意定稿','创意总监'],['发布并归因效果','增长分析智能体']],fraud:[['识别账户异常','欺诈监测智能体'],['聚合设备与交易证据','调查智能体'],['限制高风险会话','账户保护智能体'],['评估退款与恢复方案','争议决策智能体'],['确认身份盗用','人类欺诈专家'],['恢复账户并补救','客户信任责任人']]}},
+        rakuten:{title:'把生态增长机会编译为跨业务智能任务网络',options:[['merchant','商家经营增长'],['advertising','广告与推荐'],['mobile','移动用户协同']],sets:{merchant:[['读取店铺经营目标','商家助手'],['分析商品与销售趋势','经营分析智能体'],['生成商品内容','内容智能体'],['设计客户沟通','客户关系智能体'],['检查平台政策','生态控制智能体'],['商家确认并发布','商家经营者']],advertising:[['定义广告价值目标','广告使命负责人'],['选择受众与渠道','投放智能体'],['生成多版本创意','创意智能体'],['检查品牌与公平性','广告风险智能体'],['人类批准高影响活动','广告责任人'],['归因收入与体验','价值测量智能体']],mobile:[['识别跨服务机会','生态推荐智能体'],['模拟客户终身价值','客户价值智能体'],['组合移动与电商权益','方案智能体'],['检查隐私与频控','隐私控制智能体'],['处理高价值客户例外','人类客户经理'],['更新生态记忆','数据平台']]}},
+        dbs:{title:'把一个客户目标实时编译成人机任务网络',options:[['sme','中小企业融资'],['fraud','欺诈与客户保护'],['hr','员工服务']],sets:taskSets}
+      };
+
+      const roleProfiles={
+        ibm:{mission:'员工服务',agent:'员工服务助手',decision:'跨地区人力事务',stakeholder:'员工与经理',memory:'人力政策与案例记忆',metrics:'问题闭环率、事务周期、员工满意度和专家容量',risk:'隐私、劳动政策冲突、错误交易和人工推翻率',escalation:'敏感员工关系、政策冲突、跨境调动和员工申诉'},
+        klarna:{mission:'客户服务与增长',agent:'客户服务与内容智能体',decision:'退款、账户限制与营销发布',stakeholder:'消费者与商户',memory:'互动、品牌与支付决策记忆',metrics:'解决时间、重复咨询、满意度、单位互动成本和人均收入',risk:'身份盗用、错误退款、品牌伤害和监管投诉',escalation:'欺诈、身份争议、高价值客户和受监管投诉'},
+        rakuten:{mission:'生态增长',agent:'集团共享智能体',decision:'内容、投放与推荐',stakeholder:'消费者、商户与生态伙伴',memory:'生态数据与经营案例记忆',metrics:'三个20%、利润贡献、平台复用和商户采用率',risk:'隐私、推荐偏差、品牌政策和跨业务数据使用',escalation:'高影响广告、敏感推荐、政策冲突和商户申诉'},
+        dbs:{mission:'中小企业融资',agent:'授信与运营智能体',decision:'授信与客户保护',stakeholder:'企业客户',memory:'政策、信用与决策证据记忆',metrics:'处理周期、风险调整价值、申诉率和单位客户成本',risk:'信用损失、公平性、越权执行和模型漂移',escalation:'证据冲突、政策例外、高金额和客户异议'}
+      };
+      function buildRoles(p){return [
+        {name:`${p.mission}使命负责人`,one:`对${p.mission}的端到端客户与经营结果负责。`,power:'配置预算、改变流程、暂停智能体和停止低价值工作。',deliverable:'使命章程、结果树、价值台账和风险边界。',accountability:`${p.mission}整体结果，不能只对局部效率负责。`,metrics:p.metrics},
+        {name:'混合劳动力经理',one:'运营人类与智能体组成的混合生产能力。',power:'分配任务、调整人机比例、降级或隔离智能体。',deliverable:'容量计划、排班、健康与成本报告。',accountability:'工作是否以正确质量、时限和成本完成。',metrics:`任务成功率、升级率、积压、成本；重点监控${p.metrics}`},
+        {name:`${p.agent}产品负责人`,one:`对${p.agent}从设计到退役的全生命周期负责。`,power:'定义能力、版本、准入、限制与退役。',deliverable:'智能体说明卡、测试标准、路线图和退役计划。',accountability:'智能体是否适合特定用途，不能转给模型供应商。',metrics:'可靠性、采用率、成本、已知局限和人工纠正率。'},
+        {name:'模型风险责任人',one:`独立判断${p.risk}。`,power:'阻止上线、降低自治等级、要求重验证和紧急暂停。',deliverable:'独立验证报告、限制条件和持续监测要求。',accountability:'风险意见的独立性和验证充分性。',metrics:p.risk},
+        {name:`${p.decision}架构师`,one:`设计${p.decision}的完整决策链，而非只优化单个模型。`,power:'定义事实、预测、规则、人类判断和权限如何组合。',deliverable:'决策蓝图、政策关系图、失效与降级模式。',accountability:'决策链是否合理、可解释、可降级。',metrics:'决定质量、控制覆盖率、解释率和单点故障。'},
+        {name:'人工接管负责人',one:`确保${p.escalation}能被正确接管。`,power:'设置触发器、时限、专家队列和接管权限。',deliverable:'升级矩阵、接管包、演练和反馈闭环。',accountability:'人工接管是否及时、有效且不让利益相关者重复举证。',metrics:'响应时间、推翻率、重复升级率、接管后纠正率。'},
+        {name:`${p.memory}管理员`,one:`维护${p.memory}的事实、程序、决策和结果。`,power:'规定来源、版本、保留、纠错、遗忘和访问规则。',deliverable:'知识谱系、记忆政策、冲突与过期处理。',accountability:'组织记忆的真实性、上下文和时间有效性。',metrics:'来源覆盖、过期率、冲突率、纠错时间和检索可信度。'},
+        {name:`${p.stakeholder}信任责任人`,one:`独立代表${p.stakeholder}的权利和信任。`,power:'要求解释、人工复核、补偿或暂停某类机器决定。',deliverable:'信任报告、申诉机制、补救与公平审查。',accountability:'利益相关者受到的真实影响，而非流程是否表面合规。',metrics:'申诉成功率、纠错时间、解释理解度和重复投诉。'},
+        {name:`${p.decision}最终责任人`,one:`对${p.decision}中的高影响决定承担最终责任。`,power:'授权、否决、撤销和缩小机器权限。',deliverable:'授权书、决策登记册和例外记录。',accountability:'最终决定及其后果，不能归咎于机器。',metrics:'结果质量、例外表现、错误补救和授权边界遵守率。'}
+      ];}
+      const rolesByCompany=Object.fromEntries(Object.entries(roleProfiles).map(([k,v])=>[k,buildRoles(v)]));
+
+      const auditByCompany={
+        dbs:{heading:'实务演练：一笔500万元中小企业授信',result:'智能体建议授信450万元；因回款合同与流水不一致触发人工接管，最终批准300万元分期额度，并向客户解释调整依据。',steps:auditSteps,evidence},
+        ibm:{heading:'实务演练：一名经理发起跨国员工调动',result:'员工服务助手完成岗位、成本中心和政策核验；发现美国职级与德国合同条款冲突后转交人力专家，最终调整入职日期并重新签署薪酬方案。',steps:[['1','资产登记','调用经理服务智能体、政策检索模型、组织数据工具；最终责任人为全球员工服务负责人。'],['2','机器身份','智能体可读取该员工授权的人力数据并生成方案，无权修改劳动合同或最终薪酬。'],['3','版本谱系','保存德国与美国政策版本、岗位目录、薪酬规则、提示词和组织数据快照。'],['4','决策证据','系统发现美国目标职级与德国合同通知期冲突，触发跨境政策规则并停止自动交易。'],['5','持续监控','监控错误调动、地区差异、人工推翻率和员工申诉；本单命中跨境劳动政策冲突。'],['6','重放验证','审计人员用原政策和数据重放，得到相同冲突；更换入职日期后满足两地要求。'],['7','解释补救','人力专家与员工确认新日期和薪酬方案；员工获得书面解释、修正和独立复核入口。']],evidence:[['事务编号','HR-20260715-0412'],['经理目标','将工程经理从德国调往美国'],['机器建议','原计划日期不可执行'],['触发人工原因','通知期与目标职级政策冲突'],['参与版本','两地政策、岗位目录、薪酬规则'],['机器行动','核验、比较、生成替代方案'],['人工决定','延后入职并重新签署方案'],['员工权利','查看解释、修正数据、申请复核'],['最终跟踪','30天后确认入职与员工体验']]},
+        klarna:{heading:'实务演练：客户报告一笔未经授权的分期交易',result:'客服助手先限制高风险会话并收集设备、交易和身份信息；因疑似账户接管升级欺诈专家，最终撤销交易、恢复账户并向客户说明补救。',steps:[['1','资产登记','调用客服助手、设备风险模型、交易调查工具；最终责任人为客户保护负责人。'],['2','机器身份','助手可查询交易、限制会话和准备退款建议，无权永久冻结账户或最终认定欺诈。'],['3','版本谱系','保存风险模型、争议政策、设备信号、对话提示和账户数据快照。'],['4','决策证据','新设备、异常地区和支付行为同时命中，风险分达到0.92，自动升级人工。'],['5','持续监控','监控误封率、退款损失、客户满意度、重复咨询和不同市场表现。'],['6','重放验证','用原数据重放得到相同高风险判断；移除新设备信号后风险降至0.61。'],['7','解释补救','欺诈专家确认账户接管，撤销交易并恢复账户；客户获得人工申诉和损失补偿。']],evidence:[['事件编号','CS-20260715-8821'],['客户目标','否认一笔未经授权交易'],['机器判断','账户接管风险0.92'],['升级原因','新设备＋异常地区＋行为突变'],['参与版本','风险模型v5.2、争议政策v18'],['机器行动','限制会话、收集证据、准备退款'],['人工决定','确认欺诈并撤销交易'],['客户权利','人工解释、申诉和补偿'],['最终跟踪','14天后复查账户安全与满意度']]},
+        rakuten:{heading:'实务演练：商家生成一场保健品推广活动',result:'经营助手生成商品文案、图片和目标受众；品牌控制识别“治疗疾病”的无依据表述并阻止发布，人工修改为合规描述后重新审批上线。',steps:[['1','资产登记','调用商家助手、创意模型、投放推荐和平台政策工具；最终责任人为广告与商户信任负责人。'],['2','机器身份','智能体可生成草稿和受众建议，无权绕过平台政策直接发布高风险健康内容。'],['3','版本谱系','保存商品资料、创意模型、健康内容政策、提示词和目标受众规则。'],['4','决策证据','文案出现未经证实的疾病治疗声称，命中健康内容规则H-07并阻止发布。'],['5','持续监控','监控违规漏检、误拦截、群体定向差异、商家申诉和活动效果。'],['6','重放验证','原版本重放仍被拦截；删除治疗声称并增加成分依据后通过政策检查。'],['7','解释补救','商家获得具体违规位置、修改建议和人工复核入口，修订后活动获批。']],evidence:[['活动编号','MKT-20260715-1208'],['商家目标','推广一款营养补充产品'],['机器产出','三版文案、两组图片、受众建议'],['阻断原因','未经证实的治疗疾病声称'],['参与版本','创意模型v4.1、政策H-07'],['机器行动','生成、检查、阻断发布'],['人工决定','修改文案后批准上线'],['商家权利','查看规则、修改并申请复核'],['最终跟踪','7天后检查投诉、转化和政策表现']]}
+      };
+
+      const phasesByCompany={
+        dbs:phases,
+        ibm:[
+          {days:'0–30天',name:'发现',outcome:'跟踪50个员工问题、10个经理事务和5个跨境调动，建立服务请求、能力与权限地图。',owner:'首席人力资源官＋全球员工服务负责人',cadence:'每日渠道障碍会；每周员工体验评审',gate:'80%以上请求可定位来源、成本、等待和最终责任人',checks:['采样邮箱、电话、业务伙伴和机器人请求','记录每次转派、等待和重复询问','区分标准事务、复杂判断和敏感关系','建立地区政策与系统依赖图','确定员工知情、复核和隐私红线','由人力、法务、技术共同签署问题定义']},
+          {days:'31–90天',name:'统一入口',outcome:'以员工证明、休假和经理调动为首批场景，建立员工服务助手＋人类专家两层模式。',owner:'员工服务使命负责人',cadence:'每日运行复盘；每周员工信任与政策评审',gate:'连续500次请求无越权；标准问题闭环率超过70%；敏感事项全部正确升级',checks:['完成服务请求决策蓝图','为员工服务助手建立说明卡','连接人力、薪酬和费用系统测试环境','上线政策冲突与敏感问题升级规则','建立专家队列与响应时限','用影子运行与人工结果逐单对比']},
+          {days:'91–180天',name:'交易化',outcome:'让统一入口从回答问题升级为执行交易，并建立完整证据、重放和申诉能力。',owner:'人力数字平台主管＋隐私负责人',cadence:'双周交易能力评审；每月独立合规验证',gate:'首批10类交易可重放；人工返工下降30%；员工满意度不低于基线',checks:['上线机器身份和最小权限','版本化政策、提示词和交易流程','建立统一事务证据对象','打通行动账、理由账和治理账','上线员工解释和人工复核入口','完成一次错误调动恢复演练']},
+          {days:'181–365天',name:'重构人力职能',outcome:'合并重复渠道，重新定义人力业务伙伴和专家角色，将释放容量转向组织与人才战略。',owner:'首席人力资源官＋人才委员会',cadence:'每月服务投资组合会；每季度员工信任报告',gate:'统一入口成为默认渠道；释放容量有明确转岗计划；复杂事项体验提升',checks:['逐步关闭重复邮箱和电话入口','重写人力业务伙伴与专家岗位说明','建立新增人力前的机器容量评估','把服务质量和员工权利纳入绩效','建立地区例外与政策维护网络','发布闭环率、申诉、纠错和容量报告']}
+        ],
+        klarna:[
+          {days:'0–30天',name:'基线',outcome:'跟踪500次客服对话、50次争议和20个营销活动，建立互动成本、质量和风险基线。',owner:'首席运营官＋首席财务官',cadence:'每日服务缺陷会；每周单位经济评审',gate:'明确80%互动的成本、处理时间、升级原因和客户结果',checks:['抽样多语言客服与退款对话','记录解决时间、重复咨询和人工转派','盘点营销代理商工作与费用','识别欺诈、投诉和高价值客户红线','建立不同市场满意度与监管基线','确定自然流失岗位的真实工作构成']},
+          {days:'31–90天',name:'机器第一层',outcome:'让客服助手处理标准咨询与退款准备，人工集中于欺诈、争议和复杂关系。',owner:'客户服务使命负责人',cadence:'每日错误复盘；每周客户信任评审',gate:'连续5000次对话无越权；平均时间下降50%；满意度不低于人工基线',checks:['建立客服助手权限与禁止清单','上线欺诈和低置信度升级规则','建立人工专家队列和接管包','按市场测试语言与政策差异','让客户可直接选择人工复核','对比机器与人工解决质量']},
+          {days:'91–180天',name:'扩展生产',outcome:'把内容、翻译、图像和内部知识接入公共智能层，逐步减少外部代理依赖。',owner:'增长负责人＋智能平台主管',cadence:'双周内容工厂评审；每月品牌风险验证',gate:'活动周期下降60%；代理费用下降但品牌与合规事件不增加',checks:['建立品牌知识与素材权限','上线内容与图像智能体说明卡','统一翻译、本地化和政策检查','建立活动成本与收入归因','将高风险创意保留给人工批准','完成品牌事故撤回演练']},
+          {days:'181–365天',name:'制度化人效',outcome:'把机器容量纳入增员、外包、薪酬和预算规则，形成高人才密度的人机组织。',owner:'首席执行官＋单位经济委员会',cadence:'每月人机容量会；每季度客户信任报告',gate:'新增人力与外包均有容量证明；效率收益未以客户体验和风险恶化为代价',checks:['增员前提交机器容量分析','外包续约前进行智能替代评估','为复杂服务专家提高技能与授权','把满意度和申诉纳入成本决策','建立节省资金再投资规则','公开跟踪人均收入、质量和投诉']}
+        ],
+        rakuten:[
+          {days:'0–30天',name:'统一价值语言',outcome:'将70多个业务的智能项目归入营销、运营、客户三个效率价值池，建立统一价值台账。',owner:'首席智能与数据官＋首席财务官',cadence:'每周价值归因会；双周事业部组合评审',gate:'全部重点项目有价值池、基线、负责人和停止条件',checks:['盘点各事业部模型、数据和智能项目','识别重复平台与采购','统一三个20%的计算口径','为每个项目指定业务结果负责人','建立利润贡献与体验基线','停止无业务牵引的展示型项目']},
+          {days:'31–90天',name:'双场景验证',outcome:'以商家经营助手和集团客服为首批场景，验证中央平台＋事业部落地模式。',owner:'首席智能官＋电商事业负责人',cadence:'每日产品复盘；每周商家价值与信任评审',gate:'商家采用率超过30%；效率或销售至少一项显著改善；政策事件不增加',checks:['建立共享模型、数据和模板目录','上线商家助手任务与权限说明','设计品牌和健康内容阻断规则','建立商家人工复核入口','用对照组衡量效率和销售','明确中央平台与事业部成本分摊']},
+          {days:'91–180天',name:'平台复用',outcome:'把搜索、推荐、内容、客服和分析能力产品化，扩展到金融、移动与旅行事业部。',owner:'首席智能官＋平台技术负责人',cadence:'双周复用评审；每月生态风险验证',gate:'三个新增事业部复用率超过60%；重复建设预算显著下降',checks:['发布集团智能能力目录','建立机器身份与跨业务数据边界','版本化模板、政策和行业知识','统一决策证据与价值归因','建立事业部接入和退出标准','完成跨业务隐私与故障演练']},
+          {days:'181–365天',name:'经营制度化',outcome:'将三个20%写入预算、绩效和季度经营会，中央平台按可验证利润和生态价值获得投资。',owner:'集团首席执行官＋价值委员会',cadence:'每月智能投资组合会；每季度利润与信任报告',gate:'所有核心事业部采用统一台账；智能利润贡献可追溯且不重复计算',checks:['事业部预算绑定价值池目标','管理者绩效纳入平台复用率','建立利润归因独立复核','形成消费者与商户申诉机制','把节省资源投入新产品增长','每季度淘汰低价值或高风险项目']}
+        ]
+      };
+      const phaseState=Object.fromEntries(Object.entries(phasesByCompany).map(([k,ps])=>[k,ps.map(p=>p.checks.map(()=>false))]));
+
+      function activatePanel(name){root.querySelectorAll('[data-panel]').forEach(b=>{const on=b.dataset.panel===name;b.classList.toggle('btn-primary',on);b.setAttribute('aria-pressed',String(on));});root.querySelectorAll('[data-panel-view]').forEach(p=>p.classList.toggle('is-active',p.dataset.panelView===name));}
+      root.querySelectorAll('[data-panel]').forEach(b=>b.addEventListener('click',()=>activatePanel(b.dataset.panel)));
+
+      function showOverviewNode(i){const o=overviewByCompany[currentCompany],n=o.nodes[i];root.querySelectorAll('[data-overview-card]').forEach((a,j)=>{const on=j===i;a.querySelector('.node').classList.toggle('is-selected',on);if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});root.querySelector('[data-overview-detail-layer]').textContent=overviewLayers[i];root.querySelector('[data-overview-detail-title]').textContent=n[0];root.querySelector('[data-overview-detail-mission]').textContent=n[2];root.querySelector('[data-overview-detail-goal]').textContent=n[3];}
+      function renderOverview(){const o=overviewByCompany[currentCompany];root.querySelector('[data-overview-title]').textContent=o.title;root.querySelector('[data-overview-unit]').textContent=o.unit[0];root.querySelector('[data-overview-unit-note]').textContent=o.unit[1];root.querySelector('[data-overview-machine]').textContent=o.machine[0];root.querySelector('[data-overview-machine-note]').textContent=o.machine[1];root.querySelector('[data-overview-human]').textContent=o.human[0];root.querySelector('[data-overview-human-note]').textContent=o.human[1];o.nodes.forEach((n,i)=>{root.querySelector(`[data-overview-node="${i}"]`).textContent=n[0];root.querySelector(`[data-overview-sub="${i}"]`).textContent=n[1];root.querySelector(`[data-overview-card="${i}"]`).setAttribute('aria-label',`${n[0]}：查看这一层的使命与目标`);});showOverviewNode(0);}
+      root.querySelectorAll('[data-overview-card]').forEach((a,i)=>a.addEventListener('click',e=>{e.preventDefault();showOverviewNode(i);}));
+      function renderCompany(){const c=companies[currentCompany];root.querySelectorAll('[data-company-name]').forEach(x=>x.textContent=names[currentCompany]);root.querySelector('[data-company-before-title]').textContent=c.beforeTitle;root.querySelector('[data-company-after-title]').textContent=c.afterTitle;root.querySelector('[data-company-before]').innerHTML=c.before.map(x=>`<li>${x}</li>`).join('');root.querySelector('[data-company-after]').innerHTML=c.after.map(x=>`<li>${x}</li>`).join('');root.querySelector('[data-company-results]').innerHTML=c.results.map(([v,l])=>`<div class="result"><div class="result-value">${v}</div><div class="text-small text-muted">${l}</div></div>`).join('');root.querySelector('[data-company-pattern]').textContent=c.pattern;root.querySelector('[data-company-lesson]').textContent=c.lesson;root.querySelector('[data-company-sources]').innerHTML=c.sources.map(([l,u])=>`<a href="${u}" target="_blank" rel="noreferrer">${l}</a>`).join('');}
+
+      const svgNS='http://www.w3.org/2000/svg';
+      function el(tag,attrs={}){const x=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>x.setAttribute(k,v));return x;}
+      function renderArch(i=currentArchStage){currentArchStage=i;const s=archByCompany[currentCompany][i],nLayer=root.querySelector('[data-arch-nodes]'),eLayer=root.querySelector('[data-arch-edges]');nLayer.replaceChildren();eLayer.replaceChildren();root.querySelector('[data-arch-title]').textContent=`${names[currentCompany]}：从当前组织走向动态使命网络`;root.querySelector('[data-arch-unit]').textContent=s.unit;root.querySelector('[data-arch-ai]').textContent=s.ai;root.querySelector('[data-arch-human]').textContent=s.human;root.querySelector('[data-arch-detail-title]').textContent=s.detail[0];root.querySelector('[data-arch-detail]').textContent=s.detail[1];s.edges.forEach(([a,b,t])=>{const A=s.nodes[a],B=s.nodes[b];eLayer.appendChild(el('path',{d:`M${A[1]} ${A[2]+22}C${A[1]} ${(A[2]+B[2])/2},${B[1]} ${(A[2]+B[2])/2},${B[1]} ${B[2]-22}`,class:`edge ${t}`}));});s.nodes.forEach((n,idx)=>{const g=el('g',{class:`node ${n[3]}${idx===0?' is-selected':''}`}),w=Math.max(130,Math.min(220,n[0].length*15+32));g.appendChild(el('rect',{x:n[1]-w/2,y:n[2]-22,width:w,height:44,rx:12}));const t=el('text',{x:n[1],y:n[2]+5,class:'svg-label'});t.textContent=n[0];g.appendChild(t);g.addEventListener('click',()=>{nLayer.querySelectorAll('.node').forEach(q=>q.classList.remove('is-selected'));g.classList.add('is-selected');root.querySelector('[data-arch-detail-title]').textContent=n[0];root.querySelector('[data-arch-detail]').textContent=idx===0?s.detail[1]:`${n[0]}在这一阶段承担${n[3]==='core'?'机器执行与规模化':n[3]==='guard'?'约束、验证与停止':'意图、判断与关系'}责任。`;});nLayer.appendChild(g);});}
+      root.querySelectorAll('[data-arch-stage]').forEach(b=>b.addEventListener('click',()=>{root.querySelectorAll('[data-arch-stage]').forEach(x=>{const on=x===b;x.classList.toggle('btn-primary',on);x.setAttribute('aria-pressed',String(on));});renderArch(Number(b.dataset.archStage));}));
+
+      function prepareTasks(){const c=taskCatalog[currentCompany],sel=root.querySelector('[data-task-mission]');root.querySelector('[data-task-title]').textContent=c.title;sel.innerHTML=c.options.map(([v,l])=>`<option value="${v}">${l}</option>`).join('');renderTasks();}
+      function renderTasks(){const c=taskCatalog[currentCompany],m=root.querySelector('[data-task-mission]').value,r=root.querySelector('[data-task-risk]').value,flow=c.sets[m],rules={low:['边界内自动执行','机器可自动完成可逆标准工作；持续记录，异常再升级。'],medium:['受控执行','机器完成标准步骤；冲突、例外及关键决定升级给人类。'],high:['人类最终授权','机器准备证据和建议；最终决策责任人作出决定并承担责任。']};root.querySelector('[data-task-rule]').textContent=rules[r][0];root.querySelector('[data-task-rule-detail]').textContent=rules[r][1];root.querySelector('[data-task-flow]').innerHTML=flow.map(([task,owner],i)=>`<div class="task-row"><strong>${i+1}. ${task}</strong><span class="task-owner text-small">${owner}</span><span class="viz-badge">${r==='high'&&i>=flow.length-2?'人工':owner.includes('智能体')||owner.includes('助手')?'机器':'协同'}</span></div>`).join('');}
+      root.querySelector('[data-task-mission]').addEventListener('change',renderTasks);root.querySelector('[data-task-risk]').addEventListener('change',renderTasks);
+
+      function showRole(r){root.querySelector('[data-role-title]').textContent=r.name;root.querySelector('[data-role-one]').textContent=r.one;root.querySelector('[data-role-power]').textContent=r.power;root.querySelector('[data-role-deliverable]').textContent=r.deliverable;root.querySelector('[data-role-accountability]').textContent=r.accountability;root.querySelector('[data-role-metrics]').textContent=r.metrics;}
+      function renderRoles(){const list=rolesByCompany[currentCompany],grid=root.querySelector('[data-role-grid]');root.querySelector('[data-role-section-title]').textContent=`${names[currentCompany]}的九个不可稀释责任角色`;grid.innerHTML='';list.forEach((r,i)=>{const b=document.createElement('button');b.type='button';b.className=`btn btn-block${i===0?' btn-primary':''}`;b.setAttribute('aria-pressed',i===0?'true':'false');b.textContent=r.name;b.addEventListener('click',()=>{grid.querySelectorAll('.btn').forEach(x=>{x.classList.remove('btn-primary');x.setAttribute('aria-pressed','false');});b.classList.add('btn-primary');b.setAttribute('aria-pressed','true');showRole(r);});grid.appendChild(b);});showRole(list[0]);}
+
+      function renderAudit(){const a=auditByCompany[currentCompany],flow=root.querySelector('[data-audit-flow]');root.querySelector('[data-audit-heading]').textContent=a.heading;root.querySelector('[data-audit-result]').textContent=a.result;flow.innerHTML='';a.steps.forEach((s,i)=>{const d=document.createElement('button');d.type='button';d.className=`audit-step btn-ghost${i===0?' is-selected':''}`;d.innerHTML=`<strong>${s[0]}</strong><span class="text-small">${s[1]}</span>`;d.addEventListener('click',()=>{flow.querySelectorAll('.audit-step').forEach(x=>x.classList.remove('is-selected'));d.classList.add('is-selected');root.querySelector('[data-audit-title]').textContent=s[1];root.querySelector('[data-audit-detail]').textContent=s[2];});flow.appendChild(d);});root.querySelector('[data-audit-title]').textContent=a.steps[0][1];root.querySelector('[data-audit-detail]').textContent=a.steps[0][2];root.querySelector('[data-evidence-grid]').innerHTML=a.evidence.map(([k,v])=>`<div class="evidence-item"><strong>${k}</strong><span class="text-small">${v}</span></div>`).join('');}
+
+      function renderRoadmap(){const ps=phasesByCompany[currentCompany],road=root.querySelector('[data-roadmap]');root.querySelector('[data-roadmap-title]').textContent=`365天操作手册：${ps[0].outcome.split('，')[0]}`;road.innerHTML='';ps.forEach((p,i)=>{const b=document.createElement('button');b.type='button';b.className=`phase btn-ghost${i===0?' is-selected':''}`;b.innerHTML=`<strong>${p.days}</strong><span class="text-small">${p.name}</span>`;b.addEventListener('click',()=>{road.querySelectorAll('.phase').forEach(x=>x.classList.remove('is-selected'));b.classList.add('is-selected');showPhase(i);});road.appendChild(b);});showPhase(0);}
+      function showPhase(i){const p=phasesByCompany[currentCompany][i],state=phaseState[currentCompany][i];root.querySelector('[data-phase-title]').textContent=`${p.days} · ${p.name}`;root.querySelector('[data-phase-outcome]').textContent=p.outcome;root.querySelector('[data-phase-owner]').textContent=p.owner;root.querySelector('[data-phase-cadence]').textContent=p.cadence;root.querySelector('[data-phase-gate]').textContent=p.gate;root.querySelector('[data-checklist]').innerHTML=p.checks.map((x,j)=>`<label class="form-check"><input class="form-check-input" type="checkbox" data-action-check="${i}-${j}"${state[j]?' checked':''}><span class="form-check-label">${x}</span></label>`).join('');root.querySelectorAll('[data-action-check]').forEach(c=>c.addEventListener('change',()=>{const [,j]=c.dataset.actionCheck.split('-').map(Number);phaseState[currentCompany][i][j]=c.checked;updateProgress();}));updateProgress();}
+      function updateProgress(){const checks=[...root.querySelectorAll('[data-action-check]')],done=checks.filter(x=>x.checked).length,pct=checks.length?Math.round(done/checks.length*100):0;root.querySelector('[data-progress-value]').textContent=pct;root.querySelector('[data-progress-fill]').style.width=`${pct}%`;}
+
+      function renderAll(){renderCompany();renderOverview();renderArch(currentArchStage);prepareTasks();renderRoles();renderAudit();renderRoadmap();}
+      root.querySelector('[data-global-company]').addEventListener('change',e=>{currentCompany=e.target.value;renderAll();});
+      renderAll();
+    })();
+  </script>
+
+<script>
+/* V4 init: theme + chips */
+/* V4 init: theme + chips */
+function initV4() {
+  const root = document.documentElement;
+  /* Theme */
+  try {
+    const segs = document.querySelectorAll("[data-theme-set]");
+    const stored = localStorage.getItem("ainative-theme");
+    const applyTheme = (t) => {
+      root.setAttribute("data-theme", t);
+      segs.forEach(s => s.classList.toggle("is-active", s.dataset.themeSet === t));
+      try { localStorage.setItem("ainative-theme", t); } catch (_) {}
+    };
+    applyTheme(stored === "light" ? "light" : "dark");
+    segs.forEach(s => s.addEventListener("click", () => applyTheme(s.dataset.themeSet)));
+  } catch (_) {}
+
+  /* Chips drive data-global-company */
+  const chips = document.querySelectorAll("#hero-chips .chip");
+  const sel = document.querySelector("[data-global-company]");
+  if (chips.length && sel) {
+    const setActiveChip = () => {
+      const cur = sel.value;
+      chips.forEach(c => c.classList.toggle("is-active", c.dataset.chip === cur));
+    };
+    chips.forEach(c => c.addEventListener("click", () => {
+      sel.value = c.dataset.chip;
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+    }));
+    sel.addEventListener("change", setActiveChip);
+    setActiveChip();
+  }
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initV4);
+} else {
+  initV4();
+}
+</script>
+
+<footer class="foot">
+  <div class="meta"><span class="dot"></span>AI-Native Org Transformation Suite &middot; V4</div>
+  <div>设计：Patrick 工作流 / 优化：Hermes &middot; 100% proud 模式 &middot; 数据来源：4 家公司公开年报与监管文件</div>
+</footer>
+
+</div><!-- /.page -->
+
+</body>
+</html>
