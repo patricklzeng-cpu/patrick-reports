@@ -154,6 +154,9 @@
 </style>
 </head>
 <body>
+<button id="bookmark-chip" onclick="toggleBookmarkDrawer()" style="position:fixed;bottom:14px;right:14px;z-index:99;background:#0e1320;border:1px solid var(--line);border-radius:20px;padding:6px 14px;cursor:pointer;font-size:12px;color:var(--muted);user-select:none;display:none">📌 Recent (0)</button>
+<div id="bookmark-drawer" style="display:none;position:fixed;bottom:50px;right:14px;z-index:99;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px;min-width:280px;max-width:380px;max-height:60vh;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.4)"></div>
+
   <div class="shell">
     <header>
       <div class="brand">Patrick</div><div class="slash"></div><div class="descriptor" id="descriptor">每日研究</div>
@@ -454,6 +457,104 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // === DISPOSABLE BOOKMARK (Item 4 / 2026-07-15) ===
+    // Sodazine-style disposable design: 1-click, no confirm, 24h auto-cleanup
+    const BOOKMARK_KEY = 'patrick-disposable-bookmarks';
+    const BOOKMARK_MAX = 10;
+    const BOOKMARK_TTL_MS = 24 * 60 * 60 * 1000;
+
+    function getBookmarks() {
+      try {
+        const raw = localStorage.getItem(BOOKMARK_KEY);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        const now = Date.now();
+        // Auto-cleanup: filter out > 24h
+        const fresh = arr.filter(b => (now - b.ts) < BOOKMARK_TTL_MS);
+        if (fresh.length !== arr.length) {
+          localStorage.setItem(BOOKMARK_KEY, JSON.stringify(fresh));
+        }
+        return fresh;
+      } catch(e) { return []; }
+    }
+
+    function addBookmark(slug, title) {
+      const arr = getBookmarks();
+      // Dedup: remove existing same slug
+      const filtered = arr.filter(b => b.slug !== slug);
+      filtered.unshift({ slug, title, ts: Date.now() });
+      const capped = filtered.slice(0, BOOKMARK_MAX);
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(capped));
+      renderBookmarkDrawer();
+      // Brief visual feedback
+      const btn = document.querySelector(`[data-bookmark-slug="${slug}"]`);
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = '✓';
+        btn.style.color = 'var(--lime)';
+        setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 800);
+      }
+    }
+
+    function removeBookmark(slug) {
+      const arr = getBookmarks().filter(b => b.slug !== slug);
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(arr));
+      renderBookmarkDrawer();
+    }
+
+    function renderBookmarkDrawer() {
+      const arr = getBookmarks();
+      const chip = document.getElementById('bookmark-chip');
+      const drawer = document.getElementById('bookmark-drawer');
+      if (!chip || !drawer) return;
+      chip.textContent = `📌 Recent (${arr.length})`;
+      chip.style.display = arr.length > 0 ? '' : 'none';
+      drawer.innerHTML = arr.length === 0 ? '' : arr.map(b => `
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid var(--line);font-size:12px">
+          <a href="https://2017zyl.xyz/${b.slug}" target="_blank" rel="noopener" style="flex:1;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.title || b.slug}</a>
+          <button onclick="removeBookmark('${b.slug}')" style="background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:0;line-height:1" title="Discard (disposable)">×</button>
+        </div>
+      `).join('');
+    }
+
+    function toggleBookmarkDrawer() {
+      const drawer = document.getElementById('bookmark-drawer');
+      if (!drawer) return;
+      drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Auto-attach bookmark buttons to all <article class="card"> that have a data-slug
+    function attachBookmarkButtons() {
+      document.querySelectorAll('[data-slug]').forEach(el => {
+        const slug = el.dataset.slug;
+        if (!slug) return;
+        // Skip if already attached
+        if (el.querySelector('[data-bookmark-slug]')) return;
+        const btn = document.createElement('button');
+        btn.setAttribute('data-bookmark-slug', slug);
+        btn.onclick = () => {
+          const titleEl = el.querySelector('h3, h2, .title, strong');
+          const title = titleEl ? titleEl.textContent.trim().slice(0, 60) : slug;
+          addBookmark(slug, title);
+        };
+        btn.textContent = '📌';
+        btn.title = 'Bookmark (24h disposable)';
+        btn.style.cssText = 'background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:2px 6px;margin-left:6px;vertical-align:middle';
+        el.appendChild(btn);
+      });
+    }
+
+    // Init on DOMContentLoaded + re-render after any grid reload
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        attachBookmarkButtons();
+        renderBookmarkDrawer();
+      });
+    } else {
+      attachBookmarkButtons();
+      renderBookmarkDrawer();
+    }
+
     const tracks=[
       {id:'ai',zh:'人工智能',en:'Artificial Intelligence'},
       {id:'dev',zh:'开发与工具',en:'Development & Tools'},

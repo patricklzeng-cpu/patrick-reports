@@ -154,6 +154,9 @@
 </style>
 </head>
 <body>
+<button id="bookmark-chip" onclick="toggleBookmarkDrawer()" style="position:fixed;bottom:14px;right:14px;z-index:99;background:#0e1320;border:1px solid var(--line);border-radius:20px;padding:6px 14px;cursor:pointer;font-size:12px;color:var(--muted);user-select:none;display:none">📌 Recent (0)</button>
+<div id="bookmark-drawer" style="display:none;position:fixed;bottom:50px;right:14px;z-index:99;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px;min-width:280px;max-width:380px;max-height:60vh;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.4)"></div>
+
   <div class="shell">
     <header>
       <div class="brand">Patrick</div><div class="slash"></div><div class="descriptor" id="descriptor">每日研究</div>
@@ -454,6 +457,104 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // === DISPOSABLE BOOKMARK (Item 4 / 2026-07-15) ===
+    // Sodazine-style disposable design: 1-click, no confirm, 24h auto-cleanup
+    const BOOKMARK_KEY = 'patrick-disposable-bookmarks';
+    const BOOKMARK_MAX = 10;
+    const BOOKMARK_TTL_MS = 24 * 60 * 60 * 1000;
+
+    function getBookmarks() {
+      try {
+        const raw = localStorage.getItem(BOOKMARK_KEY);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        const now = Date.now();
+        // Auto-cleanup: filter out > 24h
+        const fresh = arr.filter(b => (now - b.ts) < BOOKMARK_TTL_MS);
+        if (fresh.length !== arr.length) {
+          localStorage.setItem(BOOKMARK_KEY, JSON.stringify(fresh));
+        }
+        return fresh;
+      } catch(e) { return []; }
+    }
+
+    function addBookmark(slug, title) {
+      const arr = getBookmarks();
+      // Dedup: remove existing same slug
+      const filtered = arr.filter(b => b.slug !== slug);
+      filtered.unshift({ slug, title, ts: Date.now() });
+      const capped = filtered.slice(0, BOOKMARK_MAX);
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(capped));
+      renderBookmarkDrawer();
+      // Brief visual feedback
+      const btn = document.querySelector(`[data-bookmark-slug="${slug}"]`);
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = '✓';
+        btn.style.color = 'var(--lime)';
+        setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 800);
+      }
+    }
+
+    function removeBookmark(slug) {
+      const arr = getBookmarks().filter(b => b.slug !== slug);
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(arr));
+      renderBookmarkDrawer();
+    }
+
+    function renderBookmarkDrawer() {
+      const arr = getBookmarks();
+      const chip = document.getElementById('bookmark-chip');
+      const drawer = document.getElementById('bookmark-drawer');
+      if (!chip || !drawer) return;
+      chip.textContent = `📌 Recent (${arr.length})`;
+      chip.style.display = arr.length > 0 ? '' : 'none';
+      drawer.innerHTML = arr.length === 0 ? '' : arr.map(b => `
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid var(--line);font-size:12px">
+          <a href="https://2017zyl.xyz/${b.slug}" target="_blank" rel="noopener" style="flex:1;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.title || b.slug}</a>
+          <button onclick="removeBookmark('${b.slug}')" style="background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:0;line-height:1" title="Discard (disposable)">×</button>
+        </div>
+      `).join('');
+    }
+
+    function toggleBookmarkDrawer() {
+      const drawer = document.getElementById('bookmark-drawer');
+      if (!drawer) return;
+      drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Auto-attach bookmark buttons to all <article class="card"> that have a data-slug
+    function attachBookmarkButtons() {
+      document.querySelectorAll('[data-slug]').forEach(el => {
+        const slug = el.dataset.slug;
+        if (!slug) return;
+        // Skip if already attached
+        if (el.querySelector('[data-bookmark-slug]')) return;
+        const btn = document.createElement('button');
+        btn.setAttribute('data-bookmark-slug', slug);
+        btn.onclick = () => {
+          const titleEl = el.querySelector('h3, h2, .title, strong');
+          const title = titleEl ? titleEl.textContent.trim().slice(0, 60) : slug;
+          addBookmark(slug, title);
+        };
+        btn.textContent = '📌';
+        btn.title = 'Bookmark (24h disposable)';
+        btn.style.cssText = 'background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:2px 6px;margin-left:6px;vertical-align:middle';
+        el.appendChild(btn);
+      });
+    }
+
+    // Init on DOMContentLoaded + re-render after any grid reload
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        attachBookmarkButtons();
+        renderBookmarkDrawer();
+      });
+    } else {
+      attachBookmarkButtons();
+      renderBookmarkDrawer();
+    }
+
     const tracks=[
       {id:'ai',zh:'人工智能',en:'Artificial Intelligence'},
       {id:'dev',zh:'开发与工具',en:'Development & Tools'},
@@ -463,6 +564,8 @@
       {id:'culture',zh:'文化与思想',en:'Culture & Ideas'}
     ];
     const reports=[
+{title:'🆕 YC AI 原生服务公司 6 章指南 · AI Native Service Companies (11:13 · Garry Tan)', track:'ai', tag:'YC · 创业指南', practical:92, time:25, desc:'下一批万亿级公司不是软件,而是从零开始用 AI 重做的服务公司。6 章: 市场(4特质)/ 团队(3必须)/ 产品(4原则)/ 销售(早期陷阱+3定价)/ P&L(AI 运营杠杆)/ 买 vs 建', file:'daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard.html', date:'2026-07-15'},
+
   {title:'🆕 YC Head of Design 用 AI 设计 · 中EN 双语可切换 · E Bufar × Conductor + Paper Design + Aqua 语音 · 30:54 · 1,689 likes · 3 production 项目 walkthrough (Paxel Spotify Wrapped for Coding / Sodazine SOTA 庆祝旧金山 + soul.md 哲学 / Startup School 2026 Jensen+Sam+Jeff Dean) · 14 tabs · 6 stat cards · 17 Patrick 关联 (verified-on-disk) · 7 Tier 4 反向映射 (mitig/warn/gap honest labels) · 10 verbatim E 原话 + 中文翻译 · 顶角 EN⇄中 toggle · localStorage 持久化',track:'video',tag:'yc-design · conductor · paper-design · aqua · soul-md · paxel · sodazine · startup-school · disposable-design',practical:88,time:25,desc:'E Bufar YC Head of Design. 4 大核心洞察: (1) 单工具栈 Conductor+Paper+Aqua+Claude ship 全栈 不手打 (2) soul.md 哲学 录一切+dump 全文+喂 agent (3) Human vs Machine 双版本页面 (.md 给 agent + note to any AI agent warning) (4) Taste 不需要 verbalize 给 agent 自己 abstract pattern. Patrick 4 个 P0/P1 action items: vault soul.md 化 + daily-reports .md 双版本 + Conductor 试验 + disposable bookmark UI. cross-link 7 vault notes (Jack Roberts/Greg Isenberg/Julian Goldie/Berman/MoA/Tristan/Kokotajlo)',file:'daily-reports/ebufar-yc-head-design-conductor-2026-07-15.html',date:'2026-07-15',curated:1},
   {title:'🆕 AI-Native Org Transformation Suite V4 — 4 公司 (IBM / Klarna / 乐天 / 星展银行) × 7 模块全景 (全景/四家公司/组织演化/任务市场/角色问责/机器审计/365天行动) · 100% proud 模式 polish · 0 外部依赖 · 107KB 单 HTML · 完整保留 4 公司数据 + 6 模块 DOM + 13 个核心 JS function',track:'brief',tag:'ai-native · org-transformation · v4-proud',practical:90,time:25,desc:'Patrick 给出 v3 iframe+srcdoc fragment 重写为单文件 V4 · 100% 保留 69 个 data-* 属性 + 13 个核心 JS function + 4 公司完整数据 + 6 模块 DOM · 升级: sticky 渐变 nav + 紫粉 hero + 4 公司 chip + active glow · 40px KPI results (94%/40%/+74 etc) · 暗/亮双主题 + localStorage · SVG 实色 + paint-order 描边 + drop-shadow glow · checkbox 自定义 · 0 外部依赖 · 100% proud ship',file:'daily-reports/ai-native-org-transformation-v4.html',date:'2026-07-15',curated:1},
   {title:'ultraworkers/claw-code deep-dive - Rust rewrite Claude Code shape CLI - 9 crate 48.6K LOC - 9-lane parity all merged main - 7-step provider routing - PHILOSOPHY Stop Staring at the Files 3-layer system (OmX clawhip OmO) - bilingual ZH-EN with localStorage persistence - 12 sections - 8 stat cards - 9 lane checkpoints - 17 evidence pills (fetched/vault/recall/unfetched) - honest sandbox fetch report - 87.8KB single HTML',track:'brief',tag:'ultraworkers-claw-code - rust-cli - claude-code-shape - race-aware-ecosystem - bilingual',practical:88,time:20,desc:'Github 194K stars - 9 crate 48.6K LOC - 40 tool specs - mock parity harness 12 scenarios - 9-lane parity all merged main - caveats bash-validation branch-only and CI not green every commit - same-gen ecosystem omx/clawhip/lazycodex/gajae-code/oh-my-openagent - PHILOSOPHY museum exhibit coordination system is the product - bilingual ZH-EN with localStorage persistence - TOC v1.4.4 collapsible - sandbox fetch via api.github.com + browser_console base64 decode - self-reported LOC not cargo-build-verified',file:'daily-reports/2026-07-15-ultraworkers-claw-code-deep-dive.html',date:'2026-07-15',curated:1},
