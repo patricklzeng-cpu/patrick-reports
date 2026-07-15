@@ -160,10 +160,10 @@
   <div class="shell">
     <header>
       <div class="brand">Patrick</div><div class="slash"></div><div class="descriptor" id="descriptor">每日研究</div>
-      <div class="date" id="topDate">— — —</div>
+      <div class="date" id="topDate">2026-07-15</div>
       <div class="lang-switch" aria-label="语言切换"><button data-lang="zh" class="active">中</button><button data-lang="en">EN</button></div>
       <button class="header-action" id="archiveOpen">全部档案</button>
-      <div class="count" id="countLabel">— 份报告<br>— 条产线</div>
+      <div class="count" id="countLabel">298 份报告<br>8 条产线</div>
     </header>
 <div style="max-width:1100px;margin:12px auto 0;padding:0 4.4vw">
   <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0e1320;border:1px solid var(--line);border-radius:10px;font-size:13px;color:var(--muted);flex-wrap:wrap">
@@ -184,11 +184,11 @@
         <div class="kicker" id="kicker">互动研究游乐场</div>
         <p class="intro-copy" id="introCopy">不是让你翻完所有报告。<br>只用一个选择，找到今天最值得下潜的三站。</p>
         <div class="pb-hero">
-          <span><b id="pbHeroCount">—</b> reports</span><span class="sep">·</span>
-          <span><b id="pbHeroTracks">—</b> tracks</span><span class="sep">·</span>
+          <span><b id="pbHeroCount">298</b> reports</span><span class="sep">·</span>
+          <span><b id="pbHeroTracks">8</b> tracks</span><span class="sep">·</span>
           <span class="pb-badge ding" style="margin-left:0">✓ Patrick 担保</span><span class="sep">·</span>
-          <span>since <b id="pbHeroSince">2026-Q2</b></span>
-          <span class="sep">·</span><span class="dim" id="pbHeroUpdated" style="font-size:11px">更新于 —</span>
+          <span>since <b id="pbHeroSince">2025-Q2</b></span>
+          <span class="sep">·</span><span class="dim" id="pbHeroUpdated" style="font-size:11px">更新于 2026-07-15</span>
         </div>
         <div class="tracks" id="tracks"></div>
       </section>
@@ -948,7 +948,10 @@
     // so the header date + report count + track count + pb-hero chips stay current without a redeploy.
     // Failure path: keeps "—" placeholders so the page renders even if reports.json is unreachable.
     (function loadLiveStats(){
-      const fallback={n:'—',t:'—',d:'—',since:'2026-Q2'};
+      // Inline fallback = last-known-good counts baked at deploy time.
+      // If fetch fails (PWA SW block / offline / cold cache), hero still shows real numbers instead of "—".
+      // Source: reports.json snapshot at 2026-07-15T23:00 — 298 records, 8 tracks.
+      const fallback={n:298,t:8,d:'2026-07-15',since:'2025-Q2'};
       window.__liveStats=fallback;
       function apply(){
         // Top header date (most recent report date in archive)
