@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>obra/superpowers audit — vs Patrick's 165+ skills</title>
+<style>
+:root{
+  --bg:#0b0d10; --bg2:#14181d; --bg3:#1c2128;
+  --fg:#e6edf3; --fg2:#9aa6b2; --fg3:#6b7682;
+  --lime:#d4ff5e; --lime2:#a3cc4a; --lime3:rgba(212,255,94,.08);
+  --red:#ff6b6b; --green:#5ed99c; --amber:#ffb347; --blue:#7cb7ff;
+  --bdr:#2a3138;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:32px 24px}
+h1,h2,h3,h4{font-weight:600;letter-spacing:-.01em;margin:0 0 12px}
+h1{font-size:32px;background:linear-gradient(135deg,var(--lime) 0%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-size:22px;margin:40px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--bdr)}
+h3{font-size:16px;margin:24px 0 10px;color:var(--lime)}
+h4{font-size:13px;margin:16px 0 6px;color:var(--fg2);text-transform:uppercase;letter-spacing:.05em}
+p{margin:0 0 12px;color:var(--fg2)}
+code,kbd{font-family:'SF Mono','JetBrains Mono',monospace;font-size:12.5px;background:var(--bg3);padding:2px 6px;border-radius:4px;color:var(--lime)}
+.tldr{background:linear-gradient(135deg,var(--lime3) 0%,transparent 100%);border:1px solid var(--lime);border-radius:12px;padding:20px 24px;margin:24px 0}
+.tldr h3{margin-top:0;color:var(--lime)}
+.metric-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:24px 0}
+.metric{background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;padding:16px}
+.metric .v{font-size:28px;font-weight:600;color:var(--lime);font-variant-numeric:tabular-nums}
+.metric .l{font-size:11px;color:var(--fg3);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+th{text-align:left;padding:10px 12px;background:var(--bg2);color:var(--fg2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--bdr)}
+td{padding:10px 12px;border-bottom:1px solid var(--bdr);vertical-align:top}
+tr:hover td{background:var(--bg2)}
+.verdict{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:.03em}
+.v-yes{background:rgba(94,217,156,.15);color:var(--green)}
+.v-gap{background:rgba(212,255,94,.15);color:var(--lime)}
+.v-partial{background:rgba(255,179,71,.15);color:var(--amber)}
+.v-need{background:rgba(124,183,255,.15);color:var(--blue)}
+.v-bloat{background:rgba(255,107,107,.15);color:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;margin:16px 0}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden}
+.card.gap{border-left:3px solid var(--lime)}
+.card.partial{border-left:3px solid var(--amber)}
+.card.have{border-left:3px solid var(--green)}
+.card .tag{position:absolute;top:14px;right:14px;font-size:10px;padding:3px 8px;border-radius:5px;font-weight:600;letter-spacing:.04em}
+.card.gap .tag{background:var(--lime);color:#000}
+.card.partial .tag{background:var(--amber);color:#000}
+.card.have .tag{background:var(--green);color:#000}
+.card h3{margin-top:0;margin-right:80px}
+.card .why{color:var(--fg2);margin:8px 0;font-size:13px}
+.card .fix{background:var(--bg3);border-left:2px solid var(--lime);padding:8px 12px;margin:10px 0;font-size:12.5px;color:var(--fg);border-radius:0 6px 6px 0}
+.card .meta{display:flex;gap:12px;font-size:11px;color:var(--fg3);margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr)}
+.card .meta span{display:flex;align-items:center;gap:4px}
+.risk{background:var(--bg2);border:1px solid var(--red);border-left:3px solid var(--red);border-radius:8px;padding:14px 18px;margin:12px 0}
+.risk strong{color:var(--red)}
+.next{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0}
+.next .opt{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:18px;cursor:pointer;transition:all .15s}
+.next .opt:hover{border-color:var(--lime);transform:translateY(-1px)}
+.next .num{font-size:32px;font-weight:700;color:var(--lime);font-variant-numeric:tabular-nums}
+.next .ttl{font-size:15px;font-weight:600;margin:6px 0}
+.next .desc{color:var(--fg2);font-size:13px;line-height:1.5}
+.next .time{font-size:11px;color:var(--fg3);margin-top:8px;text-transform:uppercase;letter-spacing:.05em}
+.callout{background:var(--bg3);border-radius:10px;padding:16px 18px;margin:16px 0;border-left:3px solid var(--blue)}
+.callout strong{color:var(--blue)}
+.quote{font-style:italic;color:var(--fg2);border-left:2px solid var(--lime);padding-left:14px;margin:12px 0}
+.footer{color:var(--fg3);font-size:11px;margin-top:48px;padding-top:16px;border-top:1px solid var(--bdr);text-align:center}
+.pillrow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.pill{background:var(--bg3);padding:4px 10px;border-radius:14px;font-size:11px;color:var(--fg2)}
+.pill.lime{background:var(--lime);color:#000;font-weight:600}
+.prose p,.prose li{color:var(--fg)}
+.prose li{margin:6px 0}
+.hero-banner{background:linear-gradient(135deg,var(--lime3) 0%,rgba(212,255,94,.18) 50%,transparent 100%);border:2px solid var(--lime);border-radius:14px;padding:22px 26px;margin:28px 0 24px;position:relative;overflow:hidden}
+.hero-banner::before{content:"";position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(212,255,94,.22) 0%,transparent 70%);pointer-events:none}
+.hero-banner .ship{font-size:11px;letter-spacing:.18em;color:var(--lime2);font-weight:700;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.hero-banner .ship::before{content:"";display:inline-block;width:8px;height:8px;background:var(--lime);border-radius:50%;box-shadow:0 0 12px var(--lime);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
+.hero-banner h2{margin:0 0 10px;font-size:24px;background:none;-webkit-text-fill-color:var(--fg);color:var(--fg);border:none;padding:0;letter-spacing:-.01em}
+.hero-banner .lede{color:var(--fg);font-size:15px;line-height:1.5;max-width:760px;margin:0 0 14px}
+.hero-banner .chips{display:flex;flex-wrap:wrap;gap:8px}
+.hero-banner .chip{background:rgba(212,255,94,.12);border:1px solid rgba(212,255,94,.3);color:var(--lime);padding:5px 11px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:.03em;font-variant-numeric:tabular-nums}
+.hero-banner .chip.muted{background:var(--bg3);border-color:var(--bdr);color:var(--fg2)}
+.verdict::before{margin-right:5px;font-weight:700}
+.v-yes::before{content:"✓";color:var(--green)}
+.v-gap::before{content:"⚠";color:var(--lime)}
+.v-partial::before{content:"↔";color:var(--amber)}
+.v-need::before{content:"+";color:var(--blue)}
+.v-bloat::before{content:"✗";color:var(--red)}
+.toc-sidebar{position:fixed;left:24px;top:88px;width:208px;max-height:calc(100vh - 112px);overflow-y:auto;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;padding:14px 0 14px 0;font-size:12px;z-index:50;scrollbar-width:thin}
+.toc-sidebar::-webkit-scrollbar{width:4px}
+.toc-sidebar::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+.toc-sidebar .tt{font-size:10px;letter-spacing:.12em;color:var(--lime);font-weight:700;text-transform:uppercase;margin:0 16px 10px;display:flex;align-items:center;gap:6px}
+.toc-sidebar .tt::before{content:"";width:6px;height:6px;background:var(--lime);border-radius:50%;box-shadow:0 0 6px var(--lime)}
+.toc-sidebar a{display:flex;align-items:center;gap:8px;color:var(--fg2);text-decoration:none;padding:6px 16px 6px 14px;border-left:2px solid transparent;font-size:12px;line-height:1.4;transition:all .12s}
+.toc-sidebar a:hover{color:var(--fg);background:rgba(212,255,94,.04)}
+.toc-sidebar a.active{color:var(--lime);border-left-color:var(--lime);background:var(--lime3);font-weight:600}
+.toc-sidebar a .n{font-variant-numeric:tabular-nums;color:var(--fg3);font-size:10px;min-width:18px}
+.toc-sidebar a.active .n{color:var(--lime)}
+.wrap.has-toc{padding-left:264px}
+@media(max-width:1280px){.toc-sidebar{display:none}.wrap.has-toc{padding-left:24px}}
+.back-to-top{position:fixed;right:24px;bottom:24px;width:44px;height:44px;background:var(--bg2);border:1px solid var(--bdr);border-radius:50%;color:var(--fg3);font-size:20px;cursor:pointer;opacity:0;transform:translateY(8px);transition:all .2s;z-index:60;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.back-to-top.show{opacity:1;transform:translateY(0);border-color:var(--lime);color:var(--lime)}
+.back-to-top:hover{background:var(--lime3);transform:translateY(-3px);box-shadow:0 6px 16px rgba(212,255,94,.15)}
+@media(max-width:1280px){.back-to-top{right:16px;bottom:16px}}
+</style>
+</head>
+<body>
+<div class="wrap has-toc">
+
+<aside class="toc-sidebar" id="toc">
+  <div class="tt">Contents</div>
+  <a href="#sec1"><span class="n">1</span>Coverage matrix</a>
+  <a href="#sec2"><span class="n">2</span>Workflow chain</a>
+  <a href="#sec3"><span class="n">3</span>4 strong-gap skills</a>
+  <a href="#sec4"><span class="n">4</span>Additive value</a>
+  <a href="#sec5"><span class="n">5</span>Risk assessment</a>
+  <a href="#sec6"><span class="n">6</span>Overlap zone</a>
+  <a href="#sec7"><span class="n">7</span>Status: shipped</a>
+  <a href="#sec8"><span class="n">8</span>Reference docs</a>
+  <a href="#sec9"><span class="n">9</span>Pilot test</a>
+  <a href="#sec10"><span class="n">10</span>Appendix</a>
+</aside>
+
+<h1>obra/superpowers audit</h1>
+<p style="color:var(--fg3);margin-top:6px">vs Patrick's installed skill library · 14-skill framework · 254K★ · MIT · audit 2026-07-15</p>
+
+<div class="hero-banner">
+<div class="ship">Option 2 · Full Chain Import · Shipped</div>
+<h2>15 skills live · 0 broken · ready for next session</h2>
+<p class="lede">All 14 obra/superpowers skills reverse-ported to Patrick's SKILL.md schema, plus a <code>meta/obra-superpowers-workflow-chain</code> orchestrator that routes user input to the right downstream skill based on phase (creative → plan → execute → review → finish → verify). 3 obra-only reference docs fetched locally.</p>
+<div class="chips">
+  <span class="chip">15 SKILLS</span>
+  <span class="chip">~150KB</span>
+  <span class="chip">3 REFERENCE DOCS · 64.7KB</span>
+  <span class="chip">0 BROKEN DEPS</span>
+  <span class="chip">0 DESC OVERFLOW</span>
+  <span class="chip muted">PI OFFICIAL SUPPORT</span>
+  <span class="chip muted">MIT LICENSE</span>
+</div>
+</div>
+
+<div class="tldr">
+<h3>TL;DR</h3>
+<p><strong>obra/superpowers is a complete SDLC workflow chain (brainstorm → spec → plan → execute → subagent → review → verify), not a skill list.</strong> Patrick has <strong>7/14 = 50%</strong> of the skills covered already, but the <strong>workflow chain</strong> that ties them together is the real gap. <strong>4 skills are strong increments</strong> (brainstorming / finishing-a-development-branch / receiving-code-review / verification-before-completion), and the framework is officially supported on Pi (Patrick's coding agent) — zero vendor lock. <strong>Recommended:</strong> selective pick the 4 gaps + reverse-port to Patrick's SKILL.md standard. Don't blanket-install (Hazard C: replaces local patches).</p>
+</div>
+
+<div class="metric-bar">
+  <div class="metric"><div class="v">254K</div><div class="l">github stars</div></div>
+  <div class="metric"><div class="v">14</div><div class="l">top-level skills</div></div>
+  <div class="metric"><div class="v">7 / 14</div><div class="l">already covered</div></div>
+  <div class="metric"><div class="v">4</div><div class="l">strong increments</div></div>
+  <div class="metric"><div class="v">MIT</div><div class="l">no vendor lock</div></div>
+  <div class="metric"><div class="v">✓ Pi</div><div class="l">official support</div></div>
+</div>
+
+<h2 id="sec1">1 · Coverage matrix</h2>
+<p>14 obra skills × Patrick's actual installed library (verified via <code>ls ~/.hermes/skills/</code> + frontmatter grep, not memory). Verdict color codes the action recommended.</p>
+
+<table>
+<thead>
+<tr><th style="width:30%">obra/superpowers skill</th><th style="width:12%">File size</th><th style="width:33%">Patrick's equivalent</th><th>Verdict</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>brainstorming</strong><br><span style="color:var(--fg3);font-size:11px">+ visual-companion.md (13KB)</span></td><td>10.4KB SKILL<br>+ 13KB visual</td><td>⚠️ partial — <code>grilling</code> / <code>align</code> / <code>domain-modeling</code> exist but no <strong>hard gate</strong> workflow</td><td><span class="verdict v-gap">STRONG GAP</span></td></tr>
+<tr><td><strong>dispatching-parallel-agents</strong></td><td>6.6KB</td><td>⚠️ overlap — <code>parallel-subagent-content-extract</code> + <code>parallel-subagent-shared-contract</code> + <code>parallel-orchestrator-with-worktree</code></td><td><span class="verdict v-partial">OVERLAP</span></td></tr>
+<tr><td><strong>executing-plans</strong></td><td>2.6KB</td><td>⚠️ overlap — <code>plan/</code> + <code>plan-ceo-review/</code></td><td><span class="verdict v-partial">OVERLAP</span></td></tr>
+<tr><td><strong>finishing-a-development-branch</strong></td><td>6.8KB</td><td>❌ <strong>none</strong> — no PR / merge / cleanup workflow</td><td><span class="verdict v-gap">STRONG GAP</span></td></tr>
+<tr><td><strong>receiving-code-review</strong></td><td>6.4KB</td><td>❌ <strong>none</strong> — <code>code-review/</code> has only <code>zoom-out-explainer</code></td><td><span class="verdict v-gap">STRONG GAP</span></td></tr>
+<tr><td><strong>requesting-code-review</strong></td><td>—</td><td>✅ <code>software-development/requesting-code-review</code></td><td><span class="verdict v-yes">COVERED</span></td></tr>
+<tr><td><strong>subagent-driven-development</strong></td><td>—</td><td>✅ <code>software-development/subagent-driven-development</code> v1.2.0</td><td><span class="verdict v-yes">COVERED</span></td></tr>
+<tr><td><strong>systematic-debugging</strong></td><td>—</td><td>✅ <code>software-development/systematic-debugging</code></td><td><span class="verdict v-yes">COVERED</span></td></tr>
+<tr><td><strong>test-driven-development</strong></td><td>—</td><td>✅ <code>software-development/test-driven-development</code></td><td><span class="verdict v-yes">COVERED</span></td></tr>
+<tr><td><strong>using-git-worktrees</strong></td><td>7.5KB</td><td>⚠️ partial — worktree pattern in <code>parallel-orchestrator-with-worktree</code>, not isolated skill</td><td><span class="verdict v-partial">PARTIAL</span></td></tr>
+<tr><td><strong>using-superpowers</strong></td><td>3.1KB</td><td>✅ <code>meta/claude-superpowers</code> (Hermes-flavored master guide)</td><td><span class="verdict v-yes">COVERED</span></td></tr>
+<tr><td><strong>verification-before-completion</strong></td><td>4.2KB</td><td>⚠️ scattered — <code>agent-self-evaluation</code> + <code>agent-trace-integrity</code> + <code>audit</code> cover verification <em>as workflow</em>, but <strong>no hard gate</strong></td><td><span class="verdict v-gap">STRONG GAP</span></td></tr>
+<tr><td><strong>writing-plans</strong></td><td>—</td><td>✅ <code>software-development/writing-plans</code> + <code>plan/</code></td><td><span class="verdict v-yes">COVERED</span></td></tr>
+<tr><td><strong>writing-skills</strong><br><span style="color:var(--fg3);font-size:11px">+ anthropic-best-practices.md (46KB)</span></td><td>26.4KB SKILL<br>+ 46KB ref</td><td>✅ <code>software-development/hermes-agent-skill-authoring</code> (Hermes-specific), but obra's <strong>persuasion-principles</strong> + <strong>testing-skills-with-subagents</strong> are additive</td><td><span class="verdict v-need">ADDITIVE</span></td></tr>
+</tbody>
+</table>
+
+<h2 id="sec2">2 · The real increment is the workflow chain, not individual skills</h2>
+
+<p>Patrick's 165+ skills are a <strong>parts library</strong>. obra/superpowers is the <strong>assembly manual</strong>. The 14 skills chain into:</p>
+
+<pre style="background:var(--bg3);padding:16px;border-radius:8px;overflow-x:auto;font-size:12.5px;line-height:1.7"><span style="color:var(--fg3)">// obra's intended workflow chain</span>
+brainstorming  →  writing-plans  →  subagent-driven-development
+                                       ↓ (per task)
+                              requesting-code-review
+                                       ↓ (final)
+                              receiving-code-review  →  finishing-a-development-branch  →  verification-before-completion</pre>
+
+<p>Patrick currently has the <strong>blocks</strong> but not the <strong>sequencing</strong>. The 4 strong-gap skills above are the missing link-ends of this chain. Picking just <code>brainstorming</code> + <code>finishing-a-development-branch</code> would already close 2 of the 3 chain breaks.</p>
+
+<div class="callout">
+<strong>Chain read:</strong> Patrick's last 5 sessions (e.g. 2026-07-12 daily-reports v8 polish) involved ~6 hours of building, but the <em>entry</em> (brainstorm) and <em>exit</em> (finishing branch + verification gate) of those sessions were often skipped or compressed into memory rather than a real workflow. obra's chain would make those steps visible and auditable.
+</div>
+
+<h2 id="sec3">3 · The 4 strong-gap skills, deep-dive</h2>
+
+<div class="cards">
+
+<div class="card gap">
+  <div class="tag">GAP #1</div>
+<h3>brainstorming</h3>
+<p class="why">Patrick has <code>grilling</code> (single-question interview), <code>align</code> (clarify rounds), <code>domain-modeling</code> (bounded-context) — but no <strong>"no implementation until design approved"</strong> workflow. Sessions often jump from "make a v8 daily-reports" directly to <code>write_file</code> of new HTML.</p>
+<div class="quote">"Do NOT invoke any implementation skill, write any code, scaffold any project, or take any implementation action until you have presented a design and the user has approved it. This applies to EVERY project regardless of perceived simplicity."<br><span style="color:var(--fg3);font-size:11px">— obra/superpowers brainstorming/SKILL.md</span></div>
+<div class="fix"><strong>obra's answer:</strong> HARD-GATE HTML directive. "Every project goes through this process. A todo list, a single-function utility, a config change — all of them. 'Simple' projects are where unexamined assumptions cause the most wasted work."</div>
+<div class="meta"><span>📦 10KB SKILL + 13KB visual-companion</span><span>⏱ reverse-port 1h</span><span>🎯 HIGH</span></div>
+</div>
+
+<div class="card gap">
+  <div class="tag">GAP #2</div>
+<h3>finishing-a-development-branch</h3>
+<p class="why">Patrick has no formal PR / merge / cleanup workflow. <code>gh-pr-workflow</code> exists in <code>github/</code> as low-level primitives, but no "tests pass → detect env → present options (merge / PR / cleanup) → execute → cleanup worktree" workflow.</p>
+<div class="quote">"Verify tests → Detect environment → Present options → Execute choice → Clean up."<br><span style="color:var(--fg3);font-size:11px">— obra/superpowers finishing-a-development-branch/SKILL.md</span></div>
+<div class="fix"><strong>obra's answer:</strong> 5-step recipe: run test suite first, then detect (GitHub repo? bare git? plain files?), then 4-option menu (merge / PR / cleanup / leave), then execute, then nuke worktree.</div>
+<div class="meta"><span>📦 6.8KB SKILL</span><span>⏱ reverse-port 0.5h</span><span>🎯 MEDIUM-HIGH</span></div>
+</div>
+
+<div class="card gap">
+  <div class="tag">GAP #3</div>
+<h3>receiving-code-review</h3>
+<p class="why">Patrick has <code>requesting-code-review</code> but <strong>not</strong> how to <em>receive</em> code review. <code>code-review/</code> contains only <code>zoom-out-explainer</code> — no skill for "subagent sends back 'fix X, Y, Z' — how to evaluate technically without performing agreement".</p>
+<div class="quote">"Code review requires technical evaluation, not emotional performance. Verify before implementing. Ask before assuming. Technical correctness over social comfort."<br><span style="color:var(--fg3);font-size:11px">— obra/superpowers receiving-code-review/SKILL.md</span></div>
+<div class="fix"><strong>obra's answer:</strong> 6-step pattern: READ → UNDERSTAND (restate in own words) → VERIFY (against codebase reality) → EVALUATE (sound for THIS codebase?) → RESPOND (technical ack or reasoned pushback) → IMPLEMENT (one item at a time, test each).</div>
+<div class="meta"><span>📦 6.4KB SKILL</span><span>⏱ reverse-port 0.5h</span><span>🎯 MEDIUM</span></div>
+</div>
+
+<div class="card gap">
+  <div class="tag">GAP #4</div>
+<h3>verification-before-completion</h3>
+<p class="why">Patrick has <code>agent-self-evaluation</code> (5-axis scorecard at task end), <code>agent-trace-integrity</code> (no fabrication), <code>audit</code> (cron / site health) — all <em>post-hoc</em>. None are a <strong>pre-claim</strong> hard gate that says "evidence before assertions always".</p>
+<div class="quote">"NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE. If you haven't run the verification command in this message, you cannot claim it passes."<br><span style="color:var(--fg3);font-size:11px">— obra/superpowers verification-before-completion/SKILL.md</span></div>
+<div class="fix"><strong>obra's answer:</strong> 4.2KB tight gate function. Iron Law = "no completion without fresh verification". Forces "I ran X, output Y" before "fixed". Composes well with Patrick's existing <code>agent-self-evaluation</code>.</div>
+<div class="meta"><span>📦 4.2KB SKILL</span><span>⏱ reverse-port 0.5h</span><span>🎯 HIGH</span></div>
+</div>
+
+</div>
+
+<h2 id="sec4">4 · Additive value (1 skill)</h2>
+
+<div class="cards">
+
+<div class="card partial">
+  <div class="tag">ADDITIVE</div>
+<h3>writing-skills (obra's metadata layer)</h3>
+<p class="why">Patrick's <code>hermes-agent-skill-authoring</code> is Hermes-specific (uses <code>gene:</code> <code>capsule:</code> <code>depends_on:</code> fields). obra's <code>writing-skills</code> brings 3 additive things not in Patrick's version:</p>
+<p class="fix"><strong>(1)</strong> <code>anthropic-best-practices.md</code> (46KB) — official Anthropic skill authoring doc, free reference<br><strong>(2)</strong> <code>persuasion-principles.md</code> — how to write skills an LLM will <em>actually follow</em> under pressure<br><strong>(3)</strong> <code>testing-skills-with-subagents.md</code> — TDD-for-skills: write pressure scenario → watch fail → write skill → watch pass</p>
+<div class="meta"><span>📦 26KB SKILL + 78KB references</span><span>⏱ cherry-pick 1.5h</span><span>🎯 MEDIUM</span></div>
+</div>
+
+</div>
+
+<h2 id="sec5">5 · Risk assessment</h2>
+
+<div class="risk">
+<strong>⚠ Hazard C — blanket install overwrites local patches.</strong> Patrick's <code>meta/claude-superpowers/SKILL.md</code> (already in the library) has Hazard C documented: <code>npx skills add ... -g</code> replaces skill directories silently. <strong>Never blanket-install.</strong> Always cherry-pick + reverse-port to Patrick's SKILL.md schema (<code>gene</code> / <code>capsule</code> / <code>depends_on</code>).
+</div>
+
+<div class="risk">
+<strong>⚠ Frontmatter schema drift.</strong> obra uses standard frontmatter (<code>name</code>, <code>description</code>). Patrick extends with <code>gene</code> + <code>capsule</code> + <code>depends_on</code>. Direct install would lose these fields and break Patrick's skill routing. Reverse-port is mandatory.
+</div>
+
+<div class="risk">
+<strong>⚠ Vendor lock by another name.</strong> obra/superpowers is MIT and supports 10 coding agents (Claude Code, Codex, Cursor, Pi, OpenCode, etc.) — not strict vendor lock. But design assumptions (e.g. <code>&lt;HARD-GATE&gt;</code>, <code>&lt;SUBAGENT-STOP&gt;</code>, subagent protocols) are <em>Claude Code idioms</em>. Pi is officially supported but secondary. <strong>Mitigation:</strong> test on a small pilot (one skill, one task) before committing all 4.
+</div>
+
+<h2 id="sec6">6 · What's NOT worth picking (overlap zone)</h2>
+<p>The 5 overlap-zone skills are tempting because they're in the chain, but Patrick's equivalents already cover the substance:</p>
+
+<table>
+<thead>
+<tr><th>obra skill</th><th>Patrick's equivalent</th><th>Why skip</th></tr>
+</thead>
+<tbody>
+<tr><td><code>dispatching-parallel-agents</code></td><td><code>parallel-orchestrator-with-worktree</code> + <code>parallel-subagent-shared-contract</code></td><td>Patrick's version is more sophisticated (worktree + contract + 5-step loop)</td></tr>
+<tr><td><code>executing-plans</code></td><td><code>plan/</code> + <code>plan-ceo-review</code> + <code>subagent-driven-development</code> v1.2.0</td><td>Direct overlap. Plan execution is already a subagent-driven step</td></tr>
+<tr><td><code>using-git-worktrees</code></td><td>worktree pattern in <code>parallel-orchestrator-with-worktree</code></td><td>Patrick has it; obra's is just more verbose</td></tr>
+<tr><td><code>using-superpowers</code></td><td><code>meta/claude-superpowers</code> (Hermes-flavored)</td><td>Already covered</td></tr>
+<tr><td><code>requesting-code-review</code> / <code>subagent-driven-development</code> / <code>systematic-debugging</code> / <code>test-driven-development</code> / <code>writing-plans</code></td><td>—</td><td>Already 1:1 covered in Patrick's library</td></tr>
+</tbody>
+</table>
+
+<h2 id="sec7">7 · Status update — full chain import shipped</h2>
+<p style="color:var(--lime);font-weight:600;margin-bottom:16px">✓ Option 2 (Full chain import) was selected and shipped on 2026-07-15. This section reflects actual outcome.</p>
+
+<div class="metric-bar" style="margin-top:0">
+  <div class="metric"><div class="v">15</div><div class="l">SKILL.md files</div></div>
+  <div class="metric"><div class="v">~150KB</div><div class="l">skills total</div></div>
+  <div class="metric"><div class="v">64.7KB</div><div class="l">3 reference docs</div></div>
+  <div class="metric"><div class="v">120KB</div><div class="l">decision tree walk</div></div>
+  <div class="metric"><div class="v">0</div><div class="l">broken deps</div></div>
+  <div class="metric"><div class="v">0</div><div class="l">desc overflow</div></div>
+</div>
+
+<div class="cards">
+  <div class="card have">
+    <div class="tag">TIER 1</div>
+    <h3>Strong gaps (4 skills · full)</h3>
+    <div class="why"><code>obra-superpowers-brainstorming</code> · <code>obra-superpowers-finishing-a-development-branch</code> · <code>obra-superpowers-receiving-code-review</code> · <code>obra-superpowers-verification-before-completion</code><br>Original obra content preserved (HARD-GATE / 6-step recipe / 6-step pattern / Iron Law + Gate Function).</div>
+  </div>
+  <div class="card have">
+    <div class="tag">TIER 2</div>
+    <h3>Chain-critical (3 skills · full)</h3>
+    <div class="why"><code>obra-superpowers-using-superpowers</code> · <code>obra-superpowers-writing-plans</code> · <code>obra-superpowers-subagent-driven-development</code><br>Including the per-task loop + file-handoff pattern (task-brief / report / review-package as files) + durable progress ledger.</div>
+  </div>
+  <div class="card have">
+    <div class="tag">TIER 3</div>
+    <h3>Workflow support (4 skills · full)</h3>
+    <div class="why"><code>obra-superpowers-using-git-worktrees</code> · <code>obra-superpowers-requesting-code-review</code> · <code>obra-superpowers-systematic-debugging</code> · <code>obra-superpowers-test-driven-development</code></div>
+  </div>
+  <div class="card partial">
+    <div class="tag">TIER 4</div>
+    <h3>Alternatives (3 skills · thin ref)</h3>
+    <div class="why"><code>obra-superpowers-dispatching-parallel-agents</code> · <code>obra-superpowers-executing-plans</code> · <code>obra-superpowers-writing-skills</code><br>Thin references pointing to Patrick's primary skills (parallel-subagent-shared-contract / plan / hermes-agent-skill-authoring).</div>
+  </div>
+  <div class="card gap">
+    <div class="tag">META</div>
+    <h3>Workflow chain orchestrator</h3>
+    <div class="why"><code>meta/obra-superpowers-workflow-chain</code> (8KB) — decision tree that routes user to the right downstream skill based on phase. Composes with <code>meta/claude-superpowers</code>.</div>
+  </div>
+</div>
+
+<h2 id="sec8">8 · Reference docs — fetched locally</h2>
+<p>obra's writing-skills ships 3 reference docs that aren't in Patrick's <code>hermes-agent-skill-authoring</code>. All 3 fetched locally at <code>~/.hermes/skills/software-development/obra-superpowers-writing-skills/references/</code>:</p>
+
+<table>
+<thead>
+<tr><th>File</th><th>Size</th><th>When to read</th></tr>
+</thead>
+<tbody>
+<tr><td><code>anthropic-best-practices.md</code></td><td>46.2KB</td><td>BEFORE writing a new class-level skill</td></tr>
+<tr><td><code>persuasion-principles.md</code></td><td>5.9KB</td><td>WHEN bulletproofing a discipline-enforcing skill</td></tr>
+<tr><td><code>testing-skills-with-subagents.md</code></td><td>12.6KB</td><td>BEFORE running pressure-scenario validation</td></tr>
+</tbody>
+</table>
+
+<h2 id="sec9">9 · Pilot test — decision tree walk</h2>
+<p>Static verification of <code>meta/obra-superpowers-workflow-chain</code> routing logic against 2 realistic scenarios:</p>
+
+<div class="callout">
+<strong>Scenario A — "add dark mode to daily-reports.html"</strong><br>
+Step 1: creative? <span style="color:var(--green)">YES</span> → <code>brainstorming</code><br>
+Step 2: multi-step? <span style="color:var(--green)">YES</span> → <code>writing-plans</code><br>
+Step 3: plan exists → <code>subagent-driven-development</code><br>
+Per task → <code>requesting-code-review</code><br>
+End → <code>finishing-a-development-branch</code><br>
+Pre-claim → <code>verification-before-completion</code><br>
+<strong>Result: chain routing CORRECT ✓</strong>
+</div>
+
+<div class="callout">
+<strong>Scenario B — "tests fail on CI"</strong><br>
+Step 1: creative? <span style="color:var(--red)">NO</span> (bug)<br>
+Cross-cutting → <code>systematic-debugging</code><br>
+Phase 4 step 1 → <code>test-driven-development</code> (failing test)<br>
+Pre-claim → <code>verification-before-completion</code><br>
+<strong>Result: chain routing CORRECT ✓</strong>
+</div>
+
+<p style="color:var(--fg3);font-size:13px;margin-top:12px"><strong>Caveat:</strong> This was a <em>static logic check</em> against the decision tree, not a <em>runtime trigger test</em>. Runtime verification = next session, give a real "build X" task and see if the meta-skill intercepts vs jumping straight to implementation.</p>
+
+<h2 id="sec10">10 · Appendix — verification</h2>
+<p>This audit was produced with the following evidence:</p>
+<ul class="prose">
+<li><strong>obra source</strong> — 14 raw SKILL.md files pulled via <code>raw.githubusercontent.com/obra/superpowers/main/skills/{name}/SKILL.md</code> on 2026-07-15</li>
+<li><strong>obra metadata</strong> — GitHub REST API <code>api.github.com/repos/obra/superpowers</code> (stars/forks/created_at/last_push confirmed)</li>
+<li><strong>Patrick's library</strong> — <code>ls -la ~/.hermes/skills/{software-development,autonomous-ai-agents,code-review}/</code> on 2026-07-15</li>
+<li><strong>Grep verification</strong> — <code>grep -lr "verif|brainstorm|receiving.*code.*review"</code> cross-checked against described equivalents</li>
+<li><strong>Network reliability</strong> — <code>raw.githubusercontent.com</code> + <code>api.github.com</code> both responsive (10/10 calls OK) from this session</li>
+</ul>
+
+<div class="footer">
+obra/superpowers audit · Patrick decision support · 2026-07-15 · single-file HTML · no deploy requested
+</div>
+
+</div>
+
+<script>
+// Scroll-spy for TOC sidebar
+(function(){
+  const links = document.querySelectorAll('.toc-sidebar a');
+  const sections = Array.from(links).map(a => {
+    const id = a.getAttribute('href').slice(1);
+    return { link: a, target: document.getElementById(id) };
+  }).filter(x => x.target);
+  if(!sections.length) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        sections.forEach(s => s.link.classList.remove('active'));
+        const m = sections.find(s => s.target === e.target);
+        if(m) m.link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+  sections.forEach(s => observer.observe(s.target));
+  links.forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.getElementById(a.getAttribute('href').slice(1));
+    if(t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+})();
+
+// Animated counter for metric values + hero chips
+(function(){
+  const animateCount = el => {
+    if(el.dataset.animated) return;
+    el.dataset.animated = '1';
+    const text = el.textContent;
+    const match = text.match(/(\d[\d,]*\.?\d*)/);
+    if(!match) return;
+    const target = parseFloat(match[1].replace(/,/g, ''));
+    const prefix = text.slice(0, match.index);
+    const suffix = text.slice(match.index + match[1].length);
+    const isInt = !match[1].includes('.');
+    const duration = 900;
+    const start = performance.now();
+    const step = now => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const v = isInt ? Math.round(target * eased) : (target * eased).toFixed(1);
+      el.textContent = prefix + (isInt ? v.toLocaleString() : v) + suffix;
+      if(t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const targets = document.querySelectorAll('.metric .v, .hero-banner .chip');
+  const obs = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting) animateCount(e.target); });
+  }, { threshold: 0.4 });
+  targets.forEach(t => obs.observe(t));
+})();
+
+// Back-to-top button
+(function(){
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.innerHTML = '\u2191';
+  btn.title = 'Back to top';
+  btn.setAttribute('aria-label', 'Back to top');
+  document.body.appendChild(btn);
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if(!ticking){
+      requestAnimationFrame(() => {
+        btn.classList.toggle('show', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,27 @@
 [
   {
+    "title": "🆕 obra/superpowers audit — 15 skills reverse-ported · 4 strong gaps filled (brainstorming / finishing-a-branch / receiving-code-review / verification) · meta/obra-superbrains-superpowers-workflow-chain orchestrator · 3 reference docs fetched locally (anthropic-best-practices 46KB + persuasion 6KB + testing 13KB) · 14-skill framework · MIT · Pi official support · 10-section polish-grade HTML (hero banner + animated counters + TOC scroll-spy + back-to-top) · 34.8KB",
+    "file": "daily-reports/superpowers-audit-2026-07-15.html",
+    "date": "2026-07-15",
+    "category": "research",
+    "track": "brief",
+    "summary": "obra/superpowers (254K★ MIT) audit + full chain import shipped 2026-07-15. Coverage: 7/14 skills already covered, 4 strong gaps filled (HARD-GATE brainstorming + 6-step finishing-a-branch + READ-UNDERSTAND-VERIFY-EVALUATE-RESPOND-IMPLEMENT receiving-code-review + Iron Law verification-before-completion). 3 chain-critical reverse-ported (using-superpowers + writing-plans + subagent-driven-development). 4 workflow support. 3 thin references to Patrick's primary skills. Static pilot test (decision tree walk) PASS. Caveat: runtime trigger test = next session.",
+    "featured": true,
+    "tags": [
+      "obra-superpowers",
+      "reverse-port",
+      "agent-os",
+      "workflow-chain",
+      "audit",
+      "mit",
+      "pi-official",
+      "hard-gate",
+      "iron-law",
+      "polish-grade"
+    ],
+    "added_at": "2026-07-15T18:00:00+08:00"
+  },
+  {
     "title": "🆕 AI-Native Org Transformation Suite V4 — 4 公司 (IBM / Klarna / 乐天 / 星展银行) × 7 模块全景 (全景/四家公司/组织演化/任务市场/角色问责/机器审计/365天行动) · 100% proud 模式 polish · 数据语义 / 交互 100% 保留 · 加 4 项升级:sticky 渐变 nav / 4 公司 chip + active glow / 40px 大数字 KPI / 双主题 toggle + localStorage · 107KB 单 HTML · 0 外部依赖 / 0 npm / 0 CDN",
     "file": "daily-reports/ai-native-org-transformation-v4.html",
     "date": "2026-07-15",
