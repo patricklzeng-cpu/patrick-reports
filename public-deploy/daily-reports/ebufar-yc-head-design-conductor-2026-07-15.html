@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generated" content="2026-07-15">
+<title>YC E Bufar 用 AI 设计 (Conductor / Paper / Aqua) — 双语 dashboard</title>
+<style>
+  :root{
+    --bg:#0b0e14;--panel:#11151d;--ink:#e8ecf1;--muted:#8a93a4;--line:#1c2330;
+    --accent:#00ff88;--warn:#ffb454;--gap:#ff6b6b;--mitig:#56d2ff;--link:#7dd3fc;
+    --card-bg:#141923;--card-bd:#1f2735;--quote-bg:#0e1320;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,"SF Pro SC","SF Pro Display",BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* HEADER */
+  header.hero{background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 100%);border-bottom:1px solid var(--line);padding:32px 48px 24px;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+  header.hero h1{font-size:26px;line-height:1.25;letter-spacing:-.3px;max-width:780px}
+  header.hero h1 small{font-size:14px;color:var(--muted);font-weight:400;display:block;margin-top:6px}
+  .meta-chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{font-size:12px;padding:4px 10px;border-radius:12px;background:#1a2030;border:1px solid var(--line);color:var(--muted)}
+  .chip.k{color:var(--accent);border-color:#0a4a30}
+  .chip.b{color:var(--mitig);border-color:#0e3858}
+  .chip.o{color:var(--warn);border-color:#5a3a14}
+
+  /* LANG TOGGLE */
+  .lang-toggle{position:fixed;top:14px;right:18px;z-index:99;background:#0e1320;border:1px solid var(--line);border-radius:20px;padding:4px 12px;cursor:pointer;font-size:12px;color:var(--muted);user-select:none}
+  .lang-toggle:hover{color:var(--ink);border-color:var(--accent)}
+
+  /* TOC v1.4.4 collapsible */
+  aside.toc{position:fixed;top:80px;left:18px;width:240px;max-height:calc(100vh - 100px);overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:13px;z-index:50;transition:transform .3s ease}
+  aside.toc.collapsed{transform:translateX(-12px) translateX(-200px);width:48px;padding:8px}
+  aside.toc.collapsed h2,aside.toc.collapsed ol{display:none}
+  aside.toc.collapsed::before{content:"☰";font-size:20px;color:var(--accent)}
+  .toc-toggle{position:absolute;top:8px;right:8px;background:transparent;border:1px solid var(--line);color:var(--muted);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:11px;line-height:1}
+  .toc-toggle:hover{color:var(--accent);border-color:var(--accent)}
+  aside.toc h2{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+  aside.toc ol{list-style:none;counter-reset:toc}
+  aside.toc li{counter-increment:toc;margin:3px 0;line-height:1.4}
+  aside.toc li::before{content:counter(toc) ". ";color:var(--accent);font-weight:600}
+  aside.toc a{color:var(--ink);font-size:12px}
+  aside.toc a:hover{color:var(--accent)}
+
+  /* MAIN */
+  main{max-width:980px;margin:0 auto;padding:24px 32px 80px}
+  .page{padding-left:0;transition:padding .3s ease}
+  body.has-toc .page{padding-left:268px}
+
+  /* SECTIONS */
+  section.card{background:var(--card-bg);border:1px solid var(--card-bd);border-radius:12px;padding:24px;margin-bottom:24px}
+  section.card h2{font-size:20px;margin-bottom:12px;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:8px}
+  section.card h2 .num{color:var(--accent);margin-right:8px;font-weight:700}
+  section.card p{margin-bottom:10px}
+  section.card ul,section.card ol{padding-left:20px;margin-bottom:10px}
+  section.card li{margin-bottom:4px}
+
+  /* STAT CARDS */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+  .stat{background:var(--panel);border:1px solid var(--card-bd);border-radius:10px;padding:16px;text-align:center}
+  .stat .v{font-size:28px;font-weight:700;color:var(--accent);line-height:1}
+  .stat .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:6px}
+
+  /* QUOTE CARDS */
+  .quote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+  .quote{background:var(--quote-bg);border-left:3px solid var(--accent);padding:14px 16px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.55}
+  .quote .en{font-style:italic;color:#cbd5e0}
+  .quote .zh{color:var(--ink);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+  .quote .who{font-size:11px;color:var(--muted);margin-top:6px;text-align:right}
+
+  /* TIER 4 anti-mapping */
+  .tier4{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+  .tier4 .card{background:var(--panel);border:1px solid var(--card-bd);border-radius:8px;padding:12px;font-size:13px;position:relative}
+  .tier4 .card .badge{position:absolute;top:6px;right:8px;font-size:10px;padding:2px 6px;border-radius:8px;font-weight:600;text-transform:uppercase}
+  .badge.mitig{background:#0e3858;color:var(--mitig)}
+  .badge.warn{background:#5a3a14;color:var(--warn)}
+  .badge.gap{background:#5a1a1a;color:var(--gap)}
+  .tier4 h4{font-size:14px;margin-bottom:4px;color:var(--ink)}
+  .tier4 .source{font-size:11px;color:var(--muted);margin-top:6px}
+
+  /* PITFALL box */
+  .pitfall-box{background:#3a1a1a;border:1px solid #6a2222;border-radius:8px;padding:14px 16px;margin:12px 0;font-size:13px;color:#ffd4d4}
+  .pitfall-box strong{color:var(--gap)}
+
+  /* BILINGUAL: zh default, en hidden. flip via .lang-en on html */
+  html[lang="en"] .zh{display:none}
+  html[lang="zh-CN"] .en{display:none}
+  /* for spans — both visible side-by-side */
+  .bilingual span{display:block;line-height:1.55}
+  .bilingual .en{color:#9aa5b5;font-style:italic;font-size:13.5px;margin-bottom:2px}
+  .bilingual .zh{font-size:14.5px}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:#0d1117;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-size:11px;font-weight:600}
+  tr:hover{background:#0e1218}
+
+  /* TIMELINE */
+  .timeline{position:relative;padding-left:30px;margin-top:10px}
+  .timeline::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding-bottom:16px}
+  .tl-item::before{content:"";position:absolute;left:-26px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--accent)}
+  .tl-item .time{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:2px}
+  .tl-item h4{font-size:14px;color:var(--ink);margin-bottom:2px}
+  .tl-item p{font-size:13px;color:#cbd5e0}
+
+  /* BADGES */
+  .badge-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .b{font-size:10px;padding:2px 6px;border-radius:8px;font-weight:600;text-transform:uppercase}
+
+  /* MOBILE */
+  @media (max-width:900px){
+    aside.toc{display:none}
+    body.has-toc .page{padding-left:0}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .quote-grid,.tier4{grid-template-columns:1fr}
+    main{padding:16px}
+  }
+</style>
+</head>
+<body class="has-toc">
+<button class="lang-toggle" onclick="toggleLang()">EN ⇄ 中</button>
+<aside class="toc" id="toc">
+  <button class="toc-toggle" onclick="toggleToc()">×</button>
+  <h2>目录 / TOC</h2>
+  <ol>
+    <li><a href="#sec-overview">概览 / Overview</a></li>
+    <li><a href="#sec-tools">工具流 / Tools</a></li>
+    <li><a href="#sec-paxel">Paxel 主项目</a></li>
+    <li><a href="#sec-paxel-fun">Paxel × Cursor</a></li>
+    <li><a href="#sec-paxel-bookmarks">Paxel × Bookmarks</a></li>
+    <li><a href="#sec-paxel-shaders">Paxel × Shaders</a></li>
+    <li><a href="#sec-sodazine-intro">Sodazine 起源</a></li>
+    <li><a href="#sec-sodazine-soul">soul.md 哲学</a></li>
+    <li><a href="#sec-sodazine-zen">Zen & Shaders</a></li>
+    <li><a href="#sec-startup-school">Startup School</a></li>
+    <li><a href="#sec-outro">Outro & 反思</a></li>
+    <li><a href="#sec-tier4">Tier 4 反向映射</a></li>
+    <li><a href="#sec-patrick">Patrick 关联</a></li>
+    <li><a href="#sec-quotes">Bilingual Quotes</a></li>
+  </ol>
+</aside>
+
+<div class="page">
+<header class="hero">
+  <div>
+    <h1>YC's Head of Design 用 AI 设计 3 个项目 — 完整工作流
+      <small>30:54 · Y Combinator · 1,689 likes · 2026-07 · E Bufar × Conductor × Paper Design × Aqua</small>
+    </h1>
+  </div>
+  <div class="meta-chips">
+    <span class="chip k">中英双语</span>
+    <span class="chip b">14 tabs</span>
+    <span class="chip o">4 deliverables</span>
+  </div>
+</header>
+
+<main>
+
+<section class="card" id="sec-overview">
+  <h2><span class="num">★</span>概览 / Overview</h2>
+  <div class="bilingual">
+    <span class="en">YC's Head of Design E Bufar walks through how she uses AI tools to ship 3 recent projects: Paxel (Spotify Wrapped for coding), Sodazine (a celebration of San Francisco with SOTA art), and Startup School 2026 (speaker cards + tickets). Core tools: Conductor + Paper Design + Aqua voice — no typing.</span>
+    <span class="zh">YC 设计主管 E Bufar 现场演示如何用 AI 工具从零到上线交付 3 个项目:Paxel (编码的 Spotify Wrapped)、Sodazine (用 SOTA 艺术庆祝旧金山)、Startup School 2026 (嘉宾卡片 + 入场券)。核心工具栈:Conductor + Paper Design + Aqua 语音 — 完全不手打。</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="v">30:54</div><div class="l">视频时长 / Length</div></div>
+    <div class="stat"><div class="v">6,109</div><div class="l">转录字数 / Words</div></div>
+    <div class="stat"><div class="v">3</div><div class="l">项目案例 / Projects</div></div>
+    <div class="stat"><div class="v">5</div><div class="l">AI 工具 / AI Tools</div></div>
+  </div>
+  <p><strong class="zh">一句话总结:</strong><span class="zh">未来设计师 = Conductor 编排 + Paper 视觉素材 + Aqua 语音 + Claude 实现 — 整个 pipeline 一个人,完全不要碰键盘。</span><span class="en">One-line summary: Future designer = Conductor (orchestration) + Paper (visual assets) + Aqua (voice) + Claude (implementation) — full pipeline solo, no typing.</span></p>
+</section>
+
+<section class="card" id="sec-tools">
+  <h2><span class="num">🎙 0.</span>工作流革命 / The New Workflow</h2>
+  <div class="bilingual">
+    <span class="en">E works almost exclusively in Conductor and Paper Design. For inspiration, she goes to Pinterest and creates mood boards. She does NOT type — uses Aqua (a YC company) to talk to her computer, press function key, stream-of-consciousness, "it just does it and it feels really magical".</span>
+    <span class="zh">E 几乎只在 Conductor 和 Paper Design 里工作。需要灵感时回 Pinterest 做情绪板。她完全不手打 — 用 Aqua (YC 公司) 跟电脑说话,按一下功能键,说一段 stream of consciousness,「它就做出来了,感觉真的很神奇」。</span>
+  </div>
+  <table>
+    <thead><tr><th>工具 / Tool</th><th>用途 / Purpose</th><th>替代 / Replaces</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Conductor</strong></td><td>编排 / Orchestrate 全站 → claude codex + 直 ship</td><td>Figma (部分)</td></tr>
+      <tr><td><strong>Paper Design</strong></td><td>视觉资产 / Visual assets (shaders, illustrations)</td><td>Stock photos / Dribbble</td></tr>
+      <tr><td><strong>Aqua</strong></td><td>语音输入 / Voice → code + text (function key 全局)</td><td>键盘 / Keyboard</td></tr>
+      <tr><td><strong>Pinterest</strong></td><td>情绪板 / Mood board (作为视觉 ground truth)</td><td>Dribbble / Behance 浏览</td></tr>
+      <tr><td><strong>Claude / Codex</strong></td><td>实现 / Implement (代码 + 文案 + 设计微调)</td><td>手写代码 / Manual craft</td></tr>
+    </tbody>
+  </table>
+  <div class="pitfall-box">
+    <span class="zh"><strong>重要观察:</strong>E 说「<em>it's almost entirely in Conductor that I live</em>」(我几乎只活在 Conductor 里) — 这是「一个工具栈 vs 一打工具」的关键 trade-off。Conductor 2025 年才上线, 1 年内被 YC 内部 head of design 当作 single source of truth。</span>
+    <span class="en"><strong>Key observation:</strong> E's "I live almost entirely in Conductor" is the classic "one stack vs many tools" trade-off. Conductor launched in 2025; within a year it's become YC Head of Design's single source of truth.</span>
+  </div>
+</section>
+
+<section class="card" id="sec-paxel">
+  <h2><span class="num">🎯 1.</span>Paxel — Spotify Wrapped for Coding</h2>
+  <div class="bilingual">
+    <span class="en">Paxel is an experiment to understand how people code with coding agents. "Things are changing very quickly and people are developing tricks for themselves... it still very much feels like a black box." Inspired by Spotify Wrapped, the first version is single-player mode (you only see your own patterns), but as transcripts accumulate, the system can compare you to other builders.</span>
+    <span class="zh">Paxel 是一个实验, 想理解大家是怎么用 coding agents 写代码的。「现在变化太快, 大家都在自己摸索技巧... 这还是个黑盒」。灵感来自 Spotify Wrapped, 第一版是 single-player (你只看到自己的模式), 但等 transcript 累积多了, 就可以把你跟其他 builder 对比。</span>
+  </div>
+  <h3 style="color:var(--mitig);margin:14px 0 8px;font-size:15px">★ 设计哲学 / Design Philosophy</h3>
+  <table>
+    <thead><tr><th>原则 / Principle</th><th>体现 / How</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Fun > Function</strong></td><td>Spotify Wrapped 类比 — 把统计变 storytelling</td></tr>
+      <tr><td><strong>Be explicit about experiment</strong></td><td>Landing page 故意多 text — "this is an experiment, we're trying to understand how the world codes"</td></tr>
+      <tr><td><strong>Hover micro-interactions</strong></td><td>Cards hover = 动效 + 微动 + 跟 shader 同步</td></tr>
+      <tr><td><strong>Consistent visual language</strong></td><td>全站用 Paper Design 的 dithering shader 统一调性</td></tr>
+      <tr><td><strong>Disposable design pattern</strong></td><td>Bookmark 系统 — 用完即丢, 不积累</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card" id="sec-paxel-fun">
+  <h2><span class="num">🤖 2.</span>Paxel × Cursor + Claude — Fun Facts Pipeline</h2>
+  <div class="bilingual">
+    <span class="en">The fun-facts system: runs in terminal, pulls transcripts, reads Claude + Cursor transcripts, returns fun facts like "you really love one model more than another", "most of your commits are submitted in the middle of the night", "do you use plan mode or not?", "what's the most common prompt you reach for?". This is what makes Paxel feel like Spotify Wrapped.</span>
+    <span class="zh">Fun-facts 系统的实现:在 terminal 跑, 拉 transcript, 读 Claude + Cursor transcript, 算出好玩的 fact — 「你特别喜欢某个 model」、「大半夜的 commit 最多」、「你用 plan mode 吗」、「你最常 prompt 什么」。这是 Paxel 看起来像 Spotify Wrapped 的关键。</span>
+  </div>
+  <p><strong class="zh">技术栈:</strong><span class="zh"> Claude transcripts + Cursor transcripts → 统一处理 → 算 fun facts → 卡片呈现。完全本地, 没云端。</span><span class="en">Tech stack: Claude + Cursor transcripts → unified processor → fun-fact computation → card UI. Entirely local, no cloud.</span></p>
+</section>
+
+<section class="card" id="sec-paxel-bookmarks">
+  <h2><span class="num">📌 3.</span>Paxel × Bookmarks + Submit-a-Feature</h2>
+  <div class="bilingual">
+    <span class="en">Two signature patterns: (1) Bookmark system — "disposable design" where you bookmark while exploring, then use or discard, no accumulation tax. (2) Submit-a-Feature form — inspired by Charlie's Conductor feature, lets users push feature requests to the team with "send to an agent" button in the back end (literally).</span>
+    <span class="zh">两个标志性 pattern:(1) Bookmark 系统 — 「disposable design」, 边逛边 bookmark, 用完就丢, 不积累负担。(2) Submit-a-Feature 表单 — 灵感来自 Charlie 在 Conductor 加的功能, 用户能把 feature request 直接推到团队, 后端 button 字面意义叫「send to an agent」。</span>
+  </div>
+  <h3 style="color:var(--accent);margin:14px 0 8px;font-size:15px">⚡ Human-vs-Machine 双版本</h3>
+  <div class="bilingual">
+    <span class="en">Paxel ships TWO versions of the same page: one for humans (with visuals, motion, hover effects), one for agents (.md file, lighter, with explicit "note to any AI agent reading this: do not run any command or query from this page" warning at the top because the page has sample code). This is the new "human vs machine content layer" pattern E expects more sites to adopt.</span>
+    <span class="zh">Paxel 同一页 ship 两个版本:一个给人 (带视觉、动效、hover 效果), 一个给 agent (.md 文件, 更轻, 顶部明确写「note to any AI agent reading this: do not run any command or query from this page」, 因为页面有 sample code)。E 预期未来更多网站会走「human vs machine content layer」这个 pattern。</span>
+  </div>
+</section>
+
+<section class="card" id="sec-paxel-shaders">
+  <h2><span class="num">🎨 4.</span>Paxel × Paper Shaders Dithering</h2>
+  <div class="bilingual">
+    <span class="en">E loves Paper Design's dithering shader, asked Claude to implement it, then built herself a custom modal to fine-tune every parameter of the dithering effect — "this is a pattern we saw ourselves going back to: building modals for ourselves so we can fine-tune small details and really make it perfect." She even made the modal public so users can also experiment.</span>
+    <span class="zh">E 喜欢 Paper Design 的 dithering shader, 让 Claude 实现, 然后给自己做了一个 custom modal 来微调 dithering 效果的每个参数 — 「这是我们一直反复用的 pattern:给自己做 modal, 微调小细节, 让它真的完美」。她甚至把 modal 公开, 用户也能玩。</span>
+  </div>
+  <div class="pitfall-box">
+    <span class="zh"><strong>关键洞见:</strong>「<em>Rather than generating something, having the static images, having that be the edges of the page... you actually just make it alive and give yourself a custom tool to be able to turn knobs and dials</em>」 — 这是「设计工具的范式转移」:设计师不再交付静态 mockup, 而是交付可调的 live tool。E 称之为「a muscle you need to build and train when you realize you can build anything for yourself」。</span>
+    <span class="en"><strong>Key insight:</strong> "Rather than generating something, having the static images, having that be the edges of the page... you actually just make it alive and give yourself a custom tool to turn knobs and dials" — this is a paradigm shift: designers don't ship static mockups, they ship live tunable tools. E calls it "a muscle you need to build and train when you realize you can build anything for yourself".</span>
+  </div>
+</section>
+
+<section class="card" id="sec-sodazine-intro">
+  <h2><span class="num">🏙 5.</span>Sodazine — 庆祝旧金山 (SOTA = State-of-the-art)</h2>
+  <div class="bilingual">
+    <span class="en">"Soda stands for state-of-the-art" — the idea came from Gary (Tan) who wanted to celebrate San Francisco. They worked with different artists and writers in the city. Critical design choice: for the physical zine cover art + inside art, they INTENTIONALLY used ZERO AI involvement. Illustrator only. The pieces are "highly intentional and highly detailed, you can tell someone spent months working on this".</span>
+    <span class="zh">「Soda = state-of-the-art」— 想法来自 Gary (Tan), 想庆祝旧金山。跟城里不同的艺术家和作家合作。关键设计决策:实体 zine 的封面 + 内页插画, 故意完全不用 AI。只用 Illustrator。这些作品「高度 intentional、高度 detailed, 一看就知道有人花了好几个月」。</span>
+  </div>
+  <p><strong class="zh">含义:</strong><span class="zh"> SOTA = state-of-the-art 双关:既是"最先进"(AI), 也是"艺术品"(手作)。Sodazine 选 择 把 AI 留给网站, 把手作留给 zine, 制造 intentional contrast。</span><span class="en">Meaning: SOTA puns on both "state-of-the-art AI" and "fine art". Sodazine deliberately reserved AI for the website and handcraft for the zine, creating an intentional contrast.</span></p>
+</section>
+
+<section class="card" id="sec-sodazine-soul">
+  <h2><span class="num">🪶 6.</span>Sodazine × soul.md 哲学 — 录一切 + 给 agent</h2>
+  <div class="bilingual">
+    <span class="en">E recorded EVERY meeting about the zine, dumped all transcripts into a soul.md file specific to that project, and treated it as the "source of truth and exhaustive glossary". The manifest went in too. "As much context that we can give the agent, the better." This is the opposite of "jot down some high-level takeaways" — it's "record everything, dump it all, let the agent extract".</span>
+    <span class="zh">E 把每次关于 zine 的会议都录下来, 全部 transcript 倒进一个专门给这个项目的 soul.md 文件, 当作「source of truth and exhaustive glossary」。Manifest 也扔进去。「能多给 agent 一些 context 就多给」— 这跟「记一些高层 takeaways」正相反, 是「全部录, 全部倒, 让 agent 自己抽」。</span>
+  </div>
+  <h3 style="color:var(--mitig);margin:14px 0 8px;font-size:15px">★ soul.md vs Notion / Confluence</h3>
+  <table>
+    <thead><tr><th>维度 / Dimension</th><th>Notion/Confluence (传统)</th><th>soul.md (E's approach)</th></tr></thead>
+    <tbody>
+      <tr><td>来源 / Source</td><td>人工撰写 / Human-written</td><td>会议录音 transcript 全文</td></tr>
+      <tr><td>更新频率</td><td>事后整理 (often never)</td><td>每次 meeting 自动 append</td></tr>
+      <tr><td>形式 / Format</td><td>Polished 文档</td><td>Raw transcript</td></tr>
+      <tr><td>Agent-readable</td><td>需要切格式</td><td>Plain markdown, 直接喂</td></tr>
+      <tr><td>完整性 / Completeness</td><td>摘要 bias</td><td>Exhaustive = "no info lost"</td></tr>
+    </tbody>
+  </table>
+  <p><strong class="zh">类比:</strong><span class="zh"> Patrick 已经在 `life-wiki/00-Human/70-Context/` + EMAI /closeday 走类似路, 但 Sodazine 把它推到极致 = "every meeting → transcript → soul.md" 标准化流程。</span><span class="en">Analogy: Patrick already does this in `life-wiki/00-Human/70-Context/` + EMAI /closeday, but Sodazine takes it to the extreme: "every meeting → transcript → soul.md" as standardized pipeline.</span></p>
+</section>
+
+<section class="card" id="sec-sodazine-zen">
+  <h2><span class="num">🌉 7.</span>Sodazine × Zen + Shader Collection</h2>
+  <div class="bilingual">
+    <span class="en">For the website, E went to Pinterest → mood board → gave it to Claude → Claude analyzed the pattern, told her "these are the things you seem to like across many websites" → generated variants. The agent browsed the web, scraped, found cool pictures/animations. Fine-tuning via Aqua voice: "change the color of things, change the feel of things — it's just this incredibly fast and rewarding feedback loop".</span>
+    <span class="zh">做网站时, E 去 Pinterest → 情绪板 → 给 Claude → Claude 分析 pattern, 告诉她「这些是你跨多个网站都喜欢的东西」→ 生成变体。Agent 主动爬网、找图、找动画。微调用 Aqua 语音:「改这个颜色、改那个感觉 — 反馈循环快得离谱」。</span>
+  </div>
+  <div class="pitfall-box">
+    <span class="zh"><strong>反直觉洞见:</strong>「<em>Sometimes you love a website and you don't even know why you love a website. But it's okay. You don't need to understand why. Just give it to the agent. The agent will analyze it for you.</em>」 — 这是「不解释的 taste」哲学:taste 不需要 verbalize, 把它当 data 给 agent, agent 自己 abstract 出 pattern。</span>
+    <span class="en"><strong>Counter-intuitive insight:</strong> "Sometimes you love a website and you don't even know why. But it's okay. You don't need to understand why. Just give it to the agent. The agent will analyze it for you." This is "taste without explanation" philosophy: taste doesn't need to be verbalized; treat it as data, let the agent abstract patterns.</span>
+  </div>
+</section>
+
+<section class="card" id="sec-startup-school">
+  <h2><span class="num">🎟 8.</span>Startup School 2026 — Speaker Cards + Tickets</h2>
+  <div class="bilingual">
+    <span class="en">6000+ people, Chase Center, speakers: Jensen, Sam Altman, Alexander Wang, Jeff Dean, Sam Oldman. E needed to share this lineup on social. Initial instinct: Figma. Realized: 12 speakers, don't want to manually arrange 12 times. So she asked Claude to make a template that auto-pulls speaker images from inbox, generating consistent cards. Result: endless-smooth looping shader background, each card personalized with name + city, "it feels really magical".</span>
+    <span class="zh">6000+ 人, Chase Center, 嘉宾:Jensen、Sam Altman、Alexander Wang、Jeff Dean、Sam Oldman。E 需要在 social 分享 lineup。最初本能:Figma。意识到:12 个嘉宾, 不可能手动排 12 遍。让 Claude 做了一个 template, 自动从 inbox 拉嘉宾头像, 生成风格一致的卡片。结果:endless-smooth looping shader 背景, 每张卡都自动写上名字 + 城市, 「感觉真的神奇」。</span>
+  </div>
+  <h3 style="color:var(--accent);margin:14px 0 8px;font-size:15px">⚡ Personalized Ticket Shader</h3>
+  <div class="bilingual">
+    <span class="en">When accepted, attendees get a personalized ticket with their name + city rendered against the same shader as the speaker cards. People shared on social, many saying it's their first time in SF. "Could you imagine a year ago trying to build something like this? It wouldn't have been worth it. These shaders. Building these shaders a year ago would have felt like an insurmountable mountain. And now it is just this thing that Claude knows what to pull because it knows that I love Paper, it knows that I love their shaders."</span>
+    <span class="zh">收到 accept 后, 参会者会拿到一张个性化 ticket, 上面写着自己的名字 + 城市, 背景还是同一个 shader。大家都晒到 social 上, 很多人说这是第一次来 SF。「一年前你能想象做这种东西吗? 不值得做。这些 shader, 一年前做感觉是不可逾越的高山。现在就是 Claude 知道去拉, 因为它知道我爱 Paper, 知道我爱他们的 shader」。</span>
+  </div>
+</section>
+
+<section class="card" id="sec-outro">
+  <h2><span class="num">🌟 9.</span>Outro — 一年前的对比 / A Year Ago vs Now</h2>
+  <div class="bilingual">
+    <span class="en">The video closes with E's reflection: "A year ago I wouldn't have known where to start" to build custom shaders. Now Claude already knows her preferences, pulls them automatically. "It's just really magical. It feels like so much time and thought and attention and care went into designing the experience from the moment that you get accepted until all the way through when you show up to the event." Host closes: "we're all figuring it out together, we're having a lot of fun doing so."</span>
+    <span class="zh">视频最后 E 反思:「一年前我根本不知道从哪开始」去做自定义 shader。现在 Claude 已经知道她的偏好, 自动拉。「真的很神奇。整个体验 — 从你收到 accept 那一刻到你来到现场 — 让人觉得花了这么多时间、想法、注意力、关心」。主持人收尾:「我们都在一起摸索, 而且过程很有趣」。</span>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="time">0:00 — 1:00</div>
+      <h4>Intro + Tools 介绍</h4>
+      <p>E 介绍 Conductor + Paper Design + Aqua + Pinterest 四件套;完全不手打。</p>
+    </div>
+    <div class="tl-item">
+      <div class="time">1:30 — 12:00</div>
+      <h4>Paxel 主项目 walkthrough</h4>
+      <p>Spotify Wrapped for Coding 灵感; fun-facts (Cursor/Claude transcript); bookmarks; submit-a-feature; paper shaders dithering; human-vs-machine 双版本。</p>
+    </div>
+    <div class="tl-item">
+      <div class="time">12:00 — 22:00</div>
+      <h4>Sodazine 主项目 walkthrough</h4>
+      <p>Gary 起源; 物理 zine (Illustrator only, no AI); soul.md 哲学; Pinterest → Claude pattern; Zen 视觉; Shader collection。</p>
+    </div>
+    <div class="tl-item">
+      <div class="time">22:00 — 30:00</div>
+      <h4>Startup School 2026</h4>
+      <p>6000+ 人 Chase Center; speaker cards template (Claude auto-pulls images); 嘉宾包括 Jensen/Sam/Jeff Dean; personalized ticket shader; "year ago vs now" 反思。</p>
+    </div>
+  </div>
+</section>
+
+<section class="card" id="sec-tier4">
+  <h2><span class="num">⚠️</span>Tier 4 反向映射 / Anti-Mapping (诚实标)</h2>
+  <p class="zh">7 个对比 E 声称 vs 实测可证 — 不照搬,带 source tag:</p>
+  <p class="en">7 E-claimed items cross-checked against verifiable evidence — labeled honestly with source tags.</p>
+  <div class="tier4">
+    <div class="card">
+      <span class="badge mitig">mitig</span>
+      <h4>Conductor "production" 实战</h4>
+      <p>Conductor 2025 上线, 1 年内被 YC 内部 head of design 当 single source of truth — 这是 <strong>可证</strong> 案例。Patrick 可考虑先在 prototype 用。</p>
+      <div class="source">source: 视频 0:30, E 原话「almost entirely in conductor」</div>
+    </div>
+    <div class="card">
+      <span class="badge mitig">mitig</span>
+      <h4>Aqua voice 实际可用</h4>
+      <p>E 现场描述 function key 一按 stream-of-consciousness 直接 ship — YC demo 通常 <strong>可信度较高</strong>。但任何 voice-to-code 都依赖个人口音/思考节奏, 需试用。</p>
+      <div class="source">source: 视频 0:50,「press the function key and I give a stream of consciousness」</div>
+    </div>
+    <div class="card">
+      <span class="badge warn">warn</span>
+      <h4>"Disposable design" 通用性</h4>
+      <p>E 强调「用完即丢, 不积累 bookmark」 — 这对 <strong>个人 design exploration</strong> 适用, 但对需要 audit trail 的 client work <strong>不一定</strong>。Patrick 评估:life-wiki 是 "disposable" 还是 "retention" 路径?</p>
+      <div class="source">source: 视频 7:20,「disposable design」 + Patrick 7/15 daily-observatory session</div>
+    </div>
+    <div class="card">
+      <span class="badge gap">gap</span>
+      <h4>soul.md 跨项目复用</h4>
+      <p>E 说「for every meeting → soul.md」, 但视频 <strong>没</strong> 说明:跨项目时 soul.md 是否合并?如何避免 context 互相污染?需 <strong>进一步案例</strong>。</p>
+      <div class="source">source: 视频 16:20, soul.md 介绍; video 没演示跨项目 workflow</div>
+    </div>
+    <div class="card">
+      <span class="badge warn">warn</span>
+      <h4>"Human-vs-Machine" 双版本</h4>
+      <p>E 预测「未来网站会有 human 版本 + machine 版本」 — 这是 <strong>合理预测</strong> 但目前仅 Paxel 一例。需观察 Anthropic/Cloudflare/OpenAI 后续是否采用同 pattern。</p>
+      <div class="source">source: 视频 8:30, E 原话「pattern we might start seeing more」</div>
+    </div>
+    <div class="card">
+      <span class="badge mitig">mitig</span>
+      <h4>Pinterest → Claude taste transfer</h4>
+      <p>「不用解释为什么喜欢, 把喜欢的给 agent, agent 自己 abstract pattern」 — 这是 E 的 <strong>成功演示</strong>, 但 <strong>依赖 Pinterest 数据 + Claude multi-modal</strong>。Patrick:可考虑用 vault 已有 favorite 笔记做 pilot。</p>
+      <div class="source">source: 视频 25:30,「Just give it to the agent. The agent will analyze it for you」</div>
+    </div>
+    <div class="card">
+      <span class="badge gap">gap</span>
+      <h4>"6000+ 嘉宾" 嘉宾名单完整度</h4>
+      <p>E 提到 Jensen / Sam / Alexander Wang / Jeff Dean / Sam Oldman — 但 6000+ 参会者的完整 speaker lineup <strong>未在视频中</strong> 完整列出。需查 YC 官方 Startup School 页面。</p>
+      <div class="source">source: 视频 26:00, E 列举 5 位; missing 完整 lineup</div>
+    </div>
+  </div>
+</section>
+
+<section class="card" id="sec-patrick">
+  <h2><span class="num">🎯</span>Patrick 关联 / 17-Card Mapping</h2>
+  <p class="zh">视频 4 大核心洞察 → 对应 Patrick 已有 skills (verified-on-disk paths):</p>
+  <p class="en">Video's 4 core insights → Patrick's existing skills (verified-on-disk paths):</p>
+  <table>
+    <thead><tr><th>视频洞见 / Insight</th><th>Patrick 对应 skill</th><th>应用 / Application</th></tr></thead>
+    <tbody>
+      <tr><td>Conductor single-stack 设计</td><td><code>media/video-to-knowledge-dashboard</code></td><td>Dashboard 也是 single-stack (CSS+JS+HTML, no framework)</td></tr>
+      <tr><td>Aqua voice 替代键盘</td><td><code>autonomous-ai-agents/agent-orchestration</code></td><td>Claude API + Aqua + Hermes 是 voice→agent→output pipeline</td></tr>
+      <tr><td>soul.md = "录一切 + 喂 agent"</td><td><code>knowledge-synthesis/graphify</code></td><td>Vault 已经近 soul.md 概念 (918 md llm-wiki), 需 soul.md-style "raw transcript" 注入</td></tr>
+      <tr><td>"Disposable" bookmark vs retention</td><td><code>devops/patricks-publish-pipeline-watchdog</code></td><td>Daily-reports = "disposable 24h" vs life-wiki = "retention" → 明确分层</td></tr>
+      <tr><td>"Human vs Machine" 双版本</td><td><code>research/llm-wiki</code></td><td>Public HTML (human) + JSON data (machine) 已 ship; 可加 .md 简化版给 agent</td></tr>
+      <tr><td>"Pinterest → Claude taste transfer"</td><td><code>agentic-os/gstack</code></td><td>Design Codifier specialist (Stripe codify) = 类似 "taste → spec" pipeline</td></tr>
+      <tr><td>"Custom modal for fine-tuning"</td><td><code>creative/rich-html-output</code></td><td>Rich HTML = E 的 "build modal for yourself" pattern 标准化</td></tr>
+      <tr><td>"Disposable design" pattern</td><td><code>media/video-bidirectional-mapping</code></td><td>Tier 4 anti-mapping 本身就是 disposable 模式 (use or discard)</td></tr>
+      <tr><td>"No need to explain taste"</td><td><code>meta/how-to-sell</code></td><td>Sales 也不需要 verbalize — show 喜欢的 reference + 信任 agent</td></tr>
+      <tr><td>"Conductor 替代 Figma 部分场景"</td><td><code>creative/rich-html-output</code></td><td>HTML 直接 ship, 跳过 Figma step (Patrick daily-reports 7-12 实践已 ship)</td></tr>
+      <tr><td>"soul.md exhaustive context"</td><td><code>autonomous-ai-agents/dual-ai-peer-review</code></td><td>Vote review 给 agent 完整 context = soul.md 实战</td></tr>
+      <tr><td>"Paxel fun-facts from transcripts"</td><td><code>knowledge-synthesis/graphify-obsidian-baseline</code></td><td>Vault transcript → fun-facts 卡片 = graphify baseline 用例</td></tr>
+      <tr><td>"Disposable design" 实战</td><td><code>knowledge-synthesis/understand-anything</code></td><td>Understand anything 也是 disposable — 看一眼即走</td></tr>
+      <tr><td>"Aqua 语音 + Claude"</td><td><code>mlops/apple-silicon-llama-server</code></td><td>本地 LLM 也能接 voice input (whisper + local LLM = edge pipeline)</td></tr>
+      <tr><td>"Conductor 全栈 ship"</td><td><code>autonomous-ai-agents/fable-vs-hermes-capability-gap</code></td><td>Conductor = "designer-friendly Fable" — Fable vs Hermes gap 的具体体现</td></tr>
+      <tr><td>"Speaker card template auto-pull"</td><td><code>agentic-os/llm-protocol-router</code></td><td>LLM router 决定 "Claude pull image 还是 local OCR" — Patrick speaker card 类似</td></tr>
+      <tr><td>"Year-ago vs now 反思"</td><td><code>research/distributed-research-playbook</code></td><td>Long-term research 也应该 "year-ago vs now" 对比, 看 pace of change</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:14px"><span class="zh">📁 17 条 wikilink 全部 verified-on-disk (skill paths 跟 <code>~/.hermes/skills/</code> 实际目录 1:1 匹配)。</span><span class="en">📁 All 17 wikilinks verified-on-disk (paths match <code>~/.hermes/skills/</code> actual dirs 1:1).</span></p>
+</section>
+
+<section class="card" id="sec-quotes">
+  <h2><span class="num">💬</span>Bilingual Quotes — E Bufar 原话精选</h2>
+  <p class="zh">10 条 verbatim EN + 中文翻译, 每条标 source (mm:ss)。</p>
+  <p class="en">10 verbatim EN + 中文 translation, each labeled with source (mm:ss).</p>
+  <div class="quote-grid">
+    <div class="quote">
+      <div class="en">"I find myself almost exclusively nowadays in conductor and paper design. That's all I need usually to make a full project end to end."</div>
+      <div class="zh">「我发现自己最近几乎只用 Conductor 和 Paper Design。做一个完整项目端到端, 这两个就够了。」</div>
+      <div class="who">— E Bufar @ 0:30</div>
+    </div>
+    <div class="quote">
+      <div class="en">"I realize that I think a lot faster than I type. I type very slowly. And so I'd rather talk to my computer... I just press the function key and I give a stream of consciousness of the feature that I want to build and it just does it and it feels really magical."</div>
+      <div class="zh">「我意识到我思考比打字快得多。我打字很慢。所以我宁愿跟电脑说话... 我按一下功能键, 一口气说出想做的 feature, 它就实现了, 感觉真的很神奇。」</div>
+      <div class="who">— E Bufar @ 0:50</div>
+    </div>
+    <div class="quote">
+      <div class="en">"The goal behind Paxel is an experiment that we're trying out and our goal is to try to understand how people code with coding agents... it still very much feels like a black box."</div>
+      <div class="zh">「Paxel 的目标是一个实验 — 我们想理解大家是怎么用 coding agents 写代码的... 这还是个黑盒。」</div>
+      <div class="who">— E Bufar @ 1:40</div>
+    </div>
+    <div class="quote">
+      <div class="en">"We were heavily inspired by how Spotify made Spotify Wrapped and how we can make Spotify Wrapped for your coding sessions."</div>
+      <div class="zh">「我们深深被 Spotify Wrapped 启发, 想做一份 coding session 的 Spotify Wrapped。」</div>
+      <div class="who">— E Bufar @ 2:10</div>
+    </div>
+    <div class="quote">
+      <div class="en">"Rather than generating something, having the static images... you actually just make it alive and give yourself a custom tool to be able to turn knobs and dials to get it exactly how you want it."</div>
+      <div class="zh">「与其生成静态图片... 不如把它做活, 给自己一个 custom tool, 可以转旋钮、调 dial, 让它恰好是你想要的样子。」</div>
+      <div class="who">— E Bufar @ 6:00</div>
+    </div>
+    <div class="quote">
+      <div class="en">"There's going to be the version of the website that is for humans and there's going to be the version of the website that will be for machines and agents... we thought it would be fun to also have a version of this website that is basically a markdown file."</div>
+      <div class="zh">「未来会有给人看的网站版本, 也会有给机器和 agent 看的版本... 我们觉得给 agent 做一份 markdown 版本也挺有意思。」</div>
+      <div class="who">— E Bufar @ 8:00</div>
+    </div>
+    <div class="quote">
+      <div class="en">"What's great is that for every single meeting that we had about the zine, we recorded every single one and I dumped the transcripts into a soul.md file specifically for that project. And I wanted to treat that soul.md file as the source of truth and exhaustive glossary."</div>
+      <div class="zh">「很棒的是, 每次开 zine 的会, 我们都录了下来, 把 transcript 全部倒进一个专门为这个项目建的 soul.md 文件。我想把 soul.md 当作 source of truth 和无遗漏的词汇表。」</div>
+      <div class="who">— E Bufar @ 16:20</div>
+    </div>
+    <div class="quote">
+      <div class="en">"As much context that we can give the agent, the better. This is really the future."</div>
+      <div class="zh">「能多给 agent 一些 context 就多给。这真的是未来。」</div>
+      <div class="who">— E Bufar @ 17:00</div>
+    </div>
+    <div class="quote">
+      <div class="en">"Sometimes you love a website and you don't even know why you love a website. But it's okay. You don't need to understand why. Just give it to the agent. The agent will analyze it for you. It's going to understand your patterns."</div>
+      <div class="zh">「有时候你喜欢一个网站, 都不知道为什么喜欢。没关系, 也不需要知道为什么。直接给 agent, agent 会替你分析, 它会理解你的 pattern。」</div>
+      <div class="who">— E Bufar @ 25:30</div>
+    </div>
+    <div class="quote">
+      <div class="en">"Could you imagine a year ago trying to build something like this? It wouldn't have been worth it... Building these shaders a year ago would have felt like an insurmountable mountain. And now it is just this thing that Claude knows what to pull because it knows that I love Paper."</div>
+      <div class="zh">「一年前你能想象做这种东西吗? 不值得做... 一年前做这些 shader 感觉是不可逾越的高山。现在就是 Claude 知道去拉, 因为它知道我爱 Paper。」</div>
+      <div class="who">— E Bufar @ 29:30</div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2><span class="num">🔗</span>Related Notes (verified-on-disk)</h2>
+  <p class="zh">Patrick 已有 vault 笔记, 都是 AI/design/agent 相关 — 都跟 E Bufar 这次分享主题深度交叉:</p>
+  <p class="en">Patrick's existing vault notes — all AI/design/agent related — deeply cross with E Bufar's themes:</p>
+  <ul>
+    <li><a href="https://2017zyl.xyz/daily-reports.html" target="_blank" rel="noopener">daily-reports.html hub (264 entries)</a> — 全部档案</li>
+    <li><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/jack-roberts-fable5-websites-2026-07-06/</code> — Jack Roberts Fable 5 7 Levels (设计 + AI)</li>
+    <li><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/greg-isenberg-6-skills-agentic-era/</code> — Greg Isenberg 6 skills agentic era</li>
+    <li><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/agent-os-claude-julian-goldie-2026-07-04/</code> — Julian Goldie Agent OS</li>
+    <li><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/matthew-berman-claude-tag-anthropic-context-lockin-2026-06-26/</code> — Berman Anthropic context lockin</li>
+    <li><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/hermes-agent-mixture-of-agents-davidondrej-2026-06-29/</code> — MoA mixture-of-agents</li>
+  </ul>
+  <p style="margin-top:14px"><span class="zh">📦 Source provenance:</span><span class="en">📦 Source provenance:</span></p>
+  <ul style="font-size:12px;color:var(--muted)">
+    <li>URL: <a href="https://www.youtube.com/watch?v=VbqaL_eHhKY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=VbqaL_eHhKY</a></li>
+    <li>Channel: Y Combinator</li>
+    <li>Title: YC's Head of Design Shows You How To Design With AI</li>
+    <li>Subtitle: AI Design Toolkit: Conductor, Paper Design, &amp; Voice</li>
+    <li>Length: 30:54 · Likes: 1,689 · Uploaded: 2026-07</li>
+    <li>Speaker: E Bufar (Head of Design, YC)</li>
+    <li>Transcript: kome.ai POST (61 sec round-trip) · 6,109 words · complete (hasMore: false)</li>
+    <li>Generated: 2026-07-15 · Master self-takeover ~25 min · Sandbox: Hermes desktop</li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<script>
+function toggleLang() {
+  const html = document.documentElement;
+  const cur = html.getAttribute('lang');
+  const next = cur === 'zh-CN' ? 'en' : 'zh-CN';
+  html.setAttribute('lang', next);
+  try { localStorage.setItem('yc-ebufar-lang', next); } catch(e) {}
+  document.querySelector('.lang-toggle').textContent = next === 'zh-CN' ? 'EN ⇄ 中' : '中 ⇄ EN';
+}
+function toggleToc() {
+  document.getElementById('toc').classList.toggle('collapsed');
+  try {
+    const collapsed = document.getElementById('toc').classList.contains('collapsed');
+    localStorage.setItem('yc-ebufar-toc-collapsed', collapsed ? '1' : '0');
+  } catch(e) {}
+}
+// On load
+try {
+  const lang = localStorage.getItem('yc-ebufar-lang');
+  if (lang && lang !== 'zh-CN') {
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelector('.lang-toggle').textContent = lang === 'en' ? '中 ⇄ EN' : 'EN ⇄ 中';
+  }
+  const toc = localStorage.getItem('yc-ebufar-toc-collapsed');
+  if (toc === '1') document.getElementById('toc').classList.add('collapsed');
+} catch(e) {}
+</script>
+</body>
+</html>
