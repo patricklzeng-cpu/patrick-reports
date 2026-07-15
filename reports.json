@@ -1,5 +1,47 @@
 [
   {
+    "title": "🆕 YC AI 原生服务公司 6 章指南 · AI Native Service Companies (11:13 · Garry Tan)",
+    "file": "daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard.html",
+    "date": "2026-07-15",
+    "category": "video-digest",
+    "track": "video",
+    "summary": "下一批万亿级公司不是软件,而是从零开始用 AI 重做的服务公司(保险/律所/FDA监管/审计/税务)。6 章: 市场(4特质)/ 团队(3必须)/ 产品(4原则)/ 销售(早期陷阱+3定价)/ P&L(AI 运营杠杆)/ 买 vs 建。YC 押注 50%+ 毛利 on 2-3x 软件 TAM。",
+    "featured": true,
+    "tags": [
+      "yc",
+      "ai-services",
+      "startup-playbook",
+      "founder",
+      "video-digest",
+      "garry-tan",
+      "2026-07-15"
+    ],
+    "added_at": "2026-07-15"
+  },
+  {
+    "title": "🆕 YC Head of Design 用 AI 设计 · 中EN 双语可切换 · E Bufar × Conductor + Paper Design + Aqua 语音 · 30:54 · 1,689 likes · 3 production 项目 walkthrough (Paxel Spotify Wrapped for Coding / Sodazine SOTA 庆祝旧金山 + soul.md 哲学 / Startup School 2026 Jensen+Sam+Jeff Dean) · 14 tabs · 6 stat cards · 17 Patrick 关联 (verified-on-disk) · 7 Tier 4 反向映射 · 10 verbatim E 原话 + 中文翻译 · 顶角 EN⇄中 toggle · localStorage 持久化",
+    "file": "daily-reports/ebufar-yc-head-design-conductor-2026-07-15.html",
+    "date": "2026-07-15",
+    "category": "video",
+    "track": "video",
+    "summary": "E Bufar YC Head of Design. 4 大核心洞察: (1) 单工具栈 Conductor+Paper+Aqua+Claude ship 全栈 不手打 (2) soul.md 哲学 录一切+dump 全文+喂 agent (3) Human vs Machine 双版本页面 (.md 给 agent + note to any AI agent warning) (4) Taste 不需要 verbalize 给 agent 自己 abstract pattern. Patrick 4 个 P0/P1 action items: vault soul.md 化 + daily-reports .md 双版本 + Conductor 试验 + disposable bookmark UI. cross-link 7 vault notes (Jack Roberts/Greg Isenberg/Julian Goldie/Berman/MoA/Tristan/Kokotajlo)",
+    "featured": true,
+    "tags": [
+      "yc-design",
+      "conductor",
+      "paper-design",
+      "aqua",
+      "soul-md",
+      "paxel",
+      "sodazine",
+      "startup-school",
+      "disposable-design",
+      "taste-transfer"
+    ],
+    "practical": 88,
+    "time": 25
+  },
+  {
     "title": "🆕 obra/superpowers audit — 15 skills reverse-ported · 4 strong gaps filled (brainstorming / finishing-a-branch / receiving-code-review / verification) · meta/obra-superbrains-superpowers-workflow-chain orchestrator · 3 reference docs fetched locally (anthropic-best-practices 46KB + persuasion 6KB + testing 13KB) · 14-skill framework · MIT · Pi official support · 10-section polish-grade HTML (hero banner + animated counters + TOC scroll-spy + back-to-top) · 34.8KB",
     "file": "daily-reports/superpowers-audit-2026-07-15.html",
     "date": "2026-07-15",
