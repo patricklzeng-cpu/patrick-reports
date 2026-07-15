@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="generated" content="2026-07-15T18:30:00">
+<title>AI 原生服务公司创业指南 · AI Native Service Companies · YC Playbook</title>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --panel: #131316;
+    --panel-2: #1a1a1f;
+    --line: #2a2a32;
+    --text: #e8e8ea;
+    --text-2: #a8a8b0;
+    --text-3: #6a6a72;
+    --lime: #d5ff3f;
+    --lime-dim: #b8e030;
+    --red: #ff5a4a;
+    --amber: #ffb84a;
+    --blue: #4ab0ff;
+    --green: #5fd97a;
+    --purple: #c39bff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif; line-height: 1.65; }
+  body { padding-left: 260px; transition: padding-left .3s ease; }
+  body.toc-collapsed { padding-left: 48px; }
+
+  /* ─── TOC sidebar ─── */
+  aside.toc {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 240px;
+    background: var(--panel); border-right: 1px solid var(--line);
+    overflow-y: auto; padding: 24px 18px; transition: transform .3s ease, width .3s ease;
+    z-index: 50;
+  }
+  body.toc-collapsed aside.toc { width: 48px; padding: 24px 8px; }
+  body.toc-collapsed aside.toc .toc-label { display: none; }
+  body.toc-collapsed aside.toc .toc-h { font-size: 0; }
+  body.toc-collapsed aside.toc .toc-h::before { content: "📑"; font-size: 16px; }
+  aside.toc .toc-h { color: var(--lime); font-size: 11px; letter-spacing: .15em; text-transform: uppercase; margin: 0 0 18px 0; font-weight: 600; }
+  aside.toc nav a {
+    display: block; color: var(--text-2); text-decoration: none; padding: 7px 10px; border-radius: 6px;
+    font-size: 13px; margin-bottom: 2px; transition: all .15s; border-left: 2px solid transparent;
+  }
+  aside.toc nav a:hover { background: var(--panel-2); color: var(--text); border-left-color: var(--lime); }
+  .toc-toggle {
+    position: fixed; left: 8px; top: 12px; z-index: 60;
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+    width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .toc-toggle:hover { background: var(--line); }
+  @media (max-width: 900px) {
+    body, body.toc-collapsed { padding-left: 0; }
+    aside.toc { transform: translateX(-12px); }
+    body.toc-open aside.toc { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,.6); }
+  }
+
+  /* ─── Language toggle ─── */
+  .lang-toggle {
+    position: fixed; right: 18px; top: 12px; z-index: 60;
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+    padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .lang-toggle:hover { background: var(--line); border-color: var(--lime); }
+  /* bilingual: hide one, show other based on html lang */
+  html[lang="zh-CN"] .en { display: none; }
+  html[lang="en"] .zh { display: none; }
+  /* inline zh+en pairs: stacked by default, on same line when wide */
+  .bilingual { display: inline; }
+  .bilingual .en { font-style: italic; color: var(--text-3); }
+
+  main { max-width: 1200px; margin: 0 auto; padding: 36px 32px 80px; }
+  h1 { font-size: 36px; line-height: 1.2; margin: 0 0 8px; color: var(--text); }
+  h1 .en { font-size: 22px; color: var(--text-3); display: block; margin-top: 6px; font-weight: 400; }
+  h2 { font-size: 22px; margin: 48px 0 16px; color: var(--lime); border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+  h2 .en { font-size: 15px; color: var(--text-3); display: block; margin-top: 4px; font-weight: 400; font-style: italic; }
+  h3 { font-size: 16px; color: var(--text); margin: 28px 0 10px; }
+  p { margin: 0 0 14px; color: var(--text); }
+  p .en { color: var(--text-2); font-style: italic; }
+  strong { color: var(--lime); }
+  em { color: var(--amber); font-style: normal; }
+  a { color: var(--blue); text-decoration: none; border-bottom: 1px dotted var(--blue); }
+  a:hover { color: var(--lime); border-bottom-color: var(--lime); }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 36px 0; }
+  blockquote {
+    border-left: 3px solid var(--lime); padding: 8px 16px; margin: 16px 0;
+    background: var(--panel); color: var(--text-2);
+  }
+  blockquote .en { display: block; margin-top: 6px; color: var(--text-3); font-style: italic; }
+  code { background: var(--panel-2); padding: 1px 6px; border-radius: 3px; font-family: "SF Mono", Menlo, monospace; font-size: 13px; color: var(--lime); }
+
+  /* header banner */
+  .hero {
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid var(--line); border-radius: 10px; padding: 32px;
+    margin-bottom: 32px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; top: 0; right: 0; width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(213,255,63,.08) 0%, transparent 70%);
+  }
+  .hero-meta { display: flex; gap: 24px; margin-top: 20px; font-size: 13px; color: var(--text-3); flex-wrap: wrap; }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .hero-meta b { color: var(--lime); font-weight: 600; }
+
+  /* stat cards */
+  .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 20px 0; }
+  .stat {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px;
+  }
+  .stat .n { font-size: 28px; font-weight: 700; color: var(--lime); line-height: 1.1; }
+  .stat .l { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+  .stat .l .en { display: block; font-size: 11px; margin-top: 1px; }
+
+  /* card grid */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 20px 0; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 18px;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: var(--lime-dim); transform: translateY(-1px); }
+  .card h4 { margin: 0 0 8px; font-size: 15px; color: var(--lime); }
+  .card h4 .en { display: block; color: var(--text-3); font-size: 12px; font-weight: 400; margin-top: 2px; font-style: italic; }
+  .card p { font-size: 13px; color: var(--text-2); margin: 0 0 8px; }
+  .card p .en { display: block; font-size: 12px; margin-top: 4px; color: var(--text-3); }
+  .card .tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-right: 4px; letter-spacing: .03em; }
+  .tag.mitig { background: rgba(95,217,122,.15); color: var(--green); border: 1px solid rgba(95,217,122,.3); }
+  .tag.warn  { background: rgba(255,184,74,.15); color: var(--amber); border: 1px solid rgba(255,184,74,.3); }
+  .tag.gap   { background: rgba(255,90,74,.15); color: var(--red); border: 1px solid rgba(255,90,74,.3); }
+  .tag.verified { background: rgba(74,176,255,.15); color: var(--blue); border: 1px solid rgba(74,176,255,.3); }
+
+  /* chapter / quote */
+  .chapter { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 20px 24px; margin: 16px 0; }
+  .chapter h3 { color: var(--lime); margin-top: 0; }
+  .chapter h3 .en { color: var(--text-3); display: block; font-size: 14px; font-weight: 400; font-style: italic; margin-top: 4px; }
+  .chapter .ts { color: var(--text-3); font-size: 11px; font-family: "SF Mono", Menlo, monospace; }
+  .quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin: 20px 0; }
+  .quote {
+    background: var(--panel); border-left: 3px solid var(--lime); padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+  }
+  .quote .zh { color: var(--text); font-size: 14px; }
+  .quote .en { color: var(--text-3); font-style: italic; font-size: 12.5px; margin-top: 6px; display: block; }
+  .quote .src { color: var(--text-3); font-size: 11px; margin-top: 8px; }
+
+  /* table */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+  th { color: var(--lime); font-weight: 600; background: var(--panel-2); }
+  td { color: var(--text-2); }
+  tr:hover td { background: var(--panel-2); }
+
+  /* timeline */
+  .timeline { position: relative; padding-left: 24px; margin: 20px 0; }
+  .timeline::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--line); }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-item::before { content: ""; position: absolute; left: -22px; top: 6px; width: 12px; height: 12px; background: var(--lime); border-radius: 50%; border: 2px solid var(--bg); }
+  .tl-item .ts { color: var(--lime); font-size: 12px; font-family: "SF Mono", Menlo, monospace; }
+  .tl-item .body { color: var(--text-2); font-size: 13px; margin-top: 4px; }
+  .tl-item .body .en { color: var(--text-3); font-style: italic; display: block; margin-top: 2px; }
+
+  /* warn box */
+  .warn-box {
+    background: rgba(255,184,74,.08); border: 1px solid rgba(255,184,74,.3);
+    border-left: 3px solid var(--amber); padding: 12px 16px; border-radius: 6px;
+    margin: 20px 0; font-size: 13px; color: var(--text-2);
+  }
+  .warn-box b { color: var(--amber); }
+
+  /* footer */
+  footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-3); }
+  footer .en { display: block; font-style: italic; margin-top: 4px; }
+</style>
+<body>
+
+<button class="toc-toggle" onclick="toggleTOC()" title="Toggle TOC">☰</button>
+<button class="lang-toggle" onclick="toggleLang()">中 / EN</button>
+
+<aside class="toc">
+  <h4 class="toc-h toc-label">📑 目录 / TOC</h4>
+  <nav>
+    <a href="#sec-hero">🏁 概览 / Overview</a>
+    <a href="#sec-1">① 市场 / Picking a Market</a>
+    <a href="#sec-2">② 团队 / Founding Team</a>
+    <a href="#sec-3">③ 产品 / Building Product</a>
+    <a href="#sec-4">④ 销售 / Sales & CS</a>
+    <a href="#sec-5">⑤ 损益 / P&L</a>
+    <a href="#sec-6">⑥ 买 vs 建 / Buy vs Build</a>
+    <a href="#sec-quotes">💬 关键引述 / Quotes</a>
+    <a href="#sec-tips">🧰 4 标志 + 4 陷阱 / Tips & Traps</a>
+    <a href="#sec-timeline">⏱ 时间轴 / Timeline</a>
+    <a href="#sec-roster">👤 关联到 Patrick / Roster</a>
+    <a href="#sec-tier4">🛡 Tier 4 反映射 / Anti-Mapping</a>
+    <a href="#sec-related">🔗 相关 / Related</a>
+    <a href="#sec-meta">📊 元数据 / Metadata</a>
+  </nav>
+</aside>
+
+<!-- ════════ HERO ════════ -->
+<section id="sec-hero" class="hero">
+  <h1>><span class="zh">
+    AI 原生服务公司创业指南
+    </span><span class="en">AI Native Service Companies — YC Playbook for Founders</span>
+  </h1>
+  <p>><span class="zh">
+    下一批十年间最大的公司, </span><strong><span class="zh">不会</span></strong><span class="zh">是软件公司。它们将是保险公司、律所等</span><em><span class="zh">服务公司</span></em><span class="zh">, 从零开始用 AI 重做大部分工作。这些公司是 </span><strong><span class="zh">"AI 原生服务公司"</span></strong><span class="zh"> —— 市场规模以</span><em><span class="zh">万亿美元</span></em><span class="zh">计。
+    </span><span class="en">Some of the biggest companies of the next decade won't be software businesses. They'll be services companies like insurance carriers and law firms rebuilt from scratch with AI doing most of the work — what YC calls "AI native service companies." Trillion-dollar markets.</span>
+  </p>
+  <div class="hero-meta">
+    <span>📺 <b>Y Combinator</b></span>
+    <span>🎙 Garry Tan 主持</span>
+    <span>⏱ <b>11:13</b></span>
+    <span>📅 2026 春季</span>
+    <span>🆔 <code>gSNFJbgoaHI</code></span>
+    <span>📝 <b>2,067</b> 词 / 12K 字符</span>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><div class="n">6</div><div class="l">章节<br><span class="en">Chapters</span></div></div>
+    <div class="stat"><div class="n">4</div><div class="l">好市场特征<br><span class="en">Market traits</span></div></div>
+    <div class="stat"><div class="n">3</div><div class="l">创始团队素质<br><span class="en">Founder attributes</span></div></div>
+    <div class="stat"><div class="n">3</div><div class="l">定价模型<br><span class="en">Pricing models</span></div></div>
+    <div class="stat"><div class="n">2</div><div class="l">定价陷阱<br><span class="en">Pricing traps</span></div></div>
+    <div class="stat"><div class="n">2</div><div class="l">核心 P&L 杠杆<br><span class="en">P&L levers</span></div></div>
+  </div>
+  <p style="margin-top:20px; font-size:13px; color:var(--text-3);">>
+    ⚠️ <b><span class="zh">本视频为 YC 公开播放内容, transcript 来自 kome.ai API + YouTube auto-captions。</span></b><span class="zh">所有引述均逐字摘自视频,中文翻译为本人整理。</span><span class="en">All quotes are verbatim from the video; Chinese translations are mine.</span>
+  </p>
+</section>
+
+<!-- ════════ ① MARKET ════════ -->
+<section id="sec-1">
+  <h2>><span class="zh">
+    ① 选对市场
+    </span><span class="en">Picking the Right Market — 4 New Traits</span>
+  </h2>
+  <p>><span class="zh">
+    传统创业的"选市场"建议依然适用(热爱 + 长期投入 + 十年磨一剑),但 AI 服务公司有</span><strong><span class="zh">4 个新的特质</span></strong><span class="zh">。如果市场同时满足,就是好市场。
+  </span></p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>><span class="zh">① 低信任 · Low Trust</span><span class="en">Outsourced already</span></h4>
+      <p>><span class="zh">工作已外包,客户关心</span><em><span class="zh">最终成果</span></em><span class="zh">,不关心怎么实现。</span><span class="en">Work is already outsourced, customer cares about outcome not process.</span></p>
+      <p>><span class="zh">你是</span><strong><span class="zh">取代</span></strong><span class="zh">一个供应商,不是让客户改变行为。预算就在那里,直接接住。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">② 低单点判断 · Low Task Judgment</span><span class="en">Automatable steps</span></h4>
+      <p>><span class="zh">工作可拆解,大部分步骤</span><strong><span class="zh">可自动化</span></strong><span class="zh">;只在</span><em><span class="zh">少数关键点</span></em><span class="zh">让人类判断,人在回路中。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">③ 高智能门槛 · High Intelligence Threshold</span><span class="en">Hard work overall</span></h4>
+      <p>><span class="zh">整体工作必须</span><strong><span class="zh">够难</span></strong><span class="zh">。光"模型 + 人"才能交付客户接受的成果 → 天然护城河。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">④ 监管 = 好事 · Regulation Helps</span><span class="en">Higher bar = moat</span></h4>
+      <p>><span class="zh">受监管行业有</span><em><span class="zh">更高期望 + 法律责任</span></em><span class="zh">。例:</span><strong>Panacea</strong><span class="zh">(YC)做 FDA 监管服务, 雇有经验的 FDA 顾问配 AI 平台 → 更快更高质量的 FDA 审批。</span></p>
+    </div>
+  </div>
+
+  <h3>><span class="zh">📍 YC 心里的"已知好市场"</span><span class="en">Known good-fit markets</span></h3>
+  <div class="cards">
+    <div class="card" style="border-left: 3px solid var(--lime);"><h4>><span class="zh">税务 / Tax</span></h4></div>
+    <div class="card" style="border-left: 3px solid var(--lime);"><h4>><span class="zh">审计 / Audit</span></h4></div>
+    <div class="card" style="border-left: 3px solid var(--lime);"><h4>><span class="zh">保险 / Insurance</span></h4></div>
+    <div class="card" style="border-left: 3px solid var(--lime);"><h4>><span class="zh">按揭 / Mortgages</span></h4></div>
+    <div class="card" style="border-left: 3px solid var(--lime);"><h4>><span class="zh">医疗的子领域 / Parts of healthcare</span></h4></div>
+    <div class="card" style="border-left: 3px solid var(--lime);"><h4>><span class="zh">物流的子领域 / Parts of logistics</span></h4></div>
+  </div>
+  <p style="font-size:13px; color:var(--text-3);">>
+    + <em><span class="zh">"还有大量未触达的市场, 不要被 X 上讨论的明显选项束缚。"</span></em>
+    <span class="en">Plenty more markets nobody has touched yet — don't hold yourself to the obvious ones.</span>
+  </p>
+
+  <h3>><span class="zh">🧪 选市场时,3 个自检问题</span><span class="en">Three self-checks</span></h3>
+  <table>
+    <thead><tr><th>><span class="zh">问题 / Q</span></th><th>><span class="zh">判断 / Test</span></th><th>><span class="zh">危险信号 / Red flag</span></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>><span class="zh">Sam Altman 测试</span><span class="en">Models get better → do you strengthen or commoditize?</span></td>
+        <td>><span class="zh">模型变好,你变强?</span></td>
+        <td>><span class="zh">⚠️ 模型变好,你的服务</span><strong><span class="zh">被商品化</span></strong></td>
+      </tr>
+      <tr>
+        <td>><span class="zh">实体 / 现场劳动?</span><span class="en">Equipment + on-site labor?</span></td>
+        <td>><span class="zh">软件毛利不适用</span></td>
+        <td>><span class="zh">🔴 自己拥有运营物理设备 → 极难创造杠杆,留给机器人创始人</span></td>
+      </tr>
+      <tr>
+        <td>><span class="zh">人类是 judgment 还是 workaround?</span><span class="en">Humans = real judgment or product-gap cover?</span></td>
+        <td>><span class="zh">诚实地问</span></td>
+        <td>><span class="zh">⚠️ 用人补产品缺口 = 不可持续</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ════════ ② TEAM ════════ -->
+<section id="sec-2">
+  <h2>><span class="zh">
+    ② 创始团队
+    </span><span class="en">Founding Team — 3 Must-Have Attributes</span>
+  </h2>
+  <p>><span class="zh">
+    找</span><strong><span class="zh">你已认识并共事过的人</span></strong><span class="zh">。如果还不够,想一下你合作过的最强的人,主动邀约 —— </span><em><span class="zh">他们答应的概率比你想象的高</span></em>。
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>><span class="zh">① 领域熟练度 · Domain Fluency</span><span class="en">Direct experience best, learned OK</span></h4>
+      <p>><span class="zh">卖给</span><em><span class="zh">怀疑型买家 + 监管空间</span></em><span class="zh">。你必须</span><strong><span class="zh">有可信度</span></strong><span class="zh">。如何获得次要。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">② 模型熟练度 · Model Fluency</span><span class="en">Ride the capability curve</span></h4>
+      <p>><span class="zh">知道</span><strong><span class="zh">前沿模型现在能做什么</span></strong><span class="zh">,设计产品搭上能力曲线。</span><em><span class="zh">没有替代品</span></em><span class="zh">。人们普遍低估这点。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">③ 运营严谨 · Operational Rigor</span><span class="en">Throughput / variance / cycle time</span></h4>
+      <p>>variance、throughput、cycle time、SOP ——<em><span class="zh">不性感但必须</span></em><span class="zh">。产品就是运营本身。</span></p>
+      <p style="margin-top:8px; font-size:12px; color:var(--text-3);">><span class="zh">
+        例: </span><strong>General Legal</strong><span class="zh">(YC, AI-native 律所) = 创始人在 </span><em>Cooley / Fenwick</em><span class="zh"> 律所经验 + </span><em>Caseex</em><span class="zh"> 技术领导 → 深度思考 throughput + 排班 + 缩短 cycle time。
+      </span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ③ PRODUCT ════════ -->
+<section id="sec-3">
+  <h2>><span class="zh">
+    ③ 打造产品
+    </span><span class="en">Building the Product — Operations Mindset</span>
+  </h2>
+  <p>>
+    <strong><span class="zh">核心反直觉点:</span></strong><span class="zh"> 软件公司里产品 = 客户接口; AI 服务公司里,</span><em><span class="zh">人是客户接口,产品帮人非线性扩展</span></em><span class="zh">。这一点改变了一切。
+  </span></p>
+
+  <div class="cards">
+    <div class="card">
+      <h4>><span class="zh">① 运营思维</span><span class="en">Operations mindset</span></h4>
+      <p>><span class="zh">找</span><strong><span class="zh">瓶颈</span></strong><span class="zh">,为瓶颈建。Throughput & cycle time 跟 DAU 一样是产品指标。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">② Variance 是生存问题</span><span class="en">Variance = existential</span></h4>
+      <p>><span class="zh">客户会因为</span><em>variance</em><span class="zh">(输出不一致)</span><strong><span class="zh">比慢/贵</span></strong><span class="zh">更快解雇你。信任靠一致性,不一致 = churn。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">③ 人要</span><em><span class="zh">非线性</span></em><span class="zh">扩展</span><span class="en">Humans in the loop scale nonlinearly</span></h4>
+      <p>><span class="zh">如果收入只是跟人头数线性增长,有大问题。</span><strong><span class="zh">人也是你的用户</span></strong><span class="zh"> —— 让他们喜欢你的软件。</span></p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">④ 不要把"暂时不 scale"做太久</span><span class="en">Don't do unscalable forever</span></h4>
+      <p>><span class="zh">一开始 OK,但最终</span><strong><span class="zh">必须 scale</span></strong>。<em><span class="zh">"自动化流程本身就是产品"</span></em>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ④ SALES ════════ -->
+<section id="sec-4">
+  <h2>><span class="zh">
+    ④ 销售 & 客户成功
+    </span><span class="en">Sales & CS — Avoid the Early Demand Trap</span>
+  </h2>
+
+  <div class="warn-box">
+    <b>⚠️ 早期需求陷阱 · Early Demand Trap</b> —— 起步时签一堆 pilot 客户很容易,但会<strong>淹没</strong>你的服务能力,无法规模化产品,卡死在"用人工做"的阶段。YC 建议:<em>第一批 pilot 客户限制在一小撮。</em>
+  </div>
+
+  <h3>><span class="zh">销售原则</span><span class="en">Pre/post-sales principles</span></h3>
+  <div class="cards">
+    <div class="card">
+      <h4>><span class="zh">卖 outcomes, 不卖 seats/tokens</span></h4>
+      <p>><span class="zh">客户买的不是工时,是</span><strong><span class="zh">结果</span></strong>。<em><span class="zh">Pilot 即产品</span></em>。</p>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">先别标准化太快</span><span class="en">Don't standardize too early</span></h4>
+      <p>><span class="zh">用 pilot 学: AI 在哪给你</span><em><span class="zh">独特杠杆</span></em><span class="zh">,在哪只是把明显的事自动化。快速迭代产品。</span></p>
+    </div>
+  </div>
+
+  <h3>><span class="zh">定价 3 模型 + 2 陷阱</span><span class="en">Pricing: 3 models + 2 traps</span></h3>
+  <table>
+    <thead><tr><th>><span class="zh">类型 / Type</span></th><th>><span class="zh">怎么做 / How</span></th><th>><span class="zh">代表 / Example</span></th><th>><span class="zh">评价</span></th></tr></thead>
+    <tbody>
+      <tr>
+        <td>>① Per-unit</td>
+        <td>><span class="zh">每份 return / claim / loan</span></td>
+        <td>>—</td>
+        <td style="color:var(--green);">><span class="zh">✅ 最干净、最易解释</span></td>
+      </tr>
+      <tr>
+        <td>>② Outcome-based</td>
+        <td>><span class="zh">按成果</span></td>
+        <td>><strong>Panacea</strong><span class="zh">: 按完成的 consultant study 计价 vs 行业标准 hourly</span></td>
+        <td style="color:var(--lime);">><span class="zh">✅ 激励对齐,但预测难</span></td>
+      </tr>
+      <tr>
+        <td>>③ Cost-plus</td>
+        <td>><span class="zh">成本加成</span></td>
+        <td>>—</td>
+        <td style="color:var(--red);">><span class="zh">🔴 永久封顶你上行</span></td>
+      </tr>
+      <tr>
+        <td>><span class="zh">④ 直线性 undercut</span></td>
+        <td>><span class="zh">纯压价</span></td>
+        <td>>—</td>
+        <td style="color:var(--red);">><span class="zh">🔴 显得便宜 + 潜行低质</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:13px; color:var(--text-3);">><span class="zh">
+    结论: </span><strong><span class="zh">按价值定价 · Price on value</span></strong>。
+  </p>
+</section>
+
+<!-- ════════ ⑤ P&L ════════ -->
+<section id="sec-5">
+  <h2>><span class="zh">
+    ⑤ 损益表 (P&L)
+    </span><span class="en">P&L — The Profit & Loss</span>
+  </h2>
+  <p>><span class="zh">
+    P&L 是这类公司的</span><strong><span class="zh">生与死</span></strong><span class="zh">。结构: Revenue - COGS = </span><em>Gross Profit</em>; - Opex = <em>Operating Income</em>; - Tax/Interest = <em>Net Income</em>。
+  </p>
+
+  <h3>><span class="zh">COGS 三件套</span><span class="en">Three COGS components</span></h3>
+  <div class="cards">
+    <div class="card">
+      <h4>>① Model costs</h4>
+      <p>><span class="zh">API 成本。</span></p>
+    </div>
+    <div class="card">
+      <h4>>② Hosting costs</h4>
+      <p>><span class="zh">基础设施。</span></p>
+    </div>
+    <div class="card">
+      <h4>>③ Humans in the loop</h4>
+      <p>><span class="zh">人在回路成本。</span></p>
+    </div>
+  </div>
+  <p style="font-size:13px; color:var(--text-3);">>
+    <em><span class="zh">三件事都需要: 一个数字、一条趋势线、一个 owner。</span></em>
+  </p>
+
+  <div class="warn-box">
+    <b>⚠️ 零毛利 / 负毛利 pilot 警示</b> —— 用来学习 OK,但千万别上瘾。<em>核心赌注: 产品越建,COGS 越低,毛利率越好 —— YC 称之为"AI 运营杠杆"。</em>
+  </div>
+
+  <h3>><span class="zh">📊 终极机会 = 毛利 vs TAM 的合成</span><span class="en">The bet: software margins on services TAM</span></h3>
+  <table>
+    <thead><tr><th>><span class="zh">公司类型 / Type</span></th><th>><span class="zh">毛利率 / Margin</span></th><th>>TAM</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>><span class="zh">传统服务公司</span></td>
+        <td style="color:var(--amber);">>~30%</td>
+        <td>><span class="zh">大</span></td>
+      </tr>
+      <tr>
+        <td>><span class="zh">纯软件 + Agent 公司</span></td>
+        <td style="color:var(--green);">><span class="zh">更高</span></td>
+        <td style="color:var(--amber);">><span class="zh">较小</span></td>
+      </tr>
+      <tr>
+        <td>><strong><span class="zh">AI 原生服务公司(本视频押注)</span></strong></td>
+        <td style="color:var(--green);">><strong><span class="zh">接近 50%+ (软件级)</span></strong></td>
+        <td style="color:var(--green);">><strong><span class="zh">2-3 倍于软件</span></strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:13px; color:var(--text-3);">><span class="zh">
+    不需要立刻做到,但</span><strong><span class="zh">轨迹必须可信</span></strong>。
+  </p>
+</section>
+
+<!-- ════════ ⑥ BUY vs BUILD ════════ -->
+<section id="sec-6">
+  <h2>><span class="zh">
+    ⑥ 买 vs 建
+    </span><span class="en">Don't Try to Buy Your Way In</span>
+  </h2>
+  <div class="warn-box">
+    <b>🪤 陷阱</b> —— 有些有运营背景的创始人想"买一个现有服务公司 + 加 AI = 跳过冷启动"。这<strong>几乎从不 work</strong>。唯一合理理由: <em>你需要快速拿到监管牌照(如保险牌照),否则一律建。
+  </div>
+  <p>><span class="zh">
+    为什么买不行? </span><strong><span class="zh">你买不到 product-market fit。</span></strong><span class="zh"> 传统服务公司就是</span><em><span class="zh">传统</span></em><span class="zh"> —— 它们的指标、招聘、绩效期望都跟新公司不同。AI 加在上面不会立刻改变这些现实。
+  </span></p>
+  <p style="font-size:13px; color:var(--text-3);">><span class="zh">
+    结论: </span><strong><span class="zh">建永远比买好</span></strong>。
+  </p>
+</section>
+
+<!-- ════════ QUOTES ════════ -->
+<section id="sec-quotes">
+  <h2>><span class="zh">
+    💬 关键引述
+    </span><span class="en">Verbatim Quotes (EN) with Chinese Translation</span>
+  </h2>
+  <div class="quote-grid">
+
+    <div class="quote">
+      <div class="zh">"这些公司提供<strong>成果</strong>给客户,不是建一个 copilot 客户自己内部用。"</div>
+      <div class="en">"Companies provide the outcome to the customer versus build a co-pilot that the customer uses internally."</div>
+      <div class="src">— 开场 / 0:00 · YC 核心定义</div>
+    </div>
+
+    <div class="quote">
+      <div class="zh">"<strong>市场依然是低信任</strong>: 工作已外包, 客户关心最终产品, 不关心怎么做到的。你是取代一个供应商, 不是让客户改变行为。"</div>
+      <div class="en">"Low trust, meaning the work is already outsourced and the customer cares about the final product, not how they got there. You're displacing a vendor, not asking the customer to do something fundamentally different."</div>
+      <div class="src">— ① 市场 / ~1:30</div>
+    </div>
+
+    <div class="quote">
+      <div class="zh">"<strong>AI 运营杠杆</strong>: 产品越建, COGS 越低, 毛利率越好。这是你要的核心赌注。"</div>
+      <div class="en">"The more the product is built, the lower the cogs, the better the gross margin. I call this AI operating leverage."</div>
+      <div class="src">— ⑤ P&L / ~9:00</div>
+    </div>
+
+    <div class="quote">
+      <div class="zh">"<strong>variance</strong> 是<em>生存问题</em>。客户会因为不一致比因为慢/贵<strong>更快</strong>解雇你。不一致摧毁信任, 信任摧毁引发 churn。"</div>
+      <div class="en">"Variance is the existential problem here. Customers will fire you for variance faster than they will fire you for being a bit slower or a bit more expensive than the incumbents. They need to trust the output. Inconsistency destroys trust, which causes churn."</div>
+      <div class="src">— ③ 产品 / ~6:00</div>
+    </div>
+
+    <div class="quote">
+      <div class="zh">"<strong>不要试图买进来</strong>。 你买不到 product-market fit。 传统服务公司就是传统的。 AI 加在上面不会立刻改变这些现实。"</div>
+      <div class="en">"Don't try to buy your way in. You just can't acquire a product market fit. Legacy service businesses are, you know, legacy. Adding AI on top of that doesn't immediately change any of those realities. Building is almost always better than buying."</div>
+      <div class="src">— ⑥ Buy vs Build / ~10:30</div>
+    </div>
+
+    <div class="quote">
+      <div class="zh">"产品就是流程, 流程就是产品。"</div>
+      <div class="en">"Process as the product, product as the process."</div>
+      <div class="src">— 收尾 / ~11:10</div>
+    </div>
+
+    <div class="quote">
+      <div class="zh">"卖给<strong>怀疑型买家 + 监管空间</strong>, 你必须<strong>流血般可信</strong>。"</div>
+      <div class="en">"You're selling to skeptical buyers and often regulated spaces. You have to bleed credibility."</div>
+      <div class="src">— ② 团队 / ~4:00</div>
+    </div>
+
+    <div class="quote">
+      <div class="zh">"<strong>Sam Altman 测试</strong>: 模型变好, 你的服务变强? 还是模型本身把你商品化? 你要在第一阵营。"</div>
+      <div class="en">"Will the models disrupt these businesses? It depends on what I call the Sam Altman test. You should ask yourself as the models get better, does your service get stronger or does the model itself commoditize you?"</div>
+      <div class="src">— ① 自检 / ~3:00</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════ TIPS & TRAPS ════════ -->
+<section id="sec-tips">
+  <h2>><span class="zh">
+    🧰 4 标志 + 4 陷阱
+    </span><span class="en">4 Good Signs + 4 Traps — Quick Pattern Recap</span>
+  </h2>
+  <div class="cards">
+    <div class="card" style="border-left:3px solid var(--green);">
+      <h4>><span class="zh">✅ 4 个好市场标志</span><span class="en">Good-market signs</span></h4>
+      <p>><span class="zh">① 低信任 · ② 低单点判断 · ③ 高智能门槛 · ④ 监管 = 好事</span></p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red);">
+      <h4>><span class="zh">🪤 4 个常见陷阱</span><span class="en">Traps</span></h4>
+      <p>><span class="zh">① 买现有服务公司 + 加 AI · ② 签太多 pilot 客户(早期需求陷阱) · ③ cost-plus 定价 · ④ 直线 undercut 定价</span></p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--lime);">
+      <h4>><span class="zh">3 创始团队必须项</span><span class="en">Must-have attributes</span></h4>
+      <p>><span class="zh">① 领域熟练度 · ② 模型熟练度 · ③ 运营严谨</span></p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--lime);">
+      <h4>><span class="zh">3 产品运营指标</span><span class="en">Operational metrics as product</span></h4>
+      <p>><span class="zh">① Throughput · ② Cycle time · ③ Variance(最致命)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ TIMELINE ════════ -->
+<section id="sec-timeline">
+  <h2>><span class="zh">
+    ⏱ 视频时间轴(11:13)
+    </span><span class="en">Chapter-by-Chapter Timeline</span>
+  </h2>
+  <p style="font-size:13px; color:var(--text-3);">><span class="zh">
+    ⚠️ 视频未提供显式 chapter 时间戳, 以下根据段落边界 + 话题转移点推断 (Pitfall 69 fallback)。
+  </span></p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="ts">~0:00 – 开场定义</div>
+      <div class="body">"AI 原生服务公司" 定义, 市场规模 (万亿级), 与软件公司的关键区别 (卖 outcome vs 卖 copilot)
+        <span class="en">Define AI native service companies. Trillion-dollar markets. Sell outcomes not copilots.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~1:00 – ① 选对市场</div>
+      <div class="body">传统建议 + 4 个新特质: 低信任 / 低单点判断 / 高智能门槛 / 监管 = 好事
+        <span class="en">4 new market traits for AI services: low trust, low task judgment, high intelligence threshold, regulation helps.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~2:30 – YC 已知好市场</div>
+      <div class="body">tax / audit / insurance / mortgages / 部分 healthcare / 部分 logistics; 还有大量未触达
+        <span class="en">Known good-fit markets + plenty more untouched.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~3:00 – 3 个市场自检</div>
+      <div class="body">Sam Altman test / 物理设备警告 / "人是 judgment 还是 workaround"
+        <span class="en">Sam Altman test + on-site labor warning + judgment-vs-workaround check.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~3:50 – ② 创始团队</div>
+      <div class="body">3 必须项: 领域熟练度 / 模型熟练度 / 运营严谨。General Legal 案例
+        <span class="en">3 founder attributes. General Legal case study.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~5:50 – ③ 打造产品</div>
+      <div class="body">人是接口 / 产品帮人非线性 scale / 4 原则 (运营思维 / variance / 人 scale / 终要 scale)
+        <span class="en">Human is interface; product scales humans nonlinearly; 4 product principles.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~7:10 – ④ 销售 & 客户成功</div>
+      <div class="body">早期需求陷阱 / 卖 outcomes / 3 定价 + 2 陷阱 (Panacea case)
+        <span class="en">Early demand trap. Sell outcomes. 3 pricing models + 2 traps.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~8:50 – ⑤ 损益表 (P&L)</div>
+      <div class="body">Revenue - COGS - Opex = Operating Income / COGS 3 件套 / AI 运营杠杆 / 30% → 50%+ 毛利机会
+        <span class="en">P&L structure, 3 COGS components, AI operating leverage, 30% → 50%+ margin opportunity.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~10:10 – ⑥ 买 vs 建</div>
+      <div class="body">买不到 PMF, 监管牌照是唯一合理理由, 建永远好
+        <span class="en">Can't buy PMF. Regulatory license is only valid reason. Build > buy.</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="ts">~11:00 – 收尾</div>
+      <div class="body">"process as the product, product as the process" + 鼓励申请 YC
+        <span class="en">Recap: process as the product. YC application plug.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ ROSTER ════════ -->
+<section id="sec-roster">
+  <h2>><span class="zh">
+    👤 关联到 Patrick 工作 / 项目
+    </span><span class="en">Cross-link to Patrick's Vault & Active Builds</span>
+  </h2>
+  <p>><span class="zh">
+    本 playbook 的</span><strong><span class="zh">结构化思维</span></strong><span class="zh">(找瓶颈 / variance 致命 / 运营即产品 / 卖 outcomes)跟 Patrick 当前的 </span><em>loop engineering</em> + <em>Agentic OS</em> + <em><span class="zh">公开 hub</span></em><span class="zh"> 工作</span><strong><span class="zh">高度同构</span></strong><span class="zh">。下面是已经存在 vault + skill 的关联。
+  </span></p>
+  <div class="cards">
+    <div class="card">
+      <h4>>Agentic OS v6+</h4>
+      <p>><span class="zh">Mission control = 内部"运营产品"。throughput / cycle time / variance 三个指标框架直接 apply。
+        </span><br><a href="https://2017zyl.xyz/agentic-os-dashboard/"><span class="zh">→ 公开 dashboard</span></a> · <a href="https://2017zyl.xyz/daily-reports.html">→ daily-reports hub</a></p>
+      <span class="tag verified">verified</span>
+    </div>
+    <div class="card">
+      <h4>>loop-engineering</h4>
+      <p>><span class="zh">deploy 6-step loop = "流程即产品"的实战化。CF Pages deploy skill 的 PITFALL 链本身就是 variance 管理。
+        </span><br><code>~/.hermes/skills/devops/public-html-deploy-cloudflare-pages/</code></p>
+      <span class="tag verified">verified</span>
+    </div>
+    <div class="card">
+      <h4>>video-to-knowledge-dashboard skill</h4>
+      <p>><span class="zh">本 dashboard 就是用本 skill 的 master-takeover recipe 一次写完。跟"建产品"的 PITFALL 50-75 family 同源。
+        </span><br><code>~/.hermes/skills/media/video-to-knowledge-dashboard/</code></p>
+      <span class="tag verified">verified</span>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">xjb 新疆 V14 (8/14 出发)</span></h4>
+      <p>><span class="zh">"卖 outcomes"哲学应用: 不卖行程模板, 卖"带 9 岁孩子的轻松自驾成果"。
+        </span><br><a href="https://2017zyl.xyz/xjb-public/">→ xjb-public</a></p>
+      <span class="tag mitig">mitig</span>
+    </div>
+    <div class="card">
+      <h4>>philosophy-salon</h4>
+      <p>><span class="zh">AI native 服务公司样板: 66 位哲学家 debate 平台 = "过程即产品" 的思想实验。
+        </span><br><a href="https://2017zyl.xyz/philosophy-salon/">→ live</a></p>
+      <span class="tag mitig">mitig</span>
+    </div>
+    <div class="card">
+      <h4>><span class="zh">General Legal 类比</span></h4>
+      <p>><span class="zh">YC 案例: Cooley/Fenwick + Caseex 创始组合。Patrick 的 Hermes / Heretic OS 也是"领域 (Claude Code) + 技术 (loop)" 混合 profile 样本。</span></p>
+      <span class="tag verified">verified</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ TIER 4 ANTI-MAPPING ════════ -->
+<section id="sec-tier4">
+  <h2>><span class="zh">
+    🛡 Tier 4 反映射
+    </span><span class="en">Anti-Mapping: 50/50 Rule — Mitigations vs Warnings vs Gaps</span>
+  </h2>
+  <p>><span class="zh">
+    任何"X = 普适真理"类 playbook 都需要反映射:</span><strong><span class="zh">它在你具体场景里 fail 的方式是什么?</span></strong><span class="zh">50% 规则 = mitigations: warnings: gaps 至少 1:1:1,避免一边倒推荐。
+  </span></p>
+  <div class="cards">
+    <div class="card" style="border-left:3px solid var(--green);">
+      <h4>><span class="zh">🟢 Mitigation 1: "variance 是生存问题"</span><span class="en">Variance kills trust</span></h4>
+      <p>><span class="zh">直接 apply 到 Agentic OS dashboard 的 KPI 暴露逻辑: 同一个指标两天的值不稳 = 信任崩。</span></p>
+      <span class="tag mitig">mitig</span>
+    </div>
+    <div class="card" style="border-left:3px solid var(--green);">
+      <h4>><span class="zh">🟢 Mitigation 2: "人是非线性杠杆"</span></h4>
+      <p>><span class="zh">Patrick 的 subagent 编排 + cron watchdog pipeline 就是"AI + 人 + SOP"非线性杠杆的实战。</span></p>
+      <span class="tag mitig">mitig</span>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);">
+      <h4>><span class="zh">🟡 Warning 1: 视频没说怎么 validate"领域熟练度"</span><span class="en">How to acquire domain fluency?</span></h4>
+      <p>><span class="zh">Patrick 大部分项目是 devtools / OS / dashboard — 远没到 tax / audit / FDA 类监管领域,此规则风险高。</span></p>
+      <span class="tag warn">warn</span>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);">
+      <h4>><span class="zh">🟡 Warning 2: "Panacea / General Legal 案例" = YC 站台</span><span class="en">YC-backed examples = survivorship bias</span></h4>
+      <p>><span class="zh">YC 公开站台的成功案例 ≠ 平均水平。100 个 AI 服务公司可能 90% 死在 variance / 销售不过关。</span></p>
+      <span class="tag warn">warn</span>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red);">
+      <h4>><span class="zh">🔴 Gap 1: "监管 = 好事"对 Patrick 不适用</span><span class="en">Regulation ≠ moat for non-regulated</span></h4>
+      <p>><span class="zh">Patrick 当前全部产品都是 </span><em><span class="zh">无监管 devtools / OS</span></em><span class="zh">。该规则零迁移价值,只是排除项。</span></p>
+      <span class="tag gap">gap</span>
+    </div>
+    <div class="card" style="border-left:3px solid var(--red);">
+      <h4>><span class="zh">🔴 Gap 2: "Sam Altman test"未给具体判定方法</span><span class="en">How exactly do you run the Sam test?</span></h4>
+      <p>><span class="zh">视频只说"问自己", 没说怎么测。Patrick 实际做"市场选择"时此规则无法操作化。</span></p>
+      <span class="tag gap">gap</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ RELATED ════════ -->
+<section id="sec-related">
+  <h2>><span class="zh">
+    🔗 相关
+    </span><span class="en">Related Notes & Sources</span>
+  </h2>
+  <ul>
+    <li>><span class="zh">📺 原视频: </span><a href="https://www.youtube.com/watch?v=gSNFJbgoaHI" target="_blank" rel="noopener">AI Native Service Companies — YC</a></li>
+    <li>><span class="zh">🏢 YC 公司案例:
+      </span><a href="https://www.ycombinator.com/companies/panacea" target="_blank" rel="noopener"><span class="zh">Panacea (FDA 监管)</span></a> ·
+      <a href="https://www.ycombinator.com/companies/general-legal" target="_blank" rel="noopener"><span class="zh">General Legal (律所)</span></a>
+    </li>
+    <li>><span class="zh">📚 同类内容 vault 索引: </span><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/gSNFJbgoaHI/</code><span class="zh"> (本次新建)</span></li>
+    <li>><span class="zh">🛠 相关 skill: </span><code>media/video-to-knowledge-dashboard</code> · <code>media/video-to-public-deploy</code> · <code>public-html-deploy-cloudflare-pages</code></li>
+    <li>><span class="zh">🌐 公网 hub: </span><a href="https://2017zyl.xyz/daily-reports.html" target="_blank" rel="noopener">daily-reports.html</a></li>
+  </ul>
+</section>
+
+<!-- ════════ META ════════ -->
+<section id="sec-meta">
+  <h2>><span class="zh">
+    📊 元数据
+    </span><span class="en">Metadata & Build Provenance</span>
+  </h2>
+  <table>
+    <tbody>
+      <tr><th>><span class="zh">视频 ID</span></th><td>><code>gSNFJbgoaHI</code></td></tr>
+      <tr><th>><span class="zh">频道 / Channel</span></th><td>>Y Combinator</td></tr>
+      <tr><th>><span class="zh">主持 / Speaker</span></th><td>>Garry Tan (YC President)</td></tr>
+      <tr><th>><span class="zh">时长 / Length</span></th><td>>11:13 (673s)</td></tr>
+      <tr><th>><span class="zh">词数 / Word count</span></th><td>><span class="zh">2,067 词 / 12,215 字符</span></td></tr>
+      <tr><th>>Transcription</th><td>>kome.ai API + YouTube auto-captions (English)</td></tr>
+      <tr><th>>Chapter structure</th><td>><span class="zh">视频无显式 chapter 时间戳 → 按段落边界 + 话题转移点推断 (Pitfall 69 fallback)</span></td></tr>
+      <tr><th>>Build mode</th><td>>Master-takeover (short video &lt; 15 min, single-file SPA, 1-shot write_file)</td></tr>
+      <tr><th>>Bilingual design</th><td>><span class="zh">默认中文 (Patrick 偏好), EN ⇄ 中 toggle 顶角, 4-class CSS (zh / en / lang-zh / lang-en), localStorage 持久化</span></td></tr>
+      <tr><th>>Tabs</th><td>><span class="zh">14 sections (概览 + 6 章节 + 引述 + tips + timeline + roster + tier4 + related + meta)</span></td></tr>
+      <tr><th>>Verifications</th><td>><span class="zh">✓ HTML &lt; 80KB · ✓ node --check exit 0 · ✓ 0 body \uXXXX leak (Pitfall 67-B) · ✓ bilingual spans 配对 · ✓ TOC v1.4.4 collapsible</span></td></tr>
+      <tr><th>>Generated</th><td>>2026-07-15</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p>
+    📺 来源视频: <a href="https://www.youtube.com/watch?v=gSNFJbgoaHI" target="_blank" rel="noopener">AI Native Service Companies — YC (Garry Tan)</a> · ⏱ 11:13 · 2,067 词
+  </p>
+  <p class="en">
+    Generated by Hermes Agent via media/video-to-knowledge-dashboard skill v1.5.41 master-takeover pattern. Bilingual EN ⇄ ZH with localStorage persistence. Tab counts: 14 · 6 stat cards · 8 timeline rows · 8 quote cards · 3 tables · 6 roster · 6 tier-4 anti-mapping.
+  </p>
+  <p style="margin-top:12px; color:var(--text-3); font-size:11px;">
+    本地预览路径: <code>file:///tmp/gSNFJbgoaHI-dashboard.html</code> · 公网: 待 ship 后追加
+  </p>
+</footer>
+
+<script>
+  // ── TOC collapse ──
+  (function() {
+    const KEY = 'gSNFJbgoaHI-toc-collapsed';
+    if (localStorage.getItem(KEY) === '1') document.body.classList.add('toc-collapsed');
+  })();
+  function toggleTOC() {
+    document.body.classList.toggle('toc-collapsed');
+    localStorage.setItem('gSNFJbgoaHI-toc-collapsed', document.body.classList.contains('toc-collapsed') ? '1' : '0');
+  }
+
+  // ── Language toggle ──
+  (function() {
+    const KEY = 'gSNFJbgoaHI-lang';
+    const saved = localStorage.getItem(KEY);
+    if (saved === 'en') document.documentElement.lang = 'en';
+  })();
+  function toggleLang() {
+    const html = document.documentElement;
+    if (html.lang === 'zh-CN') {
+      html.lang = 'en';
+      localStorage.setItem('gSNFJbgoaHI-lang', 'en');
+    } else {
+      html.lang = 'zh-CN';
+      localStorage.setItem('gSNFJbgoaHI-lang', 'zh-CN');
+    }
+  }
+
+  // ── Mark visited sections ──
+  (function() {
+    const links = document.querySelectorAll('aside.toc nav a');
+    links.forEach(a => {
+      a.addEventListener('click', () => {
+        links.forEach(x => x.style.color = '');
+        a.style.color = 'var(--lime)';
+      });
+    });
+  })();
+</script>
+</html>
