@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-07-16",
+    "title": "OpenAI vs Anthropic 订阅之战 · Dario 的 compute 决策 vs Sam 的情绪战 · Fable 5 留不留订阅？RSI 是 Anthropic 的 wild card",
+    "track": "brief",
+    "tag": "openai · anthropic · fable-5 · gpt-5-6 · subscription-war · quota-reset · rsi · dario · sam-altman · compute-bet · bilingual · toc-v1.4.4",
+    "practical": 6,
+    "time": 19,
+    "desc": "Dario 2 年前不愿赌破产式 all-in compute 决策 → 今天 Fable 5 capacity 锁死 → 订阅 vs API 双重战场 → OpenAI 天天 quota reset + Anthropic 反复延期 Fable → AI Index 60 vs 59 但 cost per task 2.75x 差距 → Tar 公开确认 capacity constraint + Sam 进入 salty mode 情绪战 → RSI = Anthropic 真正在赌的 wild card",
+    "file": "daily-reports/openai-vs-anthropic-subscription-war-2026-07-16.html",
+    "added_at": "2026-07-16T22:30:00+08:00"
+  },
+  {
+    "date": "2026-07-16",
     "title": "🆕 小Lin说《AI巨头资本混战》metadata-only batch · 19:28 中文财经科普 · 8 章预测 + 17-card + Tier 4 7 cards (transcript publisher_restricted · Pitfall 75)",
     "track": "video",
     "tag": "ai-bubble · industry-analysis · chinese · capital-flow · funding-rounds · sovereign-wealth-funds",

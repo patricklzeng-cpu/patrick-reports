@@ -1,5 +1,96 @@
 [
   {
+    "title": "🆕 全球想象文学 · 五联 · 11 仪表板 · 中EN 双语可切换 · 101 作家 + 45 影视",
+    "track": "brief",
+    "tag": "literature · quintet · sci-fi · fantasy · mystery · horror · nonfiction · latin-american · 101-authors · bilingual · toc",
+    "practical": 85,
+    "time": 15,
+    "desc": "Patrick 的全球想象文学五联 hub 索引页. 6 大流派 (科幻 30 / 奇幻 17 / 推理 15 / 恐怖 12 / 非虚构 15 / 拉美 12) + 12 反乌托邦专题 = 101 作家 + 45 影视. v2 升级: 中EN 双语 verbatim 并列 (54 zh + 54 en span 配对) + 顶角 EN⇄中 toggle + localStorage 持久化 + TOC v1.4.4 6 锚点 collapsible + Patrick 5 张工作关联卡 (阅读路径 / 思维模式 / 架构复用 / 中国当代 / Loop 启示). v1 原始中文版仍可访问为 📌 旧版",
+    "file": "literary-bridge/index.html",
+    "date": "2026-07-16",
+    "category": "literature",
+    "summary": "全球想象文学 · 五联 hub · 6 类 · 101 作家 · 6 位跨界大师 · 中EN 双语 + TOC v1.4.4",
+    "featured": true,
+    "tags": [
+      "literature",
+      "quintet",
+      "sci-fi",
+      "fantasy",
+      "mystery",
+      "horror",
+      "nonfiction",
+      "latin-american",
+      "101-authors",
+      "bilingual",
+      "toc",
+      "hub"
+    ],
+    "added_at": "2026-07-16",
+    "curated": 1
+  },
+  {
+    "title": "🆕 YC Head of Design 用 AI 设计 · 中EN 双语可切换 · E Bufar × Conductor + Paper Design + Aqua 语音 · 30:54 · 1,689 likes · 3 production 项目 walkthrough (Paxel Spotify Wrapped for Coding / Sodazine SOTA 庆祝旧金山 + soul.md 哲学 / Startup School 2026 Jensen+Sam+Jeff Dean) · 14 tabs · 6 stat cards · 17 Patrick 关联 (verified-on-disk) · 7 Tier 4 反向映射 · 10 verbatim E 原话 + 中文翻译 · 顶角 EN⇄中 toggle · localStorage 持久化",
+    "file": "daily-reports/ebufar-yc-head-design-conductor-2026-07-15.html",
+    "date": "2026-07-15",
+    "category": "video",
+    "track": "video",
+    "summary": "E Bufar YC Head of Design. 4 大核心洞察: (1) 单工具栈 Conductor+Paper+Aqua+Claude ship 全栈 不手打 (2) soul.md 哲学 录一切+dump 全文+喂 agent (3) Human vs Machine 双版本页面 (.md 给 agent + note to any AI agent warning) (4) Taste 不需要 verbalize 给 agent 自己 abstract pattern. Patrick 4 个 P0/P1 action items: vault soul.md 化 + daily-reports .md 双版本 + Conductor 试验 + disposable bookmark UI. cross-link 7 vault notes (Jack Roberts/Greg Isenberg/Julian Goldie/Berman/MoA/Tristan/Kokotajlo)",
+    "featured": true,
+    "tags": [
+      "yc-design",
+      "conductor",
+      "paper-design",
+      "aqua",
+      "soul-md",
+      "paxel",
+      "sodazine",
+      "startup-school",
+      "disposable-design",
+      "taste-transfer"
+    ],
+    "practical": 88,
+    "time": 25
+  },
+  {
+    "title": "🆕 obra/superpowers audit — 15 skills reverse-ported · 4 strong gaps filled (brainstorming / finishing-a-branch / receiving-code-review / verification) · meta/obra-superbrains-superpowers-workflow-chain orchestrator · 3 reference docs fetched locally (anthropic-best-practices 46KB + persuasion 6KB + testing 13KB) · 14-skill framework · MIT · Pi official support · 10-section polish-grade HTML (hero banner + animated counters + TOC scroll-spy + back-to-top) · 34.8KB",
+    "file": "daily-reports/superpowers-audit-2026-07-15.html",
+    "date": "2026-07-15",
+    "category": "research",
+    "track": "brief",
+    "summary": "obra/superpowers (254K★ MIT) audit + full chain import shipped 2026-07-15. Coverage: 7/14 skills already covered, 4 strong gaps filled (HARD-GATE brainstorming + 6-step finishing-a-branch + READ-UNDERSTAND-VERIFY-EVALUATE-RESPOND-IMPLEMENT receiving-code-review + Iron Law verification-before-completion). 3 chain-critical reverse-ported (using-superpowers + writing-plans + subagent-driven-development). 4 workflow support. 3 thin references to Patrick's primary skills. Static pilot test (decision tree walk) PASS. Caveat: runtime trigger test = next session.",
+    "featured": true,
+    "tags": [
+      "obra-superpowers",
+      "reverse-port",
+      "agent-os",
+      "workflow-chain",
+      "audit",
+      "mit",
+      "pi-official",
+      "hard-gate",
+      "iron-law",
+      "polish-grade"
+    ],
+    "added_at": "2026-07-15T18:00:00+08:00"
+  },
+  {
+    "title": "🆕 AI-Native Org Transformation Suite V4 — 4 公司 (IBM / Klarna / 乐天 / 星展银行) × 7 模块全景 (全景/四家公司/组织演化/任务市场/角色问责/机器审计/365天行动) · 100% proud 模式 polish · 数据语义 / 交互 100% 保留 · 加 4 项升级:sticky 渐变 nav / 4 公司 chip + active glow / 40px 大数字 KPI / 双主题 toggle + localStorage · 107KB 单 HTML · 0 外部依赖 / 0 npm / 0 CDN",
+    "file": "daily-reports/ai-native-org-transformation-v4.html",
+    "date": "2026-07-15",
+    "category": "research",
+    "track": "brief",
+    "summary": "Patrick 给出 v3 iframe+srcdoc 单文件 fragment · Master 重写为单文件 V4: 100% 保留 69 个 data-* 属性 + 13 个核心 JS function + 4 公司完整数据对象 (IBM 94% 智能闭环 / Klarna 11→<2 分钟 / 乐天 105 亿日元 / 星展 约 10 亿新元) + 6 模块 DOM · 升级: sticky 渐变 nav + 紫粉 hero + 4 公司 chip 切换 (IBM 蓝 / Klarna 玫粉 / 乐天红 / 星展红) + active dot glow · 40px KPI results (94% / 40% / +74 etc) · 暗/亮双主题 + localStorage 持久化 · SVG 节点实色填充 (guard 绿 / human 粉 / core 紫) + paint-order 描边 + drop-shadow glow · checkbox 自定义 + 进度条渐变 · 0 外部依赖 · 100% proud ship",
+    "featured": true,
+    "tags": [
+      "ai-native",
+      "org-transformation",
+      "ibm-klarna-rakuten-dbs",
+      "v4-proud",
+      "single-file-spa"
+    ],
+    "added_at": "2026-07-15T14:00:00+08:00"
+  },
+  {
     "title": "🆕 ECC (Everything Claude Code) 深度解析 — 229K stars · 278 skills · 67 agents · 6-harness plugin · 跟我 Loop OS 90% 同源 sibling · 5 SKILL.md cherry-pick 今晚 ship 到 ~/.hermes/skills/ · Pattern ⑥ Ralphinho DAG 是 P1 关键缺口 · 14 sections · bilingual (ZH 默认 + EN 切换) · 58KB · TOC v1.4.4 collapsible · PITFALL 7-mark 验证全 PASS",
     "file": "daily-reports/ecc-deep-read-2026-07-15.html",
     "date": "2026-07-15",

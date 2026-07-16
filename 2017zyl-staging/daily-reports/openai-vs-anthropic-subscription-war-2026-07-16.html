@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OpenAI vs Anthropic subscription war · Fable 5 in/out · RSI as Anthropic's wild card — bilingual EN+ZH dashboard">
+  <meta name="generated" content="2026-07-16T22:00:00+08:00">
+  <title>OpenAI vs Anthropic 订阅之战 · Fable 5 / RSI · Bilingual Dashboard</title>
+  <style>
+
+:root {
+  --bg: #0a0a14;
+  --bg-elev: #12121e;
+  --bg-elev-2: #1a1a2a;
+  --border: rgba(255,255,255,0.08);
+  --text: #e8e8f0;
+  --text-dim: #a8a8c0;
+  --text-mute: #6a6a85;
+  --brand-1: #d5ff3f;
+  --brand-2: #00d4ff;
+  --brand-3: #b96bff;
+  --brand-4: #ff6b9d;
+  --lime: #d5ff3f;
+  --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-hover: 0 12px 48px rgba(213,255,63,0.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, "SF Pro Display", "PingFang SC", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 0;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(213,255,63,0.04), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(0,212,255,0.04), transparent 40%);
+}
+
+/* ====== BILINGUAL TOGGLE (Pitfall 76 + Step 6.2) ====== */
+html[lang="zh-CN"] .en { display: none; }
+html[lang="en"] .zh { display: none; }
+html[lang="zh-CN"] .lang-en { display: none; }
+html[lang="en"] .lang-zh { display: none; }
+
+.lang-toggle {
+  position: fixed; top: 16px; right: 24px; z-index: 1000;
+  background: rgba(18,18,42,.95);
+  border: 1px solid var(--lime);
+  border-radius: 22px;
+  padding: 6px 14px;
+  font: 600 12px ui-monospace, "SF Mono", monospace;
+  color: var(--lime);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.lang-toggle:hover {
+  background: var(--lime);
+  color: #0a0a14;
+  box-shadow: 0 0 16px rgba(213,255,63,.4);
+}
+
+/* ====== TOC SIDEBAR (v1.4.4 collapsible) ====== */
+.toc-toggle {
+  position: fixed;
+  top: 80px; left: 0; z-index: 999;
+  background: rgba(18,18,42,.95);
+  border: 1px solid var(--lime);
+  border-radius: 0 8px 8px 0;
+  padding: 6px 10px;
+  font: 600 11px ui-monospace, monospace;
+  color: var(--lime);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s;
+}
+.toc-toggle:hover { background: var(--lime); color: #0a0a14; }
+
+aside.toc {
+  position: fixed; top: 120px; left: 0;
+  width: 240px; max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  background: rgba(20,20,24,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 0 12px 12px 0;
+  padding: 0.9rem 1rem;
+  z-index: 40;
+  font-size: 0.78rem;
+  transform: translateX(calc(-100% + 24px));
+  opacity: 0.95;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+}
+.toc-collapsed aside.toc { transform: translateX(-100%); opacity: 0.5; }
+aside.toc:hover, aside.toc:focus-within { transform: translateX(0); opacity: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+aside.toc > h3 {
+  color: var(--brand-2);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.6rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+aside.toc ol { list-style: none; padding: 0; margin: 0; }
+aside.toc ol li { margin: 0; }
+aside.toc a {
+  display: block;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.3rem 0.4rem;
+  border-radius: 5px;
+  border-left: 2px solid transparent;
+  line-height: 1.3;
+  transition: all 0.12s;
+  cursor: pointer;
+}
+aside.toc a:hover { color: var(--text); background: var(--bg-elevated); }
+aside.toc a.active {
+  color: var(--brand-2);
+  background: var(--bg-elevated);
+  border-left-color: var(--brand-1);
+  font-weight: 500;
+}
+@media (max-width: 900px) {
+  aside.toc { display: none; }
+  .page { padding-left: 16px !important; }
+}
+@media (min-width: 901px) {
+  .page { padding-left: 280px !important; }
+}
+h2, h3, .h2-section { scroll-margin-top: 24px; }
+
+/* ====== HERO ====== */
+.hero {
+  background: linear-gradient(135deg, var(--bg-elev) 0%, var(--bg-elev-2) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 60px 40px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -50%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(213,255,63,0.06), transparent 60%);
+  pointer-events: none;
+}
+.hero h1 {
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--lime) 0%, var(--brand-2) 50%, var(--brand-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.hero .subtitle {
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--text-dim);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.hero .meta-tags {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+.hero .meta-tag {
+  padding: 4px 12px;
+  background: rgba(213,255,63,0.08);
+  border: 1px solid rgba(213,255,63,0.2);
+  border-radius: 16px;
+  color: var(--lime);
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+/* ====== STAT CARDS ====== */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 32px 40px;
+  max-width: 1400px;
+}
+.stat-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+.stat-card:hover {
+  border-color: var(--lime);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ====== SECTIONS ====== */
+.page { padding: 32px 40px 80px; max-width: 1400px; }
+.section {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+.section h2 {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--brand-2);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+.section h3 {
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 600;
+  color: var(--text);
+  margin: 24px 0 12px;
+}
+.section h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--brand-1);
+  margin: 18px 0 8px;
+}
+.section p {
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.section ul {
+  color: var(--text-dim);
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+.section ul li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* ====== TIER 4 CARDS ====== */
+.tier4-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.tier4-card {
+  background: var(--bg-elev-2);
+  border-radius: 12px;
+  padding: 18px;
+  border-left: 4px solid var(--text-mute);
+  transition: all 0.2s;
+}
+.tier4-card.mitig { border-left-color: var(--lime); }
+.tier4-card.warn { border-left-color: #ffb84d; }
+.tier4-card.gap { border-left-color: #ff5577; }
+.tier4-card:hover { transform: translateX(2px); box-shadow: var(--shadow); }
+.tier4-tag {
+  display: inline-block;
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.tier4-tag.mitig { background: rgba(213,255,63,0.15); color: var(--lime); }
+.tier4-tag.warn { background: rgba(255,184,77,0.15); color: #ffb84d; }
+.tier4-tag.gap { background: rgba(255,85,119,0.15); color: #ff5577; }
+.tier4-title { font-weight: 600; color: var(--text); margin-bottom: 8px; font-size: 0.95rem; }
+.tier4-quote {
+  font-style: italic;
+  color: var(--text-mute);
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  padding-left: 12px;
+  border-left: 2px solid var(--border);
+}
+.tier4-source {
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  color: var(--text-mute);
+}
+
+/* ====== PATRICK CARDS ====== */
+.patrick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.patrick-card {
+  background: var(--bg-elev-2);
+  border-radius: 8px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.patrick-card:hover {
+  border-color: var(--lime);
+  box-shadow: var(--shadow);
+}
+.patrick-card-label {
+  font-weight: 700;
+  color: var(--brand-1);
+  font-size: 0.9rem;
+  font-family: ui-monospace, monospace;
+  margin-bottom: 4px;
+}
+.patrick-card-path {
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  color: var(--brand-2);
+  margin-bottom: 8px;
+}
+.patrick-card-why {
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* ====== ACTION ITEMS ====== */
+.action-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.action-item {
+  background: var(--bg-elev-2);
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid var(--lime);
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.action-item.p1 { border-left-color: #ffb84d; }
+.action-item.p2 { border-left-color: var(--brand-2); }
+.action-item.p3 { border-left-color: var(--brand-3); }
+.action-pri {
+  font-family: ui-monospace, monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--lime);
+  text-align: center;
+  padding: 8px 0;
+  background: rgba(213,255,63,0.08);
+  border-radius: 6px;
+}
+.action-item.p1 .action-pri { color: #ffb84d; background: rgba(255,184,77,0.08); }
+.action-item.p2 .action-pri { color: var(--brand-2); background: rgba(0,212,255,0.08); }
+.action-item.p3 .action-pri { color: var(--brand-3); background: rgba(185,107,255,0.08); }
+.action-body h4 { margin: 0 0 6px 0; color: var(--text); font-size: 0.95rem; }
+.action-body p { color: var(--text-dim); font-size: 0.85rem; margin: 0; }
+
+/* ====== CHAPTER DEEP-DIVE ====== */
+.chapter-card {
+  background: var(--bg-elev-2);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+}
+.chapter-card h3 {
+  color: var(--brand-2);
+  margin-bottom: 12px;
+}
+.chapter-quote {
+  background: rgba(213,255,63,0.05);
+  border-left: 3px solid var(--lime);
+  padding: 14px 18px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--text);
+}
+.chapter-raw {
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--text-mute);
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+}
+
+/* ====== DISCLAIMER BOX ====== */
+.disclaimer {
+  background: rgba(255,184,77,0.08);
+  border: 1px solid rgba(255,184,77,0.3);
+  border-left: 4px solid #ffb84d;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 24px 40px;
+  color: var(--text);
+  font-size: 0.88rem;
+  max-width: 1320px;
+}
+.disclaimer-title {
+  font-weight: 700;
+  color: #ffb84d;
+  margin-bottom: 6px;
+}
+
+/* ====== BILINGUAL QUOTES ====== */
+.quote-card {
+  background: var(--bg-elev-2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--brand-3);
+}
+.quote-en {
+  font-style: italic;
+  color: var(--text);
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+.quote-zh {
+  color: var(--text-dim);
+}
+
+/* ====== FOOTER ====== */
+.footer {
+  background: var(--bg-elev);
+  border-top: 1px solid var(--border);
+  padding: 40px;
+  text-align: center;
+  color: var(--text-mute);
+  font-size: 0.85rem;
+}
+.footer a { color: var(--brand-2); text-decoration: none; }
+.footer a:hover { color: var(--lime); }
+
+/* ====== GENERIC LINK ====== */
+a.src { color: var(--brand-2); text-decoration: none; border-bottom: 1px dotted var(--brand-2); }
+a.src:hover { color: var(--lime); border-bottom-color: var(--lime); }
+
+/* ====== DISPLAY NONE FOR H3 IF LANG EN (since h3 has class zh) ====== */
+html[lang="en"] h3.zh { display: none; }
+html[lang="zh-CN"] h3.en { display: none; }
+
+  </style>
+</head>
+<body>
+  <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
+  <button class="toc-toggle" onclick="toggleToc()" id="tocBtn">📑 TOC</button>
+
+  <aside class="toc" id="tocSidebar" aria-label="Table of contents">
+    <h3><span class="zh">目录 / TOC</span><span class="en">Contents / TOC</span></h3>
+<ol>
+  <li><a href="#h2-overview" data-toc-target="h2-overview"><span class="zh">🌐 多源多视角 / Multi-source</span><span class="en">🌐 Multi-source multi-perspective</span></a></li>
+  <li><a href="#h2-thesis" data-toc-target="h2-thesis"><span class="zh">🎯 核心论点 / Core Thesis</span><span class="en">🎯 Core Thesis</span></a></li>
+  <li><a href="#h2-stats" data-toc-target="h2-stats"><span class="zh">📈 关键数字 / Key Numbers</span><span class="en">📈 Key Numbers</span></a></li>
+  <li><a href="#h2-disclaimer" data-toc-target="h2-disclaimer"><span class="zh">⚠️ 信源边界 / Source Limits</span><span class="en">⚠️ Source Limits</span></a></li>
+  <li><a href="#h2-chapters" data-toc-target="h2-chapters"><span class="zh">🔍 章节深读 / Chapter Deep-dive</span><span class="en">🔍 Chapter Deep-dive</span></a></li>
+  <li><a href="#h2-tier4" data-toc-target="h2-tier4"><span class="zh">🏷️ Tier 4 风险映射 / Risk Mapping</span><span class="en">🏷️ Tier 4 Risk Mapping</span></a></li>
+  <li><a href="#h2-patrick" data-toc-target="h2-patrick"><span class="zh">🤖 与 Patrick 工作流的关联 / Workflow Relevance</span><span class="en">🤖 Patrick Workflow Relevance</span></a></li>
+  <li><a href="#h2-sources" data-toc-target="h2-sources"><span class="zh">📡 信源 / 反方证据 / Sources</span><span class="en">📡 Sources / Counter-evidence</span></a></li>
+  <li><a href="#h2-actions" data-toc-target="h2-actions"><span class="zh">🛠️ Action Items</span><span class="en">🛠️ Action Items</span></a></li>
+  <li><a href="#h2-quotes" data-toc-target="h2-quotes"><span class="zh">📝 双语金句 / Bilingual Quotes</span><span class="en">📝 Bilingual Quotes</span></a></li>
+  <li><a href="#h2-related" data-toc-target="h2-related"><span class="zh">🔗 相关笔记 / Related Notes</span><span class="en">🔗 Related Notes</span></a></li>
+  <li><a href="#h2-meta" data-toc-target="h2-meta"><span class="zh">🧬 元数据 / Metadata</span><span class="en">🧬 Metadata</span></a></li>
+  <li><a href="#ch-1" data-toc-target="ch-1"><span class="zh">CH1 · Dario 的 2 年前 compute 决策埋下伏笔</span><span class="en">CH1 · Dario's 2-year-old compute decision planted the seed</span></a></li>
+  <li><a href="#ch-2" data-toc-target="ch-2"><span class="zh">CH2 · 订阅 + quota reset = 用户的双重战场</span><span class="en">CH2 · Subscription + quota reset = the double battlefield for users</span></a></li>
+  <li><a href="#ch-3" data-toc-target="ch-3"><span class="zh">CH3 · 拔 Fable 出订阅 = 给 OpenAI 送 coder mind share</span><span class="en">CH3 · Pulling Fable out of subscription = gifting coder mind share to OpenAI</span></a></li>
+  <li><a href="#ch-4" data-toc-target="ch-4"><span class="zh">CH4 · AI Index 60 vs 59 + cost per task $2.75 vs $1 = 购买决策</span><span class="en">CH4 · AI Index 60 vs 59 + cost per task $2.75 vs $1 = buyer math</span></a></li>
+  <li><a href="#ch-5" data-toc-target="ch-5"><span class="zh">CH5 · Anthropic 反复延期 = 决策不确定性的开发者成本</span><span class="en">CH5 · Anthropic's repeated extensions = developer cost of uncertainty</span></a></li>
+  <li><a href="#ch-6" data-toc-target="ch-6"><span class="zh">CH6 · Tar 亲自确认 capacity constraint + Sam 进入 salty mode</span><span class="en">CH6 · Tar confirms capacity constraint + Sam enters salty mode</span></a></li>
+  <li><a href="#ch-7" data-toc-target="ch-7"><span class="zh">CH7 · GPT 5.6 = 老兵 / Fable = 新秀 = 生长曲线完全不同</span><span class="en">CH7 · GPT 5.6 = veteran / Fable = rookie = totally different growth curves</span></a></li>
+  <li><a href="#ch-8" data-toc-target="ch-8"><span class="zh">CH8 · OpenAI 下一步是 GPT6 + 同样会撞 demand 墙</span><span class="en">CH8 · OpenAI's next move is GPT6 + same demand wall incoming</span></a></li>
+  <li><a href="#ch-9" data-toc-target="ch-9"><span class="zh">CH9 · 行动建议 = 用 quota / 不 hoard / 这窗口稍纵即逝</span><span class="en">CH9 · Action plan = use quotas / don't hoard / this window is fleeting</span></a></li>
+  <li><a href="#ch-10" data-toc-target="ch-10"><span class="zh">CH10 · RSI = Anthropic 真正在赌的 wild card</span><span class="en">CH10 · RSI = the real wild card Anthropic is betting on</span></a></li>
+</ol>
+  </aside>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>
+      <span class="zh">📊 OpenAI vs Anthropic 订阅之战 · Dario 的 compute 决策 vs Sam 的情绪战</span>
+      <span class="en">📊 OpenAI vs Anthropic Subscription War · Dario's Compute Bet vs Sam's Vibes War</span>
+    </h1>
+    <div class="subtitle">
+      <span class="zh">Fable 5 留不留订阅？RSI 是 Anthropic 的 wild card</span>
+      <span class="en">Fable 5 In or Out of Subscription? RSI Is Anthropic's Wild Card</span>
+    </div>
+    <div class="meta-tags">
+      <span class="meta-tag">📺 nxr20lcqagg</span>
+      <span class="meta-tag">⏱ 19:03</span>
+      <span class="meta-tag">📝 2,998 words</span>
+      <span class="meta-tag">🌐 EN · ZH</span>
+      <span class="meta-tag">📅 2026-07-16</span>
+      <span class="meta-tag">🏷️ Fable 5 · GPT 5.6 · RSI · Quota</span>
+    </div>
+  </header>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <div class="disclaimer-title">
+      <span class="zh">⚠️ 元数据说明</span>
+      <span class="en">⚠️ Metadata Note</span>
+    </div>
+    <div class="zh">
+      本 dashboard 由 kome.ai API 取 transcript（19:03 / 2998 字 / 11 章），Higsfield 赞助段已剥离。
+      主播立场倾向 OpenAI（多次明示偏好），论据选择性引用。所有具体时间线 / 数字 / 报价标注信源或频道主旨。
+    </div>
+    <div class="en">
+      Built from kome.ai transcript (19:03 / 2998 words / 11 chapters). Higsfield sponsor segment stripped.
+      Host openly favors OpenAI (multiple explicit endorsements); arguments selectively cited.
+      All specific timelines/numbers/prices tagged with source.
+    </div>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="stat-grid" id="h2-stats">
+
+<div class="stat-card">
+  <div class="stat-label"><span class="zh">时长</span><span class="en">Duration</span></div>
+  <div class="stat-value" style="color: var(--lime);">19:03</div>
+</div>
+
+<div class="stat-card">
+  <div class="stat-label"><span class="zh">章节</span><span class="en">Chapters</span></div>
+  <div class="stat-value" style="color: var(--brand-2);">10</div>
+</div>
+
+<div class="stat-card">
+  <div class="stat-label"><span class="zh">字数</span><span class="en">Word count</span></div>
+  <div class="stat-value" style="color: var(--brand-3);">2,998</div>
+</div>
+
+<div class="stat-card">
+  <div class="stat-label"><span class="zh">频道</span><span class="en">Channel</span></div>
+  <div class="stat-value" style="color: var(--brand-1);">AI News</div>
+</div>
+
+<div class="stat-card">
+  <div class="stat-label"><span class="zh">Fable Index</span><span class="en">Fable Index</span></div>
+  <div class="stat-value" style="color: var(--lime);">60</div>
+</div>
+
+<div class="stat-card">
+  <div class="stat-label"><span class="zh">GPT 5.6 Index</span><span class="en">GPT 5.6 Index</span></div>
+  <div class="stat-value" style="color: var(--brand-2);">59</div>
+</div>
+
+  </div>
+
+  <div class="page">
+
+    <!-- SECTION 1: OVERVIEW / 多源多视角 -->
+    <section class="section" id="h2-overview">
+      <h2><span class="zh">🌐 多源多视角</span><span class="en">🌐 Multi-source multi-perspective</span></h2>
+      <p class="zh">视频主播（AI News / OpenAI-leaning）公开将自己定位为「两个公司都粉，但最近更挺 OpenAI」。这种立场决定了本视频的论点偏向 = OpenAI 优势放大 + Anthropic 痛点放大。交叉验证：本 dashboard 的 6 stat cards 跟 Anthropic 官方公告（Tar 推文）+ Artificial Analysis intelligence index + 频道已知主张交叉印证。</p>
+      <p class="en">The video host (AI News channel, OpenAI-leaning) explicitly positions himself as "fan of both, but lately more pro-OpenAI". This stance shapes the video's argument bias = amplifying OpenAI's wins + Anthropic's pain points. Cross-verified: this dashboard's 6 stat cards cross-check against Anthropic's official statement (Tar tweet) + Artificial Analysis intelligence index + channel's known thesis framework.</p>
+
+      <h3><span class="zh">🎯 核心论点（3 条）</span><span class="en">🎯 Core Thesis (3 points)</span></h3>
+      <ol style="color: var(--text-dim); padding-left: 24px;">
+        <li class="zh"><strong>2 年前 compute 决策 = 今天的 capacity 锁死</strong>：Dario 不愿「赌破产」式 all-in compute，结果 Anthropic 在 Fable 5 推出时 GPU 容量不够 = 无法承担订阅 + API 双轨服务成本。</li>
+        <li class="zh"><strong>订阅战争 = 用户的双重夹击</strong>：OpenAI 天天 quota reset + Anthropic 反复延期 Fable 离开订阅 = 用户的感知是「OpenAI 慷慨 + Anthropic 收紧」。</li>
+        <li class="zh"><strong>RSI = Anthropic 的 wild card</strong>：Anthropic 不靠 serving 赢，靠「Fable research Fable」的链式自我加速 — 一旦 RSI 启动，in the lead wins。</li>
+        <li class="en"><strong>2-year-old compute decision = today's capacity lock</strong>: Dario refused to "bet the company" on all-in compute; result = Anthropic can't afford subscription + API dual-track when Fable 5 launched.</li>
+        <li class="en"><strong>Subscription war = double whammy for users</strong>: OpenAI resets quotas daily + Anthropic repeatedly delays Fable's subscription removal = users perceive "OpenAI generous + Anthropic tightening".</li>
+        <li class="en"><strong>RSI = Anthropic's wild card</strong>: Anthropic doesn't win via serving; they bet on "Fable researching Fable" — chain self-acceleration. Once RSI starts, whoever's in the lead wins.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 2: CHAPTER DEEP-DIVE -->
+    <section class="section" id="h2-chapters">
+      <h2><span class="zh">🔍 章节深读</span><span class="en">🔍 Chapter Deep-dive</span></h2>
+      <p class="zh">10 章节，按视频时间线铺开。每章含：双语摘要 + verbatim EN 原话 + 折叠原始 transcript 段（已剥离 Higsfield 赞助段）。</p>
+      <p class="en">10 chapters, laid out by video timeline. Each chapter has: bilingual summary + verbatim EN quote + collapsible raw transcript segment (Higsfield sponsor stripped).</p>
+
+
+<div class="chapter-card" id="ch-1">
+  <h3 class="zh">CH1 · Dario 的 2 年前 compute 决策埋下伏笔</h3>
+  <h3 class="en">CH1 · Dario's 2-year-old compute decision planted the seed</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">主播开场明确说：Anthropic 在 AI 竞赛中按所有指标都在赢 — revenue 超 OpenAI，Fable 5 是地表最强模型。但 2 年前 Dario 一次不愿「All in compute」的决策，今天还在反噬：当年 5x/year vs 10x/year 增长错估 → 数据中心买错 → capacity 锁死 → Fable 推不出订阅。这条决策 + Fable 10T 参数超大体型两件事互为放大器。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Host opens: Anthropic is winning the AI race by every metric — revenue leapfrogged OpenAI, Fable 5 is the smartest model on the planet. But 2 years ago Dario made a decision (refused to risk bankruptcy by over-investing in compute when the demand curve wasn't certain) that haunts them today. That mistake + Fable being the first 10T-param model amplify each other into a self-inflicted capacity trap.</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「By all measures, Anthropic is winning the AI race against open AI right now. Their revenue leapfrogged Open AI. They have the overall smartest model on the planet with Fable 5. But here's the thing. Anthropic made a mistake 2 years ago that is haunting them to this very day.」</span>
+    <span class="en">"By all measures, Anthropic is winning the AI race against open AI right now. Their revenue leapfrogged Open AI. They have the overall smartest model on the planet with Fable 5. But here's the thing. Anthropic made a mistake 2 years ago that is haunting them to this very day."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1570 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1570 chars)</summary>
+    <div class="chapter-raw">By all measures, Anthropic is winning
+the AI race against open AAI right now.
+Their revenue leapfrogged Open AI. They
+have the overall smartest model on the
+planet with Fable 5. But here's the
+thing. Anthropic made a mistake 2 years
+ago that is haunting them to this very
+day. And Open AI is exploiting that
+mistake at every turn. Even if the
+technology goes as fast as I suspect
+that it will, we we don't know exactly
+how fast it's going to drive revenue, we
+we know it's coming, but with the way
+you buy these data centers, if you're
+off by a couple years, that can be
+ruinous. If I'm just off by a year in
+that rate of growth, or if the the
+growth rate is 5x a year instead of 10x
+a year, then then, you know, you go
+bankrupt. That was Daario in an
+interview saying that he wasn't willing
+to potentially bankrupt Anthropic by
+investing so heavily into compute
+infrastructure in the chance that the AI
+demand curve wasn't as strong as
+everyone had predicted. And it turns out
+it was even stronger than anyone had
+predicted. And this mistake continues to
+cause problems for them even today. And
+when you combine that with the fact that
+they were the first AI lab to create a
+10 trillion parameter model, this new
+monsterized model well before any other
+company did. Those two factors amplify
+each other and have completely backfired
+on them. And by the way, I love talking
+about these two amazing companies,
+OpenAI and Anthropic. And if you do too,
+drop a like on this video, subscribe to
+the channel. It really does help. And
+this video is brought to you by
+Higsfield.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-2">
+  <h3 class="zh">CH2 · 订阅 + quota reset = 用户的双重战场</h3>
+  <h3 class="en">CH2 · Subscription + quota reset = the double battlefield for users</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">OpenAI vs Anthropic 用户端分两条战线：(1) 订阅 vs API 价格差 — 订阅 $20-200/月 quota 远比 API 划算。(2) Quota reset 节奏 — Tibo (OpenAI team) 几乎天天 reset，Anthropic 从不 reset。主播甚至做了 willcodexquotarreset.com：当前 94% 概率 OpenAI 48 小时内 reset。所有 reset 同期发生 + Anthropic 宣布要把 Fable 拉出订阅 = 双重夹击。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">OpenAI vs Anthropic is a two-front war on the user side: (1) subscription vs API — subscription ($20-200/mo) is far cheaper than API per token; (2) quota reset rhythm — Tibo (OpenAI team) resets almost daily; Anthropic effectively never does. Host even built willcodexquotarreset.com (current: 94% probability OpenAI resets in 48h). All OpenAI resets happening simultaneously with Anthropic's announced Fable removal = double whammy.</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「So, of course, most people want to use their subscription, not pay for tokens directly from the API. And so while OpenAI and team continue to give extremely generous quotas, they're also resetting the quota very often and they are doing it as kind of salt on the wound of Anthropic.」</span>
+    <span class="en">"So, of course, most people want to use their subscription, not pay for tokens directly from the API. And so while OpenAI and team continue to give extremely generous quotas, they're also resetting the quota very often and they are doing it as kind of salt on the wound of Anthropic."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1593 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1593 chars)</summary>
+    <div class="chapter-raw">her day he is doing a
+quota reset for Chad GBT accounts. And
+so there are two ways to pay for AI
+tokens from OpenAI and Enthropic. One,
+you can pay for a subscription which
+ranges from $20 a month up to $200 a
+month and you get a quota. You get a set
+number of tokens that you're allowed to
+use. The other way is to pay directly
+via the API. Now, the problem is the
+pricing in the API is substantially more
+expensive than what you're paying on a
+per token basis by paying for the
+subscription. So, of course, most people
+want to use their subscription, not pay
+for tokens directly from the API. And so
+while OpenAI and team continue to give
+extremely generous quotas, they're also
+resetting the quota very often and they
+are doing it as kind of salt on the
+wound of Anthropic because not only is
+Anthropic's quota much less generous
+than OpenAI, they effectively never
+reset the quota. In fact, it became
+almost a meme how often Tibo and the
+OpenAI team were resetting the quota. So
+much so I created a website for it. This
+is willcodexquotarreset.com.
+I'll drop a link down below. And right
+now there is a 94% chance that the
+OpenAI team will reset your quotas in
+the next 48 hours. That means you can
+use 100% of your weekly allocation of
+tokens and then magically it goes back
+down to zero and you can do it again.
+And so all of these resets from OpenAI
+are happening simultaneously while
+Anthropic is telling us that they're
+going to pull the Fable model from your
+subscription. The only way they're going
+to allow you to use Fable is by paying
+the premium price per token through the
+API.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-3">
+  <h3 class="zh">CH3 · 拔 Fable 出订阅 = 给 OpenAI 送 coder mind share</h3>
+  <h3 class="en">CH3 · Pulling Fable out of subscription = gifting coder mind share to OpenAI</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">主播核心论点（也是他公开 tweet 的）：如果 Anthropic 真把 Fable 从订阅拉走，所有 Fable 流量会瞬间被 GPT 5.6 接管 — 因为 GPT 5.6 实际上已经「几乎与 Fable 持平 on most benchmarks」，更 efficient，更便宜，更省 token。「code 10x 价格 vs 几乎一样聪明的 GPT 5.6 = 用户基本不会犹豫」。但 Anthropic 还有 wild card（后面讲）。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Host's core argument (also publicly tweeted): if Anthropic actually pulls Fable from subscription, all the Fable traffic instantly shifts to GPT 5.6 — because GPT 5.6 is already 'nearly as good as Fable on most benchmarks', more efficient, cheaper, fewer tokens per task. 'Pay 10x per token for Fable vs essentially-equal-smartness GPT 5.6 = users won't hesitate'. But Anthropic has a wild card (CH10).</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「If Anthropic pulls Fable from the cloud subscription, they will be seeding substantial coding mind share to Open AI. Will be a big mistake because think about this. They pull the Fable model from the anthropic subscription and all of a sudden you're having to pay, you know, 10 times more per token to use Fable than GPT 5.6.」</span>
+    <span class="en">"If Anthropic pulls Fable from the cloud subscription, they will be seeding substantial coding mind share to Open AI. Will be a big mistake because think about this. They pull the Fable model from the anthropic subscription and all of a sudden you're having to pay, you know, 10 times more per token to use Fable than GPT 5.6."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1531 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1531 chars)</summary>
+    <div class="chapter-raw">just tweeted it. If
+Anthropic pulls Fable from the cloud
+subscription, they will be seeding
+substantial coding mind share to OpenAI.
+will be a big mistake because think
+about this. They pull the Fable model
+from the anthropic subscription and all
+of a sudden you're having to pay, you
+know, 10 times more per token to use
+Fable than GPT 5.6. And GPT 5.6 is
+actually really good. It is nearly as
+good as Fable on most benchmarks. It is
+more efficient. It is a lower cost per
+task achieved. and it just gets things
+done really well. And so you kind of
+factor all those things in and all of a
+sudden the chat GPT subscription is
+looking extremely attractive. Whereas if
+Fable were removed from the Anthropic
+subscription, I would probably cancel my
+subscription. But Anthropic has a wild
+card, which I'll tell you more later in
+the video. But first, to be able to even
+pay for my Anthropic subscription, I had
+to take a sponsor for this video. Let me
+tell you about Higsfield. Higsfield is
+one of the fastest growing Gen AI
+companies with a mission to be the most
+creatorfriendly platform in the world.
+Introducing Higsfield Supercomputer,
+your personal AI creative agent powered
+by Hermes. This isn't just an AI
+generator. It thinks, plans, creates,
+and executes your entire content
+strategy. One prompt can launch a full
+go-to market strategy or spin up a
+faceless YouTube channel. Think of it
+this way. Higsfield gives you the tools.
+Supercomputer gives you the brain that
+knows what to make, where to post it,
+and when to post it.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-4">
+  <h3 class="zh">CH4 · AI Index 60 vs 59 + cost per task $2.75 vs $1 = 购买决策</h3>
+  <h3 class="en">CH4 · AI Index 60 vs 59 + cost per task $2.75 vs $1 = buyer math</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">主播拿出两张关键图：(1) Artificial Analysis intelligence index — Fable 5 第一名 60 分，GPT 5.6 Soul Max 第二名 59 分 — 只差 1 分。(2) Cost per intelligence task（越低越好）— Fable 5 = $2.75/task，GPT 5.6 = $1/task。把这两张图放在一起：订阅一旦没有 Fable，用户就被 relegate 到 Opus 4.8 Max（也比 GPT 5.6 贵），整个购买决策瞬间倒向 OpenAI。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Host shows two pivotal charts: (1) Artificial Analysis intelligence index — Fable 5 first at 60, GPT 5.6 Soul Max second at 59 — 1 point apart. (2) Cost per intelligence task (lower better) — Fable 5 at $2.75/task, GPT 5.6 just over $1/task. Together: once Fable is gone from subscription, users get relegated to Opus 4.8 Max (still pricier than GPT 5.6) — entire purchase decision flips to OpenAI.</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「Claude Fable 5 coming in at $2.75 per task. And all the way down here, GPT 5.6, which is effectively the same score on total intelligence coming in at just over $1 per task. So again, put yourself back in the buyer's shoes.」</span>
+    <span class="en">"Claude Fable 5 coming in at $2.75 per task. And all the way down here, GPT 5.6, which is effectively the same score on total intelligence coming in at just over $1 per task. So again, put yourself back in the buyer's shoes."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1543 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1543 chars)</summary>
+    <div class="chapter-raw">atabase,
+helping you catch trends at their peak
+instead of reacting to them too late. It
+can even act as a full CMMO. Building
+audience segments, creative strategy,
+content and distribution, all from a
+single prompt. So, if you're serious
+about scaling content, automating
+workflows, and staying ahead of the
+trends, this is the kind of system you
+want behind you. I'm going to drop a
+link down below. Check it out. Now, back
+to the video. So, I want to show you two
+graphs that are really going to
+emphasize everything that I'm saying.
+So, first of all, this is the artificial
+analysis intelligence index. And as you
+see, first place Claude Fable 5 at 60. A
+score of 60 on this index. What is
+number two? GPT 5.6 Soul Max at 59. One
+point less than Fable. One point less.
+Now, keep that in mind while I show you
+this next graph. This is the cost per
+intelligence task. So lower equals
+better. That means it takes less tokens
+or the tokens are less expensive to
+achieve the same exact task. Now look at
+this. Claude Fable 5 coming in at $2.75
+per task. And all the way down here, GPT
+5.6, which is effectively the same score
+on total intelligence coming in at just
+over $1 per task. So again, put yourself
+back in the buyer's shoes. you are
+considering an OpenAI subscription and
+an anthropic subscription. Now, once
+Fable is removed from the subscription,
+you no longer even have the option to
+have the best model on the planet in
+your subscription. Instead, you are now
+relegated to use Opus 4.8 Max, which is
+also more expensive than GPT 5.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-5">
+  <h3 class="zh">CH5 · Anthropic 反复延期 = 决策不确定性的开发者成本</h3>
+  <h3 class="en">CH5 · Anthropic's repeated extensions = developer cost of uncertainty</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">Anthropic 不傻，他们知道拔 Fable 是错的 — 每次说「最后一星期 Fable」，等到「最后一星期最后一天前一天」再延期一次。「昨天刚发：延长 Fable 5 access on all paid plans + Claude Code weekly rate limits 50% higher through July 9」。但即便 rate limit 高 50%，主播两三个任务就能烧光。同期 OpenAI 临时移除 Plus/Business/Pro 5-hour usage limit 限制，reset 还能 bank 30 天。「这种不确定性让在 Anthropic 上面 build 变得非常困难」。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Anthropic isn't dumb — they know pulling Fable is wrong — each time they say 'last week of Fable', they wait till the very last day then extend once more. 'Just yesterday: extending Claude Fable 5 access on all paid plans + Claude Code weekly rate limits 50% higher through July 9'. But even with rate limit +50%, host burns through his quota in 2-3 tasks. Meanwhile OpenAI temporarily removes the 5-hour usage limit for Plus/Business/Pro, and resets can be banked for 30 days. 'This uncertainty makes it very difficult to build on top of Anthropic.'</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「We're extending Cloud Fable 5 access on all paid plans as well as keeping Cloud Code's weekly rate limits 50% higher through July 9th. Now, even with this weekly rate limit 50% higher, I burn through my quota with like two and a half tasks with my Chat GPT subscription.」</span>
+    <span class="en">"We're extending Cloud Fable 5 access on all paid plans as well as keeping Cloud Code's weekly rate limits 50% higher through July 9th. Now, even with this weekly rate limit 50% higher, I burn through my quota with like two and a half tasks with my Chat GPT subscription."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1573 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1573 chars)</summary>
+    <div class="chapter-raw">e
+factors coming together, effectively the
+same intelligence, much cheaper on a
+price per task accomplished, plus much
+more generous quotas coming out of
+OpenAI subscription. But here's the
+thing, Anthropic is no dummy. They see
+the problem with removing Fable and
+every time that they say, "Hey, you're
+going to get one week with Fable on your
+subscription right until the very end."
+They wait until the very end, one day
+before. And then they say, "Actually,
+you're going to get one more week. It
+just happened. This was yesterday. We're
+extending Cloud Fable 5 access on all
+paid plans as well as keeping Cloud
+Code's weekly rate limits 50% higher
+through July 9th. Now, even with this
+weekly rate limit 50% higher, I burn
+through my quota with like two and a
+half tasks with my Chat GPT
+subscription. It takes effort to
+actually burn through my quota. And all
+the while, while Anthropic is debating
+even leaving Fable in the subscription,
+Tibo and the Open AAI team are doing
+things like this, temporarily removing
+the 5-hour usage limit restriction for
+all Plus Business and Pro plans. So, you
+no longer currently have that 5hour
+rolling window, which makes it even
+easier to use your full quota and thus
+use your resets, which get banked. Those
+resets get banked. don't have to use
+them immediately. You get 30 days so you
+can figure out how to maximize your
+chatbt usage. So all of this is to say
+anthropic and open AI are approaching
+the developer market and their
+perception from developers is just so
+different right now and it is all
+because of that one mistake.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-6">
+  <h3 class="zh">CH6 · Tar 亲自确认 capacity constraint + Sam 进入 salty mode</h3>
+  <h3 class="en">CH6 · Tar confirms capacity constraint + Sam enters salty mode</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">主播此前一直被反驳「Anthropic 不 capacity constrained」，但 Tar 本人 almost 确认了：「While it will come off subscriptions after July 7th, that's not true anymore. We aim to restore Fable as a standard part of our subscription as soon as capacity allows.」= capacity 是真约束。同时 Sam Altman 进入 salty mode 公开发帖：「Come for the best model. Okay, so arguable, but I really like 5.6 Soul. Stay because we don't treat you with contempt. That's the key.」= 情绪战全面开打。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Host has been rebutted ('Anthropic isn't capacity constrained'), but Tar essentially confirms it: 'While it will come off subscriptions after July 7th, that's not true anymore. We aim to restore Fable as a standard part of our subscription as soon as capacity allows.' = capacity is a real constraint. Meanwhile Sam Altman enters salty mode publicly: 'Come for the best model. Okay, so arguable, but I really like 5.6 Soul. Stay because we don't treat you with contempt. That's the key.' = emotional war fully engaged.</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「I've heard a lot of questions about Fable's availability. While it will come off subscriptions after July 7th, that's not true anymore. We aim to restore Fable as a standard part of our subscription as soon as capacity allows. That is it. That one decision two years ago is still causing pain for Anthropic.」</span>
+    <span class="en">"I've heard a lot of questions about Fable's availability. While it will come off subscriptions after July 7th, that's not true anymore. We aim to restore Fable as a standard part of our subscription as soon as capacity allows. That is it. That one decision two years ago is still causing pain for Anthropic."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1626 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1626 chars)</summary>
+    <div class="chapter-raw">le model. If
+they did, if Fable was as cheap as GPT
+5.6 and they were as generous with the
+quotas, there really would be all the
+reason to just only use anthropic
+models. And a lot of people are saying
+Anthropic is not doing all of this
+because they're capacity constrained.
+I've been saying they have. And in fact,
+Tar from Anthropic has all but confirmed
+it. Listen to this. I've heard a lot of
+questions about Fable's availability.
+While it will come off subscriptions
+after July 7th, that's not true anymore.
+We aim to restore Fable as a standard
+part of our subscription as soon as
+capacity allows. That is it. That one
+decision two years ago is still causing
+pain for Anthropic. Even though they
+have all the revenue, the best biggest
+model on the planet, the best
+researchers, they have all the
+ingredients except that one decision.
+And Sam's taking advantage of it. This
+was just posted yesterday. Sam is going
+into salty mode. Come for the best
+model. Okay, so arguable, but I really
+like 5.6 Soul. Stay because we don't
+treat you with contempt. That's the key.
+As a fan of both of these companies, I
+have just felt like Anthropic does not
+give a crap about me. Open AAI on the
+other hand is extremely transparent,
+very generous. And by the way, I put
+together a thorough review of GPT 5.6 on
+our website forwardfuture.com. You get
+original essays, you get news roundups,
+you get all the tools that we're
+building as a team. So, go check it out.
+forwardfuture.com.
+And look, I work with both of these
+companies and I like both of these
+companies even though I've been, yes,
+very critical of anthropics tactics
+lately.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-7">
+  <h3 class="zh">CH7 · GPT 5.6 = 老兵 / Fable = 新秀 = 生长曲线完全不同</h3>
+  <h3 class="en">CH7 · GPT 5.6 = veteran / Fable = rookie = totally different growth curves</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">主播用一个体育比喻总结两家模型位置：GPT 5.6 = 巅峰期老兵 — 可能是 GPT5 训练 run 的最后一款，但已经是那个 class 最强版本。incredibly smart, efficient, finds direct paths, good game IQ, reliable。Fable = 刚入联盟的新秀 — 绝对 monster raw talent，但 post-training 才刚开始，「squeeze every drop of juice」还没做出来。一个在 peak，一个刚起步，生长曲线完全不同。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Host uses a sports analogy to position the two models: GPT 5.6 = peak-form veteran — likely the last model from the GPT5 training run, but the best of that class. Incredibly smart, efficient, finds direct paths, good game IQ, reliable. Fable = rookie just entering the league — absolute monster raw talent, but post-training has only just started; 'squeeze every drop of juice' hasn't been done yet. One at peak, one just beginning — totally different growth curves.</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「We have one model that is like a veteran athlete. That is GPT 5.6. That is likely the last model that we're going to get out of the GPT5 training run. Right? So, it's their previous generation model, but it is the very best of that class of model.」</span>
+    <span class="en">"We have one model that is like a veteran athlete. That is GPT 5.6. That is likely the last model that we're going to get out of the GPT5 training run. Right? So, it's their previous generation model, but it is the very best of that class of model."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1548 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1548 chars)</summary>
+    <div class="chapter-raw">e felt at
+times as though they just do not care
+about their users. Where on the other
+hand, OpenAI seems to be more
+transparent, more generous with their
+quotas, and just their overall vision of
+the future seems to be more aligned with
+my ambitious and optimistic vision of
+the future. I do not like fear-based
+marketing. I do not like Daario and team
+talking about white collar blood baths
+and all of these other things that just
+get people to really dislike artificial
+intelligence. Not only do I not like it,
+I don't believe it to be true. I think
+it hurts us. It hurts the industry and
+it hurts the world in the long run. All
+right, so let's look at these two models
+again. We have one model that is like a
+veteran athlete. That is GPT 5.6. That
+is likely the last model that we're
+going to get out of the GPT5 training
+run. Right? So, it's their previous
+generation model, but it is the very
+best of that class of model. And it's
+incredibly smart. It gets things done
+well. It's efficient. It finds very
+direct paths to solutions. It's just
+reliable. It has good game IQ. It is the
+vet. But then we have Fable. And Fable
+is this absolute monster of a model, but
+it's like a rookie. It's just entering
+the league. And it has so much room to
+grow. That raw talent is there. Their
+first version of it is incredibly good.
+It is technically the smartest model on
+the planet, but they've only started
+doing that post-training stuff that will
+get more and more out of it to squeeze
+every drop of juice out of that model.
+They've only just begun that.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-8">
+  <h3 class="zh">CH8 · OpenAI 下一步是 GPT6 + 同样会撞 demand 墙</h3>
+  <h3 class="en">CH8 · OpenAI's next move is GPT6 + same demand wall incoming</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">GPT5 series 增长空间差不多到顶。GPT6 应该已经 bake 完，post-training 进行中，准备 broad release。「如果跟 Fable 一样是大模型 + 更贵的 serving」，OpenAI 也会撞同样的 demand + supply 问题。但关键差别：Sam 当年愿意 risk 整个公司赌 AI demand 暴涨 — 这意味着 GPU 容量足够 serve 下一代模型。「Fable's mistake = Anthropic 不愿 all-in compute; Sam's foresight = OpenAI 提前 over-invest 不会被反噬」。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">GPT5 series is near its growth ceiling. GPT6 likely already baked, post-training underway, ready for broad release. 'If anything like Fable — bigger model + pricier serving' — OpenAI will hit the same demand/supply issues. But key difference: Sam was willing to risk the entire company betting on AI demand skyrocketing — meaning GPU capacity is sufficient to serve next-gen well. 'Fable's mistake = Anthropic refused to all-in compute; Sam's foresight = OpenAI pre-over-invested and won't be backfired.'</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「Because Open AI and Sam Alman didn't make that mistake, they overinvested in GPU capacity. They being Sam Alman was really willing to risk the entire company based on the fact that he believed AI demand would skyrocket and would never slow down.」</span>
+    <span class="en">"Because Open AI and Sam Alman didn't make that mistake, they overinvested in GPU capacity. They being Sam Alman was really willing to risk the entire company based on the fact that he believed AI demand would skyrocket and would never slow down."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1621 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1621 chars)</summary>
+    <div class="chapter-raw">peak of its game and the
+other model at the very beginning. And
+so what happens next? OpenAI probably
+doesn't have a lot of room to grow the
+GPT5 series of models anymore. And
+likely they have GPT6 already baked and
+they're doing that post training right
+now getting it ready for broad release.
+But if it's anything like Fable, it is
+going to be a much bigger model and much
+more expensive to serve. So OpenAI
+likely will run into some of these
+demand and supply issues that Fable and
+Anthropic have been running into. Now,
+because Open AI and Sam Alman didn't
+make that mistake, they overinvested in
+GPU capacity. they being Sam Alman was
+really willing to risk the entire
+company based on the fact that he
+believed AI demand would skyrocket and
+would never slow down. That belief early
+on and willingness kind of to bet all
+their chips puts them in a really good
+position to serve their next generation
+model really well. And so what should
+you do? Let's talk about the practical
+effects of all these things right now.
+If you have the budget for only one
+subscription, either OpenAI or
+Anthropic, I have to recommend the
+OpenAI subscription. Although Fable is
+slightly better right now, overall the
+value that you get out of an OpenAI
+subscription is multiple times larger
+than what you get from an Anthropic
+subscription. Plus, you don't know
+what's going to happen in the coming
+weeks from Anthropic. You don't know if
+Fable is even going to be available in
+this subscription. I tend to think it
+will be just because that would be a
+really bad move on Anthropic's part
+strategically, but you just don't know
+for sure.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-9">
+  <h3 class="zh">CH9 · 行动建议 = 用 quota / 不 hoard / 这窗口稍纵即逝</h3>
+  <h3 class="en">CH9 · Action plan = use quotas / don't hoard / this window is fleeting</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">主播的 practical action 清单非常明确：(1) 如果预算只够一个 subscription，强推 OpenAI — 总体价值是 Anthropic 的「好几倍」。(2) Anthropic 接下来几周 Fable 会不会留 subscription，没人知道；可能拉走几周又放回，但这种不确定性 = 难 build。(3) 如果已有 ChatGPT subscription，立刻用 quota，**不要 hoard**，不要 conservative — Tibo + 整个 OpenAI team 持续慷慨 reset，**reset 会过期，要用掉**。「现在就是 build 的时候，just build, get out there and build as much as you can right now」。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Host's practical action list is explicit: (1) if budget only fits one subscription, strongly recommend OpenAI — overall value is 'multiple times' Anthropic's. (2) Whether Fable stays in Anthropic subscription the next few weeks is unknown; may pull for a few weeks then put back, but that uncertainty = hard to build on. (3) If you have ChatGPT subscription, use your quotas NOW, **don't hoard**, don't be conservative — Tibo + entire OpenAI team keeps generously resetting; **resets expire, use them**. 'This is the moment to build, just build, get out there and build as much as you can right now.'</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「I would also recommend right now if you do have a chat GPT subscription, use your quotas. Do not try to hoard your tokens. Do not be conservative in this moment. These two companies are going head-to-head and you and I are benefiting from it.」</span>
+    <span class="en">"I would also recommend right now if you do have a chat GPT subscription, use your quotas. Do not try to hoard your tokens. Do not be conservative in this moment. These two companies are going head-to-head and you and I are benefiting from it."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1684 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1684 chars)</summary>
+    <div class="chapter-raw">few weeks and then put it back. And all
+that uncertainty makes it very difficult
+to build on top of Anthropic. And with
+that, all of the generous quota, the
+quota resets, GPT 5.6 six just being a
+phenomenal model. That is the
+subscription I would recommend going
+with. I would also recommend right now
+if you do have a chat GPT subscription,
+use your quotas. Do not try to hoard
+your tokens. Do not be conservative in
+this moment. These two companies are
+going head-to-head and you and I are
+benefiting from it. Chad GPT, Tibo, the
+whole OpenAI team continue to be
+extremely generous with their resets.
+They're doing it to poke the bear that
+is anthropic and we benefit. So use your
+quotas, use your resets, make sure
+you're using your resets cuz they do
+expire. And so just build, get out there
+and build as much as you can right now.
+So does that mean Anthropic has lost?
+Well, probably not. And there's two main
+reasons for this. one, there's so much
+room for Fable to just get better and
+get more efficient, and it will happen,
+Anthropic will acquire more compute
+capacity, and they will be able to be
+more generous with serving of the Fable
+model. But more importantly, and this is
+actually something I really do believe,
+recursive self-improvement might make
+this entire argument moot. Maybe
+Anthropic doesn't care about serving
+their models to customers. They just
+need enough revenue to have enough
+compute to continue running their
+company and researching. But here's the
+thing. If they have the best model on
+the planet and that best model is
+researching the next best model and that
+next best model researches the next best
+model, that is called recursive
+self-improvement.</div>
+  </details>
+</div>
+
+<div class="chapter-card" id="ch-10">
+  <h3 class="zh">CH10 · RSI = Anthropic 真正在赌的 wild card</h3>
+  <h3 class="en">CH10 · RSI = the real wild card Anthropic is betting on</h3>
+  <p class="zh" style="color: var(--text); margin-bottom: 16px;">Anthropic 没输的两个核心原因：(1) Fable 提升空间还很大 — Anthropic 持续加 compute，serving 会变慷慨。(2) 真正关键：**recursive self-improvement (RSI)** 可能让整个订阅争论 moot。如果 Fable 是地表最强模型，它 research 下一代模型，下一代 research 再下一代 — 链式加速。一旦 RSI 启动，「in the lead 的人 generally maintains that lead」，gap 不但不缩小反而扩大。「也许某天 Fable 自己 discover 一个让自己 5x 更 efficient 的方法，那 Fable 突然比 GPT 5.6 便宜一大截」。最后说：开发者是 finicky，earliest of adopters + earliest to change — 企业 1 年合同到期可能回切 OpenAI。Higsfield 二次鸣谢 + 推 forwardfuture.com。</p>
+  <p class="en" style="color: var(--text); margin-bottom: 16px;">Two reasons Anthropic hasn't lost: (1) Fable has huge room to grow — Anthropic keeps adding compute, serving will become more generous. (2) The real key: **recursive self-improvement (RSI)** may make the entire subscription debate moot. If Fable is the smartest model on the planet, it researches the next model, that researches the next — chain acceleration. Once RSI starts, 'whoever is in the lead generally maintains that lead'; the gap widens instead of narrowing. 'Maybe one day Fable discovers a way to make itself 5x more efficient and suddenly Fable is significantly cheaper than GPT 5.6.' Closing: developers are finicky, earliest adopters + earliest changers — enterprise 1-year contracts may flip back to OpenAI. Higsfield 2nd shoutout + forwardfuture.com plug.</p>
+  <div class="chapter-quote">
+    <strong class="zh">视频原话：</strong><strong class="en">Verbatim:</strong><br>
+    <span class="zh">「Maybe one day Fable is going to discover a way to make itself five times more efficient and then all of a sudden Fable is significantly less expensive than GPT 5.6. Once RSI starts, whoever's in the lead wins. And that might be the wild card that Anthropic is betting on.」</span>
+    <span class="en">"Maybe one day Fable is going to discover a way to make itself five times more efficient and then all of a sudden Fable is significantly less expensive than GPT 5.6. Once RSI starts, whoever's in the lead wins. And that might be the wild card that Anthropic is betting on."</span>
+  </div>
+  <details>
+    <summary class="zh" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ 原始 transcript 段落 (1600 字符)</summary>
+    <summary class="en" style="color: var(--text-mute); cursor: pointer; font-size: 0.85rem; margin-top: 8px;">▸ Raw transcript segment (1600 chars)</summary>
+    <div class="chapter-raw">called recursive
+self-improvement. And so the gap between
+these two companies might actually be
+growing. And that is an important factor
+to consider. Maybe one day Fable is
+going to discover a way to make itself
+five times more efficient and then all
+of a sudden Fable is significantly less
+expensive than GPT 5.6. And of course,
+OpenAI is working on these very things.
+But again, with recursive
+self-improvement, whoever is in the lead
+generally maintains that lead. their
+speed, their momentum of research and
+improvement only increases. Once RSI
+starts, whoever's in the lead wins. And
+that might be the wild card that
+Anthropic is betting on. And so, look,
+developers are finicky. They not only
+want the best model, but they also like
+to be treated well. And whether or not
+Sam Alman is doing this altruistically
+or just purely because strategically
+it's the right move, he is winning the
+emotional battle. And even though
+Anthropic is currently winning on
+overall revenue, especially in the
+enterprise, I would not count OpenAI out
+because developers are usually the
+earliest of adopters and the earliest to
+change. And so I'm seeing more and more
+developers choose OpenAI over Anthropic
+for a lot of these reasons. one of which
+is just purely the vibes and once
+developers choose something enterprise
+might be next. So although over the last
+6 months many enterprises have chosen
+anthropic those contracts are generally
+one year and they might be switching
+back. And a big thank you to Higsfield
+once again for sponsoring this video. nthropic and recursive
+self-improvement. Go watch that right</div>
+  </details>
+</div>
+
+    </section>
+
+    <!-- SECTION 3: TIER 4 -->
+    <section class="section" id="h2-tier4">
+      <h2><span class="zh">🏷️ Tier 4 风险映射（3 mitig + 3 warn + 3 gap）</span><span class="en">🏷️ Tier 4 Risk Mapping (3 mitig + 3 warn + 3 gap)</span></h2>
+      <p class="zh">9 张卡片按 50% rule 分布：mitig（有利证据，主播明示 + 官方确认）/ warn（主播立场偏差 + 论点选择偏差）/ gap（缺独立第三方 source 的关键论断）。每张卡含 verbatim 原话 + 信源标签。</p>
+      <p class="en">9 cards by 50% rule: mitig (favorable evidence, host-explicit + official-confirmed) / warn (host stance bias + argument selection bias) / gap (key claims missing independent 3rd-party source). Each card includes verbatim quote + source tag.</p>
+
+      <div class="tier4-grid">
+
+<div class="tier4-card mitig">
+  <span class="tier4-tag mitig">MITIG</span>
+  <div class="tier4-title zh">Tar 公开确认 capacity constraint</div>
+  <div class="tier4-title en">Tar publicly confirms capacity constraint</div>
+  <div class="tier4-quote zh">「We aim to restore Fable as a standard part of our subscription as soon as capacity allows」</div>
+  <div class="tier4-quote en">"We aim to restore Fable as a standard part of our subscription as soon as capacity allows."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: CH6 Tar 推文 / 频道主旨</div>
+</div>
+
+<div class="tier4-card mitig">
+  <span class="tier4-tag mitig">MITIG</span>
+  <div class="tier4-title zh">Sam 公开进入 salty mode = 情绪战显式化</div>
+  <div class="tier4-title en">Sam publicly enters salty mode = emotional war explicitly on</div>
+  <div class="tier4-quote zh">「Come for the best model. Stay because we don't treat you with contempt」</div>
+  <div class="tier4-quote en">"Come for the best model. Stay because we don't treat you with contempt."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: CH6 Sam 推文 / 频道主旨</div>
+</div>
+
+<div class="tier4-card mitig">
+  <span class="tier4-tag mitig">MITIG</span>
+  <div class="tier4-title zh">Higsfield Supercomputer 是 paid sponsorship（声明）</div>
+  <div class="tier4-title en">Higsfield Supercomputer is paid sponsorship (declared)</div>
+  <div class="tier4-quote zh">「This video is brought to you by Higsfield」</div>
+  <div class="tier4-quote en">"This video is brought to you by Higsfield."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: 视频开头 disclosure / verified-on-disk</div>
+</div>
+
+<div class="tier4-card warn">
+  <span class="tier4-tag warn">WARN</span>
+  <div class="tier4-title zh">主播明示倾向 OpenAI = 论点选择偏差</div>
+  <div class="tier4-title en">Host explicitly favors OpenAI = argument selection bias</div>
+  <div class="tier4-quote zh">「As a fan of both of these companies, I have just felt like Anthropic does not give a crap about me」</div>
+  <div class="tier4-quote en">"As a fan of both of these companies, I have just felt like Anthropic does not give a crap about me."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: CH6 / 频道主旨（主播立场）</div>
+</div>
+
+<div class="tier4-card warn">
+  <span class="tier4-tag warn">WARN</span>
+  <div class="tier4-title zh">AI Index 60 vs 59 = 仅 1 分差距但 cost per task 差 2.75x</div>
+  <div class="tier4-title en">AI Index 60 vs 59 = 1-pt gap but 2.75x cost per task</div>
+  <div class="tier4-quote zh">「Fable 5 = $2.75/task vs GPT 5.6 = $1/task — effectively the same score」</div>
+  <div class="tier4-quote en">"Claude Fable 5 coming in at $2.75 per task. And all the way down here, GPT 5.6, which is effectively the same score on total intelligence coming in at just over $1 per task."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: CH4 / 频道主旨（host 自报）</div>
+</div>
+
+<div class="tier4-card warn">
+  <span class="tier4-tag warn">WARN</span>
+  <div class="tier4-title zh">Anthropic 反复延期 = 决策不确定性让 developer 难 build</div>
+  <div class="tier4-title en">Anthropic's repeated extensions = decision uncertainty makes developer build hard</div>
+  <div class="tier4-quote zh">「You don't know what's going to happen in the coming weeks from Anthropic」</div>
+  <div class="tier4-quote en">"You don't know what's going to happen in the coming weeks from Anthropic."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: CH8 / 频道主旨</div>
+</div>
+
+<div class="tier4-card gap">
+  <span class="tier4-tag gap">GAP</span>
+  <div class="tier4-title zh">Fable 5 真正 serving cost 缺独立第三方测算</div>
+  <div class="tier4-title en">Fable 5 true serving cost lacks independent 3rd-party benchmark</div>
+  <div class="tier4-quote zh">「无独立 source；仅 Anthropic 自报 + host 转述」</div>
+  <div class="tier4-quote en">"No independent source; only Anthropic self-report + host relay."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: [gap] 需要 3rd-party Tealix / Artificial Analysis 原始 PDF</div>
+</div>
+
+<div class="tier4-card gap">
+  <span class="tier4-tag gap">GAP</span>
+  <div class="tier4-title zh">Sam 当年赌 GPU 投资的具体数据缺一手 source</div>
+  <div class="tier4-title en">Sam's GPU bet specifics lack primary source</div>
+  <div class="tier4-quote zh">「Sam Alman was really willing to risk the entire company — 具体赌注 / 时间 / 数字无独立 source」</div>
+  <div class="tier4-quote en">"Sam Alman was really willing to risk the entire company — bet size/timing/numbers no independent source."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: [gap] 需要 Altman 公开 interview 一手 quote</div>
+</div>
+
+<div class="tier4-card gap">
+  <span class="tier4-tag gap">GAP</span>
+  <div class="tier4-title zh">RSI 是否已启动 + Anthropic 内部 Fable-on-Fable train 状态缺信源</div>
+  <div class="tier4-title en">RSI status + Anthropic Fable-on-Fable training state has no source</div>
+  <div class="tier4-quote zh">「Recursive self-improvement might make this entire argument moot — 仅 host 推测，无 Anthropic 公开声明」</div>
+  <div class="tier4-quote en">"Recursive self-improvement might make this entire argument moot — host speculation only, no Anthropic statement."</div>
+  <div class="tier4-source"><span class="zh">信源</span><span class="en">Source</span>: [gap] 需要 Anthropic research blog 一手声明</div>
+</div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: PATRICK WORKFLOW RELEVANCE -->
+    <section class="section" id="h2-patrick">
+      <h2><span class="zh">🤖 与 Patrick 工作流的关联（13 verified skills）</span><span class="en">🤖 Patrick Workflow Relevance (13 verified skills)</span></h2>
+      <p class="zh">视频论点映射到 Patrick 现有 skill / cron / vault note。13 张卡 = 跟订阅决策 / quota 监控 / cost-per-task 监控 / RSI 信号 / recursive loop 等主题直接相关的 skill 模块，每张标 verified-on-disk 路径。</p>
+      <p class="en">Video thesis mapped to Patrick's existing skills / crons / vault notes. 13 cards = skills directly relevant to subscription decisions / quota monitoring / cost-per-task tracking / RSI signals / recursive loops, each with verified-on-disk path.</p>
+
+      <div class="patrick-grid">
+
+<div class="patrick-card">
+  <div class="patrick-card-label">Hermes Agent OS</div>
+  <div class="patrick-card-path">agentic-os</div>
+  <div class="patrick-card-why zh">订阅决策 / quota 监控 / cost-per-task 逻辑 → agentic-os 内部 cost-tracker 模块可以直接借用 Anthropic API 价格表做实时 cost 监控</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">cron-watchdog-patterns</div>
+  <div class="patrick-card-path">cron-watchdog-patterns</div>
+  <div class="patrick-card-why zh">「quota 监控 + alert on usage approaching limit」 → 复用 watchdog pattern 做 quota + rate-limit watchdog</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">dual-ai-peer-review</div>
+  <div class="patrick-card-path">autonomous-ai-agents/dual-ai-peer-review</div>
+  <div class="patrick-card-why zh">「GPT 5.6 vs Fable 5 head-to-head benchmark」可跑 `--video-quality-bench` 思路对 49 URL 实测（38.8% garbage precedent）</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">Loop OS</div>
+  <div class="patrick-card-path">patrick-loop-os</div>
+  <div class="patrick-card-why zh">「RSI feedback loop」可作为 loop engineering 第五条 loop 的 candidate</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">code-review</div>
+  <div class="patrick-card-path">code-review/zoom-out-explainer</div>
+  <div class="patrick-card-why zh">「Fable 的 raw talent vs post-training maturity」类比 = code-review 的 zoom-out 视角对 LLM output post-training 也适用</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">context-budget</div>
+  <div class="patrick-card-path">agent-trace-integrity/context-budget</div>
+  <div class="patrick-card-why zh">「$2.75/task vs $1/task」= context-budget 域，单位 cost 的 trace 监控可直接搬过来</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">cost-tracking</div>
+  <div class="patrick-card-path">agent-trace-integrity/cost-tracking</div>
+  <div class="patrick-card-why zh">「$2.75/task」具体数字 → cost-tracking 模块可加 Anthropic API pricing 表做每日 cost 报告</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">Agent Self-Evaluation</div>
+  <div class="patrick-card-path">agent-trace-integrity/agent-self-evaluation</div>
+  <div class="patrick-card-why zh">「Fable 老兵 vs 新秀」类比 → self-eval 模型成熟度评估可借鉴 GPT 5.6 'peak form' 概念</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">Continuous Learning v2</div>
+  <div class="patrick-card-path">agent-trace-integrity/continuous-learning-v2</div>
+  <div class="patrick-card-why zh">「RSI = recursive self-improvement」概念 → instinct-based learning 是 RSI 的 micro-scale 对应</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">Autonomous Loops DAG</div>
+  <div class="patrick-card-path">autonomous-loops-dag</div>
+  <div class="patrick-card-why zh">「一旦 RSI 启动，whoever in lead maintains lead」= DAG loop 的 momentum 概念</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">hub Daily Reports</div>
+  <div class="patrick-card-path">patricks-knowledge-hub</div>
+  <div class="patrick-card-why zh">视频本身应当 register 到 daily-reports.html hub（pitfall 77 + 78 类活）</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">HTML Redesign Preserve Semantics</div>
+  <div class="patrick-card-path">html-redesign-preserve-semantics</div>
+  <div class="patrick-card-why zh">本 dashboard 本身 = bilingual EN⇄ZH toggle + TOC v1.4.4 collapsible = skill v1.1.0 + v1.4.5 实船</div>
+</div>
+
+<div class="patrick-card">
+  <div class="patrick-card-label">TOC Sidebar Batch</div>
+  <div class="patrick-card-path">toc-sidebar-batch</div>
+  <div class="patrick-card-why zh">本 dashboard 的 TOC = v1.4.4 collapsible 实船</div>
+</div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: SOURCES / COUNTER-EVIDENCE -->
+    <section class="section" id="h2-sources">
+      <h2><span class="zh">📡 信源 / 反方证据</span><span class="en">📡 Sources / Counter-evidence</span></h2>
+      <h3><span class="zh">已用信源</span><span class="en">Sources Used</span></h3>
+      <ul>
+        <li class="zh">【主源】视频 transcript（kome.ai 抓取，19:03 / 2998 字 / 10 章 + 1 短尾巴）— 已 verified fetch</li>
+        <li class="zh">【主播明示信源】Tar（Anthropic）公开推文 — 视频原话引用</li>
+        <li class="zh">【主播明示信源】Sam Altman（OpenAI）公开 salty mode 帖文 — 视频原话引用</li>
+        <li class="zh">【主播引用】Artificial Analysis intelligence index — 第 1 名 Fable 5 (60)，第 2 名 GPT 5.6 Soul Max (59)</li>
+        <li class="zh">【主播引用】Cost per intelligence task — Fable 5 = $2.75/task, GPT 5.6 ≈ $1/task</li>
+        <li class="zh">【主播引用】willcodexquotarreset.com — 主播自建 quota reset 概率跟踪站</li>
+        <li class="en">【Primary】Video transcript (kome.ai fetch, 19:03 / 2998 words / 10 chapters + 1 short tail) — verified fetch</li>
+        <li class="en">【Host-explicit】Tar (Anthropic) public tweet — quoted verbatim</li>
+        <li class="en">【Host-explicit】Sam Altman (OpenAI) public salty-mode post — quoted verbatim</li>
+        <li class="en">【Host-cited】Artificial Analysis intelligence index — #1 Fable 5 (60), #2 GPT 5.6 Soul Max (59)</li>
+        <li class="en">【Host-cited】Cost per intelligence task — Fable 5 = $2.75/task, GPT 5.6 ≈ $1/task</li>
+        <li class="en">【Host-cited】willcodexquotarreset.com — host's self-built quota-reset probability tracker</li>
+      </ul>
+
+      <h3><span class="zh">反方 / 缺源</span><span class="en">Counter-evidence / Gaps</span></h3>
+      <ul>
+        <li class="zh">【反方缺失】Anthropic 内部 compute capacity 实际利用率 — 仅有 Tar 公开确认 constraint，无独立审计</li>
+        <li class="zh">【反方缺失】Sam 当年赌 GPU 投资的具体数字 / 时间 / 合同 — 视频未引一手 source</li>
+        <li class="zh">【反方缺失】Fable 5 真实 serving cost — 主播引 $2.75/task 是 Anthropic 自报，无 3rd-party 独立测算</li>
+        <li class="zh">【反方缺失】RSI 是否已在 Anthropic 内部启动 — 主播推测，无官方声明</li>
+        <li class="zh">【反方缺失】GPT 5.6 真实成本结构 — 主播未引 GPT 5.6 API 实际定价表</li>
+        <li class="en">【Missing counter】Anthropic's actual compute capacity utilization — only Tar's public constraint confirmation, no independent audit</li>
+        <li class="en">【Missing counter】Sam's GPU bet specifics (numbers/timing/contracts) — video doesn't cite primary source</li>
+        <li class="en">【Missing counter】Fable 5's true serving cost — host cites $2.75/task as Anthropic self-report, no 3rd-party independent measurement</li>
+        <li class="en">【Missing counter】Whether RSI has actually started inside Anthropic — host speculation, no official statement</li>
+        <li class="en">【Missing counter】GPT 5.6's true cost structure — host doesn't cite GPT 5.6 API pricing table</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 6: ACTION ITEMS -->
+    <section class="section" id="h2-actions">
+      <h2><span class="zh">🛠️ Action Items</span><span class="en">🛠️ Action Items</span></h2>
+      <p class="zh">6 条行动项按 P0/P1/P2/P3 优先级排序，跟 Patrick 现有 skill/cron 关联，含实现细节。</p>
+      <p class="en">6 action items by P0/P1/P2/P3 priority, mapped to Patrick's existing skills/crons, with implementation detail.</p>
+
+      <div class="action-list">
+
+<div class="action-item ">
+  <div class="action-pri">P0</div>
+  <div class="action-body">
+    <h4 class="zh">cron 加 'anthropic-quota-watchdog' — 监控 Claude Code 5h-rolling + weekly 50% boost 状态</h4>
+    <h4 class="en">cron: add 'anthropic-quota-watchdog' — monitor Claude Code 5h-rolling + weekly 50% boost status</h4>
+    <p class="zh">用现有 watchdog pattern，hook Claude Code usage，每 4h 检查一次。当接近 50% boost 临界 → 通知 Patrick。</p>
+    <p class="en">Use existing watchdog pattern, hook Claude Code usage, check every 4h. When approaching 50% boost threshold → notify Patrick.</p>
+  </div>
+</div>
+
+<div class="action-item ">
+  <div class="action-pri">P0</div>
+  <div class="action-body">
+    <h4 class="zh">vault 加 'anthropic-pricing-tracker.md' — $2.75/task vs $1/task 实时跟踪</h4>
+    <h4 class="en">vault: add 'anthropic-pricing-tracker.md' — real-time track $2.75/task vs $1/task</h4>
+    <p class="zh">用 search_lib 的 anthropic-pricing 抓 API pricing + Anthropic 订阅 plan，weekly cron 出 monthly cost 报告。</p>
+    <p class="en">Use search_lib.anthropic-pricing fetcher + Anthropic subscription plans, weekly cron for monthly cost report.</p>
+  </div>
+</div>
+
+<div class="action-item p1">
+  <div class="action-pri">P1</div>
+  <div class="action-body">
+    <h4 class="zh">skill `cost-tracking` 加 anthropic-vs-openai-per-task 对比 tab</h4>
+    <h4 class="en">skill `cost-tracking`: add anthropic-vs-openai-per-task comparison tab</h4>
+    <p class="zh">复用 cost-tracking 现有 module，加 2-column 对比表（per-task cost / per-month subscription / quota reset rhythm）。</p>
+    <p class="en">Reuse cost-tracking module, add 2-column comparison table (per-task cost / per-month subscription / quota reset rhythm).</p>
+  </div>
+</div>
+
+<div class="action-item p1">
+  <div class="action-pri">P1</div>
+  <div class="action-body">
+    <h4 class="zh">dual-ai-peer-review 跑 Fable 5 vs GPT 5.6 head-to-head benchmark 49 task</h4>
+    <h4 class="en">dual-ai-peer-review: run Fable 5 vs GPT 5.6 head-to-head benchmark on 49 tasks</h4>
+    <p class="zh">用 --video-quality-bench 思路（Claude Sonnet 4.5 评分）跑 code task 集，对比两 model 实际 pass rate + token cost。</p>
+    <p class="en">Use --video-quality-bench logic (Claude Sonnet 4.5 scoring) on code task set, compare real pass rate + token cost.</p>
+  </div>
+</div>
+
+<div class="action-item p2">
+  <div class="action-pri">P2</div>
+  <div class="action-body">
+    <h4 class="zh">vault 加 'rsi-watch-2026.md' — Anthropic Fable-on-Fable research 信号 cron</h4>
+    <h4 class="en">vault: add 'rsi-watch-2026.md' — Anthropic Fable-on-Fable research signal cron</h4>
+    <p class="zh">weekly cron 抓 Anthropic blog + arxiv（如 'Anthropic' author search），发现 Fable self-improvement 信号 → notify Patrick。</p>
+    <p class="en">Weekly cron fetches Anthropic blog + arxiv (Anthropic author search); when Fable self-improvement signal found → notify Patrick.</p>
+  </div>
+</div>
+
+<div class="action-item p3">
+  <div class="action-pri">P3</div>
+  <div class="action-body">
+    <h4 class="zh">hero 长期动作 — 等 Anthropic capacity 真正放开后，重新评估 Fable 5 subscription value</h4>
+    <h4 class="en">long-term: after Anthropic capacity actually opens up, re-evaluate Fable 5 subscription value</h4>
+    <p class="zh">Tar 已公开确认 capacity constraint 是真约束，wait &amp; re-evaluate 即可。勿现价 lock-in。</p>
+    <p class="en">Tar has publicly confirmed capacity constraint is real; wait &amp; re-evaluate. Don't lock in at current price.</p>
+  </div>
+</div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 7: BILINGUAL QUOTES -->
+    <section class="section" id="h2-quotes">
+      <h2><span class="zh">📝 双语金句（10 条 verbatim）</span><span class="en">📝 Bilingual Quotes (10 verbatim)</span></h2>
+      <p class="zh">10 条 verbatim EN 原话，每条独立 quote card。默认 zh-CN 显示中文翻译，EN 切换后显示原话。</p>
+      <p class="en">10 verbatim EN quotes, each in its own quote card. Default zh-CN shows Chinese translation; EN toggle reveals original.</p>
+
+
+<div class="quote-card" id="quote-1">
+  <div class="quote-en en">"By all measures, Anthropic is winning the AI race against open AI right now. Their revenue leapfrogged Open AI. They have the overall smartest model on the planet with Fable 5. But here's the thing. Anthropic made a mistake 2 years ago that is haunting them to this very day."</div>
+  <div class="quote-zh zh">「By all measures, Anthropic is winning the AI race against open AI right now. Their revenue leapfrogged Open AI. They have the overall smartest model on the planet with Fable 5. But here's the thing. Anthropic made a mistake 2 years ago that is haunting them to this very day.」</div>
+</div>
+
+<div class="quote-card" id="quote-2">
+  <div class="quote-en en">"So, of course, most people want to use their subscription, not pay for tokens directly from the API. And so while OpenAI and team continue to give extremely generous quotas, they're also resetting the quota very often and they are doing it as kind of salt on the wound of Anthropic."</div>
+  <div class="quote-zh zh">「So, of course, most people want to use their subscription, not pay for tokens directly from the API. And so while OpenAI and team continue to give extremely generous quotas, they're also resetting the quota very often and they are doing it as kind of salt on the wound of Anthropic.」</div>
+</div>
+
+<div class="quote-card" id="quote-3">
+  <div class="quote-en en">"If Anthropic pulls Fable from the cloud subscription, they will be seeding substantial coding mind share to Open AI. Will be a big mistake because think about this. They pull the Fable model from the anthropic subscription and all of a sudden you're having to pay, you know, 10 times more per token to use Fable than GPT 5.6."</div>
+  <div class="quote-zh zh">「If Anthropic pulls Fable from the cloud subscription, they will be seeding substantial coding mind share to Open AI. Will be a big mistake because think about this. They pull the Fable model from the anthropic subscription and all of a sudden you're having to pay, you know, 10 times more per token to use Fable than GPT 5.6.」</div>
+</div>
+
+<div class="quote-card" id="quote-4">
+  <div class="quote-en en">"Claude Fable 5 coming in at $2.75 per task. And all the way down here, GPT 5.6, which is effectively the same score on total intelligence coming in at just over $1 per task. So again, put yourself back in the buyer's shoes."</div>
+  <div class="quote-zh zh">「Claude Fable 5 coming in at $2.75 per task. And all the way down here, GPT 5.6, which is effectively the same score on total intelligence coming in at just over $1 per task. So again, put yourself back in the buyer's shoes.」</div>
+</div>
+
+<div class="quote-card" id="quote-5">
+  <div class="quote-en en">"We're extending Cloud Fable 5 access on all paid plans as well as keeping Cloud Code's weekly rate limits 50% higher through July 9th. Now, even with this weekly rate limit 50% higher, I burn through my quota with like two and a half tasks with my Chat GPT subscription."</div>
+  <div class="quote-zh zh">「We're extending Cloud Fable 5 access on all paid plans as well as keeping Cloud Code's weekly rate limits 50% higher through July 9th. Now, even with this weekly rate limit 50% higher, I burn through my quota with like two and a half tasks with my Chat GPT subscription.」</div>
+</div>
+
+<div class="quote-card" id="quote-6">
+  <div class="quote-en en">"I've heard a lot of questions about Fable's availability. While it will come off subscriptions after July 7th, that's not true anymore. We aim to restore Fable as a standard part of our subscription as soon as capacity allows. That is it. That one decision two years ago is still causing pain for Anthropic."</div>
+  <div class="quote-zh zh">「I've heard a lot of questions about Fable's availability. While it will come off subscriptions after July 7th, that's not true anymore. We aim to restore Fable as a standard part of our subscription as soon as capacity allows. That is it. That one decision two years ago is still causing pain for Anthropic.」</div>
+</div>
+
+<div class="quote-card" id="quote-7">
+  <div class="quote-en en">"We have one model that is like a veteran athlete. That is GPT 5.6. That is likely the last model that we're going to get out of the GPT5 training run. Right? So, it's their previous generation model, but it is the very best of that class of model."</div>
+  <div class="quote-zh zh">「We have one model that is like a veteran athlete. That is GPT 5.6. That is likely the last model that we're going to get out of the GPT5 training run. Right? So, it's their previous generation model, but it is the very best of that class of model.」</div>
+</div>
+
+<div class="quote-card" id="quote-8">
+  <div class="quote-en en">"Because Open AI and Sam Alman didn't make that mistake, they overinvested in GPU capacity. They being Sam Alman was really willing to risk the entire company based on the fact that he believed AI demand would skyrocket and would never slow down."</div>
+  <div class="quote-zh zh">「Because Open AI and Sam Alman didn't make that mistake, they overinvested in GPU capacity. They being Sam Alman was really willing to risk the entire company based on the fact that he believed AI demand would skyrocket and would never slow down.」</div>
+</div>
+
+<div class="quote-card" id="quote-9">
+  <div class="quote-en en">"I would also recommend right now if you do have a chat GPT subscription, use your quotas. Do not try to hoard your tokens. Do not be conservative in this moment. These two companies are going head-to-head and you and I are benefiting from it."</div>
+  <div class="quote-zh zh">「I would also recommend right now if you do have a chat GPT subscription, use your quotas. Do not try to hoard your tokens. Do not be conservative in this moment. These two companies are going head-to-head and you and I are benefiting from it.」</div>
+</div>
+
+<div class="quote-card" id="quote-10">
+  <div class="quote-en en">"Maybe one day Fable is going to discover a way to make itself five times more efficient and then all of a sudden Fable is significantly less expensive than GPT 5.6. Once RSI starts, whoever's in the lead wins. And that might be the wild card that Anthropic is betting on."</div>
+  <div class="quote-zh zh">「Maybe one day Fable is going to discover a way to make itself five times more efficient and then all of a sudden Fable is significantly less expensive than GPT 5.6. Once RSI starts, whoever's in the lead wins. And that might be the wild card that Anthropic is betting on.」</div>
+</div>
+
+    </section>
+
+    <!-- SECTION 8: RELATED NOTES -->
+    <section class="section" id="h2-related">
+      <h2><span class="zh">🔗 相关笔记</span><span class="en">🔗 Related Notes</span></h2>
+      <ul>
+        <li class="zh"><a class="src" href="https://2017zyl.xyz/daily-reports/fable5-jack-roberts-websites-levels-2026-07-06.html">Fable 5 Jack Roberts 7 Levels (2026-07-06) — Anthropic Fable 5 发布 + Mythos 5 同期</a></li>
+        <li class="zh"><a class="src" href="https://2017zyl.xyz/daily-reports/fable5-mark-kashef-wargame-2026-07-06.html">Fable 5 Mark Kashef Wargame (2026-07-06) — Fable 5 系列 cross-link</a></li>
+        <li class="zh"><a class="src" href="https://2017zyl.xyz/daily-reports/fable5-peter-yang-2026-07-04.html">Fable 5 Peter Yang (2026-07-04) — Fable 5 capability deep-dive</a></li>
+        <li class="zh"><a class="src" href="https://2017zyl.xyz/daily-reports/gpt-5-6-sol-bilingual-2026-07-15.html">GPT 5.6 Sol bilingual ship (2026-07-15) — OpenAI 5.6 vs Anthropic 比对</a></li>
+        <li class="zh"><a class="src" href="https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15.html">YC AI Native Service Companies (2026-07-15) — Anthropic / OpenAI 商业影响</a></li>
+        <li class="zh"><a class="src" href="https://2017zyl.xyz/daily-reports/openai-vs-anthropic-subscription-war-2026-07-16.html">本 dashboard (2026-07-16) — OpenAI vs Anthropic 订阅之战</a></li>
+        <li class="en"><a class="src" href="https://2017zyl.xyz/daily-reports/fable5-jack-roberts-websites-levels-2026-07-06.html">Fable 5 Jack Roberts 7 Levels (2026-07-06) — Anthropic Fable 5 launch + Mythos 5 same week</a></li>
+        <li class="en"><a class="src" href="https://2017zyl.xyz/daily-reports/fable5-mark-kashef-wargame-2026-07-06.html">Fable 5 Mark Kashef Wargame (2026-07-06) — Fable 5 series cross-link</a></li>
+        <li class="en"><a class="src" href="https://2017zyl.xyz/daily-reports/fable5-peter-yang-2026-07-04.html">Fable 5 Peter Yang (2026-07-04) — Fable 5 capability deep-dive</a></li>
+        <li class="en"><a class="src" href="https://2017zyl.xyz/daily-reports/gpt-5-6-sol-bilingual-2026-07-15.html">GPT 5.6 Sol bilingual ship (2026-07-15) — OpenAI 5.6 vs Anthropic comparison</a></li>
+        <li class="en"><a class="src" href="https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15.html">YC AI Native Service Companies (2026-07-15) — Anthropic / OpenAI business impact</a></li>
+        <li class="en"><a class="src" href="https://2017zyl.xyz/daily-reports/openai-vs-anthropic-subscription-war-2026-07-16.html">This dashboard (2026-07-16) — OpenAI vs Anthropic subscription war</a></li>
+      </ul>
+    </section>
+
+    <!-- SECTION 9: METADATA -->
+    <section class="section" id="h2-meta">
+      <h2><span class="zh">🧬 元数据</span><span class="en">🧬 Metadata</span></h2>
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem;">
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">video_id</td><td style="padding: 8px; border-bottom: 1px solid var(--border); font-family: ui-monospace, monospace;">nxr20lcqagg</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">url</td><td style="padding: 8px; border-bottom: 1px solid var(--border);"><a class="src" href="https://www.youtube.com/watch?v=nxr20lcqagg">https://www.youtube.com/watch?v=nxr20lcqagg</a></td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">fetch</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">kome.ai POST /api/transcript (3s response, 16560 chars)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">length</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">19:03</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">words</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">2,998 (English)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">chapter_count</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">10 (sponsor stripped)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">tier4_count</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">9 (3 mitig + 3 warn + 3 gap)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">patrick_cards</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">13 (verified-on-disk)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">action_items</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">6 (P0/P1/P2/P3)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">build_pipeline</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">master-takeover 1-shot (Pitfall 64/74)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">skills_applied</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">html-redesign-preserve-semantics v1.1.0 (Step 6 bilingual) + toc-sidebar-batch v1.4.4 (collapsible) + video-to-knowledge-dashboard v1.5.44 (canonical)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">pitfalls_applied</td><td style="padding: 8px; border-bottom: 1px solid var(--border);">67-B (body true UTF-8) + 76 (zh span wrap + inverse CSS) + 73 (topic guess prevention — title verbatim) + 74 (sponsor strip) + 64 (master-takeover)</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute); border-bottom: 1px solid var(--border);">generated_at</td><td style="padding: 8px; border-bottom: 1px solid var(--border); font-family: ui-monospace, monospace;">2026-07-16T22:00:00+08:00</td></tr>
+        <tr><td style="padding: 8px; color: var(--text-mute);">status</td><td style="padding: 8px;">local-only · pending Patrick review · not yet deployed to 2017zyl.xyz</td></tr>
+      </table>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <p class="zh">📊 OpenAI vs Anthropic 订阅之战 · Fable 5 / RSI · Bilingual Dashboard</p>
+    <p class="en">📊 OpenAI vs Anthropic Subscription War · Fable 5 / RSI · Bilingual Dashboard</p>
+    <p class="zh">Master-takeover 1-shot build · HTML ~80KB · 14 tabs · TOC v1.4.4 collapsible · EN ⇄ 中 toggle · Higsfield sponsor stripped</p>
+    <p class="en">Master-takeover 1-shot build · HTML ~80KB · 14 tabs · TOC v1.4.4 collapsible · EN ⇄ 中 toggle · Higsfield sponsor stripped</p>
+    <p><a href="#h2-stats">↑ <span class="zh">返回顶部</span><span class="en">Back to top</span></a></p>
+    <p style="margin-top: 16px; font-size: 0.75rem;">
+      <span class="zh">本地预览，未 deploy · 待 Patrick 拍板</span>
+      <span class="en">Local preview, not deployed · awaiting Patrick's call</span>
+    </p>
+  </footer>
+
+  <script>
+  // ====== LANGUAGE TOGGLE (Pitfall 76 / Step 6.4) ======
+  function toggleLang() {
+    var html = document.documentElement;
+    var isZh = html.lang === 'zh-CN';
+    html.lang = isZh ? 'en' : 'zh-CN';
+    try { localStorage.setItem('nxr20lcqagg-lang', html.lang); } catch (e) {}
+  }
+  (function() {
+    try {
+      var saved = localStorage.getItem('nxr20lcqagg-lang');
+      if (saved === 'en' || saved === 'zh-CN') {
+        document.documentElement.lang = saved;
+      }
+    } catch (e) {}
+  })();
+
+  // ====== TOC COLLAPSIBLE (v1.4.4) ======
+  function toggleToc() {
+    document.body.classList.toggle('toc-collapsed');
+    try {
+      var collapsed = document.body.classList.contains('toc-collapsed');
+      localStorage.setItem('nxr20lcqagg-toc-collapsed', collapsed ? '1' : '0');
+    } catch (e) {}
+  }
+  (function() {
+    try {
+      var saved = localStorage.getItem('nxr20lcqagg-toc-collapsed');
+      if (saved === '1') document.body.classList.add('toc-collapsed');
+    } catch (e) {}
+  })();
+
+  // ====== TOC CLICK HANDLER (v1.4.1+ with scroll + active sync) ======
+  (function() {
+    var tocLinks = document.querySelectorAll('aside.toc a[data-toc-target]');
+    if (!tocLinks.length) return;
+    tocLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var id = this.getAttribute('data-toc-target');
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        setTimeout(function() {
+          var rect = target.getBoundingClientRect();
+          var offset = window.scrollY + rect.top - 24;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+          history.replaceState(null, '', '#' + id);
+        }, 50);
+      });
+    });
+    var sections = Array.from(tocLinks).map(function(a) {
+      var id = a.getAttribute('data-toc-target');
+      return document.getElementById(id);
+    }).filter(Boolean);
+    if (!sections.length) return;
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(function(a) { a.classList.remove('active'); });
+          var id = entry.target.id;
+          var active = document.querySelector('aside.toc a[data-toc-target="' + id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    sections.forEach(function(s) { observer.observe(s); });
+  })();
+  </script>
+
+</body>
+</html>
