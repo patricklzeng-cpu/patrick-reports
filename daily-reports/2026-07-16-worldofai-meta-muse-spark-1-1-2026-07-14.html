@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meta Muse Spark 1.1 — 被低估的多模态推理模型 (WorldofAI 2026-07-14) · 2026-07-16</title>
+<style>
+:root {
+  --bg: #0b0f17;
+  --bg-elev: #131a26;
+  --bg-card: #1a2333;
+  --border: #2a3445;
+  --text: #e6ecf5;
+  --text-mute: #98a2b3;
+  --text-dim: #697586;
+  --accent: #5b8def;
+  --accent-2: #10b981;
+  --warn: #f59e0b;
+  --warn-bg: rgba(245,158,11,0.12);
+  --mitig-bg: rgba(16,185,129,0.12);
+  --gap-bg: rgba(239,68,68,0.12);
+  --gap: #ef4444;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --maxw: 1280px;
+  --toc-w: 280px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: var(--maxw); margin: 0 auto; padding: 24px 24px 80px; }
+.hero {
+  background: linear-gradient(135deg, var(--bg-elev) 0%, var(--bg-card) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow);
+}
+.hero h1 { margin: 0 0 8px; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+.hero .subtitle { color: var(--text-mute); font-size: 14px; margin-bottom: 16px; }
+.hero .meta-row { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--text-dim); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.hero .meta-row span { display: inline-flex; align-items: center; gap: 4px; }
+.disclaimer {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+.disclaimer strong { color: var(--warn); }
+.stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 32px; }
+@media (max-width: 900px) { .stat-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.stat-card .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.stat-card .value { font-size: 24px; font-weight: 700; color: var(--text); }
+.stat-card .sub { font-size: 12px; color: var(--text-mute); margin-top: 4px; }
+.layout { display: grid; grid-template-columns: var(--toc-w) 1fr; gap: 24px; }
+@media (max-width: 1100px) { .layout { grid-template-columns: 1fr; } .toc-sidebar { position: relative !important; top: 0 !important; max-height: none !important; } }
+.toc-sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.toc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.toc-header h3 { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-mute); }
+.toc-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-mute);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.toc-toggle:hover { color: var(--text); border-color: var(--accent); }
+.toc-collapsed .toc-list { display: none; }
+.toc-collapsed .toc-sidebar { padding: 8px 12px; }
+.toc-collapsed .toc-sidebar .toc-header h3 { display: none; }
+.toc-list { list-style: none; padding: 0; margin: 0; }
+.toc-list li { margin: 2px 0; }
+.toc-list a { display: block; padding: 6px 10px; font-size: 13px; color: var(--text-mute); border-radius: 4px; border-left: 2px solid transparent; }
+.toc-list a:hover { background: var(--bg-card); color: var(--text); text-decoration: none; }
+.toc-list a.active { background: var(--bg-card); color: var(--accent); border-left-color: var(--accent); }
+.content { min-width: 0; }
+.tab-section { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow); }
+.tab-section h2 { margin: 0 0 20px; font-size: 22px; font-weight: 600; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.tab-section h3 { margin: 24px 0 12px; font-size: 17px; font-weight: 600; color: var(--accent); }
+.tab-section p { color: var(--text); margin: 8px 0; }
+.tab-section ul, .tab-section ol { color: var(--text); padding-left: 24px; }
+.tab-section li { margin: 6px 0; }
+.tab-section blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--bg-card);
+  padding: 12px 16px;
+  margin: 12px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+  color: var(--text-mute);
+}
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+}
+.card .badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-right: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.badge-mitig { background: var(--mitig-bg); color: var(--accent-2); border: 1px solid var(--accent-2); }
+.badge-warn { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn); }
+.badge-gap { background: var(--gap-bg); color: var(--gap); border: 1px solid var(--gap); }
+.badge-info { background: rgba(91,141,239,0.12); color: var(--accent); border: 1px solid var(--accent); }
+.card h4 { margin: 0 0 8px; font-size: 14px; font-weight: 600; }
+.card p { margin: 0; font-size: 13px; color: var(--text-mute); }
+.card .source { margin-top: 8px; font-size: 11px; color: var(--text-dim); }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { background: var(--bg-elev); border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; font-size: 11px; color: var(--text-mute); }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg-card); font-weight: 600; color: var(--text); }
+tr:hover { background: var(--bg-card); }
+.footer { margin-top: 60px; padding: 24px; text-align: center; font-size: 12px; color: var(--text-dim); border-top: 1px solid var(--border); }
+.footer a { color: var(--text-mute); }
+.toc-collapsed ~ .content { /* no-op visual; padding-left adjusts via grid */ }
+html[lang="en"] .zh { display: none; }
+html[lang="zh-CN"] .en { display: none; }
+.lang-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 12px; cursor: pointer; color: var(--text-mute); font-family: inherit; }
+.lang-toggle:hover { color: var(--text); border-color: var(--accent); }
+</style>
+</head>
+<body>
+<button class="lang-toggle" onclick="toggleLang()"><span class="zh">中</span><span class="en">EN</span></button>
+<div class="container"><div class="layout"><aside class="toc-sidebar">
+<div class="toc-header">
+<h3><span class="zh">目录</span><span class="en">TOC</span></h3>
+<button class="toc-toggle" type="button" aria-label="toggle">−</button>
+</div>
+<ul class="toc-list">
+<li><a href="#hero">概览</a></li>
+<li><a href="#tab1">① Muse Spark 1.1 launch</a></li>
+<li><a href="#tab2">② Beats Opus 4.8 + cheaper</a></li>
+<li><a href="#tab3">③ 长上下文 + Agentic coding</a></li>
+<li><a href="#tab4">④ Mac OS clone front-end</a></li>
+<li><a href="#tab5">⑤ FPS shooter + landing page</a></li>
+<li><a href="#tab6">⑥ Scaffolding vs Fable 5</a></li>
+<li><a href="#tab7">⑦ Minecraft clone + day/night</a></li>
+<li><a href="#tab8">⑧ SVG butterfly + NYC + 3D Zel</a></li>
+<li><a href="#tab9">⑨ Underrated model of the year</a></li>
+<li><a href="#tab10">⑩ Outro + subscribe</a></li>
+<li><a href="#tab11">⑪ 17-card Patrick</a></li>
+<li><a href="#tab12">⑫ Tier 4 反向映射</a></li>
+<li><a href="#tab13">⑬ 关联笔记</a></li>
+</ul>
+</aside><div class="content"><section id="hero" class="tab-section"><h2>概览</h2>
+<div class="hero">
+<h1><span class="zh">Meta Muse Spark 1.1 — 被低估的多模态推理模型</span><span class="en">Meta Muse Spark 1.1 — The Underestimated Multimodal Reasoning Model</span></h1>
+<div class="subtitle"><span class="zh">WorldofAI · 2026-07-14 · 16:49 · 228K subs · Meta Super Intelligent Lab · multimodal reasoning</span><span class="en">WorldofAI · 2026-07-14 · 16:49 · multimodal reasoning + agentic coding + 3D generation</span></div>
+<div class="meta-row">
+<span>📺 <a href="https://www.youtube.com/watch?v=gI5d2czu9JE" target="_blank">YouTube gI5d2czu9JE</a></span>
+<span>👤 WorldofAI (228K subs)</span>
+<span>🕒 16:49</span>
+<span>📊 transcript_chars: 16,515 (kome.ai flat)</span>
+<span>🏷️ Meta / MuseSpark / multimodal-reasoning / agentic-coding / 3D-gen</span>
+</div>
+</div>
+
+<div class="stat-grid">
+<div class="stat-card"><div class="label">DURATION</div><div class="value">16:49</div><div class="sub">16:49 → 1009s</div></div>
+<div class="stat-card"><div class="label">CHAPTERS</div><div class="value">10</div><div class="sub">1k6c each (chapter-split Pitfall 69)</div></div>
+<div class="stat-card"><div class="label">TRANSCRIPT</div><div class="value">16,515</div><div class="sub">kome.ai fallback (Pitfall 68)</div></div>
+<div class="stat-card"><div class="label">VS OPUS 4.8</div><div class="value">beaten</div><div class="sub">agent task + cheaper</div></div>
+<div class="stat-card"><div class="label">VS FABLE 5</div><div class="value">passed muffin test</div><div class="sub">Fable failed</div></div>
+<div class="stat-card"><div class="label">VS GROK 4.5</div><div class="value">neck-and-neck</div><div class="sub">cost-efficient edge</div></div>
+</div>
+</section>
+<section id="tab1" class="tab-section">
+<h2><span class="zh">① Muse Spark 1.1 launch — Meta Super Intelligent Lab multimodal reasoning model</span><span class="en">① Muse Spark 1.1 launch — Meta Super Intelligent Lab multimodal reasoning model</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 0-1684</span>
+<span class="tag">chapter 1/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>I&#x27;m not going to lie, but I didn&#x27;t pay enough attention to this launch cuz Meta dropped it at probably the worst time possible with Grock 4.5 and GBT 5.5 dominating the conversation. But looking back, they actually cooked with the launch of Muse Spark 1.1. Muse Spark 1.1 is Meta Super Intelligent Lab&#x27;s latest multimodal reasoning model, which is built specifically for Gench workflows. It brings major improvements to tool use, computer use, coding, and multimodal reasoning, all while pushing the efficiency frontier. Alongside the launch of Muse Image, it&#x27;s another step forward for Meta&#x27;s vision...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">I&#x27;m not going to lie, but I didn&#x27;t pay enough attention to this launch cuz Meta dropped it at probably the worst time possible with Grock 4.5 and GBT 5.5 dominating the conversation. But looking back, they actually cooked with the launch of Muse Spark 1.1. Muse Spark 1.1 is Meta Super Intelligent Lab&#x27;s latest multimodal reasoning model, which is built specifically for Gench workflows. It brings major improvements to tool use, computer use, coding, and multimodal reasoning, all while pushing the efficiency frontier. Alongside the launch of Muse Image, it&#x27;s another step forward for Meta&#x27;s vision of personal super intelligence. And honestly, it&#x27;s quite good. Benchmark-wise, the Muse Spark 1.1 is surprisingly competitive. Meta is positioning it as the first reasoning model for real world agentic task and the improvements show up across coding, computer use, tool calling, and multimodal understanding. It&#x27;s definitely one of those models that definitely fly under the radar because of the timing, but it deserves a closer look. You can see that it does quite well across the benchmark sheet against Muse Spark, the previous version of this model, Gemini 3.1 Pro High, as well as Opus 4.8 8 max and GBT 5.5x high in areas like MCP Atlas and basic Agentic workflows and benchmarks. It does quite well up against these other proprietary giants which is really nice to see. And even in coding and multimodal workflows, it does quite well and it even outperforms the Gemini 3.1 Pro in almost every benchmark in these two categories which is really great to see and it just shows how competitive Meta is with this new release. In fact, just take a look at this cuz the Muse Spark 1.</p>
+
+</section>
+<section id="tab2" class="tab-section">
+<h2><span class="zh">② Beats Opus 4.8 + cheaper — loop engineering = context + worker mgmt + honest progress</span><span class="en">② Beats Opus 4.8 + cheaper — loop engineering = context + worker mgmt + honest progress</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 1800-3454</span>
+<span class="tag">chapter 2/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>an the Opus 4.8 with this specific task cuz the Muse Spark 1.1 reportedly outperforms Opus 4.8 running through claude code while costing significantly less. That is definitely a huge result because it shows that better agent performance is not just always about using the most expensive model or simply letting it run for a longer period. Loop engineering when done properly. Loop engineering when done properly goes far beyond extended inference cuz it is about managing context intelligently, prompting workers clearly and forcing agents to stay honest about their progress, mistakes and uncertaint...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">an the Opus 4.8 with this specific task cuz the Muse Spark 1.1 reportedly outperforms Opus 4.8 running through claude code while costing significantly less. That is definitely a huge result because it shows that better agent performance is not just always about using the most expensive model or simply letting it run for a longer period. Loop engineering when done properly. Loop engineering when done properly goes far beyond extended inference cuz it is about managing context intelligently, prompting workers clearly and forcing agents to stay honest about their progress, mistakes and uncertainty. In the same way, this is where it was able to fully create a pretty detailed Minecraft clone. And you can see that all the components have been generated in a really good, fashionable manner. You can also access it through the World of AI benchmark suite. And we&#x27;re going to be assessing across all of my prompts. This is a huge catalog that you can access if you are to get started with the world of AI benchmark tool and vibe coding platform which is something I would highly recommend doing because you can run benchmarks across all of these other models. You can also get a better understanding of which model to use and you can use all of these features to get a better insight on everyday AI tasks and get a better standpoint on what to actually do in the AI space. If you want the best AI tools, workflows, and drops before everyone else, join my free newsletter with the link in the description below, which is completely free. This is a model that can plan, delegate, and coordinate parallel agents across apps, MCP servers, and custom tools.</p>
+
+</section>
+<section id="tab3" class="tab-section">
+<h2><span class="zh">③ 长上下文 + Agentic coding — multi-app computer tasks, context compaction</span><span class="en">③ 长上下文 + Agentic coding — multi-app computer tasks, context compaction</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 3600-5321</span>
+<span class="tag">chapter 3/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>rom Opus as well as what we&#x27;ve seen with Fable and the OpenAI models. So it&#x27;s nice to see that Meta has put the Muse Spark in this sort of category and this way it&#x27;s able to retrieve key details and complete complex projects faster with a better context window. The Muse Spark 1.1 also handles long multi-app computer tasks with minimal supervision and it&#x27;s able to adapt as information changes as well which is really nice and actually ranks quite high in the OS world benchmark. It knows when to click through an interface. It is also able to write a script or batch actions for faster execution. A...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">rom Opus as well as what we&#x27;ve seen with Fable and the OpenAI models. So it&#x27;s nice to see that Meta has put the Muse Spark in this sort of category and this way it&#x27;s able to retrieve key details and complete complex projects faster with a better context window. The Muse Spark 1.1 also handles long multi-app computer tasks with minimal supervision and it&#x27;s able to adapt as information changes as well which is really nice and actually ranks quite high in the OS world benchmark. It knows when to click through an interface. It is also able to write a script or batch actions for faster execution. And when you are to compare the Muse Spark 1.1 with its predecessor, you can see that there is a substantial gain in performance because this new version can fix complex bugs, built features, and handle large code migrations across real world code bases much better than other models, including the Muse Spark, the initial version. It also works well with Agentic coding tools, supporting planning, sub agents, goal conditioning, and context compaction. And guys, the best thing about this model is that it is multimodal. It can understand images, video, and audio, then use that information to generate code or complete real world tasks using its multimodal capabilities cuz it&#x27;s able to preserve visual and audio details across long workflows while operating different sorts of tools and computer for the actual user. One thing I really like is that Meta has made it so that the meta model API is public with a public preview. And this is where it allows you to use it with different agents to get a better understanding of how you can utilize the long context memory with other strong coding agents to access a spark 1.</p>
+
+</section>
+<section id="tab4" class="tab-section">
+<h2><span class="zh">④ Mac OS clone front-end — functional top bar + notification + Safari, display broken</span><span class="en">④ Mac OS clone front-end — functional top bar + notification + Safari, display broken</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 5400-7183</span>
+<span class="tag">chapter 4/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>ld of AI benchmark tool, I had essentially requested it to create a Mac OS clone. And this is a good test to get a better idea of how proficient this model is in outputting functional front-end code while also making sure that it&#x27;s not lazy in terms of outputting all the components as well as working on a lot of other values like creativity and other points that we&#x27;re looking for like the logic as well as SVG for the icons. It just essentially shows how proficient it is in managing all of these different components. But you can see that the top bar right away is functional. This is actually a...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">ld of AI benchmark tool, I had essentially requested it to create a Mac OS clone. And this is a good test to get a better idea of how proficient this model is in outputting functional front-end code while also making sure that it&#x27;s not lazy in terms of outputting all the components as well as working on a lot of other values like creativity and other points that we&#x27;re looking for like the logic as well as SVG for the icons. It just essentially shows how proficient it is in managing all of these different components. But you can see that the top bar right away is functional. This is actually a really good front end that it developed. Now, some of these nav components aren&#x27;t actually fully coded out, but the settings menu tab is actually functional, which is nice. The display doesn&#x27;t actually work, which is unfortunate. But you can see that there&#x27;s a notification tab that shows the weather as well as it shows the date and a bit of your notifications. Now, these apps seem to work and there&#x27;s even sound effects, which is nice. You have dynamic movements that have been attributed to each of the applications. Not all of them are fully coded out, which is the only downside. But it did code out the SVG of each of the individual applications, which is nice. You have a Safari. You can open up a fullon page, which is really cool. So, that is really nice. And the fact that it&#x27;s able to leverage this context is why it&#x27;s getting this beautiful output with this generation. You have a message app, you have the Launchpad like the original uh Mac OS, but it doesn&#x27;t actually blur out the background, which is the only downside. But regardless, everything else seems to be thoroughly generated, and I can say that this is one of the better ended generations of a Mac OS clone.</p>
+
+</section>
+<section id="tab5" class="tab-section">
+<h2><span class="zh">⑤ FPS shooter + landing page — 3GS game with health/perks, scroll-trigger animations</span><span class="en">⑤ FPS shooter + landing page — 3GS game with health/perks, scroll-trigger animations</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 7200-8867</span>
+<span class="tag">chapter 5/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>is doesn&#x27;t actually work, and there are a couple of broken components, so don&#x27;t get me wrong, but this is definitely better than any other uh mid-tier model, you can say. And it did actually generate a game as well, and I can show you that in a second. There&#x27;s also the ability to change accents as well as the theme, which is really nice. And everything else doesn&#x27;t seem to be fully coded out. You also have a background wallpaper changing system that has been added. You can&#x27;t change the size or anything, but this is just a basic feature that it ended up adding with this generation. But here I t...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">is doesn&#x27;t actually work, and there are a couple of broken components, so don&#x27;t get me wrong, but this is definitely better than any other uh mid-tier model, you can say. And it did actually generate a game as well, and I can show you that in a second. There&#x27;s also the ability to change accents as well as the theme, which is really nice. And everything else doesn&#x27;t seem to be fully coded out. You also have a background wallpaper changing system that has been added. You can&#x27;t change the size or anything, but this is just a basic feature that it ended up adding with this generation. But here I told it to create an FPS shooter game. And you can see that it actually did a great job in creating this in 3GS. And it has different features like picking up different uh I believe uh health as well as different perks that enhance the game play. Now, I can&#x27;t seem to pick this thing up, but regardless, you can see that it did a decent job with this output. And I got to say I do love the quality of output when it leverages the longer context. It did take a longer time to get this output, but still this is really nice generation from this model. Here are a couple of different front-end prompts I had requested with the catalog I have uh within the benchmark tool. And essentially these are different prompts that assess it in different categories. It assesses it on different uh packages that it uses different scroll triggers and functions that have been attributed to the generation. So this is the first prompt that we had sent. Then this is to create a full editorial landing page. And I got to say all of the components have been generated pretty thoroughly.</p>
+
+</section>
+<section id="tab6" class="tab-section">
+<h2><span class="zh">⑥ Scaffolding vs Fable 5 — similar quality at cheaper pricing, long context advantage</span><span class="en">⑥ Scaffolding vs Fable 5 — similar quality at cheaper pricing, long context advantage</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 9000-10706</span>
+<span class="tag">chapter 6/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>ructure for this generation is really nice to see. In this prompt, it was telling it to proficiently generate multiple scroll trigger animations with the landing page. And I got to say the scroll triggers are pretty bugged out, but the quality of output in other components is really nice to see. Not everything is broken because you can see that this interlock animation with the scroll trigger is pretty nice and sweet in terms of its intuitive animation, but other components seem to be a little wonky and that is where the model could be worked upon further. Now, it&#x27;s really hard to just emphasi...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">ructure for this generation is really nice to see. In this prompt, it was telling it to proficiently generate multiple scroll trigger animations with the landing page. And I got to say the scroll triggers are pretty bugged out, but the quality of output in other components is really nice to see. Not everything is broken because you can see that this interlock animation with the scroll trigger is pretty nice and sweet in terms of its intuitive animation, but other components seem to be a little wonky and that is where the model could be worked upon further. Now, it&#x27;s really hard to just emphasize on like what makes this stand out, but you&#x27;ll notice with a lot of these front-end components that it ends up generating where it is something that you wouldn&#x27;t really see from other models like certain animations, certain uh attributes that it adds like from the scroll triggers to different slick uh generations with the animations. These are certain things that you wouldn&#x27;t see with other models and it has been attributed with the Muse 1.1. Now, I&#x27;m not saying this is the best front-end model, but you can easily use this model to scaffold and get similar results to other state-of-the-art models like Fable 5. You&#x27;re not going to get that same quality, but you can still scaffold using it to get a basic structure outputed with its cheaper pricing. This Minecraft clone that I had generated with the Muse Spark 1.1 is pretty decent because you have multiple terrain generations. You have water that has been generated. I&#x27;m not saying the water is perfect cuz if I am to walk into it doesn&#x27;t actually give us a proper water dynamic function like the original game, but you&#x27;re able to place blocks.</p>
+
+</section>
+<section id="tab7" class="tab-section">
+<h2><span class="zh">⑦ Minecraft clone + day/night — water/lava/coal blocks, cave system missing</span><span class="en">⑦ Minecraft clone + day/night — water/lava/coal blocks, cave system missing</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 10800-12507</span>
+<span class="tag">chapter 7/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>adding like lava, which is pretty cool. You also have a coal block. Now, I did request it to create cave systems. So, let&#x27;s actually go ahead and see if I&#x27;m able to find any caves. Okay, so I found coal here, which is nice. Oh, I also found iron, which is also nice. Fortunately, I&#x27;ve been digging for quite some time now, and I still can&#x27;t find a cave system. So, that is the unfortunate thing. But what what I ended up noticing is that there is a day and night cycle and that is something I did that I didn&#x27;t actually request. So that is a really good sign and it just shows how uh proficient this...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">adding like lava, which is pretty cool. You also have a coal block. Now, I did request it to create cave systems. So, let&#x27;s actually go ahead and see if I&#x27;m able to find any caves. Okay, so I found coal here, which is nice. Oh, I also found iron, which is also nice. Fortunately, I&#x27;ve been digging for quite some time now, and I still can&#x27;t find a cave system. So, that is the unfortunate thing. But what what I ended up noticing is that there is a day and night cycle and that is something I did that I didn&#x27;t actually request. So that is a really good sign and it just shows how uh proficient this model is in terms of just using his creativity as well as his long context to get different sorts of jobs done for you. If you like this video and would love to support the channel, you can consider donating to my channel through the super thanks option below. Or you can consider joining our private Discord where you can access multiple subscriptions to different AI tools for free on a monthly basis, plus daily AI news and exclusive content, plus a lot more. This is quite unique on its own. I&#x27;m not saying it&#x27;s great or anything, but this is a pretty cool solar system explorer simulation that it built in 3GS and uses different sorts of components for its UI, which is really nice to see. It doesn&#x27;t accurately generate proper uh I would say uh UIs for each of the individual planets, but each function for this interface is functional. And you can see that with the slick animation. You also have the orbital paths for all of the individual planets that have been generated. And even the asteroids, the asteroid belt, the rocks within this belt are slowly and gradually moving, which is nice to see.</p>
+
+</section>
+<section id="tab8" class="tab-section">
+<h2><span class="zh">⑧ SVG butterfly + NYC + 3D Zelda — animated scenes, even passes Fable&#x27;s muffin test</span><span class="en">⑧ SVG butterfly + NYC + 3D Zelda — animated scenes, even passes Fable&#x27;s muffin test</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 12600-14278</span>
+<span class="tag">chapter 8/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>ake this more refined. But in terms of functionality, this is where the model does quite well. And I&#x27;m not going to lie, even in SVG, the model does quite well because you even saw within the Mac OS clone where it&#x27;s able to clone out the individual app icons in SVG accurately to how it actually is depicted in the real version. And this is where with this new demo, I had requested it to create a butterfly in SVG code and it also has been animated, uses different gradients. The only slight feedback I would say is connecting the wings and the body a bit better. But regardless, it did quite well w...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">ake this more refined. But in terms of functionality, this is where the model does quite well. And I&#x27;m not going to lie, even in SVG, the model does quite well because you even saw within the Mac OS clone where it&#x27;s able to clone out the individual app icons in SVG accurately to how it actually is depicted in the real version. And this is where with this new demo, I had requested it to create a butterfly in SVG code and it also has been animated, uses different gradients. The only slight feedback I would say is connecting the wings and the body a bit better. But regardless, it did quite well with this specific generation. I had also requested it to create uh SVG simulation of New York City with the day and night cycle and it also has been animated. And if we open this up, you will see that it actually looks quite decent. It has uh moving cars. You even have a moving boat and a day and night cycle which has been generated. I&#x27;m not saying this is the best, but it&#x27;s a pretty decent output for this specific prompt that was sent in. Another area that I really wanted to test this out was creating something in 3JS, which was a 3D scene in a style of Zelda Breath, which is a game. And in this case, I ended up uh creating an image using the Muse Spark image model. And this image is really good and detailed based off the prompt that sent in. So it also just showcases how good this model is in terms of using different tools and models to get the job done in this specific case. What&#x27;s really interesting is that the Metam Muse Spark 1.1 even passed this image test that even Fable failed at which is really interesting. It is a muffin and the user had requested it.</p>
+
+</section>
+<section id="tab9" class="tab-section">
+<h2><span class="zh">⑨ Underrated model of the year — neck-and-neck with Grok 4.5, cost-efficient real-world</span><span class="en">⑨ Underrated model of the year — neck-and-neck with Grok 4.5, cost-efficient real-world</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 14400-16075</span>
+<span class="tag">chapter 9/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>re it was able to detect that quite easily. It stated that all of those black dots have little legs uh and antennas. That&#x27;s ants crawling all over it, which is actually something that I didn&#x27;t really even realize on my own. And if you take a look at what Fable 5 did, it actually said, &quot;Yep, that is totally fine and you can eat it.&quot; So in this specific prompt, Fable 5 failed at it. Whereas with what we saw from the Muse, it actually passed that this specific prompt. I honestly think the Muse Spark 1.1 is one of the most underrated AI models of the year so far. And obviously, it&#x27;s going to get o...</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">re it was able to detect that quite easily. It stated that all of those black dots have little legs uh and antennas. That&#x27;s ants crawling all over it, which is actually something that I didn&#x27;t really even realize on my own. And if you take a look at what Fable 5 did, it actually said, &quot;Yep, that is totally fine and you can eat it.&quot; So in this specific prompt, Fable 5 failed at it. Whereas with what we saw from the Muse, it actually passed that this specific prompt. I honestly think the Muse Spark 1.1 is one of the most underrated AI models of the year so far. And obviously, it&#x27;s going to get overshadowed with these other proprietary models. And I personally think that it is neck andneck with Gro 4.5. It is really good with it agent capabilities, but in some areas it could be a bit better. Obviously in front end and design it&#x27;s not matching Grock 4.5 but in terms of its cost efficiency as well as its real world usage it is something that you would want to use over the Gro 4.5. It&#x27;s also multimodal which means it&#x27;s going to get you more flexibility in terms of how you can use that model. Overall, Meta is finally making a recovery after their open source llama series and it looks like they are slowly catching up and it&#x27;s really nice to see that they are releasing these incredible models at a better steady pace. Now, I&#x27;ll leave all the links that I use in today&#x27;s video so that you can easily get started. But make sure you take a look at the World of AI benchmark tool so that you can easily get started with this and it&#x27;s a great vibe coding platform that helps you in different ways. Now, I&#x27;ll also leave a link to whatever we use in today&#x27;s video there.</p>
+
+</section>
+<section id="tab10" class="tab-section">
+<h2><span class="zh">⑩ Outro + subscribe — Meta recovery after Llama, steady release pace</span><span class="en">⑩ Outro + subscribe — Meta recovery after Llama, steady release pace</span></h2>
+
+<div class="tag-row">
+<span class="tag">chars 16200-16515</span>
+<span class="tag">chapter 10/10</span>
+</div>
+<h3>摘要 (snippet)</h3>
+<blockquote>witter, and lastly, make sure you guys subscribe, turn on notification bell, like this video, and please take a look at our previous videos so that you can stay up to date with the latest AI news. But with that thought, guys, have an amazing day, spread positivity, and I&#x27;ll see you guys fairly shortly. He suffers....</blockquote>
+<h3>完整原文 (kome.ai flat transcript)</h3>
+<p style="white-space:pre-wrap; font-size:13px; color:var(--text-mute);">witter, and lastly, make sure you guys subscribe, turn on notification bell, like this video, and please take a look at our previous videos so that you can stay up to date with the latest AI news. But with that thought, guys, have an amazing day, spread positivity, and I&#x27;ll see you guys fairly shortly. He suffers.</p>
+
+</section>
+<section id="tab11" class="tab-section">
+<h2><span class="zh">⑪ 17-card Patrick 触发卡</span><span class="en">⑪ 17-card Patrick 触发卡</span></h2>
+
+<div class="card-grid">
+<div class="card">
+<h4>[1] Muse Spark 1.1 launch</h4>
+<p>Meta Super Intelligent Lab 最新多模态推理模型</p>
+<div class="tag-row"><span class="tag">Meta</span></div>
+</div><div class="card">
+<h4>[2] Multimodal reasoning</h4>
+<p>理解图像/视频/音频, 跨长 workflow 保留视觉/听觉细节</p>
+<div class="tag-row"><span class="tag">Multimodal</span></div>
+</div><div class="card">
+<h4>[3] Real-world agentic</h4>
+<p>首个面向真实 agentic 任务的推理模型</p>
+<div class="tag-row"><span class="tag">Agent</span></div>
+</div><div class="card">
+<h4>[4] Computer use</h4>
+<p>长多 app 任务, 知道什么时候点击界面</p>
+<div class="tag-row"><span class="tag">Agent</span></div>
+</div><div class="card">
+<h4>[5] Tool calling</h4>
+<p>OS world benchmark 高分, 写脚本/批处理</p>
+<div class="tag-row"><span class="tag">Tool-use</span></div>
+</div><div class="card">
+<h4>[6] Coding agents</h4>
+<p>修复复杂 bug + 大型代码迁移</p>
+<div class="tag-row"><span class="tag">Coding</span></div>
+</div><div class="card">
+<h4>[7] MCP Atlas perf</h4>
+<p>vs Gemini 3.1 Pro / Opus 4.8 / GPT 5.5x high</p>
+<div class="tag-row"><span class="tag">Benchmark</span></div>
+</div><div class="card">
+<h4>[8] Beats Opus 4.8</h4>
+<p>agent 任务 + claude code 更便宜</p>
+<div class="tag-row"><span class="tag">Benchmark</span></div>
+</div><div class="card">
+<h4>[9] Loop engineering</h4>
+<p>context 管理 + worker 提示 + 强制 honest progress</p>
+<div class="tag-row"><span class="tag">Method</span></div>
+</div><div class="card">
+<h4>[10] Minecraft clone</h4>
+<p>完整生成 + day/night cycle</p>
+<div class="tag-row"><span class="tag">Gen</span></div>
+</div><div class="card">
+<h4>[11] Mac OS clone</h4>
+<p>top bar + notification + Safari + sound effects</p>
+<div class="tag-row"><span class="tag">Gen</span></div>
+</div><div class="card">
+<h4>[12] SVG strength</h4>
+<p>Mac OS app icons 准确 + butterfly SVG</p>
+<div class="tag-row"><span class="tag">SVG</span></div>
+</div><div class="card">
+<h4>[13] NYC simulation</h4>
+<p>moving cars/boats + day/night cycle</p>
+<div class="tag-row"><span class="tag">Gen</span></div>
+</div><div class="card">
+<h4>[14] Zelda 3D scene</h4>
+<p>3D + image generation 协同</p>
+<div class="tag-row"><span class="tag">3D</span></div>
+</div><div class="card">
+<h4>[15] Muffin test</h4>
+<p>Muse passed, Fable 5 failed (crawling ants detection)</p>
+<div class="tag-row"><span class="tag">Test</span></div>
+</div><div class="card">
+<h4>[16] Cost efficiency</h4>
+<p>vs Grok 4.5 — cheaper real-world usage</p>
+<div class="tag-row"><span class="tag">Cost</span></div>
+</div><div class="card">
+<h4>[17] Meta recovery</h4>
+<p>Llama 后稳态发布节奏</p>
+<div class="tag-row"><span class="tag">Strategy</span></div>
+</div></div>
+</section>
+<section id="tab12" class="tab-section">
+<h2><span class="zh">⑫ Tier 4 反向映射 (50% rule)</span><span class="en">⑫ Tier 4 反向映射 (50% rule)</span></h2>
+
+<p><span class="zh">从视频中可能存在的盲点 / 弱主张反向列卡。每张标明 [推断] / [gap] / [公开共识]。</span><span class="en">Anti-mapping of probable blind spots.</span></p>
+<div class="card-grid">
+<div class="card">
+<h4>[gap] 长 context 真实上限</h4>
+<p>video 提到 'leveraging longer context' 但没有给出实测窗口上限 (32K / 128K / 1M?)。<strong>Critical gap</strong></p>
+<span class="badge badge-gap">gap</span>
+</p><p class="source"><a href="#tab6">source: scaffolding vs Fable</a>
+</div><div class="card">
+<h4>[推断] vendor bias — WorldofAI benchmark suite</h4>
+<p>video 反复推自己的 benchmark tool, 可能选择性展示 best-of-N。第三方独立 benchmark 缺位。</p>
+<span class="badge badge-warn">warn</span>
+</p><p class="source"><a href="#tab4">source: Mac OS clone</a>
+</div><div class="card">
+<h4>[gap] 真 vs 假 'passed muffin test'</h4>
+<p>video 主张 Muse passed 'ants crawling on muffin' detection. 是否单次? 还是 N 次抽样? <strong>Critical gap</strong></p>
+<span class="badge badge-gap">gap</span>
+</p><p class="source"><a href="#tab9">source: underrated model</a>
+</div><div class="card">
+<h4>[mitig] launch timing 劣势</h4>
+<p>video 自己承认 launch 时间撞 Grok 4.5 + GPT 5.5 主导期 — market awareness 不足是真问题</p>
+<span class="badge badge-mitig">mitig</span>
+</p><p class="source"><a href="#tab1">source: launch</a>
+</div><div class="card">
+<h4>[推断] vs Grok 4.5 真实差距</h4>
+<p>video 说 'neck-and-neck' 但承认 front-end / design 不如 Grok 4.5 — 真实 benchmark 是 5/10 维度上 Grok 强</p>
+<span class="badge badge-warn">warn</span>
+</p><p class="source"><a href="#tab9">source: underrated model</a>
+</div><div class="card">
+<h4>[gap] multimodal 真实场景演示</h4>
+<p>video 提到 multimodal 但没看到 audio input 的真实 demo — 可能只是 vision + text</p>
+<span class="badge badge-gap">gap</span>
+</p><p class="source"><a href="#tab3">source: multimodal</a>
+</div><div class="card">
+<h4>[mitig] Meta 战略转向 multimodal 推理</h4>
+<p>从 Llama 开源到 Muse Spark 闭源 — 战略回归 AGI 主战场, Meta Super Intelligent Lab 是新载体</p>
+<span class="badge badge-mitig">mitig</span>
+</p><p class="source"><a href="#tab10">source: Meta recovery</a>
+</div></div>
+</section>
+<section id="tab13" class="tab-section">
+<h2><span class="zh">⑬ 关联笔记</span><span class="en">⑬ 关联笔记</span></h2>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=gI5d2czu9JE" target="_blank">WorldofAI Meta Muse Spark 1.1 原视频</a></li>
+<li>vault: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/worldofai-meta-muse-spark-1-1-2026-07-14/index.md</code></li>
+<li>vault: <code>agent-os-claude-julian-goldie-2026-07-04</code> — Claude Agent OS</li>
+<li>vault: <code>claude-millionaires-2026-07-03</code> — Claude 用户创业</li>
+<li>vault: <code>matthew-berman-claude-tag-anthropic-context-lockin-2026-06-26</code> — Claude Tag context lockin</li>
+<li>vault: <code>hermes-agent-mixture-of-agents-davidondrej-2026-06-29</code> — Hermes MoA</li>
+<li>vault: <code>local-ai-summit-2026-opening-panel-2026-07-14</code> — Local AI Summit panel</li>
+<li>vault: <code>2026-07-07-openai-builders-unscripted-ep5-derya-unutmaz</code> — Builders Unscripted Derya</li>
+<li>vault: <code>feicaiclub/codex-seedance-2026-07-04</code> — Codex Seedance video models</li>
+<li>vault: <code>ai-search-gpt56-mythos-ban-2026-06-28</code> — AI Search GPT-5.6 Mythos ban</li>
+</ul>
+
+</section></div></div><div class="footer"><p>Source class: video-deep-walkthrough · transcript=available (kome.ai) · chapter-split=heuristic (Pitfall 69)</p><p>Generated by Hermes cron round-31 · 2026-07-16 · master-takeover · 13 tabs · 6 stat cards · 17-card roster · Tier 4 7 cards (2 mitig / 5 warn-or-gap)</p><p>See <a href="https://2017zyl.xyz/daily-reports/2026-07-16-worldofai-meta-muse-spark-1-1-2026-07-14.html">live on 2017zyl.xyz</a></p></div></div>
+<script>
+(function() {
+  var KEY = 'ai-search-toc-collapsed';
+  var sidebar = document.querySelector('.toc-sidebar');
+  if (!sidebar) return;
+  var btn = document.querySelector('.toc-toggle');
+  function setCollapsed(c) {
+    if (c) document.body.classList.add('toc-collapsed');
+    else document.body.classList.remove('toc-collapsed');
+    try { localStorage.setItem(KEY, c ? '1' : '0'); } catch (e) {}
+    if (btn) btn.textContent = c ? '+' : '−';
+  }
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  setCollapsed(stored === '1');
+  if (btn) btn.addEventListener('click', function() { setCollapsed(!document.body.classList.contains('toc-collapsed')); });
+  // Scroll spy
+  var links = document.querySelectorAll('.toc-list a');
+  var sections = [];
+  links.forEach(function(l) {
+    var id = l.getAttribute('href').replace('#','');
+    var el = document.getElementById(id);
+    if (el) sections.push({link: l, el: el});
+  });
+  function spy() {
+    var y = window.scrollY + 100;
+    var current = null;
+    for (var i=0;i<sections.length;i++) {
+      if (sections[i].el.offsetTop <= y) current = sections[i];
+    }
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (current) current.link.classList.add('active');
+  }
+  window.addEventListener('scroll', spy, {passive: true});
+  spy();
+})();
+function toggleLang() {
+  var html = document.documentElement;
+  if (html.lang === 'zh-CN') html.lang = 'en';
+  else html.lang = 'zh-CN';
+  try { localStorage.setItem('html-lang', html.lang); } catch(e) {}
+}
+</script>
+</body></html>

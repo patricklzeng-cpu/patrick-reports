@@ -1,5 +1,54 @@
 [
   {
+    "date": "2026-07-16",
+    "title": "🆕 小Lin说《AI巨头资本混战》metadata-only batch · 19:28 中文财经科普 · 8 章预测 + 17-card + Tier 4 7 cards (transcript publisher_restricted · Pitfall 75)",
+    "track": "video",
+    "tag": "ai-bubble · industry-analysis · chinese · capital-flow · funding-rounds · sovereign-wealth-funds",
+    "practical": 80,
+    "time": 19,
+    "desc": "小Lin说 中文频道 2.79M subs · 资本科普 · transcript publisher_restricted (5+ endpoint 全 fail) → metadata-only batch (Pitfall 75) · 4 章节预测 + 17-card roster + Tier 4 7 cards 包含 [gap]/[推断]/[公开共识]",
+    "file": "daily-reports/2026-07-16-ai-capital-battle-2026-07-01.html",
+    "url": "https://www.youtube.com/watch?v=OcKl98ZQbMQ",
+    "category": "video-dashboard",
+    "summary": "小Lin说 AI 资本混战 metadata-only · 19:28 · 8 章预测 + 17-card + Tier 4",
+    "added_at": "2026-07-16",
+    "curated": 1,
+    "tags": [
+      "video-dashboard",
+      "ai-bubble",
+      "industry-analysis",
+      "chinese",
+      "capital-flow",
+      "metadata-only",
+      "pitfall-75"
+    ]
+  },
+  {
+    "date": "2026-07-16",
+    "title": "🆕 WorldofAI Meta Muse Spark 1.1 — 被低估多模态推理模型 · 16:49 · 10 章 transcript-driven + 17-card + Tier 4 7 cards (kome.ai fallback 16,515c + chapter-split Pitfall 69)",
+    "track": "video",
+    "tag": "technical-howto · multimodal-reasoning · agentic-coding · 3D-gen · benchmark · video-deep-walkthrough",
+    "practical": 82,
+    "time": 17,
+    "desc": "WorldofAI 228K subs · multimodal reasoning + agentic coding + 3D · 10 chapter tabs + 17-card roster + Tier 4 7 cards (3 mitig + 4 warn-or-gap · 50% rule ✓)",
+    "file": "daily-reports/2026-07-16-worldofai-meta-muse-spark-1-1-2026-07-14.html",
+    "url": "https://www.youtube.com/watch?v=gI5d2czu9JE",
+    "category": "video-dashboard",
+    "summary": "Meta Muse Spark 1.1 多模态推理模型 deep-walkthrough · 16:49 · 10 章 transcript + 17-card + Tier 4",
+    "added_at": "2026-07-16",
+    "curated": 1,
+    "tags": [
+      "video-dashboard",
+      "technical-howto",
+      "multimodal-reasoning",
+      "agentic-coding",
+      "meta",
+      "worldofai",
+      "benchmark",
+      "pitfall-69"
+    ]
+  },
+  {
     "title": "🆕 全球想象文学 · 五联 · 11 仪表板 · 中EN 双语可切换 · 101 作家 + 45 影视",
     "track": "brief",
     "tag": "literature · quintet · sci-fi · fantasy · mystery · horror · nonfiction · latin-american · 101-authors · bilingual · toc",

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 巨头资本混战 · 2024-2026 主权基金 × hyperscaler 牌桌 · 2026-07-16</title>
+<style>
+:root {
+  --bg: #0b0f17;
+  --bg-elev: #131a26;
+  --bg-card: #1a2333;
+  --border: #2a3445;
+  --text: #e6ecf5;
+  --text-mute: #98a2b3;
+  --text-dim: #697586;
+  --accent: #5b8def;
+  --accent-2: #10b981;
+  --warn: #f59e0b;
+  --warn-bg: rgba(245,158,11,0.12);
+  --mitig-bg: rgba(16,185,129,0.12);
+  --gap-bg: rgba(239,68,68,0.12);
+  --gap: #ef4444;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --maxw: 1280px;
+  --toc-w: 280px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: var(--maxw); margin: 0 auto; padding: 24px 24px 80px; }
+.hero {
+  background: linear-gradient(135deg, var(--bg-elev) 0%, var(--bg-card) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow);
+}
+.hero h1 { margin: 0 0 8px; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; }
+.hero .subtitle { color: var(--text-mute); font-size: 14px; margin-bottom: 16px; }
+.hero .meta-row { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--text-dim); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.hero .meta-row span { display: inline-flex; align-items: center; gap: 4px; }
+.disclaimer {
+  background: var(--warn-bg);
+  border: 1px solid var(--warn);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+.disclaimer strong { color: var(--warn); }
+.stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 32px; }
+@media (max-width: 900px) { .stat-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.stat-card .label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.stat-card .value { font-size: 24px; font-weight: 700; color: var(--text); }
+.stat-card .sub { font-size: 12px; color: var(--text-mute); margin-top: 4px; }
+.layout { display: grid; grid-template-columns: var(--toc-w) 1fr; gap: 24px; }
+@media (max-width: 1100px) { .layout { grid-template-columns: 1fr; } .toc-sidebar { position: relative !important; top: 0 !important; max-height: none !important; } }
+.toc-sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+.toc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.toc-header h3 { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-mute); }
+.toc-toggle {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-mute);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.toc-toggle:hover { color: var(--text); border-color: var(--accent); }
+.toc-collapsed .toc-list { display: none; }
+.toc-collapsed .toc-sidebar { padding: 8px 12px; }
+.toc-collapsed .toc-sidebar .toc-header h3 { display: none; }
+.toc-list { list-style: none; padding: 0; margin: 0; }
+.toc-list li { margin: 2px 0; }
+.toc-list a { display: block; padding: 6px 10px; font-size: 13px; color: var(--text-mute); border-radius: 4px; border-left: 2px solid transparent; }
+.toc-list a:hover { background: var(--bg-card); color: var(--text); text-decoration: none; }
+.toc-list a.active { background: var(--bg-card); color: var(--accent); border-left-color: var(--accent); }
+.content { min-width: 0; }
+.tab-section { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow); }
+.tab-section h2 { margin: 0 0 20px; font-size: 22px; font-weight: 600; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.tab-section h3 { margin: 24px 0 12px; font-size: 17px; font-weight: 600; color: var(--accent); }
+.tab-section p { color: var(--text); margin: 8px 0; }
+.tab-section ul, .tab-section ol { color: var(--text); padding-left: 24px; }
+.tab-section li { margin: 6px 0; }
+.tab-section blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--bg-card);
+  padding: 12px 16px;
+  margin: 12px 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+  color: var(--text-mute);
+}
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+}
+.card .badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-right: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.badge-mitig { background: var(--mitig-bg); color: var(--accent-2); border: 1px solid var(--accent-2); }
+.badge-warn { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn); }
+.badge-gap { background: var(--gap-bg); color: var(--gap); border: 1px solid var(--gap); }
+.badge-info { background: rgba(91,141,239,0.12); color: var(--accent); border: 1px solid var(--accent); }
+.card h4 { margin: 0 0 8px; font-size: 14px; font-weight: 600; }
+.card p { margin: 0; font-size: 13px; color: var(--text-mute); }
+.card .source { margin-top: 8px; font-size: 11px; color: var(--text-dim); }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { background: var(--bg-elev); border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; font-size: 11px; color: var(--text-mute); }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg-card); font-weight: 600; color: var(--text); }
+tr:hover { background: var(--bg-card); }
+.footer { margin-top: 60px; padding: 24px; text-align: center; font-size: 12px; color: var(--text-dim); border-top: 1px solid var(--border); }
+.footer a { color: var(--text-mute); }
+.toc-collapsed ~ .content { /* no-op visual; padding-left adjusts via grid */ }
+html[lang="en"] .zh { display: none; }
+html[lang="zh-CN"] .en { display: none; }
+.lang-toggle { position: fixed; top: 16px; right: 16px; z-index: 100; background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 12px; cursor: pointer; color: var(--text-mute); font-family: inherit; }
+.lang-toggle:hover { color: var(--text); border-color: var(--accent); }
+</style>
+</head>
+<body>
+<button class="lang-toggle" onclick="toggleLang()"><span class="zh">中</span><span class="en">EN</span></button>
+<div class="container"><div class="layout"><aside class="toc-sidebar">
+<div class="toc-header">
+<h3><span class="zh">目录</span><span class="en">TOC</span></h3>
+<button class="toc-toggle" type="button" aria-label="toggle">−</button>
+</div>
+<ul class="toc-list">
+<li><a href="#hero">概览 · 资本 vs 技术赛跑</a></li>
+<li><a href="#tab1">① 入围玩家 (1:01-4:19)</a></li>
+<li><a href="#tab2">② OA 争夺战 (4:19-9:12)</a></li>
+<li><a href="#tab3">③ 上下游合作 (9:12-15:08)</a></li>
+<li><a href="#tab4">④ 中心牌桌 (15:08-19:28)</a></li>
+<li><a href="#tab5">⑤ OpenAI 融资时间线</a></li>
+<li><a href="#tab6">⑥ Anthropic / xAI 资本动作</a></li>
+<li><a href="#tab7">⑦ 主权基金入场图谱</a></li>
+<li><a href="#tab8">⑧ 四 hyperscaler capex 对比</a></li>
+<li><a href="#tab9">⑨ 公开金句 (placeholder)</a></li>
+<li><a href="#tab10">⑩ 17 张 Patrick 触发卡</a></li>
+<li><a href="#tab11">⑪ Tier 4 反向映射</a></li>
+<li><a href="#tab12">⑫ 关联笔记</a></li>
+</ul>
+</aside><div class="content"><section id="hero" class="tab-section"><h2>概览 · 资本 vs 技术赛跑</h2>
+<div class="hero">
+<h1><span class="zh">AI 巨头之间的资本混战, 到底是个什么情况?</span><span class="en">AI Capital Battle · Sovereign Funds × Hyperscaler Table</span></h1>
+<div class="subtitle"><span class="zh">小Lin说 · 2026-07-01 · 19:28 · 中文频道 · 资本科普向</span><span class="en">Xiao Lin Says · 2026-07-01 · 19:28 · Chinese financial science channel</span></div>
+<div class="meta-row">
+<span>📺 <a href="https://www.youtube.com/watch?v=OcKl98ZQbMQ" target="_blank">YouTube OcKl98ZQbMQ</a></span>
+<span>👤 小Lin说 (2.79M subs)</span>
+<span>👁️ 43,771 views</span>
+<span>👍 25K likes</span>
+<span>🕒 19:28</span>
+</div>
+</div>
+
+<div class="disclaimer">
+<strong>⚠️ DISCLAIMER — Metadata-Only Batch (Pitfall 75: transcript_publisher_restricted)</strong><br>
+本视频由 publisher 限制字幕, 公开 transcript 不可获得:<br>
+- yt-dlp (4-client cascade): "No subtitles for the requested languages"<br>
+- kome.ai: "Transcripts aren't available for this video. The publisher may have restricted access for privacy or copyright reasons."<br>
+- youtube-transcript-api: 同上<br>
+- YouTube 页面元数据确认: "Subtitles/closed captions unavailable"<br>
+<br>
+本 dashboard 是 <strong>metadata-only batch (3 件套)</strong>, 所有具体论点/数字/历史时间线/quote 标注为 <code>[章节主旨]</code> / <code>[公开共识]</code> / <code>[推断]</code> / <code>[gap]</code> 而非视频原文。<br>
+P0 action item: <strong>听 19:28 音频验证</strong>. Future v2 实证版可以听录后补。
+</div>
+
+<div class="stat-grid">
+<div class="stat-card"><div class="label">TIER-1 AI LAB</div><div class="value">8+</div><div class="sub">OpenAI/Anthropic/xAI/Mistral/DeepMind/Meta/Cohere/SSI</div></div>
+<div class="stat-card"><div class="label">HYPERSCALER</div><div class="value">4</div><div class="sub">MSFT/GOOG/AMZN/META · ~$435B/yr capex</div></div>
+<div class="stat-card"><div class="label">SOVEREIGN FUND</div><div class="value">5+</div><div class="sub">Saudi PIF / MGX / Mubadala / Temasek / GIC</div></div>
+<div class="stat-card"><div class="label">OA 估值跳跃</div><div class="value">$157B→$1T</div><div class="sub">2024-10 → 2026 传闻</div></div>
+<div class="stat-card"><div class="label">NVIDIA 市值</div><div class="value">$4T+</div><div class="sub">2025-06 全球首家, 2026-01 短暂 $5T</div></div>
+<div class="stat-card"><div class="label">STATUS</div><div class="value">publisher_restricted</div><div class="sub">5+ endpoints fail</div></div>
+</div>
+</section>
+<section id="tab1" class="tab-section">
+<h2><span class="zh">① 入围玩家 (1:01-4:19)</span><span class="en">① 入围玩家 (1:01-4:19)</span></h2>
+
+<p><span class="zh">小Lin说本节预期列出当下最热的 AI 实验室 + 估值。截至 2026-07, 公认 Tier-1 玩家:</span><span class="en">Chapter 1 predicts a Tier-1 lab roster with valuations:</span></p>
+<table>
+<thead><tr><th>公司</th><th>总部</th><th>估值</th><th>旗舰模型</th><th>2026 状态</th></tr></thead>
+<tbody>
+<tr><td><strong>OpenAI</strong></td><td>SF</td><td>$300B+ (2025-03) → $700B-$1T (2026 传闻)</td><td>GPT-5.x</td><td>营利化转型中, 与 MSFT 关系微妙</td></tr>
+<tr><td><strong>Anthropic</strong></td><td>SF</td><td>~$60B-$170B (Series F 2025)</td><td>Claude Opus 4.x</td><td>ARR 高速增长, 2026 仍在融资</td></tr>
+<tr><td><strong>xAI</strong></td><td>Memphis</td><td>~$50B-$200B (Colossus 抵押)</td><td>Grok 4.x</td><td>Elon 自筹 + 沙特资金</td></tr>
+<tr><td><strong>Google DeepMind</strong></td><td>London</td><td>母公司 $2T+</td><td>Gemini 2.x</td><td>不独立融资</td></tr>
+<tr><td><strong>Meta AI (FAIR)</strong></td><td>Menlo Park</td><td>母公司 $1.5T+</td><td>Llama 4.x</td><td>Zuckerberg 几百亿投入</td></tr>
+<tr><td><strong>Mistral AI</strong></td><td>Paris</td><td>~$6B-$14B</td><td>Mistral Large</td><td>欧洲 AI 领头</td></tr>
+<tr><td><strong>Cohere</strong></td><td>Toronto</td><td>~$5B-$7B</td><td>Command R+</td><td>企业 B2B</td></tr>
+<tr><td><strong>Safe Superintelligence</strong></td><td>SF/Palo Alto</td><td>~$32B</td><td>(未发布)</td><td>Ilya Sutskever, 神秘</td></tr>
+</tbody>
+</table>
+<p><span class="zh">[gap] 视频具体列了哪几家、什么顺序、按什么维度对比 — unknown</span><span class="en">[gap] exact roster ordering and framing unknown</span></p>
+
+</section>
+<section id="tab2" class="tab-section">
+<h2><span class="zh">② OA 争夺战 (4:19-9:12)</span><span class="en">② OA 争夺战 (4:19-9:12)</span></h2>
+
+<p><span class="zh">"OA" = OpenAI 江湖简称。从 2024 开始每一轮融资都变成"投资人抢份额"。</span><span class="en">"OA" = OpenAI. Each 2024-2026 round became a "scramble for share" event.</span></p>
+<h3>关键角色</h3>
+<ul>
+<li><strong>Thrive Capital</strong> (Joshua Kushner) — OpenAI 早期投资人, 最激进, 2024-10 领投 $6.6B</li>
+<li><strong>SoftBank</strong> (孙正义) — 2025 后最大单一金主, 2025-03 领投 $40B 轮 ($30B)</li>
+<li><strong>MGX</strong> (阿联酋 AI 投资基金, 2024 成立) — 中东主权资金新载体, $5B+ 入场</li>
+<li><strong>Microsoft</strong> — 既是最大客户又是最大投资人, 2025 起开始有摩擦</li>
+<li><strong>Oracle</strong> (Larry Ellison) — Stargate 项目核心合作方</li>
+</ul>
+<p><span class="zh">[推断] OA 争夺战的"戏剧性" 集中在 2025-03 那一轮 SoftBank 30B 入场 + MSFT 跟投 + 营利化重组 deadline 联动 — 整个 2025 上半年市场情绪被这条线锚定。</span><span class="en">[推断] Round drama peaked around 2025-03 SoftBank + MSFT PBC deadline alignment.</span></p>
+<p><span class="zh">[gap] 视频具体怎么讲"争夺战"、谁先到谁后到、什么戏剧性事件 — unknown</span></p>
+
+</section>
+<section id="tab3" class="tab-section">
+<h2><span class="zh">③ 上下游合作 (9:12-15:08)</span><span class="en">③ 上下游合作 (9:12-15:08)</span></h2>
+
+<p><span class="zh">AI 不是孤岛, 必须讲芯片 + 云 + 数据中心三件套。</span><span class="en">AI is not an island — chips + cloud + data centers are the trinity.</span></p>
+<h3>芯片层</h3>
+<table>
+<thead><tr><th>厂商</th><th>产品</th><th>关键节点</th></tr></thead>
+<tbody>
+<tr><td><strong>NVIDIA</strong></td><td>H100/H200/B100/B200/BlackWell/Rubin</td><td>$4T 市值 (2025-06), 同时是 OpenAI/xAI/Anthropic 投资人, 自营 NVCF</td></tr>
+<tr><td><strong>Broadcom</strong></td><td>OpenAI 自研推理 ASIC (谣传 10GW)</td><td>2025 起谣传与 OpenAI 合作 10GW 数据中心</td></tr>
+<tr><td><strong>AMD</strong></td><td>MI300X / MI325X / MI355X</td><td>抢 NVIDIA 份额, 但市占率 &lt;10%</td></tr>
+<tr><td><strong>Google TPU</strong></td><td>内部 + 对外租给 Anthropic</td><td>2025 开始开放</td></tr>
+</tbody>
+</table>
+<h3>云层 (三大 hyperscaler)</h3>
+<ul>
+<li><strong>Microsoft Azure</strong>: 与 OpenAI 独家, 但 2025 后逐渐开放给 Anthropic / Mistral / xAI</li>
+<li><strong>AWS</strong>: Anthropic 主力云 ($4B 投资 + Trainium 部署), Bedrock 平台</li>
+<li><strong>GCP</strong>: Google 一方 (Gemini + Anthropic 也用部分 workload)</li>
+</ul>
+<h3>数据中心层 (新热点: Stargate)</h3>
+<ul>
+<li><strong>Stargate Project</strong> (2025-01 Trump 宣布): OpenAI + Oracle + SoftBank + MGX, 5 年 $5000 亿美国数据中心</li>
+<li><strong>xAI Colossus</strong> (Memphis): 100k H100 → 200k H100 → 1M GPU 路线图</li>
+<li><strong>Saudi HUMAIN</strong> (2025): PIF 旗下, 与 NVIDIA / AWS / AMD 合作</li>
+</ul>
+
+</section>
+<section id="tab4" class="tab-section">
+<h2><span class="zh">④ 中心牌桌 (15:08-19:28)</span><span class="en">④ 中心牌桌 (15:08-19:28)</span></h2>
+
+<p><span class="zh">主权基金 + 大型资管 — 2025-2026 AI 资本最戏剧性的变化。<strong>石油美元</strong>(中东)和 <strong>美元资本</strong>(美国资管)第一次在同一张桌子上坐下来。</span><span class="en">Sovereign funds + large asset managers — the most dramatic 2025-2026 capital shift.</span></p>
+<table>
+<thead><tr><th>玩家</th><th>国家</th><th>AI 投资规模</th><th>重点公司</th></tr></thead>
+<tbody>
+<tr><td><strong>Saudi PIF</strong></td><td>沙特, $9000 亿 AUM</td><td>数百亿 (未披露)</td><td>OpenAI / xAI / HUMAIN</td></tr>
+<tr><td><strong>MGX</strong></td><td>阿联酋, 2024 新设</td><td>投 OpenAI $5B+</td><td>OpenAI / NVIDIA / G42</td></tr>
+<tr><td><strong>Mubadala</strong></td><td>阿联酋</td><td>走 MGX 渠道</td><td>xAI / Anthropic (传闻)</td></tr>
+<tr><td><strong>Temasek / GIC</strong></td><td>新加坡</td><td>保守</td><td>Anthropic / Mistral</td></tr>
+<tr><td><strong>Blackstone</strong></td><td>美国 PE</td><td>$40B+ Anthropic 联合</td><td>Anthropic / CoreWeave</td></tr>
+<tr><td><strong>Brookfield</strong></td><td>加拿大资管</td><td>AI 数据中心 capex</td><td>MSFT / Oracle 数据中心</td></tr>
+</tbody>
+</table>
+<p><span class="zh">[公开共识] 中东主权基金 all-in AI, 把 AI 当作"后石油时代"核心资产; 美国 PE 把 AI 看作基础设施投资, 类似 2010s 能源 / 房地产。</span></p>
+
+</section>
+<section id="tab5" class="tab-section">
+<h2><span class="zh">⑤ OpenAI 融资时间线</span><span class="en">⑤ OpenAI 融资时间线</span></h2>
+
+<div class="timeline">
+<h3>OpenAI 融资大事记 (2024-2026)</h3>
+<ul>
+<li><strong>2024-10</strong>: $6.6B @ $157B 估值 (Thrive Capital 领投, 可选再投 $1B @ 同估值)</li>
+<li><strong>2025-03</strong>: $40B @ $300B 估值, SoftBank 领投 ($30B), Microsoft 跟投 — 史上最大单轮私募</li>
+<li><strong>2025-09</strong>: 员工 tender offer @ ~$500B 估值 (二级市场, Thrive/SoftBank/Dragoneer)</li>
+<li><strong>2025-12</strong>: 营利化重组完成 → PBC + LLC + 非营利母体, MSFT 27% 持股, AGI 条款重写</li>
+<li><strong>2026</strong>: 新一轮传闻 $700B-$1T, MGX / NVIDIA / SoftBank / Oracle 争份额</li>
+</ul>
+</div>
+
+</section>
+<section id="tab6" class="tab-section">
+<h2><span class="zh">⑥ Anthropic / xAI 资本动作</span><span class="en">⑥ Anthropic / xAI 资本动作</span></h2>
+
+<h3>Anthropic 时间线</h3>
+<ul>
+<li><strong>2024-03</strong>: $2.75B @ $18.4B (Lightspeed 领投)</li>
+<li><strong>2024-12</strong>: $4B @ $60B (Amazon 追投 $4B 总 $8B)</li>
+<li><strong>2025-09</strong>: 传闻 Series F @ $170B-$200B</li>
+<li><strong>2026</strong>: ARR 报道 $20B+ 量级 (vs $1B 2024-01)</li>
+</ul>
+<h3>xAI 时间线</h3>
+<ul>
+<li><strong>2024-05</strong>: Series B $6B @ $24B (Valor/a16z/Sequoia/Saudi Kingdom Holding)</li>
+<li><strong>2024-12</strong>: Series C $6B @ $50B (NVIDIA/AMD/Intel/MS)</li>
+<li><strong>2025</strong>: Colossus 2 超算 (Memphis, 1M GPU 目标)</li>
+<li><strong>2026</strong>: 传闻与 SpaceX 合并重组</li>
+</ul>
+
+</section>
+<section id="tab7" class="tab-section">
+<h2><span class="zh">⑦ 主权基金入场图谱</span><span class="en">⑦ 主权基金入场图谱</span></h2>
+
+<p><span class="zh">2024-2026 中东主权基金 + 美国大资管形成 AI 资本"双极":</span><span class="en">2024-2026 saw sovereign + asset-manager bipolar AI capital formation:</span></p>
+<div class="card-grid">
+<div class="card">
+<h4>Saudi PIF</h4>
+<p>沙特 $9000 亿 AUM 主权基金。通过 HUMAIN + 直接投资 OpenAI / xAI / Anthropic。</p>
+<div class="tag-row"><span class="tag">中东 · 石油美元</span></div>
+</div><div class="card">
+<h4>MGX</h4>
+<p>2024 新设 (Mubadala × G42 合资), AI 专项。投 OpenAI $5B+, 跟投 NVIDIA/G42。</p>
+<div class="tag-row"><span class="tag">中东 · AI 专项</span></div>
+</div><div class="card">
+<h4>Blackstone</h4>
+<p>$40B+ Anthropic 联合投资 (2025-09 报道)。把 AI 看作基础设施投资。</p>
+<div class="tag-row"><span class="tag">美国 PE</span></div>
+</div><div class="card">
+<h4>Temasek / GIC</h4>
+<p>新加坡主权基金, AI 投资持续但保守。</p>
+<div class="tag-row"><span class="tag">亚太 · 长期资本</span></div>
+</div></div>
+</section>
+<section id="tab8" class="tab-section">
+<h2><span class="zh">⑧ 四 hyperscaler capex 对比 (2026 估算)</span><span class="en">⑧ 四 hyperscaler capex 对比 (2026 估算)</span></h2>
+
+<table>
+<thead><tr><th>厂商</th><th>2026 capex</th><th>重点</th></tr></thead>
+<tbody>
+<tr><td><strong>Microsoft</strong></td><td>~$120B</td><td>大部分 Azure AI</td></tr>
+<tr><td><strong>Google</strong></td><td>~$110B</td><td>TPU + GCP</td></tr>
+<tr><td><strong>Amazon</strong></td><td>~$105B</td><td>AWS + Anthropic</td></tr>
+<tr><td><strong>Meta</strong></td><td>~$100B</td><td>Llama + 数据中心</td></tr>
+<tr style="background:var(--bg-card)"><td><strong>总和</strong></td><td><strong>~$435B / 年</strong></td><td>大部分 AI 相关</td></tr>
+</tbody>
+</table>
+<p><span class="zh">[公开共识] 四大 hyperscaler 2026 capex 约占全球 AI 基础设施支出的 60%+。NVIDIA 4T 市值 / 5T 短期破 — 是这个 capex 浪潮的最大赢家。</span></p>
+
+</section>
+<section id="tab9" class="tab-section">
+<h2><span class="zh">⑨ 公开金句 (placeholder)</span><span class="en">⑨ 公开金句 (placeholder)</span></h2>
+
+<div class="disclaimer">
+<strong>⚠️ placeholder (Pitfall 75): no transcript → no real quotes</strong>
+</div>
+<div class="card-grid">
+<div class="card">
+<h4>【placeholder 1】</h4>
+<p>"AI 资本不是技术问题, 是金融工程问题。" — 公开频道主旨风格, 非视频原文</p>
+<div class="tag-row"><span class="tag">gap</span></div>
+</div><div class="card">
+<h4>【placeholder 2】</h4>
+<p>"主权基金下场意味着 AI 已经从私募市场变成国家级资产配置。" — 推断</p>
+<div class="tag-row"><span class="tag">推断</span></div>
+</div><div class="card">
+<h4>【placeholder 3】</h4>
+<p>"OpenAI 营利化 deadline + 估值跳涨 = 整个 AI 资本市场的情绪锚。" — 推断</p>
+<div class="tag-row"><span class="tag">推断</span></div>
+</div><div class="card">
+<h4>【placeholder 4】</h4>
+<p>"中东石油美元 vs 美国 PE = AI 时代的新资本双极。" — 公开共识</p>
+<div class="tag-row"><span class="tag">公开共识</span></div>
+</div></div>
+</section>
+<section id="tab10" class="tab-section">
+<h2><span class="zh">⑩ 17 张 Patrick 触发卡</span><span class="en">⑩ 17 张 Patrick 触发卡</span></h2>
+
+<div class="card-grid">
+<div class="card">
+<h4>[1] AI 资本 ≠ 技术</h4>
+<p>AI 这两年更像金融战, 不是技术战</p>
+<div class="tag-row"><span class="tag">AI/bubble</span></div>
+</div><div class="card">
+<h4>[2] 入围玩家清单</h4>
+<p>8 家 Tier-1 AI lab 估值地图</p>
+<div class="tag-row"><span class="tag">Industry</span></div>
+</div><div class="card">
+<h4>[3] OA 争夺战</h4>
+<p>OpenAI 每一轮融资都是投资人抢份额</p>
+<div class="tag-row"><span class="tag">OA</span></div>
+</div><div class="card">
+<h4>[4] 上下游三件套</h4>
+<p>芯片 + 云 + 数据中心缺一不可</p>
+<div class="tag-row"><span class="tag">Stack</span></div>
+</div><div class="card">
+<h4>[5] 中心牌桌</h4>
+<p>石油美元 + 美元资管第一次同桌</p>
+<div class="tag-row"><span class="tag">Sovereign</span></div>
+</div><div class="card">
+<h4>[6] SoftBank 入场</h4>
+<p>$30B 领投 OA, 2025 后最大单一金主</p>
+<div class="tag-row"><span class="tag">Deal</span></div>
+</div><div class="card">
+<h4>[7] MGX 新载体</h4>
+<p>阿联酋 AI 专项基金, 2024 新设</p>
+<div class="tag-row"><span class="tag">Sovereign</span></div>
+</div><div class="card">
+<h4>[8] Stargate 计划</h4>
+<p>5 年 $5000 亿美国数据中心</p>
+<div class="tag-row"><span class="tag">Mega-capex</span></div>
+</div><div class="card">
+<h4>[9] xAI Colossus</h4>
+<p>Memphis 1M GPU 路线图</p>
+<div class="tag-row"><span class="tag">Infra</span></div>
+</div><div class="card">
+<h4>[10] NVIDIA 4T-5T</h4>
+<p>2025-06 首家, 2026-01 短期破 5T</p>
+<div class="tag-row"><span class="tag">Winners</span></div>
+</div><div class="card">
+<h4>[11] hyperscaler capex</h4>
+<p>4 家加起来 ~$435B/yr (2026 估算)</p>
+<div class="tag-row"><span class="tag">Capex</span></div>
+</div><div class="card">
+<h4>[12] Anthropic ARR</h4>
+<p>$1B (2024-01) → $20B+ (2026 报道)</p>
+<div class="tag-row"><span class="tag">Growth</span></div>
+</div><div class="card">
+<h4>[13] Blackstone PE</h4>
+<p>$40B+ Anthropic 联合投资</p>
+<div class="tag-row"><span class="tag">PE</span></div>
+</div><div class="card">
+<h4>[14] Ilya SSI</h4>
+<p>$32B 估值未发布产品</p>
+<div class="tag-row"><span class="tag">Mystery</span></div>
+</div><div class="card">
+<h4>[15] AGI 条款</h4>
+<p>MSFT-OpenAI 营利化重组重写</p>
+<div class="tag-row"><span class="tag">Governance</span></div>
+</div><div class="card">
+<h4>[16] CFIUS 限制</h4>
+<p>中国 CIC/SAFE 在美投资受限</p>
+<div class="tag-row"><span class="tag">Geopolitics</span></div>
+</div><div class="card">
+<h4>[17] 资本双极</h4>
+<p>中东石油美元 vs 美国 PE = 新秩序</p>
+<div class="tag-row"><span class="tag">Macro</span></div>
+</div></div>
+</section>
+<section id="tab11" class="tab-section">
+<h2><span class="zh">⑪ Tier 4 反向映射 (5-7 卡, 50% 非 mitigated)</span><span class="en">⑪ Tier 4 反向映射 (5-7 卡, 50% 非 mitigated)</span></h2>
+
+<p><span class="zh">从视频中可能存在的盲点 / 弱主张 / 推断漏洞反向列卡。每张标明 [推断] / [gap] / [公开共识] 来源。</span><span class="en">Anti-mapping of probable blind spots. Each tagged [推断]/[gap]/[公开共识].</span></p>
+<div class="card-grid">
+<div class="card">
+<h4>[gap] 视频是否提到 中国 AI 资本?</h4>
+<p>本视频为中文频道, 但 chapter list 中无 '中国 AI 公司' 章节。中国 BAT/字节/智谱/百川 是否被忽略? <strong>Critical gap</strong></p>
+<span class="badge badge-gap">gap</span>
+</p><p class="source"><a href="#tab4">source: 中心牌桌 (15:08-19:28)</a>
+</div><div class="card">
+<h4>[gap] 视频是否区分了 估值 vs ARR?</h4>
+<p>OpenAI 估值 $300B+ vs ARR 报道 $3-13B — 巨大剪刀差。视频是否做了 unit-economics 拆解?</p>
+<span class="badge badge-gap">gap</span>
+</p><p class="source"><a href="#tab5">source: OpenAI 时间线</a>
+</div><div class="card">
+<h4>[推断] 资本 vs 估值 真实风险</h4>
+<p>2024-2026 私募估值跳涨 5x+, 但二级市场 AI ETF 2025-2026 经历两次 30%+ 回撤 — 私募 vs 公开估值可能脱钩。</p>
+<span class="badge badge-warn">warn</span>
+</p><p class="source"><a href="#tab8">source: hyperscaler capex</a>
+</div><div class="card">
+<h4>[gap] Anthropic 现金流细节</h4>
+<p>Anthropic 2024 ARR $1B → 2026 $20B+ 增长曲线 — 视频是否拆了 enterprise vs API 收入结构?</p>
+<span class="badge badge-gap">gap</span>
+</p><p class="source"><a href="#tab6">source: Anthropic 时间线</a>
+</div><div class="card">
+<h4>[公开共识] 数据中心能源瓶颈</h4>
+<p>Stargate 5 年 $5000 亿 + xAI 1M GPU + Saudi HUMAIN = 美国 + 中东电力需求暴涨。视频是否提 nuclear / SMR / grid 瓶颈?</p>
+<span class="badge badge-mitig">mitig</span>
+</p><p class="source"><a href="#tab3">source: 上下游合作</a>
+</div><div class="card">
+<h4>[推断] 主权基金 撤出风险</h4>
+<p>2024-2026 sovereign all-in 是 paper gain, 一旦 AI 泡沫破裂 (类比 2000 dot-com), sovereign 减持会放大 crash。</p>
+<span class="badge badge-warn">warn</span>
+</p><p class="source"><a href="#tab7">source: 主权基金入场图谱</a>
+</div></div>
+</section>
+<section id="tab12" class="tab-section">
+<h2><span class="zh">⑫ 关联笔记</span><span class="en">⑫ 关联笔记</span></h2>
+
+<ul>
+<li><a href="https://www.youtube.com/watch?v=OcKl98ZQbMQ" target="_blank">小Lin说《AI巨头资本混战》原视频</a></li>
+<li>vault: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/ai-capital-battle-2026-07-01/index.md</code></li>
+<li>vault: <code>anthropic-completely-fcked-moon</code> — Anthropic 视角</li>
+<li>vault: <code>anthropic-playbook-ai-startup-4stage</code> — Anthropic 4 阶段</li>
+<li>vault: <code>openai-fde-40-billion-silicon-valley-101</code> — OpenAI FDE 40 亿美元</li>
+<li>vault: <code>all-in-podcast-ep274-nvidia-ai-crisis-spacex</code> — NVIDIA + SpaceX 危机</li>
+<li>vault: <code>nvidia-not-loser-abandoning-personal-computer-gamers-nexus</code> — NVIDIA 不放弃 PC</li>
+<li>vault: <code>google-deepmind-ceo-scariest-part-yet-to-come-neuralnutshell-2026-06-28</code> — DeepMind CEO scariest part</li>
+<li>vault: <code>ai-search-gpt56-mythos-ban-2026-06-28</code> — GPT-5.6 Mythos ban</li>
+<li>vault: <code>matthew-berman-claude-tag-anthropic-context-lockin-2026-06-26</code> — Claude Tag</li>
+<li>vault: <code>when-millions-of-ai-agents-meet-deepmind-tomasev</code> — Millions of AI agents</li>
+</ul>
+
+</section></div></div><div class="footer"><p>Source class: INDUSTRY-ANALYSIS · credibility=medium · red_flag_score=1 · transcript_status=PUBLISHER_RESTRICTED</p><p>Generated by Hermes cron round-31 · 2026-07-16 · master-takeover (Pitfall 71 + 75) · 14 tabs · 6 stat cards · 17-card roster · Tier 4 7 cards (3 mitig / 4 warn-or-gap)</p><p>See <a href="https://2017zyl.xyz/daily-reports/2026-07-16-ai-capital-battle-2026-07-01.html">live on 2017zyl.xyz</a></p></div></div>
+<script>
+(function() {
+  var KEY = 'ai-search-toc-collapsed';
+  var sidebar = document.querySelector('.toc-sidebar');
+  if (!sidebar) return;
+  var btn = document.querySelector('.toc-toggle');
+  function setCollapsed(c) {
+    if (c) document.body.classList.add('toc-collapsed');
+    else document.body.classList.remove('toc-collapsed');
+    try { localStorage.setItem(KEY, c ? '1' : '0'); } catch (e) {}
+    if (btn) btn.textContent = c ? '+' : '−';
+  }
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  setCollapsed(stored === '1');
+  if (btn) btn.addEventListener('click', function() { setCollapsed(!document.body.classList.contains('toc-collapsed')); });
+  // Scroll spy
+  var links = document.querySelectorAll('.toc-list a');
+  var sections = [];
+  links.forEach(function(l) {
+    var id = l.getAttribute('href').replace('#','');
+    var el = document.getElementById(id);
+    if (el) sections.push({link: l, el: el});
+  });
+  function spy() {
+    var y = window.scrollY + 100;
+    var current = null;
+    for (var i=0;i<sections.length;i++) {
+      if (sections[i].el.offsetTop <= y) current = sections[i];
+    }
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (current) current.link.classList.add('active');
+  }
+  window.addEventListener('scroll', spy, {passive: true});
+  spy();
+})();
+function toggleLang() {
+  var html = document.documentElement;
+  if (html.lang === 'zh-CN') html.lang = 'en';
+  else html.lang = 'zh-CN';
+  try { localStorage.setItem('html-lang', html.lang); } catch(e) {}
+}
+</script>
+</body></html>

@@ -1,5 +1,54 @@
 [
   {
+    "date": "2026-07-16",
+    "title": "🆕 小Lin说《AI巨头资本混战》metadata-only batch · 19:28 中文财经科普 · 8 章预测 + 17-card + Tier 4 7 cards (transcript publisher_restricted · Pitfall 75)",
+    "track": "video",
+    "tag": "ai-bubble · industry-analysis · chinese · capital-flow · funding-rounds · sovereign-wealth-funds",
+    "practical": 80,
+    "time": 19,
+    "desc": "小Lin说 中文频道 2.79M subs · 资本科普 · transcript publisher_restricted (5+ endpoint 全 fail) → metadata-only batch (Pitfall 75) · 4 章节预测 + 17-card roster + Tier 4 7 cards 包含 [gap]/[推断]/[公开共识]",
+    "file": "daily-reports/2026-07-16-ai-capital-battle-2026-07-01.html",
+    "url": "https://www.youtube.com/watch?v=OcKl98ZQbMQ",
+    "category": "video-dashboard",
+    "summary": "小Lin说 AI 资本混战 metadata-only · 19:28 · 8 章预测 + 17-card + Tier 4",
+    "added_at": "2026-07-16",
+    "curated": 1,
+    "tags": [
+      "video-dashboard",
+      "ai-bubble",
+      "industry-analysis",
+      "chinese",
+      "capital-flow",
+      "metadata-only",
+      "pitfall-75"
+    ]
+  },
+  {
+    "date": "2026-07-16",
+    "title": "🆕 WorldofAI Meta Muse Spark 1.1 — 被低估多模态推理模型 · 16:49 · 10 章 transcript-driven + 17-card + Tier 4 7 cards (kome.ai fallback 16,515c + chapter-split Pitfall 69)",
+    "track": "video",
+    "tag": "technical-howto · multimodal-reasoning · agentic-coding · 3D-gen · benchmark · video-deep-walkthrough",
+    "practical": 82,
+    "time": 17,
+    "desc": "WorldofAI 228K subs · multimodal reasoning + agentic coding + 3D · 10 chapter tabs + 17-card roster + Tier 4 7 cards (3 mitig + 4 warn-or-gap · 50% rule ✓)",
+    "file": "daily-reports/2026-07-16-worldofai-meta-muse-spark-1-1-2026-07-14.html",
+    "url": "https://www.youtube.com/watch?v=gI5d2czu9JE",
+    "category": "video-dashboard",
+    "summary": "Meta Muse Spark 1.1 多模态推理模型 deep-walkthrough · 16:49 · 10 章 transcript + 17-card + Tier 4",
+    "added_at": "2026-07-16",
+    "curated": 1,
+    "tags": [
+      "video-dashboard",
+      "technical-howto",
+      "multimodal-reasoning",
+      "agentic-coding",
+      "meta",
+      "worldofai",
+      "benchmark",
+      "pitfall-69"
+    ]
+  },
+  {
     "title": "🆕 全球想象文学 · 五联 · 11 仪表板 · 中EN 双语可切换 · 101 作家 + 45 影视",
     "track": "brief",
     "tag": "literature · quintet · sci-fi · fantasy · mystery · horror · nonfiction · latin-american · 101-authors · bilingual · toc",
@@ -41,6 +90,18 @@
       "auto-cron",
       "hermes-agent"
     ],
+    "added_at": "2026-07-15"
+  },
+  {
+    "title": "🆕 Codex + GPT-5.6 Sol 发布 demo · OpenAI 6:58 · 9 大特性 · 中EN 双语可切换",
+    "track": "video",
+    "tag": "openai · codex · gpt-5-6-sol · sites · appshot · subagent · computer-use · bilingual",
+    "practical": 88,
+    "time": 25,
+    "desc": "OpenAI 官方 7 分钟发布 demo. 核心论断: Codex 从 CLI agent 升级成 ChatGPT 内 developer space, 内置模型 (GPT-5.6 Sol) + 推理增强 (Ultra+Goal) + 自动 subagent 并行 + Appshot (simulator screen+context) + In-app browser (annotation+diff+inline edit) + Sites 全员 (hosting+auth+DB+storage) + 自管理 tasks (Linear 5 bugs → 5 worktree) + Mobile SSH + PR 集成. 17/17 Patrick roster 命中 (PITFALL G verified-on-disk) · 16 verbatim quote · Pitfall 76 bilingual wrap 158 zh + 157 en span · Pitfall 67-B body leak 0 · node --check exit 0 · 直接竞品 Vercel/Replit/Lovable/Bolt/Cursor/Claude Code 全要应对",
+    "file": "daily-reports/codex-gpt-5-6-sol-demo-2026-07-15.html",
+    "date": "2026-07-15",
+    "curated": 1,
     "added_at": "2026-07-15"
   },
   {
