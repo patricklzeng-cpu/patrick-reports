@@ -154,25 +154,41 @@
 </style>
 </head>
 <body>
+<button id="bookmark-chip" onclick="toggleBookmarkDrawer()" style="position:fixed;bottom:14px;right:14px;z-index:99;background:#0e1320;border:1px solid var(--line);border-radius:20px;padding:6px 14px;cursor:pointer;font-size:12px;color:var(--muted);user-select:none;display:none">📌 Recent (0)</button>
+<div id="bookmark-drawer" style="display:none;position:fixed;bottom:50px;right:14px;z-index:99;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px;min-width:280px;max-width:380px;max-height:60vh;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.4)"></div>
+
   <div class="shell">
     <header>
       <div class="brand">Patrick</div><div class="slash"></div><div class="descriptor" id="descriptor">每日研究</div>
-      <div class="date">2026-07-12</div>
+      <div class="date" id="topDate">2026-07-15</div>
       <div class="lang-switch" aria-label="语言切换"><button data-lang="zh" class="active">中</button><button data-lang="en">EN</button></div>
       <button class="header-action" id="archiveOpen">全部档案</button>
-      <div class="count" id="countLabel">281 份报告<br>6 条产线</div>
+      <div class="count" id="countLabel">298 份报告<br>8 条产线</div>
     </header>
+<div style="max-width:1100px;margin:12px auto 0;padding:0 4.4vw">
+  <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#0e1320;border:1px solid var(--line);border-radius:10px;font-size:13px;color:var(--muted);flex-wrap:wrap">
+    <span style="color:var(--link);font-weight:600">📄 Machine-readable mirror available</span>
+    <span>·</span>
+    <a href="/daily-reports.md" style="color:var(--link);text-decoration:underline">/daily-reports.md</a>
+    <span>(master, all 288 entries)</span>
+    <span>·</span>
+    <span>Each card has matching <code style="background:#0d1117;padding:2px 6px;border-radius:4px;color:var(--ink)">/daily-reports/&lt;slug&gt;.md</code> for AI agents</span>
+    <span style="margin-left:auto"><a href="https://2017zyl.xyz/daily-reports/ebufar-yc-head-design-conductor-2026-07-15.md" style="color:var(--muted)">See sample (E Bufar video)</a></span>
+  </div>
+</div>
+
 
     <main>
       <section class="intro" aria-labelledby="page-title">
         <h1 id="page-title"><span>Patrick</span><br>每日研究</h1>
         <div class="kicker" id="kicker">互动研究游乐场</div>
-        <p class="intro-copy" id="introCopy">不是让你翻完 281 份报告。<br>只用一个选择，找到今天最值得下潜的三站。</p>
+        <p class="intro-copy" id="introCopy">不是让你翻完所有报告。<br>只用一个选择，找到今天最值得下潜的三站。</p>
         <div class="pb-hero">
-          <span><b>281</b> reports</span><span class="sep">·</span>
-          <span><b>5+5+5</b> each</span><span class="sep">·</span>
+          <span><b id="pbHeroCount">298</b> reports</span><span class="sep">·</span>
+          <span><b id="pbHeroTracks">8</b> tracks</span><span class="sep">·</span>
           <span class="pb-badge ding" style="margin-left:0">✓ Patrick 担保</span><span class="sep">·</span>
-          <span>since 2026-Q2</span>
+          <span>since <b id="pbHeroSince">2025-Q2</b></span>
+          <span class="sep">·</span><span class="dim" id="pbHeroUpdated" style="font-size:11px">更新于 2026-07-15</span>
         </div>
         <div class="tracks" id="tracks"></div>
       </section>
@@ -216,7 +232,28 @@
   <div class="wrap">
     <div class="sec-label">⭐ FEATURED PROJECTS / 精选项目</div>
     <div class="featured">
-      <a class="fcard" style="--c1:#6ee7b7;--c2:#34d399" href="/exercise-library/" title="健身动作库 · 1324 个动作 · 1,324 真动画 GIF · 中/EN 双语 · 来源 hasaneyldirm/exercises-dataset 11K★ · 35KB SPA">
+<a class="fcard" style="--c1:#d5ff3f;--c2:#00d4ff" href="/daily-reports/openai-vs-anthropic-subscription-war-2026-07-16.html" title="OpenAI vs Anthropic 订阅之战 · Dario 的 compute 决策 vs Sam 的情绪战 · Fable 5 留不留订阅？RSI 是 Anthropic 的 wild card · 19:03 / 2998 字 / 10 章 · AI Index 60 vs 59 + cost per task $2.75 vs $1 · 9 Tier 4 (3 mitig / 3 warn / 3 gap) + 13 Patrick skill 卡 + 6 Action Items + 10 verbatim 双语金句 · TOC v1.4.4 collapsible + EN ⇄ 中 toggle">
+        <div class="ico">📊</div>
+        <h4>OpenAI vs Anthropic 订阅之战 · Fable 5 / RSI</h4>
+        <p>Dario 2 年前 compute 决策埋下伏笔 → 订阅 + quota reset 双重战场 → AI Index 60 vs 59 但 cost per task 2.75x 差距 → Tar 公开确认 capacity constraint + Sam 进入 salty mode 情绪战 → RSI 是 Anthropic 真正在赌的 wild card · 中EN 双语</p>
+        <span class="go">launch →</span>
+      </a>
+
+      <a class="fcard" style="--c1:#d5ff3f;--c2:#aa86ff" href="/literary-bridge/" title="全球想象文学 · 五联 hub · 6 类 (科幻 / 奇幻 / 推理 / 恐怖 / 非虚构 / 拉美) · 101 作家 + 45 影视 · 6 位跨界大师 + 5 张 Patrick 工作关联卡 · 中EN 双语 + TOC v1.4.4 collapsible">
+        <div class="ico">📚</div>
+        <h4>全球想象文学 · 五联 · 中EN 双语</h4>
+        <p>6 类 hub · 101 作家 + 45 影视 · 6 位跨界大师 (Le Guin / Borges / Lovecraft+Shelley 等) · 5 张 Patrick 工作关联 · 顶角 EN⇄中 toggle + TOC v1.4.4 collapsible</p>
+        <span class="go">launch →</span>
+      </a>
+
+      <a class="fcard" style="--c1:#c8b8ff;--c2:#ff4c8a" href="/daily-reports/ai-native-org-transformation-v4.html">
+        <div class="ico">🏛️</div>
+        <h4>AI-Native Org Transformation · 100% proud polish</h4>
+        <p>IBM · Klarna · 乐天 · 星展银行 × 7 模块 (全景/四家/演化/任务/角色/审计/365天) · 100% 数据保留 · 加 chip 切换 + 40px KPI + 双主题 · 107KB 单 HTML · 0 外部依赖</p>
+        <span class="go">launch →</span>
+      </a>
+
+            <a class="fcard" style="--c1:#6ee7b7;--c2:#34d399" href="/exercise-library/" title="健身动作库 · 1324 个动作 · 1,324 真动画 GIF · 中/EN 双语 · 来源 hasaneyldirm/exercises-dataset 11K★ · 35KB SPA">
         <div class="ico">💪</div>
         <h4>健身动作库 · 1,324 动作 + 真动画</h4>
         <p>1324 动作 · 9 国语言 source + 中文 LLM 翻译(动作名 + 步骤) · 中/EN 切换 · 部位/器械双语 · 收藏 + 历史 + 主题 · 128MB 动画 GIF</p>
@@ -446,6 +483,104 @@
   <div class="toast" id="toast"></div>
 
   <script>
+    // === DISPOSABLE BOOKMARK (Item 4 / 2026-07-15) ===
+    // Sodazine-style disposable design: 1-click, no confirm, 24h auto-cleanup
+    const BOOKMARK_KEY = 'patrick-disposable-bookmarks';
+    const BOOKMARK_MAX = 10;
+    const BOOKMARK_TTL_MS = 24 * 60 * 60 * 1000;
+
+    function getBookmarks() {
+      try {
+        const raw = localStorage.getItem(BOOKMARK_KEY);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        const now = Date.now();
+        // Auto-cleanup: filter out > 24h
+        const fresh = arr.filter(b => (now - b.ts) < BOOKMARK_TTL_MS);
+        if (fresh.length !== arr.length) {
+          localStorage.setItem(BOOKMARK_KEY, JSON.stringify(fresh));
+        }
+        return fresh;
+      } catch(e) { return []; }
+    }
+
+    function addBookmark(slug, title) {
+      const arr = getBookmarks();
+      // Dedup: remove existing same slug
+      const filtered = arr.filter(b => b.slug !== slug);
+      filtered.unshift({ slug, title, ts: Date.now() });
+      const capped = filtered.slice(0, BOOKMARK_MAX);
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(capped));
+      renderBookmarkDrawer();
+      // Brief visual feedback
+      const btn = document.querySelector(`[data-bookmark-slug="${slug}"]`);
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = '✓';
+        btn.style.color = 'var(--lime)';
+        setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 800);
+      }
+    }
+
+    function removeBookmark(slug) {
+      const arr = getBookmarks().filter(b => b.slug !== slug);
+      localStorage.setItem(BOOKMARK_KEY, JSON.stringify(arr));
+      renderBookmarkDrawer();
+    }
+
+    function renderBookmarkDrawer() {
+      const arr = getBookmarks();
+      const chip = document.getElementById('bookmark-chip');
+      const drawer = document.getElementById('bookmark-drawer');
+      if (!chip || !drawer) return;
+      chip.textContent = `📌 Recent (${arr.length})`;
+      chip.style.display = arr.length > 0 ? '' : 'none';
+      drawer.innerHTML = arr.length === 0 ? '' : arr.map(b => `
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid var(--line);font-size:12px">
+          <a href="https://2017zyl.xyz/${b.slug}" target="_blank" rel="noopener" style="flex:1;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.title || b.slug}</a>
+          <button onclick="removeBookmark('${b.slug}')" style="background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:0;line-height:1" title="Discard (disposable)">×</button>
+        </div>
+      `).join('');
+    }
+
+    function toggleBookmarkDrawer() {
+      const drawer = document.getElementById('bookmark-drawer');
+      if (!drawer) return;
+      drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Auto-attach bookmark buttons to all <article class="card"> that have a data-slug
+    function attachBookmarkButtons() {
+      document.querySelectorAll('[data-slug]').forEach(el => {
+        const slug = el.dataset.slug;
+        if (!slug) return;
+        // Skip if already attached
+        if (el.querySelector('[data-bookmark-slug]')) return;
+        const btn = document.createElement('button');
+        btn.setAttribute('data-bookmark-slug', slug);
+        btn.onclick = () => {
+          const titleEl = el.querySelector('h3, h2, .title, strong');
+          const title = titleEl ? titleEl.textContent.trim().slice(0, 60) : slug;
+          addBookmark(slug, title);
+        };
+        btn.textContent = '📌';
+        btn.title = 'Bookmark (24h disposable)';
+        btn.style.cssText = 'background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px;padding:2px 6px;margin-left:6px;vertical-align:middle';
+        el.appendChild(btn);
+      });
+    }
+
+    // Init on DOMContentLoaded + re-render after any grid reload
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        attachBookmarkButtons();
+        renderBookmarkDrawer();
+      });
+    } else {
+      attachBookmarkButtons();
+      renderBookmarkDrawer();
+    }
+
     const tracks=[
       {id:'ai',zh:'人工智能',en:'Artificial Intelligence'},
       {id:'dev',zh:'开发与工具',en:'Development & Tools'},
@@ -455,9 +590,15 @@
       {id:'culture',zh:'文化与思想',en:'Culture & Ideas'}
     ];
     const reports=[
-  {title:"🆕 ECC (Everything Claude Code) 深度解析 — 229K stars · 278 skills · 67 agents · 跟 Loop OS 90% 同源 sibling · 5 SKILL.md cherry-pick (context-budget / agent-self-evaluation / continuous-learning-v2 / cost-tracking / autonomous-loops-dag Pattern ⑥) · 14 sections · bilingual ZH⇄EN · 58KB · TOC v1.4.4",track:"brief",tag:"ecc-deep-read",practical:5,time:25,desc:"229K stars · 30+ contributors · 6+ 月生产 · 6 harness · 跟我 Loop OS 90% 同源 · 5 skill 蒸馏 ship · Pattern ⑥ DAG P1 缺口 · source 全部出处",file:"daily-reports/ecc-deep-read-2026-07-15.html",date:"2026-07-15",curated:1},
-      {title:"🆕 Codex + GPT-5.6 Sol 发布 demo · OpenAI 6:58 · 9 大特性 (Codex↔ChatGPT 合并 / Ultra+Goal / Subagent 自动并行 / Appshot / In-app browser+diff+inline / Sites 全员 / 自管理 tasks / Mobile 3件套 / PR 集成) · 中EN 双语可切换 · 15 tabs · 6 stat cards · 17 Patrick 关联 (verified-on-disk) · 16 verbatim 英文 quote · 9 timeline item · 顶角 EN⇄中 toggle + localStorage · TOC v1.4.4 collapsible",track:"video",tag:"openai · codex · gpt-5-6-sol · sites · appshot · subagent · computer-use · bilingual",practical:88,time:25,desc:"OpenAI 官方 7 分钟发布 demo. 核心论断: Codex 从 CLI agent 升级成 ChatGPT 内 developer space, 内置模型 (GPT-5.6 Sol) + 推理增强 (Ultra+Goal) + 自动 subagent 并行 + Appshot (simulator screen+context) + In-app browser (annotation+diff+inline edit) + Sites 全员 (hosting+auth+DB+storage) + 自管理 tasks (Linear 5 bugs → 5 worktree) + Mobile SSH + PR 集成. 17/17 Patrick roster 命中 (PITFALL G verified-on-disk) · 16 verbatim quote · Pitfall 76 bilingual wrap 158 zh + 157 en span · Pitfall 67-B body leak 0 · node --check exit 0 · 直接竞品 Vercel/Replit/Lovable/Bolt/Cursor/Claude Code 全要应对",file:"daily-reports/codex-gpt-5-6-sol-demo-2026-07-15.html",date:"2026-07-15",curated:1},
-      {title:'✱v2 ⚡ AI 与 100 年前电力革命类比 · 美投讲美股 · 28:14 · 5 反推核心论点 (GPT 扩散周期 / 二级应用赢 / 应用层下沉) · ⚠️ transcript publisher-restricted metadata-only batch · cross-ref race-aware 4-source synthesis · 14 tabs · 6 stat cards · 价值链下沉表 + 美股候选 (CRM/ServiceNow/Palantir/Snowflake/Veeva/Tyler Tech/Duolingo/CDW/Eaton/Hubbell/VRT) · Patrick P0 听音频验证',track:'video',tag:'电力革命 · AI类比 · 二级应用 · 美股价值链',practical:75,time:28,desc:'美投讲美股 AI 周期类比系列 · 电力 1890-1930 → AI 2026 类比 · 反对 "AI = 英伟达 + 7 大科技股" 叙事 · 真正财富在二级应用扩散 (类比 Otis 电梯 / 流水线 / 中央空调) · 美股候选应用层 + 传统行业改造 + 边缘部署 · transcript publisher-restricted,所有论点标 [频道主旨]/[推断] tag · 6 stat cards',file:'daily-reports/meitou-electric-revolution-2026-07-14-dashboard.html',date:'2026-07-14',curated:1},
+{title:'🆕 全球想象文学 · 五联 · 11 仪表板 · 中EN 双语可切换 · 101 作家 + 45 影视 · 6 类 (科幻 / 奇幻 / 推理 / 恐怖 / 非虚构 / 拉美) · 6 位跨界大师 (Le Guin / Borges / Lovecraft+Shelley 等) · 5 张 Patrick 工作关联卡 · TOC v1.4.4 collapsible + 顶角 EN⇄中 toggle + localStorage 持久化 · 25.7KB 单 HTML',track:'brief',tag:'literature · quintet · sci-fi · fantasy · mystery · horror · nonfiction · latin-american · 101-authors · bilingual · toc',practical:85,time:15,desc:'Patrick 的全球想象文学五联 hub 索引页. 6 大流派 (科幻 30 / 奇幻 17 / 推理 15 / 恐怖 12 / 非虚构 15 / 拉美 12) + 12 反乌托邦专题 = 101 作家 + 45 影视. v2 升级: 中EN 双语 verbatim 并列 (54 zh + 54 en span 配对) + 顶角 EN⇄中 toggle + localStorage 持久化 + TOC v1.4.4 6 锚点 collapsible + Patrick 5 张工作关联卡 (阅读路径 / 思维模式 / 架构复用 / 中国当代 / Loop 启示). v1 原始中文版仍可访问为 📌 旧版',file:'literary-bridge/index.html',date:'2026-07-16',curated:1},
+{title:'🆕 YC AI 原生服务公司 6 章指南 · AI Native Service Companies (11:13 · Garry Tan)', track:'ai', tag:'YC · 创业指南', practical:92, time:25, desc:'下一批万亿级公司不是软件,而是从零开始用 AI 重做的服务公司。6 章: 市场(4特质)/ 团队(3必须)/ 产品(4原则)/ 销售(早期陷阱+3定价)/ P&L(AI 运营杠杆)/ 买 vs 建', file:'daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard.html', date:'2026-07-15'},
+
+{title:'🆕 Codex + GPT-5.6 Sol 发布 demo · OpenAI 6:58 · 9 大特性 (Codex↔ChatGPT 合并 / Ultra+Goal / Subagent 自动并行 / Appshot / In-app browser+diff+inline / Sites 全员 / 自管理 tasks / Mobile 3件套 / PR 集成) · 中EN 双语可切换 · 15 tabs · 6 stat cards · 17 Patrick 关联 (verified-on-disk) · 16 verbatim 英文 quote · 9 timeline item · 顶角 EN⇄中 toggle + localStorage · TOC v1.4.4 collapsible', track:'video', tag:'openai · codex · gpt-5-6-sol · sites · appshot · subagent · computer-use · bilingual', practical:88, time:25, desc:'OpenAI 官方 7 分钟发布 demo. 核心论断: Codex 从 CLI agent 升级成 ChatGPT 内 developer space, 内置模型 (GPT-5.6 Sol) + 推理增强 (Ultra+Goal) + 自动 subagent 并行 + Appshot (simulator screen+context) + In-app browser (annotation+diff+inline edit) + Sites 全员 (hosting+auth+DB+storage) + 自管理 tasks (Linear 5 bugs → 5 worktree) + Mobile SSH + PR 集成. 17/17 Patrick roster 命中 (PITFALL G verified-on-disk) · 16 verbatim quote · Pitfall 76 bilingual wrap 158 zh + 157 en span · Pitfall 67-B body leak 0 · node --check exit 0 · 直接竞品 Vercel/Replit/Lovable/Bolt/Cursor/Claude Code 全要应对', file:'daily-reports/codex-gpt-5-6-sol-demo-2026-07-15.html', date:'2026-07-15', curated:1},
+
+  {title:'🆕 YC Head of Design 用 AI 设计 · 中EN 双语可切换 · E Bufar × Conductor + Paper Design + Aqua 语音 · 30:54 · 1,689 likes · 3 production 项目 walkthrough (Paxel Spotify Wrapped for Coding / Sodazine SOTA 庆祝旧金山 + soul.md 哲学 / Startup School 2026 Jensen+Sam+Jeff Dean) · 14 tabs · 6 stat cards · 17 Patrick 关联 (verified-on-disk) · 7 Tier 4 反向映射 (mitig/warn/gap honest labels) · 10 verbatim E 原话 + 中文翻译 · 顶角 EN⇄中 toggle · localStorage 持久化',track:'video',tag:'yc-design · conductor · paper-design · aqua · soul-md · paxel · sodazine · startup-school · disposable-design',practical:88,time:25,desc:'E Bufar YC Head of Design. 4 大核心洞察: (1) 单工具栈 Conductor+Paper+Aqua+Claude ship 全栈 不手打 (2) soul.md 哲学 录一切+dump 全文+喂 agent (3) Human vs Machine 双版本页面 (.md 给 agent + note to any AI agent warning) (4) Taste 不需要 verbalize 给 agent 自己 abstract pattern. Patrick 4 个 P0/P1 action items: vault soul.md 化 + daily-reports .md 双版本 + Conductor 试验 + disposable bookmark UI. cross-link 7 vault notes (Jack Roberts/Greg Isenberg/Julian Goldie/Berman/MoA/Tristan/Kokotajlo)',file:'daily-reports/ebufar-yc-head-design-conductor-2026-07-15.html',date:'2026-07-15',curated:1},
+  {title:'🆕 AI-Native Org Transformation Suite V4 — 4 公司 (IBM / Klarna / 乐天 / 星展银行) × 7 模块全景 (全景/四家公司/组织演化/任务市场/角色问责/机器审计/365天行动) · 100% proud 模式 polish · 0 外部依赖 · 107KB 单 HTML · 完整保留 4 公司数据 + 6 模块 DOM + 13 个核心 JS function',track:'brief',tag:'ai-native · org-transformation · v4-proud',practical:90,time:25,desc:'Patrick 给出 v3 iframe+srcdoc fragment 重写为单文件 V4 · 100% 保留 69 个 data-* 属性 + 13 个核心 JS function + 4 公司完整数据 + 6 模块 DOM · 升级: sticky 渐变 nav + 紫粉 hero + 4 公司 chip + active glow · 40px KPI results (94%/40%/+74 etc) · 暗/亮双主题 + localStorage · SVG 实色 + paint-order 描边 + drop-shadow glow · checkbox 自定义 · 0 外部依赖 · 100% proud ship',file:'daily-reports/ai-native-org-transformation-v4.html',date:'2026-07-15',curated:1},
+  {title:'ultraworkers/claw-code deep-dive - Rust rewrite Claude Code shape CLI - 9 crate 48.6K LOC - 9-lane parity all merged main - 7-step provider routing - PHILOSOPHY Stop Staring at the Files 3-layer system (OmX clawhip OmO) - bilingual ZH-EN with localStorage persistence - 12 sections - 8 stat cards - 9 lane checkpoints - 17 evidence pills (fetched/vault/recall/unfetched) - honest sandbox fetch report - 87.8KB single HTML',track:'brief',tag:'ultraworkers-claw-code - rust-cli - claude-code-shape - race-aware-ecosystem - bilingual',practical:88,time:20,desc:'Github 194K stars - 9 crate 48.6K LOC - 40 tool specs - mock parity harness 12 scenarios - 9-lane parity all merged main - caveats bash-validation branch-only and CI not green every commit - same-gen ecosystem omx/clawhip/lazycodex/gajae-code/oh-my-openagent - PHILOSOPHY museum exhibit coordination system is the product - bilingual ZH-EN with localStorage persistence - TOC v1.4.4 collapsible - sandbox fetch via api.github.com + browser_console base64 decode - self-reported LOC not cargo-build-verified',file:'daily-reports/2026-07-15-ultraworkers-claw-code-deep-dive.html',date:'2026-07-15',curated:1},
+  {title:"🆕 ECC (Everything Claude Code) 深度解析 — 229K stars · 278 skills · 67 agents · 跟 Loop OS 90% 同源 sibling · 5 SKILL.md cherry-pick (context-budget / agent-self-evaluation / continuous-learning-v2 / cost-tracking / autonomous-loops-dag Pattern ⑥) · 14 sections · bilingual ZH⇄EN · 58KB · TOC v1.4.4",track:"brief",tag:"ecc-deep-read",practical:5,time:25,desc:"229K stars · 30+ contributors · 6+ 月生产 · 6 harness · 跟我 Loop OS 90% 同源 · 5 skill 蒸馏 ship · Pattern ⑥ DAG P1 缺口 · source 全部出处",file:"daily-reports/ecc-deep-read-2026-07-15.html",date:"2026-07-15",curated:1},      {title:'✱v2 ⚡ AI 与 100 年前电力革命类比 · 美投讲美股 · 28:14 · 5 反推核心论点 (GPT 扩散周期 / 二级应用赢 / 应用层下沉) · ⚠️ transcript publisher-restricted metadata-only batch · cross-ref race-aware 4-source synthesis · 14 tabs · 6 stat cards · 价值链下沉表 + 美股候选 (CRM/ServiceNow/Palantir/Snowflake/Veeva/Tyler Tech/Duolingo/CDW/Eaton/Hubbell/VRT) · Patrick P0 听音频验证',track:'video',tag:'电力革命 · AI类比 · 二级应用 · 美股价值链',practical:75,time:28,desc:'美投讲美股 AI 周期类比系列 · 电力 1890-1930 → AI 2026 类比 · 反对 "AI = 英伟达 + 7 大科技股" 叙事 · 真正财富在二级应用扩散 (类比 Otis 电梯 / 流水线 / 中央空调) · 美股候选应用层 + 传统行业改造 + 边缘部署 · transcript publisher-restricted,所有论点标 [频道主旨]/[推断] tag · 6 stat cards',file:'daily-reports/meitou-electric-revolution-2026-07-14-dashboard.html',date:'2026-07-14',curated:1},
       {title:'🆕 AI-Native 公司组织架构 — 4 原型 + 5 步 Migration + AGI 时代 org design',track:'ai',tag:'org-structure · AGI · agentic-era',practical:78,time:25,desc:'Vault 8 源 cross-validated 框架 · 4 种结构原型 (Pyramid / Pod / AGI Factory / Trainer+Auditor) + 18 月 5 步 migration + 对 Patrick 5 类现状 action items · 12 [TO VERIFY] tag 待 network-fetch patch',file:'daily-reports/ai-native-org-structure-2026-07-14-dashboard.html',date:'2026-07-14'},
 {title:'🏁 TheAIGRID × DeepMind AGI→ASI Timeline · 4 vars × 4 bottlenecks conditional math · 16:50 · 4-source convergent source 4 (DeepMind paper Ch5-Ch10) · M10 v1.9.0 academic frame anchor · 14 tabs · 6 stat cards · 4 quote cards · cross-link Kokotajlo/Hassabis/Tristan + race-aware-4-source-synthesis',track:'video',tag:'race-aware',practical:85,time:20,desc:'DeepMind paper × TheAIGRID 16:50 video. Core: ASI = agent collectives + 100→10K→100M AGI math + 3 engineering advantages. Conditional map 4 vars × 4 bottlenecks (compute scaling / recursive SI / parad',file:'daily-reports/theaigrid-google-deepmind-agi-asi-timeline-2026-07-14-dashboard.html',date:'2026-07-14',curated:1},
       {title:'🏁 Kokotajlo × Bartlett Diary Of A CEO · AI 2027 race forecast · 70% extinction probability (subjective) · 9章 race-aware audit · 12 loops race exposure · M10 v1.7.0 base framework · source 1 of 4 race-aware synthesis',track:'video',tag:'race-aware',practical:85,time:20,desc:'Kokotajlo × Diary Of A CEO 2h 视频. 9章 race-aware audit. 70% 人类灭绝 probability (Kokotajlo self-acknowledged 30-50% base rate). AI 2027 报告预测: senior coder 2026 / AI 写 AI 2027 / 完全替代 2033 / post-AGI 2040+.',file:'daily-reports/kokotajlo-ai-2027-diary-of-ceo-2026-07-13-dashboard.html',date:'2026-07-13',curated:1},
@@ -750,9 +891,9 @@
       {title:'Microsoft Build 2025 — AI Era: Cloud, Edge, Agents & Devices',track:'video',tag:'',practical:70,time:10,desc:'Microsoft Build 2025 — AI Era: Cloud, Edge, Agents & Devices',file:'microsoft-build-2025-keynote.html',date:'2025-05-20'},
         ];
     const zh={
-      descriptor:'每日研究',count:'291 份报告<br>6 条产线',
+      descriptor:'每日研究',count:()=>{const s=window.__liveStats||{n:'—',t:'—'};return `${s.n} 份报告<br>${s.t} 条产线`;},
       title:'<span>Patrick</span><br>每日研究',kicker:'互动研究游乐场',
-      intro:'不是让你翻完 281 份报告。<br>只用一个选择，找到今天最值得下潜的三站。',
+      intro:()=>{const s=window.__liveStats||{n:'—'};return `不是让你翻完所有 ${s.n} 份报告。<br>只用一个选择，找到今天最值得下潜的三站。`;},
       archive:'全部档案',dialLabel:'调 整 你 的 好 奇 心 强 度',dialScore:'探索指数',
       practical:'实用',curious:'猎奇',spectrum:['确定','拓展','未知'],
       moods:['今天就能用','想明白一件事','打破认知'],
@@ -777,10 +918,10 @@
       aria:'从实用到猎奇'
     };
     const en={
-      descriptor:'Daily Reports',count:'291 REPORTS · 291 LIVE',
+      descriptor:'Daily Reports',count:()=>{const s=window.__liveStats||{n:'—',t:'—'};return `${s.n} REPORTS · ${s.t} TRACKS`;},
       title:'<span>Patrick</span><br>Daily Reports',
       kicker:'INTERACTIVE RESEARCH PLAYGROUND',
-      intro:'Do not read all 281 reports.<br>Make one choice and find the three worth exploring today.',
+      intro:()=>{const s=window.__liveStats||{n:'—'};return `Do not read all ${s.n} reports.<br>Make one choice and find the three worth exploring today.`;},
       archive:'All reports',dialLabel:'TUNE YOUR CURIOSITY',dialScore:'EXPLORATION INDEX',
       practical:'Practical',curious:'Curious',spectrum:['CERTAIN','EXPAND','UNKNOWN'],
       moods:['Useful today','Understand deeply','Break the frame'],
@@ -817,6 +958,61 @@
       const field={title:0,tag:1,desc:2}[key];
       return reportEnglish[r.title]?.[field]||r[key];
     };
+
+    // Live stats — 2026-07-15 added. Loads ground-truth from reports.json on every page visit,
+    // so the header date + report count + track count + pb-hero chips stay current without a redeploy.
+    // Failure path: keeps "—" placeholders so the page renders even if reports.json is unreachable.
+    (function loadLiveStats(){
+      // Inline fallback = last-known-good counts baked at deploy time.
+      // If fetch fails (PWA SW block / offline / cold cache), hero still shows real numbers instead of "—".
+      // Source: reports.json snapshot at 2026-07-15T23:00 — 298 records, 8 tracks.
+      const fallback={n:298,t:8,d:'2026-07-15',since:'2025-Q2'};
+      window.__liveStats=fallback;
+      function apply(){
+        // Top header date (most recent report date in archive)
+        const top=$('#topDate');
+        if(top && window.__liveStats.d && window.__liveStats.d!=='—' && window.__liveStats.d!=='0000-00-00') top.textContent=window.__liveStats.d;
+        // pb-hero chips
+        const c=$('#pbHeroCount'),tk=$('#pbHeroTracks'),since=$('#pbHeroSince'),upd=$('#pbHeroUpdated');
+        if(c) c.textContent=window.__liveStats.n;
+        if(tk) tk.textContent=window.__liveStats.t;
+        if(since && window.__liveStats.since) since.textContent=window.__liveStats.since;
+        if(upd && window.__liveStats.updatedLabel) upd.textContent=`更新于 ${window.__liveStats.updatedLabel}`;
+        // Refresh i18n-dependent strings (count + intro) — applyLanguage() must already be defined.
+        try{applyLanguage();}catch(e){}
+      }
+      window.__renderLiveStats=apply;
+      fetch('./reports.json?cb='+Date.now(),{cache:'no-store'})
+        .then(r=>{if(!r.ok)throw new Error('http '+r.status);return r.json();})
+        .then(d=>{
+          const list=Array.isArray(d)?d:(d&&Array.isArray(d.reports))?d.reports:[];
+          if(!list.length)return;
+          const n=list.length;
+          const tracks=new Set();
+          let latest='';
+          let earliest='9999-12-31';
+          for(const r of list){
+            const t=(r&&(r.track||r.category))||null;if(t)tracks.add(t);
+            const dd=(r&&r.date)||'';
+            if(dd && dd>latest)latest=dd;
+            if(dd && dd<earliest)earliest=dd;
+          }
+          const effectiveLatest=latest||'—';
+          const effectiveEarliest=(earliest==='9999-12-31')?'2026-Q2':earliest;
+          const earliestYear=String(effectiveEarliest).slice(0,4);
+          const earliestMonth=parseInt(String(effectiveEarliest).slice(5,7)||'1',10);
+          const quarter=Math.floor((earliestMonth-1)/3)+1;
+          window.__liveStats={
+            n:n,
+            t:tracks.size,
+            d:effectiveLatest,
+            since:`${earliestYear}-Q${quarter}`,
+            updatedLabel:new Date().toISOString().slice(0,16).replace('T',' ')
+          };
+          apply();
+        })
+        .catch(e=>{console.warn('liveStats: using fallback',e);apply();});
+    })();
     const showToast=key=>{
       const el=$('#toast');el.textContent=tr()[key]||key;el.classList.add('show');
       setTimeout(()=>el.classList.remove('show'),1900);
@@ -1014,8 +1210,8 @@ $$('.filter-chip').forEach(chip=>{
 
     function applyLanguage(){
       const x=tr();document.documentElement.lang=state.lang==='zh'?'zh-CN':'en';
-      $('#descriptor').textContent=x.descriptor;$('#countLabel').innerHTML=x.count;
-      $('#page-title').innerHTML=x.title;$('#kicker').textContent=x.kicker;$('#introCopy').innerHTML=x.intro;
+      $('#descriptor').textContent=x.descriptor;$('#countLabel').innerHTML=x.count();
+      $('#page-title').innerHTML=x.title;$('#kicker').textContent=x.kicker;$('#introCopy').innerHTML=x.intro();
       $('#archiveOpen').textContent=x.archive;$('#dialLabel').textContent=x.dialLabel;
       $('#dialScoreLabel').textContent=x.dialScore;$('#practicalLabel').textContent=x.practical;
       $('#curiousLabel').textContent=x.curious;$('#curiosity').setAttribute('aria-label',x.aria);
