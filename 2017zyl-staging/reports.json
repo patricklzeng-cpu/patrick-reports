@@ -1,5 +1,34 @@
 [
   {
+    "title": "🆕 全球想象文学 · 五联 · 11 仪表板 · 中EN 双语可切换 · 101 作家 + 45 影视",
+    "track": "brief",
+    "tag": "literature · quintet · sci-fi · fantasy · mystery · horror · nonfiction · latin-american · 101-authors · bilingual · toc",
+    "practical": 85,
+    "time": 15,
+    "desc": "Patrick 的全球想象文学五联 hub 索引页. 6 大流派 (科幻 30 / 奇幻 17 / 推理 15 / 恐怖 12 / 非虚构 15 / 拉美 12) + 12 反乌托邦专题 = 101 作家 + 45 影视. v2 升级: 中EN 双语 verbatim 并列 (54 zh + 54 en span 配对) + 顶角 EN⇄中 toggle + localStorage 持久化 + TOC v1.4.4 6 锚点 collapsible + Patrick 5 张工作关联卡 (阅读路径 / 思维模式 / 架构复用 / 中国当代 / Loop 启示). v1 原始中文版仍可访问为 📌 旧版",
+    "file": "literary-bridge/index.html",
+    "date": "2026-07-16",
+    "category": "literature",
+    "summary": "全球想象文学 · 五联 hub · 6 类 · 101 作家 · 6 位跨界大师 · 中EN 双语 + TOC v1.4.4",
+    "featured": true,
+    "tags": [
+      "literature",
+      "quintet",
+      "sci-fi",
+      "fantasy",
+      "mystery",
+      "horror",
+      "nonfiction",
+      "latin-american",
+      "101-authors",
+      "bilingual",
+      "toc",
+      "hub"
+    ],
+    "added_at": "2026-07-16",
+    "curated": 1
+  },
+  {
     "title": "🆕 YC Head of Design 用 AI 设计 · 中EN 双语可切换 · E Bufar × Conductor + Paper Design + Aqua 语音 · 30:54 · 1,689 likes · 3 production 项目 walkthrough (Paxel Spotify Wrapped for Coding / Sodazine SOTA 庆祝旧金山 + soul.md 哲学 / Startup School 2026 Jensen+Sam+Jeff Dean) · 14 tabs · 6 stat cards · 17 Patrick 关联 (verified-on-disk) · 7 Tier 4 反向映射 · 10 verbatim E 原话 + 中文翻译 · 顶角 EN⇄中 toggle · localStorage 持久化",
     "file": "daily-reports/ebufar-yc-head-design-conductor-2026-07-15.html",
     "date": "2026-07-15",

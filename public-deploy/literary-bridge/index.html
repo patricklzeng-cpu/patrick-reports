@@ -2,12 +2,30 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>全球想象文学 · 五联 · 11 仪表板 · 完整指南</title>
+<title>全球想象文学 · 五联 · Global Imaginative Literature Quintet</title>
 <style>
-  :root { --bg:#0a0a14; --card:#12122a; --card-hover:#1a1a3a; --accent:#00e5c3; --accent2:#b88dff; --accent3:#e05555; --accent4:#c084fc; --accent5:#34d399; --accent6:#fb923c; --accent-warm:#ff6b35; --text:#e8e8f8; --muted:#7878a0; --border:#2a2a50; }
+  :root { --bg:#0a0a14; --card:#12122a; --card-hover:#1a1a3a; --accent:#00e5c3; --accent2:#b88dff; --accent3:#e05555; --accent4:#c084fc; --accent5:#34d399; --accent6:#fb923c; --accent-warm:#ff6b35; --text:#e8e8f8; --muted:#7878a0; --border:#2a2a50; --lime:#d5ff3f; --violet:#aa86ff; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; line-height: 1.65; padding: 32px 24px 80px; }
   .container { max-width: 1320px; margin: 0 auto; }
+
+  /* Lang toggle */
+  .lang-toggle { position: fixed; top: 16px; right: 24px; z-index: 1000; background: rgba(18,18,42,.95); border: 1px solid var(--lime); border-radius: 22px; padding: 6px 14px; font: 600 12px ui-monospace, "SF Mono", monospace; color: var(--lime); cursor: pointer; backdrop-filter: blur(8px); transition: all 0.2s; letter-spacing: 0.05em; user-select: none; }
+  .lang-toggle:hover { background: var(--lime); color: #0a0a14; box-shadow: 0 0 16px rgba(213,255,63,.4); }
+
+  /* Bilingual span visibility */
+  html[lang="zh-CN"] .en { display: none; }
+  html[lang="en"] .zh { display: none; }
+
+  /* TOC v1.4.4 collapsible */
+  aside.toc { position: fixed; top: 70px; left: 24px; width: 240px; max-height: calc(100vh - 100px); overflow-y: auto; background: rgba(18,18,42,.92); border: 1px solid var(--border); border-radius: 12px; padding: 16px 14px; font-size: 12.5px; z-index: 999; backdrop-filter: blur(8px); transition: transform 0.3s ease, opacity 0.3s ease; }
+  aside.toc.collapsed { transform: translateX(-12px); width: 48px; padding: 16px 8px; }
+  aside.toc.collapsed .toc-label, aside.toc.collapsed .toc-list { display: none; }
+  aside.toc .toc-toggle { position: absolute; top: 10px; right: 8px; background: transparent; border: 1px solid var(--border); border-radius: 6px; width: 24px; height: 24px; color: var(--muted); cursor: pointer; font: 600 13px ui-monospace; line-height: 1; padding: 0; }
+  aside.toc .toc-toggle:hover { color: var(--lime); border-color: var(--lime); }
+  body { transition: padding-left 0.3s ease; }
+  @media (min-width: 1281px) { body { padding-left: 280px; } }
+  @media (max-width: 1280px) { aside.toc { display: none; } body { padding-left: 0; } }
 
   .hero { text-align: center; padding: 64px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; }
   .hero h1 { font-size: 48px; font-weight: 800; background: linear-gradient(120deg, var(--accent) 0%, var(--accent2) 25%, var(--accent3) 50%, var(--accent4) 75%, var(--accent5) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; }
@@ -95,34 +113,48 @@
 </style>
 </head>
 <body>
+<aside class="toc" id="toc">
+  <button class="toc-toggle" onclick="toggleToc()" title="Collapse/Expand TOC">≡</button>
+  <h4 class="toc-label">📖 TOC</h4>
+  <ul class="toc-list">
+    <li><a href="#hero"><span class="zh">概览</span><span class="en">Overview</span></a></li>
+    <li><a href="#pillars"><span class="zh">六大流派</span><span class="en">Six Pillars</span></a></li>
+    <li><a href="#dashboards"><span class="zh">11 仪表板</span><span class="en">11 Dashboards</span></a></li>
+    <li><a href="#crossovers"><span class="zh">跨界大师</span><span class="en">Crossover Masters</span></a></li>
+    <li><a href="#patrick"><span class="zh">Patrick 工作关联</span><span class="en">Patrick's Mapping</span></a></li>
+    <li><a href="#footer"><span class="zh">全部档案链接</span><span class="en">All Links</span></a></li>
+  </ul>
+</aside>
+
+<button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
 <div class="container">
 
-  <div class="hero">
-    <h1>📚 全球想象文学 · 五联</h1>
-    <p>科幻 · 奇幻 · 推理 · 恐怖 · 非虚构 · 拉美 — 想象文学的六大世界 · 11 仪表板</p>
+  <div class="hero" id="hero">
+    <h1><span class="zh">📚 全球想象文学 · 五联</span><span class="en">📚 Global Imaginative Literature · Quintet</span></h1>
+    <p><span class="zh">科幻 · 奇幻 · 推理 · 恐怖 · 非虚构 · 拉美 — 想象文学的六大世界 · 11 仪表板</span><span class="en">Sci-Fi · Fantasy · Mystery · Horror · Nonfiction · Latin America — 6 Worlds of Imaginative Literature · 11 Dashboards</span></p>
     <div class="meta">
-      <span>🌌 30 SF 作家</span>
-      <span>🏛️ 12 Dystopia 专题</span>
-      <span>🏰 17 Fantasy</span>
-      <span>🔍 15 Mystery</span>
-      <span>🕯️ 12 Horror</span>
-      <span>📜 15 Nonfiction</span>
-      <span>🌶️ 12 Latin Am</span>
-      <span>= <b>101</b> 位作家</span>
-      <span>+ 45 部影视</span>
+      <span><span class="zh">🌌 30 SF 作家</span><span class="en">🌌 30 SF Authors</span></span>
+      <span><span class="zh">🏛️ 12 Dystopia 专题</span><span class="en">🏛️ 12 Dystopia Focus</span></span>
+      <span><span class="zh">🏰 17 Fantasy</span><span class="en">🏰 17 Fantasy</span></span>
+      <span><span class="zh">🔍 15 Mystery</span><span class="en">🔍 15 Mystery</span></span>
+      <span><span class="zh">🕯️ 12 Horror</span><span class="en">🕯️ 12 Horror</span></span>
+      <span><span class="zh">📜 15 Nonfiction</span><span class="en">📜 15 Nonfiction</span></span>
+      <span><span class="zh">🌶️ 12 Latin Am</span><span class="en">🌶️ 12 Latin Am</span></span>
+      <span><span class="zh">= <b>101</b> 位作家</span><span class="en">= <b>101</b> Authors</span></span>
+      <span><span class="zh">+ 45 部影视</span><span class="en">+ 45 Films & Series</span></span>
     </div>
   </div>
 
-  <div class="pillars">
+  <div class="pillars" id="pillars">
     <a href="/sci-fi-authors/sci-fi-authors.html" style="text-decoration:none;color:inherit" class="pillar sci-fi">
       <div class="icon">🌌</div>
-      <h2>科幻 Sci-Fi</h2>
+      <h2><span class="zh">科幻 Sci-Fi</span><span class="en">Sci-Fi</span></h2>
       <div class="stats">
         <span><b>30</b> 作家</span>
         <span><b>23</b> 影视</span>
         <span><b>8</b> 范式</span>
       </div>
-      <div class="desc">从黄金时代到当代, 4 大浪潮描绘宇宙、技术、人类未来的想象边界。</div>
+      <div class="desc"><span class="zh">从黄金时代到当代, 4 大浪潮描绘宇宙、技术、人类未来的想象边界。</span><span class="en">From the Golden Age to today, 4 waves map the imaginative frontier of cosmos, technology, and human future.</span></div>
       <ul class="authors">
         <li><b>核心</b>: Asimov / Clarke / 刘慈欣 / Le Guin</li>
         <li><b>影视</b>: 2001 / Blade Runner 2049 / 三体</li>
@@ -131,13 +163,13 @@
 
     <a href="/fantasy-authors/fantasy-authors.html" style="text-decoration:none;color:inherit" class="pillar fantasy">
       <div class="icon">🏰</div>
-      <h2>奇幻 Fantasy</h2>
+      <h2><span class="zh">奇幻 Fantasy</span><span class="en">Fantasy</span></h2>
       <div class="stats">
         <span><b>17</b> 作家</span>
         <span><b>12</b> 影视</span>
         <span><b>4</b> 时期</span>
       </div>
-      <div class="desc">从 Dunsany 到当代中国, 神话重述 + 世界构建 + 哥特黑暗。</div>
+      <div class="desc"><span class="zh">从 Dunsany 到当代中国, 神话重述 + 世界构建 + 哥特黑暗。</span><span class="en">From Dunsany to contemporary China, myth retelling + world-building + gothic darkness.</span></div>
       <ul class="authors">
         <li><b>核心</b>: 托尔金 / Le Guin / 马丁 / 江南</li>
         <li><b>影视</b>: LOTR / HP / GoT / Witcher</li>
@@ -146,13 +178,13 @@
 
     <a href="/mystery-authors/mystery-authors.html" style="text-decoration:none;color:inherit" class="pillar mystery">
       <div class="icon">🔍</div>
-      <h2>推理 Mystery</h2>
+      <h2><span class="zh">推理 Mystery</span><span class="en">Mystery</span></h2>
       <div class="stats">
         <span><b>15</b> 作家</span>
         <span><b>10</b> 影视</span>
         <span><b>3</b> 时期</span>
       </div>
-      <div class="desc">从 Poe 到东野圭吾, 本格公平 + 硬汉诗意 + 社会派黑暗。</div>
+      <div class="desc"><span class="zh">从 Poe 到东野圭吾, 本格公平 + 硬汉诗意 + 社会派黑暗。</span><span class="en">From Poe to Higashino Keigo, fair-play whodunit + hard-boiled poetry + social-school darkness.</span></div>
       <ul class="authors">
         <li><b>核心</b>: Poe / Christie / Chandler / 东野圭吾</li>
         <li><b>影视</b>: Sherlock BBC / 利刃出鞘 / 隐秘的角落</li>
@@ -161,13 +193,13 @@
 
     <a href="/horror-authors/horror-authors.html" style="text-decoration:none;color:inherit" class="pillar horror">
       <div class="icon">🕯️</div>
-      <h2>恐怖 Horror</h2>
+      <h2><span class="zh">恐怖 Horror</span><span class="en">Horror</span></h2>
       <div class="stats">
         <span><b>12</b> 作家</span>
         <span><b>10</b> 影视</span>
         <span><b>3</b> 时期</span>
       </div>
-      <div class="desc">从 Poe 到伊藤润二, 哥特 + 心理 + 宇宙 + 身体恐怖的全谱。</div>
+      <div class="desc"><span class="zh">从 Poe 到伊藤润二, 哥特 + 心理 + 宇宙 + 身体恐怖的全谱。</span><span class="en">From Poe to Junji Ito, gothic + psychological + cosmic + body horror across the full spectrum.</span></div>
       <ul class="authors">
         <li><b>核心</b>: Poe / Lovecraft / King / 伊藤润二</li>
         <li><b>影视</b>: Shining / Hereditary / Get Out / 小丑回魂</li>
@@ -176,13 +208,13 @@
 
     <a href="/nonfiction-authors/nonfiction-authors.html" style="text-decoration:none;color:inherit" class="pillar nonfiction">
       <div class="icon">📜</div>
-      <h2>非虚构 Nonfiction</h2>
+      <h2><span class="zh">非虚构 Nonfiction</span><span class="en">Nonfiction</span></h2>
       <div class="stats">
         <span><b>15</b> 作家</span>
         <span><b>3</b> 时期</span>
         <span><b>1850-今</b></span>
       </div>
-      <div class="desc">从 Henry Adams 到 Harari, 历史 / 科学 / 哲学 / 传记 / 长篇调查。</div>
+      <div class="desc"><span class="zh">从 Henry Adams 到 Harari, 历史 / 科学 / 哲学 / 传记 / 长篇调查。</span><span class="en">From Henry Adams to Harari, history / science / philosophy / biography / long-form investigation.</span></div>
       <ul class="authors">
         <li><b>核心</b>: Camus / Orwell / Capote / Harari / Mukherjee</li>
         <li><b>方法</b>: 非虚构小说 + 长篇调查 + 全球史</li>
@@ -191,13 +223,13 @@
 
     <a href="/latin-american-authors/latin-american-authors.html" style="text-decoration:none;color:inherit" class="pillar latin">
       <div class="icon">🌶️</div>
-      <h2>拉美 Latin Am</h2>
+      <h2><span class="zh">拉美 Latin Am</span><span class="en">Latin Am</span></h2>
       <div class="stats">
         <span><b>12</b> 作家</span>
         <span><b>3</b> 时期</span>
         <span><b>1940-今</b></span>
       </div>
-      <div class="desc">从 Borges 到 Bolaño, 魔幻现实 + 文学爆炸 + 大地叙事。</div>
+      <div class="desc"><span class="zh">从 Borges 到 Bolaño, 魔幻现实 + 文学爆炸 + 大地叙事。</span><span class="en">From Borges to Bolaño, magical realism + the Boom + continental narrative.</span></div>
       <ul class="authors">
         <li><b>核心</b>: Borges / García Márquez / Cortázar / Bolaño</li>
         <li><b>范式</b>: 魔幻现实主义 + 百年编年史 + 可玩小说</li>
@@ -205,8 +237,8 @@
     </a>
   </div>
 
-  <div class="media-grid">
-    <h2>🎬 全部 11 仪表板导航</h2>
+  <div class="media-grid" id="dashboards">
+    <h2><span class="zh">🎬 全部 11 仪表板导航</span><span class="en">🎬 All 11 Dashboard Navigation</span></h2>
     <div class="media-list">
       <a href="/sci-fi-authors/sci-fi-authors.html" style="text-decoration:none;color:inherit" class="media-item">
         <span class="icon">🌌</span><span class="name">科幻作家 30</span>
@@ -255,37 +287,66 @@
     </div>
   </div>
 
-  <div class="cross-refs">
-    <h2>🔗 跨界大师 (6 位覆盖 2+ 类型)</h2>
+  <div class="cross-refs" id="crossovers">
+    <h2><span class="zh">🔗 跨界大师 (6 位覆盖 2+ 类型)</span><span class="en">🔗 Crossover Masters (6 covering 2+ genres)</span></h2>
     <div class="cross-grid">
-      <div class="cross-card"><div class="label">奇幻 + SF + 拉美</div><div class="value"><b>Ursula K. Le Guin</b> — 地海 (奇幻) + 黑暗的左手 (SF) + 一无所有 (SF)。阴翳道家 = 通杀两界</div></div>
-      <div class="cross-card"><div class="label">SF + 推理</div><div class="value"><b>刘慈欣 + 紫金陈</b> — 都是中国当代头部。不同：宏大尺度 vs 城市场景。同：算法 / 系统 / 人性拷问</div></div>
-      <div class="cross-card"><div class="label">奇幻 + 推理</div><div class="value"><b>阿来 + 马伯庸</b> — 中国当代。都是"历史 + 文学 + 哲学"。马伯庸 = 把史料当推理素材</div></div>
-      <div class="cross-card"><div class="label">恐怖 + SF</div><div class="value"><b>H.P. Lovecraft + Mary Shelley</b> — <b>Lovecraft</b> 宇宙恐怖 = SF 终点; <b>Shelley</b> 弗兰肯斯坦 = SF+恐怖双源</div></div>
-      <div class="cross-card"><div class="label">非虚构 + SF</div><div class="value"><b>Carl Sagan</b> — 科普文学化 + 哲学化; <b>Yuval Harari</b> 全球史 + 后人类议题</div></div>
-      <div class="cross-card"><div class="label">拉美 + 推理</div><div class="value"><b>Borges</b> — 拉美文学最高神 + 概念小说 (侦探 + 哲学 + 迷宫)。<b>Cortázar</b> 跳房子 = 拉美 + 实验叙事</div></div>
+      <div class="cross-card"><div class="label"><span class="zh">奇幻 + SF + 拉美</span><span class="en">Fantasy + SF + Latin Am</span></div><div class="value"><span class="zh"><b>Ursula K. Le Guin</b> — 地海 (奇幻) + 黑暗的左手 (SF) + 一无所有 (SF)。阴翳道家 = 通杀两界</span><span class="en"><b>Ursula K. Le Guin</b> — Earthsea (Fantasy) + The Left Hand of Darkness (SF) + The Dispossessed (SF). Taoist shadow = master of both worlds</span></div></div>
+      <div class="cross-card"><div class="label"><span class="zh">SF + 推理</span><span class="en">SF + Mystery</span></div><div class="value"><b>刘慈欣 + 紫金陈</b> — 都是中国当代头部。不同：宏大尺度 vs 城市场景。同：算法 / 系统 / 人性拷问</div></div>
+      <div class="cross-card"><div class="label"><span class="zh">奇幻 + 推理</span><span class="en">Fantasy + Mystery</span></div><div class="value"><span class="zh"><b>阿来 + 马伯庸</b> — 中国当代。都是"历史 + 文学 + 哲学"。马伯庸 = 把史料当推理素材</span><span class="en"><b>A Lai + Ma Boyong</b> — contemporary China. Both weave "history + literature + philosophy". Ma Boyong treats historical sources as mystery material</span></div></div>
+      <div class="cross-card"><div class="label"><span class="zh">恐怖 + SF</span><span class="en">Horror + SF</span></div><div class="value"><span class="zh"><b>H.P. Lovecraft + Mary Shelley</b> — <b>Lovecraft</b> 宇宙恐怖 = SF 终点; <b>Shelley</b> 弗兰肯斯坦 = SF+恐怖双源</span><span class="en"><b>H.P. Lovecraft + Mary Shelley</b> — <b>Lovecraft</b>'s cosmic horror = SF terminus; <b>Shelley</b>'s Frankenstein = SF+Horror dual origin</span></div></div>
+      <div class="cross-card"><div class="label"><span class="zh">非虚构 + SF</span><span class="en">Nonfiction + SF</span></div><div class="value"><span class="zh"><b>Carl Sagan</b> — 科普文学化 + 哲学化; <b>Yuval Harari</b> 全球史 + 后人类议题</span><span class="en"><b>Carl Sagan</b> — literary + philosophical science writing; <b>Yuval Harari</b> — global history + posthuman agenda</span></div></div>
+      <div class="cross-card"><div class="label"><span class="zh">拉美 + 推理</span><span class="en">Latin Am + Mystery</span></div><div class="value"><span class="zh"><b>Borges</b> — 拉美文学最高神 + 概念小说 (侦探 + 哲学 + 迷宫)。<b>Cortázar</b> 跳房子 = 拉美 + 实验叙事</span><span class="en"><b>Borges</b> — Latin American literature's highest deity + conceptual novels (detective + philosophy + labyrinth). <b>Cortázar</b>'s Hopscotch = Latin Am + experimental narrative</span></div></div>
     </div>
   </div>
 
-  <div class="patrick-cards">
-    <h2>🔗 Patrick 工作关联 — 五联综合</h2>
-    <p class="intro">从科幻 → 奇幻 → 推理 → 恐怖 → 非虚构 → 拉美的扩张过程对 Patrick 知识工程的启示</p>
+  <div class="patrick-cards" id="patrick">
+    <h2><span class="zh">🔗 Patrick 工作关联 — 五联综合</span><span class="en">🔗 Patrick's Work Mapping — Quintet Synthesis</span></h2>
+    <p class="intro"><span class="zh">从科幻 → 奇幻 → 推理 → 恐怖 → 非虚构 → 拉美的扩张过程对 Patrick 知识工程的启示</span><span class="en">The expansion process from Sci-Fi → Fantasy → Mystery → Horror → Nonfiction → Latin America — implications for Patrick's knowledge engineering</span></p>
     <div class="patrick-grid">
-      <div class="patrick-card"><div class="label">📚 6 类阅读路径</div><div class="value"><b>入门</b>: Asimov 基地 → Christie 波洛 → 托尔金 HP → Poe 厄舍府 → Camus 局外人 → García Márquez 百年孤独<br><b>深度</b>: Le Guin (奇幻 + SF) → Chandler (硬汉) → Borges (迷宫) → Harari 人类简史 → Capote 冷血</div></div>
-      <div class="patrick-card"><div class="label">💡 6 类思维模式</div><div class="value">科幻 = <b>"如果技术 X"</b> / 奇幻 = <b>"如果世界有 X"</b> / 推理 = <b>"如果动机 X"</b><br>恐怖 = <b>"如果裂缝 X"</b> / 非虚构 = <b>"如果故事 + 议题 X"</b> / 拉美 = <b>"如果家族 + 土地 + 时间 X"</b></div></div>
-      <div class="patrick-card"><div class="label">🛠️ 仪表板架构复用</div><div class="value">从科幻 Mind Mode (8 心境) → 奇幻 4 时期 → 推理 3 时期 → 恐怖 7 范式 → 非虚构 7 范式 → 拉美 7 范式<br><b>相同方法论应用到新领域 = 边际成本接近 0</b></div></div>
-      <div class="patrick-card"><div class="label">🌏 中国当代 7 位</div><div class="value"><b>科幻</b>: 刘慈欣 + 陈楸帆 + 韩松 + 宝树<br><b>奇幻</b>: 江南 + 阿来 + 马伯庸<br><b>推理</b>: 紫金陈<br>中国当代 = 6 类全占, 已成为全球想象文学第二极</div></div>
-      <div class="patrick-card"><div class="label">🔁 Loop 启示</div><div class="value">6 类扩张：15 → 30 → 17 → 15 → 12 → 15 → 12 = 101 位作家<br><b>"加类型"比"加数量"更有效</b>：相同方法论应用到新领域 = 边际成本接近 0</div></div>
+      <div class="patrick-card"><div class="label"><span class="zh">📚 6 类阅读路径</span><span class="en">📚 6 Reading Paths</span></div><div class="value"><span class="zh"><b>入门</b>: Asimov 基地 → Christie 波洛 → 托尔金 HP → Poe 厄舍府 → Camus 局外人 → García Márquez 百年孤独<br><b>深度</b>: Le Guin (奇幻 + SF) → Chandler (硬汉) → Borges (迷宫) → Harari 人类简史 → Capote 冷血</span><span class="en"><b>Entry</b>: Asimov Foundation → Christie Poirot → Tolkien HP → Poe House of Usher → Camus The Stranger → García Márquez One Hundred Years of Solitude<br><b>Depth</b>: Le Guin (Fantasy + SF) → Chandler (hard-boiled) → Borges (labyrinth) → Harari Sapiens → Capote In Cold Blood</span></div></div>
+      <div class="patrick-card"><div class="label"><span class="zh">💡 6 类思维模式</span><span class="en">💡 6 Modes of Thinking</span></div><div class="value"><span class="zh">科幻 = <b>"如果技术 X"</b> / 奇幻 = <b>"如果世界有 X"</b> / 推理 = <b>"如果动机 X"</b><br>恐怖 = <b>"如果裂缝 X"</b> / 非虚构 = <b>"如果故事 + 议题 X"</b> / 拉美 = <b>"如果家族 + 土地 + 时间 X"</b></span><span class="en">Sci-Fi = <b>"What if technology X"</b> / Fantasy = <b>"What if world has X"</b> / Mystery = <b>"What if motive X"</b><br>Horror = <b>"What if crack X"</b> / Nonfiction = <b>"What if story + agenda X"</b> / Latin Am = <b>"What if family + land + time X"</b></span></div></div>
+      <div class="patrick-card"><div class="label"><span class="zh">🛠️ 仪表板架构复用</span><span class="en">🛠️ Dashboard Architecture Reuse</span></div><div class="value"><span class="zh">从科幻 Mind Mode (8 心境) → 奇幻 4 时期 → 推理 3 时期 → 恐怖 7 范式 → 非虚构 7 范式 → 拉美 7 范式<br><b>相同方法论应用到新领域 = 边际成本接近 0</b></span><span class="en">From Sci-Fi Mind Modes (8) → Fantasy 4 eras → Mystery 3 eras → Horror 7 paradigms → Nonfiction 7 paradigms → Latin Am 7 paradigms<br><b>Same methodology across new domains = marginal cost ≈ 0</b></span></div></div>
+      <div class="patrick-card"><div class="label"><span class="zh">🌏 中国当代 7 位</span><span class="en">🌏 7 Contemporary Chinese Voices</span></div><div class="value"><span class="zh"><b>科幻</b>: 刘慈欣 + 陈楸帆 + 韩松 + 宝树<br><b>奇幻</b>: 江南 + 阿来 + 马伯庸<br><b>推理</b>: 紫金陈<br>中国当代 = 6 类全占, 已成为全球想象文学第二极</span><span class="en"><b>Sci-Fi</b>: Liu Cixin + Chen Qiufan + Han Song + Bao Shu<br><b>Fantasy</b>: Jiang Nan + A Lai + Ma Boyong<br><b>Mystery</b>: Zijin Chen<br>Contemporary China covers all 6 genres — has become the second pole of global imaginative literature</span></div></div>
+      <div class="patrick-card"><div class="label"><span class="zh">🔁 Loop 启示</span><span class="en">🔁 Loop Lesson</span></div><div class="value">6 类扩张：15 → 30 → 17 → 15 → 12 → 15 → 12 = 101 位作家<br><b>"加类型"比"加数量"更有效</b>：相同方法论应用到新领域 = 边际成本接近 0</div></div>
     </div>
   </div>
 
-  <div class="footer">
+  <div class="footer" id="footer">
     <p>
       <a href="/sci-fi-authors/sci-fi-authors.html">🌌 科幻作家 30</a> · <a href="/sci-fi-media/sci-fi-media.html">科幻影视 23</a> · <a href="/dystopian-authors/dystopian-authors.html">🏛️ 反乌托邦 12</a> · <a href="/fantasy-authors/fantasy-authors.html">🏰 奇幻 17</a> · <a href="/fantasy-media/fantasy-media.html">奇幻影视 12</a> · <a href="/mystery-authors/mystery-authors.html">🔍 推理 15</a> · <a href="/mystery-media/mystery-media.html">推理影视 10</a> · <a href="/horror-authors/horror-authors.html">🕯️ 恐怖 12</a> · <a href="/horror-media/horror-media.html">恐怖影视 10</a> · <a href="/nonfiction-authors/nonfiction-authors.html">📜 非虚构 15</a> · <a href="/latin-american-authors/latin-american-authors.html">🌶️ 拉美 12</a>
     </p>
-    <p style="margin-top:12px">🌐 11 个仪表板 / 101 位主线作家 + 12 位反乌托邦专题 / 45 部影视 · Loop Engineering 5 块 × 3 cycle · HTML dashboard by Hermes Agent</p>
+    <p style="margin-top:12px"><span class="zh">🌐 11 个仪表板 / 101 位主线作家 + 12 位反乌托邦专题 / 45 部影视 · Loop Engineering 5 块 × 3 cycle · HTML dashboard by Hermes Agent</span><span class="en">🌐 11 dashboards / 101 core authors + 12 Dystopia focus / 45 films & series · Loop Engineering 5 blocks × 3 cycles · HTML dashboard by Hermes Agent</span></p>
   </div>
 
 </div>
+<script>
+function toggleLang() {
+  const html = document.documentElement;
+  const isZh = html.lang === 'zh-CN';
+  html.lang = isZh ? 'en' : 'zh-CN';
+  try { localStorage.setItem('literary-bridge-lang', html.lang); } catch (e) {}
+}
+(function() {
+  try {
+    const saved = localStorage.getItem('literary-bridge-lang');
+    if (saved === 'en' || saved === 'zh-CN') {
+      document.documentElement.lang = saved;
+    }
+  } catch (e) {}
+})();
+
+function toggleToc() {
+  const toc = document.getElementById('toc');
+  const isCollapsed = toc.classList.toggle('collapsed');
+  try { localStorage.setItem('literary-bridge-toc', isCollapsed ? '1' : '0'); } catch (e) {}
+}
+(function() {
+  try {
+    if (localStorage.getItem('literary-bridge-toc') === '1') {
+      document.getElementById('toc').classList.add('collapsed');
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
