@@ -69,9 +69,24 @@ footer{margin-top:60px;padding:20px 0;border-top:1px solid var(--border);color:v
 .footer-actions{display:flex;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
 .footer-actions button{background:var(--bg3);border:1px solid var(--border);color:var(--fg);padding:8px 16px;border-radius:18px;font-size:12px;cursor:pointer;transition:all .15s}
 .footer-actions button:hover{background:var(--lime);color:#0a0a14;border-color:var(--lime)}
+
+.lang-toggle{position:fixed;top:16px;right:24px;z-index:1000;background:rgba(18,18,42,.95);border:1px solid var(--lime);border-radius:22px;padding:6px 14px;font:600 12px ui-monospace,"SF Mono",monospace;color:var(--lime);cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;letter-spacing:.05em;user-select:none}
+.lang-toggle:hover{background:var(--lime);color:#0a0a14;box-shadow:0 0 16px rgba(213,255,63,.4)}
+html[lang="zh-CN"] .en-only{display:none}
+html[lang="en"] .zh-banner{display:none}
+.zh-banner{background:linear-gradient(135deg,rgba(251,191,36,.15) 0%,rgba(213,255,63,.1) 100%);border:1px solid rgba(251,191,36,.4);border-radius:12px;padding:16px 20px;margin:0 0 24px;color:var(--fg);font-size:14px;line-height:1.7}
+.zh-banner strong{color:var(--yellow)}
+.zh-banner a{color:var(--blue);text-decoration:none;border-bottom:1px dotted rgba(95,199,255,.3)}
 </style>
 </head>
-<body>
+<body lang="en">
+<button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
+<div class="zh-banner">
+<div class="zh-banner">
+<strong>📌 中文翻译开发中</strong> · 当前显示英文原文 (vault index.md)。EN⇄中 切换时显示此提示。<br>
+完整中文翻译待 ship,期间可参考: <a href="https://2017zyl.xyz/daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html" target="_blank" rel="noopener">Liebermann × 硅滩女孩 dashboard</a> 中英对照模式 (类似规格参考)。
+</div>
+</div>
 <aside class="toc" aria-label="Table of contents">
   <button class="toc-toggle" aria-label="Toggle sidebar" type="button" onclick="toggleToc()">◀</button>
   <span class="toc-label">📑 Sections</span>
@@ -80,6 +95,7 @@ footer{margin-top:60px;padding:20px 0;border-top:1px solid var(--border);color:v
   </ul>
 </aside>
 
+<div class="en-only">
 <main class="page">
 <a href="https://2017zyl.xyz/daily-reports.html" class="back-to-hub">← Back to daily-reports hub</a>
 
@@ -251,6 +267,7 @@ hermes config    # 配置 router + presets + skills</code></pre>
 </footer>
 
 </main>
+</div><!-- en-only -->
 
 <script>
 function toggleToc() {
@@ -284,5 +301,23 @@ function toggleToc() {
 })();
 </script>
 
+<script>
+function toggleLang() {
+  const html = document.documentElement;
+  const isZh = html.lang === 'zh-CN';
+  html.lang = isZh ? 'en' : 'zh-CN';
+  try { localStorage.setItem('vault-dashboard-lang', html.lang); } catch (e) {}
+  const btn = document.getElementById('langBtn');
+  if (btn) btn.textContent = isZh ? '中 ⇄ EN' : 'EN ⇄ 中';
+}
+(function() {
+  try {
+    const saved = localStorage.getItem('vault-dashboard-lang');
+    if (saved === 'en' || saved === 'zh-CN') {
+      document.documentElement.lang = saved;
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
