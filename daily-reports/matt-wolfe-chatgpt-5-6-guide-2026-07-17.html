@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generated" content="2026-07-17">
+<meta name="video-id" content="MDy_b9F7oUc">
+<title>ChatGPT 5.6 终极指南 · Matt Wolfe 双语 dashboard</title>
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #161616;
+  --bg-card-hover: #1f1f1f;
+  --fg: #e8e8e8;
+  --fg-muted: #888;
+  --lime: #d5ff3f;
+  --lime-dim: #a8cc32;
+  --border: #2a2a2a;
+  --warn: #ffb84d;
+  --gap: #ff6b6b;
+  --verified: #5dd39e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  font-size: 15px;
+}
+html[lang="en"] .zh { display: none; }
+html[lang="zh-CN"] .en { display: none; }
+
+.toc-toggle {
+  position: fixed; top: 14px; left: 14px; z-index: 100;
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--fg); width: 40px; height: 40px; border-radius: 8px;
+  cursor: pointer; font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.toc-toggle:hover { background: var(--bg-card-hover); border-color: var(--lime); }
+aside.toc {
+  position: fixed; top: 0; left: 0;
+  width: 240px; height: 100vh;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  padding: 64px 14px 24px;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 99;
+}
+body.toc-collapsed aside.toc { transform: translateX(-12px); width: 48px; padding: 64px 6px 24px; }
+body.toc-collapsed aside.toc .toc-label,
+body.toc-collapsed aside.toc .toc-num { display: none; }
+body.toc-collapsed aside.toc a { justify-content: center; padding: 6px 0; font-size: 0; }
+body.toc-collapsed aside.toc a::before { content: attr(data-num); font-size: 12px; color: var(--fg-muted); }
+body.toc-collapsed { padding-left: 60px; }
+body { padding-left: 264px; transition: padding-left 0.3s ease; }
+@media (max-width: 900px) {
+  aside.toc { display: none; }
+  body { padding-left: 0; }
+}
+
+aside.toc h3 { font-size: 11px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 12px; }
+aside.toc a {
+  display: flex; gap: 8px; align-items: center;
+  padding: 6px 8px; border-radius: 6px;
+  color: var(--fg-muted); text-decoration: none;
+  font-size: 12px; line-height: 1.3;
+  transition: all 0.15s;
+}
+aside.toc a:hover { background: var(--bg-card-hover); color: var(--fg); }
+aside.toc a.toc-active { background: var(--lime); color: #000; font-weight: 600; }
+.toc-num { color: var(--lime-dim); font-weight: 600; min-width: 18px; }
+
+.lang-switch {
+  position: fixed; top: 14px; right: 14px; z-index: 100;
+  background: var(--bg-card); border: 1px solid var(--border);
+  color: var(--fg); padding: 8px 14px; border-radius: 8px;
+  cursor: pointer; font-size: 13px; font-weight: 600;
+}
+.lang-switch:hover { border-color: var(--lime); }
+
+main { max-width: 980px; margin: 0 auto; padding: 24px 24px 80px; }
+header.hero {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px; margin-bottom: 32px;
+}
+header.hero h1 { font-size: 32px; line-height: 1.2; margin-bottom: 8px; color: var(--lime); }
+header.hero .meta { color: var(--fg-muted); font-size: 13px; display: flex; gap: 18px; flex-wrap: wrap; }
+header.hero .meta span::before { content: "•"; margin-right: 6px; color: var(--lime-dim); }
+header.hero .meta span:first-child::before { content: ""; margin: 0; }
+
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px; margin: 24px 0;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.stat-card .num { font-size: 26px; font-weight: 700; color: var(--lime); line-height: 1; }
+.stat-card .lbl { color: var(--fg-muted); font-size: 12px; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.6px; }
+
+.tab-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  margin: 0 -24px 24px;
+  padding: 0 24px;
+  display: flex; gap: 4px; overflow-x: auto;
+}
+.tab-nav button {
+  background: transparent; border: none;
+  color: var(--fg-muted);
+  padding: 12px 14px; font-size: 13px; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: all 0.15s;
+}
+.tab-nav button:hover { color: var(--fg); }
+.tab-nav button.active { color: var(--lime); border-bottom-color: var(--lime); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.chapter {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+.chapter h3 {
+  font-size: 16px; margin-bottom: 6px;
+  display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap;
+}
+.chapter .ch-time {
+  font-size: 12px; color: var(--lime-dim);
+  font-family: ui-monospace, Menlo, monospace;
+}
+.chapter .ch-en { color: var(--fg-muted); font-size: 12px; font-style: italic; }
+.chapter .text {
+  color: var(--fg); font-size: 14px; line-height: 1.7;
+  margin-top: 8px;
+}
+.chapter .en-text {
+  color: var(--fg-muted); font-size: 13px; line-height: 1.6;
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600;
+  background: rgba(213, 255, 63, 0.12);
+  color: var(--lime);
+  margin-right: 4px;
+}
+.tag-warn { background: rgba(255, 184, 77, 0.12); color: var(--warn); }
+.tag-gap { background: rgba(255, 107, 107, 0.12); color: var(--gap); }
+.tag-verified { background: rgba(93, 211, 158, 0.12); color: var(--verified); }
+
+.callout {
+  background: var(--bg-card);
+  border-left: 3px solid var(--warn);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.callout.warn { border-left-color: var(--warn); }
+.callout.gap { border-left-color: var(--gap); }
+.callout.info { border-left-color: var(--verified); }
+.callout strong { color: var(--warn); display: block; margin-bottom: 4px; }
+.callout.gap strong { color: var(--gap); }
+.callout.info strong { color: var(--verified); }
+.callout ul { margin-top: 6px; padding-left: 20px; }
+
+footer {
+  margin-top: 60px; padding-top: 24px;
+  border-top: 1px solid var(--border);
+  color: var(--fg-muted); font-size: 12px;
+}
+footer code { background: var(--bg-card); padding: 2px 6px; border-radius: 3px; }
+
+blockquote {
+  border-left: 3px solid var(--lime-dim);
+  padding: 8px 14px;
+  margin: 10px 0;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+table { border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+table td { padding: 6px; border-bottom: 1px solid var(--border); }
+table td:first-child { color: var(--fg-muted); width: 140px; }
+
+a { color: var(--lime); text-decoration: none; }
+a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<button class="toc-toggle" onclick="toggleToc()" title="折叠 TOC">☰</button>
+<button class="lang-switch" onclick="toggleLang()" id="langBtn">EN</button>
+
+<aside class="toc" id="toc">
+  <h3 class="toc-label">章节导航 / Chapters</h3>
+    <a href="#ch-1" data-num="01"><span class="toc-num">01</span><span class="toc-label">Intro</span></a>
+  <a href="#ch-2" data-num="02"><span class="toc-num">02</span><span class="toc-label">New ChatGPT App Tour</span></a>
+  <a href="#ch-3" data-num="03"><span class="toc-num">03</span><span class="toc-label">Scheduled Tasks & Side Chat</span></a>
+  <a href="#ch-4" data-num="04"><span class="toc-num">04</span><span class="toc-label">Connecting Your Apps</span></a>
+  <a href="#ch-5" data-num="05"><span class="toc-num">05</span><span class="toc-label">Prompt Demos Begin</span></a>
+  <a href="#ch-6" data-num="06"><span class="toc-num">06</span><span class="toc-label">Building a Personal Assistant</span></a>
+  <a href="#ch-7" data-num="07"><span class="toc-num">07</span><span class="toc-label">Teaching It Your Voice</span></a>
+  <a href="#ch-8" data-num="08"><span class="toc-num">08</span><span class="toc-label">Book One-Pager</span></a>
+  <a href="#ch-9" data-num="09"><span class="toc-num">09</span><span class="toc-label">AI-Made Slide Deck</span></a>
+  <a href="#ch-10" data-num="10"><span class="toc-num">10</span><span class="toc-label">Researching With Logged-In Browser</span></a>
+  <a href="#ch-11" data-num="11"><span class="toc-num">11</span><span class="toc-label">Panel Prep Doc</span></a>
+  <a href="#ch-12" data-num="12"><span class="toc-num">12</span><span class="toc-label">Weekly Task Rundown</span></a>
+  <a href="#ch-13" data-num="13"><span class="toc-num">13</span><span class="toc-label">Cold Leads & Email Drafts</span></a>
+  <a href="#ch-14" data-num="14"><span class="toc-num">14</span><span class="toc-label">Assistant Prompt</span></a>
+  <a href="#ch-15" data-num="15"><span class="toc-num">15</span><span class="toc-label">Switching to Codex & GPT-5.6</span></a>
+  <a href="#ch-16" data-num="16"><span class="toc-num">16</span><span class="toc-label">Rebuilding Craigslist</span></a>
+  <a href="#ch-17" data-num="17"><span class="toc-num">17</span><span class="toc-label">Building a Game</span></a>
+  <a href="#ch-18" data-num="18"><span class="toc-num">18</span><span class="toc-label">Fully AI-Generated Videos</span></a>
+  <a href="#ch-19" data-num="19"><span class="toc-num">19</span><span class="toc-label">Controlling Blender With AI</span></a>
+  <a href="#ch-20" data-num="20"><span class="toc-num">20</span><span class="toc-label">3D City Builds</span></a>
+  <a href="#ch-21" data-num="21"><span class="toc-num">21</span><span class="toc-label">Future Tools Overhaul</span></a>
+  <a href="#ch-22" data-num="22"><span class="toc-num">22</span><span class="toc-label">BuseyBench</span></a>
+  <a href="#ch-23" data-num="23"><span class="toc-num">23</span><span class="toc-label">The Wolf Control Tower</span></a>
+  <a href="#ch-24" data-num="24"><span class="toc-num">24</span><span class="toc-label">One-Prompt Mini Apps</span></a>
+  <a href="#ch-25" data-num="25"><span class="toc-num">25</span><span class="toc-label">Final Thoughts</span></a>
+</aside>
+
+<main>
+<header class="hero">
+  <h1><span class="zh">ChatGPT 5.6 终极指南 — Matt Wolfe 双语 dashboard</span><span class="en">ChatGPT 5.6 Complete Guide — Matt Wolfe Bilingual Dashboard</span></h1>
+  <div class="meta">
+    <span><strong>Matt Wolfe</strong> · <span class="zh">未来工具</span><span class="en">FutureTools</span></span>
+    <span>2026-07-15</span>
+    <span>38:57</span>
+    <span><span class="zh">观看</span><span class="en">views</span>: 21,509</span>
+    <span><span class="zh">点赞</span><span class="en">likes</span>: 1,149</span>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="num">25</div>
+    <div class="lbl"><span class="zh">章节</span><span class="en">Chapters</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">17.3K</div>
+    <div class="lbl"><span class="zh">中文字符</span><span class="en">ZH characters</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">1</div>
+    <div class="lbl"><span class="zh">OpenAI 赞助</span><span class="en">OpenAI sponsored</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">5+</div>
+    <div class="lbl"><span class="zh">核心新功能</span><span class="en">Core features</span></div>
+  </div>
+</div>
+
+<div class="tab-nav" id="tabNav">
+  <button class="active" data-tab="overview">📋 <span class="zh">总览</span><span class="en">Overview</span></button>
+  <button data-tab="chapters">📚 <span class="zh">章节</span><span class="en">Chapters</span></button>
+  <button data-tab="features">⚡ <span class="zh">核心功能</span><span class="en">Features</span></button>
+  <button data-tab="prompts">💬 <span class="zh">关键提示</span><span class="en">Key Prompts</span></button>
+  <button data-tab="community">🌐 <span class="zh">社区案例</span><span class="en">Community</span></button>
+  <button data-tab="quotes">🎯 <span class="zh">金句</span><span class="en">Quotes</span></button>
+  <button data-tab="takeaways">🎓 <span class="zh">要点</span><span class="en">Takeaways</span></button>
+  <button data-tab="sources">🔗 <span class="zh">来源</span><span class="en">Sources</span></button>
+</div>
+
+<div class="tab-content active" id="overview">
+  <div class="callout warn">
+    <strong>⚠️ <span class="zh">重要元数据</span><span class="en">Metadata notice</span></strong>
+    <span class="zh">本视频由 OpenAI 官方赞助,但内容为 Matt Wolfe 真实使用 6.8B tokens 后的独立评价。所有观点属于作者本人,不属于 OpenAI 官方立场。EN subtitle 不存在 — 英文内容来自视频 description (官方章节时间戳 + 作者本人撰写的英文说明)。</span>
+    <span class="en">This video is officially sponsored by OpenAI, but the content is Matt Wolfe's independent review after using 6.8B tokens. All views are his own, not OpenAI's. EN subtitle does NOT exist on this video — English content comes from the video description (author-written chapter timestamps + English explanation).</span>
+  </div>
+
+  <h2 style="margin-top:24px; color:var(--lime)"><span class="zh">一句话总结</span><span class="en">One-line summary</span></h2>
+  <p style="margin-top:8px; font-size:15px; line-height:1.8">
+    <span class="zh">OpenAI 把 ChatGPT、Codex、浏览器、ChatGPT Work 合并成一个 app,基于 GPT-5.6 模型 — Matt 在 2 周内消耗 6.8B tokens 后的实战评测。覆盖 App tour、scheduled tasks、apps 集成、个人助理 prompt、Codex 开发、社区案例 (Craigslist 重建 / 游戏 / Blender 控制 / 3D 城市 / AI 视频 / Wolf Control Tower)。</span>
+    <span class="en">OpenAI merged ChatGPT, Codex, the browser, and ChatGPT Work into one app powered by GPT-5.6. Matt's hands-on review after burning 6.8B tokens in 2 weeks. Covers app tour, scheduled tasks, apps integration, personal assistant prompt, Codex development, and community builds (Craigslist rebuild / game / Blender control / 3D city / AI video / Wolf Control Tower).</span>
+  </p>
+
+  <h2 style="margin-top:24px; color:var(--lime)"><span class="zh">本视频核心 5 个 takeaways</span><span class="en">5 core takeaways</span></h2>
+  <ol style="margin-top:8px; padding-left:24px; line-height:1.9">
+    <li><span class="zh">GPT-5.6 是 Matt 用过的最好的模型 — 配合新 app 的 small-worker dispatch pattern,长任务用时反而更短</span><span class="en">GPT-5.6 is the best model Matt has used — combined with the new app's small-worker dispatch, long tasks complete faster</span></li>
+    <li><span class="zh">Personal Assistant 项目:用 prompt 让模型自动接入 Gmail / Calendar / Slack / Drive / Granola / Second Brain 等所有数据源,作为统一的"第二大脑"</span><span class="en">Personal Assistant project: a prompt that auto-connects Gmail / Calendar / Slack / Drive / Granola / Second Brain — unified "second brain"</span></li>
+    <li><span class="zh">Codex 现在是 ChatGPT app 内置的 dev 入口,不再单独跑 — 同一项目内 code/review/debug/explore 无缝切换</span><span class="en">Codex is now built into the ChatGPT app, no separate tool — code / review / debug / explore in the same project</span></li>
+    <li><span class="zh">社区用 GPT-5.6 重建 Craigslist / 玩游戏 / 用 AI 控制 Blender / 生成 3D 城市 / 生成完整 AI 视频 — 创意边界被推得很快</span><span class="en">Community rebuilt Craigslist, built games, AI-controlled Blender, generated 3D cities, full AI-generated videos — creative frontier moving fast</span></li>
+    <li><span class="zh">Wolf Control Tower 是 Matt 自己构建的内部 dashboard,用于管理 Future Tools 业务 — "use the tool to manage the tool" 的元范式</span><span class="en">Wolf Control Tower is Matt's internal dashboard for managing Future Tools — meta-paradigm of "use the tool to manage the tool"</span></li>
+  </ol>
+
+  <h2 style="margin-top:24px; color:var(--lime)"><span class="zh">视频结构</span><span class="en">Video structure</span></h2>
+  <p style="margin-top:8px; color:var(--fg-muted); font-size:13px">
+    <span class="zh">本视频分 4 大段:(1) App tour + scheduled tasks + apps 集成 (0:00-5:54) (2) Prompt demos 9 个实战 case (5:54-22:20) (3) Codex + 社区酷炫案例 (22:20-32:00) (4) Future Tools + Wolf Control Tower + One-prompt apps (32:00-38:57)。共 25 个显式章节。</span>
+    <span class="en">4 main parts: (1) App tour + scheduled tasks + apps integration (0:00-5:54) (2) 9 prompt demos (5:54-22:20) (3) Codex + community cool builds (22:20-32:00) (4) Future Tools + Wolf Control Tower + One-prompt apps (32:00-38:57). 25 explicit chapters.</span>
+  </p>
+</div>
+
+<div class="tab-content" id="chapters">
+  <h2 style="margin-bottom:16px"><span class="zh">全部 25 章节 · 双语对照</span><span class="en">All 25 chapters · bilingual</span></h2>
+    <div class="chapter" id="ch-1">
+    <h3>
+      <span class="ch-time">[00:00-00:52]</span>
+      <span class="ch-num">#01</span>
+      <span class="zh">Intro</span>
+    </h3>
+    <div class="ch-en en">[00:00-00:52] Intro — In this video I share my ultimate guide to ChatGPT 5.6 and the updated ChatGPT app that integrates all of OpenAI's products. Sponsored by OpenAI — all opinions are honest.</div>
+    <div class="text zh">在本视频中，我将与 大家分享 ChatGpt 5.6 的终极指南， 以及将 OpenAI 的所有产品整合到 OpenAI 的所有产品整合到 一起的更新版 Chat GPT 应用。 我将带你了解 各项功能、使用方法，然后 详细介绍 你可以用这款 你可以用这款 应用和模型完成的一些疯狂的事情。 让我们开始吧。 哦， 对了，在我们开始之前，这段 视频是由 OpenAI 赞助的，但我有义务 对你们诚实坦率 。 我 所有的视频都是这么做的。 所以，这段视频里的所有内容 都是真实的，都是我的亲身经历， 我也展示了 其他人用它做的一些事情，但我非常 其他人用它做的一些事情，但我非常 感谢 OpenAI 同意 赞助这个项目。 好了，让我们 进入正题。 让我们先来 简单了解一下新的聊天 GPT 应用， 因为这款新应用本质上是 OpenAI 将 ChatGpt、Codeex、 他们的浏览器应用以及</div>
+  </div>
+  <div class="chapter" id="ch-2">
+    <h3>
+      <span class="ch-time">[00:52-03:14]</span>
+      <span class="ch-num">#02</span>
+      <span class="zh">New ChatGPT App Tour</span>
+    </h3>
+    <div class="ch-en en">[00:52-03:14] New ChatGPT App Tour — New ChatGPT app combines ChatGPT, Codex, the browser, and ChatGPT Work into one product. No tool-switching needed. Codex is the dev side (code/review/debug). Work mode is for end-users (assistant that connects to your tools).</div>
+    <div class="text zh">他们的新聊天 GPT 工作平台 融合在一起，做成一个 产品。 你不需要 总是切换工具。 所以，我们有了 ChatGpt Codeex。 点击左上角的小下拉菜单即可进入 。 这是 平台面向开发者的部分。 在 平台面向开发者的部分。 在 这里，你可以编写 代码、提示它编写代码、 审查差异、修复错误、探索 代码等等。 然后， 该应用程序还新增了聊天 GPT 工作部分。 本部分面向 普通用户，他们只想 让这个工具代表他们执行一些操作 。 在这里， 它就像你的助手一样，可以 连接到你的各种工具，然后自动 执行各种任务。 我稍后会举一些 例子来说明它的样子 ，但我们先继续 参观一下，因为 他们在这个平台上还添加了一些其他非常酷的功能 。 这边有网站 。 OpenAI 致力于让您 无需使用上百万种不同的工具即可将 内容上传到网络。 您无需 处理网站托管、后端 数据库、CDN 或任何类似的事情。 当你开发 网站、应用程序或游戏之类的东西时，你可以 告诉别人这个新应用程序，把它发送到各个 网站，它就会上线， 你可以与任何人分享。 任何人都 可以访问。 现在，通过聊天 GPT 中的这项新网站功能，所有内容都已为您托管完毕 。 现在，这里还 内置了一个浏览器。如果我切换一下 这里的侧边栏，您可以看到一个 浏览器的链接。 如果我点击这里，我 可以把这个窗口打开得更大，然后我们就会打开 一个浏览器，你可以访问任何地方。 例如 futuretools.io。 这款 浏览器最棒的一点就是它有注释 浏览器最棒的一点就是它有注释 功能。 假设你正在使用 新的聊天 GPT 应用开发网站 ，你可以准确地告诉它 你需要哪个部分的帮助。 比如说， 我想编辑一下这个大脑。 我 可以选择这一部分并进行注释， 然后说让我们在这里添加更多绿色。 您可以在我的聊天窗口中看到 ，它添加了我 刚刚添加的那条注释。 如果我真的在 接触这个网站的代码，它就会 完全明白我在说什么。 出去。 我不需要给它更多 上下文信息，因为它知道屏幕的哪个部分 以及我想让它做什么。 如果需要，您 还可以 从其他浏览器导入您的 cookie 和密码 。 所以，如果你已经在使用 像 Chrome 这样的浏览器，你可以把它们 全部导入进去，它就能代表 你登录这些网站，这 真的很棒，我稍后也会在这里给你展示更多 例子 。 但我们还是继续参观吧，</div>
+  </div>
+  <div class="chapter" id="ch-3">
+    <h3>
+      <span class="ch-time">[03:14-04:26]</span>
+      <span class="ch-num">#03</span>
+      <span class="zh">Scheduled Tasks & Side Chat</span>
+    </h3>
+    <div class="ch-en en">[03:14-04:26] Scheduled Tasks & Side Chat — You can create scheduled tasks — prompts that run daily/hourly. Examples: clean downloads folder, daily brief from calendar+unread email, weekly recap, follow-up monitoring. Side chat panel for quick Q&A.</div>
+    <div class="text zh">。 但我们还是继续参观吧， 因为还有更多东西要展示。 您可以创建定时任务。 假设你有一个提示，你 希望这个提示 每天或每小时运行一次。 您可以 创建这些定时任务，它们将 自动运行。 假设你 想让它执行一些操作，比如清理你的 下载文件夹。 您可以设置它每天定期 自动清理您的下载 文件夹，并将文件整理到 文件夹中。 你可以让它生成每日简报， 你可以让它生成每日简报， 它会读取你的日历、 未读邮件等内容，并为 你提供简报。 你可以进行每周 回顾或后续监控，它 会监视你的电子邮件，并在 你需要跟进 某人时通知你。 这真是太方便了。 正如 你稍后在视频中看到的那样，我还有一大堆已安排好的任务。 屏幕上显示的这些任务会让你更清楚地了解 他们实际在做什么。 你还可以在 这里进行聊天。 这适用于您 只想向 ChatGpt 提问的情况。 所以， 如果我点击这个聊天窗口，就会打开这个 侧边栏聊天窗口。 这非常方便， 因为你可以在 编写其他代码的同时打开侧边栏聊天窗口。 假设我正在开发未来的工具， 它正在为我编写一些新 功能。 我可以 一边在这里编写代码，一边在另一个地方进行 聊天，并向 GPT 提问。 当然，它几乎可以 GPT 提问。 当然，它几乎可以</div>
+  </div>
+  <div class="chapter" id="ch-4">
+    <h3>
+      <span class="ch-time">[04:26-05:54]</span>
+      <span class="ch-num">#04</span>
+      <span class="zh">Connecting Your Apps</span>
+    </h3>
+    <div class="ch-en en">[04:26-05:54] Connecting Your Apps — Connected to Google Docs, GitHub, Google Drive, Gmail, Slack, Google Calendar, Canva, Figma, Supabase, Vercel, Granola, Todoist and more. With computer-use + browser permissions + app connections, it can do almost anything the user can do on their Mac.</div>
+    <div class="text zh">连接到你将要使用的所有应用程序 。 你可以看到我 现在把它连接到了什么设备上。 如果我给你看我的 完整列表，你就会发现我已经把它 连接到了完整的 Google 文档套件。 我已经将它连接到 GitHub、 Google Drive、Gmail、Slack、Google Calendar、Canva、Figma、Superbase、 Verscell、Granola、To-Doist 以及我安装的一些 其他类似的小工具和 插件。 但是因为 它连接了很多东西，而且因为我 允许它使用我的电脑， 并且因为我给了它 使用浏览器的权限，所以它 几乎可以做我在我的电脑上能做的任何事。 它还了解我和我的 业务的一切，因为它可以看到我的 Slack 对话。 它可以看到我的Gmail 对话。 它看到了我的待办事项清单。 它能 看到我之前 和它的所有聊天记录。 它可以看到 和它的所有聊天记录。 它可以看到 我在 Granola 上的所有会议。 所以，它随时都知道 我公司里发生的一切 ，这让我 很容易向它提问 很容易向它提问 并获得关于我公司的建议，因为 它掌握了大量关于我公司的信息。 同样，你也可以允许它使用你的 电脑。 所以，如果你进入 设置和计算机使用，你可以允许 它为你使用任何应用程序。 您可以允许 它使用谷歌浏览器。 你还可以 让它控制内置浏览器， 这在你想要它帮你 浏览 Twitter 或 Instagram 之类的网站时非常实用 。 好了， 我想参观行程差不多就是这样了。 我 我想参观行程差不多就是这样了。 我 可以继续介绍它的各种功能，但我们还是 实际上手体验一下， 深入了解一下它真正的功能吧 。 所以，我接下来要展示一些 提示。 其中一些是 我给模型的提示。 有些</div>
+  </div>
+  <div class="chapter" id="ch-5">
+    <h3>
+      <span class="ch-time">[05:54-07:22]</span>
+      <span class="ch-num">#05</span>
+      <span class="zh">Prompt Demos Begin</span>
+    </h3>
+    <div class="ch-en en">[05:54-07:22] Prompt Demos Begin — Prompts from the community. Some prompts take 1+ hour to complete — Matt pre-prompted everything before recording. The new ChatGPT app uses small workers dispatched from your first prompt to handle subtasks.</div>
+    <div class="text zh">提示是我发现 社区成员使用过的，他们用这些提示创作出了一些 非常酷的作品。 使用 新的聊天 GPT 应用时，你会注意到的一件事是，有时需要 更长的时间才能获得 输出结果，尤其是一些 更复杂、更密集的项目， 我将向你展示这些项目。 接下来， 我会向你们展示 屏幕上的提示，然后我们一起 查看并讨论输出结果。 实际上，我录制这段视频时并没有实时 提示这些问题 。 不是因为我不 知道结果会是什么，而是 因为其中一些题目我会给出 提示，然后可能需要一个 小时才能完成。 有些问题可能 只需要 2 或 3 分钟就能 完成，但由于 无法确定 获得这些回复所需的时间，所以我干脆 获得这些回复所需的时间，所以我干脆 提前提示了所有问题。 当 您使用这款新的聊天 GPT 应用时， 您会注意到，有时这些 提示需要更长时间才能得到 回复，因为您的第一个提示 会派出小工人去 为您完成所有其他的小提示 和一系列小任务。 所以 ，正因为如此，有些算法 需要更长的时间才能生成 响应并提供你 想要的输出，但结果 通常比 我们以前见过的任何人工智能模型都要好得多。 好的，我们来看看这些 提示。 所以， 这款新应用最酷的功能之一就是聊天 GPT 工作 模式，它就像一个私人</div>
+  </div>
+  <div class="chapter" id="ch-6">
+    <h3>
+      <span class="ch-time">[07:22-09:02]</span>
+      <span class="ch-num">#06</span>
+      <span class="zh">Building a Personal Assistant</span>
+    </h3>
+    <div class="ch-en en">[07:22-09:02] Building a Personal Assistant — Matt's Personal Assistant project (pinned, most-used). First instruction: create a skill that auto-accesses Gmail, calendar, Slack, Granola, Google Drive, Second Brain files, journal, all other prompts/projects/chats, memories, control tower, future tools, Twitter/Instagram, YouTube channel — basically everything.</div>
+    <div class="text zh">助理，它的功能真的让我印象深刻 。 所以，我 创建了一个项目，它被置顶在 我的侧边栏里。 实际上，它是置顶 最全的项目，因为 我发现自己使用它最多，但我 把它叫做我的私人助理项目。 创建这个项目时，我给 它设置了一些提示，以便它今后能成为一个 更好的私人助理 。 我给它的第一个指令是让它 创造​​一种能够 获取一切的技能。 所以，我不会把 整个题目都读完，但 我基本上是这么说的。 我希望 你创建一个技能，这样每次我 在聊天 GPT 的个人助理项目中发出提示时，你都能 自动访问所有内容。 你可以通过浏览器看到我的 Gmail、日历、Slack、 Granola、Google 云端硬盘、Second Brain 文件、日记、所有其他 提示、项目和聊天记录、我的 回忆、我的控制塔中的内容、 未来的工具、我的 Twitter 和 Instagram 帐户、我的 YouTube 频道，实际上所有的一切。 然后 我基本上告诉它，当我 提示个人助理时， 调用这个技能。 所以我的私人助理 知道它可以访问所有这些信息。 我还 指示它设置为 只读模式。 你没有权限 写入这些文件，但 可以读取这些文件。 所以， 你可以看到它创造了一种完整的语境 技能。 因此，它会 在默认只读模式下主动检索相关上下文 。 它创建了一个项目范围的 触发器，因此需要具备应 对此个人助理项目中每个新提示的技能 。 它的 源图谱是不断变化的。 所以，源地图包含了 所有我告诉它可以访问的内容，但 它也会不断演变。 所以如果我添加新的插件 或新工具，它们也会被添加到 源映射中。 所以现在我有了这个 私人助理项目，它 几乎知道我 在电脑上做的一切。 因此，</div>
+  </div>
+  <div class="chapter" id="ch-7">
+    <h3>
+      <span class="ch-time">[09:02-10:15]</span>
+      <span class="ch-num">#07</span>
+      <span class="zh">Teaching It Your Voice</span>
+    </h3>
+    <div class="ch-en en">[09:02-10:15] Teaching It Your Voice — Teaching the assistant Matt's voice/tone — so outputs match his personal style.</div>
+    <div class="text zh">在电脑上做的一切。 因此， 我给 私人助理的第二个训练指令是分析 私人助理的第二个训练指令是分析 电子邮件和聊天语音。 这样， 当我让它代表我写电子邮件 或 Slack 消息时， 它就知道该如何像我一样写作。 现在，我 不会授予它权限来代表我写入并 发送邮件。 但我确实允许它 为我写作，并将内容保存为草稿，这样 我就可以查看它们，稍作修改 ，然后点击发送。 但 我给出的提示是这样的。 简而言之，就是 分析我过去 12 个月内 发送的电子邮件和工作聊天记录 。 排除 转发内容和复制文本。 转发内容和复制文本。 然后，它创建了一个电子邮件语音配置文件 和一个工作聊天语音配置文件。 所以 现在当我让它帮我起草电子邮件 或 Slack 消息时，它会 遵循一个语音配置文件， 理论上听起来会和我的声音非常接近 。 它还不完美。 你 可能仍然需要修改一些 措辞，并删除一些聊天 GPT 式的 表达方式，但它已经非常接近了。 现在， 一旦你 和你的私人助理把这些小事安排妥当，你就可以 做一些非常酷的事情了。 所以，我 现在正在写一本书， 这本书将通过传统</div>
+  </div>
+  <div class="chapter" id="ch-8">
+    <h3>
+      <span class="ch-time">[10:15-11:25]</span>
+      <span class="ch-num">#08</span>
+      <span class="zh">Book One-Pager</span>
+    </h3>
+    <div class="ch-en en">[10:15-11:25] Book One-Pager — Generating a one-page summary for a book using the new app.</div>
+    <div class="text zh">出版社出版。 我不能透露太多 ，但我让我的私人助理帮 我制作了一本只有一页纸的书。 关键在于，由于它可以访问 我之前的聊天记录，我可以进入 之前的聊天记录，右键单击它， 然后选择“复制会话 ID”。 然后我 可以把这些会话 ID 粘贴进去，我的 助手就会专门读取这些过去的聊天记录 。 本书目前的暂定书名 为《新杠杆》。 那 可能不会是最重要的 标题。 那现在只是它的一个代号而已 。 但我给了它这个提示。 我一直在计划写一本书。 我 在这次会议、这次会议 和这次会议上都谈到了这个问题。 请帮我整理一份 关于这本书的单页或单张简介。 我 需要一份一页纸的简报，概括所有内容并向 人们推介这个想法。 因为它看到了我过去的讨论，并且 知道我在书中谈论的所有内容 ，所以它为这本书创建了一个单页简介 。 现在，我把大部分画面都模糊处理了， 因为我还在进行调整，并 与其他人一起完善它，但是，呃，这里 有一个小预告片， 你可以看到。 这件事最妙的地方在于， 我不需要提供太多 额外的背景信息，因为我已经 和 Chad GPT 就我的书进行了多次交流 。 我只是示意我的助理回去跟 他们说：“我们已经讨论过 这件事了。去给我写一份一页纸的简报。” 它可以帮助你制作幻灯片演示文稿 。 这是我最近实际做过的一件事</div>
+  </div>
+  <div class="chapter" id="ch-9">
+    <h3>
+      <span class="ch-time">[11:25-12:25]</span>
+      <span class="ch-num">#09</span>
+      <span class="zh">AI-Made Slide Deck</span>
+    </h3>
+    <div class="ch-en en">[11:25-12:25] AI-Made Slide Deck — AI generates a slide deck automatically.</div>
+    <div class="text zh">。 我将于 7 月 22 日与 Teachable 合作举办一场网络研讨会， 主题是“决定 在个人和工作生活中使用人工智能实现哪些自动化”。 我已经有了 演示文稿的提纲。 我知道 我要讲的所有内容， 但我真的非常不喜欢制作 幻灯片。 这是我最 讨厌的事情之一。 于是，我把 大纲连同 Teachable 为我写的一份简报一起交给了聊天 GPT 应用， 以便 它了解更多背景信息，然后 它了解更多背景信息，然后 基本上说：“帮我制作幻灯片 。” 确实如此。 而且看起来也相当 不错。 我不会展示 整个演示文稿。 我会把这个留到 我实际进行网络研讨会时再用，但 它已经从我的网站上抓取了屏幕截图 ，在屏幕上添加了文字， 了解了我所讲内容的上下文 ，并制作了幻灯片， 使演示文稿看起来很棒。 现在， 我不得不重新检查一遍，我和 我的一个团队成员对 幻灯片进行了一些修改，使它们 看起来更好一些，但这已经使 我们完成了大约 95% 的工作。 我知道 这非常非常元，但它</div>
+  </div>
+  <div class="chapter" id="ch-10">
+    <h3>
+      <span class="ch-time">[12:25-13:59]</span>
+      <span class="ch-num">#10</span>
+      <span class="zh">Researching With Logged-In Browser</span>
+    </h3>
+    <div class="ch-en en">[12:25-13:59] Researching With Logged-In Browser — Research using the logged-in browser — research while keeping the user authenticated on sites that need login.</div>
+    <div class="text zh">帮助我构思了 你现在正在观看的这个聊天PT视频。 现在，我 对这个概念进行了很多修改，它找到的很多东西我最终都 用上了，但也有很多东西我最终没有 用上。 但实际上，我问它有没有什么 好方法可以使用这个新应用，它就帮 我找到了 50 种。 但最 精彩的部分就在这里。 当时我提出这个要求的时候 ，甚至都不知道这个应用会不会 执行。 所以，当它真的发生时，我感到非常惊讶 。 但我建议研究一下 人们是如何将它与 YouTube、X、 Instagram、博客文章等结合使用的。我已经在这个应用的 聊天 GPT 浏览器中登录了 X 和 Instagram， 所以你可以访问 它们来寻找灵感。 现在 使用 X API 来帮 你搜索东西非常昂贵。 但是如果我用 浏览器登录，你可以看到我 可以访问 X.com，而且我已经以我的身份登录到 X 中了。 我可以在 这里访问 instagram.com，你可以看到我的账号已经 登录到 Instagram 上了。 所以，它不需要使用 API。 它会 登录这些 网站，浏览它们，寻找可以 网站，浏览它们，寻找可以 分享的内容。 我觉得这很酷。 现在，它给了我一份很长的文档，里面列出了 人们 使用 chatgpt 的所有方式，这给了我一个很好的 起点。 显然，我并 没有在这段视频中使用所有这些素材。 我大概用了其中五个 ，我一会儿会详细说明。 但 它挖掘出了大量非常非常非常 酷的应用案例。 我不会 全部分享，因为那样的话 视频就得长达两个小时了。 本周五我将在 OpenSauce 的一个小组讨论会上发言，</div>
+  </div>
+  <div class="chapter" id="ch-11">
+    <h3>
+      <span class="ch-time">[13:59-15:40]</span>
+      <span class="ch-num">#11</span>
+      <span class="zh">Panel Prep Doc</span>
+    </h3>
+    <div class="ch-en en">[13:59-15:40] Panel Prep Doc — Panel prep document — auto-generates briefing for a panel appearance.</div>
+    <div class="text zh">我希望 为这次小组讨论做好万全准备 为这次小组讨论做好万全准备 。 小组讨论的主持人 实际上给了我们一些讨论要点 和一系列问题 。为了做好准备 ，我在这里写下了这段话。 现在， 我模糊处理了部分提示信息，因为 我提供了一些个人 信息和细节，我 不能透露这些信息。 但这个提示的主要意思 是，我将 在周五参加 Open Sauce 的一个小组讨论。 我已 收到详细信息和简报，以便为 小组讨论做好准备。 然后我 说：“你对我、我的工作 以及我所取得的成就都非常了解。关于 我的一切都记录在我们过去的聊天记录、社交媒体、我的个人 日志、项目、电子邮件等等， 以及你能接触到的所有其他信息中。” 现在，因为画面 模糊，你看不见，但我接下来要说的是，我打算即兴 回答，而不是事先 准备一堆答案， 但我主要是想找一些我曾经 构建过的东西、 我和你聊过的东西， 以及我曾经和你讨论过的 关于人工智能的内容的回忆。 所以，我有一些有趣的轶事 和故事要在活动中分享。 然后我让它 根据 根据 我实际使用人工智能的案例​​，找到一大堆轶事和故事。 它竟然 真的造就了这个庞大的码头。 这 是一份共32页的文件，列出了 潜在的讨论要点。 我知道 不是每个人都会在小组讨论或会议上发言 ，但你可以在 参加 公司董事会会议之前，或者在参加 公司董事会会议之前，或者在参加 会议向他人推销你的产品或 服务之前使用这种技巧。 就像在 做某件事之前稍作准备， 可以帮助你在做这件事之前，先在脑海中预先加载一些想法 。 这里展示了 人工智能个人助理的另一个非常酷的用法 ，给它这样的提示。 我本周需要 在日历、Slack 和电子邮件中</div>
+  </div>
+  <div class="chapter" id="ch-12">
+    <h3>
+      <span class="ch-time">[15:40-17:20]</span>
+      <span class="ch-num">#12</span>
+      <span class="zh">Weekly Task Rundown</span>
+    </h3>
+    <div class="ch-en en">[15:40-17:20] Weekly Task Rundown — Weekly task rundown — assistant summarizes this week's tasks.</div>
+    <div class="text zh">完成哪些任务？ 你能帮我分担些什么吗？ 现在，我需要模糊处理很多内容， 因为这里面包含一些个人细节 ，但它基本上告诉我 这周我该做什么。 它上面写着必须在 周四之前关闭，因为它知道 我周四要飞往旧金山参加开放 日活动。 所以，这些任务需要在 我离开前的这三天内完成。 所以，这次 我需要为 我正在制作的特定赞助商广告录制 A 卷和 B 卷 。 我最近做了一些采访 。 我需要录制一些介绍语。 这提醒我，周三我要用 Teachable 为 我们即将举办的网络研讨会进行技术演练。 它 在我的待办事项清单中找到了一些项目。 把我的 旅行行程安排贴在这里。 但如果我 往下滚动一点，就会看到上面写着“ 你的工作已经完成了， 因为它已经帮我做了一些事情” 。 它帮助我想出了 你正在观看的这个视频的提示创意。 我 稍后会谈到一些社区提出的问题。 有些真的 很酷。 帮我制作了可用于教学的 幻灯片演示文稿。 创建了一个 开源学习资料包。 请帮我写一份 单页文件。 所以这些都是 我任务清单上的事情，我的聊天 GPT 个人助理基本上会说： “看，我已经为你完成所有这些事情了。” 然后它接着说：“ 我能处理的下一个杠杆率最高的捆绑包是。” 所以，它是在告诉我它可以帮我分担哪些事情 。 回复 出版社邮件，附上最终 出版社邮件，附上最终 定稿。 我的记账员问了我一些 问题。 所以，请将这 25 个 簿记问题整理成一份快速 决策表。 请帮我添加一些提醒事项 。 我的意思是，这周我的工作已经安排得差不多了 ，所以 离开之前我不需要再做太多事情了。 但是，我 确实发现了一些事情，感觉就像是 ，“嘿，我可以帮 你分担这些事情。” 好的，那就来看看这个 。 这个挺酷的。 这 就像一个例子。 这并非 我实际从事的工作，但 假设你是一名销售人员，你需要 推销产品并寻找潜在客户进行</div>
+  </div>
+  <div class="chapter" id="ch-13">
+    <h3>
+      <span class="ch-time">[17:20-18:48]</span>
+      <span class="ch-num">#13</span>
+      <span class="zh">Cold Leads & Email Drafts</span>
+    </h3>
+    <div class="ch-en en">[17:20-18:48] Cold Leads & Email Drafts — Cold leads + email drafts — assistant drafts outreach emails based on cold-lead list.</div>
+    <div class="text zh">推销。 以下是 我给出的一个提示示例。 我想 向圣地亚哥的小企业销售人工智能咨询服务 。 请帮我找到 20 个可靠的潜在客户， 并撰写一份 推销我服务的电子邮件草稿。 你可以 推销我服务的电子邮件草稿。 你可以 阅读整个提示，但 它显示“已完成”。 我制定了完整的 推广方案。 20 个经过研究和排名的 潜在客户，20 封个性化 电子邮件，在这里找到了这些公司的所有详细信息 。 然后我说：“好的。 请在 Gmail 中创建草稿，这样我就可以 查看了。” 它显示“已完成”，因为 它有权访问我的Gmail邮箱。 所以现在如果我 点击打开 Gmail 草稿，看看这个。 它自动撰写了这 20 份草稿，而且每一份都 根据收件人公司的具体情况进行了个性化定制 。 比如不同的 邮件主题等等。 它 自动输入了他们的邮箱地址，因为它帮 我找到了他们的邮箱，并且专门为他们写了一封 个性化的邮件 。 我是 Matt Wolf，一位居住在圣地亚哥的 人工智能教育家，也是 Future Tools 的创始人。 我帮助成熟的本地 企业利用人工智能消除重复性的 协调工作，同时保持客户 关系和创意决策的 人性化。 它实际上给出了一些 我可以为他们创作的内容建议， 甚至还说如果你回复，我 会给你一些工作流程方面的想法，也许 我们可以通个电话。 我的意思是，这是一封 不错的电子邮件，它 针对每个 企业分别撰写了 20 封这样的邮件。 现在我只需要 逐条检查，然后点击发送即可。 其中大部分我 可能都不需要做太多改动 。 实际上，我现在并不提供咨询服务 。 我只是觉得这是一个很酷的 演示，可以展示给那些懂行的人。 所以， 我打算把这些都扔掉。 现在，我要把</div>
+  </div>
+  <div class="chapter" id="ch-14">
+    <h3>
+      <span class="ch-time">[18:48-22:20]</span>
+      <span class="ch-num">#14</span>
+      <span class="zh">Assistant Prompt</span>
+    </h3>
+    <div class="ch-en en">[18:48-22:20] Assistant Prompt — Full assistant prompt — the actual prompt Matt uses to power his personal assistant.</div>
+    <div class="text zh">这条回复模糊处理一下。 但是，你可以把这个 有趣的提示发给你的私人 助理，因为他几乎可以访问任何 信息。 我现在最需要听到什么 ？ 这是世界上最简单的提示，但 它会查看你所有的 电子邮件、所有 Slack 消息、所有可能与 会议有关的琐事等等 。 它可能知道你被什么事情压得喘不过气来 ，你擅长什么， 你不擅长什么，其他 人正在为你做什么，它可以利用 所有这些信息，给你一些 你 现在需要听到的贴心建议。 而且相当 现在需要听到的贴心建议。 而且相当 不错。 好的，这是我的私人 助理。 如你所见，我的确经常使用它 。 但这种聊天 GPT 工作模式的功能 远不止于此。 你可以授予 它访问你电脑上文件夹的权限， 并让它在这些文件夹中执行操作。 举个例子，我以前也用这个 例子演示过其他代理 类型的工具，但这可能是 你第一次看到我的视频。 那么， 我们再来一次。 我可以在这里开始 新任务，我可以告诉它 帮我清理下载文件夹，并将 我的文件整理到那里的现有文件夹中 。 所以，如果我打开我的下载 文件夹，你可以看到 这里面有很多东西，这些东西都是 随着时间的推移慢慢积累起来的。 然后，在 最底部，我创建了很多文件夹，用来对 文件进行分类。 所以，如果我让它帮 我清理下载文件夹， 它会将我的文件整理到 那里的现有文件夹中，然后提交。 我甚至都不 需要开到最高档。 让我们 把这个降到最低。 提交。 这里可以看到，它显示我 找到了干净的现有类别结构。 所以，它找到了我已有的这些文件夹 。 就这样， 它把它们全都清理干净了。 总共用了大约一分十一秒， 所有内容都已经移动到正确的文件夹中了 。 好了。 总共耗时1分23 秒。 将 65 个零散文件整理 到现有文件夹中。 我想用这个聊天 工作功能做的另一件很酷的事情是，我的电脑里有一个文件夹， 里面有很多缩略图，但是标题都 只是缩略图 1 2 3 等等。如果不点击查看每个缩略图，就 很难知道 这些缩略图的内容 这些缩略图的内容 。 所以，如果我在 这里右键单击并复制 此文件夹的路径名，让我在这里创建一个新任务， 然后在这个文件夹中， 链接到我的缩略图文件夹， 查看所有图像并 根据图像内容为其命名。 它 会逐一检查每张图片， 检测图片中的内容，然后 根据检测结果重命名文件。 虽然这 不是世界上最优雅的提示 ，但它能奏效。 看看这个。 共有 21 张缩略图，均为标准格式。 我正在分批次 进行评测，并贴上标签。 最终文件名既反映了 可见的主题，也反映了任何突出的 onim 图像文本。 而且我还能 在那里实时看到这一切发生。 它把 这里所有东西都重新命名了。 谁将获胜？ 如果我观察这张图片， 谁会赢？ 这是新型石油。 这 是新型石油。 所以，它是 根据图片中的文字来给图片命名的。 现在，我可以更轻松地点击 这些缩略图，找到 我想要的东西。 整个 过程耗时 1 分 19 秒， 生成了 21 张图片。 所以，如果你有一个很大的 文件夹，里面装着截图、 YouTube 缩略图或者你从 网上下载的图片（就像 一个素材图片文件夹），你可以让它 快速地重命名所有内容，这样 你以后就能轻松找到你想要的东西 。 好了， 现在让我们从聊天 GPT 工作切换 现在让我们从聊天 GPT 工作切换 到代码库。 再说，工作就像你的 私人助理，帮你做一些小事，比如 操作 电脑、使用 电脑、使用 工具等等。 工具等等。 Codeex 是我们真正开始 Codeex 是我们真正开始 编写代码的地方。 现在，如果您处于工作 模式，它很多时候会</div>
+  </div>
+  <div class="chapter" id="ch-15">
+    <h3>
+      <span class="ch-time">[22:20-23:00]</span>
+      <span class="ch-num">#15</span>
+      <span class="zh">Switching to Codex & GPT-5.6</span>
+    </h3>
+    <div class="ch-en en">[22:20-23:00] Switching to Codex & GPT-5.6 — Switching to Codex with GPT-5.6 for dev work.</div>
+    <div class="text zh">为您编写代码来完成任务，但 Codeex 是专门为 开发者模式设计的。 与 Codeex 合作推出的全新 Chat GPT 应用最棒的部分之一是，我们 还获得了这些非常非常好的全新 5.6 6 模型 。 5.6 灵魂超凡。 我已经让它连续工作了 18 个小时， 并且帮我构建了整个项目 。 所以，当我 在 Codeex 中展示这些东西时，这既是 Codeex 功能的一种结合， 也是这些非常优秀的 5.6 新模型的结果。 这些新型号的 模型非常擅长的一点就是搭建 网站。 随着时间的推移，越来越难一眼看出 某个网站是由人工智能构建的，</div>
+  </div>
+  <div class="chapter" id="ch-16">
+    <h3>
+      <span class="ch-time">[23:00-24:48]</span>
+      <span class="ch-num">#16</span>
+      <span class="zh">Rebuilding Craigslist</span>
+    </h3>
+    <div class="ch-en en">[23:00-24:48] Rebuilding Craigslist — Rebuilding Craigslist (classic classifieds site) with Codex.</div>
+    <div class="text zh">因为它们看起来越来越 不像是人工智能生成的。 于是，我 给了它这个提示。 在不复制现有内容的前提下，重新创建 Craigslist 网站 。 理念和 功能应该相同，但 功能应该相同，但 让我们加入我们自己独特的创意。 重新设计以改善用户界面和用户体验。 我之前 说过要把它保存到网站上，这样我就可以时不时地演示一下 。 它仍然 没有完全按照你的要求去做，所以 没有完全按照你的要求去做，所以 你得 稍微调整一下，对吧？ 所以，它就像是在 我的本地主机上构建的。 这里可以看到 它显示的是本地主机的 IP 地址 。 但我希望它能出现在 他们的网站平台上。 所以他们帮 我托管了。 所以我稍微提醒了一下， 说你应该把 它发布到网站上。 但仅仅那一点点 它发布到网站上。 但仅仅那一点点 推动就足够了。 它创建了这个 名为 Corner Post 的网站。 它 建造了它。 所以只有圣地亚哥一家。 所以它并 没有像在 全国范围内那样进行大规模建设。 但我相信，如果你把 它放在Soul 5.6 Ultra上，我会说应该在 全国范围内推广。 它 大概需要3天时间才能完成部署，并 为你完成全国范围的部署。 但它确实 在这里放了很多示例内容。 比如，如果我点击进入 房屋页面，你可以看到公园附近有一间阳光充足的单间 公寓。 如果我点击 进入“出售”页面，会看到自行车、椅子 和老式唱机。 如果我点击 进入活动页面，就会看到一些活动。 如果我 喜欢这个，你可以点击 爱心图标，查看 我已经收藏的各种内容。 我的 意思是，它其实就是一个更 简洁、更方便的 Craigslist 版本。 显然还远没到深度。 它 没有包含所有城市，也 没有类似提交表格之类的 概念验证，但说实话，在我看来，这个 设计看起来不像是一个基于氛围编码的 设计。 大多数采用 Vibecoded 设计的网站都有其独特的 风格，而这个网站 在我看来并不符合这种风格。 这位名叫Sunny</div>
+  </div>
+  <div class="chapter" id="ch-17">
+    <h3>
+      <span class="ch-time">[24:48-27:05]</span>
+      <span class="ch-num">#17</span>
+      <span class="zh">Building a Game</span>
+    </h3>
+    <div class="ch-en en">[24:48-27:05] Building a Game — Building a game with Codex + GPT-5.6.</div>
+    <div class="text zh">Lazardi的家伙为他的压缩机网站搭建了一个新的着陆页 。 而且， 在我看来，它看起来真的很不错。 在我看来，它看起来真的很不错。 看起来很干净。 它看起来不像是一个经过 Vibecoded编码的网站。 我想测试一下 建造类游戏。 所以，在我之前的新闻 视频中，我宣布了 5.6 版本的发布，并构建了 Soulbon，这是 我喜欢做的测试之一，我们可以看看 它能否很好地克隆游戏 Mega Bonk。 嗯 ，我的意思是，它实际上做得相当 不错。 这是它 开发的游戏。 但这并非一款原创 游戏。 这只是借鉴 别人的概念并加以建模而已。 所以，今天我想测试 一些完全独特的东西。 提示如下。 您可以随时暂停并重新 观看。 但这是一款截然不同的 游戏。 这是一个 前所未见的概念， 叫做回声花园。 我又一次把它 保存到了网站。 如果我打开 这个游戏，它就变成了一种非常不同的 游戏类型。 所以，我这里有个角色，他带着 个小激光枪，我进入 记忆床，就可以用 激光枪瞄准种子。 然后，过 一段 时间后，会出现一个克隆体。当 时间后，会出现一个克隆体。当 克隆体复制我的行为后，它会 打开一座桥梁，让我能够过去。 你必须完成一些任务，并让你的 克隆体跟随你，才能通关。 但 随着时间的推移，克隆体越来越多 ，你需要利用不同的 克隆体做不同的事情来解决 这个难题。 这真是一个很有趣的 想法。 嗯，你可以在屏幕上看到网址 ，但我还是给你个链接吧。 你可以看到 我会用激光笔对准这个小东西 。 它现在还什么也不做，但 我需要让我的克隆体去做 同样的事情。 它打开了我的桥，我得以 通过并通关。 但之后 关卡难度就开始增加 。 我需要用我的克隆机来打开 这个。 然后它需要走到 另一张床上，打开这张床 。 这是我的第二个克隆体。 它 打开了桥梁。 我可以在 这里遇到。 只有当 另一个克隆体与这个克隆体接触时，这座桥才会打开 。 所以我需要两个克隆体。 我碰了一下 这个，又碰了一下那个，它 才真正为我打开。 谜题越来越 难，简直就像 一个非常有趣的游戏。 现在， 我估计只开发了六个关卡，但 我可以预见这款游戏会成为我 进一步开发的作品，因为我喜欢这样的 益智游戏。 如果你从事视频 工作，这种新的聊天 GPT 模型 实际上也非常擅长</div>
+  </div>
+  <div class="chapter" id="ch-18">
+    <h3>
+      <span class="ch-time">[27:05-28:55]</span>
+      <span class="ch-num">#18</span>
+      <span class="zh">Fully AI-Generated Videos</span>
+    </h3>
+    <div class="ch-en en">[27:05-28:55] Fully AI-Generated Videos — Fully AI-generated videos — community-built examples.</div>
+    <div class="text zh">为你制作视频相关内容。 这段文字 最初是从日语翻译 过来的，所以我也不打算 尝试发音，但这个人 竟然让 GPT 5.6 为他生成了一整段 视频。 它构思了剧本， 创作了角色和图像， 制作了故事板， 使用 Seed Dance 2.0 生成了视频，制作了 字幕，创建了各种屏幕 特效，然后对其进行编辑，最终将 所有内容整合在一起， 根据这里的一个提示创作出一个完整的视频 。 那个挺酷的。 但这 一个更是达到了另一个层次。 这是 Nate Herk，我 最近在 他的频道上对他进行了一次现场采访，但他让 AI 提前制作了一个 完整的对话视频。 现在 你看到的这段视频， 屏幕上的所有图形，他旁边的讲话 ，所有的一切都是用人工智能完成的。 他专门制作了一个 YouTube 视频 详细讲解他是如何做到的，如果您想观看详细步骤，我们会在 下面的描述中添加链接 。 但请快速看一下这个 。 我们先来个小小的 预告片预览吧。 请记住， 当你观看这段视频时，他的所有 虚拟形象的对话、整个剧本、所有 视觉效果、所有剪辑， 从给出提示到 最终的视频，全部都是人工智能完成的。 好的，所以你看到的是内特， 你听到的是内特的声音，但内特从未为此 站在镜头前。 他 没有录制这段旁白，也 没有打开编辑器。 他给了我一个 提示。 就是这样。 我是 GPT 5.6 6 soul， 运行在 Codeex 的 Ultra 版本中，我 控制了你即将看到的 每一个字、每一次剪辑、每一次动态图形和每一次 质量检查的工作流程。 好了，我就说到这儿吧，因为我 不想破坏整个视频的观感。 你得去Date的 频道看看。 但他确实详细讲解了 制作这段视频的整个过程。 他实际上只是给 GPT 5.6 一个提示， 让它访问 Hey Genen 来创建 头像，访问 hyperframes 来创建 视觉效果，然后它就自己把</div>
+  </div>
+  <div class="chapter" id="ch-19">
+    <h3>
+      <span class="ch-time">[28:55-29:55]</span>
+      <span class="ch-num">#19</span>
+      <span class="zh">Controlling Blender With AI</span>
+    </h3>
+    <div class="ch-en en">[28:55-29:55] Controlling Blender With AI — Controlling Blender (3D software) with AI.</div>
+    <div class="text zh">整个视频构建和编辑好了。 实际上，你可以通过 新的 GPT 模型来控制 Blender。 所以伊娃在这里说：“这是 GPT5 Soul 在 Blender 中制作大炮的视频， 但这个视频没有加速播放。这 不是 2 倍速播放。” 视频在这里。 你可以看到Blender是如何一步步构建 出这门大炮的。 而 GPT 5.6 Soul 则是编写代码 并通过 MCP 服务器告诉 Blender 该做什么的人 。 这简直太 不可思议了。 这简直 太疯狂了。 我原以为她 用的是 MCP 服务器，但实际上她 用的是 5.6 Soul Ultra 的快速模式，而且 只使用了图形用户界面。 无 MCP。 她实际上使用了CUA（ 计算机使用代理）。 所以，这是 GPT 5.6 接管了她的电脑，并替 她在 Blender 中移动所有东西。 真是太疯狂了。 直到 录制这段视频时，我才意识到这个背景。 录制这段视频时，我才意识到这个背景。 直到现在我才意识到，我之前一直以为是MCP。 人们用这些东西做的事情简直太疯狂了。 David 在</div>
+  </div>
+  <div class="chapter" id="ch-20">
+    <h3>
+      <span class="ch-time">[29:55-32:00]</span>
+      <span class="ch-num">#20</span>
+      <span class="zh">3D City Builds</span>
+    </h3>
+    <div class="ch-en en">[29:55-32:00] 3D City Builds — 3D city builds — community-built examples.</div>
+    <div class="text zh">这里制作了一个纽约市的 Game Boy 模拟器，它可以 实时传输城市 数据、地铁、天气、仙女等等。所有这些都 叠加在纽约市的 3D 地图上。 所有数据都存在于空间 智能层中，智能体可以利用这些数据 来体验您在城市中最喜欢的地方 。 所以，仔细观察一下， 你可以看到整个城市，他手里拿着 控制器，当他使用 控制器时，你可以看到他 用手指在 纽约市中穿梭，并查看实时 纽约市中穿梭，并查看实时 航班数据、实时交通状况以及 纽约发生的一切。 老兄，这也太疯狂了吧。 Reddit 上有人 说他挑战了 GPT 5.6 Soul，结果它只用了 5 分钟就完成了挑战 。 这是他们的 提示。 我想测试一下你的 能力。 为我搭建一个网站，其中 包含伦敦市中心的 3D 互动模型 。 使用你认为 最好的堆栈。 让我看看你的本事。 他们 还有伦敦的3D地图。 我 想知道这是从谷歌 地图获取的数据，还是从其他来源获取的。 我其实不太 清楚它连接了哪个 API 来 获取这个数据，但看起来真的不错。 他们 现在还有伦敦的互动地图。 那真是太好了。 真是令人印象深刻。 但我认为它 只是从其他地方现有的 API 中提取了这张地图， 这张地图 可能已经创建好了。 我也不 可能已经创建好了。 我也不 确定。 从 Reddit 评论来看，它似乎使用了地图库 libregsq 和开源的免费地图矢量瓦片。 所以它 找到了一些现有的库，然后把 它们整合在一起就做成了 这个东西。 另一方面， 马特·舒默建造了一个基于体素的 曼哈顿，他说这 完全是自主完成的，耗时近一周。 于是他给出了 提示，它就构建了这个基于 体素的曼哈顿，其中包含大量 细节，你可以放大查看。 而且， 这似乎并没有使用 现有的类似 API 或库。 它竟然真的建造了这 一切，简直太疯狂了。 我的意思是， 当你意识到 人工智能花了一周时间不停地运转，源源不断地生成 代币来构建它时，这一切就说得通了，但这仍然非常非常令人印象深刻 。 当然，由于我已经使用 当然，由于我已经使用</div>
+  </div>
+  <div class="chapter" id="ch-21">
+    <h3>
+      <span class="ch-time">[32:00-32:40]</span>
+      <span class="ch-num">#21</span>
+      <span class="zh">Future Tools Overhaul</span>
+    </h3>
+    <div class="ch-en en">[32:00-32:40] Future Tools Overhaul — Future Tools (Matt's site) overhaul with new app.</div>
+    <div class="text zh">这些工具几个星期了，我也 做出了一些我认为相当令人印象 深刻的东西。 例如，我 彻底改造了 Future Tools 网站。 这里列出的前 20 名 AI 工具 实际上是由社区投票选出的 。 你可以看到， 根据 社区对这些工具的投票结果，这些工具在一天中排名会上下波动。 每天获得最多点赞的工具最终会出现在 这里的首页上。 实际上，我构建了一整套 推荐算法。 所以，如果你 查看任何一个工具，然后向下滚动到 类似的 AI 工具，这实际上是一个 超级复杂的推荐 算法，它基于 你正在查看的类似工具以及与 此处描述类似的工具，而不再仅仅 基于“哦，它有重叠的 类别”之类的因素。 这简直太疯狂了，</div>
+  </div>
+  <div class="chapter" id="ch-22">
+    <h3>
+      <span class="ch-time">[32:40-33:48]</span>
+      <span class="ch-num">#22</span>
+      <span class="zh">BuseyBench</span>
+    </h3>
+    <div class="ch-en en">[32:40-33:48] BuseyBench — BuseyBench — a benchmark or demo project mentioned briefly.</div>
+    <div class="text zh">编写它的代码就花了18个小时 。 我还用这些工具构建了 Buybench ，这是一个基准测试，用来检验 新的 AI 模型在生成 Gary Buucy 的 SVG 图像方面的表现如何，因为这很 有趣，而且毫无意义，毫无用处，但 实际上又并非完全无用。 我不 知道。 其实挺酷的，因为你 可以通过查看时间线来了解 这些模型的发展历程。 例如，如果我访问 OpenAI 网站，你 可以看到这是 2023 年的 GPT 3.5 Turbo 版本。 你可以看到 他们在绘制人 他们在绘制人 脸方面的进步，一直到 他们今天所绘制的水平。 然后，还 建立了一个排行榜，该排行榜使用 LLM 作为评判标准。 然后，为了打破平局，它 实际上会将两张图片并排显示，由 不同的 LLM 投票决定哪张图片 更像 Gary Buucy，以打破 平局。 你可以看到，GPT 5.6 Terra 和 SUL 目前位列前两名 。 所以他们也赢得了 海盗队的替补席。 但 我最近建造的最喜欢的东西可能是 我自己建造的，我 称之为“狼控制塔”。 实际上，</div>
+  </div>
+  <div class="chapter" id="ch-23">
+    <h3>
+      <span class="ch-time">[33:48-36:00]</span>
+      <span class="ch-num">#23</span>
+      <span class="zh">The Wolf Control Tower</span>
+    </h3>
+    <div class="ch-en en">[33:48-36:00] The Wolf Control Tower — The Wolf Control Tower — Matt's custom-built dashboard for running Future Tools. Meta-paradigm: use the tool to manage the tool.</div>
+    <div class="text zh">GPT 将其命名为“狼控制塔”， 我就一直沿用了这个名字。 但这是我的 业务仪表盘。 它会给我提供一个“ 今日新闻”面板，实时显示 各大 人工智能实验室的最新新闻。 所以，我随时可以来 这里看看大家都在讨论些什么， 以及人工智能领域最新的重大理念 是什么。 你可以看到， 这里就是它检测新闻的来源 。 这里是一张很长的清单。 Anthropico、OpenAI、阿里巴巴、AMD、苹果、 Black Force Labs、Bite Dance、Character AI、Deepseek、11 Labs、谷歌，所有 这些来源都在这里。 它会密切关注 最新消息，并在有 任何消息公布时立即将其发布。 该工具 还订阅了大量 新闻简报，并跟踪新闻 简报正在讨论什么内容以及 它们发现了哪些新闻。 这里有一个品牌页面 ，我已经把里面的内容全部清空了， 但是它找到了 101 个存档 。 这就像谷歌快讯一样。 每当我的名字、Beautybench、 Future Tools、Mr. E-Flow 或我的任何 产品在网上被提及时， 它都会把新闻拉到这里，这样我就可以去 查看并了解人们的 评价。 我有一个页面，可以持续监控 我的 各种网站（futuretools、 各种网站（futuretools、 beautybench 和 mattwolf.com）的流量。 我 还有一个受众标签页，它会监控 我的所有社交媒体账号，并 告诉我我在每个平台上的统计数据 以及我在 这些平台上的增长情况。 我可以看到 这些平台上的增长情况。 我可以看到 这里所有项目的周环比增长数据。 我整天都 登录这个网站，查看统计数据， 了解新闻和正在发生的事情 。 这大概是我 最喜欢的一件作品，而且是 我完全为自己建造的。 但我 认为 人工智能目前最酷的地方之一就是，当你发现 业务中的一些小问题 可以用人工智能来解决时。 你可以 自己动手做。 你不需要 订阅 SAS 的月度产品，也不需要 雇佣开发人员 为你构建这些东西。 你只需带着 GPT 5.6 模型去 Codeex 之类的网站，然后 说：“这是我 在业务中遇到的一个问题，你们能帮 我构建解决方案吗？” 然后它就会去 建造它。 你不需要卖掉它。 你 不需要把它变成一项事业。 你完全可以拥有一些自己 需要的定制小应用程序。 我非常喜欢我们</div>
+  </div>
+  <div class="chapter" id="ch-24">
+    <h3>
+      <span class="ch-time">[36:00-37:20]</span>
+      <span class="ch-num">#24</span>
+      <span class="zh">One-Prompt Mini Apps</span>
+    </h3>
+    <div class="ch-en en">[36:00-37:20] One-Prompt Mini Apps — One-prompt mini apps — single prompt → working mini-app.</div>
+    <div class="text zh">现在可以用这些人工智能模型做的事情。 那 是我最兴奋的事情。 现在最让我感到兴奋的就是 去做一些能 解决我问题的小事。 解决我问题的小事。 比如，这是 我今天搭建的另一个非常非常简单非常愚蠢的东西。 我 录制视频的时候喜欢把底座藏起来， 对吧？ 我喜欢这个功能， 当我的鼠标移到最底部时，程序坞就会消失，才会显示出来。 但当我不录音的时候，我希望我的 文档始终都在。 所以我每次都得 去苹果店。 我需要进入 系统设置。 我需要切换到台式机 和扩展坞。 我需要一直手动切换 文档的自动隐藏和显示 。 我录音的时候会打开这个 。 不录音的时候，我就把它 关掉。 做这件事的时候我有点烦躁了 。 所以我基本上问了 Codeex，我们能不能 做一个小应用来帮 我做这件事？ 然后它就开发了一个应用程序。 我这里还有一个小小的溪流平台， 你们可以看到。 这就是我的 直播后台。 它 上面有很多宏按钮。 我使用了 它自带的名为 Dock Toggle 的小应用程序， 然后把它生成的按钮拖到了 我的 Stream Deck 上。 现在，每当我按下这个按钮，我就 可以隐藏我的 Dock 栏，也可以显示我的 Dock 栏。 所有操作都可以通过 Stream Deck 按钮完成， 无需再进入设置 。 这真是太愚蠢了。 这 真的很简单，但每次我准备进入视频模式时，它都能帮我节省 三次点击按钮和 5 秒钟的时间 。 我就是喜欢这种小事 。 我觉得这太有趣了。 总之，这就是我今天带给你的。 我知道这个视频可能有点</div>
+  </div>
+  <div class="chapter" id="ch-25">
+    <h3>
+      <span class="ch-time">[37:20-38:57]</span>
+      <span class="ch-num">#25</span>
+      <span class="zh">Final Thoughts</span>
+    </h3>
+    <div class="ch-en en">[37:20-38:57] Final Thoughts — Wrap-up + ask to like/subscribe + standard Matt Wolfe outro.</div>
+    <div class="text zh">长，但我真的 对这些东西非常着迷。 我非常 喜欢 GPT 5.6 模型。 我这么 说并不是因为 OpenAI 赞助了 这个视频。 你想找证据吗？ 这就是证据。 我在 Codeex 上使用了 68 亿个 代币。 仅 7月11日一天，我就用了13亿。 7月 13日，我使用了20亿个代币。 我 每天都在使用这个工具，构建各种 东西，不断地 进行创作。 我非常喜欢在 编解码器内部进行构建，也喜欢使用这些 新模型，我不断地 发现可以用它们来创造新的东西。 自从这些模型和这款应用 发布以来，过去几周里，我在人工智能领域获得的乐趣比以往任何时候都多。 这就是实话。 我现在特别享受 创作和搭建的过程， 感觉脑子里冒出来的任何东西 现在都能实现，这让我非常 兴奋。 希望您 喜欢这个视频。 希望你有所 收获，获得一些新的 想法、新的灵感和可以尝试的新方法 。 非常感谢 OpenAI 对本次活动的赞助。 我真的 非常感谢你们这样做。 如果你喜欢这类视频，并且 想要深入了解如何 在人工智能领域使用各种工具，以及想要 了解所有最新的人工智能新闻，我 每周五还会制作人工智能新闻分析视频 。 或许您可以考虑点赞这个视频 并订阅这个频道。 这样就能 确保 你的 YouTube 信息流中出现更多类似的内容。 你将始终 了解最新的人工智能新闻和 工具，并且知道如何使用它们，还能用 它们做一些很酷的事情。 再次 感谢你抽出时间陪 我一起玩，一起聊这些技术话题。 我真的非常 感谢你，希望</div>
+  </div>
+</div>
+
+<div class="tab-content" id="features">
+  <h2 style="margin-bottom:16px"><span class="zh">ChatGPT 新 App 核心功能</span><span class="en">ChatGPT new app core features</span></h2>
+  <p style="margin-top:8px; color:var(--fg-muted); font-size:13px; margin-bottom:16px">
+    <span class="zh">基于视频章节 2-5 (0:52-7:22) 的功能清单 — Matt 在视频前 7 分钟对新 app 的整体介绍。</span>
+    <span class="en">Based on chapters 2-5 (0:52-7:22) — Matt's intro to the new app in the first 7 minutes.</span>
+  </p>
+
+  <div class="chapter">
+    <h3>🧩 Codex <span class="tag-verified tag">integrated</span></h3>
+    <p class="text zh">开发者入口,通过左上角下拉菜单进入。可以写代码、提示它写代码、审查 diff、修复 bug、探索代码库等。</p>
+    <p class="en-text en">Dev entry — accessed via top-left dropdown. Write code, prompt it to write code, review diffs, fix bugs, explore codebase.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>💼 ChatGPT Work <span class="tag-verified tag">integrated</span></h3>
+    <p class="text zh">普通用户入口 — 像助手一样连接各种工具,自动执行任务。后面 prompt demos 章节会展示实际用法。</p>
+    <p class="en-text en">End-user entry — acts like an assistant that connects to your tools and executes tasks automatically. Prompt demos covered later.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🌐 Sites <span class="tag-verified tag">new</span></h3>
+    <p class="text zh">OpenAI 想让你不用百万种工具就能把内容上传到网络。无需处理网站托管、后端、数据库、CDN 等。</p>
+    <p class="en-text en">OpenAI wants you to publish to the web without needing a million tools. No hosting / backend / DB / CDN needed.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>⏰ Scheduled Tasks <span class="tag-verified tag">new</span></h3>
+    <p class="text zh">定时任务 — prompt 每天/每小时自动跑。例子:清理下载文件夹、生成每日简报(读日历 + 未读邮件)、每周回顾、邮件跟进监控。</p>
+    <p class="en-text en">Scheduled tasks — prompts that auto-run daily/hourly. Examples: clean downloads folder, daily brief from calendar+unread email, weekly recap, follow-up monitoring.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>💬 Side Chat <span class="tag-verified tag">standard</span></h3>
+    <p class="text zh">侧边栏聊天窗口 — 只想问问题、不需要触发项目时使用。点击侧边栏打开。</p>
+    <p class="en-text en">Sidebar chat panel — for quick Q&A without triggering a project. Click the panel to open.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🔌 App Connections <span class="tag-verified tag">integrated</span></h3>
+    <p class="text zh">已连接:Google Docs 全套、GitHub、Google Drive、Gmail、Slack、Google Calendar、Canva、Figma、Supabase、Vercel、Granola、Todoist 等。结合 computer-use + browser-use 权限,几乎可以做用户在 Mac 上能做的任何事。</p>
+    <p class="en-text en">Connected: Google Docs suite, GitHub, Drive, Gmail, Slack, Calendar, Canva, Figma, Supabase, Vercel, Granola, Todoist. With computer-use + browser permissions, it can do almost anything the user can do on their Mac.</p>
+  </div>
+</div>
+
+<div class="tab-content" id="prompts">
+  <h2 style="margin-bottom:16px"><span class="zh">9 个核心 Prompt 实战 (5:54-22:20)</span><span class="en">9 core prompt demos</span></h2>
+
+  <div class="chapter">
+    <h3>👤 <span class="zh">个人助理项目</span><span class="en">Personal Assistant Project</span> <span class="tag-verified tag">verified</span></h3>
+    <blockquote class="zh">"我希望 你创建一个技能,这样每次我 在聊天 GPT 的个人助理项目中发出提示时,你都能 自动访问所有内容。你可以通过浏览器看到我的 Gmail、日历、Slack、Granola、Google 云端硬盘、Second Brain 文件、日记、所有其他提示、项目和聊天记录、我的回忆、我的控制塔中的内容、未来的工具、我的 Twitter 和 Instagram 帐户、我的 YouTube 频道,实际上所有的一切。"</blockquote>
+    <p class="en-text en">"I want you to create a skill so that every time I send a prompt in my Personal Assistant project in ChatGPT, you can automatically access everything. You can see my Gmail, Calendar, Slack, Granola, Google Drive, Second Brain files, journal, all other prompts, projects and chats, my memories, my Control Tower contents, future tools, my Twitter and Instagram accounts, my YouTube channel — basically everything."</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🗣️ <span class="zh">教它你的声音</span><span class="en">Teach it your voice</span></h3>
+    <p class="text zh">训练模型匹配 Matt 自己的语气和风格 — 让产出符合个人表达习惯。</p>
+    <p class="en-text en">Train the model to match Matt's personal tone and style so outputs match his expression.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>📖 <span class="zh">书的一页摘要</span><span class="en">Book One-Pager</span></h3>
+    <p class="text zh">用新 app 生成一本书的一页摘要。</p>
+    <p class="en-text en">Generate a one-page summary for a book using the new app.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🎞️ <span class="zh">AI 生成的幻灯片</span><span class="en">AI-made Slide Deck</span></h3>
+    <p class="text zh">AI 自动生成完整的 slide deck。</p>
+    <p class="en-text en">AI auto-generates a complete slide deck.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🔍 <span class="zh">用登录态浏览器研究</span><span class="en">Research with logged-in browser</span></h3>
+    <p class="text zh">用保持登录的浏览器研究需要 auth 的站点。</p>
+    <p class="en-text en">Research sites that require authentication using the logged-in browser.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🎙️ <span class="zh">Panel 准备文档</span><span class="en">Panel Prep Doc</span></h3>
+    <p class="text zh">自动生成 panel 出演的简报。</p>
+    <p class="en-text en">Auto-generate a briefing for a panel appearance.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>📅 <span class="zh">本周任务总览</span><span class="en">Weekly Task Rundown</span></h3>
+    <p class="text zh">助手总结本周的任务。</p>
+    <p class="en-text en">Assistant summarizes this week's tasks.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>📧 <span class="zh">冷邮件 + 跟进邮件草稿</span><span class="en">Cold Leads & Email Drafts</span></h3>
+    <p class="text zh">根据冷 lead 列表,助手自动起草 outreach 邮件。</p>
+    <p class="en-text en">Assistant drafts outreach emails based on cold-lead list.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>📜 <span class="zh">完整的助理 Prompt</span><span class="en">Full Assistant Prompt</span> <span class="tag-verified tag">live</span></h3>
+    <p class="text zh">Matt 实际使用的完整 prompt,在视频 18:48-22:20 详细展示。整套 prompt 思路是"创造能获取一切的技能",让助手拥有"接近全知"的上下文访问权。</p>
+    <p class="en-text en">Full prompt Matt actually uses — detailed at 18:48-22:20. Core idea: "create a skill that gets everything" — near-omniscient context access for the assistant.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🎙️ <span class="zh">完整 Prompt 原文 · 4 个核心模板</span><span class="en">Verbatim prompts · 4 core templates</span> <span class="tag-verified tag">from transcript</span></h3>
+    <p class="text zh" style="margin-bottom:8px"><strong style="color:var(--lime)">① Personal Assistant Skill 创建 prompt</strong> <span class="tag-warn tag">18:48</span></p>
+    <blockquote class="zh">"我希望 你创建一个技能,这样每次我 在聊天 GPT 的个人助理项目中发出提示时,你都能 自动访问所有内容。你可以通过浏览器看到我的 Gmail、日历、Slack、Granola、Google 云端硬盘、Second Brain 文件、日记、所有其他提示、项目和聊天记录、我的回忆、我的控制塔中的内容、未来的工具、我的 Twitter 和 Instagram 帐户、我的 YouTube 频道,实际上所有的一切。"</blockquote>
+    <p class="en-text en">"I want you to create a skill so that every time I send a prompt in my Personal Assistant project in ChatGPT, you can automatically access everything. You can see my Gmail, Calendar, Slack, Granola, Google Drive, Second Brain files, journal, all other prompts, projects and chats, my memories, my Control Tower contents, future tools, my Twitter and Instagram accounts, my YouTube channel — basically everything."</p>
+
+    <p class="text zh" style="margin-top:14px; margin-bottom:8px"><strong style="color:var(--lime)">② Voice Profile 创建 prompt</strong> <span class="tag-warn tag">09:02</span></p>
+    <blockquote class="zh">"分析我过去 12 个月内 发送的电子邮件和工作聊天记录,排除转发内容和复制文本。然后,它创建了一个电子邮件语音配置文件和一个工作聊天语音配置文件。"</blockquote>
+    <p class="en-text en">"Analyze my sent emails and work chat from the past 12 months. Exclude forwarded content and copied text. Then it creates an email voice profile and a work chat voice profile."</p>
+
+    <p class="text zh" style="margin-top:14px; margin-bottom:8px"><strong style="color:var(--lime)">③ Assistant 调用 prompt (触发器)</strong> <span class="tag-warn tag">22:20</span></p>
+    <blockquote class="zh">"我现在最需要听到什么?"</blockquote>
+    <p class="en-text en">"What do I most need to hear right now?" — single-line trigger that activates the personal assistant skill (reads emails, Slack, calendar).</p>
+
+    <p class="text zh" style="margin-top:14px; margin-bottom:8px"><strong style="color:var(--lime)">④ Computer-use 文件操作 prompt</strong> <span class="tag-warn tag">22:20</span></p>
+    <blockquote class="zh">"帮我清理下载文件夹,并将我的文件整理到那里的现有文件夹中。"</blockquote>
+    <blockquote class="zh">"查看所有图像并根据图像内容为其命名。"</blockquote>
+    <p class="en-text en">Computer-use prompts: (a) "Clean my downloads folder and organize files into existing folders" (b) "Look at all images and name them based on content". Matt shows both running in &lt;2 min on his actual machine — 65 files cleaned, 21 thumbnails renamed by detected content.</p>
+  </div>
+</div>
+
+<div class="tab-content" id="community">
+  <h2 style="margin-bottom:16px"><span class="zh">社区酷炫案例 · Codex + GPT-5.6</span><span class="en">Community cool builds</span></h2>
+  <p style="margin-top:8px; color:var(--fg-muted); font-size:13px; margin-bottom:16px">
+    <span class="zh">章节 16-23 (23:00-36:00) — Matt 用 Codex + GPT-5.6 重建老牌网站 + 社区用户用 GPT-5.6 做的创意项目。</span>
+    <span class="en">Chapters 16-23 (23:00-36:00) — Matt rebuilt classic sites with Codex + GPT-5.6, plus community creative projects.</span>
+  </p>
+
+  <div class="chapter">
+    <h3>🛒 <span class="zh">用 Codex 重建 Craigslist</span><span class="en">Rebuilding Craigslist with Codex</span></h3>
+    <p class="text zh">章节 16 (23:00-24:48) — 用 Codex 在新 app 内重建经典的 Craigslist 分类信息网站。</p>
+    <p class="en-text en">Chapter 16 — rebuild classic Craigslist classifieds inside the new app.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🎮 <span class="zh">用 Codex + GPT-5.6 做游戏</span><span class="en">Building a game with Codex</span></h3>
+    <p class="text zh">章节 17 (24:48-27:05) — 直接用 Codex 在 app 内构建可玩游戏。</p>
+    <p class="en-text en">Chapter 17 — directly build a playable game inside the app.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🎬 <span class="zh">全 AI 生成的视频</span><span class="en">Fully AI-Generated Videos</span></h3>
+    <p class="text zh">章节 18 (27:05-28:55) — 社区成员用 GPT-5.6 制作的完整 AI 视频。</p>
+    <p class="en-text en">Chapter 18 — community-made complete AI videos.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🧊 <span class="zh">用 AI 控制 Blender</span><span class="en">Controlling Blender with AI</span></h3>
+    <p class="text zh">章节 19 (28:55-29:55) — 用 AI 控制 3D 软件 Blender。</p>
+    <p class="en-text en">Chapter 19 — AI controls Blender 3D software.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🏙️ <span class="zh">3D 城市构建</span><span class="en">3D City Builds</span></h3>
+    <p class="text zh">章节 20 (29:55-32:00) — 社区用 GPT-5.6 生成的 3D 城市。</p>
+    <p class="en-text en">Chapter 20 — community-generated 3D cities.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🛠️ <span class="zh">Future Tools 业务翻新</span><span class="en">Future Tools overhaul</span></h3>
+    <p class="text zh">章节 21 (32:00-32:40) — Matt 用新 app 翻新 Future Tools 网站。</p>
+    <p class="en-text en">Chapter 21 — Matt overhauls Future Tools site with the new app.</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🧪 <span class="zh">BuseyBench</span><span class="en">BuseyBench</span></h3>
+    <p class="text zh">章节 22 (32:40-33:48) — Matt 提到的 benchmark / demo 项目 (具体未在视频中详述)。</p>
+    <p class="en-text en">Chapter 22 — benchmark / demo project Matt mentions (details not deep-dived in video).</p>
+  </div>
+
+  <div class="chapter">
+    <h3>🗼 <span class="zh">Wolf Control Tower</span><span class="en">The Wolf Control Tower</span> <span class="tag-verified tag">meta</span></h3>
+    <p class="text zh">章节 23 (33:48-36:00) — Matt 自己构建的内部 dashboard,用于管理 Future Tools 业务。"用工具管理工具"的元范式。</p>
+    <p class="en-text en">Chapter 23 — Matt's internal dashboard for managing Future Tools. Meta-paradigm: use the tool to manage the tool.</p>
+  </div>
+</div>
+
+<div class="tab-content" id="quotes">
+  <h2 style="margin-bottom:16px"><span class="zh">金句 · 可引用片段</span><span class="en">Quotes</span></h2>
+
+  <div class="chapter">
+    <h3><span class="zh">关于模型质量</span><span class="en">On model quality</span></h3>
+    <blockquote class="zh">"5.6 models running underneath are the best I've used."</blockquote>
+    <p class="en-text en">"5.6 models running underneath are the best I've used." — Matt Wolfe, video description</p>
+  </div>
+
+  <div class="chapter">
+    <h3><span class="zh">关于使用量</span><span class="en">On usage scale</span></h3>
+    <blockquote class="zh">"someone who used 6.8 billion tokens on it in the last two weeks"</blockquote>
+    <p class="en-text en">"someone who used 6.8 billion tokens on it in the last two weeks." — video description (authoritative metric)</p>
+  </div>
+
+  <div class="chapter">
+    <h3><span class="zh">关于平台整合</span><span class="en">On platform consolidation</span></h3>
+    <blockquote class="zh">"OpenAI just combined ChatGPT, Codex, their browser, and ChatGPT Work into one platform."</blockquote>
+    <p class="en-text en">"OpenAI just combined ChatGPT, Codex, their browser, and ChatGPT Work into one platform."</p>
+  </div>
+
+  <div class="chapter">
+    <h3><span class="zh">关于工作流</span><span class="en">On workflow</span></h3>
+    <blockquote class="zh">"I cover the personal assistant setup that reads everything in my business, ChatGPT Work mode, Codex for development..."</blockquote>
+    <p class="en-text en">Personal assistant reads everything in his business — Slack, Gmail, Drive, Calendar, etc.</p>
+  </div>
+
+  <div class="chapter">
+    <h3><span class="zh">关于元范式</span><span class="en">On the meta-paradigm</span></h3>
+    <blockquote class="zh">"the Wolf Control Tower I built just for myself to run Future Tools"</blockquote>
+    <p class="en-text en">Wolf Control Tower = "use the tool to manage the tool"</p>
+  </div>
+</div>
+
+<div class="tab-content" id="takeaways">
+  <h2 style="margin-bottom:16px"><span class="zh">Patrick 视角的要点</span><span class="en">Takeaways for Patrick</span></h2>
+
+  <div class="callout info">
+    <strong>✅ <span class="zh">适合的借鉴</span><span class="en">What to borrow</span></strong>
+    <ul>
+      <li><span class="zh">"personal assistant 项目 = 单一项目 + skill 模板" 范式 — 类似 hermes memory budget 跨 skill 共享上下文的设计</span><span class="en">"Personal Assistant project + skill template" — similar to hermes's cross-skill shared-context design</span></li>
+      <li><span class="zh">"create a skill that auto-accesses everything" prompt 思路 — Hermes 可以演化类似的"全上下文入口"</span><span class="en">"Create a skill that auto-accesses everything" — Hermes could evolve a similar "omni-context entry point"</span></li>
+      <li><span class="zh">Scheduled tasks 用 cron 触发 prompt — 跟 Hermes cron 完全同构 (但 Hermes 是 no_agent + script,这里 GPT-5.6 是 LLM 驱动)</span><span class="en">Scheduled tasks = cron-triggered prompts — same architecture as Hermes cron (Hermes = no_agent + script, here = LLM-driven)</span></li>
+      <li><span class="zh">Codex 集成进 ChatGPT app — 单一界面内 code/review/debug — Hermes kanban worker 已经走在前面</span><span class="en">Codex integrated into ChatGPT app — single interface for code/review/debug — Hermes kanban worker already ahead</span></li>
+    </ul>
+  </div>
+
+  <div class="callout warn">
+    <strong>⚠️ <span class="zh">不确定 / 需要验证</span><span class="en">Uncertain / needs verification</span></strong>
+    <ul>
+      <li><span class="zh">GPT-5.6 实际能力边界 — "best I've used" 是主观评价,SWE-bench / AIME 2025 / GPQA 等硬指标未在视频中给出</span><span class="en">GPT-5.6 actual capability boundaries — "best I've used" is subjective; SWE-bench / AIME 2025 / GPQA hard metrics not in video</span></li>
+      <li><span class="zh">"6.8B tokens in 2 weeks" 用量级 — 大约平均 ~50K tokens/min 持续 2 周 — 需要 ChatGPT Team/Pro plan 配额确认</span><span class="en">"6.8B tokens in 2 weeks" — roughly 50K tokens/min sustained for 2 weeks — requires plan quota verification</span></li>
+      <li><span class="zh">Wolf Control Tower 的具体技术栈 — Matt 未在视频中详述</span><span class="en">Wolf Control Tower tech stack — Matt did not detail</span></li>
+    </ul>
+  </div>
+
+  <div class="callout gap">
+    <strong>❌ <span class="zh">缺失 / 视频未讲</span><span class="en">Gap / not covered</span></strong>
+    <ul>
+      <li><span class="zh">没有 EN subtitle — EN 内容来自 description (verified ground truth)</span><span class="en">No EN subtitle — EN content from description (verified ground truth)</span></li>
+      <li><span class="zh">没讲 GPT-5.6 的具体 model card / API pricing</span><span class="en">No GPT-5.6 model card / API pricing</span></li>
+      <li><span class="zh">没讲 privacy / data retention policy — app 能读所有 Gmail + Slack + Drive 是否有 OpenAI 训练权限?</span><span class="en">No privacy / data retention policy — does the app have permission to train on user's Gmail + Slack + Drive?</span></li>
+      <li><span class="zh">没讲 cost — 6.8B tokens 大概要花多少 USD</span><span class="en">No cost — what does 6.8B tokens cost roughly in USD</span></li>
+    </ul>
+  </div>
+
+  <h2 style="margin-top:24px; color:var(--lime)"><span class="zh">Vault 内部 cross-link</span><span class="en">Vault cross-links</span></h2>
+  <p style="margin-top:4px; color:var(--fg-muted); font-size:13px; margin-bottom:14px">
+    <span class="zh">在 vault 已有的 GPT-5.6 / agentic / Codex 同源笔记,用于 cross-validation。</span><span class="en">Same-cluster notes already in the vault for cross-validation.</span>
+  </p>
+
+  <div class="chapter">
+    <h3>🔗 <span class="zh">GPT-5.6 同源笔记</span><span class="en">GPT-5.6 same-cluster notes</span></h3>
+    <ul style="padding-left:20px; line-height:1.9; font-size:14px">
+      <li><strong style="color:var(--lime)">[[llm-wiki/youtube/ai-search-gpt56-mythos-ban-2026-06-28]]</strong> <span class="tag-verified tag">same family</span><br>
+        <span class="zh">GPT 5.6 + Mythos ban lifted 行业新闻汇总 (2026-06-28, AI Search 频道)。同源覆盖:本视频侧重 5.6 实操评测,该笔记侧重 5.6 launch 背景 + Mythos 出口管制松绑。</span>
+        <span class="en">GPT 5.6 launch + Mythos export-control news (AI Search channel). Complementary: Matt video = hands-on 5.6 review; this note = launch context + export-control angle.</span>
+      </li>
+      <li><strong style="color:var(--lime)">[[llm-wiki/youtube/matthew-berman-claude-tag-anthropic-context-lockin-2026-06-26]]</strong> <span class="tag-verified tag">same theme</span><br>
+        <span class="zh">Context lock-in 主题:把个人数据 + workflow 锁进 vendor = lock-in 风险。同源:本视频的"全部 Gmail/Slack/Drive 接入" = context lock-in 的极端例子。Patrick 在 vault 里已有这一笔记,值得 cross-read 警惕。</span>
+        <span class="en">Context lock-in theme: locking personal data + workflow into a vendor = lock-in risk. This video's "connect everything" approach is the extreme example of context lock-in. Cross-read for awareness.</span>
+      </li>
+      <li><strong style="color:var(--lime)">[[llm-wiki/youtube/greg-isenberg-6-skills-agentic-era]]</strong> <span class="tag-verified tag">agentic era</span><br>
+        <span class="zh">Greg Isenberg 的 6 个 agentic era skill。同源:Personal Assistant 项目范式 + Codex 集成 = agentic era 的实操范本。</span>
+        <span class="en">Greg Isenberg's 6 agentic-era skills. Personal Assistant project + Codex integration = operational exemplars of agentic-era skills.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="chapter">
+    <h3>🔗 <span class="zh">Patrick 内部基础设施相关</span><span class="en">Related Patrick infrastructure</span></h3>
+    <ul style="padding-left:20px; line-height:1.9; font-size:14px">
+      <li><strong style="color:var(--lime)">patricks-knowledge-hub</strong> <span class="tag-verified tag">live skill</span><br>
+        <span class="zh">Patrick 的"全 vault 上下文入口" — 跟本视频的"全 Gmail/Slack/Drive 上下文入口"是同源范式。区别:Hermes 是 developer-facing / read-mostly,Matt 方案是 end-user-facing / read+write。Skill 路径: <code>~/.hermes/skills/productivity/patricks-knowledge-hub/</code>。</span>
+        <span class="en">Patrick's "omni-vault context entry point" — same paradigm as Matt's "omni-context assistant". Difference: Hermes is developer-facing / read-mostly; Matt's is end-user-facing / read+write. Skill path: <code>~/.hermes/skills/productivity/patricks-knowledge-hub/</code>.</span>
+      </li>
+      <li><strong style="color:var(--lime)">[[agentic-os/ARCHITECTURE]]</strong> <span class="tag-verified tag">verified on disk</span><br>
+        <span class="zh">Patrick 的 8 module 操作系统架构说明 (vault 内 ARCHITECTURE.md)。Codex 集成进 ChatGPT app 的范式 = M10 Race-Aware Loop Audit 的工程实现参考。</span>
+        <span class="en">Patrick's 8-module operating system architecture (vault ARCHITECTURE.md). Codex-in-ChatGPT pattern = engineering reference for M10 race-aware loop audit.</span>
+      </li>
+      <li><strong style="color:var(--lime)">[[agentic-os/conditional-map-snapshots/2026-07]]</strong> <span class="tag-verified tag">related</span><br>
+        <span class="zh">Race-aware conditional map 月度快照。本视频对 "GPT-5.6 个人助理 + Codex 集成" 的论述可作为该 conditional map 的新 cell 输入。</span>
+        <span class="en">Race-aware conditional map monthly snapshot. This video's "GPT-5.6 personal assistant + Codex integration" framing can be a new input cell to the conditional map.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="tab-content" id="sources">
+  <h2 style="margin-bottom:16px"><span class="zh">来源与核查</span><span class="en">Sources & verification</span></h2>
+
+  <div class="chapter">
+    <h3><span class="zh">视频元数据</span><span class="en">Video metadata</span></h3>
+    <table>
+      <tr><td><span class="zh">标题</span><span class="en">Title</span></td><td>Complete Guide to ChatGPT 5.6 + Prompting Guide</td></tr>
+      <tr><td><span class="zh">频道</span><span class="en">Channel</span></td><td>Matt Wolfe</td></tr>
+      <tr><td><span class="zh">上传日期</span><span class="en">Upload date</span></td><td>2026-07-15</td></tr>
+      <tr><td><span class="zh">时长</span><span class="en">Duration</span></td><td>38:57</td></tr>
+      <tr><td><span class="zh">观看</span><span class="en">Views</span></td><td>21,509</td></tr>
+      <tr><td><span class="zh">点赞</span><span class="en">Likes</span></td><td>1,149</td></tr>
+      <tr><td><span class="zh">赞助</span><span class="en">Sponsored by</span></td><td>OpenAI (official)</td></tr>
+      <tr><td>Video ID</td><td>MDy_b9F7oUc</td></tr>
+    </table>
+  </div>
+
+  <div class="chapter">
+    <h3><span class="zh">Transcript 来源</span><span class="en">Transcript source</span></h3>
+    <ul style="padding-left:20px; font-size:13px; line-height:1.8">
+      <li><span class="zh">zh-Hans: 274 cues / 17,320 字符 — 来自 yt-dlp 自动字幕 (clean_youtube_vtt.py + VTT tag strip)</span><span class="en">zh-Hans: 274 cues / 17,320 chars — from yt-dlp auto captions (clean_youtube_vtt.py + VTT tag strip)</span></li>
+      <li><span class="zh">EN: 视频无英文字幕 (yt-dlp 报 "There are no subtitles for the requested languages") — 英文内容走视频 description (官方章节 + 作者本人英文说明) — <span class="tag-verified tag">verified ground truth</span></span><span class="en">EN: no English subtitle on this video (yt-dlp: "There are no subtitles for the requested languages") — English content from video description (official chapter timestamps + author-written English explanation) — verified ground truth</span></li>
+    </ul>
+  </div>
+
+  <div class="chapter">
+    <h3><span class="zh">Matt Wolfe 关联链接</span><span class="en">Matt Wolfe related links</span></h3>
+    <ul style="padding-left:20px; font-size:13px; line-height:1.8">
+      <li>🛠️ <a href="https://futuretools.io/" target="_blank" rel="noopener">Future Tools</a></li>
+      <li>📰 <a href="https://futuretools.io/newsletter" target="_blank" rel="noopener">Weekly Newsletter</a></li>
+      <li>❌ <a href="https://x.com/mreflow" target="_blank" rel="noopener">Twitter / X</a></li>
+      <li>🖼️ <a href="https://instagram.com/mr.eflow" target="_blank" rel="noopener">Instagram</a></li>
+      <li>🟦 <a href="https://www.linkedin.com/in/matt-wolfe-30841712/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+
+  <div class="callout warn">
+    <strong>⚠️ <span class="zh">核查局限</span><span class="en">Verification limitations</span></strong>
+    <ul>
+      <li><span class="zh">没有 EN subtitle — EN 内容非逐字翻译,基于 description + chapter title 做的概括</span><span class="en">No EN subtitle — EN content is summary, not word-by-word translation</span></li>
+      <li><span class="zh">zh 字幕是 ASR 自动生成,可能存在专有名词 (Codex / Granola / Vercel / Supabase / BuseyBench) 误识别</span><span class="en">ZH subtitles are ASR auto-generated — proper nouns (Codex / Granola / Vercel / Supabase / BuseyBench) may have recognition errors</span></li>
+      <li><span class="zh">GPT-5.6 / ChatGPT app 部分产品名基于视频上下文推断,OpenAI 官方文档未做 cross-verify</span><span class="en">GPT-5.6 / ChatGPT app product names inferred from video context — no OpenAI doc cross-verification</span></li>
+      <li><span class="zh">如需 100% 准确 — 建议找 EN 字幕 (官方未提供) 或 vendor 官方文档 (chatgpt.com/download)</span><span class="en">For 100% accuracy — get EN subs (not provided by official) or vendor docs (chatgpt.com/download)</span></li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <p><span class="zh">生成于 2026-07-17 · sandbox session · transcript 来源 yt-dlp zh-Hans auto-captions · 本 dashboard 是事实摘录非 OpenAI 官方背书</span><span class="en">Generated 2026-07-17 · sandbox session · transcript source yt-dlp zh-Hans auto-captions · this dashboard is a fact extract, NOT an OpenAI endorsement</span></p>
+  <p style="margin-top:6px"><span class="zh">Raw 数据:</span><span class="en">Raw data:</span> <code>/tmp/MDy_b9F7oUc.zh-Hans.vtt</code> (414KB) · <code>/tmp/MDy_b9F7oUc.info.info.json</code> (558KB) · <code>/tmp/zh_clean.json</code> (274 cues) · <code>/tmp/zh_by_chapter.json</code> (25 chapters)</p>
+</footer>
+
+</main>
+
+<script>
+function toggleToc() {
+  document.body.classList.toggle('toc-collapsed');
+  localStorage.setItem('mdy-toc-collapsed', document.body.classList.contains('toc-collapsed') ? '1' : '0');
+}
+if (localStorage.getItem('mdy-toc-collapsed') === '1') document.body.classList.add('toc-collapsed');
+
+function toggleLang() {
+  const html = document.documentElement;
+  const btn = document.getElementById('langBtn');
+  if (html.lang === 'zh-CN') {
+    html.lang = 'en';
+    btn.textContent = '中文';
+    localStorage.setItem('mdy-lang', 'en');
+  } else {
+    html.lang = 'zh-CN';
+    btn.textContent = 'EN';
+    localStorage.setItem('mdy-lang', 'zh-CN');
+  }
+}
+const savedLang = localStorage.getItem('mdy-lang');
+if (savedLang) {
+  document.documentElement.lang = savedLang;
+  document.getElementById('langBtn').textContent = savedLang === 'zh-CN' ? 'EN' : '中文';
+}
+
+const tabButtons = document.querySelectorAll('#tabNav button');
+const tabContents = document.querySelectorAll('.tab-content');
+tabButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.tab;
+    tabButtons.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(target).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+const tocLinks = document.querySelectorAll('aside.toc a');
+const chapterEls = document.querySelectorAll('.chapter[id^="ch-"]');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      tocLinks.forEach(l => l.classList.toggle('toc-active', l.getAttribute('href') === '#' + id));
+    }
+  });
+}, {rootMargin: '-20% 0px -70% 0px'});
+chapterEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
