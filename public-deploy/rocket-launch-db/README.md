@@ -23,7 +23,9 @@ LL2_PAGES=3 npm run build:data  # 调整 LL2 分页（免费额度 15 req/h，�
 
 ## 自动更新（cron）
 
-`.github/workflows/update-data.yml`：每天 UTC 03:17 自动运行构建脚本，数据有变化时提交回仓库；也可在 Actions 页手动触发。推送到 GitHub 并启用 Actions 即生效。
+仓库根目录 `.github/workflows/rocket-launch-db-update.yml` 每小时第 17 分钟自动运行，也可在 Actions 页手动触发。它会运行状态迁移测试、拉取 LL2 upcoming/previous、重建并校验 `launches.json` / `upcoming.json` / `stats.json`，最后提交回 `main` 触发 Cloudflare Pages 部署。
+
+状态迁移遵守一个重要约束：时间超过发射窗口只会变成 `window_elapsed`（窗口已过、等待确认），不会凭时间伪造“成功”。只有 LL2 返回成功、失败、部分失败或取消等终态时，任务才进入相应历史状态。`upcoming.html` 还会在浏览器中按当前时间即时过滤，因此两次 cron 之间也不会继续展示已经过期的任务。
 
 ## 部署
 

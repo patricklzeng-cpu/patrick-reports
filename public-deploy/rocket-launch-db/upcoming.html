@@ -987,6 +987,7 @@ function setSelectLaunch(card) {
   const siteEl = card.querySelector('.card-site');
   const timeEl = card.querySelector('.card-time');
   const imgEl = card.querySelector('.card-img-wrap img');
+  const provider = card.dataset.provider;
 
   if (titleEl) document.getElementById('nl-mission-text').textContent = titleEl.textContent;
   if (rocketEl) document.getElementById('nl-rocket').textContent = rocketEl.textContent;
@@ -998,6 +999,7 @@ function setSelectLaunch(card) {
     document.getElementById('nl-time').textContent = timeEl.textContent.trim();
   }
   if (imgEl) document.getElementById('nl-img').src = imgEl.src;
+  if (provider) document.getElementById('nl-agency').textContent = provider;
 
   // T+ if launch time is in the past — append suffix once
   const nlTime = document.getElementById('nl-time');
@@ -1192,5 +1194,6 @@ canvas.addEventListener('mousemove', e => {
   prevY = e.clientY;
 });
 </script>
+<script src="./assets/upcoming-live.js"></script>
 </body>
-</html>''
+</html>

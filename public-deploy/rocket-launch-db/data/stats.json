@@ -1,16 +1,25 @@
 {
-  "generated_at": "2026-07-13T07:11:34Z",
-  "year_scope": "2026",
-  "total_launches": 428,
-  "gcat_only": 428,
-  "ll2_enriched": 0,
-  "ll2_only": 0,
-  "unique_vehicles": 41,
-  "unique_sites": 64,
-  "satellites_tracked": 146,
-  "sources_used": [
-    "GCAT (primary, full year)",
-    "LL2 (best-effort, 1 page)",
-    "CelesTrak (HEAD cache)"
-  ]
+  "generated_at": "2026-07-18T05:48:32.992Z",
+  "total_launches": 728,
+  "upcoming_30d": 20,
+  "pending_confirmation": 0,
+  "status_counts": {
+    "tbd": 186,
+    "tbc": 4,
+    "go": 10,
+    "success": 325,
+    "attempted": 197,
+    "failure": 6
+  },
+  "source_contributions": [
+    {
+      "source": "GCAT",
+      "count": 428
+    },
+    {
+      "source": "LL2",
+      "count": 300
+    }
+  ],
+  "ll2_refreshed": 300
 }
