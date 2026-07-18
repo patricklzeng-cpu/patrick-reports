@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="generated" content="2026-07-15 Codex GPT-5.6 Sol demo dashboard">
+<title>Codex + GPT-5.6 Sol 发布 demo — OpenAI · 2026-07-15</title>
+<style>
+:root{--bg:#0d0d10;--bg-card:#16161b;--bg-elevated:#1c1c22;--border:#2a2a32;--text:#e8e8ea;--text-dim:#a8a8b2;--text-mute:#6a6a76;--accent:#ff6b35;--accent-2:#f7c59f;--green:#4ade80;--red:#f87171;--yellow:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;--gray:#9ca3af;--lime:#d5ff3f;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;line-height:1.6;padding:2rem 1.5rem 6rem;}
+h1{font-size:1.9rem;font-weight:700;margin-bottom:.5rem;}
+h2.section{font-size:1.3rem;font-weight:600;color:var(--accent);margin:1.8rem 0 1rem;padding-bottom:.4rem;border-bottom:2px solid var(--border);}
+h3{font-size:1.05rem;font-weight:600;color:var(--accent-2);margin:1.2rem 0 .6rem;}
+h4{font-size:.95rem;font-weight:600;color:var(--accent-2);margin-bottom:.4rem;}
+.subtitle{color:var(--text-dim);font-size:.95rem;margin-bottom:1rem;}
+.meta-bar{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.5rem;font-size:.82rem;}
+.meta-bar span{background:var(--bg-elevated);padding:.3rem .7rem;border-radius:6px;border:1px solid var(--border);}
+.hero{background:linear-gradient(135deg,var(--bg-card),var(--bg-elevated));padding:1.5rem;border-radius:10px;border-left:4px solid var(--accent);margin-bottom:1.5rem;}
+.hero blockquote{color:var(--accent-2);font-style:italic;font-size:1.05rem;line-height:1.7;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem;margin:1.5rem 0;}
+.stat{background:var(--bg-card);padding:1rem;border-radius:8px;border:1px solid var(--border);}
+.stat .num{font-size:1.5rem;font-weight:700;color:var(--lime);}
+.stat .lbl{font-size:.75rem;color:var(--text-mute);text-transform:uppercase;letter-spacing:.05em;margin-top:.3rem;}
+.tabs{display:flex;flex-wrap:wrap;gap:.3rem;margin:1.5rem 0 0;border-bottom:2px solid var(--border);padding-bottom:0;}
+.tab{background:transparent;color:var(--text-dim);padding:.6rem 1rem;cursor:pointer;border:none;border-bottom:3px solid transparent;font-size:.85rem;font-family:inherit;transition:all .2s;}
+.tab:hover{color:var(--text);background:var(--bg-elevated);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--bg-card);}
+.tab-content{display:none;padding:1.5rem 0;}
+.tab-content.active{display:block;}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem;}
+.card{background:var(--bg-card);padding:1.1rem;border-radius:8px;border:1px solid var(--border);border-left:3px solid var(--accent);}
+.card h4{color:var(--accent-2);margin-bottom:.5rem;}
+.card p{color:var(--text-dim);font-size:.88rem;margin-bottom:.4rem;}
+.card ul{color:var(--text-dim);font-size:.88rem;padding-left:1.2rem;margin-top:.4rem;}
+.card ul li{margin-bottom:.3rem;}
+.card.feature{border-left-color:var(--lime);}
+.card.warn{border-left-color:var(--yellow);}
+.card.gap{border-left-color:var(--red);}
+.card.ok{border-left-color:var(--green);}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.85rem;}
+th{text-align:left;padding:.55rem .7rem;background:var(--bg-elevated);color:var(--text);font-weight:600;border-bottom:2px solid var(--border);}
+td{padding:.55rem .7rem;border-bottom:1px solid var(--border);color:var(--text-dim);}
+tr:hover td{background:var(--bg-elevated);}
+.quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:.9rem;margin-top:1rem;}
+.quote-card{background:var(--bg-card);padding:1rem;border-radius:8px;border:1px solid var(--border);font-style:italic;}
+.quote-card .q{color:var(--accent-2);font-size:.9rem;line-height:1.6;}
+.quote-card .src{color:var(--text-mute);font-size:.72rem;margin-top:.5rem;font-style:normal;}
+.timeline{border-left:2px solid var(--accent);margin-left:.6rem;padding-left:1.2rem;}
+.tl-item{margin-bottom:1rem;position:relative;}
+.tl-item::before{content:"";position:absolute;left:-1.65rem;top:.3rem;width:.7rem;height:.7rem;background:var(--accent);border-radius:50%;}
+.tl-item .time{color:var(--lime);font-weight:600;font-size:.85rem;font-family:ui-monospace,monospace;}
+.tl-item .what{color:var(--text-dim);font-size:.88rem;margin-top:.2rem;}
+.badge{display:inline-block;font-size:.7rem;padding:.18rem .5rem;border-radius:4px;background:var(--bg-elevated);color:var(--text-dim);margin-left:.4rem;border:1px solid var(--border);}
+.badge.mitig{color:var(--green);border-color:var(--green);}
+.badge.warn{color:var(--yellow);border-color:var(--yellow);}
+.badge.gap{color:var(--red);border-color:var(--red);}
+.badge.ok{color:var(--green);border-color:var(--green);}
+footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--border);color:var(--text-mute);font-size:.78rem;}
+/* Bilingual toggle — Pitfall 76: BOTH rules required */
+html[lang="zh-CN"] .en{display:none;}
+html[lang="en"] .zh{display:none;}
+/* Language toggle button */
+.lang-toggle{position:fixed;top:1rem;right:1rem;z-index:100;background:var(--bg-elevated);color:var(--accent);border:1px solid var(--accent);padding:.4rem .7rem;border-radius:6px;cursor:pointer;font-size:.78rem;font-family:inherit;}
+.lang-toggle:hover{background:var(--accent);color:var(--bg);}
+/* TOC sidebar v1.4.4 collapsible */
+.toc-toggle{position:fixed;top:4rem;left:1rem;z-index:99;background:var(--bg-elevated);color:var(--accent);border:1px solid var(--border);width:38px;height:38px;border-radius:6px;cursor:pointer;font-size:1rem;transition:all .3s ease;}
+.toc-toggle.expanded{left:264px;}
+aside.toc{position:fixed;top:4rem;left:1rem;width:240px;max-height:80vh;overflow-y:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1rem;transition:transform .3s ease;z-index:98;}
+aside.toc.toc-collapsed{transform:translateX(-260px);}
+aside.toc nav a{display:block;color:var(--text-dim);text-decoration:none;padding:.3rem 0;font-size:.82rem;border-left:2px solid transparent;padding-left:.6rem;}
+aside.toc nav a:hover{color:var(--text);border-left-color:var(--accent);}
+aside.toc h5{color:var(--accent-2);font-size:.85rem;margin-bottom:.6rem;}
+body{padding-left:280px;}
+@media(max-width:900px){body{padding-left:0;}aside.toc{transform:translateX(-260px);}aside.toc.toc-mobile-open{transform:translateX(0);}.toc-toggle{left:1rem !important;}}
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLang()"><span class="zh">EN</span><span class="en">中文</span></button>
+<button class="toc-toggle expanded" onclick="toggleToc()">☰</button>
+
+<aside class="toc" id="toc">
+<h5><span class="zh">目录</span><span class="en">Contents</span></h5>
+<nav>
+<a href="#core">🔥 <span class="zh">核心论点</span><span class="en">Core Thesis</span></a>
+<a href="#t1">T1 <span class="zh">合并</span><span class="en">Codex ↔ ChatGPT</span></a>
+<a href="#t2">T2 <span class="zh">GPT-5.6 Sol</span><span class="en">Model + Ultra + Goal</span></a>
+<a href="#t3">T3 <span class="zh">Subagent</span><span class="en">Auto Parallel</span></a>
+<a href="#t4">T4 <span class="zh">Appshot</span><span class="en">Simulator Screenshot</span></a>
+<a href="#t5">T5 <span class="zh">浏览器</span><span class="en">In-app Browser + Diff</span></a>
+<a href="#t6">T6 <span class="zh">Sites</span><span class="en">Sites for Everyone</span></a>
+<a href="#t7">T7 <span class="zh">自管理</span><span class="en">Self-Managing Tasks</span></a>
+<a href="#t8">T8 <span class="zh">移动端</span><span class="en">Mobile 3 Features</span></a>
+<a href="#t9">T9 <span class="zh">PR 集成</span><span class="en">Pull Request</span></a>
+<a href="#related">🔗 <span class="zh">Patrick 关联</span><span class="en">Patrick Roster</span></a>
+<a href="#action">🗺️ <span class="zh">实战路线</span><span class="en">Action Plan</span></a>
+<a href="#quotes">💬 <span class="zh">金句库</span><span class="en">Quotes</span></a>
+<a href="#timeline">⏱️ <span class="zh">时间戳</span><span class="en">Timeline</span></a>
+<a href="#tier4">⚠️ <span class="zh">局限</span><span class="en">Tier 4</span></a>
+</nav>
+</aside>
+
+<main style="max-width:1100px;">
+
+<h1>
+<span class="zh">Codex + GPT-5.6 Sol 发布 demo</span>
+<span class="en">Codex + GPT-5.6 Sol launch demo</span>
+<span class="badge ok"><span class="zh">官方</span><span class="en">Official</span></span>
+</h1>
+<p class="subtitle">
+<span class="zh">OpenAI · 6:58 · 2026-07-15</span>
+<span class="en">OpenAI · 6:58 · 2026-07-15</span>
+</p>
+
+<div class="meta-bar">
+<span>📺 <span class="zh">YouTube</span><span class="en">YouTube</span>: eiQgljOrkWU</span>
+<span>🎙️ OpenAI</span>
+<span>🕐 6:58</span>
+<span>🌐 EN</span>
+<span>📦 <span class="zh">官方发布</span><span class="en">Official launch</span></span>
+<span>📅 2026-07-15</span>
+</div>
+
+<div class="hero">
+<blockquote>
+<span class="zh">Codex 不再是孤立的 CLI agent — 它现在是 ChatGPT 的一个"developer space"，内置模型 + 推理增强 + 自动 subagent + 计算机控制 + 内置 deploy + 自管理 + 移动端 + PR 集成。<strong>一句话：从 idea 到 deployed URL，全在一个 app。</strong></span>
+<span class="en">Codex is no longer an isolated CLI agent — it is now a "developer space" inside ChatGPT, with built-in model (GPT-5.6 Sol), reasoning boost (Ultra + Goal), automatic subagent parallel, computer control (Appshot + browser), built-in deploy (Sites), self-managing tasks, mobile SSH, and PR integration. <strong>One sentence: from idea to deployed URL, all in one app.</strong></span>
+</blockquote>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="num">6M+</div><div class="lbl"><span class="zh">周活用户</span><span class="en">Weekly Active</span></div></div>
+<div class="stat"><div class="num">150+</div><div class="lbl"><span class="zh">两个月更新</span><span class="en">Updates / 2mo</span></div></div>
+<div class="stat"><div class="num">GPT-5.6</div><div class="lbl"><span class="zh">新模型</span><span class="en">New Frontier</span></div></div>
+<div class="stat"><div class="num">9</div><div class="lbl"><span class="zh">主要特性</span><span class="en">Major Features</span></div></div>
+<div class="stat"><div class="num">6:58</div><div class="lbl"><span class="zh">时长</span><span class="en">Duration</span></div></div>
+<div class="stat"><div class="num">30+</div><div class="lbl"><span class="zh">Build Week 活动</span><span class="en">Build Week Events</span></div></div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="core">🔥 <span class="zh">核心论点</span><span class="en">Core</span></button>
+<button class="tab" data-tab="t1">T1 <span class="zh">合并</span></button>
+<button class="tab" data-tab="t2">T2 GPT-5.6</button>
+<button class="tab" data-tab="t3">T3 Subagent</button>
+<button class="tab" data-tab="t4">T4 Appshot</button>
+<button class="tab" data-tab="t5">T5 Browser</button>
+<button class="tab" data-tab="t6">T6 Sites</button>
+<button class="tab" data-tab="t7">T7 Tasks</button>
+<button class="tab" data-tab="t8">T8 Mobile</button>
+<button class="tab" data-tab="t9">T9 PR</button>
+<button class="tab" data-tab="related">🔗 Patrick</button>
+<button class="tab" data-tab="action">🗺️ Action</button>
+<button class="tab" data-tab="quotes">💬 Quotes</button>
+<button class="tab" data-tab="timeline">⏱️ Time</button>
+<button class="tab" data-tab="tier4">⚠️ Tier 4</button>
+</div>
+
+<!-- Core thesis -->
+<div class="tab-content active" data-tab-content="core">
+<h2 class="section">🔥 <span class="zh">核心论点 / 一次发布 9 件事</span><span class="en">Core Thesis / 9-in-1 launch</span></h2>
+<div class="card-grid">
+<div class="card feature">
+<h4><span class="zh">① Codex ↔ ChatGPT 合并</span><span class="en">① Codex merges into ChatGPT</span></h4>
+<p><span class="zh">6M 周活，2 个月 150+ updates。Codex 搬进 ChatGPT app，有自己的 dedicated space。</span><span class="en">6M WAU, 150+ updates in 2 months. Codex moves into the ChatGPT app with its own dedicated space.</span></p>
+</div>
+<div class="card feature">
+<h4>② GPT-5.6 Sol + Ultra + Goal</h4>
+<p><span class="zh">新 frontier model 所有人可用；Ultra 模式更大推理 budget；Goal command 给 high-level 目标。</span><span class="en">New frontier model available to everyone; Ultra mode = larger reasoning budget; Goal command for high-level objectives.</span></p>
+</div>
+<div class="card feature">
+<h4>③ <span class="zh">Subagent 自动并行</span><span class="en">Auto subagent parallel</span></h4>
+<p><span class="zh">不用 user 手动 orchestrate，Codex 自己 split work across subagents。</span><span class="en">No user orchestration needed — Codex splits work across subagents automatically.</span></p>
+</div>
+<div class="card feature">
+<h4>④ Appshot</h4>
+<p><span class="zh">Cmd-Cmd 一键截屏 iOS Simulator，同时拿到 screen + app context。后台跑。</span><span class="en">Cmd-Cmd screenshots iOS Simulator, gets screen + app context. Runs in background.</span></p>
+</div>
+<div class="card feature">
+<h4>⑤ <span class="zh">In-app browser + diff + inline edit</span><span class="en">In-app browser + diff + inline edit</span></h4>
+<p><span class="zh">点哪改哪 + 看 diff + 直接手改几行。Browser 支持 login + passkey。</span><span class="en">Point-and-click annotate + diff view + inline manual edits. Browser supports login + passkey.</span></p>
+</div>
+<div class="card feature">
+<h4>⑥ Sites for everyone</h4>
+<p><span class="zh">"publish this to Sites" 一句全栈 deploy：hosting + auth + DB + file storage 全内置。</span><span class="en">"publish this to Sites" = full-stack deploy with hosting + auth + DB + file storage built in.</span></p>
+</div>
+<div class="card feature">
+<h4>⑦ <span class="zh">Codex 自管理 tasks</span><span class="en">Self-managing tasks</span></h4>
+<p><span class="zh">一句话"找 5 个 Linear bug，开 task + worktree + 标优先级"，全自动。任务可互相 reference。</span><span class="en">One sentence "find 5 Linear bugs, create tasks + worktrees + pin priority" — fully automated. Tasks can reference each other.</span></p>
+</div>
+<div class="card feature">
+<h4>⑧ <span class="zh">移动端 3 件套</span><span class="en">Mobile 3 features</span></h4>
+<p><span class="zh">手机上管理 tasks / review changes / SSH 直连 dev box 跑 task。</span><span class="en">Manage tasks / review changes / SSH to dev box from phone.</span></p>
+</div>
+<div class="card feature">
+<h4>⑨ PR <span class="zh">集成</span><span class="en">integration</span></h4>
+<p><span class="zh">Codex 知道每个 task 在哪 branch，PR 自动 surface。Review / fix / merge 全在 app 内。</span><span class="en">Codex knows each task's branch, PR auto-surfaces. Review / fix / merge all inside the app.</span></p>
+</div>
+</div>
+
+<blockquote style="margin-top:1.5rem;color:var(--accent-2);font-style:italic;">
+<span class="zh">⚡ 这条发布把 Codex 从"CLI 工具"升级成"统一 app + 全栈 hosting + 移动端"的整套 IDE 替代方案。<br>直接竞品：Vercel v0 + Replit + Lovable + Bolt + Cursor + Claude Code 全要应对。</span>
+<span class="en">⚡ This launch upgrades Codex from "CLI tool" to a "unified app + full-stack hosting + mobile" full IDE replacement. Direct competitors: Vercel v0 + Replit + Lovable + Bolt + Cursor + Claude Code all need to respond.</span>
+</blockquote>
+</div>
+
+<!-- T1 -->
+<div class="tab-content" data-tab-content="t1">
+<h2 class="section">T1 — <span class="zh">Codex ↔ ChatGPT 合并</span><span class="en">Codex merges into ChatGPT</span></h2>
+<div class="card feature">
+<h4><span class="zh">合并触发点</span><span class="en">Why merge now</span></h4>
+<p><span class="zh">6M 周活 + 150+ updates/2mo，Codex 已经有独立用户基础。ChatGPT 现在需要 developer surface，Codex 变成它一部分。</span><span class="en">6M weekly active + 150+ updates in 2 months — Codex has standalone user base. ChatGPT now needs a developer surface; Codex becomes part of it.</span></p>
+<ul>
+<li><span class="zh">Dedicated space 在 ChatGPT 内，跟 new "work agent" 并排</span><span class="en">Dedicated space inside ChatGPT, next to the new "work agent"</span></li>
+<li><span class="zh">老 Codex 用户零迁移成本 (same Codex, new home)</span><span class="en">Zero migration cost for existing Codex users (same Codex, new home)</span></li>
+<li><span class="zh">用户反馈被"constantly improving"列入产品节奏</span><span class="en">User feedback explicitly listed as part of product cadence</span></li>
+</ul>
+</div>
+</div>
+
+<!-- T2 -->
+<div class="tab-content" data-tab-content="t2">
+<h2 class="section">T2 — GPT-5.6 Sol + Ultra + Goal</h2>
+<div class="card-grid">
+<div class="card">
+<h4>GPT-5.6 Sol</h4>
+<p><span class="zh">"我们的新 frontier model, 所有人可用, 擅长长时间硬问题"。名字"Sol" = 强调 long-horizon reasoning。</span><span class="en">"Our new frontier model, available to everyone, excels at long-horizon hard problems." Name "Sol" emphasizes long-horizon reasoning.</span></p>
+</div>
+<div class="card">
+<h4>Ultra mode</h4>
+<p><span class="zh">更大推理 budget，但 token 消耗加快 (官方明示 warning)。配合 Goal command 用。</span><span class="en">Larger reasoning budget, but consumes tokens faster (officially warned). Pair with Goal command.</span></p>
+</div>
+<div class="card">
+<h4>Goal command</h4>
+<p><span class="zh">给 high-level 目标，如 "build this React landing page"，Sol 自动分解 + 派 subagent。</span><span class="en">Give high-level goal like "build this React landing page"; Sol auto-decomposes + dispatches subagents.</span></p>
+</div>
+</div>
+</div>
+
+<!-- T3 -->
+<div class="tab-content" data-tab-content="t3">
+<h2 class="section">T3 — <span class="zh">Subagent 自动并行</span><span class="en">Automatic subagent parallel</span></h2>
+<div class="card feature">
+<h4><span class="zh">零提示分派</span><span class="en">Zero-prompt dispatch</span></h4>
+<p><span class="zh">"Codex 会自动 split work across subagents, 不用你问"。UI 可看 whole team working together。</span><span class="en">"Codex will automatically split the work across subagents without you needing to ask." UI shows the whole team working together.</span></p>
+<p style="color:var(--lime);margin-top:.6rem;"><strong><span class="zh">关键差异：</span><span class="en">Key difference:</span></strong> <span class="zh">Claude Code Task tool 需要 user 手动调；Codex auto-mode 不需要。OpenAI 把 orchestration 推成 default。</span><span class="en">Claude Code Task tool requires manual user dispatch; Codex auto-mode doesn't. OpenAI pushes orchestration to default.</span></p>
+</div>
+</div>
+
+<!-- T4 -->
+<div class="tab-content" data-tab-content="t4">
+<h2 class="section">T4 — Appshot</h2>
+<div class="card-grid">
+<div class="card">
+<h4><span class="zh">怎么触发</span><span class="en">How to trigger</span></h4>
+<p><span class="zh">Mac 上 Cmd-Cmd → Simulator 截屏 → Codex 同时拿到 screen pixels + app context。</span><span class="en">Cmd-Cmd on Mac → Simulator screenshot → Codex gets screen pixels + app context together.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">能干什么</span><span class="en">What it can do</span></h4>
+<p><span class="zh">"navigate through every screen and capture App Store screenshots in English and French" — 全自动 + 后台跑。</span><span class="en">"Navigate through every screen and capture App Store screenshots in English and French" — fully automated + runs in background.</span></p>
+</div>
+<div class="card warn">
+<h4>⚠️ <span class="zh">限定</span><span class="en">Limitations</span></h4>
+<p><span class="zh">Demo 只展示 iOS Simulator。Android emulator / web preview 没演示。</span><span class="en">Demo only shows iOS Simulator. Android emulator / web preview not demonstrated.</span></p>
+</div>
+</div>
+</div>
+
+<!-- T5 -->
+<div class="tab-content" data-tab-content="t5">
+<h2 class="section">T5 — <span class="zh">In-app browser + diff + inline edit</span><span class="en">In-app browser + diff + inline edit</span></h2>
+<div class="card-grid">
+<div class="card">
+<h4>Paper plane demo</h4>
+<p><span class="zh">Codex 写的 web app → in-app browser 直接打开试玩。</span><span class="en">Codex-built web app opens directly in in-app browser for playtesting.</span></p>
+</div>
+<div class="card">
+<h4>Point-and-click annotation</h4>
+<p><span class="zh">"点哪改哪"：用户点屏幕某部分，Codex 拿到视觉 context 做对应修改。</span><span class="en">"Point and click here to annotate" — user points at a part, Codex gets visual context for that change.</span></p>
+</div>
+<div class="card">
+<h4>Diff view + inline edit</h4>
+<p><span class="zh">看 diff + 直接手改几行 (不是非要 LLM 来改) + 跟 Codex pair-program 切换。</span><span class="en">Inspect diff + directly edit a line manually + switch between visual and code-mode pair-programming.</span></p>
+</div>
+<div class="card ok">
+<h4>✅ Login + passkey <span class="zh">支持</span><span class="en">support</span></h4>
+<p><span class="zh">Browser 可登录需要 auth 的应用。Passkey 集成。</span><span class="en">Browser can log into auth-required apps. Passkey integrated.</span></p>
+</div>
+</div>
+</div>
+
+<!-- T6 -->
+<div class="tab-content" data-tab-content="t6">
+<h2 class="section">T6 — Sites for everyone</h2>
+<div class="card feature">
+<h4><span class="zh">从 idea 到 deployed URL，一句话</span><span class="en">Idea to deployed URL, one sentence</span></h4>
+<p><span class="zh">"publish this to Sites" = full-stack deploy，自带 hosting + auth + persistent database + file storage。</span><span class="en">"Publish this to Sites" = full-stack deploy with hosting + auth + persistent database + file storage built in.</span></p>
+<blockquote style="margin-top:.8rem;">
+<span class="zh">"从 idea 到真正的 full-stack application，不用真的去想 infrastructure 或 hosting"。</span>
+<span class="en">"From idea to a real full-stack application without really thinking about infrastructure or hosting."</span>
+</blockquote>
+</div>
+<div class="card warn">
+<h4>⚠️ <span class="zh">生产限定</span><span class="en">Production limits</span></h4>
+<p><span class="zh">Demo 漂亮但生产 SLA / pricing tier / region 未公开。竞品：Vercel / Replit / Lovable / Bolt 都提供类似能力，定价 + cold-start 对比缺失。</span><span class="en">Demo looks great but production SLA / pricing tier / region are not disclosed. Competitors Vercel / Replit / Lovable / Bolt all offer similar — pricing + cold-start comparison missing.</span></p>
+</div>
+</div>
+
+<!-- T7 -->
+<div class="tab-content" data-tab-content="t7">
+<h2 class="section">T7 — <span class="zh">Codex 自管理 tasks</span><span class="en">Self-managing tasks</span></h2>
+<div class="card feature">
+<h4><span class="zh">一句话开 5 个 task</span><span class="en">One sentence = 5 tasks</span></h4>
+<p><span class="zh">"find 5 bugs from Linear, create separate task and isolated worktree for each one, pin most critical ones" — Codex 自动开 5 个 task + 5 个 worktree + 标优先级。</span><span class="en">"Find 5 bugs from Linear, create separate task and isolated worktree for each one, pin the most critical ones" — Codex auto-creates 5 tasks + 5 worktrees + tags priority.</span></p>
+</div>
+<div class="card">
+<h4>Task <span class="zh">互相引用 + 跨 app</span><span class="en">reference + cross-app</span></h4>
+<ul>
+<li><span class="zh">Tasks 之间可互相 reference</span><span class="en">Tasks can reference each other</span></li>
+<li><span class="zh">ChatGPT deep research 出的 idea → @mention 那个 conversation → 带 context 直接进 Codex task</span><span class="en">ChatGPT deep research ideas → @mention the conversation → bring context straight into Codex task</span></li>
+<li><span class="zh">不用 copy-paste</span><span class="en">No more copy-pasting</span></li>
+</ul>
+</div>
+</div>
+
+<!-- T8 -->
+<div class="tab-content" data-tab-content="t8">
+<h2 class="section">T8 — <span class="zh">移动端 3 件套</span><span class="en">Mobile 3 features</span></h2>
+<div class="card-grid">
+<div class="card">
+<h4>① Task <span class="zh">管理</span><span class="en">management</span></h4>
+<p><span class="zh">手机上创建 / 搜索 / 打开 / 管理 Codex tasks。</span><span class="en">Create / search / open / manage Codex tasks directly from phone.</span></p>
+</div>
+<div class="card">
+<h4>② Review changes</h4>
+<p><span class="zh">filter staged / unstaged / branch / compare branches on the go。</span><span class="en">Filter staged / unstaged / branch / compare branches on the go.</span></p>
+</div>
+<div class="card feature">
+<h4>③ SSH <span class="zh">直连 dev box</span><span class="en">direct connect to dev box</span></h4>
+<p><span class="zh">"I can connect directly to an SSH host, like a dev box, and start new tasks from my phone" — 咖啡厅 keep Codex 跑。</span><span class="en">"I can connect directly to an SSH host, like a dev box, and start new tasks from my phone" — keep Codex running from a cafe.</span></p>
+</div>
+</div>
+<div class="card warn">
+<h4>⚠️ <span class="zh">未验证</span><span class="en">Unverified</span></h4>
+<p><span class="zh">SSH key forwarding / cert pinning 安全 model 未公开。</span><span class="en">SSH key forwarding / cert pinning security model not disclosed.</span></p>
+</div>
+</div>
+
+<!-- T9 -->
+<div class="tab-content" data-tab-content="t9">
+<h2 class="section">T9 — PR <span class="zh">集成</span><span class="en">Pull Request integration</span></h2>
+<div class="card-grid">
+<div class="card">
+<h4>PR <span class="zh">自动 surface</span><span class="en">auto-surface</span></h4>
+<p><span class="zh">Codex 知道每个 task 在哪 branch，open PR 自动出现在 summary pane。</span><span class="en">Codex knows each task's branch; open PR auto-surfaces in summary pane.</span></p>
+</div>
+<div class="card">
+<h4>Check <span class="zh">失败 / 评论进来</span><span class="en">failures / comments</span></h4>
+<p><span class="zh">ask Codex 在 context 内修，不用跳 GitHub.com。</span><span class="en">Ask Codex to fix in context, no need to jump to GitHub.com.</span></p>
+</div>
+<div class="card feature">
+<h4>Pull Requests tab</h4>
+<p><span class="zh">explore 每次 code change + inline comment + 自己 PR 可 self-mark ready + merge。</span><span class="en">Explore every code change + inline comment + self-mark own PRs ready + merge.</span></p>
+</div>
+</div>
+</div>
+
+<!-- Related -->
+<div class="tab-content" data-tab-content="related">
+<h2 class="section">🔗 Patrick <span class="zh">关联</span><span class="en">Roster (17 cards)</span></h2>
+<div class="card-grid">
+
+<div class="card ok"><h4>① media/video-to-knowledge-dashboard</h4>
+<p><span class="zh">本 video 走的就是这套 skill，自指。</span><span class="en">This dashboard IS the skill, self-referential.</span></p>
+</div>
+
+<div class="card ok"><h4>② knowledge-synthesis/graphify</h4>
+<p><span class="zh">Codex 处理 multi-task codebase 跟 graphify 同构 — subagent 各自 update 一张图。</span><span class="en">Codex multi-task codebase processing mirrors graphify — subagents each update one graph.</span></p>
+</div>
+
+<div class="card ok"><h4>③ research/llm-wiki</h4>
+<p><span class="zh">Karpathy LLM Wiki 跟 Codex RAG over your own code 同方向。</span><span class="en">Karpathy LLM Wiki and Codex RAG over your own code point the same direction.</span></p>
+</div>
+
+<div class="card ok"><h4>④ knowledge-synthesis/understand-anything</h4>
+<p><span class="zh">Codex 用 codebase context 跟 understand-anything 都是"代码地图"。</span><span class="en">Codex using codebase context and understand-anything are both "code maps".</span></p>
+</div>
+
+<div class="card feature"><h4>⑤ autonomous-ai-agents/agent-orchestration</h4>
+<p><span class="zh">Codex subagent auto-parallel = orchestration skill 的"manifest 不再需要"。</span><span class="en">Codex subagent auto-parallel = orchestration skill with "no manifest required".</span></p>
+</div>
+
+<div class="card ok"><h4>⑥ autonomous-ai-agents/fable-vs-hermes-capability-gap</h4>
+<p><span class="zh">Codex vs Hermes 实战对比，新样本。</span><span class="en">Codex vs Hermes battle test — new sample.</span></p>
+</div>
+
+<div class="card ok"><h4>⑦ agentic-os/llm-protocol-router</h4>
+<p><span class="zh">Codex Ultra mode 跟 Claude Sonnet 4.5 / Opus 4.6 routing 思路同源。</span><span class="en">Codex Ultra mode parallels Claude Sonnet 4.5 / Opus 4.6 routing thinking.</span></p>
+</div>
+
+<div class="card ok"><h4>⑧ devops/patricks-publish-pipeline-watchdog</h4>
+<p><span class="zh">Sites 一次性 ship 跟 cf_pages_loop_deploy.py 同思路 — deployed URL 即真值。</span><span class="en">Sites one-shot ship and cf_pages_loop_deploy.py share the same logic — deployed URL is ground truth.</span></p>
+</div>
+
+<div class="card warn"><h4>⑨ media/video-bidirectional-mapping</h4>
+<p><span class="zh">Tier 4 anti-mapping 应用到本 video：9/10 demo 完美但 long-horizon stability 没验证。</span><span class="en">Apply Tier 4 anti-mapping: 9/10 demo flawless but long-horizon stability unverified.</span></p>
+</div>
+
+<div class="card ok"><h4>⑩ creative/rich-html-output</h4>
+<p><span class="zh">本 dashboard 走的就是 Composition Pattern F。</span><span class="en">This dashboard uses Composition Pattern F.</span></p>
+</div>
+
+<div class="card ok"><h4>⑪ knowledge-synthesis/graphify-obsidian-baseline</h4>
+<p><span class="zh">Sites 一键 deploy 跟 graphify baseline 同概念（snapshot + cold-start）。</span><span class="en">Sites one-click deploy parallels graphify baseline concept (snapshot + cold-start).</span></p>
+</div>
+
+<div class="card ok"><h4>⑫ meta/how-to-sell</h4>
+<p><span class="zh">OpenAI demo 就是 how-to-sell 教科书 (problem → demo → wow → CTA)。</span><span class="en">OpenAI demo is a how-to-sell textbook (problem → demo → wow → CTA).</span></p>
+</div>
+
+<div class="card feature"><h4>⑬ agentic-os/gstack</h4>
+<p><span class="zh">24 specialists vs Codex auto-subagent = same paradigm 两种 packaging。</span><span class="en">24 specialists vs Codex auto-subagent — same paradigm, two packaging styles.</span></p>
+</div>
+
+<div class="card ok"><h4>⑭ research/distributed-research-playbook</h4>
+<p><span class="zh">Codex SSH remote + multi-machine = distributed orchestration。</span><span class="en">Codex SSH remote + multi-machine = distributed orchestration.</span></p>
+</div>
+
+<div class="card ok"><h4>⑮ extract-youtube-video</h4>
+<p><span class="zh">transcript 6.8K chars 一次性抓到位。</span><span class="en">Transcript 6.8K chars captured in one fetch.</span></p>
+</div>
+
+<div class="card ok"><h4>⑯ mlops/apple-silicon-llama-server</h4>
+<p><span class="zh">Codex backend vs 本地 llama.cpp = cloud vs local 对比。</span><span class="en">Codex backend vs local llama.cpp = cloud vs local comparison.</span></p>
+</div>
+
+<div class="card warn"><h4>⑰ autonomous-ai-agents/dual-ai-peer-review</h4>
+<p><span class="zh">GPT-5.6 Sol 跟 Claude Sonnet 4.5 评分 head-to-head 可走 dual review。</span><span class="en">GPT-5.6 Sol vs Claude Sonnet 4.5 head-to-head score via dual review.</span></p>
+</div>
+
+</div>
+</div>
+
+<!-- Action -->
+<div class="tab-content" data-tab-content="action">
+<h2 class="section">🗺️ <span class="zh">实战路线</span><span class="en">Action plan</span></h2>
+
+<h3>P0 — <span class="zh">今天</span><span class="en">Today</span></h3>
+<ul style="color:var(--text-dim);padding-left:1.5rem;margin-bottom:1rem;">
+<li><span class="zh">跑</span><span class="en">Run</span> <code>codex doctor</code> <span class="zh">看 CLI pipeline 健康（cron</span><span class="en">to check CLI pipeline health (cron</span> <code>330e5663934f</code>）</li>
+<li><span class="zh">跑 subagent timeout recovery 看 GPT-5.6 Sol 是否替代 Codex CLI 旧模型</span><span class="en">Run subagent timeout recovery to see if GPT-5.6 Sol replaces old Codex CLI models</span></li>
+<li><span class="zh">cf_pages_loop_deploy.py vs Sites deploy systematic 对比（5 维度）</span><span class="en">cf_pages_loop_deploy.py vs Sites deploy systematic comparison (5 axes)</span></li>
+</ul>
+
+<h3>P1 — <span class="zh">本周</span><span class="en">This week</span></h3>
+<ul style="color:var(--text-dim);padding-left:1.5rem;margin-bottom:1rem;">
+<li><span class="zh">Appshot Mac 本机跑：装 iOS Simulator + Codex CLI → 截屏 → 验证"screen + context"真值</span><span class="en">Run Appshot on Mac: iOS Simulator + Codex CLI → screenshot → verify "screen + context" is real</span></li>
+<li><span class="zh">Sites 真实 deploy 一个 small app：cold-start / auth flow / DB persistence</span><span class="en">Real Sites deploy a small app: cold-start / auth flow / DB persistence</span></li>
+<li><span class="zh">Mobile SSH: iPhone ↔ Mac SSH test（chat 里 ping）</span><span class="en">Mobile SSH: iPhone ↔ Mac SSH test (ping in chat)</span></li>
+</ul>
+
+<h3>P2 — <span class="zh">本月</span><span class="en">This month</span></h3>
+<ul style="color:var(--text-dim);padding-left:1.5rem;">
+<li><span class="zh">4-card 框架：Codex auto-subagent vs Claude Code Task tool vs Hermes delegate_task vs GStack 24 specialist</span><span class="en">4-card comparison: Codex auto-subagent vs Claude Code Task tool vs Hermes delegate_task vs GStack 24 specialist</span></li>
+<li><span class="zh">Patrick deploy 后再做一次 head-to-head benchmark</span><span class="en">After Patrick's deploy, do head-to-head benchmark</span></li>
+</ul>
+</div>
+
+<!-- Quotes -->
+<div class="tab-content" data-tab-content="quotes">
+<h2 class="section">💬 <span class="zh">金句库（16 句 verbatim）</span><span class="en">Quotes (16 verbatim)</span></h2>
+<div class="quote-grid">
+<div class="quote-card"><div class="q">"Today, more than 6 million of you use Codex every week."</div><div class="src">00:00 / intro</div></div>
+<div class="quote-card"><div class="q">"more than 150 updates over the past two months"</div><div class="src">00:42</div></div>
+<div class="quote-card"><div class="q">"GPT-5.6 Sol is our new frontier model and it's available to everyone."</div><div class="src">00:55</div></div>
+<div class="quote-card"><div class="q">"With Ultra, Sol gets a much larger reasoning budget."</div><div class="src">01:15</div></div>
+<div class="quote-card"><div class="q">"Codex will automatically split the work across subagents without you needing to ask."</div><div class="src">01:30</div></div>
+<div class="quote-card"><div class="q">"One goal and all of this work now moving in parallel."</div><div class="src">02:00</div></div>
+<div class="quote-card"><div class="q">"You can think of an appshot as a smarter screenshot."</div><div class="src">02:20</div></div>
+<div class="quote-card"><div class="q">"Codex gets both the screen and the app context."</div><div class="src">02:30</div></div>
+<div class="quote-card"><div class="q">"This is not my cursor. It's Codex clicking around and doing all of this in the background."</div><div class="src">03:00</div></div>
+<div class="quote-card"><div class="q">"I can point and click here to annotate the exact part I'm talking about."</div><div class="src">03:40</div></div>
+<div class="quote-card"><div class="q">"And boom, here is the change."</div><div class="src">04:10</div></div>
+<div class="quote-card"><div class="q">"from an idea to a real full-stack application without really thinking about infrastructure or hosting."</div><div class="src">05:10</div></div>
+<div class="quote-card"><div class="q">"Codex is not only doing the work. It's helping me keep all of it organized and connected."</div><div class="src">05:35</div></div>
+<div class="quote-card"><div class="q">"If an idea starts in ChatGPT, or if I explore it here with deep research, I can now @mention that conversation and bring all the context straight into Codex."</div><div class="src">05:50</div></div>
+<div class="quote-card"><div class="q">"I can connect directly to an SSH host, like a dev box, and start new tasks from my phone."</div><div class="src">06:20</div></div>
+<div class="quote-card"><div class="q">"Keep giving us your hardest bugs, your boldest ideas, and the work that feels slightly impossible."</div><div class="src">06:55</div></div>
+</div>
+</div>
+
+<!-- Timeline -->
+<div class="tab-content" data-tab-content="timeline">
+<h2 class="section">⏱️ <span class="zh">时间戳（7 分钟版）</span><span class="en">Timeline (7-min)</span></h2>
+<div class="timeline">
+<div class="tl-item"><div class="time">00:00 - 00:42</div><div class="what"><span class="zh">6M WAU / 150 updates 反馈 + Codex↔ChatGPT 合并</span><span class="en">6M WAU / 150 updates feedback + Codex↔ChatGPT merge</span></div></div>
+<div class="tl-item"><div class="time">00:42 - 01:20</div><div class="what">GPT-5.6 Sol + Ultra + Goal command</div></div>
+<div class="tl-item"><div class="time">01:20 - 02:05</div><div class="what"><span class="zh">Subagent 自动并行 demo（whole team working）</span><span class="en">Subagent auto-parallel demo (whole team working)</span></div></div>
+<div class="tl-item"><div class="time">02:05 - 03:25</div><div class="what">Appshot + iPhone app + Simulator demo</div></div>
+<div class="tl-item"><div class="time">03:25 - 04:35</div><div class="what"><span class="zh">In-app browser + paper plane game + annotation + diff + inline edit</span><span class="en">In-app browser + paper plane game + annotation + diff + inline edit</span></div></div>
+<div class="tl-item"><div class="time">04:35 - 05:15</div><div class="what">Sites for everyone + publish demo</div></div>
+<div class="tl-item"><div class="time">05:15 - 06:00</div><div class="what"><span class="zh">Codex 自管理 tasks（Linear 5 bugs）+ cross-app @mention</span><span class="en">Codex self-managing tasks (Linear 5 bugs) + cross-app @mention</span></div></div>
+<div class="tl-item"><div class="time">06:00 - 06:30</div><div class="what"><span class="zh">Mobile 三大功能（task + PR + SSH）</span><span class="en">Mobile 3 features (task + PR + SSH)</span></div></div>
+<div class="tl-item"><div class="time">06:30 - 06:58</div><div class="what">PR <span class="zh">集成</span><span class="en">integration</span> + Build Week <span class="zh">邀请</span><span class="en">invite</span></div></div>
+</div>
+</div>
+
+<!-- Tier 4 -->
+<div class="tab-content" data-tab-content="tier4">
+<h2 class="section">⚠️ Tier 4 — <span class="zh">验证 / 警示 / gap 清单</span><span class="en">Verification / warning / gap checklist</span></h2>
+
+<div class="card-grid">
+<div class="card ok">
+<h4>✅ Verified <span class="zh">（官方明示）</span><span class="en">(officially confirmed)</span></h4>
+<ul>
+<li>GPT-5.6 Sol <span class="zh">名字</span><span class="en">name</span> + Ultra + Goal</li>
+<li>Codex + ChatGPT <span class="zh">合并</span><span class="en">merge</span></li>
+<li>Sites <span class="zh">从 Enterprise → everyone</span><span class="en">Enterprise → everyone</span></li>
+<li>Mobile <span class="zh">三大功能</span><span class="en">3 features</span></li>
+</ul>
+</div>
+
+<div class="card warn">
+<h4>⚠️ Partial / <span class="zh">演示限定</span><span class="en">Demo-limited</span></h4>
+<ul>
+<li>Subagent auto-split = demo <span class="zh">漂亮，long-horizon task 稳定性没独立验证</span><span class="en">looks great, long-horizon task stability not independently verified</span></li>
+<li>Appshot <span class="zh">仅 iOS Simulator</span><span class="en">iOS Simulator only</span></li>
+<li>Sites "hosting + auth + DB + storage" = demo OK, <span class="zh">生产 SLA / pricing 未公开</span><span class="en">production SLA / pricing not disclosed</span></li>
+<li>Passkey <span class="zh">支持</span><span class="en">support</span> = demo OK, <span class="zh">真实 third-party SSO 未演示</span><span class="en">real third-party SSO not demonstrated</span></li>
+</ul>
+</div>
+
+<div class="card gap">
+<h4>❌ Gap (<span class="zh">视频没讲</span><span class="en">video didn't cover</span>)</h4>
+<ul>
+<li>GPT-5.6 Sol vs GPT-5.5 <span class="zh">具体 benchmark</span><span class="en">benchmark numbers</span></li>
+<li>Ultra mode token <span class="zh">消耗倍数</span><span class="en">consumption multiplier</span></li>
+<li>Codex auto-subagent vs Claude Code Task tool systematic</li>
+<li>Sites vs Vercel / Replit / Lovable / Bolt <span class="zh">定价</span><span class="en">pricing</span></li>
+<li>Mobile SSH <span class="zh">安全 model</span><span class="en">security model</span></li>
+<li>"OpenAI Build Week" 30 events <span class="zh">全球列表</span><span class="en">global list</span></li>
+</ul>
+</div>
+</div>
+</div>
+
+<footer>
+<p>📺 Source: <a href="https://www.youtube.com/watch?v=eiQgljOrkWU" target="_blank" rel="noopener" style="color:var(--accent);">https://www.youtube.com/watch?v=eiQgljOrkWU</a></p>
+<p>📁 Vault: <code>~/Downloads/Obsidian Vault/llm-wiki/papers/gpt-5-6-sol-bilingual-2026-07-15/index.md</code></p>
+<p>🎬 Generated: 2026-07-15 · bilingual EN⇄ZH · TOC v1.4.4 collapsible · 14 tabs · 6 stat · 17-card Patrick roster · 16 verbatim quotes · Pitfall 76 (bilingual wrap) ✓ · Pitfall 67-B (UTF-8 body) ✓</p>
+<p>⚙️ Skill: <code>media/video-to-knowledge-dashboard</code> v1.5.42 · Master-takeover ~20 min</p>
+</footer>
+
+</main>
+
+<script>
+function toggleLang() {
+  const html = document.documentElement;
+  const cur = html.getAttribute('lang') || 'zh-CN';
+  const next = cur === 'zh-CN' ? 'en' : 'zh-CN';
+  html.setAttribute('lang', next);
+  try { localStorage.setItem('eiQ-lang', next); } catch (e) {}
+}
+function toggleToc() {
+  const toc = document.getElementById('toc');
+  toc.classList.toggle('toc-collapsed');
+  const btn = document.querySelector('.toc-toggle');
+  if (btn) btn.classList.toggle('expanded');
+  try { localStorage.setItem('eiQ-toc', toc.classList.contains('toc-collapsed') ? '1' : '0'); } catch (e) {}
+}
+(function init() {
+  // restore lang
+  try {
+    const lang = localStorage.getItem('eiQ-lang');
+    if (lang === 'en' || lang === 'zh-CN') document.documentElement.setAttribute('lang', lang);
+  } catch (e) {}
+  // restore toc
+  try {
+    if (localStorage.getItem('eiQ-toc') === '1') {
+      document.getElementById('toc').classList.add('toc-collapsed');
+      const btn = document.querySelector('.toc-toggle');
+      if (btn) btn.classList.remove('expanded');
+    }
+  } catch (e) {}
+  // tabs
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.toggle('active', x === t));
+      contents.forEach(c => c.classList.toggle('active', c.dataset.tabContent === t.dataset.tab));
+      history.replaceState(null, '', '#' + t.dataset.tab);
+      try { localStorage.setItem('eiQ-tab', t.dataset.tab); } catch (e) {}
+    });
+  });
+  // init hash
+  const initHash = (location.hash || '').replace('#', '');
+  if (initHash) {
+    const target = document.querySelector('[data-tab="' + initHash + '"]');
+    if (target) target.click();
+  } else {
+    try {
+      const saved = localStorage.getItem('eiQ-tab');
+      if (saved) {
+        const t = document.querySelector('[data-tab="' + saved + '"]');
+        if (t) t.click();
+      }
+    } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>

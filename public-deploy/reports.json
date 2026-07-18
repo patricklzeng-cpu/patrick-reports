@@ -140,7 +140,7 @@
     "practical": 88,
     "time": 25,
     "desc": "OpenAI 官方 7 分钟发布 demo. 核心论断: Codex 从 CLI agent 升级成 ChatGPT 内 developer space, 内置模型 (GPT-5.6 Sol) + 推理增强 (Ultra+Goal) + 自动 subagent 并行 + Appshot (simulator screen+context) + In-app browser (annotation+diff+inline edit) + Sites 全员 (hosting+auth+DB+storage) + 自管理 tasks (Linear 5 bugs → 5 worktree) + Mobile SSH + PR 集成. 17/17 Patrick roster 命中 (PITFALL G verified-on-disk) · 16 verbatim quote · Pitfall 76 bilingual wrap 158 zh + 157 en span · Pitfall 67-B body leak 0 · node --check exit 0 · 直接竞品 Vercel/Replit/Lovable/Bolt/Cursor/Claude Code 全要应对",
-    "file": "daily-reports/codex-gpt-5-6-sol-demo-2026-07-15.html",
+    "file": "daily-reports/gpt-5-6-sol-bilingual-2026-07-15.html",
     "date": "2026-07-15",
     "curated": 1,
     "added_at": "2026-07-15"
