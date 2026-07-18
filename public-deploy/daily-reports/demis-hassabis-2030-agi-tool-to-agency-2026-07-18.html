@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Demis Hassabis：从工具到 AGI，再到 agency / consciousness / Demis Hassabis: From Tools to AGI, Agency, Consciousness</title>
+<meta name="generated" content="2026-07-18 by Hermes Agent · video-to-obsidian v1.9.2">
+<meta name="source" content="https://www.youtube.com/watch?v=0nAZvaaaHZA">
+<style>
+:root {
+  --bg: #0d0d10;
+  --bg-card: #16161b;
+  --bg-elevated: #1c1c22;
+  --border: #2a2a32;
+  --text: #e8e8ea;
+  --text-dim: #a8a8b2;
+  --text-mute: #6a6a76;
+  --accent: #ff6b35;
+  --accent-2: #f7c59f;
+  --green: #4ade80;
+  --red: #f87171;
+  --yellow: #fbbf24;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --gray: #9ca3af;
+  --lime: #d5ff3f;
+  --warn: #fbbf24;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.55;
+  font-size: 15px;
+}
+.page { max-width: 920px; margin: 0 auto; padding: 24px 24px 80px; }
+.hero {
+  background: linear-gradient(135deg, rgba(255,107,53,.18), rgba(167,139,250,.10));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 26px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  margin: 0 0 6px;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  background: linear-gradient(120deg, #ff6b35, #f7c59f, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero .subtitle {
+  margin: 0 0 12px;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+.hero .meta-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 12px;
+  color: var(--text-mute);
+  border-top: 1px dashed var(--border);
+  padding-top: 10px;
+}
+.hero .meta-bar a { color: var(--accent-2); text-decoration: none; }
+.lang-toggle {
+  position: fixed; top: 16px; right: 24px; z-index: 1000;
+  background: rgba(18,18,42,.95);
+  border: 1px solid var(--lime);
+  border-radius: 22px;
+  padding: 6px 14px;
+  font: 600 12px ui-monospace, "SF Mono", "Menlo", monospace;
+  color: var(--lime);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.lang-toggle:hover { background: var(--lime); color: #0a0a14; box-shadow: 0 0 16px rgba(213,255,63,.4); }
+html[lang="zh-CN"] .en { display: none; }
+html[lang="en"] .zh { display: none; }
+html[lang="zh-CN"] .lang-en { display: none; }
+html[lang="en"] .lang-zh { display: none; }
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 24px 0 16px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+}
+.tab {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px 8px 0 0;
+  color: var(--text-dim);
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.tab:hover { background: var(--bg-elevated); color: var(--text); }
+.tab.active {
+  background: var(--bg-elevated);
+  color: var(--accent);
+  border-color: var(--accent);
+  border-bottom-color: var(--bg-elevated);
+  font-weight: 600;
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+h2.section {
+  font-size: 20px;
+  margin: 24px 0 12px;
+  color: var(--accent-2);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+h3 {
+  font-size: 15px;
+  color: var(--text);
+  margin: 18px 0 8px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+}
+.card h4 {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 14px;
+}
+.card p { margin: 0 0 6px; color: var(--text-dim); }
+.card .badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  color: var(--green);
+  border: 1px solid var(--green);
+  margin-right: 6px;
+}
+.card .badge.warn { color: var(--yellow); border-color: var(--yellow); }
+.card .badge.gap { color: var(--red); border-color: var(--red); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 12px 0;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+th { background: var(--bg-elevated); color: var(--accent-2); font-weight: 600; }
+blockquote {
+  border-left: 3px solid var(--purple);
+  background: var(--bg-card);
+  margin: 12px 0;
+  padding: 10px 16px;
+  color: var(--text-dim);
+  font-style: italic;
+  border-radius: 0 8px 8px 0;
+}
+.quote-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.quote-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: var(--text);
+  border-left: 3px solid var(--purple);
+}
+.quote-card .src {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-mute);
+  font-style: normal;
+}
+.timeline { border-left: 2px solid var(--border); padding-left: 14px; margin: 12px 0; }
+.tl-item { margin: 8px 0; }
+.tl-item .time { color: var(--accent); font-weight: 600; font-size: 13px; }
+.tl-item .what { color: var(--text-dim); font-size: 13.5px; }
+.warn-box {
+  background: rgba(251,191,36,.10);
+  border: 1px solid var(--yellow);
+  border-left: 4px solid var(--yellow);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 13.5px;
+  color: var(--text);
+}
+.warn-box strong { color: var(--yellow); }
+.action-list { list-style: none; padding: 0; }
+.action-list li {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 6px 0;
+  font-size: 13.5px;
+}
+.action-list li.P1 { border-left-color: var(--blue); }
+.action-list li.P2 { border-left-color: var(--purple); }
+.action-list li .tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--accent-2);
+  margin-right: 6px;
+  font-family: ui-monospace, monospace;
+}
+footer {
+  margin-top: 40px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-mute);
+  line-height: 1.6;
+}
+footer a { color: var(--accent-2); text-decoration: none; }
+.card[title] { cursor: help; border-left-width: 4px; }
+.card .vault-path { display: block; margin-top: 6px; font-size: 11px; color: var(--text-mute); font-family: ui-monospace, "SF Mono", Menlo, monospace; opacity: 0.8; }
+.card:hover .vault-path { opacity: 1; color: var(--accent-2); }
+.changelog { margin-top: 24px; padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--purple); border-radius: 8px; font-size: 12.5px; }
+.changelog h3 { color: var(--purple); margin: 0 0 8px; font-size: 13px; }
+.changelog ul { margin: 0; padding-left: 18px; }
+.changelog li { margin: 4px 0; color: var(--text-dim); }
+.changelog code { font-size: 11px; padding: 1px 5px; background: var(--bg-elevated); border-radius: 4px; }
+.tl-item a[href*="youtube.com"] { color: var(--accent); font-size: 11px; text-decoration: none; padding: 1px 5px; background: rgba(255,107,53,.10); border: 1px solid var(--accent); border-radius: 4px; margin-left: 6px; }
+.tl-item a[href*="youtube.com"]:hover { background: var(--accent); color: var(--bg); }
+
+  /* v1.4.2 TOC (sub-pattern A: hover-expand) */
+  aside.toc {
+    position: fixed; top: 80px; left: 0;
+    width: 220px; max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: rgba(20, 20, 24, 0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 0 12px 12px 0;
+    padding: 0.9rem 1rem;
+    z-index: 40;
+    font-size: 0.78rem;
+    transform: translateX(calc(-100% + 24px));
+    opacity: 0.95;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  aside.toc::after {
+    content: '›';
+    position: absolute; top: 50%; right: 6px;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 20px; font-weight: 700;
+    pointer-events: none;
+    animation: tocHandleBlink 2.5s ease-in-out infinite;
+  }
+  @keyframes tocHandleBlink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  aside.toc:hover, aside.toc:focus-within {
+    transform: translateX(0);
+    opacity: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  aside.toc:hover::after, aside.toc:focus-within::after {
+    opacity: 0; animation: none;
+  }
+  aside.toc > h3 {
+    color: var(--accent-2); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin: 0 0 0.6rem; font-weight: 600;
+    border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;
+  }
+  aside.toc ol { list-style: none; padding: 0; margin: 0; }
+  aside.toc ol li { margin: 0; }
+  aside.toc a {
+    display: block; color: var(--text-dim); text-decoration: none;
+    padding: 0.3rem 0.4rem; border-radius: 5px;
+    border-left: 2px solid transparent; line-height: 1.3;
+    transition: all 0.12s; cursor: pointer;
+  }
+  aside.toc a:hover { color: var(--text); background: var(--bg-elevated); }
+  aside.toc a.active, aside.toc a.h3-link.active {
+    color: var(--accent-2); background: var(--bg-elevated);
+    border-left-color: var(--accent); font-weight: 500;
+  }
+  aside.toc a.h3-link { padding-left: 1rem; font-size: 0.72rem; color: var(--text-mute); }
+  @media (max-width: 1279px) { aside.toc { display: none; } }
+  h2, h3, .h2-section, .tab-content { scroll-margin-top: 20px; }
+
+</style>
+</head>
+<body>
+
+<aside class="toc" aria-label="Table of contents">
+  <h3>目录</h3>
+  <ol>
+      <li><a href="#h2-1" data-toc-target="h2-1">核心论点（1 段看完）Core Thesis (one read)</a></li>
+      <li><a href="#h2-2" data-toc-target="h2-2">2030 与时间线2030 & Timeline</a></li>
+      <li><a class="h3-link" href="#h3-1" data-toc-target="h3-1">↳ 需要分开的两个层级Two layers to keep separate</a></li>
+      <li><a href="#h2-3" data-toc-target="h2-3">工具 / Agent / Agency / 意识 四层Tools / Agent / Agenc</a></li>
+      <li><a class="h3-link" href="#h3-2" data-toc-target="h3-2">↳ 对产品设计的关键启示Implications for product desig</a></li>
+      <li><a href="#h2-4" data-toc-target="h2-4">AI for science 的 DeepMind 路线DeepMind's AI for Sc</a></li>
+      <li><a class="h3-link" href="#h3-3" data-toc-target="h3-3">↳ 可复用的科学突破模板A reusable science breakthroug</a></li>
+      <li><a class="h3-link" href="#h3-4" data-toc-target="h3-4">↳ 数字与限定Numbers with caveats</a></li>
+      <li><a href="#h2-5" data-toc-target="h2-5">信息是理解世界的第一视角Information as the Primary Lens</a></li>
+      <li><a href="#h2-6" data-toc-target="h2-6">意识、substrate 与不可闭合的问题Consciousness, Substrate, a</a></li>
+      <li><a href="#h2-7" data-toc-target="h2-7">金句库（基于 transcript，需回查原始访谈）Quote Cards (transcrip</a></li>
+      <li><a href="#h2-8" data-toc-target="h2-8">章节时间轴（近似）Chapter Timeline (approximate)</a></li>
+      <li><a href="#h2-9" data-toc-target="h2-9">与 Patrick Agentic OS 的关联Cross-Refs to Patrick's </a></li>
+      <li><a href="#h2-10" data-toc-target="h2-10">行动清单Action Items</a></li>
+      <li><a href="#h2-11" data-toc-target="h2-11">资料与来源Sources</a></li>
+      <li><a class="h3-link" href="#h3-5" data-toc-target="h3-5">↳ 关联笔记Related notes</a></li>
+  </ol>
+</aside>
+
+
+<button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
+
+<div class="page">
+
+<section class="hero">
+  <h1>
+    <span class="zh">Demis Hassabis：从工具到 AGI，再到 agency / consciousness</span><span class="en">Demis Hassabis: From Tools to AGI, Agency, Consciousness</span>
+  </h1>
+  <p class="subtitle">
+    <span class="zh">Neural Nutshell × Demis Hassabis · AGI 时间线、AI for science、意识问题</span><span class="en">Neural Nutshell × Demis Hassabis · AGI timeline, AI for science, the consciousness question</span>
+  </p>
+  <div class="meta-bar">
+    <span><span class="zh">视频</span><span class="en">Video</span> · <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA">youtube.com/watch?v=0nAZvaaaHZA</a></span>
+    <span><span class="zh">频道</span><span class="en">Channel</span> · Neural Nutshell (22.4K subs)</span>
+    <span><span class="zh">主讲</span><span class="en">Speaker</span> · Demis Hassabis · DeepMind CEO</span>
+    <span><span class="zh">时长</span><span class="en">Length</span> · 16:27</span>
+    <span><span class="zh">上架</span><span class="en">Published</span> · 2026-07-16 (2 days ago)</span>
+    <span><span class="zh">视图</span><span class="en">Views</span> · 14K</span>
+    <span><span class="zh">点赞</span><span class="en">Likes</span> · 316</span>
+    <span><span class="zh">评论</span><span class="en">Comments</span> · 75</span>
+    <span><span class="zh">字幕</span><span class="en">Captions</span> · <span class="zh">未由上传者提供（kome.ai 抓 auto-captions）</span><span class="en">uploader-restricted (kome.ai auto-captions)</span></span>
+    <span><span class="zh">生成</span><span class="en">Generated</span> · 2026-07-18</span>
+  </div>
+</section>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-tab="core"><span class="zh">🔥 核心论点</span><span class="en">🔥 Core Thesis</span></button>
+  <button class="tab" data-tab="timeline"><span class="zh">⏱️ 2030 与时间线</span><span class="en">⏱️ 2030 & Timeline</span></button>
+  <button class="tab" data-tab="ladder"><span class="zh">🪜 工具 / Agent / Agency / 意识</span><span class="en">🪜 Tools / Agent / Agency / Consciousness</span></button>
+  <button class="tab" data-tab="science"><span class="zh">🧪 AI for science</span><span class="en">🧪 AI for Science</span></button>
+  <button class="tab" data-tab="info"><span class="zh">🧠 信息视角</span><span class="en">🧠 Information Lens</span></button>
+  <button class="tab" data-tab="consciousness"><span class="zh">💭 意识问题</span><span class="en">💭 Consciousness Question</span></button>
+  <button class="tab" data-tab="quotes"><span class="zh">💬 金句库</span><span class="en">💬 Quote Cards</span></button>
+  <button class="tab" data-tab="chapters"><span class="zh">⏱️ 章节时间轴</span><span class="en">⏱️ Chapter Timeline</span></button>
+  <button class="tab" data-tab="related"><span class="zh">🔗 Patrick 关联</span><span class="en">🔗 Patrick Cross-Refs</span></button>
+  <button class="tab" data-tab="action"><span class="zh">🗺️ 行动清单</span><span class="en">🗺️ Action Items</span></button>
+  <button class="tab" data-tab="sources"><span class="zh">📚 资料与来源</span><span class="en">📚 Sources</span></button>
+</nav>
+
+<div class="tab-content active" data-tab-content="core">
+  <h2 id="h2-1" class="section"><span class="zh">核心论点（1 段看完）</span><span class="en">Core Thesis (one read)</span></h2>
+  <blockquote>
+    <span class="zh">DeepMind 仍把 AGI 的“distribution year”压在大约 <b>2030</b> 附近；Demis 同时坚持“工具优先”的顺序：先造出极其智能、精准、可用的工具，再让系统进入 agent 阶段，再讨论 agency、consciousness。AI 真正的杠杆不在“替人类做更多内容”，而在用 AI 推进科学、医学、对心智本身的理解。</span><span class="en">DeepMind still places AGI's "distribution year" near <b>2030</b>; Demis insists the order is tools first: build an extraordinarily intelligent, useful, precise tool, then let systems become agent-like, then argue about agency and consciousness. The real leverage of AI is not "doing more work for humans" but using AI to advance science, medicine, and our understanding of the mind itself.</span>
+  </blockquote>
+  <div class="card-grid">
+    <div class="card">
+      <h4><span class="zh">时间线</span><span class="en">Timeline</span></h4>
+      <p><span class="zh">2030 是 Demis 对 AGI 分布年份的回答；2010 年的 20 年使命被回顾为“基本按计划推进”。</span><span class="en">2030 is Demis's answer to the AGI distribution year; the 2010 20-year mission is now read as "basically on track".</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">阶段顺序</span><span class="en">Layered Order</span></h4>
+      <p><span class="zh">工具 → autonomous / agent-like → agency → consciousness，是不同层级，不能把会行动等同于有意识。</span><span class="en">Tool → autonomous / agent-like → agency → consciousness are separate layers. Acting ≠ being aware.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">AI for science</span><span class="en">AI for Science</span></h4>
+      <p><span class="zh">AlphaFold 是“先把 AI 变成科学工具，再用于药物与生命科学”的范式。Isomorphic Labs 继续往 compound design 推进。</span><span class="en">AlphaFold is the template: make AI a science tool first, then apply it to medicine and the life sciences. Isomorphic Labs continues toward compound design.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">信息视角</span><span class="en">Information Lens</span></h4>
+      <p><span class="zh">Demis 倾向用信息处理理解宇宙、生命与 AI。视为 worldview，不等于经视频证明的物理定理。</span><span class="en">Demis prefers information processing as the lens for universe, life, and AI. Useful as a worldview, not a video-proven physics theorem.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">意识</span><span class="en">Consciousness</span></h4>
+      <p><span class="zh">行为相似 + substrate 差异，让人工系统的“是否真有体验”难以闭合。Demis 承认这是开放问题。</span><span class="en">Behavioral similarity + substrate divergence keeps the experiential question open. Demis admits it is unresolved.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">频道提醒</span><span class="en">Channel Note</span></h4>
+      <p><span class="zh">这是 Neural Nutshell 剪辑的访谈片段，不是完整原始访谈，标题中“12 months”不是 Demis 的倒计时。</span><span class="en">This is Neural Nutshell's cut of a Demis interview, not the full original. The title's "12 months" is not Demis's countdown.</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="timeline">
+  <h2 id="h2-2" class="section"><span class="zh">2030 与时间线</span><span class="en">2030 & Timeline</span></h2>
+  <p><span class="zh">Demis 回顾 DeepMind 早期判断：当时团队把 AGI 看成约 20 年的使命，2010 → 2026 的进展在他的叙述里仍然基本落在预期轨道上。他没有把这说成“已经解决”，而是把它放在一个持续研究项目的时间尺度里。</span><span class="en">Demis looks back at DeepMind's early judgment: a 20-year mission, with the 2010 → 2026 trajectory still "basically on track" by his own accounting. He frames this as an ongoing research program, not a solved problem.</span></p>
+  <h3 id="h3-1"><span class="zh">需要分开的两个层级</span><span class="en">Two layers to keep separate</span></h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4><span class="zh">事实层</span><span class="en">Fact Layer</span></h4>
+      <p><span class="zh">视频里 Demis 明确回答了 2030，并且两次。</span><span class="en">Demis does answer 2030 on the record, twice.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">推断层</span><span class="en">Inference Layer</span></h4>
+      <p><span class="zh">这不能自动证明 2030 会发生，也不代表 Google DeepMind 的正式公开预测。</span><span class="en">It does not prove 2030 will arrive, nor is it the formal public Google DeepMind forecast.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">20 年周期</span><span class="en">20-Year Mission</span></h4>
+      <p><span class="zh">Demis 把它描述为“差不多 2010 年设下的 20-year mission”，并把当前阶段描述为“基本上按计划推进”。</span><span class="en">Demis describes it as a 20-year mission set around 2010, with the current phase "basically on track".</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">使用方式</span><span class="en">How to Use This</span></h4>
+      <p><span class="zh">适合做 Demis 的 worldview signal 与研究入口，不适合作为 AGI 时间表的唯一证据。</span><span class="en">Use it as a Demis worldview signal and research entry point — not as sole evidence for the AGI timeline.</span></p>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="ladder">
+  <h2 id="h2-3" class="section"><span class="zh">工具 / Agent / Agency / 意识 四层</span><span class="en">Tools / Agent / Agency / Consciousness — Four Layers</span></h2>
+  <p><span class="zh">Demis 的顺序感是本视频最重要的结构：先制造“极其智能、精准、有用的工具”，再让它逐渐变得 autonomous / agent-like；agency 与 consciousness 则是更后面的 Rubicon。</span><span class="en">Demis's sense of order is the most important structure in the video: build the extraordinarily intelligent, useful, precise tool first; then let it become agent-like; then argue about agency and consciousness as a later Rubicon.</span></p>
+  <div class="card-grid">
+    <div class="card">
+      <h4>1 · <span class="zh">工具</span><span class="en">Tool</span></h4>
+      <p><span class="zh">在人类监督下调用、扩展能力。AlphaFold 即是“成为科学工具”的代表。</span><span class="en">Operates under human supervision, extends capability. AlphaFold is the canonical "becomes a science tool".</span></p>
+    </div>
+    <div class="card">
+      <h4>2 · <span class="zh">Autonomous / Agent</span><span class="en">Autonomous / Agent</span></h4>
+      <p><span class="zh">能够自己规划、执行、调用工具链。视频称“我们正在进入 agent 时代”。</span><span class="en">Plans and executes, calls toolchains. The video says "we are in the agent era".</span></p>
+    </div>
+    <div class="card">
+      <h4>3 · <span class="zh">Agency</span><span class="en">Agency</span></h4>
+      <p><span class="zh">是否拥有自己的目标、意志、自我驱动？这是哲学 / 工程交叉问题，Demis 表示仍未定义清楚。</span><span class="en">Does the system have its own goals, will, self-driven direction? Demis admits this is not yet clearly defined.</span></p>
+    </div>
+    <div class="card">
+      <h4>4 · <span class="zh">Consciousness</span><span class="en">Consciousness</span></h4>
+      <p><span class="zh">是否拥有体验？行为相似 + substrate 差异让该问题无法靠行为测试完全闭合。</span><span class="en">Does it have experience? Behavioral similarity + substrate divergence leaves the question open.</span></p>
+    </div>
+  </div>
+  <h3 id="h3-2"><span class="zh">对产品设计的关键启示</span><span class="en">Implications for product design</span></h3>
+  <blockquote>
+    <span class="zh">一个能调用工具、持续执行任务、拥有规划循环的 agent，仍然不等于它有主观体验。把“会行动”与“有意识”混成一个指标，会让产品规格、安全讨论与哲学讨论全部失焦。</span><span class="en">An agent that can call tools, sustain task loops, and run planning cycles is still not equivalent to a system with subjective experience. Conflating "acts" with "is aware" breaks product specs, safety reviews, and philosophical discussion at the same time.</span>
+  </blockquote>
+</div>
+
+<div class="tab-content" data-tab-content="science">
+  <h2 id="h2-4" class="section"><span class="zh">AI for science 的 DeepMind 路线</span><span class="en">DeepMind's AI for Science Playbook</span></h2>
+  <p><span class="zh">Demis 说，DeepMind 的终极兴趣一直是用 AI 推进科学、医学与对世界的理解。AlphaFold 被他描述为一个已经发生的突破：蛋白质三维结构是重要的基础问题，但它只是药物发现流程中的一部分。Isomorphic Labs 的方向是继续往生物化学和化学空间走。</span><span class="en">Demis says DeepMind's ultimate interest has always been AI for science, medicine, and understanding the world. AlphaFold is described as a breakthrough that has already happened: protein structure is a foundational problem, but only one part of drug discovery. Isomorphic Labs continues into biochemistry and chemistry.</span></p>
+  <h3 id="h3-3"><span class="zh">可复用的科学突破模板</span><span class="en">A reusable science breakthrough template</span></h3>
+  <ol>
+    <li><span class="zh">找到一个长期未解、边界清晰的基础科学问题。</span><span class="en">Pick a long-standing foundational question with a clear boundary.</span></li>
+    <li><span class="zh">用 scaling、神经网络、搜索 / 强化学习解决可计算部分。</span><span class="en">Solve the computable part with scaling, neural networks, and search / RL.</span></li>
+    <li><span class="zh">把大量探索放入 simulation / in silico。</span><span class="en">Push most exploration into simulation / in silico.</span></li>
+    <li><span class="zh">把湿实验保留为验证步骤。</span><span class="en">Keep wet lab as the validation step.</span></li>
+    <li><span class="zh">让结果公开扩散，形成科学基础设施，而不是一次性 demo。</span><span class="en">Open the result as scientific infrastructure, not a one-off demo.</span></li>
+  </ol>
+  <h3 id="h3-4"><span class="zh">数字与限定</span><span class="en">Numbers with caveats</span></h3>
+  <table>
+    <tr><th><span class="zh">信号</span><span class="en">Signal</span></th><th><span class="zh">视频中的内容</span><span class="en">What the video says</span></th><th><span class="zh">限定</span><span class="en">Caveat</span></th></tr>
+    <tr><td>50 <span class="zh">年</span><span class="en">yr</span></td><td><span class="zh">蛋白质折叠作为 grand challenge</span><span class="en">Protein folding framed as a 50-year grand challenge</span></td><td><span class="zh">背景描述，不是指标</span><span class="en">Context, not a metric</span></td></tr>
+    <tr><td>99%</td><td><span class="zh">未来药物探索希望在 in silico 完成</span><span class="en">Future drug exploration done in silico</span></td><td><span class="zh">目标 / 愿景</span><span class="en">A vision, not a current result</span></td></tr>
+    <tr><td>10y → M / W / D</td><td><span class="zh">药物发现周期可能大幅压缩</span><span class="en">Drug discovery cycle may compress dramatically</span></td><td><span class="zh">Demis 的长期愿景</span><span class="en">Long-term vision</span></td></tr>
+    <tr><td>10y</td><td><span class="zh">AI for science division 已运作近 10 年</span><span class="en">AI for science division has been running for ~10 years</span></td><td><span class="zh">Demis 自述</span><span class="en">Self-reported</span></td></tr>
+  </table>
+</div>
+
+<div class="tab-content" data-tab-content="info">
+  <h2 id="h2-5" class="section"><span class="zh">信息是理解世界的第一视角</span><span class="en">Information as the Primary Lens</span></h2>
+  <p><span class="zh">Demis 把能量、物质与信息放在一种“可互换 / 可相互解释”的直觉框架里，并认为从信息处理角度理解生命、AI 与宇宙可能更有穿透力。他还把 AI 视作组织、理解与构造信息对象的系统。</span><span class="en">Demis places energy, matter, and information into an intuition where they are convertible / mutually interpretable, and reads life, AI, and the universe as information processing. He also frames AI itself as a system that organizes, understands, and constructs information objects.</span></p>
+  <div class="warn-box">
+    <strong><span class="zh">边界提醒</span><span class="en">Boundary reminder</span></strong> ·
+    <span class="zh">这是访谈中的 worldview，不是经视频验证的物理理论。适合作为研究假设与思考工具，不要直接引用成定理。</span><span class="en">This is a worldview expressed in an interview, not a video-proven physics theorem. Use it as a working hypothesis and a thinking tool, not as a theorem to cite.</span>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="consciousness">
+  <h2 id="h2-6" class="section"><span class="zh">意识、substrate 与不可闭合的问题</span><span class="en">Consciousness, Substrate, and the Unclosable Gap</span></h2>
+  <p><span class="zh">Demis 给出的必要条件候选包括：self-awareness、自我与他者的区分、随时间的连续性。但他同时承认这些条件“可能必要但不充分”。</span><span class="en">Demis lists candidate necessary conditions: self-awareness, the distinction between self and other, continuity over time. He admits these are likely necessary but not sufficient.</span></p>
+  <div class="card-grid">
+    <div class="card">
+      <h4><span class="zh">行为相似</span><span class="en">Behavioral similarity</span></h4>
+      <p><span class="zh">AI 系统可能越来越表现得像有意识的主体。</span><span class="en">AI systems may increasingly behave like conscious subjects.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">Substrate 差异</span><span class="en">Substrate divergence</span></h4>
+      <p><span class="zh">人类之间共享生物 substrate，人与 AI 之间不会。</span><span class="en">Humans share biological substrate with each other; we will not share it with AI.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">Parsimony 失效</span><span class="en">Parsimony breaks</span></h4>
+      <p><span class="zh">我们对彼此“同体验”的默认推断无法直接套到 AI 上。</span><span class="en">Our default inference of shared experience between humans does not transfer to AI.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">体验问题</span><span class="en">The experiential question</span></h4>
+      <p><span class="zh">体验层面（qualia）目前无法用行为测试完全闭合。</span><span class="en">The experiential layer (qualia) is not closable by behavior alone.</span></p>
+    </div>
+  </div>
+  <blockquote>
+    <span class="zh">对人类而言，我们既观察彼此的行为，也共享相同的生物 substrate，因此会默认他人拥有类似体验。人工系统不具备这种 substrate equivalence；即使它表现得像一个有意识的主体，体验问题仍然无法只靠行为测试完全解决。</span><span class="en">For humans, we both observe each other's behavior and share the same biological substrate, so we default to assuming similar experience. Artificial systems lack that substrate equivalence; even if they behave like conscious subjects, the experiential question cannot be fully closed by behavior alone.</span>
+  </blockquote>
+</div>
+
+<div class="tab-content" data-tab-content="quotes">
+  <h2 id="h2-7" class="section"><span class="zh">金句库（基于 transcript，需回查原始访谈）</span><span class="en">Quote Cards (transcript-based, verify against original)</span></h2>
+  <div class="quote-grid">
+    <div class="quote-card">"2030. I've been pretty consistent about that."<span class="src">— Demis Hassabis · 0:00 上下文</span></div>
+    <div class="quote-card">"It would be best to build a tool first, an incredibly intelligent and useful and precise tool, and then cross the next sort of Rubicon."<span class="src">— Demis Hassabis · ~11:35</span></div>
+    <div class="quote-card">"We're in the midst of the agent era now."<span class="src">— Demis Hassabis · ~11:50</span></div>
+    <div class="quote-card">"Step one, solve intelligence, i.e. build AGI. Step two, use it to solve everything else."<span class="src">— Demis Hassabis · ~02:50 DeepMind 使命</span></div>
+    <div class="quote-card">"The dream is to do almost all the exploration, which is 99% of the work and the time, in silico."<span class="src">— Demis Hassabis · ~05:10 药物发现</span></div>
+    <div class="quote-card">"I think information is most fundamental."<span class="src">— Demis Hassabis · ~08:30 信息视角</span></div>
+    <div class="quote-card">"Self-awareness … self and other … some kind of continuity over time" are likely necessary, but not sufficient, for consciousness.<span class="src">— Demis Hassabis · ~13:30</span></div>
+    <div class="quote-card">"You can look at it behaviorally, but what about experientially?"<span class="src">— Demis Hassabis · ~14:20</span></div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="chapters">
+  <h2 id="h2-8" class="section"><span class="zh">章节时间轴（近似）</span><span class="en">Chapter Timeline (approximate)</span></h2>
+  <div class="warn-box">
+    <strong><span class="zh">数据源说明</span><span class="en">Data source note</span></strong> ·
+    <span class="zh">Kome transcript 是 flat text，无原始 cue 时间戳；下表时间是按 16m22s 文本顺序映射的近似章节，导航用，不作精确引用。每行 ↗ YT 链接在新 tab 打开精确时间点（Patrick 校对原片用）。</span><span class="en">Kome transcript is flat text without native cue timestamps; the times below are approximate chapters mapped from the 16m22s running text. Use for navigation, not for precise citations. Each row's ↗ YT link opens the original video at the exact timestamp in a new tab (for cross-checking).</span>
+  </div>
+  <div class="timeline">
+    <div class="tl-item"><span class="time">00:00</span> <span class="what"><span class="zh">Demis 回答 AGI distribution year：2030</span><span class="en">Demis answers AGI distribution year: 2030</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=0s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">00:45</span> <span class="what"><span class="zh">DeepMind 早期：deep learning + RL + accelerator compute</span><span class="en">Early DeepMind: deep learning + RL + accelerator compute</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=45s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">02:15</span> <span class="what"><span class="zh">2010 年 20-year mission；"基本按计划推进"</span><span class="en">2010 20-year mission; "basically on track"</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=135s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">03:15</span> <span class="what"><span class="zh">DeepMind 使命：solve intelligence, then everything else</span><span class="en">DeepMind mission: solve intelligence, then everything else</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=195s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">04:20</span> <span class="what"><span class="zh">AI for science；AlphaFold 与 Isomorphic Labs</span><span class="en">AI for science; AlphaFold and Isomorphic Labs</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=260s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">06:00</span> <span class="what"><span class="zh">药物发现：in silico 探索、wet lab 验证</span><span class="en">Drug discovery: in silico exploration, wet lab validation</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=360s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">07:30</span> <span class="what"><span class="zh">AI systems 本身将成为新的 engineering science</span><span class="en">AI systems themselves become a new engineering science</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=450s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">08:25</span> <span class="what"><span class="zh">信息是第一性的理解视角；AI 是信息处理</span><span class="en">Information as the primary lens; AI as information processing</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=505s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">10:05</span> <span class="what"><span class="zh">classical system 也能逼近原以为需要 quantum 的问题</span><span class="en">Classical systems can model what seemed to need quantum</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=605s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">11:35</span> <span class="what"><span class="zh">工具 → agent-like → agency / consciousness</span><span class="en">Tools → agent-like → agency / consciousness</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=695s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">13:20</span> <span class="what"><span class="zh">consciousness 的必要条件与 substrate equivalence</span><span class="en">Necessary conditions for consciousness and substrate equivalence</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=800s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">14:50</span> <span class="what"><span class="zh">Kant、Spinoza 与科学作为"阅读宇宙语言"</span><span class="en">Kant, Spinoza, and science as "reading the language of the universe"</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=890s" target="_blank" rel="noopener">↗ YT</a></div>
+    <div class="tl-item"><span class="time">15:55</span> <span class="what"><span class="zh">rapid fire 再次回答 2030</span><span class="en">Rapid fire: 2030 again</span></span> <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA&t=955s" target="_blank" rel="noopener">↗ YT</a></div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="related">
+  <h2 id="h2-9" class="section"><span class="zh">与 Patrick Agentic OS 的关联</span><span class="en">Cross-Refs to Patrick's Agentic OS</span></h2>
+  <div class="card-grid">
+    <div class="card">
+      <h4><span class="zh">1. 工具优先</span><span class="en">1. Tools First</span></h4>
+      <p><span class="zh">先把 Hermes / Obsidian / 发布链做成可靠工具，再谈"自主代理"。</span><span class="en">Make Hermes / Obsidian / the publish chain reliable tools before claiming agent autonomy.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">2. Agent ≠ 意识</span><span class="en">2. Agent ≠ Consciousness</span></h4>
+      <p><span class="zh">cron、worker、subagent、LLM call 的自治程度可以测量，不要把它们包装成意识。</span><span class="en">Measure autonomy of cron / worker / subagent / LLM call without dressing it up as consciousness.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">3. Memory 是基础设施</span><span class="en">3. Memory is Infrastructure</span></h4>
+      <p><span class="zh">Demis 把 context window 视为粗糙的 working memory；vault / Graphify / experience memory graph 在解决"相关信息检索"。</span><span class="en">Demis treats context window as crude working memory; vault / Graphify / EMG solve the retrieval problem.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">4. AI for science = 研究流水线</span><span class="en">4. AI for Science = Research Pipeline</span></h4>
+      <p><span class="zh">视频 → transcript → vault → HTML → cross-source synthesis，是把 AI 用作研究工具的具体版本。</span><span class="en">Video → transcript → vault → HTML → cross-source synthesis is a concrete version of AI for science.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">5. In silico first</span><span class="en">5. In Silico First</span></h4>
+      <p><span class="zh">先在本地脚本、仿真、browser smoke test、静态 dashboard 中探索，再把人工验证留给高风险步骤。</span><span class="en">Explore in local scripts, simulations, browser smoke tests, static dashboards first; reserve human validation for high-risk steps.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">6. 2030 不等于倒计时</span><span class="en">6. 2030 ≠ Countdown</span></h4>
+      <p><span class="zh">把单个 lab CEO 的判断接入 race-aware 4-source synthesis，与 Kokotajlo、Tristan、DeepMind paper 等角度对照。</span><span class="en">Fold this single lab-CEO signal into the race-aware 4-source synthesis, alongside Kokotajlo, Tristan, and the DeepMind paper.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">7. 组织结构</span><span class="en">7. Org Structure</span></h4>
+      <p><span class="zh">如果一个人 + 一组 agents 可以完成过去团队的工作，组织设计会从 headcount 转向 judgment、验证、责任边界与人机协作接口。</span><span class="en">If one person + a team of agents can match a former team, org design shifts from headcount to judgment, verification, accountability boundaries, and human-agent interfaces.</span></p>
+    </div>
+    <div class="card">
+      <h4><span class="zh">8. 意识问题的产品启示</span><span class="en">8. Consciousness UX Lesson</span></h4>
+      <p><span class="zh">Agent 产品的 UX 应清晰标注"模型生成 / 工具执行 / 人类确认"，不要用人格化语言掩盖系统边界。</span><span class="en">Agent UX should clearly label "model-generated / tool-executed / human-confirmed" rather than use anthropomorphic language to mask system boundaries.</span></p>
+    </div>
+    <div class="card" title="vault path: llm-wiki/youtube/hermes-agent-mixture-of-agents-davidondrej-2026-06-29/">
+      <h4><span class="zh">9. Hermes Agent Mixture of Agents</span><span class="en">9. Hermes Agent · Mixture of Agents</span></h4>
+      <p><span class="zh">David Ondrej 演示把多个 subagent 串成 MoA，呼应 Demis 工具层 / agent 层的边界讨论；agent 协作 ≠ 单一有意识主体。</span><span class="en">David Ondrej's demo strings subagents into a MoA, echoing the tool / agent layer discussion; agent collaboration is not a single conscious subject.</span></p>
+      <span class="vault-path">llm-wiki/youtube/hermes-agent-mixture-of-agents-davidondrej-2026-06-29/</span>
+    </div>
+    <div class="card" title="vault path: llm-wiki/youtube/200k-ai-job-in-house-consultant-nate-herk/">
+      <h4><span class="zh">10. $200K 内部 AI 顾问</span><span class="en">10. $200K In-House AI Consultant</span></h4>
+      <p><span class="zh">Nate Herk 的 in-house AI 顾问 = 一人 + 一组 AI agent 覆盖整个部门的 in silico 探索，呼应 Demis “in silico first” 与 Patrick “AI 放大个人认知带宽”。</span><span class="en">Nate Herk's in-house AI consultant = one person + a team of AI agents covering a whole department's in silico exploration; echoes Demis's "in silico first" and Patrick's "AI amplifies individual cognitive bandwidth".</span></p>
+      <span class="vault-path">llm-wiki/youtube/200k-ai-job-in-house-consultant-nate-herk/</span>
+    </div>
+    <div class="card" title="vault path: llm-wiki/youtube/greg-isenberg-6-skills-agentic-era/">
+      <h4><span class="zh">11. Greg Isenberg 6 Skills</span><span class="en">11. Greg Isenberg · 6 Agentic Skills</span></h4>
+      <p><span class="zh">Greg 列的 6 个 skill（daily briefing / 48h loop / 7-day sprint 等）属于“工具层 + agent 层” 的可复用模板，跟 Demis “工具优先” 顺序同源。</span><span class="en">Greg's 6 skills (daily briefing, 48h loop, 7-day sprint) are reusable tool+agent-layer templates, aligned with Demis's "tools first" order.</span></p>
+      <span class="vault-path">llm-wiki/youtube/greg-isenberg-6-skills-agentic-era/</span>
+    </div>
+    <div class="card" title="vault path: llm-wiki/youtube/ai-search-gpt56-mythos-ban-2026-06-28/">
+      <h4><span class="zh">12. AI Search 周报 · GPT 5.6 / Mythos</span><span class="en">12. AI Search Weekly · GPT 5.6 / Mythos</span></h4>
+      <p><span class="zh">同一周内 model 层解封 + Mythos 进入主流，说明 2030 之前的“agent 时代” 不会等 consensus；准备需要从今天开始，不是从 AGI 那天。</span><span class="en">Model unban + Mythos entering the mainstream in the same week shows the "agent era" before 2030 won't wait for consensus; preparation starts today, not on AGI day.</span></p>
+      <span class="vault-path">llm-wiki/youtube/ai-search-gpt56-mythos-ban-2026-06-28/</span>
+    </div>
+    <div class="card" title="vault path: llm-wiki/youtube/claude-millionaires-2026-07-03/">
+      <h4><span class="zh">13. Claude Millionaires · AI Agency 路径</span><span class="en">13. Claude Millionaires · AI Agency Path</span></h4>
+      <p><span class="zh">Nate Herk 的 7-figure AI agency = 把 Demis 工具 / agent 层变成可计费 SKU；同 demos + SOP + 单人 + 少数 agent 即可交付。</span><span class="en">Nate Herk's 7-figure AI agency turns Demis's tool / agent layer into billable SKUs; same demos + SOPs + one person + a small agent team.</span></p>
+      <span class="vault-path">llm-wiki/youtube/claude-millionaires-2026-07-03/</span>
+    </div>
+    <div class="card" title="vault path: llm-wiki/youtube/local-ai-summit-2026-opening-panel-2026-07-14/">
+      <h4><span class="zh">14. Local AI Summit · 4 Luminaries</span><span class="en">14. Local AI Summit · 4 Luminaries</span></h4>
+      <p><span class="zh">本地化、开源、可在自己机器上跑的模型与 agent 走向中心舞台，是 Demis “信息是第一性的” 在部署层的具体实现。</span><span class="en">Local, open-source, on-your-own-machine models and agents move center stage — Demis's "information is primary" realized at the deployment layer.</span></p>
+      <span class="vault-path">llm-wiki/youtube/local-ai-summit-2026-opening-panel-2026-07-14/</span>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="action">
+  <h2 id="h2-10" class="section"><span class="zh">行动清单</span><span class="en">Action Items</span></h2>
+  <ul class="action-list">
+    <li><span class="tag">P0</span> <span class="zh">将"工具层 / agent 层 / agency 层 / 意识层"写入 agentic-os 能力分级，避免把自动化数量当作自治质量。</span><span class="en">Encode "tool / agent / agency / consciousness" into the agentic-os capability ladder; never equate automation volume with autonomy quality.</span>
+      <div style="margin-top:6px;font-size:12px;color:var(--text-mute);">
+        <span class="zh">今天 micro-step：</span><span class="en">Today micro-step:</span>
+        <code>~/.hermes/skills/agentic-os/</code> <span class="zh">加 1 节 "Capability Ladder" 4 层定义 + 把现有 18 个 cron 按层打 tag。</span><span class="en">add a "Capability Ladder" 4-layer section; tag the 18 active crons by layer.</span>
+      </div>
+    </li>
+    <li><span class="tag">P0</span> <span class="zh">对所有 AGI 时间线引用保留来源、日期、speaker、honest discount；不把频道标题直接写成 Demis 原话。</span><span class="en">Keep source / date / speaker / honest_discount for every AGI timeline citation; never rewrite a channel title as a Demis quote.</span>
+      <div style="margin-top:6px;font-size:12px;color:var(--text-mute);">
+        <span class="zh">今天 micro-step：</span><span class="en">Today micro-step:</span>
+        <span class="zh">在 vault 根的</span><span class="en">add to vault root</span>
+        <code>CLAUDE.md</code> <span class="zh">加 1 节 "Race-aware citation rule"；以后所有 AGI 类 note 强制遵循。</span><span class="en">a "Race-aware citation rule" section; bind all future AGI notes to it.</span>
+      </div>
+    </li>
+    <li class="P1"><span class="tag">P1</span> <span class="zh">为 vault 视频笔记统一增加 transcript_status / transcript_source / timestamp_quality 字段。</span><span class="en">Add transcript_status / transcript_source / timestamp_quality fields across vault video notes.</span></li>
+    <li class="P1"><span class="tag">P1</span> <span class="zh">在 Graphify / experience memory graph 中优先解决"当前决策最相关的信息检索"，而不是继续无差别堆 context。</span><span class="en">Prioritize "retrieve the information most relevant to the current decision" in Graphify / EMG over uncritically growing context.</span></li>
+    <li class="P1"><span class="tag">P1</span> <span class="zh">把 AI-for-science 模板复用到投资研究与旅行规划：模拟 → 候选生成 → 人工验证 → 发布。</span><span class="en">Reuse the AI-for-science template in investment research and trip planning: simulate → candidate generation → human validation → publish.</span></li>
+    <li class="P2"><span class="tag">P2</span> <span class="zh">建立"能力 / 自治 / agency / 意识"四层评估表；每层使用不同证据与不同 human-validation zone。</span><span class="en">Build a four-layer evaluation table (capability / autonomy / agency / consciousness), each with its own evidence and human-validation zone.</span></li>
+    <li class="P2"><span class="tag">P2</span> <span class="zh">为 2030 / AGI / ASI 类内容持续维护多源时间序列，不让一次访谈变成静态预测。</span><span class="en">Maintain a multi-source time series for 2030 / AGI / ASI content; do not let one interview become a static prediction.</span></li>
+  </ul>
+</div>
+
+<div class="tab-content" data-tab-content="sources">
+  <h2 id="h2-11" class="section"><span class="zh">资料与来源</span><span class="en">Sources</span></h2>
+  <h3><span class="zh">引文 × 章节 速查表</span><span class="en">Quote ↔ Chapter Quick Lookup</span></h3>
+  <table>
+    <tr><th><span class="zh">引文（核心）</span><span class="en">Quote (key)</span></th><th><span class="zh">主题</span><span class="en">Theme</span></th><th><span class="zh">章节近似</span><span class="en">Approx. chapter</span></th></tr>
+    <tr><td>"2030. I've been pretty consistent about that."</td><td>AGI timeline</td><td>~00:00 / 15:55 (rapid fire)</td></tr>
+    <tr><td>"Step one, solve intelligence, i.e. build AGI. Step two, use it to solve everything else."</td><td>DeepMind mission</td><td>~03:15</td></tr>
+    <tr><td>"It would be best to build a tool first, an incredibly intelligent and useful and precise tool..."</td><td>Tools-first order</td><td>~11:35</td></tr>
+    <tr><td>"We're in the midst of the agent era now."</td><td>Agent era</td><td>~11:50</td></tr>
+    <tr><td>"The dream is to do almost all the exploration, which is 99% of the work and the time, in silico."</td><td>Drug discovery</td><td>~05:10</td></tr>
+    <tr><td>"I think information is most fundamental."</td><td>Information lens</td><td>~08:30</td></tr>
+    <tr><td>"Self-awareness … self and other … continuity over time" — necessary, not sufficient</td><td>Consciousness</td><td>~13:30</td></tr>
+    <tr><td>"You can look at it behaviorally, but what about experientially?"</td><td>Consciousness</td><td>~14:20</td></tr>
+  </table>
+  <h3><span class="zh">外部链接</span><span class="en">External links</span></h3>
+  <ul>
+    <li><a href="https://www.youtube.com/watch?v=0nAZvaaaHZA">DeepMind CEO WARNS: We Have 12 Months To Prepare For What's Coming - Demis Hassabis (Neural Nutshell, 2026-07-16)</a></li>
+    <li><a href="https://www.youtube.com/@NeuralNutshell">Neural Nutshell YouTube 频道</a></li>
+    <li><a href="https://neuralnutshell.com">neuralnutshell.com</a></li>
+    <li><a href="https://deepmind.google/">Google DeepMind 官方网站</a></li>
+  </ul>
+  <h3 id="h3-5"><span class="zh">关联笔记</span><span class="en">Related notes</span></h3>
+  <ul>
+    <li><span class="zh">同频道同主题（2026-06-28）</span><span class="en">Same channel, same theme (2026-06-28)</span> · <a href="../../../youtube/google-deepmind-ceo-scariest-part-yet-to-come-neuralnutshell-2026-06-28/index.html">DeepMind CEO: Scariest Part Yet To Come</a></li>
+    <li><span class="zh">Demis 在 YC 访谈的摘要（2026-05-09）</span><span class="en">Demis YC interview summary (2026-05-09)</span> · <a href="../../../cn/demis-hassabis-agents-agi-2026-05-09.html">Demis Hassabis: Agents, AGI 和下一次科学突破</a></li>
+    <li><span class="zh">多源 race-aware 综合（2026-07-14）</span><span class="en">Multi-source race-aware synthesis (2026-07-14)</span> · <a href="../../race-aware-4-source-synthesis-2026-07-14/index.html">Race-Aware 4-Source Synthesis</a></li>
+    <li><span class="zh">AI 采纳下的组织架构综合（2026-07-14）</span><span class="en">AI-native org structure synthesis (2026-07-14)</span> · <a href="../../ai-native-org-structure-2026-07-14/index.html">AI-Native 公司组织架构</a></li>
+    <li><span class="zh">Hermes Agent × Mixture of Agents（2026-06-29）</span><span class="en">Hermes Agent · Mixture of Agents (2026-06-29)</span> · <a href="../../../youtube/hermes-agent-mixture-of-agents-davidondrej-2026-06-29/index.html">David Ondrej 演示（教程版）</a></li>
+    <li><span class="zh">$200K 内部 AI 顾问（2026-07-14）</span><span class="en">$200K In-House AI Consultant (2026-07-14)</span> · <a href="../../../youtube/200k-ai-job-in-house-consultant-nate-herk/index.html">Nate Herk 10:14</a></li>
+    <li><span class="zh">Greg Isenberg 6 Skills 诚实折扣版（2026-06-26）</span><span class="en">Greg Isenberg 6 Skills honest discount (2026-06-26)</span> · <a href="../../../youtube/greg-isenberg-6-skills-agentic-era/index.html">6 个 Agentic Era Skill</a></li>
+    <li><span class="zh">AI Search 周报（2026-06-29）</span><span class="en">AI Search Weekly (2026-06-29)</span> · <a href="../../../youtube/ai-search-gpt56-mythos-ban-2026-06-28/index.html">GPT 5.6 / Mythos 解禁</a></li>
+    <li><span class="zh">Claude 孵化百万富翁（2026-07-03）</span><span class="en">Claude Millionaires (2026-07-03)</span> · <a href="../../../youtube/claude-millionaires-2026-07-03/index.html">7-Figure AI Agency</a></li>
+    <li><span class="zh">Local AI Summit Opening Panel（2026-07-14）</span><span class="en">Local AI Summit Opening Panel (2026-07-14)</span> · <a href="../../../youtube/local-ai-summit-2026-opening-panel-2026-07-14/index.html">4 Luminaries</a></li>
+  </ul>
+</div>
+
+<footer>
+  <p>
+    <span class="zh">Obsidian 路径</span><span class="en">Obsidian path</span> · <code>~/Downloads/Obsidian Vault/llm-wiki/papers/demis-hassabis-2030-agi-tool-to-agency-2026-07-18/</code><br>
+    <span class="zh">本地预览</span><span class="en">Local preview</span> · <code>file:///tmp/demis-hassabis-2030-agi-tool-to-agency-2026-07-18.html</code> · <span class="zh">或</span><span class="en">or</span> <code>http://127.0.0.1:8765/&lt;vault 相对路径&gt;</code><br>
+    <span class="zh">视频</span><span class="en">Video</span> · <a href="https://www.youtube.com/watch?v=0nAZvaaaHZA">youtube.com/watch?v=0nAZvaaaHZA</a><br>
+    <span class="zh">生成</span><span class="en">Generated</span> · 2026-07-18 by Hermes Agent · video-to-obsidian v1.9.2<br>
+    <span class="zh">技能链路</span><span class="en">Skill chain</span> · <code>media/video-to-obsidian</code> → <code>media/video-to-knowledge-dashboard</code> + <code>creative/html-redesign-preserve-semantics</code> v1.4.0 (P-9/P-16/P-17) + <code>creative/toc-sidebar-batch</code> v1.4.4
+  </p>
+  <div class="changelog">
+    <h3><span class="zh">📝 变更日志（Changelog）</span><span class="en">📝 Changelog</span></h3>
+    <ul>
+      <li><code>v1.2</code> · 2026-07-18 17:43 · <span class="zh">polish round 2：meta-bar 增 3 字段（点赞 / 评论 / 字幕状态）；行动清单 2 条 P0 加 micro-step；章节时间轴 13 行加 ↗ YT 跳原片；资料与来源 tab 新增"引文 × 章节 速查表"；Patrick 关联 6 张新卡片加 vault path tooltip；footer 新增 changelog 段。</span><span class="en">polish round 2: 3 meta-bar fields; 2 P0 micro-steps; 13 ↗ YT deep-links; quote↔chapter lookup table; 6 cards with vault-path tooltips; changelog footer block.</span></li>
+      <li><code>v1.1</code> · 2026-07-18 17:35 · <span class="zh">polish round 1：related_notes 5 → 11 条；Patrick 关联卡片 8 → 14 张；关联笔记段 4 → 10 个 hyperlink；修复 TOC anchor id="h3-5" 误删。</span><span class="en">polish round 1: 5→11 related_notes; 8→14 Patrick cards; 4→10 hyperlinks; restored TOC anchor id="h3-5".</span></li>
+      <li><code>v1.0</code> · 2026-07-18 17:28 · <span class="zh">初版：11 tab（核心 / 时间线 / 四层 / AI for science / 信息视角 / 意识 / 金句 / 章节 / Patrick 关联 / 行动 / 来源）+ 8 张关联卡片 + TOC v1.4.4 16 anchors + EN⇄中 双语切换（165/165 配对）+ DES 1.4.0 双 class P-17 守护。</span><span class="en">initial: 11 tabs + 8 cards + TOC v1.4.4 16 anchors + EN⇄中 toggle (165/165 pair) + DES 1.4.0 P-17 bilingual guard.</span></li>
+    </ul>
+  </div>
+</footer>
+
+</div>
+
+<script>
+function toggleLang() {
+  const html = document.documentElement;
+  const isZh = html.lang === 'zh-CN';
+  html.lang = isZh ? 'en' : 'zh-CN';
+  try { localStorage.setItem('demis-hassabis-2030-lang', html.lang); } catch (e) {}
+}
+(function() {
+  try {
+    const saved = localStorage.getItem('demis-hassabis-2030-lang');
+    if (saved === 'en' || saved === 'zh-CN') {
+      document.documentElement.lang = saved;
+    }
+  } catch (e) {}
+})();
+
+(function() {
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.toggle('active', x === t));
+      contents.forEach(c => c.classList.toggle('active', c.dataset.tabContent === t.dataset.tab));
+      history.replaceState(null, '', '#' + t.dataset.tab);
+    });
+  });
+  const initHash = location.hash.replace('#', '');
+  if (initHash) {
+    const target = document.querySelector('[data-tab="' + initHash + '"]');
+    if (target) target.click();
+  }
+})();
+</script>
+
+
+  <script>
+  (function() {
+    const tocLinks = document.querySelectorAll('aside.toc a[data-toc-target]');
+    if (!tocLinks.length) return;
+
+    // ── v1.4.1 click handler: activate .page/.tab-content + scroll ──
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const id = this.getAttribute('data-toc-target');
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+
+        // Pattern A: hidden .page ancestor (multi-page)
+        const hiddenPage = target.closest('.page');
+        if (hiddenPage) {
+          document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+          hiddenPage.classList.add('active');
+          const pageId = hiddenPage.id.replace('page-', '');
+          document.querySelectorAll('.nav button').forEach(b => {
+            const onclick = b.getAttribute('onclick') || '';
+            if (onclick.includes("'" + pageId + "'") || onclick.includes('"' + pageId + '"')) {
+              b.classList.add('active');
+            } else {
+              b.classList.remove('active');
+            }
+          });
+        }
+
+        // Pattern B: tab-content ancestor (v1.3.x tabs)
+        // Pitfall O fix: try multiple tab-button class names + [data-tab] attr fallback
+        // + index-based fallback when .tab-content lacks data-tab-content attr.
+        // v1.5.0 patcher used `.tab` + assumed `data-tab-content` — both silently failed
+        // for projects using `.tab-btn` class and no data-tab-content attribute.
+        const tabContent = target.closest('.tab-content');
+        if (tabContent) {
+          // v1.4.2+: also add data-tab-content if missing (so this JS keeps working)
+          if (!tabContent.hasAttribute('data-tab-content') && tabContent.id.startsWith('tab-')) {
+            tabContent.setAttribute('data-tab-content', tabContent.id.replace('tab-', ''));
+          }
+          document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+          tabContent.classList.add('active');
+          // Resolve tabId from data-tab-content (or fall back to id 'tab-XXX' or index)
+          let tabId = tabContent.getAttribute('data-tab-content');
+          if (!tabId && tabContent.id.startsWith('tab-')) {
+            tabId = tabContent.id.replace('tab-', '');
+          }
+          // Compatible selector: try common button class names + [data-tab] attr fallback
+          const btnSelector = '.tab, .tab-btn, .tab-button, [data-tab]';
+          const allBtns = document.querySelectorAll(btnSelector);
+          if (tabId) {
+            allBtns.forEach(b => {
+              if (b.getAttribute('data-tab') === tabId) b.classList.add('active');
+              else b.classList.remove('active');
+            });
+          } else {
+            // Last-resort index-based matching: tab-content order = tab button order
+            const allContents = document.querySelectorAll('.tab-content');
+            const idx = Array.from(allContents).indexOf(tabContent);
+            allBtns.forEach(b => b.classList.remove('active'));
+            if (idx >= 0 && idx < allBtns.length) {
+              allBtns[idx].classList.add('active');
+            }
+          }
+        }
+
+        setTimeout(() => {
+          const rect = target.getBoundingClientRect();
+          const offset = window.scrollY + rect.top - 80;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+          history.replaceState(null, '', '#' + id);
+        }, 50);
+      });
+    });
+
+    // IntersectionObserver: active highlight
+    const sections = Array.from(tocLinks).map(a => {
+      const id = a.getAttribute('data-toc-target');
+      return document.getElementById(id);
+    }).filter(Boolean);
+    if (!sections.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(a => a.classList.remove('active'));
+          const id = entry.target.id;
+          const active = document.querySelector('aside.toc a[data-toc-target="' + id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+  </script>
+
+</body>
+</html>
