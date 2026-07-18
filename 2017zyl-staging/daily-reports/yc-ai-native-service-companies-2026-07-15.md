@@ -1,13 +1,13 @@
 ---
-slug: daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard
+slug: daily-reports/yc-ai-native-service-companies-2026-07-15
 title: "🆕 YC AI 原生服务公司 6 章指南 · AI Native Service Companies (11:13 · Garry Tan)"
-file: daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard.html
+file: daily-reports/yc-ai-native-service-companies-2026-07-15.html
 date: 2026-07-15
 track: video
 category: video-digest
 featured: true
-url: https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard.html
-md_url: https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard.md
+url: https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15.html
+md_url: https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15.md
 index: 1 of 288
 tags:
   - yc
@@ -38,7 +38,7 @@ pattern_source: "ebufar-yc-head-design-conductor-2026-07-15 §soul.md 哲学"
 - **Date**: 2026-07-15
 - **Track**: video (video-digest)
 - **Featured**: yes
-- **Human version**: https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15-dashboard.html
+- **Human version**: https://2017zyl.xyz/daily-reports/yc-ai-native-service-companies-2026-07-15.html
 - **Agent version**: this file
 - **Tags**: yc, ai-services, startup-playbook, founder, video-digest, garry-tan, 2026-07-15
 
