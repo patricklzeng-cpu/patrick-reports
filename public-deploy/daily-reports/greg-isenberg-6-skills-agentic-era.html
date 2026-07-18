@@ -74,19 +74,14 @@ footer{margin-top:60px;padding:20px 0;border-top:1px solid var(--border);color:v
 .lang-toggle:hover{background:var(--lime);color:#0a0a14;box-shadow:0 0 16px rgba(213,255,63,.4)}
 html[lang="zh-CN"] .en-only{display:none}
 html[lang="en"] .zh-banner{display:none}
-.zh-banner{background:linear-gradient(135deg,rgba(251,191,36,.15) 0%,rgba(213,255,63,.1) 100%);border:1px solid rgba(251,191,36,.4);border-radius:12px;padding:16px 20px;margin:0 0 24px;color:var(--fg);font-size:14px;line-height:1.7}
+.zh-banner{max-width:100%;box-sizing:border-box;background:linear-gradient(135deg,rgba(251,191,36,.15) 0%,rgba(213,255,63,.1) 100%);border:1px solid rgba(251,191,36,.4);border-radius:12px;padding:16px 20px;margin:0 0 24px;color:var(--fg);font-size:14px;line-height:1.7}
 .zh-banner strong{color:var(--yellow)}
 .zh-banner a{color:var(--blue);text-decoration:none;border-bottom:1px dotted rgba(95,199,255,.3)}
 </style>
 </head>
 <body lang="en">
 <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
-<div class="zh-banner">
-<div class="zh-banner">
-<strong>📌 中文翻译开发中</strong> · 当前显示英文原文 (vault index.md)。EN⇄中 切换时显示此提示。<br>
-完整中文翻译待 ship,期间可参考: <a href="https://2017zyl.xyz/daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html" target="_blank" rel="noopener">Liebermann × 硅滩女孩 dashboard</a> 中英对照模式 (类似规格参考)。
-</div>
-</div>
+
 <aside class="toc" aria-label="Table of contents">
   <button class="toc-toggle" aria-label="Toggle sidebar" type="button" onclick="toggleToc()">◀</button>
   <span class="toc-label">📑 Sections</span>
@@ -97,6 +92,10 @@ html[lang="en"] .zh-banner{display:none}
 
 <div class="en-only">
 <main class="page">
+<div class="zh-banner">
+<strong>📌 中文翻译开发中</strong> · 当前显示英文原文 (vault index.md)。EN⇄中 切换时显示此提示。<br>
+完整中文翻译待 ship,期间可参考: <a href="https://2017zyl.xyz/daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html" target="_blank" rel="noopener">Liebermann × 硅滩女孩 dashboard</a> 中英对照模式 (类似规格参考)。
+</div>
 <a href="https://2017zyl.xyz/daily-reports.html" class="back-to-hub">← Back to daily-reports hub</a>
 
 <section class="hero" id="top">
