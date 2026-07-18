@@ -77,6 +77,12 @@ html[lang="en"] .zh-banner{display:none}
 .zh-banner{max-width:100%;box-sizing:border-box;background:linear-gradient(135deg,rgba(251,191,36,.15) 0%,rgba(213,255,63,.1) 100%);border:1px solid rgba(251,191,36,.4);border-radius:12px;padding:16px 20px;margin:0 0 24px;color:var(--fg);font-size:14px;line-height:1.7}
 .zh-banner strong{color:var(--yellow)}
 .zh-banner a{color:var(--blue);text-decoration:none;border-bottom:1px dotted rgba(95,199,255,.3)}
+
+.machine-translation-banner{background:rgba(251,191,36,.12);border-left:4px solid var(--yellow);border-radius:0 10px 10px 0;padding:10px 16px;margin:0 0 20px;color:var(--fg);font-size:13px;line-height:1.6}
+.machine-translation-banner strong{color:var(--yellow)}
+html[lang="en"] .zh-only{display:none}
+html[lang="zh-CN"] .en-only{display:none}
+
 </style>
 </head>
 <body lang="en">
@@ -90,8 +96,173 @@ html[lang="en"] .zh-banner{display:none}
   </ul>
 </aside>
 
+<div class="zh-only">
+<div class="zh-banner-inline">
+<strong>📌 中文翻译版 (机器翻译)</strong> · 以下内容由 LLM 自动翻译,可能不准确 / 术语错位 · <strong>请以英文原文为准</strong> · EN mode 看原汁原味版本
+</div>
+<section class="hero" id="top-zh">
+<h1>Hermes Agent + Mixture of Agents is insane…</h1>
+<div class="meta-strip">
+<span><a href="https://www.youtube.com/watch?v=40ikbH0Ba-g" target="_blank" rel="noopener">YouTube ↗</a></span>
+<span>36:01</span>
+<span>David Ondrej</span>
+<span>2026-06-29</span>
+</div>
+</section>
+<section class="md-body">
+<h1 id="hermes-agent---mixture-of-agents---david-ondrej---------">Hermes Agent + Mixture of Agents — David Ondrej 演示 (教程版)</h1>
+<h2 id="-----------read-first-">⚠️ 教程可信度盒 (READ FIRST)</h2>
+<table class="md-table"><thead><tr><th>维度</th><th>评分</th><th>说明</th></tr></thead><tbody><tr><td>Source class</td><td>INDUSTRY TUTORIAL</td><td>David Ondrej (399K 订阅) 是 AI 工具教学频道, 不是研究机构</td></tr><tr><td>red_flag_score</td><td><strong>0</strong></td><td>仅 1 个 Hostinger sponsor 关联 (DAVID10 优惠码), 属于 sponsored how-to, <strong>非 conspiracy / 非阴谋叙事</strong></td></tr><tr><td>Pitfall 24 (anti-finance)</td><td>不适用</td><td>无金融话题</td></tr><tr><td>Sponsor 折扣透明度</td><td>✅ 高</td><td>视频显式给 DAVID10 = 10% off, 没有隐藏 affiliate link</td></tr><tr><td>演示真实度</td><td>✅ 高</td><td>屏幕录像 + 实操 (VPS ssh + cmux + Hermes 终端) 全程可见</td></tr><tr><td>内容复用价值</td><td>⭐⭐⭐⭐</td><td>是 Patrick <a href="#" class="wikilink" title="hermes-agent">hermes-agent</a> 实战 onboarding 教材: cmux + VPS + skills + MOA 配置全流程</td></tr></tbody></table>
+<p><strong>判定</strong>: 这是 Patrick <strong>Hermes Agent 用户 onboarding 的最佳外部教程</strong>。David 演示的 7 个步骤几乎 1:1 对应 Patrick 当前 Hermes Agent CLI 的 capability surface。</p>
+<hr>
+<h2 id="------5---">核心摘要 (5 句)</h2>
+<ol>
+<li><strong>David Ondrej 在 36 分钟里把 Hermes Agent + Mixture of Agents (MOA) 拆成 7 个可复现步骤</strong>: VPS 上跑 Hermes → cmux 终端分屏 → OpenRouter/Vercel Gateway 接 15-20 个模型 → skills repo (davidra.com/skills) → 温度 / presets / token economics。</li>
+<li><strong>MOA 的核心机制</strong>: 多个 model 并行投票 (Grok / Gemini / Opus / Kimi K2.7 / GLM 5.2 等), 一个 aggregator model (默认 = 最强模型, 如 Claude Opus 4.8) 综合所有回答输出最终答案 — &quot;cleverly orchestrating the way you use useful&quot; 打败任何单模型。</li>
+<li><strong>Hermes Agent 的真正杀手锏是 skills system</strong>: David 把自己的 skill repo 放在 <code>davidra.com/skills</code>, 通过 GitHub Actions <strong>每天自动 sync</strong> 最新 skills 到他的 Hermes install — 这就是 Patrick <a href="#" class="wikilink" title="hermes-knowledge-capture">hermes-knowledge-capture</a> 的实战对照版。</li>
+<li><strong>Token economics 颠覆传统</strong>: 通过 OpenRouter / Vercel Gateway + 用户已有订阅, &quot;difficult stuff&quot; (debug / review / planning / security hardening) 才花钱; &quot;should simple questions&quot; (营养 / 常识) 完全 free — David 把 Hermes 当 <strong>router + cost gate</strong>。</li>
+<li><strong>Self-hosting 哲学</strong>: Hostinger KVM2 VPS ($20/月) + cmux + Hermes = &quot;Claude Code / Codex / Pi 全部跑同一个 plan period&quot; — David 反对 vendor lock-in, 主张 <strong>agent + gateway + skill repo 三层可替换</strong> 的开放栈。</li>
+</ol>
+<hr>
+<h2 id="david-ondrej------------">David Ondrej 演示流程 (按时间戳)</h2>
+<h3 id="1--moa-------00-00-00-----00-03-00-">1. MOA 概念引入 [00:00:00] – [00:03:00]</h3>
+<p>David 开场直接给 <strong>hook</strong>: &quot;Hermes agent just released mixture of agents, this is a new feature that allows us to get frontier level results even without having access to Claude Opus 4.8 or GPT-5.6.&quot; — 强调 <strong>任何人都能跑 frontier-level, 不需要顶级订阅</strong>。</p>
+<p>MOA 流程 (David 自己定义):</p>
+<ol>
+<li><strong>多个 agent 并行咨询</strong>: Grok / Gemini / Opus / Kimi / GLM 同步接 prompt</li>
+<li><strong>Aggregator 综合</strong>: 通常是最强 model (default = Claude Opus 4.8 / GPT 5.5)</li>
+<li><strong>单答案输出</strong>: Aggregator 给出 1 个最终 answer</li>
+<li><strong>Token 多但质量高</strong>: 比单 model 多花 tokens, 但结果逼近 frontier</li>
+</ol>
+<blockquote>"magic actually defeats models — publicly GPT 5.5 and Opus 4.8 currently are top available to us. We know better than these."</blockquote>
+<h3 id="2--hermes-agent-------00-03-02-----00-06-02-">2. Hermes Agent 关键特性 [00:03:02] – [00:06:02]</h3>
+<p>David 强调 <strong>不要和 &quot;MoE (Mixture of Experts)&quot; 搞混</strong>:</p>
+<ul>
+<li><strong>MoE</strong> = 单模型内部 architecture (math/physics/coding 不同 experts, 只有部分参数激活) — 这是 inference 优化</li>
+<li><strong>MOA</strong> = 多个独立 models 协作, 各 model <strong>独立 submit responses</strong>, 由 aggregator 综合 — 这是 orchestration 模式</li>
+</ul>
+<p>两者无关。David 警告 &quot;few of the most headlines know, influencers will skip this distinction&quot;。</p>
+<h3 id="3--hostinger-vps---cmux-------00-06-02-----00-09-02-">3. Hostinger VPS + cmux 终端配置 [00:06:02] – [00:09:02]</h3>
+<p>David 演示 hostinger.com landing → 选 <strong>KVM2 plan</strong> ($20/月) → 24-month discount → checkout → 拿 root SSH。Ubuntu 24 LTS + SSH key auth。</p>
+<p><strong>cmux 介绍</strong> (David 的 terminal choice):</p>
+<ul>
+<li>免费, macOS native terminal multiplexer</li>
+<li>&quot;default multiplexor that allows you to easily create panes and launch them&quot;</li>
+<li>比 tmux 更直观, 比 iTerm2 panes 更轻量</li>
+<li>支持 SSH + droid + PI 一键启动</li>
+</ul>
+<p><strong>SSH setup</strong>: <code>ssh root@&lt;VPS_IP&gt;</code> → 进入 Ubuntu → 默认 root home, 准备装 Hermes。</p>
+<h3 id="4--openrouter---vercel-gateway--00-09-06-----00-12-06-">4. OpenRouter + Vercel Gateway [00:09:06] – [00:12:06]</h3>
+<p>David 强调 <strong>router 是 Hermes 真正 killer feature</strong>:</p>
+<ul>
+<li><strong>OpenRouter</strong> (<a href="https://openrouter.ai" target="_blank" rel="noopener">openrouter.ai</a>): 15-20 个 providers, &quot;least active time&quot; 自动路由</li>
+<li><strong>Vercel Gateway</strong>: &quot;Versel gateway classic&quot;, 价格 couple dollars, 但功能强大 (尤其 <strong>GLM 5.2 routing</strong> 性能最佳)</li>
+<li><strong>VPS-friendly</strong>: 整个 router stack 跑在用户 VPS 里, &quot;on VPS, act upon automations, jobs, workflows, anything autonomously turned off&quot;</li>
+</ul>
+<p>David 推荐: <strong>OpenRouter + 用户已有 ChatGPT Pro 订阅</strong> = Hermes 自动检测你的订阅 token, 直接 route, <strong>零额外成本</strong>。</p>
+<blockquote>"subscriptions, whether ChatGPT Pro, run at no cost through the Router."</blockquote>
+<h3 id="5--hermes------skills-----00-12-08-----00-18-21-">5. Hermes 安装 + skills 体系 [00:12:08] – [00:18:21]</h3>
+<p>David 在 VPS 上跑 Hermes 安装 (5 分钟完成, &quot;took minutes&quot;):</p>
+<pre class="code"><code class="lang-">hermes install   # 一行 install
+hermes config    # 配置 router + presets + skills</code></pre>
+<p><strong>Skills repo</strong> (David 的核心 deliverable):</p>
+<ul>
+<li>位置: <code>davidra.com/skills</code> (David 个人 skill repo)</li>
+<li><strong>GitHub Actions 每天自动 sync 最新 skills</strong> 到 David 的 Hermes install</li>
+<li>4 大 reference skills: GLM 5.2 / GPT 5.5 / Kimi Code / Opus 4.8 — 每个 skill 是一个 prompt template + 路由配置</li>
+</ul>
+<p>David 演示如何 <strong>定义 skill (prompt + config + preset 三件套)</strong>:</p>
+<ul>
+<li><strong>Goal-driven framing</strong>: &quot;describe intent, what are you doing, what is your goal&quot; — 不是 &quot;task&quot;, 是 &quot;broader achieve&quot;</li>
+<li><strong>Custom CL</strong> (custom command line): 比 SL (system) 更短, 用于重复任务</li>
+<li><strong>Temperature presets</strong>: code review = 0.4 (低, predictable), brainstorm = 0.9 (高, creative)</li>
+</ul>
+<h3 id="6--moa-----hermes-router---model-----00-18-36-----00-27-40-">6. MOA 实测: Hermes Router 多 model 投票 [00:18:36] – [00:27:40]</h3>
+<p>David 跑一个 <strong>204 GB dataset</strong> 的实际 MOA 测试:</p>
+<ol>
+<li><strong>第一轮</strong>: GPT 5.5 → error</li>
+<li><strong>第二轮</strong>: Kimi K2.7 → non-fatal warning (flag = 跳过)</li>
+<li><strong>第三轮</strong>: GLM 5.2 → beauty, 成功</li>
+<li><strong>Aggregator</strong>: Opus 4.8 综合 3 轮 output, 输出最终 answer</li>
+</ol>
+<p>David 强调 <strong>&quot;universe diversity&quot;</strong>: 不同 model 对同一问题给出不同角度, aggregator 比单 model <strong>&quot;deeper thinking case&quot;</strong> 更 robust — &quot;rare cases, deeper thinking, basically something practical the output end human shouldn&#x27;t be able to&quot;。</p>
+<p><strong>故障切换</strong>: David 演示当 Versel endpoint 慢时, 切换到 <strong>Versal cook one</strong> (Vercel 自家 endpoint), &quot;200 tokens per second&quot; vs &quot;slow&quot; — Hermes 自动 fallback。</p>
+<h3 id="7--token-economics---self-hosting-----00-27-42-----00-36-48-">7. Token Economics + Self-Hosting 哲学 [00:27:42] – [00:36:48]</h3>
+<p>David 把 <strong>token cost</strong> 分两类:</p>
+<table class="md-table"><thead><tr><th>类型</th><th>例子</th><th>路由</th><th>成本</th></tr></thead><tbody><tr><td>简单 question</td><td>营养 / 常识 / 闲聊</td><td>走 Router + 用户订阅</td><td><strong>免费</strong></td></tr><tr><td>难任务</td><td>Debug / Review / Planning / Security hardening</td><td>走 MOA + Opus aggregator</td><td><strong>付费</strong></td></tr></tbody></table>
+<blockquote>"where you don't want to be spending money on answers — give you the right understanding when comes presets, them adding code review entirely."</blockquote>
+<p><strong>Self-hosting 哲学</strong> (David 的元论断):</p>
+<ul>
+<li><strong>&quot;AI companies printing enterprise profits&quot;</strong> — David 反对 vendor lock-in, 主张 &quot;give data, priceless training keeping themselves, tragic&quot;</li>
+<li><strong>Open weights</strong>: Kimi / GLM 5.3 weights spin 10 GPU B300s, 用户可以 host 在 Europe / Australia / USA / Brazil <strong>&quot;anywhere GPUs allocating resources at affordable cost&quot;</strong></li>
+<li><strong>&quot;subsidized subscriptions&quot;</strong>: &quot;Oh, paying $200 / $2,000 / $4,000 for usage&quot; — David 反对这种 pricing, 主张 <strong>&quot;Deep Miniax cheaper Anthropic 90% usage&quot;</strong> (MiniMax/open-source model 便宜 90%)</li>
+</ul>
+<p><strong>结论</strong>: David 演示用 Hermes 在 VPS 上 <strong>deployed 一个 Flappy Bird game</strong>, &quot;live URL, public website&quot; — 全程 &lt; $20/月 (Hostinger VPS) + 用户已有订阅。</p>
+<hr>
+<h2 id="----6-quotes-">金句 (6 quotes)</h2>
+<blockquote><strong>"Hermes agent just released mixture of agents, this is a new feature that allows us to get frontier level results even without having access to Claude Opus 4.8 or GPT-5.6."</strong> — David Ondrej [00:00:00]</blockquote>
+<blockquote><strong>"magic actually defeats models — publicly GPT 5.5 and Opus 4.8 currently are top available to us. We know better than these."</strong> — David Ondrej [00:00:33] (论 MOA 协同 vs 单模型)</blockquote>
+<blockquote><strong>"subscriptions, whether ChatGPT Pro, run at no cost through the Router. Okay. Should simple questions, give you the right understanding. Hard stuff: debugging, review, planning, codebase, security hardening — that's where you don't want to be spending money on answers."</strong> — David Ondrej [00:02:09] (token economics 哲学)</blockquote>
+<blockquote><strong>"universe diversity, deeper thinking, basically something practical the output end human shouldn't be able to."</strong> — David Ondrej [00:19:26] (MOA 协同的真正价值)</blockquote>
+<blockquote><strong>"Deep Miniax cheaper Anthropic 90% usage. AI companies printing enterprise profits."</strong> — David Ondrej [00:27:14] (开源 vs 闭源经济学)</blockquote>
+<blockquote><strong>"agents on VPS, act upon automations, jobs, workflows, anything autonomously turned off."</strong> — David Ondrej [00:04:28] (self-hosting 的核心承诺)</blockquote>
+<hr>
+<h2 id="patrick-----mandatory-">Patrick 视角 (MANDATORY)</h2>
+<p><strong>这是 Patrick <a href="#" class="wikilink" title="hermes-agent">hermes-agent</a> 的最佳外部 onboarding 视频。</strong> David 演示的 7 个步骤几乎完全对应 Patrick 已经在用的 Hermes Agent capability surface:</p>
+<h3 id="a---------patrick-----">A. 直接可复用的 Patrick 现有能力</h3>
+<ol>
+<li><strong>MOA 已在 Hermes 内置</strong>: Patrick 已经在用 <code>delegate_task</code> (parallel subagent) + <code>hermes-model-router</code>, 但 <strong>未启用 MOA 的多 model 投票 aggregator</strong> — David 演示的 &quot;GPT 5.5 + Kimi K2.7 + GLM 5.2 + Opus aggregator&quot; 4 模型投票是 <strong>next-level experiment</strong>。建议: 把 <a href="#" class="wikilink" title="autonomous-ai-agents/five-orchestrator">autonomous-ai-agents/five-orchestrator</a> 的 <code>hybrid-llm-router</code> skill 接上 MOA preset, 测试 &quot;<a href="#" class="wikilink" title="evaluating-llms-harness">evaluating-llms-harness</a>&quot; benchmark 上是否真的超越单 Opus 4.8。</li>
+</ol>
+<ol>
+<li><strong>Skills repo 已经是 Patrick 核心机制</strong>: Patrick 的 <a href="#" class="wikilink" title="hermes-knowledge-capture">hermes-knowledge-capture</a> + <code>~/.hermes/skills/</code> 体系 = David 的 <code>davidra.com/skills</code> + GitHub Actions auto-sync 同一架构。<strong>差异</strong>: Patrick 是 single-user (Mac 本地), David 是 public repo (可被 borrow)。Patrick 已有 <code>2026-06-12-borrow-external-skills-sop.md</code> SOP, 可直接参考 David 模式发布自己的 skill repo。</li>
+</ol>
+<ol>
+<li><strong>cmux 是 Patrick 应该尝试的 terminal</strong>: Patrick 现在用 iTerm2 + tmux, 但 David 演示的 cmux &quot;default multiplexor&quot; 看起来更轻量、更适合 Hermes session — 建议在 <code>local-static-preview-server</code> + Hermes session 里测试 cmux。</li>
+</ol>
+<ol>
+<li><strong>VPS self-hosting 是 Patrick 第二台机器</strong>: Patrick 已有 Mac 本地 Hermes (主), 但 David 演示 Hostinger KVM2 ($20/月) 作为 <strong>second machine</strong> 跑 24/7 Hermes worker — 对应 Patrick 的 <code>audit</code> skill (cron watchdog) 应该在 VPS 上跑一份, 而不是依赖 Mac 睡眠唤醒。</li>
+</ol>
+<h3 id="b--patrick----follow-up---3----">B. Patrick 应该 follow-up 的 3 个实验</h3>
+<ol>
+<li><strong>MOA vs single model benchmark</strong>: 用 <a href="#" class="wikilink" title="mlops/evaluation/evaluating-llms-harness">mlops/evaluation/evaluating-llms-harness</a> 跑 <strong>5 个 model (GPT 5.5 / Opus 4.8 / Kimi K2.7 / GLM 5.2 / Gemini 3 Pro) 单独 vs MOA 4-model aggregator</strong> 在 50 题 MMLU + 20 题 HumanEval 上 — David 说 &quot;deeper thinking&quot;, 验证一下。</li>
+</ol>
+<ol>
+<li><strong>Vercel Gateway for GLM 5.2</strong>: David 强调 &quot;Vercel gateway classic, especially GLM 5.2&quot; — Patrick 已有 <code>local-llm-integration-hermes</code> skill 接本地 llama.cpp, 但 <strong>没用 Vercel Gateway 路由 GLM 5.2</strong> — 这是 <code>apple-silicon-llama-server</code> 的云端 fallback。</li>
+</ol>
+<ol>
+<li><strong>Skill repo public 发布</strong>: 把 Patrick 的 <code>~/.hermes/skills/</code> 关键 skill (5-orchestrator, hybrid-llm-router, hermes-knowledge-capture) 发布到 GitHub public repo, 用 David 的 GitHub Actions auto-sync 模式 — 让 Patrick 自己 + 其他 Hermes 用户都能受益, 也是 <a href="#" class="wikilink" title="sandeep-agentic-design">sandeep-agentic-design</a> &quot;agentic societies&quot; 的 micro experiment。</li>
+</ol>
+<h3 id="c--patrick-------1----">C. Patrick 应该警惕的 1 个陷阱</h3>
+<p>David 的 &quot;OpenRouter subscriptions run at no cost&quot; 这个 claim <strong>需要验证</strong>。OpenRouter 的 subscription pass-through 政策一直在变 (2026 Q1 OpenRouter 砍了部分 ChatGPT Pro pass-through), Patrick 不能假设 &quot;free&quot; — 实际部署前跑 <a href="#" class="wikilink" title="hybrid-llm-routing-framework">hybrid-llm-routing-framework</a> 的 cost calculator 验证一次。</p>
+<hr>
+<h2 id="30---follow-up-list">30 天 follow-up list</h2>
+<table class="md-table"><thead><tr><th>#</th><th>任务</th><th>优先级</th><th>关联 skill</th></tr></thead><tbody><tr><td>1</td><td>MOA 4-model benchmark (GPT 5.5 + Kimi K2.7 + GLM 5.2 + Opus 4.8 aggregator) vs single Opus 4.8 on 50 MMLU + 20 HumanEval</td><td>🔴 P0</td><td><a href="#" class="wikilink" title="mlops/evaluation/evaluating-llms-harness">mlops/evaluation/evaluating-llms-harness</a></td></tr><tr><td>2</td><td>cmux 在 Hermes session 测试 (替代 iTerm2 panes)</td><td>🟡 P1</td><td><code>local-static-preview-server</code></td></tr><tr><td>3</td><td>Hostinger KVM2 VPS ($20/月) 部署 Hermes 24/7 worker 跑 <code>audit</code> cron</td><td>🟡 P1</td><td><code>audit</code></td></tr><tr><td>4</td><td>验证 Vercel Gateway GLM 5.2 routing + cost (替代本地 llama.cpp for GLM)</td><td>🟡 P1</td><td><a href="#" class="wikilink" title="hybrid-llm-routing-framework">hybrid-llm-routing-framework</a></td></tr><tr><td>5</td><td>把 Patrick 关键 skills (5-orchestrator, hermes-knowledge-capture, hybrid-llm-router) 发布到 GitHub public repo + GitHub Actions auto-sync</td><td>🟢 P2</td><td><code>2026-06-12-borrow-external-skills-sop.md</code></td></tr><tr><td>6</td><td>把 <a href="#" class="wikilink" title="autonomous-ai-agents/five-orchestrator">autonomous-ai-agents/five-orchestrator</a> 接上 MOA preset, 启用 hybrid 模式 (单 model 简单题 + 4-model MOA 难题)</td><td>🟢 P2</td><td><a href="#" class="wikilink" title="autonomous-ai-agents/five-orchestrator">autonomous-ai-agents/five-orchestrator</a></td></tr><tr><td>7</td><td>David Ondrej &quot;10 个 MOA preset&quot; 视频后续 follow-up (他提到 code review preset 是 &quot;next episode&quot;)</td><td>🟢 P3</td><td><code>ai-trending-daily</code> cron</td></tr></tbody></table>
+<hr>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><strong>YouTube URL</strong>: https://www.youtube.com/watch?v=40ikbH0Ba-g</li>
+<li><strong>Transcript path</strong>: <code>/tmp/yt-40ikbH0Ba-g/transcript.txt</code> (343 segments, 12.0KB)</li>
+<li><strong>Transcript JSON</strong>: <code>/tmp/yt-40ikbH0Ba-g/transcript.json</code> (21.3KB)</li>
+<li><strong>Windows file</strong>: <code>/tmp/yt-40ikbH0Ba-g/windows.txt</code> (12 windows @ ~3min)</li>
+<li><strong>Channel</strong>: David Ondrej (399K 订阅, AI tutorial)</li>
+<li><strong>Upload date</strong>: 2026-06-29</li>
+<li><strong>Views</strong>: 22,358</li>
+<li><strong>Sponsor</strong>: Hostinger (DAVID10 coupon, 10% off)</li>
+<li><strong>Duration</strong>: 36:01 (2161s)</li>
+<li><strong>Patrick wikilinks</strong>: <a href="#" class="wikilink" title="hermes-agent">hermes-agent</a>, <a href="#" class="wikilink" title="hermes-migration">hermes-migration</a>, <a href="#" class="wikilink" title="hermes-knowledge-capture">hermes-knowledge-capture</a>, <a href="#" class="wikilink" title="hermes-telos-consult">hermes-telos-consult</a></li>
+<li><strong>Canonical 4 wikilinks</strong>: <a href="#" class="wikilink" title="autonomous-ai-agents/five-orchestrator">autonomous-ai-agents/five-orchestrator</a>, <a href="#" class="wikilink" title="autonomous-ai-agents/agent-observability">autonomous-ai-agents/agent-observability</a>, <a href="#" class="wikilink" title="ai-trending-daily">ai-trending-daily</a>, <a href="#" class="wikilink" title="mlops/evaluation/evaluating-llms-harness">mlops/evaluation/evaluating-llms-harness</a></li>
+<li><strong>Source vault notes</strong>: <a href="#" class="wikilink" title="openclaw-vs-hermes">openclaw-vs-hermes</a> (Patrick 自评对比)</li>
+</ul>
+</section>
+</div><!-- zh-only -->
+
 <div class="en-only">
 <main class="page">
+
+<div class="machine-translation-banner">
+⚠️ <strong>机器翻译</strong> · 此中文内容由 LLM (MiniMax-M3) 自动翻译,可能不准确 / 术语错位 / 表达不自然。<strong>请以英文原文为准</strong> · 如需精确中文,联系 Patrick 找人工翻译
+</div>
+
 <div class="zh-banner">
 <strong>📌 中文翻译开发中</strong> · 当前显示英文原文 (vault index.md)。EN⇄中 切换时显示此提示。<br>
 完整中文翻译待 ship,期间可参考: <a href="https://2017zyl.xyz/daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html" target="_blank" rel="noopener">Liebermann × 硅滩女孩 dashboard</a> 中英对照模式 (类似规格参考)。

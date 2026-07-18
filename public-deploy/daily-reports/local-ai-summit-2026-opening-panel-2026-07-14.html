@@ -77,6 +77,12 @@ html[lang="en"] .zh-banner{display:none}
 .zh-banner{max-width:100%;box-sizing:border-box;background:linear-gradient(135deg,rgba(251,191,36,.15) 0%,rgba(213,255,63,.1) 100%);border:1px solid rgba(251,191,36,.4);border-radius:12px;padding:16px 20px;margin:0 0 24px;color:var(--fg);font-size:14px;line-height:1.7}
 .zh-banner strong{color:var(--yellow)}
 .zh-banner a{color:var(--blue);text-decoration:none;border-bottom:1px dotted rgba(95,199,255,.3)}
+
+.machine-translation-banner{background:rgba(251,191,36,.12);border-left:4px solid var(--yellow);border-radius:0 10px 10px 0;padding:10px 16px;margin:0 0 20px;color:var(--fg);font-size:13px;line-height:1.6}
+.machine-translation-banner strong{color:var(--yellow)}
+html[lang="en"] .zh-only{display:none}
+html[lang="zh-CN"] .en-only{display:none}
+
 </style>
 </head>
 <body lang="en">
@@ -90,8 +96,138 @@ html[lang="en"] .zh-banner{display:none}
   </ul>
 </aside>
 
+<div class="zh-only">
+<div class="zh-banner-inline">
+<strong>📌 中文翻译版 (机器翻译)</strong> · 以下内容由 LLM 自动翻译,可能不准确 / 术语错位 · <strong>请以英文原文为准</strong> · EN mode 看原汁原味版本
+</div>
+<section class="hero" id="top-zh">
+<h1>🏁 Local AI Summit 2026 · Opening Panel · 4 Luminaries · Local AI Inflection Point · 44:13</h1>
+<div class="meta-strip">
+<span><a href="https://www.youtube.com/watch?v=KB41dTlX1Uc" target="_blank" rel="noopener">YouTube ↗</a></span>
+
+
+<span>2026-07-14</span>
+</div>
+</section>
+<section class="md-body">
+<h1 id="local-ai-summit-2026----------4----">Local AI Summit 2026 · 开幕圆桌 · 4 位先驱</h1>
+<h2 id="------">🔑 核心论点</h2>
+<p><strong>Local AI Summit 2026</strong> 的开幕圆桌汇聚了 <strong>4 位先驱</strong>(Alex Chen / ExoLabs、Matt / AI YouTuber、Ahmed Osman / Osmantic、Joseph Nelson / Roboflow),由 NVIDIA 主持,共同指向同一个拐点论断:<strong>本地 + 开源 AI 已在今年跨越了可用性门槛</strong>,背后的驱动力不仅是模型本身的进步,更在于 <strong>harnesses</strong>(CLI 接入、代码上下文工具、多模态外设,以及至关重要的 NVIDIA DGX Spark 优化——为运行 4-spark 的 550B Neimatron Ultra 带来 10 倍性能提升)。圆桌从三个汇聚轴线刻画 2026 时刻:(1) iPhone/桌面规模的前沿级质量(Qwen 3.5 4B ≈ GPT-4 质量),(2) 多模型路由成为新默认(Coinbase 案例:token 暴涨但成本持平),(3) 从前沿模型引导出来的专用小模型用于生产负载。</p>
+<h2 id="-----------">🌟 为什么这场圆桌重要</h2>
+<blockquote>"今天是这场圆桌相当重要的日子。Fable 刚刚回归,但这恰好提醒我们:为什么我们需要接触 Frontier Intelligence 才能构建任何东西。" — Joseph Nelson</blockquote>
+<p>这场圆桌出现在开源 AI 的分水岭时刻。<strong>Karpathy 从 11 月到 2 月的态度反转</strong>(&quot;无法单独信任编码 agent&quot; → &quot;快跟不上了&quot;)被引用为拐点标记。四位嘉宾中有三位回忆起 <strong>飞机故事</strong> 作为个人拐点时刻(在 4090 上跑 LLaMA / Llava 描述折叠桌板可访问性 / Lava vs Apple 无障碍功能)。DGX Spark 10 倍性能的故事(Alex Chen 的 exo 团队 + NVIDIA 总部的&quot;swarming&quot;)是圆桌中最具体的工程叙事——他们没有解决新的计算机科学问题,而是把 NVIDIA 现有的优化方案组装成了一束&quot;花束&quot;。</p>
+<h2 id="--4----">👥 4 位先驱</h2>
+<table class="md-table"><thead><tr><th>嘉宾</th><th>角色</th><th>关键贡献</th><th>拐点时刻</th></tr></thead><tbody><tr><td><strong>Alex Chen</strong></td><td>ExoLabs 联合创始人/CEO + local.ai 创建者</td><td>DGX Spark 10 倍性能故事;Qwen 3.5 4B = 手机上的 GPT-4 质量;Neimatron Ultra 550B 在 4 Spark 上达 30 tok/s</td><td>第一次在自己的设备上跑 LLaMA;骨子里是个 tinkered</td></tr><tr><td><strong>Matt</strong></td><td>AI 内容创作者 + newsletter</td><td>&quot;普通用户&quot;视角——大多数人想要 cursor 式的简洁;路由属于基础设施层</td><td>LLaMA 45B 缩小前沿差距(虽然只有 2 tok/s);deepseek v3/r1;GLM 5.2</td></tr><tr><td><strong>Ahmed Osman</strong></td><td>Osmantic 创始人/CEO + r/LocalLLaMA 版主</td><td>&quot;OSMan = Open Source Man&quot;,公司名由此而来</td><td>Llama 45B → deepseek r1 → GLM 5.2 的趋势;ODS 开源部署系统</td></tr><tr><td><strong>Joseph Nelson</strong></td><td>Roboflow 联合创始人/CEO</td><td>视觉 → LLM 的经验:专用模型优于一个模型统治一切;SAM 3 微调 vs 蒸馏</td><td>第一次跑 LLaMA;视觉天然属于本地(边缘设备、机器人、低网络环境)</td></tr></tbody></table>
+<p><strong>主持人:NVIDIA</strong>(很可能是 Nata Kshatriya 或指定高管)——把当天的三场圆桌(量化 / 模型路由 / 模型总体)框定为三个开放的前沿问题。</p>
+<h2 id="--5----">🧩 5 大主题</h2>
+<h3 id="---1---2026---------harnesses---">主题 1 · 2026 拐点——模型与 Harnesses 并重</h3>
+<p>圆桌拒绝&quot;唯模型论&quot;的叙事。Karpathy 2025 年 11 月的推文(&quot;无法单独信任编码 agent——得像鹰一样盯着&quot;)→ 3 个月后(&quot;快跟不上了&quot;)<strong>两次都对</strong>,概括了变化的速度。拐点由三个驱动力构成:</p>
+<ol>
+<li><strong>推理模型</strong> 改变了响应曲线:平稳阶段(用户不消耗的 token) + 突发输出</li>
+<li><strong>Agent</strong> 要求始终在线的基础设施(而非聊天框)</li>
+<li><strong>Harnesses</strong>(Cursor 式文件系统访问、CLI 工具、多模态外设)解锁真实生产力</li>
+</ol>
+<p><strong>企业与消费者的痛点</strong>(隐私 + 成本):双方都希望将 IP/健康数据带入 AI 而不泄漏;双方都希望 token 生成成本进入平台期。<strong>本地 AI 同时解决这两个问题</strong>。</p>
+<h3 id="---2-------------">主题 2 · 多模型路由成为新默认</h3>
+<blockquote>"你最聪明的模型应该给出整体规划,然后把子任务派给更小的执行类模型。这就是未来。"</blockquote>
+<p><strong>Coinbase 案例</strong>(Brian Armstrong 帖子):token 暴涨,成本持平——因为他们混用了不同的模型。<strong>最直接的应用</strong>:顶级模型负责架构规划,小模型负责代码执行。</p>
+<p><strong>市场驱动,不是厂商驱动</strong>:&quot;用户不想被 Dario 告诉他们能做什么。不想为所有负载都付同一个模型的钱,而某些负载根本不需要每百万 token 50 美元的大模型。&quot;</p>
+<p><strong>多模型的三个开放问题</strong>:</p>
+<ul>
+<li>路由逻辑本身</li>
+<li>上下文向子 agent 传递</li>
+<li>版本控制(哪个版本后来改变了行为?)</li>
+</ul>
+<h3 id="---3------------------">主题 3 · 专用小模型胜过一个模型统治一切</h3>
+<blockquote>"曾经有过'一个模型统治一切'的想法,但我觉得钟摆已经摆回来了,大家意识到专用的价值。"</blockquote>
+<p><strong>视觉世界最先学到这一点</strong>(边缘端算力有限 → 专用学习者)。现在 LLM 世界走同一条路。<strong>两种模式</strong>:</p>
+<ol>
+<li><strong>直接微调</strong>(例如微调 SAM 3)——但会失去开放词汇能力</li>
+<li><strong>蒸馏</strong>(用大通用模型 + LMS-as-judge 共识 → 专用数据集 → 小而高效的模型)</li>
+</ol>
+<p><strong>Roboflow 案例</strong>:Monterey Bay Aquarium Research Institute 使用 SAM 3 + LLM judge 构建深海影像的自动标注流水线,然后蒸馏为专用小模型,在潜艇上实时运行。</p>
+<p><strong>Coinbase + Brian 模式</strong>:前沿模型引导高效的开源设置。</p>
+<h3 id="---4--------------------">主题 4 · 本地 + 开源胜利 = 智能的权利</h3>
+<p><strong>Ahmed 的行动号召</strong>:&quot;这是我多年来的立场。我一直在说开源 AI 必须赢……我们实现这一目标的方式,是给人们……一个简单的方式去使用这些模型,既高效又不会给他们带来比解决问题更多的麻烦。&quot;</p>
+<p><strong>right to intelligence.org</strong>(圆桌宣布):&quot;让你参与进来、真正为开源发声、确保我们维护智能自由的方式。&quot;</p>
+<p><strong>硅谷的张力论</strong>:计算诞生于东海岸,硅谷之所以成为硅谷,是因为嬉皮士们免费分享软件创意。<strong>资本家 + 嬉皮士共存</strong>——这就是产生生产力的环境。</p>
+<h3 id="---5---dgx-spark-10------">主题 5 · DGX Spark 10 倍工程故事</h3>
+<p><strong>为期三周的优化冲刺</strong>(Alex Chen 在 NVIDIA 总部,Nata 协调):</p>
+<ul>
+<li>起点是 Nata 周四晚宴上的想法 → 周五邮件 → 周一进会议室</li>
+<li>Jensen 的&quot;swarming&quot;理念调动团队:Neatron / 数据中心 / VLM / 量化</li>
+<li>目标:榨干 DGX Spark 的每一滴性能</li>
+<li>结果:相比 NVIDIA 既有方案 <strong>10 倍性能</strong></li>
+</ul>
+<p><strong>核心洞见</strong>:&quot;我们没有解决任何新的计算机科学问题。我们实际上是把 NVIDIA 专家们已经解决、已经公开的东西……组装成了一束花。&quot;</p>
+<p><strong>硬件 = 与数据中心相同</strong>(Grace Blackwell):kernel 本来就很好,但调优/配置是为数据中心设计的。Spark = 桌面上的数据中心硬件。</p>
+<p><strong>数据</strong>:</p>
+<ul>
+<li>Neatron 3 Ultra 550B 参数模型在 <strong>4 Spark</strong> 上跑 <strong>30 tokens/second</strong></li>
+<li>Qwen 3.5 4B ≈ 手机上的 GPT-4 质量</li>
+<li>Llama 45B(2023 年代)以 2 tok/s 缩小前沿差距 → 2026:小模型达到可用速度</li>
+</ul>
+<h2 id="--patrick----">💡 Patrick 行动项</h2>
+<h3 id="p0----strong-right-to-intelligence-----strong-----">P0 · <strong>Right to Intelligence 倡导</strong>(立即)</h3>
+<ol>
+<li>访问 <strong>right to intelligence.org</strong></li>
+<li>如果尚未参与,注册非技术倡导</li>
+<li>交叉链接到 <a href="#" class="wikilink" title="llm-wiki/papers/race-aware-4-source-synthesis-2026-07-14">llm-wiki/papers/race-aware-4-source-synthesis-2026-07-14</a>(这是开源防御论)</li>
+</ol>
+<h3 id="p1----strong----------strong--------">P1 · <strong>多模型路由研究</strong>(下一轮冲刺)</h3>
+<ol>
+<li>审计自己现有技术栈中的路由决策(哪个模型路由到什么?)</li>
+<li>测试 GLM 5.2 vs deepseek v3/r1 在代码执行任务上的表现</li>
+<li>重读 Coinbase/Brian Armstrong 关于 token 暴涨 + 成本持平的帖子</li>
+<li>交叉参考:<a href="#" class="wikilink" title="llm-wiki/youtube/ai-native-org-structure-2026-07-14">llm-wiki/youtube/ai-native-org-structure-2026-07-14</a>(组织设计含义)</li>
+</ol>
+<h3 id="p2----strong----ai-------strong-----">P2 · <strong>本地 AI 基础设施</strong>(持续)</h3>
+<ol>
+<li>如果可接触,测试 DGX Spark 能力(10 倍性能主张值得验证)</li>
+<li>订阅 Matt 的 newsletter + Ahmed 的 r/LocalLLaMA 获取持续信号</li>
+<li>追踪 Joseph 的 Roboflow 蒸馏模式(从前沿模型到专用模型)</li>
+</ol>
+<h2 id="--patrick-skill-----">📚 Patrick-Skill 交叉参考</h2>
+<table class="md-table"><thead><tr><th>Skill / Note</th><th>相关性</th><th>路径</th></tr></thead><tbody><tr><td><a href="#" class="wikilink" title="llm-wiki/youtube/starship-critical-path-2026-07-14">llm-wiki/youtube/starship-critical-path-2026-07-14</a></td><td>同类硬件拐点(DGX Spark vs Starship critical path)</td><td>sibling</td></tr><tr><td><a href="#" class="wikilink" title="llm-wiki/youtube/ai-native-org-structure-2026-07-14">llm-wiki/youtube/ai-native-org-structure-2026-07-14</a></td><td>多模型路由对组织设计的影响</td><td>sibling</td></tr><tr><td><a href="#" class="wikilink" title="llm-wiki/youtube/race-aware-4-source-synthesis-2026-07-14">llm-wiki/youtube/race-aware-4-source-synthesis-2026-07-14</a></td><td>&quot;开源 AI 必须赢&quot;论点对齐</td><td>sibling</td></tr><tr><td><a href="#" class="wikilink" title="llm-wiki/youtube/meitou-electric-revolution-2026-07-14">llm-wiki/youtube/meitou-electric-revolution-2026-07-14</a></td><td>采用周期框架(电力类比)</td><td>sibling</td></tr><tr><td><a href="#" class="wikilink" title="llm-wiki/papers/agentic-os">llm-wiki/papers/agentic-os</a></td><td>多模型路由 → agentic OS M3 envelope</td><td>meta</td></tr><tr><td><a href="#" class="wikilink" title="media/video-to-knowledge-dashboard">media/video-to-knowledge-dashboard</a></td><td>本 dashboard 使用规范 v1.4.4 可折叠 TOC</td><td>skill</td></tr></tbody></table>
+<h2 id="-----">🔑 语录库</h2>
+<blockquote>"值得一提的是 Fable 刚刚回归,但这恰好提醒我们:为什么我们需要接触 Frontier Intelligence 才能构建任何东西。" — Joseph Nelson</blockquote>
+<blockquote>"两次他都对。这个领域进步非常快。它能做的事情之多令人惊叹。老实说,唯一要做的就是今天比昨天多用一点。" — 主持人谈 Karpathy</blockquote>
+<blockquote>"我不只是在用聊天机器人……有了推理模型后,AI 模型的响应曲线变了。它不仅是对我做出突发式响应,而且在突发之前,它会平稳一段时间。它在推理。它在消耗我不消费的 token。" — 主持人</blockquote>
+<blockquote>"我想要这些始终在线的 agent。如果我们设置好它们,它们能始终保持生产力。" — 主持人</blockquote>
+<blockquote>"我们从一开始就有一个 tinkered 故事。所以能在自己办公室的设备上跑这种疯狂的外星智能,感觉太有趣了。那是我第一次觉得'这不可能',直到我看到 LLaMA,我说:'哇,这太不可思议了。'" — Alex Chen</blockquote>
+<blockquote>"我记得它显著缩小了与前沿闭源和开源模型的差距,但它只有 2 tok/s,所以没什么用。" — Matt 谈早期 LLaMA 45B</blockquote>
+<blockquote>"一家市值超过万亿的公司,在他们的手机上发布描述视觉场景的最新智能,结果却不如一个广泛可访问、人人可用的东西。" — Joseph 谈 Lava vs Apple 无障碍功能</blockquote>
+<blockquote>"你最聪明的模型应该给出整体规划,然后把子任务派给更小的执行类模型。这就是未来。" — Matt</blockquote>
+<blockquote>"用户不想被 Dario 告诉他们能做什么。不想为所有负载都付同一个模型的钱。" — Alex Chen</blockquote>
+<blockquote>"这正是推动很多进步的力量。所以,你知道,关于本地的未来,我比以往任何时候都更乐观。" — Alex Chen</blockquote>
+<blockquote>"硬件已经有了,硬件已经非常好了,而且模型越来越好。它们在压缩方面进步很大,可以在更小的设备上装下更多。" — Alex Chen</blockquote>
+<blockquote>"我们没有解决任何新的计算机科学问题。我们实际上是把 NVIDIA 专家们已经解决、已经公开的东西……" — Alex Chen</blockquote>
+<blockquote>"Jensen 谈过 swarming 的概念……整家公司会围绕某件事动员起来。你见过小孩踢足球吗?一个球,所有人都扑过去。" — Alex Chen</blockquote>
+<blockquote>"持续学习在前沿模型这边谈得不多……但它会到来,一定会发生,而且它需要在本地硬件上才能实现。" — Ahmed Osman</blockquote>
+<blockquote>"我记得 Swix 发过一条推文,问为什么 fine-tuning as a service 没有起飞。" — Joseph</blockquote>
+<blockquote>"我喜欢我们以前构建 AI 产品的方式:从机器学习开始……这些大模型让我们做到的是把顺序翻转过来。我们可以说从发现用例开始,如果合理再进入 ML。" — Matt 谈 AI engineer 一词的创造</blockquote>
+<blockquote>"硅谷是资本家想赚钱和嬉皮士想免费分享创意之间的张力。这种张力创造了这里如此不可思议的环境。" — Joseph</blockquote>
+<blockquote>"有一个刚上线的网站叫 right to intelligence.org,这是让你参与进来、真正为开源发声、确保你维护智能自由的方式。" — Joseph</blockquote>
+<h2 id="---------------">⏱️ 时间线(逐字,已规范化)</h2>
+<table class="md-table"><thead><tr><th>时间</th><th>发言者</th><th>内容</th></tr></thead><tbody><tr><td>00:00–02:00</td><td>主持人</td><td>开场:Local AI Summit、2026 拐点、Karpathy 11 月→2 月反转</td></tr><tr><td>02:00–03:30</td><td>主持人</td><td>为什么本地重要:隐私(企业 + 健康数据)、成本平台期、始终在线的 agent</td></tr><tr><td>03:30–05:30</td><td>Alex Chen</td><td>ExoLabs 介绍:从 2 台 MacBook 到 4 Spark 上的 Neimatron Ultra</td></tr><tr><td>05:30–07:30</td><td>Matt + Ahmed + Joseph</td><td>自我介绍:AI 创作者 / Osmantic 开源人 / Roboflow 视觉</td></tr><tr><td>07:30–11:00</td><td>全员</td><td>拐点故事:LLaMA / 4090 / 飞机无障碍 / Lava &gt; Apple</td></tr><tr><td>11:00–13:30</td><td>全员</td><td>Qwen 3.5 4B ≈ GPT-4 / GLM 5.2 / Spark 上的 Neimatron Ultra</td></tr><tr><td>13:30–18:00</td><td>全员</td><td>飞机无障碍故事:Lava 描述折叠桌板 vs Apple 无障碍描述&quot;打印机&quot;</td></tr><tr><td>18:00–22:00</td><td>Joseph</td><td>视觉世界的教训:专用模型、算力约束 → 领域专精</td></tr><tr><td>22:00–26:00</td><td>Matt + Joseph</td><td>多模型路由成为新默认;Coinbase token 暴涨成本持平</td></tr><tr><td>26:00–30:00</td><td>全员</td><td>市场驱动:控制权 + 主权 + 版本控制 + 模型替换</td></tr><tr><td>30:00–33:00</td><td>Ahmed</td><td>小专用模型:收集数据、按用例路由、用 agent 自动化</td></tr><tr><td>33:00–37:00</td><td>Alex Chen</td><td>DGX Spark 故事铺垫:周四晚宴 → 周五邮件 → 周一进 NVIDIA 总部</td></tr><tr><td>37:00–40:00</td><td>Alex Chen</td><td>Jensen 的&quot;swarming&quot;理念;VLM 团队 + Neatron 团队 + 数据中心团队全员动员</td></tr><tr><td>40:00–42:00</td><td>Alex Chen</td><td>10 倍性能结果;&quot;我们没有解决新的计算机科学问题,我们组装了一束花&quot;</td></tr><tr><td>42:00–44:00</td><td>Joseph</td><td>right to intelligence.org 行动号召;收尾</td></tr></tbody></table>
+<h2 id="----">📂 出处</h2>
+<ul>
+<li><strong>来源视频</strong>: https://www.youtube.com/watch?v=KB41dTlX1Uc (44:13, Local AI Summit 2026 开幕圆桌)</li>
+<li><strong>转录</strong>: kome.ai 自动转录(43,750 字符,完整覆盖,hasMore=false)</li>
+<li><strong>Dashboard HTML</strong>: <code>local-ai-summit-2026-opening-panel-2026-07-14-dashboard.html</code>(双语 v2 · zh+en 切换 · 12 标签页 · 6 统计卡片 · 17 张 Patrick 卡片)</li>
+<li><strong>构建日期</strong>: 2026-07-14</li>
+<li><strong>构建模式</strong>: video-to-knowledge-dashboard v1.5.41 + video-to-public-deploy v1.4.0 --lang bilingual</li>
+</ul>
+</section>
+</div><!-- zh-only -->
+
 <div class="en-only">
 <main class="page">
+
+<div class="machine-translation-banner">
+⚠️ <strong>机器翻译</strong> · 此中文内容由 LLM (MiniMax-M3) 自动翻译,可能不准确 / 术语错位 / 表达不自然。<strong>请以英文原文为准</strong> · 如需精确中文,联系 Patrick 找人工翻译
+</div>
+
 <div class="zh-banner">
 <strong>📌 中文翻译开发中</strong> · 当前显示英文原文 (vault index.md)。EN⇄中 切换时显示此提示。<br>
 完整中文翻译待 ship,期间可参考: <a href="https://2017zyl.xyz/daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html" target="_blank" rel="noopener">Liebermann × 硅滩女孩 dashboard</a> 中英对照模式 (类似规格参考)。
