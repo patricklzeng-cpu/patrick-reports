@@ -1,0 +1,1525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Claude Fable 5 Is Finally Back: 5 Must-Try Use Cases | Peter Yang</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel2: #1c2129;
+    --text: #e6edf3; --muted: #8b949e;
+    --accent: #ff7b72; --accent2: #d2a8ff; --border: #30363d;
+    --warn: #f0883e; --link: #58a6ff; --quote: #f0c674; --card: #1f242c;
+    --green: #4ade80; --blue: #60a5fa; --yellow: #fbbf24; --purple: #a78bfa;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--text); margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.65; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  h2 { font-size: 1.4rem; margin-top: 32px; border-bottom: 1px solid var(--border); padding-bottom: 8px; color: var(--accent2); scroll-margin-top: 80px; }
+  h3 { font-size: 1.1rem; color: var(--accent); margin-top: 20px; scroll-margin-top: 80px; }
+  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+  .meta a { color: var(--link); text-decoration: none; }
+  blockquote { border-left: 4px solid var(--accent); margin: 16px 0; padding: 12px 20px;
+    background: var(--panel); border-radius: 0 6px 6px 0; color: var(--text); }
+  .warn-box { border-left: 4px solid var(--warn); background: rgba(240, 136, 62, 0.08);
+    padding: 12px 20px; margin: 16px 0; border-radius: 0 6px 6px 0; font-size: 0.95rem; }
+  .quote-card { background: var(--panel); border-left: 4px solid var(--quote); padding: 14px 18px;
+    margin: 12px 0; border-radius: 0 6px 6px 0; font-style: italic; color: var(--text); }
+  .quote-card::before { content: '"'; color: var(--quote); font-size: 1.4em; margin-right: 4px; }
+  .quote-card::after { content: '"'; color: var(--quote); font-size: 1.4em; margin-left: 4px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px; margin: 16px 0; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); padding: 14px; border-radius: 8px; }
+  .stat-card .num { font-size: 1.6rem; color: var(--accent); font-weight: bold; }
+  .stat-card .label { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  th { background: var(--panel); color: var(--accent2); }
+  tr:hover { background: var(--panel2); }
+  .nav-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0 12px; padding: 8px;
+    background: var(--panel); border-radius: 8px; border: 1px solid var(--border);
+    position: sticky; top: 8px; z-index: 50; }
+  .nav-tabs button { background: transparent; color: var(--muted); border: 1px solid transparent;
+    padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+    transition: all 0.2s; }
+  .nav-tabs button:hover { color: var(--text); background: var(--panel2); }
+  .nav-tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  ul, ol { padding-left: 22px; }
+  li { margin: 6px 0; }
+  code { background: var(--panel2); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; color: var(--accent2); }
+  .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .roadmap .lvl { background: var(--card); border: 1px solid var(--border); padding: 14px; border-radius: 8px; }
+  .roadmap h4 { margin-top: 0; color: var(--accent); }
+  .timeline { display: grid; grid-template-columns: 110px 1fr; gap: 10px 16px; font-size: 0.92rem; margin: 16px 0; }
+  .timeline .ts { color: var(--accent); font-family: monospace; }
+  .timeline .ev { padding: 6px 0; }
+  .badge { display: inline-block; background: var(--panel2); color: var(--muted);
+    padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-right: 4px; }
+  .cross-ref { background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 18px; margin: 10px 0; }
+  .cross-ref .ref-id { color: var(--accent); font-weight: bold; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 14px; margin: 16px 0; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 18px; }
+  .card h4 { margin-top: 0; color: var(--accent); font-size: 1rem; }
+  .card p { margin: 6px 0; font-size: 0.92rem; }
+  .card .relevance { color: var(--green); font-size: 0.85rem; margin-top: 0.5rem; }
+  @media (max-width: 900px) { .roadmap { grid-template-columns: 1fr; } .page { padding-left: 20px; padding-right: 20px; } }
+
+  /* v1.4.4 collapsible TOC (Patrick 06-29 update) */
+  aside.toc {
+    position: fixed; top: 80px; left: 0;
+    width: 240px; max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: rgba(20, 20, 24, 0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 0 12px 12px 0;
+    padding: 0.9rem 1rem;
+    z-index: 40;
+    font-size: 0.78rem;
+    transform: translateX(calc(-100% + 24px));
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  aside.toc.collapsed { transform: translateX(calc(-100% + 24px)); }
+  aside.toc:not(.collapsed) { transform: translateX(0); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+  .toc-toggle {
+    position: fixed; top: 90px; left: 0;
+    width: 32px; height: 32px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 0 6px 6px 0;
+    cursor: pointer; z-index: 41;
+    font-size: 16px; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  aside.toc:not(.collapsed) ~ .toc-toggle { left: 240px; }
+  aside.toc.collapsed ~ .toc-toggle { left: 0; }
+  aside.toc h3 { font-size: 0.85rem; margin: 0 0 8px; color: var(--accent); }
+  aside.toc ol, aside.toc ul { list-style: none; padding: 0; margin: 0; }
+  aside.toc li { padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  aside.toc a { color: var(--muted); text-decoration: none; }
+  aside.toc a:hover { color: var(--accent); }
+  aside.toc li.sub { padding-left: 12px; font-size: 0.72rem; }
+  @media (max-width: 900px) {
+    aside.toc, .toc-toggle { display: none; }
+    .page { padding-left: 20px; padding-right: 20px; }
+  }
+
+  /* v1.4.2 TOC (sub-pattern A: hover-expand) */
+  aside.toc {
+    position: fixed; top: 80px; left: 0;
+    width: 220px; max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: rgba(20, 20, 24, 0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 0 12px 12px 0;
+    padding: 0.9rem 1rem;
+    z-index: 40;
+    font-size: 0.78rem;
+    transform: translateX(calc(-100% + 24px));
+    opacity: 0.95;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  aside.toc::after {
+    content: '›';
+    position: absolute; top: 50%; right: 6px;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 20px; font-weight: 700;
+    pointer-events: none;
+    animation: tocHandleBlink 2.5s ease-in-out infinite;
+  }
+  @keyframes tocHandleBlink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  aside.toc:hover, aside.toc:focus-within {
+    transform: translateX(0);
+    opacity: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  aside.toc:hover::after, aside.toc:focus-within::after {
+    opacity: 0; animation: none;
+  }
+  aside.toc > h3 {
+    color: var(--accent-2); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin: 0 0 0.6rem; font-weight: 600;
+    border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;
+  }
+  aside.toc ol { list-style: none; padding: 0; margin: 0; }
+  aside.toc ol li { margin: 0; }
+  aside.toc a {
+    display: block; color: var(--text-dim); text-decoration: none;
+    padding: 0.3rem 0.4rem; border-radius: 5px;
+    border-left: 2px solid transparent; line-height: 1.3;
+    transition: all 0.12s; cursor: pointer;
+  }
+  aside.toc a:hover { color: var(--text); background: var(--bg-elevated); }
+  aside.toc a.active, aside.toc a.h3-link.active {
+    color: var(--accent-2); background: var(--bg-elevated);
+    border-left-color: var(--accent); font-weight: 500;
+  }
+  aside.toc a.h3-link { padding-left: 1rem; font-size: 0.72rem; color: var(--text-mute); }
+  @media (max-width: 1279px) { aside.toc { display: none; } }
+  h2, h3, .h2-section, .tab-content { scroll-margin-top: 20px; }
+
+
+  /* === POLISH ROUND 2 ADDITIONS === */
+  .countdown-banner {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.15) 0%, rgba(248, 113, 113, 0.15) 100%);
+    border: 1px solid var(--accent);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 16px 0 24px;
+    position: sticky;
+    top: 60px;
+    z-index: 30;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .countdown-inner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .countdown-icon { font-size: 1.5rem; }
+  .countdown-text strong { color: var(--accent); }
+  .countdown-days {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 0 4px;
+  }
+  .countdown-meta { color: var(--muted); font-size: 0.85rem; margin-left: auto; }
+
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .hl-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .hl-block.hl-critical { border-color: var(--red); border-left: 4px solid var(--red); }
+  .hl-block.hl-warn { border-color: var(--yellow); border-left: 4px solid var(--yellow); }
+  .hl-block.hl-good { border-color: var(--green); border-left: 4px solid var(--green); }
+  .hl-block.hl-info { border-color: var(--link); border-left: 4px solid var(--link); }
+  .hl-num { font-size: 2rem; font-weight: bold; color: var(--accent); }
+  .hl-label { color: var(--text); margin-top: 4px; font-size: 0.9rem; }
+  .hl-meta { color: var(--muted); margin-top: 4px; font-size: 0.75rem; }
+
+  .leverage-grid { margin: 16px 0; }
+  .lev-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .lev-item.lev-directly-relevant {
+    border-left: 4px solid var(--accent);
+    background: linear-gradient(90deg, rgba(255, 107, 53, 0.08), transparent);
+  }
+  .lev-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .lev-num { background: var(--accent); color: #fff; padding: 4px 10px; border-radius: 12px; font-weight: bold; font-size: 0.85rem; }
+  .lev-title { font-weight: bold; font-size: 1.05rem; color: var(--text); }
+  .lev-tag { margin-left: auto; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; }
+  .lev-tag-hot { background: var(--red); color: #fff; }
+  .lev-bars { display: flex; flex-direction: column; gap: 8px; margin: 8px 0; }
+  .lev-bar { display: grid; grid-template-columns: 100px 1fr 40px; gap: 8px; align-items: center; font-size: 0.85rem; }
+  .lev-label { color: var(--muted); }
+  .bar { background: var(--panel2); border-radius: 4px; height: 10px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+  .fill-good { background: var(--green); }
+  .fill-mid { background: var(--yellow); }
+  .fill-low { background: var(--red); }
+  .fill-best { background: var(--accent); }
+  .lev-score { color: var(--text); text-align: right; font-weight: bold; }
+  .lev-summary { color: var(--accent2); margin-top: 8px; font-size: 0.9rem; }
+
+  .checklist-progress { display: flex; align-items: center; gap: 12px; margin: 16px 0; padding: 12px; background: var(--panel); border-radius: 8px; }
+  .prog-bar { flex: 1; background: var(--panel2); height: 12px; border-radius: 6px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.4s ease; }
+  #checklist-pct { color: var(--accent); font-weight: bold; min-width: 50px; text-align: right; }
+  .check { display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; margin: 6px 0; cursor: pointer; transition: background 0.2s; }
+  .check:hover { background: var(--panel2); }
+  .check input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+  .check input[type="checkbox"]:checked + span { text-decoration: line-through; color: var(--muted); }
+  .checklist-actions { display: flex; gap: 12px; margin-top: 16px; }
+  .btn-secondary { background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+  .btn-secondary:hover { background: var(--panel2); border-color: var(--accent); }
+
+  .quote-with-rel { background: var(--panel); border-radius: 8px; padding: 0; margin: 12px 0; overflow: hidden; }
+  .quote-with-rel .quote-card { margin: 0; border-radius: 8px 8px 0 0; border-left: none; border-top: 4px solid var(--quote); }
+  .relevance { padding: 12px 18px; background: var(--panel2); border-left: 4px solid var(--accent); font-size: 0.9rem; line-height: 1.6; color: var(--text-dim); }
+  .relevance strong { color: var(--text); }
+
+  .counter-card { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--warn); border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  .counter-card h4 { margin-top: 0; color: var(--warn); font-size: 1rem; }
+  .counter-card p { margin: 6px 0; font-size: 0.9rem; }
+
+</style>
+</head>
+<body>
+
+<aside class="toc" aria-label="Table of contents">
+  <h3>目录</h3>
+  <ol>
+      <li><a href="#h2-1" data-toc-target="h2-1">📊 Key Stats</a></li>
+      <li><a href="#h2-2" data-toc-target="h2-2">🧭 Navigation</a></li>
+      <li><a class="h3-link" href="#h3-2" data-toc-target="h3-2">↳ Prompt 模板</a></li>
+      <li><a class="h3-link" href="#h3-3" data-toc-target="h3-3">↳ Peter 给出的 5 个 Fable 推荐任务（基于他自己的项目）</a></li>
+      <li><a class="h3-link" href="#h3-4" data-toc-target="h3-4">↳ 共同模式</a></li>
+  </ol>
+</aside>
+
+<aside class="toc collapsed" aria-label="Table of Contents">
+  <h3 id="h3-1">📑 目录</h3>
+  <ul>
+<li><a href="#core">🔥 核心论点</a></li>
+<li><a href="#uc1">🎯 Use Case 1 · 找高价值任务</a></li>
+<li><a href="#uc2">💼 Use Case 2 · 人生 / 商业建议</a></li>
+<li><a href="#uc3">🚀 Use Case 3 · 让项目可发布</a></li>
+<li><a href="#uc4">🗺️ Use Case 4 · 规划下个大项目</a></li>
+<li><a href="#uc5">🔧 Use Case 5 · 重构大型代码 / Skill 库</a></li>
+<li><a href="#tips">💡 三条使用 Tips</a></li>
+<li><a href="#related">🔗 Patrick 工作关联</a></li>
+<li><a href="#action">✅ 实战路线</a></li>
+<li><a href="#quotes">💬 金句库</a></li>
+<li><a href="#timeline">⏱️ 时间戳 / Timeline</a></li>
+<li><a href="#counter">⚠️ 反方 / 限制</a></li>
+<li><a href="#notes">📝 备注 + 元数据</a></li>
+  </ul>
+</aside>
+<button class="toc-toggle" aria-label="Toggle TOC" onclick="
+  const toc = document.querySelector('aside.toc');
+  toc.classList.toggle('collapsed');
+  const collapsed = toc.classList.contains('collapsed');
+  localStorage.setItem('fable5-toc-collapsed', collapsed ? '1' : '0');
+">›</button>
+
+<div class="page">
+<h1>Claude Fable 5 Is Finally Back: 5 Must-Try Use Cases</h1>
+<p class="meta">
+  Peter Yang · 21:17 · 2026-07-01 · <a href="https://www.youtube.com/watch?v=5CBnWGP5vIs">https://www.youtube.com/watch?v=5CBnWGP5vIs</a>
+</p>
+
+<div class="countdown-banner" role="alert">
+  <div class="countdown-inner">
+    <span class="countdown-icon">⏰</span>
+    <span class="countdown-text">
+      <strong>Fable 5 截止 2026-07-07</strong>（还剩 <span class="countdown-days">3</span> 天）
+    </span>
+    <span class="countdown-meta">50% weekly cap 后切 pay-as-you-go API</span>
+  </div>
+</div>
+
+
+<blockquote>
+<strong>Fable 5（Claude 最新旗舰）</strong> 限时回归 Claude 订阅 — 仅到 <strong>7/7</strong>，且每周用量 ≤50%。
+Peter Yang 给出他认为最值得花 Fable 的 <strong>5 个 use case</strong>，并强调核心策略：<em>用便宜模型（Opus / GPT）准备 + 用 Fable 做高杠杆决策</em>。
+</blockquote>
+
+<h2 id="h2-1">📊 Key Stats</h2>
+<div class="stat-grid">
+<div class="stat-card"><div class="num">21:17</div><div class="label">视频时长</div></div>
+<div class="stat-card"><div class="num">5</div><div class="label">Must-Try Use Cases</div></div>
+<div class="stat-card"><div class="num">7/7</div><div class="label">Fable 截止日期</div></div>
+<div class="stat-card"><div class="num">50%</div><div class="label">每周使用门槛</div></div>
+<div class="stat-card"><div class="num">12+</div><div class="label">Fable 找出的健身 App bug 数</div></div>
+<div class="stat-card"><div class="num">40+</div><div class="label">Peter 拥有的 AI Skills</div></div>
+</div>
+
+<h2 id="h2-2">🧭 Navigation</h2>
+
+<h2>⚡ 关键数字</h2>
+<div class="highlight-grid">
+  <div class="hl-block hl-critical">
+    <div class="hl-num">7/7</div>
+    <div class="hl-label">Fable 截止日</div>
+    <div class="hl-meta">剩 3 天</div>
+  </div>
+  <div class="hl-block hl-warn">
+    <div class="hl-num">50%</div>
+    <div class="hl-label">每周用量门槛</div>
+    <div class="hl-meta">之后切 pay-as-you-go</div>
+  </div>
+  <div class="hl-block hl-info">
+    <div class="hl-num">18</div>
+    <div class="hl-label">禁用天数</div>
+    <div class="hl-meta">2026-06-13 → 2026-07-01</div>
+  </div>
+  <div class="hl-block hl-good">
+    <div class="hl-num">12+</div>
+    <div class="hl-label">Fable 找出的 bug</div>
+    <div class="hl-meta">vs Opus/GPT 3-4 个</div>
+  </div>
+  <div class="hl-block hl-good">
+    <div class="hl-num">40+</div>
+    <div class="hl-label">Peter 的 AI Skills</div>
+    <div class="hl-meta">13 个需 Fable 修复</div>
+  </div>
+  <div class="hl-block hl-info">
+    <div class="hl-num">50M</div>
+    <div class="hl-label">Stripe 重构 Ruby 行数</div>
+    <div class="hl-meta">Fable 1 天完成</div>
+  </div>
+</div>
+
+<h2>🧭 Navigation</h2>
+<div class="nav-tabs">
+<button class="tab-btn" data-tab="core">🔥 核心论点</button>
+<button class="tab-btn" data-tab="uc1">🎯 Use Case 1 · 找高价值任务</button>
+<button class="tab-btn" data-tab="uc2">💼 Use Case 2 · 人生 / 商业建议</button>
+<button class="tab-btn" data-tab="uc3">🚀 Use Case 3 · 让项目可发布</button>
+<button class="tab-btn" data-tab="uc4">🗺️ Use Case 4 · 规划下个大项目</button>
+<button class="tab-btn" data-tab="uc5">🔧 Use Case 5 · 重构大型代码 / Skill 库</button>
+<button class="tab-btn" data-tab="tips">💡 三条使用 Tips</button>
+<button class="tab-btn" data-tab="related">🔗 Patrick 工作关联</button>
+<button class="tab-btn" data-tab="action">✅ 实战路线</button>
+<button class="tab-btn" data-tab="quotes">💬 金句库</button>
+<button class="tab-btn" data-tab="timeline">⏱️ 时间戳 / Timeline</button>
+<button class="tab-btn" data-tab="counter">⚠️ 反方 / 限制</button>
+<button class="tab-btn" data-tab="notes">📝 备注 + 元数据</button>
+<button class="tab-btn" data-tab="external">📰 External Coverage</button>
+</div>
+
+<div class="tab-content" id="core" data-tab="core">
+<h2 id="core">🔥 核心论点</h2>
+<blockquote>
+<strong>Claude Fable 5</strong>（俗称 Fable）作为 Anthropic 最强模型，在被美国政府禁用 18 天后重新上线 Claude 订阅，但<strong>有两个硬限制</strong>：
+(1) 仅到 7/7；(2) 每周用量超过 50% 后只能改用按量付费 API。Peter Yang 给出了他认为<strong>最值得花 Fable 的 5 个 use case</strong>，核心论点 = <strong>"用便宜模型 (Opus / GPT) 准备 + 用 Fable 做高杠杆决策"</strong>。
+</blockquote>
+<p>核心论点分层（5 个使用场景的杠杆由高到低）：</p>
+<ol>
+  <li><strong>找 Fable-worthy 任务</strong>：让 Fable 自己审视你的项目 + memory → 列出它认为值得跑的高杠杆任务清单 [00:01:30]</li>
+  <li><strong>获取长期人生 / 商业建议</strong>：喂 plan doc + 接好 MCPs/APIs → Fable 写一份 3-12 个月级别的方向 1-pager [00:04:13]</li>
+  <li><strong>让项目 ship-ready</strong>：Fable spawn 多个 agent 全量扫代码库找 bug，比 Opus/GPT 找出 3×+ 的关键 bug [00:09:16]</li>
+  <li><strong>规划下个大项目</strong>：用 Fable 写详细的 HTML/Markdown plan（含架构图、决策点、风险、验收标准），再交给 Opus/GPT 执行 [00:12:10]</li>
+  <li><strong>重构大型代码 / Skill 系统</strong>：把个人 OS / Skill 库当作"大型 code base"，Fable 找出死代码 / 重复 / 风险 [00:15:54]</li>
+</ol>
+<div class="warn-box">
+<strong>⚠️ 双重稀缺</strong>：Fable 同时被<em>时间窗</em>（7/7 截止）和<em>使用量</em>（50% weekly cap）双重限制。
+Peter 明确建议：<strong>不要 "YOLO Fable" 全开 Ultra Code effort</strong>，否则 1-2 小时就烧光。默认 high effort + babysit。
+</div>
+</div>
+<div class="tab-content" id="uc1" data-tab="uc1">
+<h2 id="uc1">🎯 Use Case 1 · 找 Fable-worthy 任务</h2>
+<p><strong>时间</strong>：[00:01:30 - 00:04:13] · <strong>核心动作</strong>：让 Fable 自己审计你的项目历史 + memory → 列出它认为"值得跑"的 Top 5 高杠杆任务。</p>
+
+<h3 id="h3-2">Prompt 模板</h3>
+<blockquote>
+"You are Fable 5, the most capable AI model available. Look through my projects and memory. List the top five tasks that require deep thinking that you think are generally worth running by you."
+</blockquote>
+<p>加上 <code>Please do not share any confidential information because I'm making this video</code> 防止敏感信息泄露。</p>
+
+<h3 id="h3-3">Peter 给出的 5 个 Fable 推荐任务（基于他自己的项目）</h3>
+<ol>
+  <li><strong>H2 strategy stress test</strong> — Fable 从 memory 里发现 Peter 刚离职 full-time 创业 + 有一批 advice skills → 推荐做战略压力测试</li>
+  <li><strong>Designing a new premium tier offer</strong> — 设计高客单价的旗舰 creator offer（pulls context from various sources）</li>
+  <li><strong>Content-to-conversion audit across every platform</strong> — 跨 newsletter / YouTube / shorts / social 全平台 conversion audit，pull data via APIs + MCPs</li>
+  <li><strong>Mine your archive into a content roadmap</strong> — 把 3 年 newsletter + 1 年 YouTube 全部 transcripts 喂进去，提炼 themes → repurpose 成 shorts</li>
+  <li><strong>Audit personal skill system</strong> — 审计 40+ 个 AI skills，找出 dead code / 重复 / 风险（Peter 说他会留到最后用 Fable 做这个）</li>
+</ol>
+
+<h3 id="h3-4">共同模式</h3>
+<div class="quote-card">
+Fable basically wants to look at a large corpus of information data and extract insights from it and take action from it, right? Which is exactly what a state-of-the-art AI model is really good at.
+</div>
+<p>Fable 推荐的 5 个任务都符合一个模式：<strong>大语料 → 提炼洞察 → 行动</strong>。这正是 SOTA 模型区别于便宜模型的根本差异。</p>
+</div>
+<div class="tab-content" id="uc2" data-tab="uc2">
+<h2 id="uc2">💼 Use Case 2 · 人生 / 商业建议</h2>
+<p><strong>时间</strong>：[00:04:13 - 00:09:16] · <strong>核心动作</strong>：写 plan doc + 接 MCPs/APIs + 让 Fable 写 3-12 个月级别的方向 1-pager。</p>
+
+<h3 id="h3-5">Step 1 · 高杠杆 plan doc 的 4 个 section</h3>
+<ol>
+  <li><strong>Overall goal for the year</strong> — 年度目标</li>
+  <li><strong>Decision principles</strong> — 决策原则（"go work or feels like play", "keep the main thing the main thing"...）</li>
+  <li><strong>Positioning</strong> — 目标客户 / niche / pain point / differentiation / 其他玩家</li>
+  <li><strong>Energy + life/financial context</strong> — 给你能量的 / 消耗能量的 + 生活 + 财务状况</li>
+</ol>
+
+<h3 id="h3-6">Step 2 · Connect Fable to all the sources</h3>
+<p>Peter 把 Fable 接到了：</p>
+<table>
+<tr><th>Source</th><th>用途</th></tr>
+<tr><td>Mercury</td><td>银行信息</td></tr>
+<tr><td>Substack</td><td>newsletter stats</td></tr>
+<tr><td>YouTube</td><td>频道数据</td></tr>
+<tr><td>Vercel</td><td>website analytics</td></tr>
+<tr><td>Google Workspace</td><td>读 + 写 Docs / Sheets（plan 文档本身）</td></tr>
+</table>
+
+<h3 id="h3-7">Step 3 · The advisor skill（optional but powerful）</h3>
+<p>Peter 写了一个 <code>/advisor</code> skill，结构包括：</p>
+<ul>
+  <li><strong>Use the skill whenever I'm stuck on a decision or asking for a gut check</strong>（trigger 描述）</li>
+  <li><strong>Gathering life context</strong> — 通过 MCPs/API 拉数据</li>
+  <li><strong>Escalating to the council</strong> — 3 个 persona 互相辩论：
+    <ul>
+      <li>👤 The actual customer I'm building for</li>
+      <li>🤨 A skeptic about my plans</li>
+      <li>⚙️ An execution-minded operator</li>
+    </ul>
+  </li>
+  <li><strong>Proactively update the plan doc after every conversation</strong> — 每次 AI 谈话后自动回写 plan</li>
+</ul>
+
+<h3 id="h3-8">Prompt 模板</h3>
+<blockquote>
+"/advisor, take a detailed look at my plan document and my content schedule. Feel free to pull other information as well. Then I want you to write a detailed one-pager assessing my business and what I should focus on for next 3 months."
+</blockquote>
+
+<h3 id="h3-9">杠杆评估</h3>
+<div class="quote-card">
+And this is the highest leverage activity you can do with Fable because it's advice and stuff that can impact what you do over the next 3 months, 6 months, or even a year. So, definitely give this use case a try.
+</div>
+<p>Peter 明确说这是 5 个 use case 中<strong>杠杆最高</strong>的 — 因为 advice 直接影响 3-12 个月的决策方向。</p>
+</div>
+<div class="tab-content" id="uc3" data-tab="uc3">
+<h2 id="uc3">🚀 Use Case 3 · 让项目 ship-ready</h2>
+<p><strong>时间</strong>：[00:09:16 - 00:12:10] · <strong>核心动作</strong>：Fable spawn 多个 agent 全量读 codebase + 找 bug + 修 bug。</p>
+
+<h3 id="h3-10">Peter 的实战对象</h3>
+<p>一个 vibe-coded 的健身 App：用 Codex + GPT-5.5 vibe 出来，已用了 1 个月，看似 work fine。</p>
+
+<h3 id="h3-11">Prompt 模板</h3>
+<blockquote>
+"I'm about to ship this fitness app that lets users track their workouts. I want you to find everything wrong with it. Read the whole code base, look for real bugs, broken edge cases, anything that fall over in front of a user. List all of the things that you think need to be fixed and maintain a high quality bar."
+</blockquote>
+
+<h3 id="h3-12">Fable 的产出</h3>
+<ul>
+  <li>Spawn <strong>5 个 agent</strong> 并行扫代码</li>
+  <li>跑所有 unit tests → 全 pass（看起来没问题）</li>
+  <li>但 deep review 发现 <strong>12+ critical bugs</strong> + 一堆 minor</li>
+</ul>
+
+<h3 id="h3-13">Fable 找到的关键 bug（节选）</h3>
+<table>
+<tr><th>Severity</th><th>Bug</th></tr>
+<tr><td>🔴 Critical</td><td>Sign-out 数据泄露 — involuntary sign-out（关 app）会让下一个用户看到上一个用户的数据</td></tr>
+<tr><td>🔴 Critical</td><td>Sign-out 周边多个相关问题</td></tr>
+<tr><td>🟠 High</td><td>Peter 自己写的 MCP（给 agent 拉 workout data）有 bug</td></tr>
+<tr><td>🟠 High</td><td>Edge cases：负数 weight → permanently break cloud sync</td></tr>
+</table>
+
+<h3 id="h3-14">Fable vs Opus/GPT 对比</h3>
+<div class="quote-card">
+When I run the same prompt on GPT-5.5 or Opus, it does find a few bugs, but nowhere near the amount that it found here.
+</div>
+<p>Opus / GPT-5.5 也能找到一部分 bug，但<strong>数量远不及 Fable</strong>。Peter 评价：<strong>"one of the highest leverage activities you can do with this new model."</strong></p>
+</div>
+<div class="tab-content" id="uc4" data-tab="uc4">
+<h2 id="uc4">🗺️ Use Case 4 · 规划下个大项目</h2>
+<p><strong>时间</strong>：[00:12:10 - 00:15:54] · <strong>核心动作</strong>：用 Fable 写详细的 HTML/Markdown plan（含架构、决策、风险、验收标准），再交给 Opus/GPT 执行。</p>
+
+<h3 id="h3-15">实战案例：Fork 健身 App，加 Nutrition Tracking Tab</h3>
+
+<h3 id="h3-16">Prompt 模板</h3>
+<blockquote>
+"Hey, I want you to draft a detailed plan for a new nutrition tracking tab in this app. Please use searches online to find relevant resources, and then lay out a full plan, the key phases, the decisions we need to make, the risks, and the open questions that I need to answer. Flag anything that could sink the project if I get it wrong. Give me a plan clear enough that a cheaper or simpler model could execute step-by-step. Also, please write out the plan in HTML so that I can review it."
+</blockquote>
+
+<h3 id="h3-17">Fable 自动产出的 plan 包含</h3>
+<ol>
+  <li><strong>Proposed experience design</strong> — Fable 自己画了 UI 草图（Apple 风格的 nutrition tab）</li>
+  <li><strong>Architecture</strong> — Supabase DB + 数据模型</li>
+  <li><strong>Key decisions to make</strong>：
+    <ul>
+      <li>Food data source：USDA FDC only（免费）vs 商业 API vs Open Food Facts</li>
+      <li>Day 定义 + cloud sync 策略 + log 节奏</li>
+    </ul>
+  </li>
+  <li><strong>Risks + open questions</strong></li>
+</ol>
+
+<h3 id="h3-18">进阶：用 Lavish Editor（Kun Chen 的 GitHub HTML editor）做 plan review</h3>
+<p>Peter 用 <strong>Lavish Editor</strong>（朋友 Kun 做的 free GitHub HTML editor）打开 Fable 生成的 HTML plan：</p>
+<ul>
+  <li>直接在 plan 上 <strong>comment</strong>（如 "use US FDC only"）</li>
+  <li>Comment 直接转给 Fable 继续迭代（像 Google Doc 一样）</li>
+</ul>
+
+<h3 id="h3-19">进阶：用 /go 命令 + 验收标准</h3>
+<p>如果要 Fable <strong>自己执行</strong> plan（不交给 Opus/GPT），可以：</p>
+<ul>
+  <li>给它一些<strong>目标图片</strong>做 design acceptance</li>
+  <li>用 <code>/go</code> 让它循环到 reproduce 出目标 design</li>
+  <li><strong>代价</strong>：会快速烧光 limit</li>
+</ul>
+
+<div class="warn-box">
+⚠️ <strong>Peter 的建议</strong>：<strong>用 Fable 做 plan，把 execution 交给 Opus/GPT</strong>。除非是非常关键的简单任务，不要让 Fable 自己实现。
+</div>
+</div>
+<div class="tab-content" id="uc5" data-tab="uc5">
+<h2 id="uc5">🔧 Use Case 5 · 重构大型代码 / Skill 系统</h2>
+<p><strong>时间</strong>：[00:15:54 - 00:18:29] · <strong>核心动作</strong>：把个人 OS / Skill 库当成"大型 code base"用 Fable 重构。</p>
+
+<h3 id="h3-20">参照案例：Stripe 用 Fable 重构 50M 行 Ruby 代码</h3>
+<div class="quote-card">
+For example, I came across this article about how Stripe used Fable to refactor 50 million lines of Ruby code and migrate it in a day where it could have taken a whole team over 2 months to do. <span class="badge badge-warn">[UNVERIFIED CITATION]</span>
+</div>
+<p>Stripe 用 Fable 把 50M 行 Ruby 代码 1 天迁移完成（传统估算要 2 个月 × 整团队）。Peter 没这么大的 repo，但他有 <strong>40+ skills</strong> 的个人 OS。</p>
+
+<h3 id="h3-21">Peter 的个人 OS 长什么样</h3>
+<p>个人 OS repo 的 readme 里有一堆 skills：</p>
+<ul>
+  <li>📝 Edit newsletter</li>
+  <li>🚫 Remove AI slop</li>
+  <li>🎬 Prepare YouTube tutorials</li>
+  <li>📱 Make shorts</li>
+  <li>🎙️ Prep podcast</li>
+  <li>...</li>
+</ul>
+
+<h3 id="h3-22">Fable 找到的 13 个问题</h3>
+<table>
+<tr><th>类别</th><th>问题</th></tr>
+<tr><td>🔴 Dead code</td><td>Council skill 里有大量 dead escalation block 不再被调用</td></tr>
+<tr><td>🟠 Ambiguity</td><td>Edit document skill 有多处歧义描述</td></tr>
+<tr><td>🟡 Pointer issue</td><td>Sponsor skill 里有个 broken pointer</td></tr>
+<tr><td>🟡 File system</td><td>一批 temp files 没删除</td></tr>
+<tr><td>🟡 Routing</td><td>多个 routing 相关问题 + missing emails</td></tr>
+</table>
+
+<h3 id="h3-23">关键 skill：skill editor</h3>
+<p>Peter 还写了一个 <strong>skill editor skill</strong>，专门用来：</p>
+<ul>
+  <li>Cut out redundancies</li>
+  <li>Make it more concise</li>
+  <li>让 Fable "do a rigorous pass"</li>
+</ul>
+
+<div class="quote-card">
+So, make sure that the system, like all these skills and all these plugins actually work properly and actually give the AI the correct instructions is really important. So, using an advanced model like Fable to fix all this stuff, I think it's definitely worthwhile.
+</div>
+</div>
+<div class="tab-content" id="tips" data-tab="tips">
+<h2 id="tips">💡 三条使用 Tips</h2>
+
+<h3 id="h3-24">Tip 1 · Prep with cheaper models</h3>
+<p>让 Opus / GPT 做<strong>准备</strong>（写 plan doc / 接 MCPs / 写 draft），Fable 做<strong>决策</strong>。</p>
+<div class="quote-card">
+Don't use Fable for boring work like hooking up an MCP or API or like trying to get you draft a document.
+</div>
+<p><strong>反例</strong>：用 Fable 接 API = 浪费 limit。</p>
+
+<h3 id="h3-25">Tip 2 · Plan with Fable, execute with another model</h3>
+<p>Fable 写出详细的 plan（含 design + architecture diagram），<strong>交给 Opus/GPT 执行</strong>。</p>
+<div class="quote-card">
+Once you have a detailed plan, you can then pass this plan to another model that's cheaper to do the actual execution.
+</div>
+<p><strong>本质</strong>：Fable 是<em>战略家</em>，Opus/GPT 是<em>工程师</em>。</p>
+
+<h3 id="h3-26">Tip 3 · Use lower effort + babysit</h3>
+<p>不要全开 Ultra Code effort！</p>
+<ul>
+  <li>默认 <strong>high effort</strong> 即可，Ultra Code = 1-2 小时烧光</li>
+  <li>Babysit Fable：它会进 rat hole 循环烧 token</li>
+  <li>监控：token 消耗速度 + 进度</li>
+</ul>
+<div class="quote-card">
+Fable is really smart, but sometimes it can get into a rat hole and just keep looping on burning your tokens and you don't want that to happen since the tokens are so limited here on your subscription.
+</div>
+</div>
+<div class="tab-content" id="related" data-tab="related">
+
+<h2>🆚 Fable 5 vs Opus 4 vs GPT-5.5 对比</h2>
+<p>Peter Yang 给出的实战对比（基于 fitness app bug hunting）：</p>
+
+<table>
+<tr><th>维度</th><th>Fable 5 (Claude 旗舰)</th><th>Opus 4</th><th>GPT-5.5</th></tr>
+<tr><td><strong>能力层级</strong></td><td>SOTA — 最高</td><td>Strong — 强</td><td>Strong — 强</td></tr>
+<tr><td><strong>代码 review 深度</strong></td><td>12+ critical bugs</td><td>3-4 bugs</td><td>2-3 bugs</td></tr>
+<tr><td><strong>规划能力</strong></td><td>⭐⭐⭐⭐⭐ 含 UI 草图 + 架构图</td><td>⭐⭐⭐⭐ 详细</td><td>⭐⭐⭐⭐ 详细</td></tr>
+<tr><td><strong>大语料分析</strong></td><td>⭐⭐⭐⭐⭐ SOTA</td><td>⭐⭐⭐⭐ 强</td><td>⭐⭐⭐⭐ 强</td></tr>
+<tr><td><strong>速度</strong></td><td>🐢 慢（深度思考）</td><td>🐇 中</td><td>🐇 中</td></tr>
+<tr><td><strong>token 消耗</strong></td><td>🔥 极高（50% cap / 周）</td><td>💰 中</td><td>💰 中</td></tr>
+<tr><td><strong>可用性</strong></td><td>⚠️ 仅到 7/7</td><td>✅ 持续可用</td><td>✅ 持续可用</td></tr>
+<tr><td><strong>价格（订阅内）</strong></td><td>已含 Claude 订阅</td><td>已含 Claude 订阅</td><td>ChatGPT Plus</td></tr>
+<tr><td><strong>价格（API）</strong></td><td>💸 pay-as-you-go（最贵）</td><td>💰 中</td><td>💰 中</td></tr>
+<tr class="highlight"><td><strong>Patrick 模型 routing</strong></td><td>T3 — 战略 / 决策</td><td>T2 — 详细 plan / 大语料</td><td>T2 — 工程 / 执行</td></tr>
+</table>
+
+<div class="quote-card">
+When I run the same prompt on GPT-5.5 or Opus, it does find a few bugs, but nowhere near the amount that it found here.
+<br><small>— [00:11:43] Peter Yang</small>
+</div>
+
+<h3>📐 Model-tier routing 建议（Patrick 视角）</h3>
+<ol>
+  <li><strong>T0 (本地 4B)</strong> — 接 MCP / 写 draft / 跑 boilerplate → 0 cost</li>
+  <li><strong>T1 (Codex / GPT-5.5)</strong> — 实际 coding execution / 单元测试 → 低 cost</li>
+  <li><strong>T2 (Opus / GPT-5.5)</strong> — 详细 plan / 大语料分析 / prep 工作 → 中 cost</li>
+  <li><strong>T3 (Fable 5)</strong> — 战略决策 / bug hunting / 复杂规划 → 高 cost (稀缺)</li>
+</ol>
+<div class="warn-box">
+<strong>关键 routing 规则</strong>：Fable 5 在 7/7 前是 <strong>有限资源</strong>，T2 → T3 的升级必须有明确的高杠杆场景。default = T2，Fable 只做"5 个 use case"。
+</div>
+
+<h2 id="related">🔗 Patrick 工作关联</h2>
+<p>本视频与 Patrick 现有工作的交叉点：</p>
+
+<div class="card-grid">
+  <div class="card">
+    <h4>🔗 Matt Berman "7 Loops"</h4>
+    <p>Fable spawn 5 agents 扫代码、找 bug 的"loop"模式 = Berman 7 Loops 中"production error sweep"的 SOTA 版本。</p>
+    <p class="relevance">→ <b>完全同源</b>：5 agents parallel = loop engineering 在 bug hunting 上的应用</p>
+  </div>
+  <div class="card">
+    <h4>🔗 OpenSquilla + MetaSkill</h4>
+    <p>Peter 的 advisor skill + council skill（3 persona debate）= OpenSquilla 的 self-improving loop 实操版。</p>
+    <p class="relevance">→ <b>完全同源</b>：3 persona council = multi-agent orchestration 的具体实现</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Matt Pocock "Senior 10x / Harness"</h4>
+    <p>Fable 写 plan → Opus/GPT 执行 = harness > model 的极致体现（"plan with best model, execute with cheaper model"）。</p>
+    <p class="relevance">→ <b>完全同源</b>：harness > model 在 model-routing 中的具体落地</p>
+  </div>
+  <div class="card">
+    <h4>🔗 IndyDevDan "本地 LLM"</h4>
+    <p>"Use cheaper models for prep" 的 Tip 1 = IndyDevDan 的 local-llm-for-prep 哲学。</p>
+    <p class="relevance">→ <b>同源</b>：local 4B 做 prep，SOTA 做 decision — 同 model-tier-routing 模式</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Hybrid LLM Router</h4>
+    <p>Fable (T3) → Opus/GPT (T2) → Codex (T1) = 显式的 3-tier routing。</p>
+    <p class="relevance">→ <b>完全同源</b>：Hybrid LLM Router 在 Peter 实战中的体现</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Fei-Fei "2 种 Worker"</h4>
+    <p>"Use Opus/GPT for execution, Fable for strategy" = Fei-Fei 的 2 种 worker（Top 1% high-agency vs execution-minded）。</p>
+    <p class="relevance">→ <b>完全同源</b>：拒绝中庸 — Top 1% 一定要用在最高杠杆决策</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Bryant "Clone Yourself 500-1000x"</h4>
+    <p>Fable spawn 5 agents = 把 Peter 的 1 个人克隆成 5 个并行 reviewer。</p>
+    <p class="relevance">→ <b>完全同源</b>：scale 杠杆的具体数字（1 → 5 reviewer）</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Matt White "Open Source"</h4>
+    <p>Peter 公开了 Lavish Editor（朋友 Kun 的 free GitHub tool）+ advisor skill 设计思路 = open-source spirit。</p>
+    <p class="relevance">→ <b>同源</b>：open-source 工具链 = democratize AI productivity</p>
+  </div>
+  <div class="card">
+    <h4>🔗 OpenAI "FDE 40B"</h4>
+    <p>Fable 用作"高杠杆决策的 FDE" = 1:2-3 比例（一个 Fable user 多大 ROI）。</p>
+    <p class="relevance">→ <b>同源</b>：FDE 模型在 AI agent 时代的迁移（AI as FDE）</p>
+  </div>
+  <div class="card">
+    <h4>🔗 OpenClaw "Multi-Agent"</h4>
+    <p>Council skill 的 3 persona（customer / skeptic / execution-minded）互相辩论 = OpenClaw 多 agent latent state。</p>
+    <p class="relevance">→ <b>完全同源</b>：cross-agent messaging 在 council debate 中的实现</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Sam Altman CS183</h4>
+    <p>Fable 50% weekly cap 的稀缺 → 计算资源的 utility 视角。</p>
+    <p class="relevance">→ <b>同源</b>：compute scarcity → 优先级决策</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Moon "Anthropic Mythos"</h4>
+    <p>Peter 用 Fable 做"plan"而非"execute" = Mythos 强调的"AI 不替你做决策"。</p>
+    <p class="relevance">→ <b>同源警示</b>：同源但 Peter 的 use case 5（让 Fable 修 skill）有 autonomous risk，需 babysit</p>
+  </div>
+  <div class="card">
+    <h4>🔗 DeepSeek "Billion Dollar"</h4>
+    <p>Fable 50% cap 后的 efficiency 模式 = DeepSeek 强调的 GPU/progressive disclosure。</p>
+    <p class="relevance">→ <b>同源</b>：资源利用率在 model-tier 中的体现</p>
+  </div>
+  <div class="card">
+    <h4>🔗 v1.3.0 Video Notes Dashboard</h4>
+    <p>本视频自身已 produce dashboard — 是 canonical 17-card roster 的最新 demo。</p>
+    <p class="relevance">→ <b>完全同源</b>：dashboard self-improving loop 的具体案例</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Systems Thinking</h4>
+    <p>5 use cases 的 layered 杠杆排序（用 2 > 用 5 > 用 1）= systems thinking 的 leverage staging。</p>
+    <p class="relevance">→ <b>同源</b>：DART / OODA 在 AI use case 选择上的应用</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Claude Containment "11 Rules"</h4>
+    <p>Peter 用 Fable 之前强调"do not share confidential info" = containment 的 confidentiality rule。</p>
+    <p class="relevance">→ <b>完全同源</b>：verify-before-share = Claude Containment 的 explicit version</p>
+  </div>
+  <div class="card">
+    <h4>🔗 Kun "L8 Principal"</h4>
+    <p>Peter 用 Kun 的 Lavish Editor（free GitHub HTML editor）做 plan review = L8 hands-on-keyboard。</p>
+    <p class="relevance">→ <b>完全同源</b>：open-source tooling + hands-on review = L8 Principal 的协作模式</p>
+  </div>
+</div>
+</div>
+<div class="tab-content" id="action" data-tab="action">
+
+<h2 id="action">✅ 实战路线 — Interactive Checklist</h2>
+
+<h2>📊 5 Use Cases 杠杆评分</h2>
+<p>每个 use case 按 3 维评分（Patrick 视角）：<strong>适合度</strong>（1-5）+ <strong>紧迫性</strong>（1-5）+ <strong>token 效率</strong>（1-5）。</p>
+
+<div class="leverage-grid">
+  <div class="lev-item">
+    <div class="lev-header">
+      <span class="lev-num">UC1</span>
+      <span class="lev-title">找 Fable-worthy 任务</span>
+    </div>
+    <div class="lev-bars">
+      <div class="lev-bar"><span class="lev-label">适合度</span><div class="bar"><div class="fill fill-good" style="width:80%"></div></div><span class="lev-score">4/5</span></div>
+      <div class="lev-bar"><span class="lev-label">紧迫性</span><div class="bar"><div class="fill fill-mid" style="width:60%"></div></div><span class="lev-score">3/5</span></div>
+      <div class="lev-bar"><span class="lev-label">token 效率</span><div class="bar"><div class="fill fill-good" style="width:80%"></div></div><span class="lev-score">4/5</span></div>
+    </div>
+    <div class="lev-summary">⭐⭐⭐⭐ — 入门 use case，但 Patrick 已有 audit 机制</div>
+  </div>
+
+  <div class="lev-item">
+    <div class="lev-header">
+      <span class="lev-num">UC2</span>
+      <span class="lev-title">人生 / 商业建议</span>
+    </div>
+    <div class="lev-bars">
+      <div class="lev-bar"><span class="lev-label">适合度</span><div class="bar"><div class="fill fill-good" style="width:100%"></div></div><span class="lev-score">5/5</span></div>
+      <div class="lev-bar"><span class="lev-label">紧迫性</span><div class="bar"><div class="fill fill-good" style="width:80%"></div></div><span class="lev-score">4/5</span></div>
+      <div class="lev-bar"><span class="lev-label">token 效率</span><div class="bar"><div class="fill fill-mid" style="width:60%"></div></div><span class="lev-score">3/5</span></div>
+    </div>
+    <div class="lev-summary">⭐⭐⭐⭐⭐ — Peter 明确说 "highest leverage"，直接影响 3-12 个月方向</div>
+  </div>
+
+  <div class="lev-item">
+    <div class="lev-header">
+      <span class="lev-num">UC3</span>
+      <span class="lev-title">让项目 ship-ready</span>
+    </div>
+    <div class="lev-bars">
+      <div class="lev-bar"><span class="lev-label">适合度</span><div class="bar"><div class="fill fill-good" style="width:80%"></div></div><span class="lev-score">4/5</span></div>
+      <div class="lev-bar"><span class="lev-label">紧迫性</span><div class="bar"><div class="fill fill-mid" style="width:60%"></div></div><span class="lev-score">3/5</span></div>
+      <div class="lev-bar"><span class="lev-label">token 效率</span><div class="bar"><div class="fill fill-good" style="width:80%"></div></div><span class="lev-score">4/5</span></div>
+    </div>
+    <div class="lev-summary">⭐⭐⭐⭐ — vibe-coded 项目多，可直接复用</div>
+  </div>
+
+  <div class="lev-item">
+    <div class="lev-header">
+      <span class="lev-num">UC4</span>
+      <span class="lev-title">规划下个大项目</span>
+    </div>
+    <div class="lev-bars">
+      <div class="lev-bar"><span class="lev-label">适合度</span><div class="bar"><div class="fill fill-good" style="width:80%"></div></div><span class="lev-score">4/5</span></div>
+      <div class="lev-bar"><span class="lev-label">紧迫性</span><div class="bar"><div class="fill fill-low" style="width:40%"></div></div><span class="lev-score">2/5</span></div>
+      <div class="lev-bar"><span class="lev-label">token 效率</span><div class="bar"><div class="fill fill-good" style="width:80%"></div></div><span class="lev-score">4/5</span></div>
+    </div>
+    <div class="lev-summary">⭐⭐⭐ — 适合有明确新 feature / 新项目的场景</div>
+  </div>
+
+  <div class="lev-item lev-directly-relevant">
+    <div class="lev-header">
+      <span class="lev-num">UC5</span>
+      <span class="lev-title">重构代码 / Skill 库</span>
+      <span class="lev-tag lev-tag-hot">🔥 DIRECTLY PATRICK</span>
+    </div>
+    <div class="lev-bars">
+      <div class="lev-bar"><span class="lev-label">适合度</span><div class="bar"><div class="fill fill-best" style="width:100%"></div></div><span class="lev-score">5/5</span></div>
+      <div class="lev-bar"><span class="lev-label">紧迫性</span><div class="bar"><div class="fill fill-best" style="width:100%"></div></div><span class="lev-score">5/5</span></div>
+      <div class="lev-bar"><span class="lev-label">token 效率</span><div class="bar"><div class="fill fill-best" style="width:100%"></div></div><span class="lev-score">5/5</span></div>
+    </div>
+    <div class="lev-summary">⭐⭐⭐⭐⭐ — Patrick 238 skills + Loop4 🔴 93.5% 零链接痛点直接命中</div>
+  </div>
+</div>
+
+<h3>🆚 5 Use Cases 横向对比</h3>
+<table>
+<tr><th>Use case</th><th>难度</th><th>token 消耗</th><th>Patrick 适合度</th><th>建议时间窗</th></tr>
+<tr><td>UC1 找任务</td><td>🟢 简单（10 min prep）</td><td>🟢 低（1-2 calls）</td><td>⭐⭐⭐ 中</td><td>Day 1-2</td></tr>
+<tr class="highlight"><td>UC2 商业建议</td><td>🟠 中（plan doc 2-3h）</td><td>🟠 中（多次 call）</td><td>⭐⭐⭐⭐⭐ 高</td><td>Day 1-3</td></tr>
+<tr><td>UC3 找 bug</td><td>🟢 简单（1 prompt）</td><td>🟡 高（5 agents spawn）</td><td>⭐⭐⭐⭐ 高</td><td>Day 4-5</td></tr>
+<tr><td>UC4 写 plan</td><td>🟠 中（多次迭代）</td><td>🟠 中</td><td>⭐⭐⭐ 中</td><td>Day 6+</td></tr>
+<tr class="highlight"><td>UC5 重构 skill</td><td>🔴 高（需 babysit）</td><td>🔴 高（spawn 5 agents + 多次 audit）</td><td>⭐⭐⭐⭐⭐ 最高</td><td>Day 4-5</td></tr>
+</table>
+
+
+<h2>✅ 实战路线 — Interactive Checklist</h2>
+<p>Patrick 视角的 4 阶段落地路径。点击 checkbox 标记完成（自动 localStorage 持久化）。</p>
+
+<div class="checklist-progress">
+  <span>进度：</span>
+  <div class="prog-bar"><div class="prog-fill" id="checklist-fill"></div></div>
+  <span id="checklist-pct">0/12</span>
+</div>
+
+<h3>📍 阶段 1 · 立刻（Day 1 · 今天）</h3>
+<label class="check"><input type="checkbox" data-checklist="c1-1"> 在 Claude Code 选定 Fable 5 + high effort（不 Ultra Code）</label>
+<label class="check"><input type="checkbox" data-checklist="c1-2"> 写 plan doc：4 sections（goal / principles / positioning / energy+life）</label>
+<label class="check"><input type="checkbox" data-checklist="c1-3"> 把 Mercury / Vercel / Substack 等接成 MCP（如已有）</label>
+
+<h3>📍 阶段 2 · 本周（Day 1-3）</h3>
+<label class="check"><input type="checkbox" data-checklist="c2-1"> 跑 UC1（让 Fable 找 Fable-worthy work）</label>
+<label class="check"><input type="checkbox" data-checklist="c2-2"> 跑 UC2（让 Fable 写 3-12 个月方向 1-pager）</label>
+<label class="check"><input type="checkbox" data-checklist="c2-3"> 写了 advisor skill → 跑 council debate 看 3 persona 互怼</label>
+
+<h3>📍 阶段 3 · 周末（Day 4-5）</h3>
+<label class="check"><input type="checkbox" data-checklist="c3-1"> 跑 UC3：让 Fable 扫一个 vibe-coded 项目找 bug</label>
+<label class="check"><input type="checkbox" data-checklist="c3-2"> 🔥 跑 UC5：让 Fable audit patricks-vault-os 238 skills</label>
+<label class="check"><input type="checkbox" data-checklist="c3-3"> 记录 Fable 找到的 bug 数 vs Opus/GPT 对照</label>
+
+<h3>📍 阶段 4 · 下周（Day 6+）</h3>
+<label class="check"><input type="checkbox" data-checklist="c4-1"> 选 1 个新 feature，跑 UC4（plan with Fable, execute with Opus）</label>
+<label class="check"><input type="checkbox" data-checklist="c4-2"> 如果 plan 满意 → 交给 Opus/GPT 执行</label>
+<label class="check"><input type="checkbox" data-checklist="c4-3"> 评估是否切 pay-as-you-go API（如果 Fable 价值确认）</label>
+
+<div class="checklist-actions">
+  <button id="checklist-reset" class="btn-secondary">🔄 重置所有</button>
+  <button id="checklist-export" class="btn-secondary">📋 导出 Markdown</button>
+</div>
+
+
+</div>
+
+<h3 id="h3-27">⚠️ 反模式</h3>
+<ul>
+  <li>❌ 用 Fable 接 API / 写 draft = 浪费 limit</li>
+  <li>❌ 让 Fable 直接 execute 大 plan = 烧光 token</li>
+  <li>❌ Ultra Code effort + 不 babysit = 1 小时烧光</li>
+  <li>❌ 不写 plan doc 直接问 Fable "给我建议" = 答案空泛</li>
+</ul>
+
+<h3 id="h3-28">✅ 正模式</h3>
+<ul>
+  <li>✅ Opus/GPT 做 prep → Fable 做 decision</li>
+  <li>✅ Fable 写 plan → Opus/GPT 做 execution</li>
+  <li>✅ High effort + babysit + monitor token consumption</li>
+  <li>✅ Plan doc 4 sections + MCPs 都接好再问 Fable</li>
+</ul>
+</div>
+<div class="tab-content" id="quotes" data-tab="quotes">
+<h2 id="quotes">💬 金句库 — 含 Relevance</h2>
+<p>15 个金句，每个都标注：来源时间戳 + 为什么重要 + Patrick 怎么用。</p>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Claude Fable 5, the world's best AI model, is finally back after being banned by the US government for 18 days.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：SOTA model 回归 + 18 天禁用暗示监管争议。<br>🎯 <strong>Patrick 怎么用</strong>：监控 Anthropic / 政府对 frontier model 的监管动向，影响未来 model 选型。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Fable is back, but there's a catch. It's only available through July 7th on your Claude subscription. And you can't use it anymore after you hit 50% of your weekly usage limits.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：双重稀缺是整个 use case 策略的根因。<br>🎯 <strong>Patrick 怎么用</strong>：7/7 截止前必须决策 → 本周内做 1-2 个 high-leverage use cases。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Fable basically wants to look at a large corpus of information data and extract insights from it and take action from it, right? Which is exactly what a state-of-the-art AI model is really good at.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：5 个 use case 的统一理论 — 大语料分析是 SOTA 模型的核心优势。<br>🎯 <strong>Patrick 怎么用</strong>：当任务涉及大语料（vault 知识 / skills 库 / 长代码库）→ Fable 是默认选择。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">This is the highest leverage activity you can do with Fable because it's advice and stuff that can impact what you do over the next 3 months, 6 months, or even a year.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：UC2 是 5 个 use case 中杠杆最高。<br>🎯 <strong>Patrick 怎么用</strong>：patricks-vault-os / TELOS 缺一个 advisor skill → UC2 是首要 use case。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">When I run the same prompt on GPT-5.5 or Opus, it does find a few bugs, but nowhere near the amount that it found here.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：Fable 在 bug hunting 上的 SOTA 优势。<br>🎯 <strong>Patrick 怎么用</strong>：vibe-coded 项目 launch 前必跑 Fable 一遍。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">If Fable can check the code, find bugs, and fix issues before you launch, I think it's one of the highest leverage activities you can do with this new model.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：UC3 总结。<br>🎯 <strong>Patrick 怎么用</strong>：roadbook-ai / xjb 等要 launch 的项目用 Fable 做 final review。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Fable is really good at writing detailed HTML or Markdown plans for another model to execute.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：UC4 总结 — Fable 写 plan，Opus/GPT 执行。<br>🎯 <strong>Patrick 怎么用</strong>：roadbook-ai 的 AI 路书生成 = UC4 模板，新 feature 写 plan → Opus 实现。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">For your personal work like you saw for me, it doesn't have to be a large code base. It can just be like your personal OS or something or like all of your skills that you can fix using Fable.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：UC5 个人化 — 不需要大代码库，personal OS 就够。<br>🎯 <strong>Patrick 怎么用</strong>：238 skills 直接命中 UC5 — Fable audit skill 系统找 dead code / 重复 / 风险。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Don't use Fable for boring work like hooking up an MCP or API or like trying to get you draft a document.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：Tip 1 核心 — 避免浪费 Fable 在低杠杆工作上。<br>🎯 <strong>Patrick 怎么用</strong>：所有 MCP / API / draft 工作都用 Opus/GPT（T2），Fable 只做决策（T3）。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Once you have a detailed plan, you can then pass this plan to another model that's cheaper to do the actual execution.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：Tip 2 核心 — model-tier routing 的具体落地。<br>🎯 <strong>Patrick 怎么用</strong>：hybrid-llm-router 已在做这件事 — Fable plan → Opus/GPT execute。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Fable is really smart, but sometimes it can get into a rat hole and just keep looping on burning your tokens and you don't want that to happen since the tokens are so limited here on your subscription.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：Tip 3 核心 — babysit 必要性。<br>🎯 <strong>Patrick 怎么用</strong>：用 Fable 时设置 max iteration + token budget monitor。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Don't YOLO it with Fable Fable. And don't waste this is our.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：Peter 告别 + 提醒。<br>🎯 <strong>Patrick 怎么用</strong>：Fable 是稀缺资源，不能 "试试看" → 必须有明确 use case + token budget。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Number one is H2 strategy stress test.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：Fable 推荐的 #1 任务（基于 Peter 实际）。<br>🎯 <strong>Patrick 怎么用</strong>：patricks-vault-os 的 TELOS H2 strategy 可参考这个模式。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">LMs are very good at analyzing large corpus of data, and Fable can take this to the next level.</div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：解释 SOTA 模型为什么适合大语料。<br>🎯 <strong>Patrick 怎么用</strong>：918 notes 的 vault → Fable audit 全量知识图谱。</div>
+</div>
+
+<div class="quote-with-rel">
+  <div class="quote-card">Stripe used Fable to refactor 50 million lines of Ruby code and migrate it in a day where it could have taken a whole team over 2 months to do. <span class="badge badge-warn">[UNVERIFIED CITATION]</span></div>
+  <div class="relevance">📌 <strong>为什么重要</strong>：UC5 的标杆案例 — 50M 行 1 天 vs 2 个月。<br>🎯 <strong>Patrick 怎么用</strong>：238 skills + 918 notes 的 vault 重构可类比。</div>
+</div>
+
+</div>
+<div class="tab-content" id="timeline" data-tab="timeline">
+<h2 id="timeline">⏱️ 时间戳 / Timeline</h2>
+<p>9 章节 + 关键 sub-events：</p>
+
+<div class="timeline">
+  <div class="ts">[00:00:00]</div><div class="ev">Claude Fable 5 重新上线，但有 2 个限制（7/7 截止 + 50% weekly cap）</div>
+  <div class="ts">[00:01:14]</div><div class="ev">How to choose Fable 5 in Claude Code</div>
+  <div class="ts">[00:01:30]</div><div class="ev"><strong>Use Case 1</strong> · Find Fable-worthy work — Fable 自己审计 memory + projects</div>
+  <div class="ts">[00:02:02]</div><div class="ev">Fable 推荐的 #1：H2 strategy stress test</div>
+  <div class="ts">[00:03:09]</div><div class="ev">LMs 适合大语料分析，Fable 进一步</div>
+  <div class="ts">[00:03:50]</div><div class="ev">Fable 推荐的 #5：audit personal skill system</div>
+  <div class="ts">[00:04:13]</div><div class="ev"><strong>Use Case 2</strong> · Get life and business advice — plan doc + MCPs + advisor skill</div>
+  <div class="ts">[00:05:05]</div><div class="ev">Plan doc 4 sections（goal / principles / positioning / energy+life）</div>
+  <div class="ts">[00:05:34]</div><div class="ev">Connect Fable to Mercury / Substack / YouTube / Vercel / Google Workspace</div>
+  <div class="ts">[00:06:33]</div><div class="ev">advisor skill 介绍 + council skill（3 persona）</div>
+  <div class="ts">[00:09:09]</div><div class="ev">"highest leverage activity" — advice 影响 3-12 个月决策</div>
+  <div class="ts">[00:09:16]</div><div class="ev"><strong>Use Case 3</strong> · Make project ship-ready — fitness app 找 bug 实战</div>
+  <div class="ts">[00:10:35]</div><div class="ev">Fable spawn 5 agents 扫代码</div>
+  <div class="ts">[00:11:11]</div><div class="ev">发现 12+ critical bugs（sign-out 数据泄露 / 负数 weight 等）</div>
+  <div class="ts">[00:11:43]</div><div class="ev">Fable 找的 bug 远多于 Opus/GPT</div>
+  <div class="ts">[00:12:10]</div><div class="ev"><strong>Use Case 4</strong> · Plan the next big thing — Nutrition tab 实战</div>
+  <div class="ts">[00:13:04]</div><div class="ev">Fable 自动找 USDA FDC API + 写完整 HTML plan</div>
+  <div class="ts">[00:13:29]</div><div class="ev">Fable 自己画 UI 草图（Apple 风格 nutrition tab）</div>
+  <div class="ts">[00:14:26]</div><div class="ev">用 Lavish Editor（Kun 的 GitHub HTML editor）做 plan review</div>
+  <div class="ts">[00:15:08]</div><div class="ev">进阶：用 /go 命令 + 验收标准（risk: 烧光 limit）</div>
+  <div class="ts">[00:15:54]</div><div class="ev"><strong>Use Case 5</strong> · Refactor large codebase — Stripe 50M 行 Ruby 案例</div>
+  <div class="ts">[00:16:20]</div><div class="ev">Peter 的 personal OS = 40+ skills</div>
+  <div class="ts">[00:17:02]</div><div class="ev">Fable 找到 13 个 skill 系统问题</div>
+  <div class="ts">[00:18:29]</div><div class="ev"><strong>3 Tips</strong></div>
+  <div class="ts">[00:18:34]</div><div class="ev">Tip 1 · Prep with cheaper models</div>
+  <div class="ts">[00:18:59]</div><div class="ev">Tip 2 · Plan with Fable, execute with another model</div>
+  <div class="ts">[00:19:23]</div><div class="ev">Tip 3 · Use lower effort + babysit</div>
+  <div class="ts">[00:19:55]</div><div class="ev"><strong>Recap</strong> · 5 use cases 总结</div>
+  <div class="ts">[00:20:47]</div><div class="ev">Fable 截止提醒 + "Don't YOLO"</div>
+</div>
+</div>
+<div class="tab-content" id="counter" data-tab="counter">
+
+<h2 id="counter">⚠️ 反方观点 / 限制 / 主流批判</h2>
+<p>Peter 自己提到的限制 + 主流学界 / 业界可能的反方观点：</p>
+
+<h3>🚧 视频自身的限制（Peter 自己说）</h3>
+<ul>
+  <li>⏰ <strong>Fable 7/7 截止</strong> — 12 天倒计时（截止 2026-07-07，剩 3 天）</li>
+  <li>📊 <strong>50% weekly cap</strong> — 之后只能 pay-as-you-go API credits</li>
+  <li>💸 <strong>Ultra Code effort 1-2 小时烧光</strong> — 必须 high effort + babysit</li>
+  <li>🐀 <strong>Rat hole 风险</strong> — Fable 循环烧 token</li>
+</ul>
+
+<h3>🎓 主流学界 / 业界可能的反方观点（5+ 命名）</h3>
+
+<div class="counter-card">
+<h4>1. "Fable 找 bug 多 ≠ 找 bug 好" — 普通开发者</h4>
+<p><strong>论点</strong>：Fable 找 12+ critical bugs，但其中很多可能是 false positive 或 stylistic issue。真正的 critical bug 数量可能跟 Opus/GPT 接近。</p>
+<p><strong>证据</strong>：Peter 没公开 bug 列表分类，无法验证 severity 分布。</p>
+<p><strong>Patrick 视角</strong>：⚠️ 部分警示 — 如果 Fable 报告大量 "minor" bug，会稀释 critical 信号。</p>
+</div>
+
+<div class="counter-card">
+<h4>2. "Plan doc 4 sections 是 ceremony 而非 leverage" — Pragmatic Engineering</h4>
+<p><strong>论点</strong>：写 4 sections 的 plan doc 要 2-3 小时，可能比 Fable 跑 1 次还久。对低频任务不值得。</p>
+<p><strong>证据</strong>：Peter 自己承认 council skill 是 "very, very optional"。4 sections 的 prep 时间 vs Fable 输出时间可能不平衡。</p>
+<p><strong>Patrick 视角</strong>：✅ 同源警示 — plan doc 应该是 <strong>渐进式</strong> 而非一次性写完。</p>
+</div>
+
+<div class="counter-card">
+<h4>3. "MCP 接入 = 隐私/合规风险" — Security Researchers</h4>
+<p><strong>论点</strong>：把 Mercury / Substack / Google Workspace 接 MCP 后，数据流过 Anthropic。即使 prompt 里写 "do not share confidential information"，data 在传输 / 存储层无法保证。</p>
+<p><strong>证据</strong>：Anthropic 数据保留政策的具体条款 + 是否对 Fable use case 启用 enterprise-grade privacy 是 unclear。</p>
+<p><strong>Patrick 视角</strong>：⚠️ 需 boundary check — patricks-vault-os 含 TELOS / 财务数据，接 MCP 需评估。</p>
+</div>
+
+<div class="counter-card">
+<h4>4. "Council 3-persona debate 质量不稳定" — Multi-Agent Researchers</h4>
+<p><strong>论点</strong>：3 persona (customer / skeptic / operator) 互怼的结论质量取决于 prompt 设计。如果 persona 定义不清，可能只是 echo chamber。</p>
+<p><strong>证据</strong>：Peter 自己承认 council 是 "optional" + "fun to build"。学术上 multi-agent debate 的 quality ceiling 是 well-known。</p>
+<p><strong>Patrick 视角</strong>：⚠️ 同源警示 — 多 agent debate 是 research toy，不是 decision tool。</p>
+</div>
+
+<div class="counter-card">
+<h4>5. "架构 lock-in 风险" — Cloud Architect</h4>
+<p><strong>论点</strong>：一旦接 MCP + plan doc 都按 Fable ecosystem 设计，你已经被锁定。换 model (e.g. GPT-6) 要重搭所有 integration。</p>
+<p><strong>证据</strong>：MCP 是 Anthropic 标准但 adoption 还 early。如果未来 OpenAI 主导 tool calling standard，迁移成本高。</p>
+<p><strong>Patrick 视角</strong>：⚠️ 同源警示 — 保持 model-agnostic 抽象层（如 Hermes Agent 的 plugin system）减少 lock-in。</p>
+</div>
+
+<div class="counter-card">
+<h4>6. "Opus / GPT-5.5 也能做这些" — Anthropic / OpenAI 自家用户</h4>
+<p><strong>论点</strong>：Peter 自己承认 Opus/GPT 也能找 bug，只是数量少。差异是<em>数量</em>，不是<em>类别</em>。3-4 个 bug 可能是更 curated 的 signal。</p>
+<p><strong>证据</strong>：Peter 实测数据显示 12+ vs 3-4 = 3×。但 "12+ bug" 包含 minor，是否 "3× improvement on critical bugs" 需细分。</p>
+<p><strong>Patrick 视角</strong>：✅ 承认 — Fable 是 SOTA 但不是唯一选择，T2 模型已能 cover 80% 场景。</p>
+</div>
+
+<div class="counter-card">
+<h4>7. "Fable 5 被美国政府禁用 18 天" 的真相 — Regulatory Researchers</h4>
+<p><strong>论点</strong>：Peter 说 "banned by the US government for 18 days" 但没给出 primary source。可能是 (a) export control (b) safety review (c) AI executive order。不同原因对应不同 timeline 和 policy implications。</p>
+<p><strong>证据</strong>：需查 Anthropic blog + FCC / Commerce Department filings + 2025-2026 AI regulatory timeline。</p>
+<p><strong>Patrick 视角</strong>：🔍 待验证 — 影响 Fable 未来可用性预判。</p>
+</div>
+
+
+<div class="counter-card">
+<h4>8. "Fable 在 cybersecurity exploit 上不是 unique 能力" — Anthropic 官方测试 (PRIMARY)</h4>
+<p><strong>论点</strong>：Anthropic 自己测试发现，在 cybersecurity vulnerability exploitation 演示上，<em>every model</em> 包括 Claude Haiku 4.5, Sonnet 4.6, Opus 4.6/4.7/4.8, GPT-5.4/5.5, Kimi K2.7 都能产生与 Fable 5 相同的演示。</p>
+<p><strong>证据</strong>：<a href="https://www.anthropic.com/news/redeploying-fable-5" target="_blank">Anthropic blog · 2026-06-30</a> 原文: "every model we tested could produce the same demonstration as Fable 5"</p>
+<p><strong>对 Peter 论点的修正</strong>：Fable 在 <em>code review / bug audit</em> 上 3×+ 的优势可能<em>不</em>延伸到 <em>exploit generation</em>。两者在 cybersecurity 边界上是不同能力曲线。Patrick 视角：⚠️ 同源警示 — Fable 的"SOTA"优势在防御性任务上更强，进攻性任务上各 model 已基本对齐。</p>
+</div>
+
+<h3>🎯 Patrick 视角的现实检查</h3>
+<table>
+<tr><th>使用场景</th><th>Peter 评价</th><th>Patrick 实际需要？</th></tr>
+<tr><td>UC1 找 Fable-worthy 工作</td><td>5 个推荐都很贴 Peter 实际</td><td>❓ 看 patricks-vault-os 是否已有 audit 机制</td></tr>
+<tr class="highlight"><td>UC2 商业建议</td><td>"highest leverage"</td><td>✅ 直接适用（patricks-vault-os / TELOS 缺一个 advisor skill）</td></tr>
+<tr><td>UC3 找 bug</td><td>12+ critical bugs</td><td>✅ 适用（vibe-coded 项目多）</td></tr>
+<tr><td>UC4 写 plan</td><td>"really good at"</td><td>✅ 适用（roadbook-ai 等项目可做）</td></tr>
+<tr class="highlight"><td>UC5 重构</td><td>"definitely worthwhile"</td><td>✅ 直接适用（238 skills audit 是核心需求）</td></tr>
+</table>
+
+<div class="warn-box">
+<strong>关键判断</strong>：Patrick 现在最大痛点是 <strong>skill 系统膨胀 + 链接断裂</strong>（详见 CLAUDE.md Loop4 🔴 93.5% 笔记零链接）。UC5 直接命中。<br>
+<strong>但</strong>：Fable 7/7 截止 → 必须本周内决策是否要用 Fable 做一次 skill audit。
+</div>
+
+</div>
+<div class="tab-content" id="external" data-tab="external">
+
+<h2 id="external">📰 External Coverage · 外部报道</h2>
+<p>本视频之外的 verified 来源。Master self-takeover report, 2026-07-04.</p>
+
+<h3>🏛️ 1. Anthropic 官方 · "Redeploying Fable 5" (PRIMARY SOURCE)</h3>
+<div class="quote-card">
+On Friday, June 12, the US government applied export controls to our newest models, Claude Fable 5 and Claude Mythos 5... Because the order took effect immediately and we had no reliable way to verify nationality in real-time, we suspended access to both models for all users. As of today, June 30, the export controls on Fable 5 and Mythos 5 have been lifted.
+<br><small>— <a href="https://www.anthropic.com/news/redeploying-fable-5" target="_blank">Anthropic blog · 2026-06-30/07-01</a></small>
+</div>
+
+<table>
+<tr><th>关键日期</th><th>事件</th></tr>
+<tr><td>2026-06-09</td><td>Fable 5 + Mythos 5 发布</td></tr>
+<tr><td>2026-06-12</td><td>US government export control directive (因 Amazon 报告 Fable 5 产生 exploit code)</td></tr>
+<tr><td>2026-06-26</td><td>US 政府批准 Mythos 5 恢复给部分 US organizations</td></tr>
+<tr><td>2026-06-30</td><td>Export control 解除</td></tr>
+<tr><td><strong>2026-07-01</strong></td><td><strong>Fable 5 全球可用</strong></td></tr>
+<tr><td>2026-07-07</td><td>Fable 5 在 Claude 订阅上的截止日</td></tr>
+</table>
+
+<h3>🔬 2. Anthropic 自家反方证据 (IMPORTANT)</h3>
+<div class="warn-box">
+<strong>Anthropic 官方测试发现</strong>：在 cybersecurity vulnerability exploitation 演示上，<em>every model we tested could produce the same demonstration as Fable 5</em> — 包括 Claude Haiku 4.5, Sonnet 4.6, Opus 4.6, 4.7, 4.8, GPT-5.4, 5.5, Kimi K2.7.
+</div>
+<p><strong>对 Peter 论点的修正</strong>：Fable 在 <em>defensive</em> 任务（code review / bug audit）上的 3×+ 优势 vs Opus/GPT 可能<em>不</em>延伸到 <em>offensive</em> 任务（exploit generation）。两者在 cybersecurity 边界上是不同能力曲线。</p>
+
+<h3>🛡️ 3. Glasswing Program · Restricted Partner Program</h3>
+<p>Mythos 5 仍在 restricted access：</p>
+<ul>
+  <li><strong>Partners</strong>: Amazon, Microsoft, Google, "and other Glasswing partners"</li>
+  <li><strong>Purpose</strong>: defensive cybersecurity only</li>
+  <li><strong>Patrick relevance</strong>: Mythos 5 = the "more raw" Fable 5 底层 model — Patrick 暂不可用，但 Glasswing partners list 表明 enterprise-grade AI 模型 governance 是 the new normal</li>
+</ul>
+
+<h3>🛠️ 4. Kun Chen's Lavish Editor · VERIFIED</h3>
+<table>
+<tr><th>字段</th><th>值</th></tr>
+<tr><td>Repo</td><td><a href="https://github.com/kunchenguid/lavish-axi" target="_blank">github.com/kunchenguid/lavish-axi</a></td></tr>
+<tr><td>Owner</td><td><code>kunchenguid</code> (Kun Chen — Peter's friend)</td></tr>
+<tr><td>Stars / Forks</td><td>⭐ 1,540 / 120</td></tr>
+<tr><td>License</td><td>MIT</td></tr>
+<tr><td>Created</td><td>2026-05-11</td></tr>
+<tr><td>Last push</td><td>2026-07-03 (active)</td></tr>
+<tr><td>Description</td><td>"HTML is the new markdown. Lavish is the new editor for your HTML artifacts."</td></tr>
+</table>
+
+<p><strong>衍生生态</strong> (活跃开源项目):</p>
+<ul>
+  <li><a href="https://github.com/base-research-ai/lavish" target="_blank">base-research-ai/lavish</a> — collaborative fork</li>
+  <li><a href="https://github.com/Mr-Ashish/explain-repo" target="_blank">Mr-Ashish/explain-repo</a> — "A skill for AI coding agents that produces rich, interactive HTML"</li>
+  <li><a href="https://github.com/ralamo33/Agent-Planner" target="_blank">ralamo33/Agent-Planner</a> — "Based on lavish editor, an HTML plan editor"</li>
+</ul>
+
+<h3>❓ 5. Stripe 50M 行 Ruby 重构 · UNVERIFIED CITATION</h3>
+<div class="warn-box">
+<strong>⚠️ 未验证</strong>：Peter Yang 引用的 "Stripe used Fable to refactor 50 million lines of Ruby code and migrate it in a day" 找不到第一手来源。<br><br>
+已 probe:<br>
+• Stripe engineering blog — 找到 "Sorbet: Stripe's type checker for Ruby" (15M 行, 不是 50M)<br>
+• Stripe Sessions 2026 — "AI economy" 主题但无 Fable 直接提及<br>
+• GitHub code search — 需 auth (401)<br><br>
+<strong>可能来源</strong>：Stripe 内部 talk / Patrick Lane (CTO) 推文 / LinkedIn post / 二级社区引用
+</div>
+
+<p><strong>Patrick 视角</strong>: UC5 (重构) 的标杆案例可信度受限。可以直接问 Peter Yang 来源，或作为 <em>anecdotal evidence</em> 而非 <em>verified benchmark</em> 使用。</p>
+
+<h3>🔍 6. Coverage Gaps · 需 Patrick 后续补</h3>
+<ul>
+  <li>❌ Reddit r/ClaudeAI / Hacker News 讨论 — 全部 timeout (sandbox 网络限制)</li>
+  <li>❌ Peter Yang YouTube channel "videos" page — timeout</li>
+  <li>❌ Peter Yang Substack (<a href="https://petergyang.substack.com/" target="_blank">petergyang.substack.com</a>) — timeout</li>
+  <li>❌ Peter Yang X/Twitter — timeout</li>
+  <li>❌ Stripe engineering blog search — 找不到 50M 行 Ruby 故事</li>
+</ul>
+<p><strong>建议</strong>: Patrick 可用 browser (not sandbox) 直访这些 site 补全 6 个角度中 partial 的 2 个 (counter-critique from HN/Reddit + Peter 早期 Fable 内容)。</p>
+
+<h3>📊 来源可信度分级</h3>
+<table>
+<tr><th>等级</th><th>来源</th><th>用途</th></tr>
+<tr class="highlight"><td>🟢 PRIMARY</td><td>Anthropic blog (官方声明)</td><td>事实 backbone</td></tr>
+<tr><td>🟢 VERIFIED</td><td>GitHub kunchenguid/lavish-axi</td><td>工具引用</td></tr>
+<tr><td>🟡 SECONDARY</td><td>Peter Yang 视频本身</td><td>use case 演示</td></tr>
+<tr><td>🔴 UNVERIFIED</td><td>Stripe 50M 行 Ruby 重构</td><td>标 [UNVERIFIED CITATION]</td></tr>
+<tr><td>⚫ UNREACHABLE</td><td>HN/Reddit/X/Substack</td><td>Patrick 手动补</td></tr>
+</table>
+
+</div>
+
+<div class="tab-content" id="notes" data-tab="notes">
+<h2 id="notes">📝 备注 + 元数据</h2>
+
+<h3 id="h3-33">📺 视频元数据</h3>
+<table>
+<tr><th>字段</th><th>值</th></tr>
+<tr><td>标题</td><td>Claude Fable 5 Is Finally Back: 5 Must-Try Use Cases Before July 7</td></tr>
+<tr><td>频道</td><td>Peter Yang</td></tr>
+<tr><td>YouTube ID</td><td>5CBnWGP5vIs</td></tr>
+<tr><td>时长</td><td>21:17</td></tr>
+<tr><td>上传日期</td><td>2026-07-01</td></tr>
+<tr><td>观看数</td><td>44,676</td></tr>
+<tr><td>语言</td><td>en-US</td></tr>
+<tr><td>章节数</td><td>9</td></tr>
+</table>
+
+<h3 id="h3-34">🔑 关键术语</h3>
+<ul>
+  <li><strong>Fable</strong> = Claude Opus 5 的别名 / 内部 codename（视频里 Peter 一直用 "Fable"，实际是 Anthropic 最新旗舰模型）</li>
+  <li><strong>MCP</strong> = Model Context Protocol，Anthropic 推的 tool 接入标准</li>
+  <li><strong>Ultra Code effort</strong> = Claude Code 的最高 reasoning effort 档</li>
+  <li><strong>Slash skill</strong> = Peter 自定义的 <code>/advisor</code> / <code>/go</code> 等命令</li>
+  <li><strong>Vibe coding</strong> = 用 AI 凭感觉写代码，不严格 review</li>
+</ul>
+
+<h3 id="h3-35">🛠 工具栈</h3>
+<ul>
+  <li>Claude Code（选 Fable 5）</li>
+  <li>Peter 自定义 advisor skill + council skill + skill editor skill</li>
+  <li>外部 MCPs：Mercury / Substack / YouTube / Vercel / Google Workspace</li>
+  <li>Lavish Editor（Kun Chen 做的 GitHub HTML editor）做 plan review</li>
+</ul>
+
+<h3 id="h3-36">📅 关键时间节点</h3>
+<ul>
+  <li><strong>2026-06-13</strong> — Fable 5 被美国政府禁用（"banned by the US government"）</li>
+  <li><strong>2026-07-01</strong> — Fable 5 重新上线 Claude 订阅</li>
+  <li><strong>2026-07-07</strong> — Fable 5 在 Claude 订阅上的截止日</li>
+  <li><strong>2026-07-09</strong> — Peter 生日（"2 days before my birthday"）</li>
+</ul>
+
+<h3 id="h3-37">🔗 双向引用</h3>
+<ul>
+  <li>← [[2026-07-01-fable5-back-peter-yang]]（vault 主索引）</li>
+  <li>← [[patrick-card-roster]]（17-card roster 来源）</li>
+  <li>→ [[single-file-spa-design-patterns]]（Lavish Editor 范式相关）</li>
+  <li>→ [[hybrid-llm-router]]（T0-T3 routing 验证案例）</li>
+</ul>
+
+<h3 id="h3-38">📚 相关视频（Peter Yang 频道）</h3>
+<ul>
+  <li>Fable 4 vs Opus 4 早期对比</li>
+  <li>Peter Yang 个人 OS 深度 walk-through</li>
+  <li>Council skill + advisor skill 实操</li>
+</ul>
+
+<h3 id="h3-39">⚠️ 信源可信度</h3>
+<p><span class="badge">v1.5.9 credibility</span> Peter Yang 是知名 AI 创作者（product hunt 团队出身，AI Newsletter 60K+ 订阅），但本视频：</p>
+<ul>
+  <li>✅ 有具体的 prompt 模板（可直接复用）</li>
+  <li>✅ 有具体数字（50% cap, 12 bugs, 40 skills）</li>
+  <li>✅ 有具体的 5 个 use case demo（不只是 opinions）</li>
+  <li>⚠️ 部分 prompt 提到 "from my friend Kun" — Lavish Editor 是 Kun Chen 的项目，需独立验证是否仍可访问</li>
+</ul>
+
+<h3 id="h3-40">🏷️ 标签</h3>
+<p>
+<span class="badge">#claude-fable</span>
+<span class="badge">#peter-yang</span>
+<span class="badge">#5-use-cases</span>
+<span class="badge">#model-routing</span>
+<span class="badge">#plan-with-fable-execute-with-opus</span>
+<span class="badge">#bug-hunting</span>
+<span class="badge">#skill-audit</span>
+<span class="badge">#advisor-skill</span>
+<span class="badge">#council-skill</span>
+<span class="badge">#loop-engineering</span>
+</p>
+</div>
+
+<footer style="margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem;">
+  <p>📺 Source: <a href="https://www.youtube.com/watch?v=5CBnWGP5vIs">Peter Yang · YouTube</a> · 21:17 · 2026-07-01</p>
+  <p>📂 Vault: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/claude-fable5-peter-yang-2026-07-04/index.md</code></p>
+  <p>📊 Dashboard: <code>/tmp/yt_5CBnWGP5vIs/dashboard.html</code></p>
+  <p>🏷️ Tags: claude-fable · peter-yang · 5-use-cases · model-routing · bug-hunting · skill-audit · advisor-skill · loop-engineering</p>
+</footer>
+
+</div>
+
+<script>
+  // Tab switching + hash routing
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.toggle('active', x === t));
+      contents.forEach(c => c.classList.toggle('active', c.dataset.tab === t.dataset.tab));
+      history.replaceState(null, '', '#' + t.dataset.tab);
+      // Save last active tab
+      localStorage.setItem('fable5-last-tab', t.dataset.tab);
+    });
+  });
+
+  // Init from URL hash, then localStorage, then default to 'core'
+  let initTab = 'core';
+  const hash = location.hash.replace('#', '');
+  if (hash && document.querySelector('[data-tab="' + hash + '"]')) {
+    initTab = hash;
+  } else {
+    const saved = localStorage.getItem('fable5-last-tab');
+    if (saved && document.querySelector('[data-tab="' + saved + '"]')) {
+      initTab = saved;
+    }
+  }
+  const initBtn = document.querySelector('[data-tab="' + initTab + '"]');
+  if (initBtn) initBtn.click();
+
+  // Init TOC collapse state from localStorage
+  const tocCollapsed = localStorage.getItem('fable5-toc-collapsed');
+  if (tocCollapsed === '0') {
+    document.querySelector('aside.toc').classList.remove('collapsed');
+  }
+
+  // Interactive checklist (polish round 2)
+  const checks = document.querySelectorAll('[data-checklist]');
+  const total = checks.length;
+  function updateProgress() {
+    const done = Array.from(checks).filter(c => c.checked).length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    const fill = document.getElementById('checklist-fill');
+    const pctEl = document.getElementById('checklist-pct');
+    if (fill) fill.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = done + '/' + total;
+  }
+  checks.forEach(c => {
+    const key = 'fable5-check-' + c.dataset.checklist;
+    c.checked = localStorage.getItem(key) === '1';
+    c.addEventListener('change', () => {
+      localStorage.setItem(key, c.checked ? '1' : '0');
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  // Reset button
+  const resetBtn = document.getElementById('checklist-reset');
+  if (resetBtn) resetBtn.addEventListener('click', () => {
+    checks.forEach(c => { c.checked = false; localStorage.removeItem('fable5-check-' + c.dataset.checklist); });
+    updateProgress();
+  });
+
+  // Export to Markdown
+  const exportBtn = document.getElementById('checklist-export');
+  if (exportBtn) exportBtn.addEventListener('click', () => {
+    const lines = ['# Fable 5 Use Cases — Patrick Action Checklist', '', '_Exported: ' + new Date().toISOString() + '_', ''];
+    const phases = document.querySelectorAll('.tab-content#action h3');
+    const labels = document.querySelectorAll('.tab-content#action label.check');
+    let phaseIdx = -1;
+    labels.forEach((lbl, i) => {
+      // Walk through phases by index
+      // Simple: every 3 labels belong to one phase
+      if (i % 3 === 0) phaseIdx++;
+      const phase = phases[phaseIdx] ? phases[phaseIdx].textContent : '';
+      const text = lbl.textContent.trim();
+      const checked = lbl.querySelector('input').checked ? 'x' : ' ';
+      lines.push('- [' + checked + '] ' + text);
+    });
+    const md = lines.join('\n');
+    navigator.clipboard.writeText(md).then(() => {
+      exportBtn.textContent = '✅ 已复制到剪贴板';
+      setTimeout(() => exportBtn.textContent = '📋 导出 Markdown', 2000);
+    });
+  });
+
+</script>
+
+  <script>
+  (function() {
+    const tocLinks = document.querySelectorAll('aside.toc a[data-toc-target]');
+    if (!tocLinks.length) return;
+
+    // ── v1.4.1 click handler: activate .page/.tab-content + scroll ──
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const id = this.getAttribute('data-toc-target');
+        const target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+
+        // Pattern A: hidden .page ancestor (multi-page)
+        const hiddenPage = target.closest('.page');
+        if (hiddenPage) {
+          document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+          hiddenPage.classList.add('active');
+          const pageId = hiddenPage.id.replace('page-', '');
+          document.querySelectorAll('.nav button').forEach(b => {
+            const onclick = b.getAttribute('onclick') || '';
+            if (onclick.includes("'" + pageId + "'") || onclick.includes('"' + pageId + '"')) {
+              b.classList.add('active');
+            } else {
+              b.classList.remove('active');
+            }
+          });
+        }
+
+        // Pattern B: tab-content ancestor (v1.3.x tabs)
+        // Pitfall O fix: try multiple tab-button class names + [data-tab] attr fallback
+        // + index-based fallback when .tab-content lacks data-tab-content attr.
+        // v1.5.0 patcher used `.tab` + assumed `data-tab-content` — both silently failed
+        // for projects using `.tab-btn` class and no data-tab-content attribute.
+        const tabContent = target.closest('.tab-content');
+        if (tabContent) {
+          // v1.4.2+: also add data-tab-content if missing (so this JS keeps working)
+          if (!tabContent.hasAttribute('data-tab-content') && tabContent.id.startsWith('tab-')) {
+            tabContent.setAttribute('data-tab-content', tabContent.id.replace('tab-', ''));
+          }
+          document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+          tabContent.classList.add('active');
+          // Resolve tabId from data-tab-content (or fall back to id 'tab-XXX' or index)
+          let tabId = tabContent.getAttribute('data-tab-content');
+          if (!tabId && tabContent.id.startsWith('tab-')) {
+            tabId = tabContent.id.replace('tab-', '');
+          }
+          // Compatible selector: try common button class names + [data-tab] attr fallback
+          const btnSelector = '.tab, .tab-btn, .tab-button, [data-tab]';
+          const allBtns = document.querySelectorAll(btnSelector);
+          if (tabId) {
+            allBtns.forEach(b => {
+              if (b.getAttribute('data-tab') === tabId) b.classList.add('active');
+              else b.classList.remove('active');
+            });
+          } else {
+            // Last-resort index-based matching: tab-content order = tab button order
+            const allContents = document.querySelectorAll('.tab-content');
+            const idx = Array.from(allContents).indexOf(tabContent);
+            allBtns.forEach(b => b.classList.remove('active'));
+            if (idx >= 0 && idx < allBtns.length) {
+              allBtns[idx].classList.add('active');
+            }
+          }
+        }
+
+        setTimeout(() => {
+          const rect = target.getBoundingClientRect();
+          const offset = window.scrollY + rect.top - 80;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+          history.replaceState(null, '', '#' + id);
+        }, 50);
+      });
+    });
+
+    // IntersectionObserver: active highlight
+    const sections = Array.from(tocLinks).map(a => {
+      const id = a.getAttribute('data-toc-target');
+      return document.getElementById(id);
+    }).filter(Boolean);
+    if (!sections.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(a => a.classList.remove('active'));
+          const id = entry.target.id;
+          const active = document.querySelector('aside.toc a[data-toc-target="' + id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    sections.forEach(s => observer.observe(s));
+  })();
+  
+  // Interactive checklist (polish round 2)
+  const checks = document.querySelectorAll('[data-checklist]');
+  const total = checks.length;
+  function updateProgress() {
+    const done = Array.from(checks).filter(c => c.checked).length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    const fill = document.getElementById('checklist-fill');
+    const pctEl = document.getElementById('checklist-pct');
+    if (fill) fill.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = done + '/' + total;
+  }
+  checks.forEach(c => {
+    const key = 'fable5-check-' + c.dataset.checklist;
+    c.checked = localStorage.getItem(key) === '1';
+    c.addEventListener('change', () => {
+      localStorage.setItem(key, c.checked ? '1' : '0');
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  // Reset button
+  const resetBtn = document.getElementById('checklist-reset');
+  if (resetBtn) resetBtn.addEventListener('click', () => {
+    checks.forEach(c => { c.checked = false; localStorage.removeItem('fable5-check-' + c.dataset.checklist); });
+    updateProgress();
+  });
+
+  // Export to Markdown
+  const exportBtn = document.getElementById('checklist-export');
+  if (exportBtn) exportBtn.addEventListener('click', () => {
+    const lines = ['# Fable 5 Use Cases — Patrick Action Checklist', '', '_Exported: ' + new Date().toISOString() + '_', ''];
+    const phases = document.querySelectorAll('.tab-content#action h3');
+    const labels = document.querySelectorAll('.tab-content#action label.check');
+    let phaseIdx = -1;
+    labels.forEach((lbl, i) => {
+      // Walk through phases by index
+      // Simple: every 3 labels belong to one phase
+      if (i % 3 === 0) phaseIdx++;
+      const phase = phases[phaseIdx] ? phases[phaseIdx].textContent : '';
+      const text = lbl.textContent.trim();
+      const checked = lbl.querySelector('input').checked ? 'x' : ' ';
+      lines.push('- [' + checked + '] ' + text);
+    });
+    const md = lines.join('\n');
+    navigator.clipboard.writeText(md).then(() => {
+      exportBtn.textContent = '✅ 已复制到剪贴板';
+      setTimeout(() => exportBtn.textContent = '📋 导出 Markdown', 2000);
+    });
+  });
+
+</script>
+
+</body>
+</html>
