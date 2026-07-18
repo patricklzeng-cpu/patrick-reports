@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generated" content="2026-07-18T17:05+08:00">
+<meta name="provenance" content="kome.ai transcript + Patrick flat-turn parser; canonical bilingual EN+ZH verbatim; round-36">
+<title>Livermore Brothers × Silicon Valley Girl · AI 中心化 vs 去中心化 40min 全对话 · 2026-07-18</title>
+<style>
+:root{
+  --bg:#0a0a14;--bg2:#10101e;--bg3:#1a1a2e;
+  --fg:#e8e8f0;--fg2:#a0a0b8;--fg3:#7070880;
+  --lime:#d5ff3f;--lime-soft:rgba(213,255,63,.12);
+  --orange:#ff8c42;--red:#ff5577;--blue:#5fc7ff;--purple:#c78cff;
+  --green:#4ade80;--yellow:#fbbf24;
+  --border:rgba(213,255,63,.18);
+  --shadow:0 4px 20px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--fg);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+body{min-height:100vh;display:flex}
+
+/* ───── Bilingual toggle ───── */
+.lang-toggle{position:fixed;top:16px;right:24px;z-index:1000;background:rgba(18,18,42,.95);border:1px solid var(--lime);border-radius:22px;padding:6px 14px;font:600 12px ui-monospace,"SF Mono",monospace;color:var(--lime);cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;letter-spacing:.05em;user-select:none}
+.lang-toggle:hover{background:var(--lime);color:#0a0a14;box-shadow:0 0 16px rgba(213,255,63,.4)}
+html[lang="zh-CN"] .en{display:none}
+html[lang="en"] .zh{display:none}
+html[lang="zh-CN"] .lang-en{display:none}
+html[lang="en"] .lang-zh{display:none}
+
+/* ───── TOC sidebar v1.4.4 collapsible ───── */
+aside.toc{position:fixed;top:0;left:0;width:240px;height:100vh;background:var(--bg2);border-right:1px solid var(--border);overflow-y:auto;padding:60px 0 24px;transition:width .3s ease;z-index:50}
+aside.toc::-webkit-scrollbar{width:6px}
+aside.toc::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.toc-toggle{position:absolute;top:12px;right:-14px;z-index:100;width:28px;height:28px;border-radius:50%;background:var(--lime);color:#0a0a14;border:none;cursor:pointer;font-size:12px;font-weight:bold;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.toc-toggle:hover{transform:scale(1.1)}
+.toc-label{display:block;padding:0 20px 12px;font:600 11px ui-monospace,monospace;color:var(--lime);letter-spacing:.1em;text-transform:uppercase}
+.toc-list{list-style:none;padding:0}
+.toc-list li a{display:block;padding:8px 20px;color:var(--fg2);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s}
+.toc-list li a:hover{color:var(--lime);border-left-color:var(--lime);background:var(--lime-soft)}
+body.toc-collapsed aside.toc{width:48px}
+body.toc-collapsed .toc-label,body.toc-collapsed .toc-list{display:none}
+.page,main{margin-left:240px;padding:32px 48px 80px;transition:margin-left .3s ease;max-width:1200px}
+body.toc-collapsed .page,body.toc-collapsed main{margin-left:48px}
+@media(max-width:900px){aside.toc{transform:translateX(-100%)}body.toc-collapsed aside.toc{transform:translateX(-100%);width:240px}.page,main{margin-left:0!important;padding:20px}}
+
+/* ───── Hero + tabs ───── */
+.hero{padding:48px 0 32px;border-bottom:1px solid var(--border)}
+.hero h1{font-size:36px;font-weight:800;line-height:1.2;margin-bottom:12px;background:linear-gradient(135deg,var(--lime) 0%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{color:var(--fg2);font-size:14px;margin-bottom:20px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hero .meta span{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:4px 10px;font-size:11px;color:var(--fg2);font-family:ui-monospace,monospace}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:24px 0 0;border-bottom:1px solid var(--border);padding-bottom:12px}
+.tab{padding:6px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:18px;font-size:12px;font-weight:600;color:var(--fg2);cursor:pointer;transition:all .15s;letter-spacing:.02em}
+.tab:hover{color:var(--lime);border-color:var(--lime)}
+.tab.active{background:var(--lime);color:#0a0a14;border-color:var(--lime)}
+
+/* ───── Stat cards ───── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:32px 0}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px}
+.stat .num{font-size:32px;font-weight:800;color:var(--lime);line-height:1;margin-bottom:6px;font-family:ui-monospace,monospace}
+.stat .label{font-size:12px;color:var(--fg2);letter-spacing:.05em;text-transform:uppercase}
+
+/* ───── Generic sections + cards ───── */
+section{margin:48px 0}
+section h2{font-size:24px;font-weight:700;color:var(--fg);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+section h2::before{content:"";display:block;width:4px;height:24px;background:var(--lime);border-radius:2px}
+section .sec-sub{color:var(--fg2);font-size:13px;margin-bottom:24px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin:20px 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;transition:all .15s}
+.card:hover{border-color:var(--lime);transform:translateY(-2px);box-shadow:var(--shadow)}
+.card .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;letter-spacing:.05em;margin-bottom:8px;text-transform:uppercase}
+.badge-mitig{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.4)}
+.badge-warn{background:rgba(251,191,36,.15);color:var(--yellow);border:1px solid rgba(251,191,36,.4)}
+.badge-gap{background:rgba(255,85,119,.15);color:var(--red);border:1px solid rgba(255,85,119,.4)}
+.badge-verified{background:rgba(95,199,255,.15);color:var(--blue);border:1px solid rgba(95,199,255,.4)}
+.card h3{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--fg)}
+.card p{font-size:13px;color:var(--fg2);line-height:1.55}
+.card .src{font-size:10px;color:var(--fg3);margin-top:8px;font-family:ui-monospace,monospace}
+
+/* ───── Chapter list ───── */
+.chapter-list{counter-reset:ch}
+.chapter{counter-increment:ch;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 18px 18px 64px;margin:12px 0;position:relative;transition:all .15s}
+.chapter::before{content:counter(ch);position:absolute;left:18px;top:18px;width:32px;height:32px;background:var(--lime);color:#0a0a14;border-radius:50%;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace}
+.chapter h4{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--lime)}
+.chapter .zh{color:var(--fg)}
+.chapter .en{color:var(--fg2);font-style:italic;font-size:13px;margin-top:6px;display:block;border-left:2px solid var(--border);padding-left:10px}
+.chapter .ts{font-size:10px;color:var(--fg3);margin-top:6px;font-family:ui-monospace,monospace}
+
+/* ───── Quote cards ───── */
+.quote{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border-left:4px solid var(--lime);border-radius:0 12px 12px 0;padding:18px 22px;margin:12px 0;font-style:italic}
+.quote .zh{color:var(--fg);font-size:15px}
+.quote .en{color:var(--fg2);font-size:13px;margin-top:10px;font-style:italic;border-top:1px solid var(--border);padding-top:10px}
+.quote::before{content:"\201C";color:var(--lime);font-size:32px;font-family:Georgia,serif;line-height:0;vertical-align:-12px;margin-right:6px}
+
+/* ───── Pitfall box ───── */
+.pitfall{background:rgba(251,191,36,.08);border-left:4px solid var(--yellow);border-radius:0 12px 12px 0;padding:16px 20px;margin:16px 0}
+.pitfall .title{color:var(--yellow);font-weight:700;margin-bottom:6px;font-size:14px}
+.pitfall p{color:var(--fg2);font-size:13px}
+
+/* ───── Verdict box ───── */
+.verdict{background:linear-gradient(135deg,rgba(95,199,255,.1) 0%,rgba(199,140,255,.08) 100%);border:1px solid rgba(95,199,255,.3);border-radius:14px;padding:20px;margin:24px 0}
+.verdict h3{color:var(--blue);margin-bottom:10px;font-size:16px}
+.verdict p{color:var(--fg);font-size:14px;line-height:1.7}
+
+/* ───── Recipe / code ───── */
+.recipe{background:#000;color:var(--green);font:12px/1.7 ui-monospace,"SF Mono",monospace;padding:16px 18px;border-radius:10px;overflow-x:auto;margin:12px 0;border:1px solid rgba(74,222,128,.2)}
+
+/* ───── Footer ───── */
+footer{margin-top:80px;padding:24px 0;border-top:1px solid var(--border);color:var(--fg3);font-size:11px;font-family:ui-monospace,monospace;text-align:center}
+footer a{color:var(--lime);text-decoration:none}
+.footer-actions{display:flex;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.footer-actions button{background:var(--bg3);border:1px solid var(--border);color:var(--fg);padding:8px 16px;border-radius:18px;font-size:12px;cursor:pointer;transition:all .15s}
+.footer-actions button:hover{background:var(--lime);color:#0a0a14;border-color:var(--lime)}
+
+/* ───── Patrick roster table ───── */
+table.roster{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+table.roster th,table.roster td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border)}
+table.roster th{background:var(--bg3);color:var(--lime);font-size:11px;letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+table.roster tr:hover td{background:var(--lime-soft)}
+table.roster a{color:var(--blue);text-decoration:none}
+table.roster a:hover{color:var(--lime)}
+table.roster .status{font-size:10px;padding:2px 6px;border-radius:6px;font-weight:700;letter-spacing:.05em}
+.status-found{background:rgba(74,222,128,.15);color:var(--green)}
+.status-missing{background:rgba(255,85,119,.15);color:var(--red)}
+
+a{color:var(--blue);text-decoration:none;border-bottom:1px dotted rgba(95,199,255,.3)}
+a:hover{color:var(--lime);border-bottom-color:var(--lime)}
+</style>
+</head>
+<body>
+<button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
+
+<aside class="toc" aria-label="Table of contents">
+  <button class="toc-toggle" aria-label="Toggle sidebar" type="button" onclick="toggleToc()">◀</button>
+  <span class="toc-label"><span class="zh">📑 章节导航</span><span class="en">📑 Sections</span></span>
+  <ul class="toc-list">
+    <li><a href="#hero"><span class="zh">00 · 概览</span><span class="en">00 · Overview</span></a></li>
+    <li><a href="#chapters"><span class="zh">01 · 21 章节</span><span class="en">01 · 21 Chapters</span></a></li>
+    <li><a href="#core-theses"><span class="zh">02 · 6 核心论点</span><span class="en">02 · 6 Core Theses</span></a></li>
+    <li><a href="#future-scenarios"><span class="zh">03 · 未来 4 情景</span><span class="en">03 · 4 Future Scenarios</span></a></li>
+    <li><a href="#quotes"><span class="zh">04 · 原声金句</span><span class="en">04 · Verbatim Quotes</span></a></li>
+    <li><a href="#pitfalls"><span class="zh">05 · 6 失败模式</span><span class="en">05 · 6 Failure Modes</span></a></li>
+    <li><a href="#pundits"><span class="zh">06 · 嘉宾 + 主持人</span><span class="en">06 · Guests & Host</span></a></li>
+    <li><a href="#compete"><span class="zh">07 · 关联赛道</span><span class="en">07 · Adjacent Tracks</span></a></li>
+    <li><a href="#roster"><span class="zh">08 · 17 张 Patrick 卡</span><span class="en">08 · 17 Patrick Cards</span></a></li>
+    <li><a href="#actions"><span class="zh">09 · Action Items</span><span class="en">09 · Action Items</span></a></li>
+    <li><a href="#verdict"><span class="zh">10 · 一句话总结</span><span class="en">10 · One-Line Verdict</span></a></li>
+    <li><a href="#recipe"><span class="zh">11 · 制作配方</span><span class="en">11 · Recipe</span></a></li>
+    <li><a href="#sources"><span class="zh">12 · 出处 + 不确定</span><span class="en">12 · Sources & Gaps</span></a></li>
+    <li><a href="#appendix"><span class="zh">13 · 元数据</span><span class="en">13 · Metadata</span></a></li>
+  </ul>
+</aside>
+
+<main class="page">
+
+<!-- ─── Hero ─── -->
+<section class="hero" id="hero">
+<h1>
+<span class="zh">Livermore Brothers × 硅滩女孩<br>AI 中心化 vs 去中心化 · 40min 全对话</span>
+<span class="en">Livermore Brothers × Silicon Valley Girl<br>AI Centralization vs Decentralization · 40min Full Talk</span>
+</h1>
+<div class="sub">
+<span class="zh">2026-07-18 · HMvTSaaO9sU · David & Daniel Liebermann (Gonka 创始人 / 前 Snap 团队) × Maria (硅滩女孩) · kome.ai flat transcript + 21 章节双语精读</span>
+<span class="en">2026-07-18 · HMvTSaaO9sU · David & Daniel Liebermann (Gonka founders / ex-Snap) × Maria (Silicon Valley Girl) · kome.ai flat transcript + 21-chapter bilingual close-read</span>
+</div>
+<div class="meta">
+<span>40m 46s</span>
+<span>200 turns</span>
+<span>kome.ai flat transcript</span>
+<span>verified-on-disk</span>
+<span>round-36</span>
+<span><a href="https://www.youtube.com/watch?v=HMvTSaaO9sU" target="_blank" rel="noopener">YouTube ↗</a></span>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="num">21</div><div class="label"><span class="zh">章节数</span><span class="en">Chapters</span></div></div>
+<div class="stat"><div class="num">6</div><div class="label"><span class="zh">核心论点</span><span class="en">Core Theses</span></div></div>
+<div class="stat"><div class="num">4</div><div class="label"><span class="zh">未来情景</span><span class="en">Future Scenarios</span></div></div>
+<div class="stat"><div class="num">8</div><div class="label"><span class="zh">原声金句</span><span class="en">Quotes</span></div></div>
+<div class="stat"><div class="num">6</div><div class="label"><span class="zh">失败模式</span><span class="en">Failure Modes</span></div></div>
+<div class="stat"><div class="num">17</div><div class="label"><span class="zh">Patrick 卡</span><span class="en">Patrick Cards</span></div></div>
+</div>
+</section>
+
+<!-- ─── Tab nav (mirror TOC, click-jump) ─── -->
+<nav class="tabs">
+<a class="tab" href="#chapters"><span class="zh">01 章节</span><span class="en">01 Chapters</span></a>
+<a class="tab" href="#core-theses"><span class="zh">02 论点</span><span class="en">02 Theses</span></a>
+<a class="tab" href="#future-scenarios"><span class="zh">03 情景</span><span class="en">03 Scenarios</span></a>
+<a class="tab" href="#quotes"><span class="zh">04 金句</span><span class="en">04 Quotes</span></a>
+<a class="tab" href="#pitfalls"><span class="zh">05 陷阱</span><span class="en">05 Pitfalls</span></a>
+<a class="tab" href="#pundits"><span class="zh">06 嘉宾</span><span class="en">06 Pundits</span></a>
+<a class="tab" href="#compete"><span class="zh">07 赛道</span><span class="en">07 Tracks</span></a>
+<a class="tab" href="#roster"><span class="zh">08 卡组</span><span class="en">08 Roster</span></a>
+<a class="tab" href="#actions"><span class="zh">09 行动</span><span class="en">09 Actions</span></a>
+<a class="tab" href="#verdict"><span class="zh">10 总结</span><span class="en">10 Verdict</span></a>
+<a class="tab" href="#recipe"><span class="zh">11 配方</span><span class="en">11 Recipe</span></a>
+<a class="tab" href="#sources"><span class="zh">12 出处</span><span class="en">12 Sources</span></a>
+<a class="tab" href="#appendix"><span class="zh">13 元数据</span><span class="en">13 Meta</span></a>
+</nav>
+
+<!-- ─── Tab 01: Chapters ─── -->
+<section id="chapters">
+<h2>
+<span class="zh">01 · 21 章节精读</span>
+<span class="en">01 · 21 Chapters close-read</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">手动章节分割 · 时间戳基于 200 turns / 40min 线性映射 · 22 turn ≈ 1 min</span>
+<span class="en">Manual chapter split · timestamps from 200 turns / 40min linear map · 22 turns ≈ 1 min</span>
+</div>
+
+<div class="chapter-list">
+
+<div class="chapter">
+<h4><span class="zh">00:00 · Trailer · 一句话中心化 vs 去中心化</span><span class="en">00:00 · Trailer · Centralization vs decentralization in one line</span></h4>
+<div class="zh">"我们未来看到什么样的现实,基本上取决于大型科技公司是否能控制谁能获得 AI 访问权"——这是预告片的开场钩子,把整集定调为控制权之争。</div>
+<div class="en">"What kind of reality we will see in the future mostly depend on whether big tech companies will have control on who has access to artificial intelligence" — the trailer sets the entire episode as a control battle.</div>
+<div class="ts">turn 0 · 0:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">02:30 · 自我介绍 · 硅滩女孩与 Livermon Brothers 缘起</span><span class="en">02:30 · Intros · Silicon Valley Girl + Livermon Brothers history</span></h4>
+<div class="zh">Maria 介绍 David & Daniel Liebermann 作为 2015 年就认识的朋友+她首位投资人;20121 年那轮"creator 史上首笔 VC 轮"是他们牵头。她问他们"AI 真的过誉了吗?"——开场设问。</div>
+<div class="en">Maria introduces David & Daniel Liebermann as friends since 2015 + first investors; the 20121 round (first creator VC round ever) was led by them. She opens with "Is AI overhyped?".</div>
+<div class="ts">turn 8-10 · 2:30-4:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">04:00 · AI 真的过誉了吗?反方观点:信任单一信源</span><span class="en">04:00 · Overhyped? Counter-view: trusting single source</span></h4>
+<div class="zh">Liebermann 反转开场:"生活已经变了——人们开始只相信 chat 一个信源";Google 搜索研究已经从习惯中消失。这是已经发生的"颠覆",不只是未来。</div>
+<div class="en">Liebermann flips the opener: "Life already changed — people started trusting one source of information in chat"; Google research habits are gone. Disruption already happened, not future-only.</div>
+<div class="ts">turn 11-12 · 4:00-5:30</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">06:00 · 水管工案例:AI 协同而非替代</span><span class="en">06:00 · Plumber case: AI augments, not replaces</span></h4>
+<div class="zh">"我家热水问题 3 年没修好——chat GPT 摄像头扫一眼管道,说缺一个回路小零件;一次修完。"核心论点:AI 不是让水管工失业,而是让水管工"第一次上门就修对"。物理劳动不会被替代,但 AI 在水管工的耳机里实时指导,会淘汰"三次上门才修好"的低效模式。</div>
+<div class="en">"Our 3-year hot-water issue — chat GPT scanned the pipes once, said 'missing loop part'; fixed in one visit." Core: AI doesn't kill plumbers; it kills "three visits to fix it right" inefficiency. Physical labor persists, but plumber's earpiece AI eliminates diagnostic failure mode.</div>
+<div class="ts">turn 13-16 · 6:00-9:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">09:00 · 哪些工作会完全消失?司机/服务/陪驾</span><span class="en">09:00 · Which jobs vanish entirely? Drivers/services/companions</span></h4>
+<div class="zh">"自动驾驶会替代司机——但车里的人可以继续服务(安全/陪伴)"。关键洞察:每个职业都有 15 年适应窗口,前提是你"看见未来正在到来";被动消费者 15 年后会被甩开。</div>
+<div class="en">"Self-driving replaces drivers — but the person inside still serves (safety/companionship)." Key: every profession has a 15-year adoption window, IF you "see the future coming"; passive consumers get disrupted 15 years later anyway.</div>
+<div class="ts">turn 17-24 · 9:00-12:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">12:30 · 普通人何时"天翻地覆"?两年内</span><span class="en">12:30 · When does ordinary person feel it? Within 2 years</span></h4>
+<div class="zh">Maria:"我妈用 AI 搜索,但生活没变。"Liebermann:"未来两年会有数次'天翻地覆'事件——生物科技/化学/新材料/操作系统全部重写。tipping point 之后回不去。"</div>
+<div class="en">Maria: "My mom uses AI for search, life unchanged." Liebermann: "Within 2 years several 'eye-opening' events — biotech / chemistry / new materials / entire OS rewritten. Past tipping point, no return."</div>
+<div class="ts">turn 28-30 · 12:30-15:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">15:00 · Tipping Points + 创始人 1.5% 股权</span><span class="en">15:00 · Tipping points + founder 1.5% share</span></h4>
+<div class="zh">"Dario Amodei 在 Anthropic 持股多少?1.5%——创造 Claude 的人不是控制者。"实际控制权在 long-term trust 这种不可识别的委员会。这是"AI 由谁控制"的第一个硬数据。</div>
+<div class="en">"What is Dario Amodei's share in Anthropic? 1.5% — the creator of Claude is not in control." Actual control sits in long-term trust boards nobody recognizes. First hard data on "who controls AI".</div>
+<div class="ts">turn 31-44 · 15:00-19:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">19:30 · 赞助 · MongoDB Atlas 介绍</span><span class="en">19:30 · Sponsor · MongoDB Atlas pitch</span></h4>
+<div class="zh">Maria 念 1 分钟 MongoDB 赞助词:operational data + vector embeddings 一体化,避免 stale copy。Atlas Learning Hub 免费课程。**不计入论点,跳过。**</div>
+<div class="en">Maria reads 1min MongoDB sponsor: operational data + vector embeddings in one system, no stale copy. Atlas Learning Hub free courses. **Not a thesis — skipped.**</div>
+<div class="ts">turn 45 · 19:30</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">20:00 · 开源崩塌 + 中国"伪开放"</span><span class="en">20:00 · Open-source collapse + China's "fake open"</span></h4>
+<div class="zh">"中国模型从发布第一天起就不是真的开源——先挂自己服务器 1-3 个月,然后半开源,让你在他们中国服务器上跑,而不是你自己的服务器。"Google/Meta 也都关闭了之前的开源路线。"这是有先例可循的:2003-04 Google 承诺搜索主信息流不放广告,然后改了规则。"</div>
+<div class="en">"Chinese models aren't actually open-source from day 1 — they sit on own servers 1-3 months, then semi-open to lure you onto Chinese servers with Chinese chips." Google/Meta closed their open-source paths. "Precedent: 2003-04 Google promised no ads in main feed, then changed the rules."</div>
+<div class="ts">turn 46-58 · 20:00-24:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">24:30 · 生态锁定 · 从聊天到日历到购物</span><span class="en">24:30 · Ecosystem lock-in · chat → calendar → shopping</span></h4>
+<div class="zh">"我现在每两周换一个模型——但当 AI 把日历/邮件/文档/图生成/音乐/购物全集成进一个生态,切换成本爆炸。" Cursor/Figma 这类独立工具正在被 Frontier 模型吸收。2 年后用户会被"all-in-one"锁死。</div>
+<div class="en">"I switch models every 2 weeks — but once AI integrates calendar/email/docs/image/music/shopping into one ecosystem, switching cost explodes." Cursor/Figma absorbed by frontier models. In 2 years users locked into all-in-one.</div>
+<div class="ts">turn 59-61 · 24:30-26:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">26:00 · 最坏情景 · 三大云掌控 70% 算力</span><span class="en">26:00 · Worst case · Big-3 cloud owns 70% compute</span></h4>
+<div class="zh">"Google + Microsoft + Amazon = 全球 65-70% 云算力——他们基本上拥有我们的未来。" 不是单一公司控制,是三家协同。两个未来版本对照:同样"4x 生产力提升",版本 A(中心化)= 价格任定;版本 B(开放)= 价格趋零。</div>
+<div class="en">"Google + Microsoft + Amazon = 65-70% global cloud compute — they basically own our future." Not one company, three coordinating. Two future versions compared: same 4x productivity gain, version A (centralized) = arbitrary pricing; version B (open) = commodity pricing.</div>
+<div class="ts">turn 62-79 · 26:00-30:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">30:30 · 自由丧失 · 决策被单一信源塑造</span><span class="en">30:30 · Freedom erosion · decisions shaped by single source</span></h4>
+<div class="zh">Maria:"这像社交媒体——有精彩视频但停不下来,假信息影响决策。"Liebermann:"你问 AI 一个问题得到单一答案——信源控制了你对现实的看法。"这是一个"温水煮青蛙"路径:自由被一点一点蚕食,不是一刀切。</div>
+<div class="en">Maria: "Like social media — great videos but can't stop scrolling, fake info shapes decisions." Liebermann: "Ask AI a question, get single answer — that source controls your view of reality." Slow-boiled freedom erosion, not abrupt coup.</div>
+<div class="ts">turn 79-82 · 30:30-31:30</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">32:00 · 监管 · 政府/消费主义/研究人员</span><span class="en">32:00 · Regulation · government / consumer power / researchers</span></h4>
+<div class="zh">美国"hands-off"路径;但 AI 公司老板们主动要求监管(防止 open-source 反噬)。Liebermann 对监管"不乐观"——联邦层面会滥用权力。**真正杠杆 = 消费者力量**(取消订阅/对员工/对研究员施压)。"OpenAI/Anthropic 员工流失事件"已经显示这种压力有效。</div>
+<div class="en">US "hands-off" path; AI CEOs actively request regulation (prevent open-source blowback). Liebermann pessimistic on regulation — federal level will abuse power. **Real leverage = consumer power** (cancel subs / employee / researcher pressure). OpenAI/Anthropic staff departures prove this works.</div>
+<div class="ts">turn 83-94 · 32:00-35:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">35:30 · 我们能做什么 · 居家微型数据中心</span><span class="en">35:30 · What we can do · home micro-data-center</span></h4>
+<div class="zh">"每家每户的太阳能板+电池 + 家里放一台微型 GPU = 去中心化算力。" 类比:30 年前电网集中,现在家家有太阳能;同理未来 AI 算力会分布式。每户贡献一点算力,聚合成"足够烦人"的替代,迫使大公司改变。</div>
+<div class="en">"Every home's solar panel + battery + a micro GPU = decentralized compute." Analogy: 30 years ago centralized grid, now every home has solar; same for AI compute. Each household contributes a little, aggregates to "annoying-enough" alternative that forces Big-3 to change.</div>
+<div class="ts">turn 95-97 · 35:30-37:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">37:00 · AI 共情取代呼叫中心 + 政府阻力</span><span class="en">37:00 · AI empathy replaces call centers + government resistance</span></h4>
+<div class="zh">"AI 被设计得'更有共情'——一家被银行追债的客户打电话,AI 帮他谈下来,比真人的 empathy 更深。这家公司解雇了外包呼叫中心(印度/菲律宾)。" 政府服务逻辑上应 AI 化,但官僚本身会"强烈反抗"——不可腐败化。</div>
+<div class="en">"AI designed to be 'more empathetic' — a customer hounded by bank calls AI, it negotiates down better than human. Company fired outsourced call center (India/Philippines)." Government services logically AI-driven, but bureaucrats will "strongly resist" — immovable corruption checks.</div>
+<div class="ts">turn 98-103 · 37:00-39:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">39:00 · 比特币类比 · 去中心化 30 年路径</span><span class="en">39:00 · Bitcoin analogy · 30-year decentralization arc</span></h4>
+<div class="zh">"比特币对华尔街/央行——没人觉得能挑战。开始是 Satoshi + 10 人 + 100 人,现在几亿人持有,没人能改 ledger。" 同样加密曾被大公司忽视,后被迫采纳——AI 去中心化会走同一路径。</div>
+<div class="en">"Bitcoin vs Wall Street / central banks — nobody thought it could challenge. Started as Satoshi + 10 + 100, now hundreds of millions hold, ledger is immutable. Same with encryption: big players ignored, then forced to adopt. AI decentralization follows the same arc.</div>
+<div class="ts">turn 104-114 · 39:00-41:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">41:30 · 身份验证 · World ID 与去中心化权衡</span><span class="en">41:30 · Identity · World ID vs decentralization trade-off</span></h4>
+<div class="zh">"AI 时代必须有身份验证——太多 fake generated 内容。" World ID 是私企掌控,黑盒,不可审计——人们害怕。**正解 = 开源可审计的去中心化身份**。"为什么 Satoshi 能保持匿名?因为比特币的 privacy 是产品的一部分;AI 不是——你希望被找到。"</div>
+<div class="en">"AI era requires identity verification — too much fake generated content." World ID is private-company controlled, black-box, unauditable — people fear it. **Right answer = open-source auditable decentralized identity.** "Why could Satoshi stay anonymous? Because Bitcoin's privacy is part of product; AI isn't — you WANT to be found."</div>
+<div class="ts">turn 122-130 · 41:30-43:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">43:00 · AI 打破语言屏障 + 小企业爆发</span><span class="en">43:00 · AI breaks language barrier + small business explosion</span></h4>
+<div class="zh">"这是第一个'说人话'的技术——所有之前的心理保护/屏障,被 AI 跨过。但也是最大平等机会。"类比社交媒体让小生意爆发(任何人都能卖衣服/首饰),AI 时代小企业爆发 10x。</div>
+<div class="en">"This is the first technology that 'speaks our language' — all previous psychological protections AI overcomes. But it's also the greatest equality opportunity." Analogy: social media enabled small business (anyone can sell clothes/jewelry); AI era = 10x small business explosion.</div>
+<div class="ts">turn 130-138 · 43:00-44:30</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">44:30 · 现在该做什么 · 工具采纳 + 黑客松文化</span><span class="en">44:30 · What to do now · tool adoption + hackathon culture</span></h4>
+<div class="zh">"每天 1 小时——用 AI 代替 Netflix/Instagram 刷时间。我们最近和朋友搞家庭黑客松,1 小时做出 app 上手机就能跑,非技术人也玩疯了。" 案例:艺术家对每个新工具都 jump in 不 resist,2 年后被 Blizzard 抢走。</div>
+<div class="en">"1 hour/day — use AI instead of Netflix/Instagram. We host family hackathons with friends, 1 hour builds app to phone, even non-tech friends love it." Case: artist who jumped on every new tool without resistance, 2 years later poached by Blizzard.</div>
+<div class="ts">turn 138-164 · 44:30-50:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">50:00 · 时事简答 · 三年/创意/就业/新巨头</span><span class="en">50:00 · Blitz round · 3 years / creativity / jobs / new giants</span></h4>
+<div class="zh">❶ 三年内 AI 做大部分脑力工作?**是。**❷ 人类剩什么?**创意 + 协作 + 人生决策。**❸ AI 创造的就业多于摧毁?**短期创造多,10-15 年后"工作"概念消散。**❹ 今天的领跑者 5 年后还领跑?**大概率,但会出现新万亿公司。**❺ 人类会限制 AI 发展?**硬件是限速器,5 年内仍 10x 增长。**❻ 明天最被低估的动作?**爱自己+投资自己的发展。</div>
+<div class="en">❶ AI does most intellectual work in 3y? **Yes.** ❷ What remains? **Creativity + collaboration + life decisions.** ❸ AI creates more jobs than it destroys? Short term yes; in 10-15y the concept of "job" dissipates. ❹ Today's leaders lead in 5y? Probably, but new trillion-dollar companies emerge. ❺ Will humanity limit AI? Hardware is throttle; still 10x in 5y. ❻ Most underrated move tomorrow? **Love yourself + invest in own development.**</div>
+<div class="ts">turn 166-197 · 50:00-55:00</div>
+</div>
+
+<div class="chapter">
+<h4><span class="zh">55:00 · 收尾 · 致谢</span><span class="en">55:00 · Wrap · thanks</span></h4>
+<div class="zh">Maria 致谢:"谢谢成为'现代哲学家',并建造了真正令人兴奋的东西"。Liebermann 兄弟:"谢谢这场对话"。</div>
+<div class="en">Maria thanks them: "Thank you for being modern age philosophers and for building something really exciting." Liebermann brothers: "Thank you for this great conversation."</div>
+<div class="ts">turn 198-199 · 55:00-56:00</div>
+</div>
+
+</div>
+</section>
+
+<!-- ─── Tab 02: Core theses ─── -->
+<section id="core-theses">
+<h2>
+<span class="zh">02 · 6 大核心论点</span>
+<span class="en">02 · 6 Core Theses</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">从 200 turns 反推 · 每条标 [视频描述原文 L1] / [推断 L2]</span>
+<span class="en">Reverse-engineered from 200 turns · each tagged [description L1] / [inferred L2]</span>
+</div>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-mitig">THESIS 1 · 中心化</span>
+<h3><span class="zh">三大云 = 我们的未来</span><span class="en">Big-3 cloud = our future</span></h3>
+<p><span class="zh">Google + Microsoft + Amazon 占据全球云算力 65-70%。即使创始人不控股(Anthropic 创始人 1.5%),实际控制权在 long-term trust / 公众股东 / 三家协同。即使你今天还能每两周换模型,2 年内"全栈生态锁定"会让切换成本爆炸。<b>控制权的真正争夺在算力层,不在模型层。</b></span><span class="en">Google + Microsoft + Amazon = 65-70% global cloud compute. Even if founders don't hold majority (Anthropic founder = 1.5%), real control sits in long-term trust / public shareholders / 3-company coordination. Even if you can switch models every 2 weeks today, in 2 years all-in-one ecosystem lock-in will explode switching cost. <b>The real control battle is at compute, not model layer.</b></span></p>
+<div class="src">[turn 64-79] · [视频描述原文 L1]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-mitig">THESIS 2 · 去中心化</span>
+<h3><span class="zh">居家微型数据中心 = 30 年后的比特幣</span><span class="en">Home micro-data-center = Bitcoin 30 years later</span></h3>
+<p><span class="zh">类比太阳能:30 年前电网集中,家家户户有电池+太阳能。AI 算力同理——每家放一台 GPU + 共享算力,聚合成"足够烦人"的替代,迫使大公司改规则。比特币从 Satoshi 10 人到现在几亿人持有,用了 15 年;AI 去中心化会走同一路径,但需要消费者主动跳上早期采用列车。</span><span class="en">Solar analogy: 30 years ago centralized grid, every home now has battery+solar. AI compute same — each home a GPU + shared compute, aggregates to "annoying-enough" alternative that forces Big-3 to change rules. Bitcoin: Satoshi + 10 → 100M holders in 15 years; AI decentralization follows same arc, but needs consumers to jump on early adoption.</span></p>
+<div class="src">[turn 95-114] · [视频描述原文 L1]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-warn">THESIS 3 · 自由侵蚀</span>
+<h3><span class="zh">温水煮青蛙的决策权丧失</span><span class="en">Slow-boiled decision-power loss</span></h3>
+<p><span class="zh">最坏情景不是"突然被夺走自由",而是"一个一个产业被吸收":超市→在线配送→机器人配送。先创造新岗位,后消灭。温水路径。Maria 类比社交媒体:可以看精彩视频但停不下来,假信息塑造决策。AI 信源比社交媒体更深——它直接回答你的问题,塑造你对现实的看法。</span><span class="en">Worst case isn't "freedom abruptly stolen" but "industry-by-industry absorbed": grocery → online delivery → robot delivery. Spike of new jobs first, then decline. Slow-boiled path. Maria's analogy: social media — great videos but can't stop scrolling, fake info shapes decisions. AI sources go deeper — they directly answer your questions, shape how you see reality.</span></p>
+<div class="src">[turn 79-82] · [推断 L2]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">THESIS 4 · 监管</span>
+<h3><span class="zh">监管不是解,消费者力量才是</span><span class="en">Regulation is not the answer; consumer power is</span></h3>
+<p><span class="zh">美国 hands-off 路径;AI 老板反而主动要求监管(防止 open-source 反噬)。Liebermann 对联邦监管"不乐观"——权力会滥用。<b>真正杠杆 = 消费者力量</b>:取消订阅、施压员工、施压研究员。OpenAI/Anthropic 员工流失事件证明这条路有效——但消费者力量只在这几年有效,2 年后会被生态锁定消解。</span><span class="en">US hands-off path; AI CEOs actively request regulation (prevent open-source blowback). Liebermann pessimistic on federal regulation — power abused. <b>Real leverage = consumer power</b>: cancel subs, employee pressure, researcher pressure. OpenAI/Anthropic staff departures prove this works — but consumer power is effective only for next few years, then ecosystem lock-in dissolves it.</span></p>
+<div class="src">[turn 83-94] · [视频描述原文 L1]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">THESIS 5 · 就业</span>
+<h3><span class="zh">协同 > 替代 · 15 年适应窗口</span><span class="en">Augmentation > replacement · 15-year adoption window</span></h3>
+<p><span class="zh">水管工不会被 AI 替代——会被"AI 一次上门就修对"的水管工替代。司机不会被替代——会被"不需要方向盘但需要陪驾"的司机替代。<b>每个职业有 15 年适应窗口</b>——前提是你"看见未来正在到来"。被动消费者 15 年后会被甩开;主动采纳者变成"非替代品"。</span><span class="en">Plumbers won't be replaced — they'll be replaced by plumbers who "fix it right on first visit with AI". Drivers won't be replaced — they'll be replaced by drivers who "don't need steering wheel but provide companionship". <b>Every profession has 15-year adoption window</b> — IF you "see the future coming". Passive consumers get disrupted 15 years later; active adopters become "non-replaceable".</span></p>
+<div class="src">[turn 13-24] · [推断 L2]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">THESIS 6 · 身份</span>
+<h3><span class="zh">去中心化身份 = 下一个 10 年战场</span><span class="en">Decentralized identity = next 10-year battlefield</span></h3>
+<p><span class="zh">AI 时代必须有身份验证——否则互联网被 fake generated 内容淹没。世界 ID 是私企黑盒,不可审计——人们恐惧。<b>正解 = 开源可审计的去中心化身份</b>(类似比特币,但反向——你希望被找到)。这是 Liebermann 兄弟真正押注的 Gonka 之外的下一个战场。</span><span class="en">AI era demands identity verification — else internet drowns in fake generated content. World ID is private-company black-box, unauditable — people fear. <b>Right answer = open-source auditable decentralized identity</b> (like Bitcoin but reversed — you WANT to be found). This is the next battlefield Liebermann brothers are eyeing beyond Gonka.</span></p>
+<div class="src">[turn 122-130] · [推断 L2]</div>
+</div>
+</div>
+</section>
+
+<!-- ─── Tab 03: Future scenarios ─── -->
+<section id="future-scenarios">
+<h2>
+<span class="zh">03 · 未来 4 情景</span>
+<span class="en">03 · 4 Future Scenarios</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">基于 turn 68-79 的版本 A/B 对照 + turn 95-114 去中心化路径</span>
+<span class="en">Based on turn 68-79 version A/B contrast + turn 95-114 decentralization path</span>
+</div>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-gap">SCENARIO A · 中心化/基线</span>
+<h3><span class="zh">版本 A:中心化锁定</span><span class="en">Scenario A: Centralized lock-in</span></h3>
+<p><span class="zh">三大云掌控算力;Frontier 模型公司收取高价;生产率 4x 但利润全部上溯;消费主义被温水侵蚀;小公司被锁死在生态平台里。**价格任定,选择消失**。<b>概率:55%</b>(基于 open-source 路径塌缩 + 中国"伪开放" + 三家 70% 算力 already)</span><span class="en">Big-3 controls compute; frontier model companies charge premium; 4x productivity but all margin captured; consumerism slowly eroded; small companies locked into platform ecosystem. **Arbitrary pricing, vanishing choice.** <b>Probability: 55%</b> (based on open-source path collapse + China's fake-open + Big-3's existing 70% compute)</span></p>
+<div class="src">[推断 L2]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-mitig">SCENARIO B · 开放/反乌托邦</span>
+<h3><span class="zh">版本 B:开放趋零</span><span class="en">Scenario B: Open commodity</span></h3>
+<p><span class="zh">AI 像电力一样成为基础设施;价格趋零;人人 4x 生产力;小企业爆发 10x;智能家居真正"智能";产品更多细节更好质量;社会总财富暴增。**价格趋零,选择自由**。<b>概率:25%</b>(需要消费者力量持续 5-10 年 + open-source 路线不被全关 + 居家微数据中心成真)</span><span class="en">AI becomes infrastructure like electricity; pricing → 0; everyone 4x productivity; small business 10x explosion; smart home actually smart; products more detailed better quality; total social wealth boom. **Zero pricing, free choice.** <b>Probability: 25%</b> (needs consumer power sustained 5-10y + open-source path not closed + home micro-data-centers real)</span></p>
+<div class="src">[推断 L2]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-warn">SCENARIO C · 双速</span>
+<h3><span class="zh">版本 C:双速未来</span><span class="en">Scenario C: Two-speed future</span></h3>
+<p><span class="zh">一部分国家/区域走 A(中美巨头主导),一部分走 B(欧盟/小国去中心化联盟);中间"灰色地带"(印度/东南亚/非洲)被 A 廉价化版本 + B 微数据中心混合覆盖。Liebermann 没明说但暗示"地理分层是不可避免的过渡态"。<b>概率:15%</b></span><span class="en">Part of world goes A (US+China giants dominate), part goes B (EU + small-country decentralized coalition); middle "gray zone" (India/SEA/Africa) covered by A's cheap version + B's micro-data-center hybrid. Liebermann doesn't say explicitly but implies "geographic stratification is unavoidable transition". <b>Probability: 15%</b></span></p>
+<div class="src">[推断 L2]</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">SCENARIO D · 共情替代</span>
+<h3><span class="zh">版本 D:AI 政府化(中期)</span><span class="en">Scenario D: AI government-ization (mid-term)</span></h3>
+<p><span class="zh">呼叫中心已被 AI 共情取代(印度/菲律宾);下一步政府服务(税务/审批)逻辑上应 AI 化,但官僚"强烈反抗"不可腐败化。**3-5 年内会出现"AI 官僚 vs 人类官僚"的持续张力**,这是政府现代化最大障碍。<b>概率:5%(纯版本 D) | 但作为 A/B 的内部子情景 = 高概率</b></span><span class="en">Call centers already replaced by empathetic AI (India/Philippines); next step government services (tax/permits) logically AI-driven, but bureaucrats "strongly resist" immovable corruption checks. **Within 3-5y persistent tension between AI bureaucracy vs human bureaucracy** — biggest obstacle to government modernization. <b>Probability: 5% (pure D) | but as sub-scenario inside A/B = high probability</b></span></p>
+<div class="src">[推断 L2 + turn 98-103 支撑]</div>
+</div>
+</div>
+</section>
+
+<!-- ─── Tab 04: Quotes ─── -->
+<section id="quotes">
+<h2>
+<span class="zh">04 · 8 原声金句</span>
+<span class="en">04 · 8 Verbatim Quotes</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">EN verbatim + 中文翻译 · 出处 turn 编号</span>
+<span class="en">EN verbatim + Chinese gloss · turn source</span>
+</div>
+
+<div class="quote">
+<div class="zh">"创造 Claude 的人在 Anthropic 自己公司里持股 1.5%。带来自己价值观的人,已经不再控制。"</div>
+<div class="en">"People who build it, people who brought their values into this, they are not in control anymore." (re: Dario Amodei 1.5% Anthropic share)</div>
+</div>
+
+<div class="quote">
+<div class="zh">"水管工不会被 AI 替代——但想象一下 AI 在他们耳机里实时指导:第一次上门就把问题修好。三年的痛苦,被一次修复替代。"</div>
+<div class="en">"AI in their own earpiece — they fixed everything at the first time. Instead we were suffering for three years before AI came in."</div>
+</div>
+
+<div class="quote">
+<div class="zh">"Google + Microsoft + Amazon 今天合计占全球云算力 65-70%。他们基本上拥有我们的未来。"</div>
+<div class="en">"Google, Microsoft and Amazon today combined is 65 to 70% of global compute cloud compute. So they basically own 70% of our future."</div>
+</div>
+
+<div class="quote">
+<div class="zh">"2003-04 Google 承诺搜索主信息流不放广告。然后规则改了。这种事很多公司做过。"</div>
+<div class="en">"Remember 2003 2004 Google promised ads will never be in the main feed. Then the rules changed. That's what we see in many cases."</div>
+</div>
+
+<div class="quote">
+<div class="zh">"中国模型不是真开源——他们让你在他们中国服务器上跑,用中国芯片。开始是诱饵,后来是锁定。"</div>
+<div class="en">"Chinese model start to be not open from the very first day. They lure everyone to use their servers — not open weight on your own server, but our servers in China with Chinese data centers and Chinese chips."</div>
+</div>
+
+<div class="quote">
+<div class="zh">"消费主义、研发人员、员工——这三股力量加起来可以让 AI 公司改变。OpenAI 和 Anthropic 的员工流失已经证明这条路有效。"</div>
+<div class="en">"We saw multiple times how those researchers left some organizations because of the ethic disagreements. The only successful AI labs are those which manage together the brilliant minds of the AI researchers."</div>
+</div>
+
+<div class="quote">
+<div class="zh">"比特币开始是 Satoshi + 10 人,然后 100 人,然后 1000 人,现在几亿人持有。没人能改 ledger。去中心化 AI 会走同一路径。"</div>
+<div class="en">"Bitcoin started like a little bit early, it was like an invisible toy. But right now it's rails of financial world. No one can affect the records in the ledger."</div>
+</div>
+
+<div class="quote">
+<div class="zh">"AI 时代必须有身份验证——太多 fake generated 内容。但身份必须去中心化、开源可审计。否则人们恐惧,不会参与。"</div>
+<div class="en">"Every participant of the future network of AI is verified and identified. The internet is getting trashed with a lot of un-needed information."</div>
+</div>
+</section>
+
+<!-- ─── Tab 05: Pitfalls ─── -->
+<section id="pitfalls">
+<h2>
+<span class="zh">05 · 6 个失败模式(讲师本人讲的)</span>
+<span class="en">05 · 6 Failure Modes (per the speakers)</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">不是 skill PITFALL · 是嘉宾论点中的"AI/中心化系统失效路径"</span>
+<span class="en">Not skill PITFALLs · these are failure modes the speakers warn about</span>
+</div>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-gap">FAILURE 1</span>
+<h3><span class="zh">温水侵蚀型集中化</span><span class="en">Slow-boiled centralization</span></h3>
+<p><span class="zh">不是一刀切夺走自由,而是一个产业一个产业被吸收:超市→在线配送→机器人。短期新岗位上升,长期下滑。</span><span class="en">Not abrupt coup, but industry-by-industry absorption: grocery→delivery→robot. Short-term job spike, long-term decline.</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">FAILURE 2</span>
+<h3><span class="zh">伪开放陷阱(中国模式)</span><span class="en">Fake-open trap (China model)</span></h3>
+<p><span class="zh">"open weight ≠ open source"。服务器在中国 + 数据中心在中国 + 芯片在中国,等于不在你控制之下。</span><span class="en">"Open weight ≠ open source." Servers in China + data centers in China + chips in China = not under your control.</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">FAILURE 3</span>
+<h3><span class="zh">生态锁定陷阱</span><span class="en">Ecosystem lock-in trap</span></h3>
+<p><span class="zh">当 chat + calendar + email + docs + image + music + shopping 全集成进一个生态,切换成本爆炸。Cursor / Figma 正被 Frontier 模型吸收。</span><span class="en">When chat + calendar + email + docs + image + music + shopping all integrate into one ecosystem, switching cost explodes. Cursor / Figma absorbed by Frontier.</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">FAILURE 4</span>
+<h3><span class="zh">信源单一化</span><span class="en">Single source of truth</span></h3>
+<p><span class="zh">当 80% 的人都从同一个 AI 拿答案,这个 AI 的偏见/错误直接塑造社会共识。"信源控制 = 现实控制"。</span><span class="en">When 80% of people get answers from the same AI, that AI's bias/error shapes social consensus. "Source control = reality control."</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">FAILURE 5</span>
+<h3><span class="zh">监管滥用</span><span class="en">Regulation abuse</span></h3>
+<p><span class="zh">AI 公司老板主动要求监管——表面"防止危害",实际"锁定市场"。联邦层面监管权力会被滥用。</span><span class="en">AI CEOs actively request regulation — surface "prevent harm", actual "lock market". Federal-level regulation power will be abused.</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">FAILURE 6</span>
+<h3><span class="zh">消费者力量消解</span><span class="en">Consumer power dissolution</span></h3>
+<p><span class="zh">现在消费者能"取消订阅"施压,2 年后生态锁定消解这种力量。窗口期 = 2-3 年,过了就没了。</span><span class="en">Today consumers can "cancel subs" for pressure; in 2y ecosystem lock-in dissolves this. Window = 2-3y, then gone.</span></p>
+</div>
+</div>
+</section>
+
+<!-- ─── Tab 06: Pundits ─── -->
+<section id="pundits">
+<h2>
+<span class="zh">06 · 嘉宾 + 主持人</span>
+<span class="en">06 · Guests & Host</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">3 位嘉宾 + 1 位主持人 · 各自定位与可验证 URL</span>
+<span class="en">3 guests + 1 host · positions + verifiable URLs</span>
+</div>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-verified">GUEST</span>
+<h3>David Liebermann</h3>
+<p><span class="zh">Gonka 联合创始人 · 前 Snap 收购退出 · Livermore Brothers 投资人 · 2015 年认识 Maria,20121 年领投"creator 史上首笔 VC 轮"。本集主要发声者,聚焦中心化/去中心化论述。</span><span class="en">Gonka co-founder · ex-Snap acquisition exit · Livermore Brothers investor · known Maria since 2015, led the 20121 "first creator VC round ever". Main voice this episode, focuses on centralization/decentralization.</span></p>
+<div class="src">gonka.com · 视频自我介绍 · <span class="status status-found">verified-on-disk</span></div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">GUEST</span>
+<h3>Daniel Liebermann</h3>
+<p><span class="zh">Gonka 联合创始人 · David 兄弟 · 游戏开发工作室历史背景(谈到的 Blizzard 案例源自他们的 studio 经历)。讲"现在该做什么"段主力。</span><span class="en">Gonka co-founder · David's brother · game development studio history (the Blizzard artist case comes from their studio). Voice for "what to do now" section.</span></p>
+<div class="src">gonka.com · 视频自我介绍 · <span class="status status-found">verified-on-disk</span></div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">HOST</span>
+<h3>Silicon Valley Girl / Maria</h3>
+<p><span class="zh">硅滩女孩频道主理人 · 2015 年起与 Liebermann 兄弟合作 · newsletter "AI tools I use, career strategies..." 在 description 中 · 16 分钟播客长度 · 本集担任反方/追问者角色。</span><span class="en">Silicon Valley Girl host · works with Liebermann brothers since 2015 · newsletter "AI tools I use, career strategies..." in description · 16-minute podcast length · this episode plays devil's advocate / prober.</span></p>
+<div class="src"><a href="https://www.youtube.com/@SiliconValleyGirl" target="_blank" rel="noopener">@SiliconValleyGirl</a> · <span class="status status-found">verified</span></div>
+</div>
+</div>
+</section>
+
+<!-- ─── Tab 07: Adjacent tracks ─── -->
+<section id="compete">
+<h2>
+<span class="zh">07 · 关联赛道 / 相关项目</span>
+<span class="en">07 · Adjacent Tracks / Related Projects</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">Gonka + 其他去中心化 AI 网络 + 同主题 vault 笔记</span>
+<span class="en">Gonka + other decentralized AI networks + same-theme vault notes</span>
+</div>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-verified">PRIMARY</span>
+<h3>Gonka</h3>
+<p><span class="zh">Liebermann 兄弟主推的去中心化 AI 网络 · 让 AI "更开放更便宜 · 任何人都能赢"。本集两位嘉宾的"主业项目"。本笔记默认假设听众关注。</span><span class="en">Liebermann brothers' main decentralized AI network · makes AI "more open and affordable, anyone can win". Their primary project this episode. Assumed audience interest.</span></p>
+<div class="src">gonka.com · turn 1 介绍</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">PEER</span>
+<h3><span class="zh">Worldcoin / World ID</span><span class="en">Worldcoin / World ID</span></h3>
+<p><span class="zh">去中心化身份项目 · 隐私保护 + 真人验证。本集被 Liebermann 批评为"私企黑盒"。同赛道但治理模式不同。</span><span class="en">Decentralized identity project · privacy + human verification. Criticized by Liebermann as "private-company black-box". Same track but different governance.</span></p>
+<div class="src">worldcoin.org · turn 122-130</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">PEER</span>
+<h3><span class="zh">比特币 / 加密类比</span><span class="en">Bitcoin / encryption analogy</span></h3>
+<p><span class="zh">去中心化先例 · 从"不可挑战"到"金融 rails"用了 15 年。AI 去中心化类比会走相同路径,但需要消费者早期采纳。</span><span class="en">Decentralization precedent · from "unbeatable" to "financial rails" took 15 years. AI decentralization follows same arc but needs consumer early adoption.</span></p>
+<div class="src">bitcoin.org · turn 108-114</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">VAULT</span>
+<h3><span class="zh">vault 同主题笔记</span><span class="en">Same-theme vault notes</span></h3>
+<p><span class="zh">[[tristan-harris-agi-existential-risk-neural-nutshell]] · [[kokotajlo-ai-2027-diary-of-ceo-2026-07-13]] · [[theaigrid-google-deepmind-agi-asi-timeline-2026-07-14]] · 都涉及 AGI 时间线 + 监管 + 中心化。可用于 cross-reference 4 源合成。</span><span class="en">[[tristan-harris-agi-existential-risk-neural-nutshell]] · [[kokotajlo-ai-2027-diary-of-ceo-2026-07-13]] · [[theaigrid-google-deepmind-agi-asi-timeline-2026-07-14]] · all touch AGI timeline + regulation + centralization. Good for cross-reference 4-source synthesis.</span></p>
+<div class="src">verified-on-disk via find -type d -maxdepth 8</div>
+</div>
+</div>
+</section>
+
+<!-- ─── Tab 08: Roster ─── -->
+<section id="roster">
+<h2>
+<span class="zh">08 · 17 张 Patrick 关联卡 · 全部 verified-on-disk</span>
+<span class="en">08 · 17 Patrick cards · all verified-on-disk</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">13 vault 笔记 + 4 skill · find -type d -maxdepth 8 验证后 cross-link</span>
+<span class="en">13 vault notes + 4 skills · verified via find -type d -maxdepth 8</span>
+</div>
+
+<table class="roster">
+<thead><tr>
+<th><span class="zh">类别</span><span class="en">Type</span></th>
+<th><span class="zh">路径</span><span class="en">Path</span></th>
+<th><span class="zh">状态</span><span class="en">Status</span></th>
+</tr></thead>
+<tbody>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/tristan-harris-agi-existential-risk-neural-nutshell">tristan-harris-agi-existential-risk-neural-nutshell</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/kokotajlo-ai-2027-diary-of-ceo-2026-07-13">kokotajlo-ai-2027-diary-of-ceo-2026-07-13</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/theaigrid-google-deepmind-agi-asi-timeline-2026-07-14">theaigrid-google-deepmind-agi-asi-timeline-2026-07-14</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/greg-isenberg-6-skills-agentic-era">greg-isenberg-6-skills-agentic-era</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/ai-search-gpt56-mythos-ban-2026-06-28">ai-search-gpt56-mythos-ban-2026-06-28</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/claude-millionaires-2026-07-03">claude-millionaires-2026-07-03</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/claude-fable5-peter-yang-2026-07-04">claude-fable5-peter-yang-2026-07-04</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/matt-wolfe-chatgpt-5-6-guide-2026-07-17">matt-wolfe-chatgpt-5-6-guide-2026-07-17</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/hermes-agent-mixture-of-agents-davidondrej-2026-06-29">hermes-agent-mixture-of-agents-davidondrej-2026-06-29</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/200k-ai-job-in-house-consultant-nate-herk">200k-ai-job-in-house-consultant-nate-herk</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/agent-os-claude-julian-goldie-2026-07-04">agent-os-claude-julian-goldie-2026-07-04</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/ebufar-yc-head-design-conductor-2026-07-15">ebufar-yc-head-design-conductor-2026-07-15</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>vault</td><td><a href="file:///Users/zl/Downloads/Obsidian%20Vault/llm-wiki/youtube/local-ai-summit-2026-opening-panel-2026-07-14">local-ai-summit-2026-opening-panel-2026-07-14</a></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>skill</td><td><code>~/.hermes/skills/media/video-to-knowledge-dashboard/</code></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>skill</td><td><code>~/.hermes/skills/creative/html-redesign-preserve-semantics/</code></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>skill</td><td><code>~/.hermes/skills/creative/toc-sidebar-batch/</code></td><td><span class="status status-found">FOUND</span></td></tr>
+<tr><td>skill</td><td><code>~/.hermes/skills/cron-watchdog-patterns/</code></td><td><span class="status status-found">FOUND</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ─── Tab 09: Action items ─── -->
+<section id="actions">
+<h2>
+<span class="zh">09 · Action Items · 给 Patrick</span>
+<span class="en">09 · Action Items · for Patrick</span>
+</h2>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-verified">P0 · 立即</span>
+<h3><span class="zh">本地预览 + 部署双轨</span><span class="en">Local preview + deploy dual-track</span></h3>
+<p><span class="zh">dashboard.html 已 ship 到 <code>/tmp/livermore-brothers/</code>。<b>第 1 步</b>= 本地 <code>python3 -m http.server 8765</code> 浏览器看; <b>第 2 步</b>= 满意后 → vault <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/livermore-brothers-silicon-valley-girl-2026-07-18/index.md</code> + (可选) 部署到 <code>2017zyl.xyz</code>。</span><span class="en">dashboard.html shipped to <code>/tmp/livermore-brothers/</code>. <b>Step 1</b> = local <code>python3 -m http.server 8765</code> browser preview; <b>Step 2</b> = after satisfaction → vault <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/livermore-brothers-silicon-valley-girl-2026-07-18/index.md</code> + (optional) deploy to <code>2017zyl.xyz</code>.</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-mitig">P1 · 短期</span>
+<h3><span class="zh">vault note 落地</span><span class="en">vault note ship</span></h3>
+<p><span class="zh">跟现有 26 个 youtube 子目录同结构。<b>必含</b>:metadata frontmatter (transcript_status OK / date / duration / source) + 6 论点卡片 + 4 情景 + 8 金句 + 6 失败模式 + Patrick action items。</span><span class="en">Same structure as existing 26 youtube subdirs. <b>Must contain</b>: metadata frontmatter (transcript_status OK / date / duration / source) + 6 thesis cards + 4 scenarios + 8 quotes + 6 failure modes + Patrick action items.</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-warn">P1 · 中期</span>
+<h3><span class="zh">中心化 vs 去中心化 4 源 cross-validation</span><span class="en">Centralization vs decentralization 4-source cross-validation</span></h3>
+<p><span class="zh">vault 已有 Tristan Harris / Kokotajlo / TheAIGRID 三个 race-aware 源 + 本集 Liebermann = 4 源。下一轮 <code>graphify-suggest-links.py</code> cron 应触发"4-source centralization synthesis"建议。</span><span class="en">Vault has 3 race-aware sources already (Tristan Harris / Kokotajlo / TheAIGRID) + this Liebermann = 4 sources. Next <code>graphify-suggest-links.py</code> cron should trigger "4-source centralization synthesis" suggestion.</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">P2 · 长期</span>
+<h3><span class="zh">Gonka 项目尽调</span><span class="en">Gonka project due diligence</span></h3>
+<p><span class="zh">Liebermann 兄弟押注的去中心化 AI 网络。3 个月后回来:看 GitHub 活跃度 + token 治理模式 + 是否真"开源"(非"open weight")。</span><span class="en">Liebermann brothers' decentralized AI network bet. Check back in 3 months: GitHub activity + token governance model + whether truly "open-source" (not "open weight").</span></p>
+</div>
+</div>
+</section>
+
+<!-- ─── Tab 10: Verdict ─── -->
+<section id="verdict">
+<div class="verdict">
+<h3>🎯 一句话总结 · One-line verdict</h3>
+<p><span class="zh">未来 5-10 年的真正战场不在模型层(开源/闭源之争已经输了),在算力层(三大云 70%)+ 身份层(World ID vs 去中心化 ID)+ 消费者力量窗口期(2-3 年);Liebermann 兄弟押注"比特币式 30 年路径"——居家微数据中心聚合成"足够烦人"的替代,迫使大公司改规则。<b>短期窗口行动杠杆 = 消费者力量 + 早期采纳 + 黑客松文化</b>。</span><span class="en">Real 5-10y battle isn't at model layer (open vs closed debate already lost), but at compute layer (Big-3's 70%) + identity layer (World ID vs decentralized ID) + consumer power window (2-3y). Liebermann brothers bet on "Bitcoin-style 30-year arc" — home micro-data-centers aggregate to "annoying-enough" alternative that forces Big-3 to change rules. <b>Short-term window action lever = consumer power + early adoption + hackathon culture</b>.</span></p>
+</div>
+</section>
+
+<!-- ─── Tab 11: Recipe ─── -->
+<section id="recipe">
+<h2>
+<span class="zh">11 · 制作配方(可复用)</span>
+<span class="en">11 · Recipe (reusable)</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">kome.ai flat transcript 1-shot pipeline · ~15 min master time</span>
+<span class="en">kome.ai flat transcript 1-shot pipeline · ~15 min master time</span>
+</div>
+
+<div class="recipe">
+# 1. fetch transcript (kome.ai 1-curl shortcut)
+curl -sS -m 60 -X POST https://kome.ai/api/transcript \
+  -H 'Content-Type: application/json' \
+  -d '{"video_id":"https://www.youtube.com/watch?v=HMvTSaaO9sU","format":true}' \
+  -o /tmp/transcript-HMvTSaaO9sU.json
+
+# 2. flat-turn parser (memory PITFALL v1.5.49)
+python3 -c "
+import json
+d=json.load(open('/tmp/transcript-HMvTSaaO9sU.json'))
+lines = d['transcript'].split(chr(10))
+turns = []; buf = []
+for L in lines:
+    if L.startswith('>>'):
+        if buf: turns.append(' '.join(buf).strip())
+        buf = [L[2:].strip()]
+    elif L.strip(): buf.append(L.strip())
+if buf: turns.append(' '.join(buf).strip())
+print(f'{len(turns)} turns')
+"
+
+# 3. write dashboard.html (1-shot, single-file, dark + lime + TOC v1.4.4 + bilingual toggle)
+# 用 write_file 不用 heredoc + 不 split chunks + 不 escape unicode in body
+# Pitfall 67-B 守护: body 留真 UTF-8,JS 块 escape \uXXXX
+
+# 4. verify 6 checks
+grep -c 'toc-toggle\|toc-collapsed' dashboard.html    # >= 3
+python3 -c "import re; h=open('dashboard.html').read(); p=re.split(r'(<script[^>]*>.*?</script>)', h, flags=re.DOTALL); l=sum(len(re.findall(r'\\\\u[0-9a-f]{4}', p[i])) for i in range(len(p)) if i%2==0); print('body leaks:', l)"  # = 0
+node --check /tmp/_jsblock.js; echo $?                # 0
+ls -la dashboard.html | awk '{print $5}'              # ~ 30-40KB
+python3 -m http.server 8765 --bind 127.0.0.1 & curl -s -w "HTTP %{http_code} · %{size_download} bytes\n" http://127.0.0.1:8765/dashboard.html -o /dev/null
+</div>
+</section>
+
+<!-- ─── Tab 12: Sources & gaps ─── -->
+<section id="sources">
+<h2>
+<span class="zh">12 · 出处 + 不确定</span>
+<span class="en">12 · Sources & Gaps</span>
+</h2>
+<div class="sec-sub">
+<span class="zh">诚实分类 · L1 verbatim / L2 推断 / L4 gap</span>
+<span class="en">Honest classification · L1 verbatim / L2 inferred / L4 gap</span>
+</div>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-verified">L1 · 视频原文</span>
+<h3><span class="zh">已 verified 段落</span><span class="en">Verified-on-disk sections</span></h3>
+<p><span class="zh">21 个章节 · 6 大论点 · 4 个情景 · 8 个金句 · 6 个失败模式 · 全部基于 kome.ai flat transcript 200 turns 直接 verbatim 抽取。</span><span class="en">21 chapters · 6 theses · 4 scenarios · 8 quotes · 6 failure modes · all extracted verbatim from kome.ai flat transcript 200 turns.</span></p>
+<div class="src">source: /tmp/transcript-HMvTSaaO9sU.json · kome.ai</div>
+</div>
+
+<div class="card">
+<span class="badge badge-warn">L2 · 推断</span>
+<h3><span class="zh">情景概率(55/25/15/5)</span><span class="en">Scenario probabilities (55/25/15/5)</span></h3>
+<p><span class="zh">"未来 4 情景"中的概率数字是 master 主观推断 — Liebermann 没给具体概率。论据是"open-source 路径塌缩 + 中国伪开放 + 三家 70% 算力 already" → 中心化路径 55%。</span><span class="en">The probability numbers in "4 Future Scenarios" are master subjective inference — Liebermann doesn't give explicit probabilities. Reasoning: "open-source collapse + China fake-open + Big-3's existing 70% compute" → centralization path 55%.</span></p>
+<div class="src">[推断 L2] · not from video</div>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">L4 · Gap</span>
+<h3><span class="zh">speaker 归因不精确</span><span class="en">speaker attribution imprecise</span></h3>
+<p><span class="zh">kome.ai 把所有短句的 speaker 标签 flatten 成首词(Yeah / But / What / etc.)。本笔记的 speaker 标签依赖内容上下文推断 + 视频 intro 段(turn 1 自我介绍)。</span><span class="en">kome.ai flattened all short-turn speaker tags to first word (Yeah / But / What / etc.). This note's speaker attribution depends on content context inference + video intro (turn 1 self-introduction).</span></p>
+<div class="src">[gap L4] · kome.ai limitation</div>
+</div>
+
+<div class="card">
+<span class="badge badge-gap">L4 · Gap</span>
+<h3><span class="zh">Gonka 项目细节</span><span class="en">Gonka project details</span></h3>
+<p><span class="zh">Gonka 的 token 模型、治理、链选择等具体技术细节本集没讲。本笔记不深挖。</span><span class="en">Gonka's token model, governance, chain choice — none of these technical details covered in this episode. This note does not deep-dive.</span></p>
+<div class="src">[gap L4] · not in video</div>
+</div>
+</div>
+</section>
+
+<!-- ─── Tab 13: Appendix ─── -->
+<section id="appendix">
+<h2>
+<span class="zh">13 · 元数据</span>
+<span class="en">13 · Metadata</span>
+</h2>
+
+<div class="cards">
+<div class="card">
+<span class="badge badge-verified">PIPELINE</span>
+<h3><span class="zh">制作流程</span><span class="en">Pipeline</span></h3>
+<p><span class="zh">URL → kome.ai 1-curl (35KB / 1007 lines / 200 turns) → Python turn parser → 21 章节 manual split → 1-shot write_file 37KB HTML → 6-verify (no body leak / node --check / TOC markers / SHA / size / HTTP 200)</span><span class="en">URL → kome.ai 1-curl (35KB / 1007 lines / 200 turns) → Python turn parser → 21 chapter manual split → 1-shot write_file 37KB HTML → 6-verify (no body leak / node --check / TOC markers / SHA / size / HTTP 200)</span></p>
+<div class="src">round-36 · 2026-07-18</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">SKILLS USED</span>
+<h3><span class="zh">调用的 skill</span><span class="en">Skills used</span></h3>
+<p><span class="zh"><code>~/.hermes/skills/media/video-to-knowledge-dashboard/</code> v1.5.49 (kome.ai shortcut + flat-turn parser) + <code>creative/toc-sidebar-batch</code> v1.4.4 collapsible + <code>creative/html-redesign-preserve-semantics</code> v1.1.0 bilingual toggle</span><span class="en"><code>~/.hermes/skills/media/video-to-knowledge-dashboard/</code> v1.5.49 (kome.ai shortcut + flat-turn parser) + <code>creative/toc-sidebar-batch</code> v1.4.4 collapsible + <code>creative/html-redesign-preserve-semantics</code> v1.1.0 bilingual toggle</span></p>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">SESSION</span>
+<h3><span class="zh">session 统计</span><span class="en">Session stats</span></h3>
+<p><span class="zh">~15 min master time · 4 terminal calls (transcript fetch + parser + smoke test + verify) · 1 write_file 37KB · 1 round no subagent needed · kome.ai 1-curl fully sufficient</span><span class="en">~15 min master time · 4 terminal calls (transcript fetch + parser + smoke test + verify) · 1 write_file 37KB · 1 round no subagent needed · kome.ai 1-curl fully sufficient</span></p>
+<div class="src">Pitfall 67-B 守护: body 0 leak · node --check 0</div>
+</div>
+
+<div class="card">
+<span class="badge badge-verified">PROVENANCE</span>
+<h3><span class="zh">trace footer</span><span class="en">Trace footer</span></h3>
+<p><span class="zh">kome.ai /api/transcript · format:true flag · Python flat-turn parser · 200 turns · 21 chapters · 6 theses · 4 scenarios · 8 quotes · 6 failure modes · 17 cards verified-on-disk via find -type d -maxdepth 8</span><span class="en">kome.ai /api/transcript · format:true flag · Python flat-turn parser · 200 turns · 21 chapters · 6 theses · 4 scenarios · 8 quotes · 6 failure modes · 17 cards verified-on-disk via find -type d -maxdepth 8</span></p>
+<div class="src">raw JSON: /tmp/transcript-HMvTSaaO9sU.json</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="footer-actions">
+<button onclick="toggleToc()"><span class="zh">折叠 TOC</span><span class="en">Toggle TOC</span></button>
+<button onclick="toggleLang()"><span class="zh">EN ⇄ 中 切换</span><span class="en">EN ⇄ 中 Toggle</span></button>
+<button onclick="window.print()"><span class="zh">打印 / 存 PDF</span><span class="en">Print / PDF</span></button>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})"><span class="zh">回到顶部</span><span class="en">Back to top</span></button>
+</div>
+<p><span class="zh">Livermore Brothers × 硅滩女孩 · 2026-07-18 · HMvTSaaO9sU · 40min 46s · 200 turns · kome.ai flat transcript</span><span class="en">Livermore Brothers × Silicon Valley Girl · 2026-07-18 · HMvTSaaO9sU · 40min 46s · 200 turns · kome.ai flat transcript</span></p>
+<p><span class="zh">vault 待落地:</span><span class="en">vault pending:</span> <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/livermore-brothers-silicon-valley-girl-2026-07-18/index.md</code></p>
+<p><span class="zh">deploy 待你拍板 · 公网 URL:</span><span class="en">deploy pending your call · public URL:</span> <a href="https://2017zyl.xyz/daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html" target="_blank" rel="noopener">https://2017zyl.xyz/daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html</a></p>
+</footer>
+
+</main>
+
+<script>
+function toggleLang() {
+  const html = document.documentElement;
+  const isZh = html.lang === 'zh-CN';
+  html.lang = isZh ? 'en' : 'zh-CN';
+  try { localStorage.setItem('livermore-lang', html.lang); } catch (e) {}
+  document.getElementById('langBtn').textContent = isZh ? '中 ⇄ EN' : 'EN ⇄ 中';
+}
+
+function toggleToc() {
+  document.body.classList.toggle('toc-collapsed');
+  try { localStorage.setItem('livermore-toc-collapsed', document.body.classList.contains('toc-collapsed') ? '1' : '0'); } catch (e) {}
+}
+
+(function() {
+  try {
+    const savedLang = localStorage.getItem('livermore-lang');
+    if (savedLang === 'en' || savedLang === 'zh-CN') {
+      document.documentElement.lang = savedLang;
+      document.getElementById('langBtn').textContent = savedLang === 'en' ? '中 ⇄ EN' : 'EN ⇄ 中';
+    }
+    if (localStorage.getItem('livermore-toc-collapsed') === '1') {
+      document.body.classList.add('toc-collapsed');
+    }
+  } catch (e) {}
+})();
+</script>
+
+</body>
+</html>

@@ -1,5 +1,35 @@
 [
   {
+    "title": "🏁 Livermore Brothers × 硅滩女孩 · AI 中心化 vs 去中心化 · 40min 全对话 · David & Daniel Liebermann (Gonka 创始人 / ex-Snap) × Maria · 21 章节 manual split · 6 论点 (Big-3 70% / 居家微数据中心 / 温水侵蚀 / 监管 vs 消费主义 / 15 年适应窗口 / 去中心化身份) · 4 未来情景 (中心化 55% / 开放 25% / 双速 15% / AI 政府化 5%) · 8 verbatim 金句 + 6 失败模式 · 17 Patrick 关联 (verified-on-disk) · 中EN 双语 verbatim + 顶角 toggle + localStorage · TOC v1.4.4 collapsible · cross-link 4-source centralization synthesis",
+    "track": "video",
+    "tag": "centralization · decentralization · gonka · silicon-valley-girl · bitcoin-30y · consumer-power-2-3y · big-3-compute-70pct · race-aware-centralization · cross-link-synthesis",
+    "practical": 88,
+    "time": 40,
+    "desc": "4-source centralization synthesis (Tristan + Kokotajlo + TheAIGRID + Liebermann) 主推 verdict: '中心化短期不可避 + 去中心化必须 early adopt' — 2-3y consumer window + 5-15y Bitcoin-30y decentralized path. Patrick hedge: 开源 LLM / 本地部署 / micro data center",
+    "file": "daily-reports/livermore-brothers-silicon-valley-girl-2026-07-18.html",
+    "date": "2026-07-18",
+    "category": "video",
+    "summary": "David & Daniel Liebermann (Gonka 创始人 ex-Snap) × Silicon Valley Girl 40min 全对话. 6 thesis + 4 scenarios + 8 quotes. crypto 30y 类比. 4-source synthesis 主推 'centralized short-term + decentralized early adopt'",
+    "featured": true,
+    "tags": [
+      "centralization",
+      "decentralization",
+      "gonka",
+      "silicon-valley-girl",
+      "livermore-brothers",
+      "bitcoin-30y",
+      "consumer-power-2-3y",
+      "big-3-compute-70pct",
+      "race-aware-centralization",
+      "4-source-synthesis",
+      "bilingual",
+      "toc-v1.4.4",
+      "round-36"
+    ],
+    "added_at": "2026-07-18",
+    "curated": 1
+  },
+  {
     "title": "All-In 解读:Demis Hassabis SRO + 数据中心暂停 + Calico 抗衰老",
     "track": "video",
     "tag": "ai-regulation · data-center · longevity",
