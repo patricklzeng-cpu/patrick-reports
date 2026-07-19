@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-07-13 ~ 2026-07-19</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-07-13 ~ 2026-07-19 · 聚合 2 天 · 总 22 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">21</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">1</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">2</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">11</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">0</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15072v1" target="_blank" rel="noopener" class="title">Mitigation of Initial Transients in Total-f Gyrokinetic Turbulence Simulations Using Neoclassically Relaxed Distribution Function</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Total-f five-dimensional gyrokinetic simulations are essential for self-consistent studies of multi-scale, multiphysics transport in the edge region of diverted tokamak plasmas. However, conventional initialization with a local Maxwellian distribution often generates large-amplitude transients, particularly geodesic acoustic modes (GAMs). These transients are especially severe in the plasma edge b</div>
+    <div class="authors">👥 S. Ku, R. Hager, C. S. Chang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15019v1" target="_blank" rel="noopener" class="title">An asymptotic-preserving five-moment two-species plasma model coupled to an external magnetohydrodynamic solver</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Accurately modeling collisionless space plasmas requires capturing small-scale kinetic effects while keeping global-scale simulations computationally tractable. Traditional multiscale approaches often rely on localized magnetohydrodynamics (MHD)-particle-in-cell (PIC) coupling or dynamic model hierarchies. In this work, we extend an established, adaptive multi-model hierarchy spanning from fully k</div>
+    <div class="authors">👥 Magnus Deisenhofer, Aleksandr Mustonen, Simon Lautenbach 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.14722v1" target="_blank" rel="noopener" class="title">Computational studies of giant edge islands and unpaired X-points in HSX and W7-X by manipulating coil currents</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">We present magnetic configurations in the Helically Symmetric eXperiment (HSX) and Wendelstein 7-X (W7-X), in which the edge magnetic structure is dominated by island chains which are spatially larger than the previously reported configurations. These ``giant&quot; island chains (with rotational transform $ι=4/3$ or $4/4$ for HSX and $ι=5/6$, $5/5$ or $5/4$ for W7-X) are obtained by reducing the coil c</div>
+    <div class="authors">👥 Robert Davies, Dieter Boeyaert, Alexis Wolfmeister 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.14495v1" target="_blank" rel="noopener" class="title">Microwave Resonant Discharges for Spatiotemporally Selective Plasma Breakdown Near Surfaces</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Generating non-equilibrium plasmas close to surfaces remains a significant challenge for conventional plasma sources. Existing plasma generation schemes create volumetric discharges with limited spatial selectivity that lead to inefficient energy deposition and poor coupling between reactive intermediates and nearby surfaces. This work establishes tailored resonant field enhancement as a mechanism</div>
+    <div class="authors">👥 Arnav Mohapatra, Joshua K. Goodrich, Thomas C. Underwood</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.14496v1" target="_blank" rel="noopener" class="title">Parameter Scan of Multi-Fluid Equilibria in Rotating p-11B Plasmas: Effects on Fusion Power and Bremsstrahlung Losses</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">We present VEQ-MF, a fast spectral parameter-scan framework for two-dimensional axisymmetric multi-fluid equilibria with prescribed species-dependent toroidal rotation. The solver couples generalized Boltzmann density responses, quasineutral electrostatic polarization, and a generalized Grad--Shafranov equation, extending reduced-parameter Grad-Shafranov and VEQ formulations to multi-species rotat</div>
+    <div class="authors">👥 Xingyu Li, Huasheng Xie, Lai Wei 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15276v1" target="_blank" rel="noopener" class="title">Locality of deep thermalisation through the lens of entanglement teleportation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Deep thermalisation characterises the emergence of universal quantum state ensembles on subsystems due to projective measurements on their complement. We study the notion of locality, or lack thereof, in this phenomenon by considering a subsystem partitioned into two disjoint subregions which remain causally disconnected at all times under unitary dynamics. We show that the onset of deep thermalis</div>
+    <div class="authors">👥 Saptarshi Mandal, Alan Sherry, Sthitadhi Roy</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15262v1" target="_blank" rel="noopener" class="title">Dynamic Entanglement Distribution for Multi-User and Multi-Protocol Quantum Networking</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Dynamic entanglement distribution is a key requirement for scalable, multi-user and multi-protocol quantum networks. We demonstrate a metropolitan-scale entanglement-based quantum communication network enabled by a quantum reconfigurable optical add-drop multiplexer (q-ROADM), which dynamically distributes polarisation-entangled photon pairs from a broadband source to six users over deployed campu</div>
+    <div class="authors">👥 Rui Wang, Marcus J. Clark, Obada Alia 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15252v1" target="_blank" rel="noopener" class="title">Coulomb blockade in microscopic material defects as a source of decoherence and noise in solid-state quantum circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">A critical limitation of solid-state quantum devices arises from the materials from which they are fabricated: uncontrolled surfaces, interfaces, and structural imperfections introduce numerous sources of loss and decoherence. Despite extensive efforts, linking these decoherence mechanisms to their microscopic material origins -- essential for developing effective mitigation strategies -- remains</div>
+    <div class="authors">👥 R. Banerjee, L. P. Lindoy, M. Hegedus 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15210v1" target="_blank" rel="noopener" class="title">Counterexamples to additivity of minimum output $p$-Rényi entropy of quantum channels for $p&amp;gt;3/4$ and $0\leq p&amp;lt;1/4$</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Additivity of minimum output entropies is a central problem in quantum information theory. Nonadditivity is known for every Rényi order $p&amp;gt;1$, at the von Neumann point $p=1$, and near $p=0$, while most of the interval $0&amp;lt;p&amp;lt;1$ has remained open. We prove that for every Rényi order $p$ satisfying either $p&amp;gt;3/4$ or $0\leq p&amp;lt;1/4$, there exist finite-dimensional projection-induced quantu</div>
+    <div class="authors">👥 Debbie Leung, Benjamin Lovitz, Peixue Wu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15201v1" target="_blank" rel="noopener" class="title">Entanglement Detection for Two-Qubit and Three-Qubit Pure States via Unitary Transformations and Ancilla State Measurements</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Quantum entanglement is the fundamental hallmark of quantum mechanics and a core resource for realizing long-distance quantum communication and scalable linear quantum computing. Accordingly, the precise detection and quantitative quantification of entanglement constitute a foundational and critical problem in quantum information theory. To date, researchers have proposed numerous sufficient condi</div>
+    <div class="authors">👥 Yu-Hang Liu, Yuan-Hong Tao, Yi-Wen Liu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15184v1" target="_blank" rel="noopener" class="title">Backpropagating Pauli Propagation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">We develop a backpropagation algorithm for evaluating parameter gradients in quantum circuits using Pauli propagation simulation. The method has computational complexity comparable to that of standard sparse Pauli simulation techniques, while producing gradients whose accuracy is of the same order as the corresponding observable expectation values. By exploiting the reversibility of quantum circui</div>
+    <div class="authors">👥 Sheng-Hsuan Lin, Etienne Granet, Kevin Hémery 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15169v1" target="_blank" rel="noopener" class="title">Driven-dissipative superconductivity in moiré heterostructure without attraction</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Dissipative preparation of quantum order offers a route to superconductivity that does not rely on enhancing attractive interactions. Here we propose a driven-dissipative protocol to prepare superconductivity as a stationary state of a two-dimensional moiré heterostructure. The key ingredient is a bilayer moiré platform in which the layer degree of freedom acts as a pseudospin, allowing the pseudo</div>
+    <div class="authors">👥 Tsung-Sheng Huang, Atac Imamoglu, Mohammad Hafezi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15160v1" target="_blank" rel="noopener" class="title">Parameter-Shift Rules for Gradients in Boson Sampling Experiments</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Using a robust photon loss model for photonic quantum experiments, we derive $n-$th order parameter-shift rules for computing gradients of Fock boson sampling transition probabilities where $n$ photons are sent into a lossy interferometer. We also show that in general it is not possible to generalize this gradient recipe to the case of Gaussian boson sampling. Only in the specific case where the t</div>
+    <div class="authors">👥 Marius Trudeau, Pierre-Emmanuel Emeriau, Nicolás Quesada</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15159v1" target="_blank" rel="noopener" class="title">LDGM-Based Quantum Codes for Fault-Tolerant Quantum Computation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">We construct a new family of Calderbank-Shor-Steane (CSS) codes using the generator and parity-check matrices of Low-Density Generator Matrix (LDGM) codes, with row operations applied to both matrices in order to achieve the desired quantum rate. Decoding is performed in an iterative manner, by applying message passing over the associated graph, and discrete Density Evolution (DDE) is used to opti</div>
+    <div class="authors">👥 Yumin Li, Kejing Liu, Hanqing Lou 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15158v1" target="_blank" rel="noopener" class="title">Fast two-dimensional tensor-network contraction via subspace iteration</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">The corner transfer matrix renormalization group (CTMRG) is one of the standard contraction methods for infinite projected entangled-pair states (iPEPS), but its computational cost is dominated by repeated truncated singular value decompositions (SVDs). We introduce subspace-iteration CTMRG (SI-CTMRG), a QR-based projector construction that replaces each large-matrix SVD with an SVD of a much smal</div>
+    <div class="authors">👥 Yining Zhang, Philippe Corboz</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15259v1" target="_blank" rel="noopener" class="title">Long-range and steady-state entanglement of driven-dissipative nitrogen vacancy centers using microwaves as a drive and synthetic antiferromagnet as a dissipator</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">The search for optimal schemes and dissipative environments for mediating long-range entanglement between two distant nitrogen-vacancy centers (NVCs) in diamond is the subject of ongoing vigorous efforts due to potential applications of such microscopic solid-state qubits in quantum sensing and quantum computing. However, stabilizing entanglement of NVCs into steady-state poses a significant chall</div>
+    <div class="authors">👥 Federico Garcia-Gaitan, Branislav K. Nikolic</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15249v1" target="_blank" rel="noopener" class="title">Altermagnetic spin textures coupled to superconductors: Domain wall spin-triplet superconductivity and supercurrent-induced torques</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Motivated by the absence of sizable stray fields and the recently discovered highly non-trivial impact of altermagnetic textures on itinerant electrons, we here study the form of Cooper pairs in spatially varying altermagnets coupled to conventional $s$-wave superconductors. As a consequence of the detrimental impact of altermagnetism on spin-singlet pairing and the local symmetry reduction caused</div>
+    <div class="authors">👥 Yasir Dar, Mathias S. Scheurer, Constantin Schrade</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15215v1" target="_blank" rel="noopener" class="title">Stochastic binary networks with asymmetric and time-delayed interactions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Stochastic binary networks are widely used to describe collective dynamics in complex systems and to perform neuromorphic computation, yet realistic networks often contain both asymmetric interactions and finite signal propagation times that fall outside conventional theories. Here we study stochastic binary networks with asymmetric and time-delayed interactions motivated by experimental observati</div>
+    <div class="authors">👥 Hantao Zhang, Sidra Gibeault, Matthew W. Daniels 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15189v1" target="_blank" rel="noopener" class="title">Gyrotropy from Extrinsic Geometry in Twisted Materials</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Gyrotropy in twisted bilayer graphene can be used as a signature of interlayer electronic coherence. Gyrotropy can emerge in the absence of interlayer coupling in time-reversal symmetric bilayer systems. This gyrotropy originates from the extrinsic geometry associated with the physical geometry of the system and is independent of the structure of the electronic states. We first illustrate this eff</div>
+    <div class="authors">👥 Spenser Talkington, Eugene J Mele</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15120v1" target="_blank" rel="noopener" class="title">Growth-controlled suppression of electrically active defects in CrSBr</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">In CrSBr, as in many crystalline materials, the type and density of defects are expected to strongly influence material behavior. Identifying the underlying atomic defect configurations and controlling their populations during growth are therefore important steps toward understanding and ultimately tailoring its rich magneto-electrical properties. However, systematic control of defects in CrSBr du</div>
+    <div class="authors">👥 Sara R. Tulchinsky, Sergii Grytsiuk, Shen van Hassel 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.14308v1" target="_blank" rel="noopener" class="title">An end-to-end quantum algorithm for weakly nonlinear plasma physics with superquadratic speedup</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Nonlinear kinetic plasma simulation is high-dimensional and classically demanding, while quantum algorithms face different bottlenecks: embedding nonlinear dynamics into a linear computation, loading dense field-interaction data, and efficiently extracting information. We present an end-to-end quantum algorithm, with rigorous convergence guarantees, for a weakly nonlinear kinetic plasma model. The</div>
+    <div class="authors">👥 Bjorn K. Berntson, David Jennings, Matteo Lostaglio 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank" rel="noopener" class="title">Nuclear Fusion Ready for Commercialization?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 17 · ★ 2 · 💬 3</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 2</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15072v1" target="_blank" rel="noopener" class="title">Mitigation of Initial Transients in Total-f Gyrokinetic Turbulence Simulations Using Neoclassically Relaxed Distribution Function</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Total-f five-dimensional gyrokinetic simulations are essential for self-consistent studies of multi-scale, multiphysics transport in the edge region of diverted tokamak plasmas. However, conventional initialization with a local Maxwellian distribution often generates large-amplitude transients, particularly geodesic acoustic modes (GAMs). These transients are especially severe in the plasma edge b</div>
+    <div class="authors">👥 S. Ku, R. Hager, C. S. Chang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank" rel="noopener" class="title">Nuclear Fusion Ready for Commercialization?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 17 · ★ 2 · 💬 3</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15276v1" target="_blank" rel="noopener" class="title">Locality of deep thermalisation through the lens of entanglement teleportation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Deep thermalisation characterises the emergence of universal quantum state ensembles on subsystems due to projective measurements on their complement. We study the notion of locality, or lack thereof, in this phenomenon by considering a subsystem partitioned into two disjoint subregions which remain causally disconnected at all times under unitary dynamics. We show that the onset of deep thermalis</div>
+    <div class="authors">👥 Saptarshi Mandal, Alan Sherry, Sthitadhi Roy</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15262v1" target="_blank" rel="noopener" class="title">Dynamic Entanglement Distribution for Multi-User and Multi-Protocol Quantum Networking</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Dynamic entanglement distribution is a key requirement for scalable, multi-user and multi-protocol quantum networks. We demonstrate a metropolitan-scale entanglement-based quantum communication network enabled by a quantum reconfigurable optical add-drop multiplexer (q-ROADM), which dynamically distributes polarisation-entangled photon pairs from a broadband source to six users over deployed campu</div>
+    <div class="authors">👥 Rui Wang, Marcus J. Clark, Obada Alia 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15252v1" target="_blank" rel="noopener" class="title">Coulomb blockade in microscopic material defects as a source of decoherence and noise in solid-state quantum circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">A critical limitation of solid-state quantum devices arises from the materials from which they are fabricated: uncontrolled surfaces, interfaces, and structural imperfections introduce numerous sources of loss and decoherence. Despite extensive efforts, linking these decoherence mechanisms to their microscopic material origins -- essential for developing effective mitigation strategies -- remains</div>
+    <div class="authors">👥 R. Banerjee, L. P. Lindoy, M. Hegedus 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15210v1" target="_blank" rel="noopener" class="title">Counterexamples to additivity of minimum output $p$-Rényi entropy of quantum channels for $p&amp;gt;3/4$ and $0\leq p&amp;lt;1/4$</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Additivity of minimum output entropies is a central problem in quantum information theory. Nonadditivity is known for every Rényi order $p&amp;gt;1$, at the von Neumann point $p=1$, and near $p=0$, while most of the interval $0&amp;lt;p&amp;lt;1$ has remained open. We prove that for every Rényi order $p$ satisfying either $p&amp;gt;3/4$ or $0\leq p&amp;lt;1/4$, there exist finite-dimensional projection-induced quantu</div>
+    <div class="authors">👥 Debbie Leung, Benjamin Lovitz, Peixue Wu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15201v1" target="_blank" rel="noopener" class="title">Entanglement Detection for Two-Qubit and Three-Qubit Pure States via Unitary Transformations and Ancilla State Measurements</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Quantum entanglement is the fundamental hallmark of quantum mechanics and a core resource for realizing long-distance quantum communication and scalable linear quantum computing. Accordingly, the precise detection and quantitative quantification of entanglement constitute a foundational and critical problem in quantum information theory. To date, researchers have proposed numerous sufficient condi</div>
+    <div class="authors">👥 Yu-Hang Liu, Yuan-Hong Tao, Yi-Wen Liu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15184v1" target="_blank" rel="noopener" class="title">Backpropagating Pauli Propagation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">We develop a backpropagation algorithm for evaluating parameter gradients in quantum circuits using Pauli propagation simulation. The method has computational complexity comparable to that of standard sparse Pauli simulation techniques, while producing gradients whose accuracy is of the same order as the corresponding observable expectation values. By exploiting the reversibility of quantum circui</div>
+    <div class="authors">👥 Sheng-Hsuan Lin, Etienne Granet, Kevin Hémery 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15169v1" target="_blank" rel="noopener" class="title">Driven-dissipative superconductivity in moiré heterostructure without attraction</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Dissipative preparation of quantum order offers a route to superconductivity that does not rely on enhancing attractive interactions. Here we propose a driven-dissipative protocol to prepare superconductivity as a stationary state of a two-dimensional moiré heterostructure. The key ingredient is a bilayer moiré platform in which the layer degree of freedom acts as a pseudospin, allowing the pseudo</div>
+    <div class="authors">👥 Tsung-Sheng Huang, Atac Imamoglu, Mohammad Hafezi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.15160v1" target="_blank" rel="noopener" class="title">Parameter-Shift Rules for Gradients in Boson Sampling Experiments</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-07-18</span>
+    </div>
+    <div class="abstract">Using a robust photon loss model for photonic quantum experiments, we derive $n-$th order parameter-shift rules for computing gradients of Fock boson sampling transition probabilities where $n$ photons are sent into a lossy interferometer. We also show that in general it is not possible to generalize this gradient recipe to the case of Gaussian boson sampling. Only in the specific case where the t</div>
+    <div class="authors">👥 Marius Trudeau, Pierre-Emmanuel Emeriau, Nicolás Quesada</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+
+<section class="introspect-section">
+<h2 class="topic-h2">🪞 Self-Introspection (NEW 2026-07-07 — J-space inspired)</h2>
+<p style="font-size:13px;color:var(--muted);margin-bottom:14px;">
+The aggregator just produced this ranking. This section surfaces what the ranking process <em>considered but didn't put in the dashboard</em> — latent coverage gaps, source bias, items that fell just below cutoff, structural patterns. Inspired by <a href="https://www.youtube.com/watch?v=rKV5JcALQoQ" style="color:var(--accent);">Anthropic J-space research</a>. Confidence: <strong>0.82</strong> · Deep probe verdict: <strong class="inconsistent">⚠️ Inconsistent</strong>
+</p>
+
+<h3 style="font-size:14px;color:var(--accent);margin:12px 0 6px;">Surface probe (what was latent):</h3>
+<ul style="font-size:13px;color:var(--muted);line-height:1.6;padding-left:20px;"><li>All 15 top items carry identical impact=50, indicating the scoring function has collapsed to a tie — either all signals saturate or the impact axis is broken/uncalibrated. This is a structural issue, not a ranking signal.</li><li>All visible top items are arxiv-sourced with '?' for the secondary source field, meaning either the dual-source column isn't rendering or upstream arxiv-only items bypass the secondary-source tagging step entirely. The dashboard is hiding source provenance.</li><li>Topic distribution (fusion=2, hardtech=9, quantum=11) reflects only 22 items but 'items_aggregated' is also 22 — implying a hard cap or a single-source pipeline failure. If the typical weekly universe is larger (e.g. 80-150 items from arxiv + HN + RSS), 22 suggests 3-7 source feeds went silent or the aggregator truncated.</li><li>Fusion is severely under-represented at 2/22 (~9%) despite items [1]-[5] all being plasma/fusion-adjacent (gyrokinetic, plasma model, stellarator edge, microwave discharge, p-B11). Topic classifier likely fuses these into 'plasma' but routes only canonical 'fusion energy' papers into the fusion bucket — a classification boundary bug.</li><li>Items 6-11 are quantum-foundations adjacent (entanglement, chaos, detection) while 12-15 are quantum-computing/hardware (superconductivity, bosonic sampling, codes, tensor networks). These two quantum sub-clusters likely have very different downstream audiences but are merged under one label, hiding whether the week's quantum signal is theory-heavy or hardware-heavy.</li><li>No cutoff-band visibility: items ranked 16-30 and items just-below-30 (which would inform whether to expand the top-N next week) are not exposed. The introspection layer cannot detect whether quantum=11 reflects genuine saturation or a quota artifact.</li><li>Latent risk: absence of HN/RSS attribution in any visible item, combined with only 22 items aggregated, is consistent with an arxiv-only week — possibly because the HN and RSS fetchers silently failed (auth token, rate limit, or schema change) rather than because hardtech news on those channels was genuinely empty.</li></ul>
+
+<h3 style="font-size:14px;color:var(--accent);margin:12px 0 6px;">Recommendations for next week:</h3>
+<ol style="font-size:13px;color:var(--muted);line-height:1.6;padding-left:20px;"><li>Debug the impact scoring: investigate why all top items return impact=50. Add per-item debug fields (raw_score_components, percentile, recency_weight) to at least the top 5 items next run so the tie is diagnosable rather than opaque.</li><li>Add a silent-source detector: log per-source item counts (arxiv, hn, rss_<feed>) and surface a 'source_health' field in the dashboard. If any source returns <50% of its trailing-4-week median, flag it explicitly as 'suspected silent' rather than letting it masquerade as 'no news this week'.</li><li>Split the 'quantum' topic label into 'quantum-foundations' vs 'quantum-computing-hardware' and reclassify items 6-11 vs 12-15 accordingly; simultaneously raise the fusion classifier's recall by broadening it to include 'plasma physics' / 'magnetic confinement' / 'stellarator' keywords so items like [1]-[5] stop being misrouted.</li></ol>
+
+<details style="margin-top:14px;font-size:11px;color:var(--muted);">
+<summary style="cursor:pointer;">Raw introspection JSON (for debugging)</summary>
+<pre style="background:#0a0a0e;padding:10px;border-radius:6px;overflow-x:auto;margin-top:8px;">{
+  "timestamp": "2026-07-19T15:30:37.995919+00:00",
+  "week_end": "2026-07-19",
+  "items_aggregated": 22,
+  "topic_distribution": {
+    "fusion": 2,
+    "hardtech": 9,
+    "quantum": 11
+  },
+  "surface_probe": [
+    "All 15 top items carry identical impact=50, indicating the scoring function has collapsed to a tie — either all signals saturate or the impact axis is broken/uncalibrated. This is a structural issue, not a ranking signal.",
+    "All visible top items are arxiv-sourced with '?' for the secondary source field, meaning either the dual-source column isn't rendering or upstream arxiv-only items bypass the secondary-source tagging step entirely. The dashboard is hiding source provenance.",
+    "Topic distribution (fusion=2, hardtech=9, quantum=11) reflects only 22 items but 'items_aggregated' is also 22 — implying a hard cap or a single-source pipeline failure. If the typical weekly universe is larger (e.g. 80-150 items from arxiv + HN + RSS), 22 suggests 3-7 source feeds went silent or the aggregator truncated.",
+    "Fusion is severely under-represented at 2/22 (~9%) despite items [1]-[5] all being plasma/fusion-adjacent (gyrokinetic, plasma model, stellarator edge, microwave discharge, p-B11). Topic classifier likely fuses these into 'plasma' but routes only canonical 'fusion energy' papers into the fusion bucket — a classification boundary bug.",
+    "Items 6-11 are quantum-foundations adjacent (entanglement, chaos, detection) while 12-15 are quantum-computing/hardware (superconductivity, bosonic sampling, codes, tensor networks). These two quantum sub-clusters likely have very different downstream audiences but are merged under one label, hiding whether the week's quantum signal is theory-heavy or hardware-heavy.",
+    "No cutoff-band visibility: items ranked 16-30 and items just-below-30 (which would inform whether to expand the top-N next week) are not exposed. The introspection layer cannot detect whether quantum=11 reflects genuine saturation or a quota artifact.",
+    "Latent risk: absence of HN/RSS attribution in any visible item, combined with only 22 items aggregated, is consistent with an arxiv-only week — possibly because the HN and RSS fetchers silently failed (auth token, rate limit, or schema change) rather than because hardtech news on those channels was genuinely empty."
+  ],
+  "deep_probe_verdict": "inconsistent_with_no_clear_resolution",
+  "recommendations": [
+    "Debug the impact scoring: investigate why all top items return impact=50. Add per-item debug fields (raw_score_components, percentile, recency_weight) to at least the top 5 items next run so the tie is diagnosable rather than opaque.",
+    "Add a silent-source detector: log per-source item counts (arxiv, hn, rss_<feed>) and surface a 'source_health' field in the dashboard. If any source returns <50% of its trailing-4-week median, flag it explicitly as 'suspected silent' rather than letting it masquerade as 'no news this week'.",
+    "Split the 'quantum' topic label into 'quantum-foundations' vs 'quantum-computing-hardware' and reclassify items 6-11 vs 12-15 accordingly; simultaneously raise the fusion classifier's recall by broadening it to include 'plasma physics' / 'magnetic confinement' / 'stellarator' keywords so items like [1]-[5] stop being misrouted."
+  ],
+  "introspection_confidence": 0.82
+}</pre>
+</details>
+</section>
+
+</body>
+</html>
