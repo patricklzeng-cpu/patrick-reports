@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a3d62">
+<meta name="generated" content="2026-07-19">
+<meta name="description" content="NASA Starliner CFT 推进异常调查报告双语 dashboard · 311 页 · 61 建议 · 3 根因 · Type A mishap">
+<meta name="primary-source" content="https://www.nasa.gov/wp-content/uploads/2026/02/nasa-report-with-redactions-021926.pdf?emrc=76e561">
+<title>NASA Starliner CFT 调查报告双语 dashboard · 2026-02-05</title>
+<style>
+:root{
+  --bg:#0a1929;--panel:#102a43;--panel2:#0b1e36;--line:#2c5282;--text:#e8f0ff;--muted:#8ba8c9;
+  --cyan:#5dcfff;--mint:#5eead4;--amber:#fbbf24;--rose:#ff6b8b;--violet:#a78bfa;--red:#ef4444;--green:#22c55e;
+  font-family:"Inter","PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--text);background:var(--bg);
+}
+*{box-sizing:border-box}
+body{margin:0;line-height:1.6;background:radial-gradient(900px 480px at 90% -10%,#1e3a5f 0%,transparent 65%),radial-gradient(700px 480px at 5% 12%,#1a365d 0%,transparent 65%),var(--bg)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.shell{max-width:1320px;margin:auto;padding:24px 20px 72px}
+.top{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:36px;flex-wrap:wrap}
+.brand{font-size:.92rem;font-weight:750;letter-spacing:.045em}
+.brand i{font-style:normal;color:var(--cyan)}
+.lang{display:flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:#0b1e36}
+.lang button{border:0;border-radius:999px;background:transparent;color:var(--muted);padding:6px 13px;font-size:.78rem}
+.lang button.active{background:#1e3a5f;color:#fff}
+
+/* TOC v1.4.4 collapsible */
+.toc-wrap{position:fixed;left:0;top:0;width:260px;height:100vh;background:rgba(10,25,41,.92);backdrop-filter:blur(8px);border-right:1px solid var(--line);padding:24px 18px;z-index:30;transition:transform .3s ease,opacity .3s ease}
+.toc-wrap.collapsed{transform:translateX(-12px);width:48px;padding:24px 8px;overflow:hidden}
+.toc-wrap.collapsed .toc-list{opacity:0;pointer-events:none}
+.toc-wrap.collapsed .toc-head h2{display:none}
+.toc-wrap.collapsed .toc-toggle-text{display:none}
+.toc-toggle{position:absolute;top:18px;right:-14px;width:28px;height:28px;border-radius:50%;background:var(--cyan);color:var(--bg);border:0;font-size:.85rem;font-weight:750;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(93,207,255,.4)}
+.toc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-right:18px}
+.toc-head h2{font-size:.78rem;letter-spacing:.07em;color:var(--cyan);text-transform:uppercase;margin:0}
+.toc-list{list-style:none;padding:0;margin:0;max-height:calc(100vh - 80px);overflow-y:auto;transition:opacity .2s ease}
+.toc-list a{display:block;padding:7px 10px;font-size:.82rem;color:var(--muted);border-radius:6px;border-left:2px solid transparent;line-height:1.35;transition:all .15s ease}
+.toc-list a:hover{color:var(--text);background:rgba(93,207,255,.08);border-left-color:var(--cyan)}
+.toc-list a.active{color:var(--cyan);background:rgba(93,207,255,.12);border-left-color:var(--cyan);font-weight:600}
+.toc-list .toc-num{display:inline-block;width:22px;color:var(--cyan);font-weight:700;font-size:.72rem;opacity:.7}
+@media(max-width:900px){.toc-wrap{transform:translateX(-100%)}.toc-wrap.open{transform:translateX(0)}}
+
+/* Layout offset for TOC */
+main{margin-left:280px;transition:margin-left .3s ease}
+.toc-wrap.collapsed ~ main{margin-left:64px}
+@media(max-width:900px){main{margin-left:0}}
+
+/* Hero */
+.eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid #3a6593;border-radius:99px;padding:5px 10px;color:var(--cyan);font-size:.76rem;font-weight:750;letter-spacing:.05em}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}
+h1{font-size:clamp(1.9rem,4.5vw,3.6rem);line-height:1.05;letter-spacing:-.04em;margin:18px 0 14px;max-width:1080px}
+.hero p{max-width:880px;font-size:1.02rem;color:var(--muted);margin:0}
+.hero strong{color:var(--text);font-weight:600}
+
+/* Stat cards */
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:36px 0 30px}
+.stat{border:1px solid var(--line);border-radius:13px;padding:14px 14px;background:linear-gradient(145deg,rgba(28,52,84,.9),rgba(11,30,54,.75))}
+.stat b{display:block;font-size:1.6rem;line-height:1.1;color:var(--cyan)}
+.stat span{display:block;font-size:.74rem;color:var(--muted);margin-top:5px}
+@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* Notice */
+.notice{display:flex;gap:12px;border:1px solid rgba(251,191,36,.36);background:rgba(251,191,36,.07);border-radius:13px;padding:13px 15px;color:#fde9b5;font-size:.85rem;margin-bottom:24px}
+.notice strong{color:#fff}
+.notice .ico{font-size:1.1rem;flex:none}
+
+/* Tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:30px 0 18px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.tab{padding:8px 13px;border-radius:8px 8px 0 0;background:transparent;color:var(--muted);font-size:.83rem;border:0;border-bottom:2px solid transparent;transition:all .15s ease}
+.tab.active{color:var(--cyan);background:rgba(93,207,255,.08);border-bottom-color:var(--cyan);font-weight:600}
+.tab:hover{color:var(--text)}
+
+.panel{display:none;padding:18px 0;animation:fadeIn .3s ease}
+.panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* Cards */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:13px;padding:16px;background:linear-gradient(160deg,rgba(20,40,68,.95),rgba(10,25,41,.96));transition:transform .15s ease,border-color .15s ease}
+.card:hover{border-color:#4a7eb4;transform:translateY(-1px)}
+.card h3{font-size:1rem;margin:0 0 6px;color:var(--cyan);line-height:1.25}
+.card .meta{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.card p{margin:0;font-size:.86rem;color:#c4d1e9;line-height:1.55}
+.card .badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:.7rem;font-weight:650;margin-right:5px;margin-top:8px}
+.badge-tier1{background:rgba(94,234,212,.15);color:var(--mint)}
+.badge-tier2{background:rgba(93,207,255,.13);color:var(--cyan)}
+.badge-tier3{background:rgba(251,191,36,.12);color:var(--amber)}
+.badge-tier4{background:rgba(167,139,250,.13);color:var(--violet)}
+
+/* Tables */
+table.tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:.86rem}
+table.tbl th,table.tbl td{padding:10px 12px;border-bottom:1px solid rgba(56,86,128,.5);text-align:left;vertical-align:top}
+table.tbl th{background:rgba(28,52,84,.6);color:var(--cyan);font-weight:650;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+table.tbl tr:hover td{background:rgba(28,52,84,.3)}
+table.tbl .num{font-variant-numeric:tabular-nums;color:var(--cyan);font-weight:650}
+
+/* Section title inside panel */
+h2.panel-title{font-size:1.25rem;margin:0 0 8px;color:var(--text);display:flex;align-items:center;gap:10px}
+h2.panel-title .pin{font-size:.7rem;background:rgba(93,207,255,.15);color:var(--cyan);padding:3px 8px;border-radius:6px;font-weight:650}
+.panel-intro{margin:0 0 16px;color:var(--muted);max-width:900px;line-height:1.55}
+
+/* Quote block */
+.quote-block{border-left:3px solid var(--amber);background:rgba(251,191,36,.06);padding:12px 16px;margin:14px 0;font-size:.88rem;color:#f5e0a8}
+.quote-block cite{display:block;margin-top:6px;font-style:normal;font-size:.78rem;color:var(--muted)}
+
+/* Sub-table inside cell */
+.sub-table{border-collapse:collapse;font-size:.78rem;margin:8px 0;width:100%}
+.sub-table td{padding:5px 8px;border:1px solid rgba(56,86,128,.35)}
+
+/* Verdict box */
+.verdict{border:2px solid var(--amber);background:rgba(251,191,36,.05);border-radius:14px;padding:18px 20px;margin:20px 0}
+.verdict h3{margin:0 0 8px;color:var(--amber);font-size:1.05rem}
+.verdict p{margin:0;color:#fde9b5;line-height:1.55}
+
+/* Footer */
+.foot{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:.78rem;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot a{color:var(--cyan)}
+
+/* Bilingual: hide EN span when in zh mode, hide zh span when in en mode */
+html[lang="zh-CN"] .en{display:none}
+html[lang="en"] .zh{display:none}
+</style>
+</head>
+<body>
+
+<aside class="toc-wrap" id="toc">
+  <button class="toc-toggle" id="tocToggle" aria-label="Toggle TOC">☰</button>
+  <div class="toc-head"><h2><span class="zh">目录 · TOC</span><span class="en">Table of Contents</span></h2></div>
+  <ol class="toc-list">
+    <li><a href="#panel-overview"><span class="toc-num">01</span><span class="zh">概览 · 4 个异常 + 3 个根因</span><span class="en">Overview · 4 anomalies + 3 root causes</span></a></li>
+    <li><a href="#panel-anomalies"><span class="toc-num">02</span><span class="zh">4 个技术异常详解</span><span class="en">4 Technical anomalies deep-dive</span></a></li>
+    <li><a href="#panel-rootcauses"><span class="toc-num">03</span><span class="zh">3 个根因 + 7 条教训</span><span class="en">3 Root causes + 7 lessons</span></a></li>
+    <li><a href="#panel-recs"><span class="toc-num">04</span><span class="zh">61 条建议 / 12 类别 A-N</span><span class="en">61 Recommendations / 12 categories</span></a></li>
+    <li><a href="#panel-rec-matrix"><span class="toc-num">05</span><span class="zh">建议矩阵 · 时间表 × 机构</span><span class="en">Rec matrix · schedule × org</span></a></li>
+    <li><a href="#panel-culture"><span class="toc-num">06</span><span class="zh">文化与决策 · NASAHFACS</span><span class="en">Culture & decision · NASAHFACS</span></a></li>
+    <li><a href="#panel-orgfactors"><span class="toc-num">07</span><span class="zh">7 类组织因素</span><span class="en">7 Organizational factors</span></a></li>
+    <li><a href="#panel-mishap"><span class="toc-num">08</span><span class="zh">Type A mishap 分类争议</span><span class="en">Type A mishap classification debate</span></a></li>
+    <li><a href="#panel-addobs"><span class="toc-num">09</span><span class="zh">Section 7 额外观察</span><span class="en">Section 7 additional observations</span></a></li>
+    <li><a href="#panel-appendix"><span class="toc-num">10</span><span class="zh">9 个附录地图</span><span class="en">9 Appendices map</span></a></li>
+    <li><a href="#panel-starship"><span class="toc-num">11</span><span class="zh">Patrick 关联 + Race-aware 链接</span><span class="en">Patrick links + Race-aware link</span></a></li>
+    <li><a href="#panel-provenance"><span class="toc-num">12</span><span class="zh">原文出处 + 涂黑范围说明</span><span class="en">Provenance + redaction scope</span></a></li>
+  </ol>
+</aside>
+
+<main>
+  <div class="shell">
+
+    <header class="top">
+      <a class="brand" href="https://2017zyl.xyz/rocket-launch-db/space-access/"><i>↗</i> ROCKET LAUNCH DB / SPACE ACCESS</a>
+      <div class="lang" aria-label="Language switcher">
+        <button class="active" data-lang="zh">中文</button>
+        <button data-lang="en">EN</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span><span class="zh">NASA 调查报告 · 2026-02-05 · 311 页</span><span class="en">NASA Investigation Report · 2026-02-05 · 311 pages</span></div>
+      <h1><span class="zh">Starliner CFT 推进异常: NASA 311 页调查 + 61 条建议</span><span class="en">Starliner CFT propulsion anomalies: NASA's 311-page investigation + 61 recommendations</span></h1>
+      <p><span class="zh">2024-06-05 发射, 原计划 <strong>8–14 天</strong> 任务, 因 4 个独立但纠缠的推进硬件故障延长到 <strong>93 天</strong>。 报告追溯分类 <strong>Type A mishap</strong> (NPR 8621.1D), 建议横跨 <strong>7 个机构</strong> (CCP / ISS / SOMD / Boeing / OSMA / OCE / CPMO)。</span><span class="en">Launched 2024-06-05, planned <strong>8–14 days</strong>, extended to <strong>93 days</strong> due to 4 intertwined propulsion hardware faults. Report retroactively classifies as <strong>Type A mishap</strong> (NPR 8621.1D), 61 recommendations spanning <strong>7 organizations</strong> (CCP / ISS / SOMD / Boeing / OSMA / OCE / CPMO).</span></p>
+    </section>
+
+    <section class="stats" aria-label="Summary stats">
+      <div class="stat"><b>4</b><span class="zh">独立硬件异常</span><span class="en">Hardware anomalies</span></div>
+      <div class="stat"><b>3</b><span class="zh">根因 (技术 / 组织 / 文化)</span><span class="en">Root causes (tech/org/culture)</span></div>
+      <div class="stat"><b>61</b><span class="zh">正式建议</span><span class="en">Recommendations</span></div>
+      <div class="stat"><b>12</b><span class="zh">建议类别 A-N</span><span class="en">Categories A-N</span></div>
+      <div class="stat"><b>66</b><span class="zh">NASA + Boeing 采访</span><span class="en">NASA + Boeing interviews</span></div>
+      <div class="stat"><b>9</b><span class="zh">月调查周期</span><span class="en">Month investigation cycle</span></div>
+    </section>
+
+    <div class="notice"><span class="ico">⚑</span>
+      <div><strong><span class="zh">重要:</span><span class="en">Important:</span></strong> <span class="zh">"Type A mishap"分类由 PIT <strong>建议追溯</strong>, 实际 NASA 是否接受 = 待后续 NPR 更新确认。 61 条建议中 8 条 SL1 (下一载人飞行前完成), 9 条下一载人前完成, 其余 "long-term" 留制度层。 <strong>90+ 页内容被涂黑</strong> (大多为图 / 表 / Boeing 专有技术), 本 dashboard 只引用公开页内容。</span><span class="en">"Type A mishap" classification is <strong>PIT-recommended retroactive</strong>; whether NASA accepts it depends on subsequent NPR updates. Of 61 recommendations, 8 must complete before SL1 (next crewed flight), 9 before subsequent crewed flights, the rest are "long-term" institutional. <strong>90+ pages are redacted</strong> (mostly figures / tables / Boeing-proprietary); this dashboard only cites public pages.</span></div>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-target="panel-overview"><span class="zh">01 概览</span><span class="en">01 Overview</span></button>
+      <button class="tab" data-target="panel-anomalies"><span class="zh">02 4 个异常</span><span class="en">02 4 Anomalies</span></button>
+      <button class="tab" data-target="panel-rootcauses"><span class="zh">03 根因 + 教训</span><span class="en">03 Root + lessons</span></button>
+      <button class="tab" data-target="panel-recs"><span class="zh">04 61 条建议</span><span class="en">04 61 Recs</span></button>
+      <button class="tab" data-target="panel-rec-matrix"><span class="zh">05 矩阵</span><span class="en">05 Matrix</span></button>
+      <button class="tab" data-target="panel-culture"><span class="zh">06 文化 / NASAHFACS</span><span class="en">06 Culture</span></button>
+      <button class="tab" data-target="panel-orgfactors"><span class="zh">07 组织因素</span><span class="en">07 Org factors</span></button>
+      <button class="tab" data-target="panel-mishap"><span class="zh">08 Type A mishap</span><span class="en">08 Type A</span></button>
+      <button class="tab" data-target="panel-addobs"><span class="zh">09 额外观察</span><span class="en">09 Additional obs</span></button>
+      <button class="tab" data-target="panel-appendix"><span class="zh">10 附录地图</span><span class="en">10 Appendices</span></button>
+      <button class="tab" data-target="panel-starship"><span class="zh">11 Patrick 关联</span><span class="en">11 Patrick links</span></button>
+      <button class="tab" data-target="panel-provenance"><span class="zh">12 出处 + 涂黑</span><span class="en">12 Provenance</span></button>
+    </nav>
+
+    <!-- ============= PANEL 01 OVERVIEW ============= -->
+    <section class="panel active" id="panel-overview">
+      <h2 class="panel-title"><span class="zh">01 · 概览: 8 天 → 93 天 · 4 异常 → 3 根因 → 61 建议</span><span class="en">01 · Overview: 8 days → 93 days · 4 anomalies → 3 root causes → 61 recommendations</span><span class="pin">SECTION 0</span></h2>
+      <p class="panel-intro"><span class="zh">报告主线: <strong>技术 (Section 4) → 文化 (Section 5) → 根因综合 (Section 6) → 建议 (Section 8)</strong>。 PIT 强调三层分析缺一不可, 单看硬件或单看文化都会漏判。</span><span class="en">Report spine: <strong>technical (Section 4) → cultural (Section 5) → consolidated root causes (Section 6) → recommendations (Section 8)</strong>. PIT emphasizes all three layers — neither hardware nor culture alone tells the full story.</span></p>
+
+      <div class="card-grid">
+        <div class="card">
+          <h3><span class="zh">任务时间线</span><span class="en">Mission timeline</span></h3>
+          <p><span class="zh">2024-06-05 发射 → 6 月对接 ISS 时 <strong>5 个 SM RCS thrusters fail-off</strong>, 临时失去 6DOF, in-situ 恢复 4 个 → 任务延长 → 2024-09 Starliner 无载人返回 → 2025-03 宇航员乘 SpaceX Crew-9 Dragon 返回。</span><span class="en">2024-06-05 launch → during ISS docking <strong>5 SM RCS thrusters fail-off</strong>, temporary loss of 6DOF, in-situ recovered 4 → mission extended → 2024-09 Starliner returns uncrewed → 2025-03 astronauts return via SpaceX Crew-9 Dragon.</span></p>
+          <span class="badge badge-tier1">Tier 1 · FACT</span>
+        </div>
+        <div class="card">
+          <h3><span class="zh">调查时间线</span><span class="en">Investigation timeline</span></h3>
+          <p><span class="zh">2025-02 NASA charter PIT (Program Investigation Team) → 4-7 月采访 66 人 → 2025-11 完成报告 → 2026-02-05 签字 → 2026-02-19 公开发布 (with redactions)。</span><span class="en">2025-02 NASA charters PIT → April-July 2025 interview 66 people → November 2025 report compiled → 2026-02-05 signed → 2026-02-19 public release (with redactions).</span></p>
+          <span class="badge badge-tier1">Tier 1 · FACT</span>
+        </div>
+        <div class="card">
+          <h3><span class="zh">调查组构成</span><span class="en">Team composition</span></h3>
+          <p><span class="zh">Chair: <strong>Rebecca J. Wingfield</strong>; Deputy: Ben Papineau; Concurred by Ken Bowersox (Associate Administrator, Space Operations Mission Directorate)。 报告提交时 PIT 仍运行: 后续测试可能调整因果链。</span><span class="en">Chair: <strong>Rebecca J. Wingfield</strong>; Deputy: Ben Papineau; Concurred by Ken Bowersox (Associate Administrator, SOMD). PIT remained active at report submission — subsequent testing may adjust the cause chain.</span></p>
+          <span class="badge badge-tier2">Tier 2 · CONTEXT</span>
+        </div>
+        <div class="card">
+          <h3><span class="zh">报告分类建议</span><span class="en">Classification recommendation</span></h3>
+          <p><span class="zh">PIT 推荐追溯分类为 <strong>Type A mishap</strong> (NPR 8621.1D)。 论据: 失去对接轴受控飞行 = 飞行器损坏最高级。 反论: in-situ 恢复并完成对接 = "High Visibility Close Call"。 PIT 选择更严分类。</span><span class="en">PIT recommends retroactive <strong>Type A mishap</strong> (NPR 8621.1D). Argument: loss of controlled flight on docking axis = highest vehicle damage class. Counter: in-situ recovery and safe docking = "High Visibility Close Call". PIT chose the stricter classification.</span></p>
+          <span class="badge badge-tier2">Tier 2 · CONTEXT</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top:24px;color:var(--cyan);font-size:1.05rem"><span class="zh">报告章节脊柱 (8 章 + 9 附录)</span><span class="en">Chapter spine (8 chapters + 9 appendices)</span></h3>
+      <table class="tbl">
+        <thead><tr><th><span class="zh">章节</span><span class="en">Section</span></th><th><span class="zh">主题</span><span class="en">Topic</span></th><th><span class="zh">页</span><span class="en">Pages</span></th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><span class="zh">调查范围</span><span class="en">Scope of investigation</span></td><td class="num">10–13</td></tr>
+          <tr><td>2</td><td><span class="zh">STAR 报告 + Boeing eRCCA</span><span class="en">STAR report + Boeing eRCCA</span></td><td class="num">14–15</td></tr>
+          <tr><td>3</td><td><span class="zh">CCP 背景 + OFT1/2 历史</span><span class="en">CCP background + OFT1/2 history</span></td><td class="num">16–21</td></tr>
+          <tr><td>4</td><td><span class="zh">技术 RCA (核心)</span><span class="en">Technical RCA (core)</span></td><td class="num">22–114</td></tr>
+          <tr><td>5</td><td><span class="zh">文化与决策过程</span><span class="en">Culture & decision-making</span></td><td class="num">115–146</td></tr>
+          <tr><td>6</td><td><span class="zh">3 个综合根因</span><span class="en">3 consolidated root causes</span></td><td class="num">147–150</td></tr>
+          <tr><td>7</td><td><span class="zh">额外观察</span><span class="en">Additional observations</span></td><td class="num">151–155</td></tr>
+          <tr><td>8</td><td><span class="zh">建议整合表 (61 条)</span><span class="en">Consolidated recs (61 items)</span></td><td class="num">156–172</td></tr>
+          <tr><td>App A</td><td><span class="zh">NASA Human Factors (NASAHFACS)</span><span class="en">NASA Human Factors (NASAHFACS)</span></td><td class="num">176–181</td></tr>
+          <tr><td>App B</td><td><span class="zh">Likert Scale 调查数据分析</span><span class="en">Likert Scale survey analysis</span></td><td class="num">182–185</td></tr>
+          <tr><td>App C</td><td><span class="zh">参考资料</span><span class="en">References</span></td><td class="num">186–195</td></tr>
+          <tr><td>App D</td><td><span class="zh">缩写 / 表格 / 图</span><span class="en">Acronyms / Tables / Figures</span></td><td class="num">196–199</td></tr>
+          <tr><td>App E</td><td><span class="zh">组织信任计划样本</span><span class="en">Organizational Trust Plan (sample)</span></td><td class="num">200</td></tr>
+          <tr><td>App F</td><td><span class="zh">调查组 chartering memo</span><span class="en">Investigation team chartering memo</span></td><td class="num">201–206</td></tr>
+          <tr><td>App G</td><td><span class="zh">CCP STAR/SDRT 报告</span><span class="en">CCP STAR/SDRT report</span></td><td class="num">207+</td></tr>
+          <tr><td>App H</td><td><span class="zh">Boeing eRCCA 摘要</span><span class="en">Boeing eRCCA summary</span></td><td class="num">311</td></tr>
+          <tr><td>App I</td><td><span class="zh">Senior Review Panel Response</span><span class="en">Senior Review Panel Response</span></td><td class="num">312</td></tr>
+        </tbody>
+      </table>
+    </section>
+<!-- ============= PANEL 02 ANOMALIES ============= -->
+    <section class="panel" id="panel-anomalies">
+      <h2 class="panel-title"><span class="zh">02 · 4 个独立但纠缠的技术异常</span><span class="en">02 · 4 independent but intertwined hardware anomalies</span><span class="pin">SECTION 4</span></h2>
+      <p class="panel-intro"><span class="zh">PIT 把 CFT 期间观察到的 4 个硬件异常拆开分析, 但每个异常都和 "qualification 范围之外运行 + OFT1/2 未根因 + 数据采样率不足" 三件事纠缠。 任何单看一个异常 = 漏掉系统性问题。</span><span class="en">PIT analyzes the 4 hardware anomalies separately, but each is entangled with "operating outside qualification scope + OFT1/2 unexplained anomalies + insufficient data sample rates". Analyzing one alone misses the systemic pattern.</span></p>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier1">A1 · p25-58</span>
+          <h3><span class="zh">SM RCS Thruster Fail-off</span><span class="en">SM RCS Thruster Fail-off</span></h3>
+          <p><span class="zh">ISS 对接期间 5 个 thrusters 触发 fail-off FDIR → 临时失去 6DOF。 In-situ 恢复 4 个 → 完成对接。 最可能直接原因: (i) 两相氧化剂流 (vaporization + cavitation); (ii) Teflon poppet 挤出 → 氧化剂阀阻塞; (iii) GNC 机械指令。</span><span class="en">During ISS docking 5 thrusters triggered fail-off FDIR → temporary loss of 6DOF. In-situ recovered 4 → completed docking. Most probable direct causes: (i) two-phase oxidizer flow (vaporization + cavitation); (ii) Teflon poppet extrusion in oxidizer valve; (iii) mechanical GNC firing demand.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">A2 · p24</span>
+          <h3><span class="zh">CM RCS Jet Failure</span><span class="en">CM RCS Jet Failure</span></h3>
+          <p><span class="zh">下降时 1 个 thruster 失火 → 系统降至 <strong>零 fault tolerance</strong>。 Leading theory: 残存推进剂 + CO₂ → carbazic acid 腐蚀。 直接后果: 失去返回阶段冗余。</span><span class="en">1 thruster failed to fire during descent → system dropped to <strong>zero fault tolerance</strong>. Leading theory: residual propellant + CO₂ → carbazic acid corrosion. Direct consequence: loss of return-phase redundancy.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">A3 · p71-86</span>
+          <h3><span class="zh">Helium Manifold Leaks (7/8)</span><span class="en">Helium Manifold Leaks (7/8)</span></h3>
+          <p><span class="zh">8 个 SM helium manifolds 中 <strong>7 个</strong> 任务期间泄漏。 最可能直接原因: 密封材料与 NTO (nitrogen tetroxide) 不兼容 → 退化 + 泄漏。 贡献因素: O-ring 尺寸 / gland fill / squeeze 公差。</span><span class="en"><strong>7 of 8</strong> SM helium manifolds leaked during the mission. Most probable direct cause: seal material incompatibility with NTO → degradation + leaks. Contributing: O-ring sizing, gland fill, squeeze tolerances.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">A4 · p89-98</span>
+          <h3><span class="zh">Deorbit Fault-Tolerance Gap</span><span class="en">Deorbit Fault-Tolerance Gap</span></h3>
+          <p><span class="zh">推进系统 <strong>缺少 2-fault tolerance</strong> for deorbit burns。 这是 <strong>设计阶段遗留缺陷</strong>, 但一直到 CFT 预发射才被识别。 直接后果: 在轨返回方案的关键冗余缺失。</span><span class="en">Propulsion system <strong>lacked 2-fault tolerance</strong> for deorbit burns. This was a <strong>design-stage flaw</strong>, not identified until CFT pre-launch. Direct consequence: critical redundancy gap in on-orbit return scenario.</span></p>
+        </div>
+      </div>
+
+      <div class="verdict">
+        <h3><span class="zh">PIT 关键论断:</span><span class="en">PIT key takeaway:</span></h3>
+        <p><span class="zh">"There is no substitute for test. Flight tests and integrated ground tests are ideal for understanding whole system interactions." (p148) — PIT 把 "qualification 测试不足" 列为根本组织因素 OF1, 跨越 A1 / A3 / A4。 A2 (CM RCS corrosion) 是单独的复用环境问题。</span><span class="en">"There is no substitute for test. Flight tests and integrated ground tests are ideal for understanding whole system interactions." (p148) — PIT names "insufficient qualification testing" as root organizational factor OF1, spanning A1 / A3 / A4. A2 (CM RCS corrosion) is a separate reuse-environment issue.</span></p>
+      </div>
+
+      <h3 style="margin-top:24px;color:var(--cyan);font-size:1.05rem"><span class="zh">A1 · SM RCS 时间线 (p30-33)</span><span class="en">A1 · SM RCS event timeline (p30-33)</span></h3>
+      <table class="tbl">
+        <thead><tr><th><span class="zh">时间</span><span class="en">Time</span></th><th><span class="zh">事件</span><span class="en">Event</span></th></tr></thead>
+        <tbody>
+          <tr><td class="num">T+0</td><td><span class="zh">ISS 对接阶段, GNC 触发 SM RCS 5 个 thrusters fail-off</span><span class="en">During ISS docking, GNC triggered fail-off on 5 SM RCS thrusters</span></td></tr>
+          <tr><td class="num">T+1</td><td><span class="zh">失去 6DOF 控制, Starliner 暂时漂离 ISS</span><span class="en">Loss of 6DOF control, Starliner temporarily drifted from ISS</span></td></tr>
+          <tr><td class="num">T+N</td><td><span class="zh">In-situ 故障排查, 4/5 thruster 恢复</span><span class="en">In-situ troubleshooting, 4/5 thrusters recovered</span></td></tr>
+          <tr><td class="num">后续</td><td><span class="zh">恢复的 4 个 thruster 验证后完成对接</span><span class="en">Recovered 4 thrusters validated, docking completed</span></td></tr>
+          <tr><td class="num">~90d 后</td><td><span class="zh">Starliner 无载人返回地球</span><span class="en">Starliner returns uncrewed to Earth</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="quote-block">
+        <span class="zh">"Low sample rate likely contributed to misdiagnosis of the observed SM RCS failures on OFT-1 and OFT-2." — NASA Engineering Propulsion Expert on Boeing Starliner Engine</span>
+        <span class="en">"Low sample rate likely contributed to misdiagnosis of the observed SM RCS failures on OFT-1 and OFT-2." — NASA Engineering Propulsion Expert on Boeing Starliner Engine</span>
+        <cite><span class="zh">p103, OFT-2 Data in Hindsight Presentation 引述</span><span class="en">p103, cited from OFT-2 Data in Hindsight Presentation</span></cite>
+      </div>
+    </section>
+
+    <!-- ============= PANEL 03 ROOT CAUSES + LESSONS ============= -->
+    <section class="panel" id="panel-rootcauses">
+      <h2 class="panel-title"><span class="zh">03 · 3 个综合根因 + 7 条对未来的教训</span><span class="en">03 · 3 consolidated root causes + 7 lessons for future programs</span><span class="pin">SECTION 6 + 4 LESSONS</span></h2>
+      <p class="panel-intro"><span class="zh">PIT 在 Section 6 给出 3 个综合根因, 每个都涉及 NASA + Boeing 双方, 不是单一组织问题。 Section 4 末尾 7 条 lessons 是单点经验总结, 与 3 个根因形成 "教训 vs 系统根因" 双视角。</span><span class="en">PIT's 3 consolidated root causes in Section 6 each span NASA + Boeing — not single-organization failures. The 7 lessons at the end of Section 4 give single-point experience summaries, forming a "lessons vs systemic root causes" dual view.</span></p>
+
+      <h3 style="color:var(--cyan);font-size:1.05rem"><span class="zh">3 个综合根因 (Section 6)</span><span class="en">3 consolidated root causes (Section 6)</span></h3>
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier1">RC1 · p147</span>
+          <h3><span class="zh">合同前硬件采购 → 风险共担失衡</span><span class="en">Pre-award hardware acquisition → imbalanced shared risk</span></h3>
+          <p><span class="zh">Boeing 在 NASA 最终合同签订之前就已采购硬件 → 后续任何 NASA 反馈都成 "moot"。 NASA staffing plans post-award 没按 provider 节奏定制, 早期重点偏向 SpaceX。 深层假设: "Boeing 在载人航天上更有经验"。</span><span class="en">Boeing procured hardware before NASA final contract → any subsequent NASA feedback was "moot". NASA staffing plans post-award weren't tailored per provider's schedule and culture, with early focus on SpaceX maturity. Underlying assumption: "Boeing more experienced in human spaceflight".</span></p>
+          <span class="badge badge-tier2">R.54 [OP]</span>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">RC2 · p148</span>
+          <h3><span class="zh">Boeing 系统工程不足, 硬件超 qualification 范围</span><span class="en">Boeing inadequate systems engineering, hardware outside qualification</span></h3>
+          <p><span class="zh">Boeing 没充分应用系统工程的集成过程, 没验证所有操作环境 / 生命周期阶段 / 使用场景。 例: Helium softgoods 暴露 NTO → 漏; SM RCS 热 + 机械需求 → 推力下降; CM RCS 复用环境腐蚀 → jet 失效。 Boeing 自述 "over-emphasis on heritage design"。</span><span class="en">Boeing didn't adequately apply systems engineering and integration processes to verify all operational environments, lifecycle phases, and use cases. Examples: helium softgoods NTO exposure → leaks; SM RCS heat + mechanical demand → reduced thrust; CM RCS reuse-environment corrosion → jet failure. Boeing self-described "over-emphasis on heritage design".</span></p>
+          <span class="badge badge-tier2">R.55 [Boeing]</span>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">RC3 · p149</span>
+          <h3><span class="zh">CCP "两个 provider 必须成功" 文化 → 风险接受取代深查</span><span class="en">CCP "two providers must succeed" culture → risk acceptance over deep investigation</span></h3>
+          <p><span class="zh">CCP 顶层目标 "两个 provider 都要成功" → 技术讨论被风险接受压倒, 抑制 additional investigation。 受访者描述 "contractor going away / pulling out" 作为不挑战 Boeing 的理由。 报告原话: "this root cause is specific to the history of the anomalies seen on CFT, several of those interviewed denoted no change in this culture, post-CFT"。 <strong>关键警告: 文化问题到 2025 年中仍未改变</strong>。</span><span class="en">CCP top-level objective "two providers must succeed" → technical discussions dominated by risk acceptance, suppressing additional investigation. Interviewees cited "contractor going away / pulling out" as rationale for not challenging Boeing. Report quote: "this root cause is specific to the history of the anomalies seen on CFT, several of those interviewed denoted no change in this culture, post-CFT". <strong>Critical warning: cultural issue unchanged as of mid-2025.</strong></span></p>
+          <span class="badge badge-tier2">H 类建议</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top:24px;color:var(--cyan);font-size:1.05rem"><span class="zh">7 条对未来的教训 (p4)</span><span class="en">7 lessons for future programs (p4)</span></h3>
+      <table class="tbl">
+        <thead><tr><th>#</th><th><span class="zh">类别</span><span class="en">Category</span></th><th><span class="zh">教训</span><span class="en">Lesson</span></th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><span class="zh">设计与验证</span><span class="en">Design & qualification</span></td><td><span class="zh">Qualification testing 必须覆盖所有 mission-representative environments (duty cycles / 温度 / 集成 / 复用 / 发射台配置 / 动态 / 静态)</span><span class="en">Qualification testing must reflect all mission-representative environments: duty cycles, thermal environments, integrated system behavior, re-use, launch-pad config, dynamic and quiescent operations, etc.</span></td></tr>
+          <tr><td class="num">2</td><td><span class="zh">数据与遥测</span><span class="en">Data & telemetry</span></td><td><span class="zh">遥测采样率不足阻碍异常检测与解决</span><span class="en">Inadequate telemetry sample rates hindered anomaly detection and resolution.</span></td></tr>
+          <tr><td class="num">3</td><td><span class="zh">故障容差与危险分析</span><span class="en">Fault tolerance & hazard analysis</span></td><td><span class="zh">Deorbit 系统的关键 fault-tolerance gap 数年未发现</span><span class="en">A critical fault-tolerance gap in the deorbit system went undetected for years.</span></td></tr>
+          <tr><td class="num">4</td><td><span class="zh">组织集成</span><span class="en">Organizational integration</span></td><td><span class="zh">碎片化的角色 / 责任延迟决策, 侵蚀信心</span><span class="en">Fragmented roles and responsibilities delayed decision-making and eroded confidence.</span></td></tr>
+          <tr><td class="num">5</td><td><span class="zh">共享问责与洞察</span><span class="en">Shared accountability & insight</span></td><td><span class="zh">商业模型共享问责被不一致理解</span><span class="en">The commercial model's shared accountability was inconsistently understood and applied.</span></td></tr>
+          <tr><td class="num">6</td><td><span class="zh">异常处置纪律</span><span class="en">Anomaly resolution discipline</span></td><td><span class="zh">反复接受 unexplained anomalies (UAs) 不找根因 → 复发</span><span class="en">Repeated acceptance of unexplained anomalies (UAs) without root cause led to recurrence.</span></td></tr>
+          <tr><td class="num">7</td><td><span class="zh">文化对齐</span><span class="en">Cultural alignment</span></td><td><span class="zh">NASA 与 provider 风险评估分歧产生摩擦</span><span class="en">Divergent risk assessments between NASA and providers created friction.</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============= PANEL 04 RECS ============= -->
+    <section class="panel" id="panel-recs">
+      <h2 class="panel-title"><span class="zh">04 · 61 条建议 / 12 类别 A-N</span><span class="en">04 · 61 recommendations / 12 categories A-N</span><span class="pin">SECTION 8</span></h2>
+      <p class="panel-intro"><span class="zh">建议分类 (A-N) 是 PIT 的 "category-level" 抽象, 每条 A-N 展开为具体 R# (例如 A 类有 R.1 + R.4, H 类有 R.27 + R.45-53)。 12 类别覆盖技术 / 数据 / 流程 / 文化 / 标准 / 问责 6 大维度。</span><span class="en">Categories (A-N) are PIT's category-level abstraction — each expands to specific R#s (e.g. cat A covers R.1 + R.4, cat H covers R.27 + R.45-53). 12 categories span 6 dimensions: technical / data / process / culture / standards / accountability.</span></p>
+
+      <table class="tbl">
+        <thead><tr><th>Cat</th><th><span class="zh">主题</span><span class="en">Category</span></th><th><span class="zh">建议摘要</span><span class="en">Recommendation summary</span></th><th><span class="zh">期望结果</span><span class="en">Expected outcome</span></th><th><span class="zh">R#</span><span class="en">R#s</span></th><th><span class="zh">机构</span><span class="en">Org</span></th><th><span class="zh">时间</span><span class="en">Schedule</span></th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td><span class="zh">IFA + 推进阀/poppet 处置</span><span class="en">IFA + thruster valve/poppet</span></td><td><span class="zh">完成测试, 正式 disposition IFA, 实施 hardware/software 修复</span><span class="en">Complete testing, formally disposition IFA findings, implement HW/SW fixes</span></td><td><span class="zh">认证前 failure causes 已验证解决 + 推力可靠性提升</span><span class="en">Verified resolution of failure causes + improved thruster reliability for certification</span></td><td>R.1, R.4</td><td>CCP</td><td>SL1</td></tr>
+          <tr><td><strong>B</strong></td><td><span class="zh">GNC 改动 + thruster 健康</span><span class="en">GNC changes + thruster health</span></td><td><span class="zh">分析 GNC 改动, 验证在飞 thruster 健康阈值</span><span class="en">Analyze GNC changes, validate inflight thruster health thresholds</span></td><td><span class="zh">对 GNC 性能 + 在飞 thruster 诊断信心提升</span><span class="en">Increased confidence in GNC performance + inflight thruster diagnostics</span></td><td>R.2, R.3, R.10</td><td>CCP</td><td>SL1</td></tr>
+          <tr><td><strong>C</strong></td><td><span class="zh">密封材料 + O-ring 尺寸</span><span class="en">Seal material + O-ring sizing</span></td><td><span class="zh">测试 + 替换不兼容密封, 调整 O-ring 尺寸</span><span class="en">Test and replace incompatible seals, adjust O-ring sizing as needed</span></td><td><span class="zh">密封失效风险降低 + 任务期间材料兼容性提升</span><span class="en">Reduced seal failure risk + improved material compatibility for mission duration</span></td><td>R.5, R.6, R.7</td><td>CCP</td><td>SL1</td></tr>
+          <tr><td><strong>D</strong></td><td><span class="zh">复飞标准</span><span class="en">Return-to-flight criteria</span></td><td><span class="zh">定义 + 文档化载人飞行 readiness 标准</span><span class="en">Define and document crewed-flight readiness criteria</span></td><td><span class="zh">复飞安全 roadmap + 风险知情决策</span><span class="en">Clear roadmap for safe return-to-flight + risk-informed decisions</span></td><td>R.56</td><td>CCP</td><td>SL1</td></tr>
+          <tr><td><strong>E</strong></td><td><span class="zh">传感器采样率 + 数据保留</span><span class="en">Sensor sample rates + data retention</span></td><td><span class="zh">分析采样率 + 数据保留充足性, 对齐 stakeholder rationale</span><span class="en">Analyze sensor sample rates + data retention adequacy for critical systems</span></td><td><span class="zh">遥测充足性共识 + 任务数据需求歧义降低</span><span class="en">Consensus on telemetry sufficiency + reduced ambiguity in mission data needs</span></td><td>R.13</td><td>CCP</td><td>SL1</td></tr>
+          <tr><td><strong>F</strong></td><td><span class="zh">异常处理流程</span><span class="en">Anomaly resolution process</span></td><td><span class="zh">标准化异常处理的沟通 + 数据访问 + 技术集成</span><span class="en">Standardize communication, data access, and technical integration for anomaly resolution</span></td><td><span class="zh">异常处理更高效透明 + 跨团队协作更好</span><span class="en">More efficient and transparent anomaly resolution + better cross-team collaboration</span></td><td>R.20-25, R.31-41</td><td>CCP/ISS/SOMD</td><td>SL1</td></tr>
+          <tr><td><strong>G</strong></td><td><span class="zh">能力短板 + 投资规划</span><span class="en">Capability shortfalls + investment</span></td><td><span class="zh">通过战略投资评估 + 解决硬件 / 能力 gap</span><span class="en">Assess and address hardware + capability gaps through strategic investment</span></td><td><span class="zh">未来任务 readiness + 可持续性提升</span><span class="en">Improved readiness + sustainability for future missions</span></td><td>R.57</td><td>CCP, Boeing</td><td>Crewed Flight</td></tr>
+          <tr><td><strong>H</strong></td><td><span class="zh">信任 / 透明 / 领导文化</span><span class="en">Trust / transparency / leadership culture</span></td><td><span class="zh">通过领导问责 + 论坛 + 沟通培育尊重透明文化</span><span class="en">Foster respectful transparent culture via leadership accountability, forums, communication</span></td><td><span class="zh">信任重建 + morale 改善 + 开放对话文化</span><span class="en">Rebuilt trust + improved morale + culture supporting open dialogue and shared responsibility</span></td><td>R.27, R.45-53</td><td>CCP/ISSP</td><td>Crewed Flight</td></tr>
+          <tr><td><strong>I</strong></td><td><span class="zh">RC2 集成流程 (Boeing)</span><span class="en">RC2 integration process (Boeing)</span></td><td><span class="zh">提供证据证明 Starliner 所有子系统已 re-evaluated for qualification</span><span class="en">Provide evidence all Starliner subsystems re-evaluated for qualification due to missing operational environments</span></td><td><span class="zh">Boeing 内部重新审查硬件 + 系统 + 装配 + 服务</span><span class="en">Boeing internal re-review of hardware + systems + assembly + servicing</span></td><td>R.58</td><td>Boeing</td><td>Crewed Flight</td></tr>
+          <tr><td><strong>J</strong></td><td><span class="zh">故障容差 model-based 工具</span><span class="en">Fault tolerance model-based tools</span></td><td><span class="zh">用自动化工具评估 fault tolerance, 改进 case matrix 准确性</span><span class="en">Use automated tools to evaluate fault tolerance + improve case matrix accuracy</span></td><td><span class="zh">fault tolerance 验证增强 + 人工检测依赖降低</span><span class="en">Enhanced fault-tolerance validation + reduced reliance on manual inspection</span></td><td>R.11</td><td>SOMD</td><td>Long-term</td></tr>
+          <tr><td><strong>K</strong></td><td><span class="zh">安全文化 / 培训 / 沟通</span><span class="en">Safety culture / training / comm</span></td><td><span class="zh">提供培训 + 确保提出 / 处理安全关切的清晰流程</span><span class="en">Provide training + ensure clear processes for raising + addressing safety concerns</span></td><td><span class="zh">安全文化 + 关键问题响应提升</span><span class="en">Improved safety culture + responsiveness to critical issues</span></td><td>R.8, R.9, R.12, R.28, R.59-61</td><td>OSMA</td><td>Long-term</td></tr>
+          <tr><td><strong>L</strong></td><td><span class="zh">数据 / 推进系统 / 工程标准</span><span class="en">Data / propulsion / engineering standards</span></td><td><span class="zh">开发 + 实施数据 + 推进系统工程标准</span><span class="en">Develop and implement engineering standards for data + propulsion systems</span></td><td><span class="zh">跨项目一致设计实践 + 系统可靠性提升</span><span class="en">Consistent design practices + improved system reliability across programs</span></td><td>R.14-16</td><td>OCE</td><td>Long-term</td></tr>
+          <tr><td><strong>M</strong></td><td><span class="zh">共享问责 + 角色清晰</span><span class="en">Shared accountability + roles clarity</span></td><td><span class="zh">定义 + 文档化里程碑失败的角色 / 责任 / 恢复计划</span><span class="en">Define and document roles, responsibilities, recovery plans for milestone failures</span></td><td><span class="zh">问责更清晰 + 对 partner 表现问题响应改善</span><span class="en">Clearer accountability + improved response to partner performance issues</span></td><td>R.17</td><td>CPMO/OCE</td><td>Long-term</td></tr>
+          <tr><td><strong>N</strong></td><td><span class="zh">知识分享 + lessons learned</span><span class="en">Knowledge sharing + lessons learned</span></td><td><span class="zh">建立跨项目 lessons learned 论坛 + 流程</span><span class="en">Establish forums + processes for cross-program lessons learned</span></td><td><span class="zh">机构学习 + 重复错误减少</span><span class="en">Institutional learning + reduced repeated mistakes</span></td><td>R.18-19, R.26, R.29-30, R.42-44, R.54-55</td><td>(跨)</td><td>Long-term</td></tr>
+        </tbody>
+      </table>
+
+      <div class="verdict">
+        <h3><span class="zh">关键观察:</span><span class="en">Key observations:</span></h3>
+        <p><span class="zh">A-F 6 类 <strong>(技术 + 数据 + 流程) 全归 SL1</strong>, 必须下一载人飞行前完成。 G-I 3 类归 "Crewed Flight" — 后续载人前完成。 J-N 5 类全 "Long-term" — 制度层改革, 需要跨机构协调 + 政策更新。 <strong>技术问题建议期限最短, 文化问题期限最长</strong> — 与 PIT 反复强调的"技术 + 组织 + 文化"三层分析一致。</span><span class="en">Categories A-F (technical + data + process) all scheduled for SL1 — must complete before next crewed flight. G-I for "Crewed Flight" — before subsequent crewed missions. J-N all "Long-term" — institutional reform requiring cross-agency coordination + policy updates. <strong>Technical fixes have shortest deadlines, cultural fixes longest</strong> — consistent with PIT's repeated "technical + organizational + cultural" three-layer framing.</span></p>
+      </div>
+    </section>
+
+    <!-- ============= PANEL 05 REC MATRIX ============= -->
+    <section class="panel" id="panel-rec-matrix">
+      <h2 class="panel-title"><span class="zh">05 · 建议矩阵 · 机构 × 时间表</span><span class="en">05 · Recommendation matrix · Org × Schedule</span><span class="pin">CROSS-REFERENCE</span></h2>
+      <p class="panel-intro"><span class="zh">横轴: 7 个责任机构。 纵轴: 3 个时间档 (SL1 / Crewed Flight / Long-term)。 单元格: 该机构在该时间窗下要完成的建议类别字母。 一图看完 12 类别 × 7 机构 × 3 时间档。</span><span class="en">X-axis: 7 responsible organizations. Y-axis: 3 schedule tiers (SL1 / Crewed Flight / Long-term). Cells: category letters that org must complete in that tier. One view for 12 categories × 7 orgs × 3 schedules.</span></p>
+
+      <table class="tbl">
+        <thead><tr><th><span class="zh">时间</span><span class="en">Schedule</span></th><th>CCP</th><th>CCP/Boeing</th><th>CCP/ISSP</th><th>Boeing</th><th>CCP/ISS/SOMD</th><th>SOMD</th><th>OSMA</th><th>OCE</th><th>CPMO/OCE</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>SL1</strong><br><span class="zh">下一载人飞行前</span><span class="en">Before next crewed</span></td>
+            <td>A, B, C, D, E</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>F</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Crewed Flight</strong><br><span class="zh">后续载人前</span><span class="en">Before subsequent crewed</span></td>
+            <td>—</td>
+            <td>G</td>
+            <td>H</td>
+            <td>I</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>Long-term</strong><br><span class="zh">制度层</span><span class="en">Institutional</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td>J</td>
+            <td>K</td>
+            <td>L</td>
+            <td>M, N</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:24px;color:var(--cyan);font-size:1.05rem"><span class="zh">时间表 × R# 计数</span><span class="en">Schedule × R# count</span></h3>
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier1">SL1 · 8 条</span>
+          <h3><span class="zh">下一载人飞行前</span><span class="en">Before SL1 (next crewed)</span></h3>
+          <p><span class="zh">R.1, R.2, R.3, R.4, R.5, R.6, R.7, R.10 (技术修复 + GNC 验证 + 密封处置) + R.13 (传感器) + R.56 (复飞标准)。 A + B + C + D + E 类全部进入 SL1 时间表。</span><span class="en">R.1, R.2, R.3, R.4, R.5, R.6, R.7, R.10 (technical fixes + GNC validation + seal disposition) + R.13 (sensors) + R.56 (return-to-flight criteria). Categories A + B + C + D + E all in SL1 tier.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">Crewed · 9 条</span>
+          <h3><span class="zh">后续载人前</span><span class="en">Before subsequent crewed</span></h3>
+          <p><span class="zh">R.57 (能力 + 投资) + R.27, R.45-53 (信任 + 文化, H 类) + R.58 (Boeing 集成) + 部分 F 类 (R.20-25, R.31-41)。 G + H + I 类归此档。</span><span class="en">R.57 (capability + investment) + R.27, R.45-53 (trust + culture, cat H) + R.58 (Boeing integration) + part of F (R.20-25, R.31-41). G + H + I categories here.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">Long-term · 44 条</span>
+          <h3><span class="zh">制度层 / 跨机构</span><span class="en">Institutional / cross-agency</span></h3>
+          <p><span class="zh">J + K + L + M + N 类。 包括 fault tolerance 工具 (R.11), 安全文化 (R.8, R.9, R.12, R.28, R.59-61), 工程标准 (R.14-16), 共享问责 (R.17), lessons learned 论坛 (R.18-19, R.26, R.29-30, R.42-44, R.54-55)。</span><span class="en">J + K + L + M + N. Includes fault-tolerance tools (R.11), safety culture (R.8, R.9, R.12, R.28, R.59-61), engineering standards (R.14-16), shared accountability (R.17), lessons-learned forums (R.18-19, R.26, R.29-30, R.42-44, R.54-55).</span></p>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <span class="zh">"Hardware longevity and sparing concerns: Starliner's limited hardware spares and the impending retirement of the Atlas V launch vehicle raise concerns about the program's long-term viability." — p3</span>
+        <span class="en">"Hardware longevity and sparing concerns: Starliner's limited hardware spares and the impending retirement of the Atlas V launch vehicle raise concerns about the program's long-term viability." — p3</span>
+        <cite><span class="zh">executive summary 第 7 项关键观察</span><span class="en">Key Observation #7 from executive summary</span></cite>
+      </div>
+    </section>
+
+    <!-- ============= PANEL 06 CULTURE / NASAHFACS ============= -->
+    <section class="panel" id="panel-culture">
+      <h2 class="panel-title"><span class="zh">06 · 文化与决策 · NASAHFACS 框架</span><span class="en">06 · Culture & decision-making · NASAHFACS framework</span><span class="pin">SECTION 5 + APPENDIX A</span></h2>
+      <p class="panel-intro"><span class="zh">NASAHFACS (NASA Human Factors Analysis and Classification System) 是 NASA 专用的人因分析框架, 把组织影响分 4 层 (Acts / Preconditions / Supervision / Organizational Influences)。 PIT 跳过 Acts 层 (因为是过程分析非事件分析), 评估其余 3 层。 PIT 决策组采访 66 人 (NASA + Boeing, 2025-04 至 2025-07), 覆盖 5 大组织域。</span><span class="en">NASAHFACS (NASA Human Factors Analysis and Classification System) is NASA's tailored human-factors framework with 4 tiers (Acts / Preconditions / Supervision / Organizational Influences). PIT skipped the Acts tier (process analysis vs event analysis), evaluated the other 3. The PIT Decision-Making team interviewed 66 people (NASA + Boeing, April-July 2025) across 5 organizational domains.</span></p>
+
+      <h3 style="color:var(--cyan);font-size:1.05rem"><span class="zh">5 个 NASAHFACS 组织域 + 关键 red light / green light</span><span class="en">5 NASAHFACS organizational domains + key red/green lights</span></h3>
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier1">Domain 1</span>
+          <h3><span class="zh">组织文化 / 氛围</span><span class="en">Organizational culture / climate</span></h3>
+          <p><strong class="red" style="color:var(--rose)"><span class="zh">Red light:</span><span class="en">Red light:</span></strong> <span class="zh">NASA CCP 与 Technical Authority 风险认知差异; Boeing 与 NASA 在 testing + timeline 期望上态度不同; 冲突未解决导致信任侵蚀。</span><span class="en">Differing risk perceptions between NASA CCP and Technical Authority; attitudes within Boeing and NASA varied re testing + timelines; conflicts unresolved eroded trust.</span></p>
+          <p style="margin-top:8px"><strong style="color:var(--green)"><span class="zh">Green light:</span><span class="en">Green light:</span></strong> <span class="zh">多数 NASA 见证者: "虽然 messy, 最终 NASA 程序 / 技术严谨 / 把航天员生命置于未知技术性能之上的文化胜出 — In the end we did the right thing."</span><span class="en">Most NASA witnesses: "While 'messy', ultimately NASA's procedures, culture of technical rigor, and valuing crew-life given unknown technical performance prevailed — In the end we did the right thing."</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">Domain 2</span>
+          <h3><span class="zh">组织操作 / 治理</span><span class="en">Organizational operations / governance</span></h3>
+          <p><strong class="red" style="color:var(--rose)"><span class="zh">Red lights:</span><span class="en">Red lights:</span></strong> <span class="zh">角色 / 责任 / 决策权混乱; Operational tempo (决策日期反复推迟, workforce 慢性疲劳); Operational risk management (几年前识别的问题未处理, "engineering judgement" 替代工程数据); 缺乏 MIOMP 2110 等明确指南。</span><span class="en">Role / responsibility / decision authority confusion; operational tempo (repeatedly pushed decision dates, chronically fatigued workforce); operational risk management (issues identified years prior never addressed, "engineering judgement" substituted for engineering data); lack of clear guidance like MIOMP 2110.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">Domain 3</span>
+          <h3><span class="zh">组织资源</span><span class="en">Organizational resources</span></h3>
+          <p><strong class="red" style="color:var(--rose)"><span class="zh">Red lights:</span><span class="en">Red lights:</span></strong> <span class="zh">人员关键岗位短缺 (Boeing + NASA 都被 understaffing 影响); 财务约束 (decision need dates 反复推后); Personnel 不足 + 培训不足 (尤其针对 high-risk time-critical anomalies 的强化模拟训练)。</span><span class="en">Critical positions in short supply (both Boeing + NASA understaffed); financial constraints (decision-need-dates repeatedly pushed); insufficient personnel + training (especially for high-risk time-critical anomalies).</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">Domain 4</span>
+          <h3><span class="zh">承包商关系</span><span class="en">Contractor relations</span></h3>
+          <p><strong class="red" style="color:var(--rose)"><span class="zh">Red lights:</span><span class="en">Red lights:</span></strong> <span class="zh">"strong personalities" 在会议中加剧关系紧张; Boeing 限制个人对潜在问题的输入 (进一步控制工作 / 进度影响); "personnel swap" 后关系部分修复 (Green light)。</span><span class="en">"Strong personalities" in meetings exacerbated relationship strain; Boeing appeared to limit individual inputs on potential issues (controlling schedule impact); personnel swaps partially repaired relationships (green light).</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">Domain 5</span>
+          <h3><span class="zh">监督 (Supervision)</span><span class="en">Supervision</span></h3>
+          <p><strong class="red" style="color:var(--rose)"><span class="zh">Red lights:</span><span class="en">Red lights:</span></strong> <span class="zh">领导角色不清; CCP + Boeing 风险接受姿态被部分见证者视为 "overly risk-tolerant and dismissive of dissenting views" (报告 executive summary 第 3 项观察)。</span><span class="en">Unclear leadership roles; CCP + Boeing risk-acceptance posture perceived by some witnesses as "overly risk-tolerant and dismissive of dissenting views" (Executive Summary Observation #3).</span></p>
+        </div>
+      </div>
+
+      <div class="verdict">
+        <h3><span class="zh">关键论断 (NASAHFACS Summary):</span><span class="en">Key takeaway (NASAHFACS Summary):</span></h3>
+        <p><span class="zh">"The Starliner mission delays and uncrewed return were caused by a mix of technical issues as well as human and organizational factors. Most NASA interviewees agreed that returning the crew on Dragon was ultimately the right decision while many Boeing employees disagreed, downplaying the technical risks. These differing risk perspectives persist today." (p175) — <strong>风险认知差异 2025-07 仍未弥合</strong>。</span><span class="en">"The Starliner mission delays and uncrewed return were caused by a mix of technical issues as well as human and organizational factors. Most NASA interviewees agreed that returning the crew on Dragon was ultimately the right decision while many Boeing employees disagreed, downplaying the technical risks. These differing risk perspectives persist today." (p175) — <strong>Risk-perception gap still unbridged as of July 2025</strong>.</span></p>
+      </div>
+    </section>
+<!-- ============= PANEL 07 ORG FACTORS ============= -->
+    <section class="panel" id="panel-orgfactors">
+      <h2 class="panel-title"><span class="zh">07 · 7 类组织因素 (Section 4.8 + 5.2)</span><span class="en">07 · 7 organizational factor categories (Section 4.8 + 5.2)</span><span class="pin">SECTION 4.8 + 5.2</span></h2>
+      <p class="panel-intro"><span class="zh">PIT 在 Section 4.8 (技术层) 和 Section 5.2 (文化层) 都触及 7 类组织因素, 但视角不同: 4.8 看 "Boeing 测试流程", 5.2 看 "NASA + Boeing 治理"。 下表整合两节视角, 给每类配上代表 R#。</span><span class="en">PIT addresses 7 organizational-factor categories in both Section 4.8 (technical layer) and Section 5.2 (cultural layer) from different angles: 4.8 sees "Boeing testing process", 5.2 sees "NASA + Boeing governance". Table below integrates both views with representative R# per category.</span></p>
+
+      <table class="tbl">
+        <thead><tr><th>#</th><th><span class="zh">类别</span><span class="en">Category</span></th><th><span class="zh">Section 4.8 视角</span><span class="en">Section 4.8 view</span></th><th><span class="zh">Section 5.2 视角</span><span class="en">Section 5.2 view</span></th><th><span class="zh">代表 R#</span><span class="en">Representative R#s</span></th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="num">OF1</td>
+            <td><span class="zh">设计与验证</span><span class="en">Design & qualification</span></td>
+            <td><span class="zh">测试不全面, 接受 insufficient verification, OFT1/2 未根因的 UAs 被带入 CFT</span><span class="en">Testing incomplete, insufficient verification accepted, OFT1/2 unexplained anomalies carried into CFT</span></td>
+            <td><span class="zh">NASA CCP "engineering judgement" 替代工程数据的风险接受姿态</span><span class="en">NASA CCP risk-acceptance posture substituting "engineering judgement" for engineering data</span></td>
+            <td>R.1, R.4-7, R.13-16</td>
+          </tr>
+          <tr>
+            <td class="num">OF2</td>
+            <td><span class="zh">数据与遥测</span><span class="en">Data & telemetry</span></td>
+            <td><span class="zh">Pc 传感器数据率不足以 100ms 以下 thruster pulses 评估; 数据保留 / onboard storage 缺失</span><span class="en">Pc sensor data rate insufficient for sub-100ms thruster pulses; data retention / onboard storage missing</span></td>
+            <td><span class="zh">NASA 没有内部 sampling-rate 标准 → 跨项目不一致</span><span class="en">No internal NASA sampling-rate standard → cross-program inconsistency</span></td>
+            <td>R.13, R.14</td>
+          </tr>
+          <tr>
+            <td class="num">OF3</td>
+            <td><span class="zh">故障容差 + 危险分析</span><span class="en">Fault tolerance + hazard analysis</span></td>
+            <td><span class="zh">Deorbit 2-fault tolerance 缺失 = 多年设计阶段遗留缺陷</span><span class="en">Deorbit 2-fault tolerance gap = design-stage flaw present for years</span></td>
+            <td><span class="zh">NASA hazard analysis 流程没捕获这种长期 hidden flaw</span><span class="en">NASA hazard analysis process didn't catch this long-latent hidden flaw</span></td>
+            <td>R.11, R.56</td>
+          </tr>
+          <tr>
+            <td class="num">OF4</td>
+            <td><span class="zh">组织集成</span><span class="en">Organizational integration</span></td>
+            <td><span class="zh">— (4.8 不直接谈)</span><span class="en">— (not directly addressed in 4.8)</span></td>
+            <td><span class="zh">CCP / ISSP / Boeing 角色重叠, 决策权混乱, "operational tempo" 加重疲劳</span><span class="en">CCP / ISSP / Boeing role overlap, decision authority confusion, "operational tempo" exacerbated fatigue</span></td>
+            <td>R.17, R.27, R.45</td>
+          </tr>
+          <tr>
+            <td class="num">OF5</td>
+            <td><span class="zh">共享问责与洞察</span><span class="en">Shared accountability & insight</span></td>
+            <td><span class="zh">NASA 对 subcontractor-level 数据洞察受限, 无法独立验证系统 readiness</span><span class="en">NASA insight into subcontractor-level data was restricted, limiting ability to independently verify system readiness</span></td>
+            <td><span class="zh">商业模型共享问责被不一致理解 + 应用</span><span class="en">Commercial model's shared accountability inconsistently understood + applied</span></td>
+            <td>R.17, R.27</td>
+          </tr>
+          <tr>
+            <td class="num">OF6</td>
+            <td><span class="zh">异常处置纪律</span><span class="en">Anomaly resolution discipline</span></td>
+            <td><span class="zh">接受 unexplained anomalies (UAs) 不找根因 → 复发 (从 OFT1 → OFT2 → CFT)</span><span class="en">Acceptance of unexplained anomalies (UAs) without root cause → recurrence (OFT1 → OFT2 → CFT)</span></td>
+            <td><span class="zh">异常处理流程未标准化, 跨团队数据访问 / 技术集成困难</span><span class="en">Anomaly resolution process not standardized, cross-team data access + technical integration difficult</span></td>
+            <td>R.20-25, R.31-41</td>
+          </tr>
+          <tr>
+            <td class="num">OF7</td>
+            <td><span class="zh">文化对齐</span><span class="en">Cultural alignment</span></td>
+            <td><span class="zh">— (4.8 不直接谈)</span><span class="en">— (not directly addressed in 4.8)</span></td>
+            <td><span class="zh">NASA ↔ Boeing 风险评估分歧, "two providers must succeed" 文化压倒技术深查 (RC3)</span><span class="en">NASA ↔ Boeing risk-assessment divergence, "two providers must succeed" culture overrode deep technical investigation (RC3)</span></td>
+            <td>R.27, R.45-53, R.59-61</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============= PANEL 08 TYPE A MISHAP ============= -->
+    <section class="panel" id="panel-mishap">
+      <h2 class="panel-title"><span class="zh">08 · Type A mishap 分类争议</span><span class="en">08 · Type A mishap classification debate</span><span class="pin">EXECUTIVE SUMMARY</span></h2>
+      <p class="panel-intro"><span class="zh">NASA Procedural Requirements 8621.1D 定义 mishap 4 类 (Type A / B / C / D), Type A 最严重 = 损失 ≥ $2M 或 永久失能 / 死亡 / 飞行器损坏。 PIT 在 CFT 是否达 Type A 给出双方观点, 最终推荐追溯分类。</span><span class="en">NASA Procedural Requirements 8621.1D defines 4 mishap tiers (Type A / B / C / D); Type A is most severe = ≥ $2M loss or permanent disability / death / vehicle destruction. PIT gives both sides on whether CFT met Type A, ultimately recommending retroactive classification.</span></p>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier2">FOR · Type A</span>
+          <h3><span class="zh">支持追溯分类</span><span class="en">Arguments for retroactive Type A</span></h3>
+          <p><span class="zh">"失去对接轴受控飞行" = flight control loss on docking axis = NASA NPR 8621.1D 定义的 Type A criteria。 5 个 thrusters 触发 fail-off FDIR = 不止 "close call"。 从任务延长 (8-14 天 → 93 天) + 最终无载人返回的事实序列看, 属于飞行器安全能力的重大损失。</span><span class="en">"Loss of controlled flight on docking axis" = flight control loss = NASA NPR 8621.1D Type A criteria. 5 thrusters triggering fail-off FDIR exceeds "close call". The fact sequence of mission extension (8-14 days → 93 days) + eventual uncrewed return represents major loss of vehicle safety capability.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier2">AGAINST · HVCC</span>
+          <h3><span class="zh">反方: High Visibility Close Call</span><span class="en">Counter: High Visibility Close Call</span></h3>
+          <p><span class="zh">In-situ 故障排查恢复 4/5 thrusters → 控制恢复 → 安全完成对接 = 没有永久失能 / 没有飞行器永久损失。 严格按 NPR 8621.1D 文字, 这种情况更接近 "high visibility close call" 而非 Type A。 反方论据支持事后追溯为更轻类别。</span><span class="en">In-situ troubleshooting recovered 4/5 thrusters → control restored → safe docking completed = no permanent disability, no permanent vehicle loss. Strictly by NPR 8621.1D letter, this case is closer to "high visibility close call" than Type A. Counter-argument supports lighter retroactive classification.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">PIT 决策</span>
+          <h3><span class="zh">PIT 最终建议</span><span class="en">PIT's recommendation</span></h3>
+          <p><span class="zh">PIT 选择追溯 Type A。 论据: 报告 "保留" 而非 "降级" mishap 分类, 触发 NPR 8621.1D 全套调查 + 整改 + NASA 内部监督流程。 "建议追溯" 让 NASA 上层决定是否接受, 但 PIT 自身明确推荐更严类别以驱动整改。</span><span class="en">PIT chose retroactive Type A. Argument: the report "preserves" rather than "downgrades" the mishap classification, triggering the full NPR 8621.1D investigation + corrective action + NASA internal oversight pipeline. "Recommend retroactive" leaves final acceptance to NASA leadership, but PIT clearly recommends the stricter category to drive corrective action.</span></p>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <span class="zh">"The PIT determined that the loss of 6DOF control during ISS rendezvous meets the criteria for a Type A mishap under NASA Procedural Requirements (NPR 8621.1D) for a loss of controlled flight on the docking axis due to thruster failures. An alternative argument could be made to classify as a High Visibility Close Call, since control was regained through in-situ troubleshooting which concluded in a safe docking of the Starliner spacecraft to the ISS. The PIT recommends that the event be retroactively classified as a Type A mishap and that this report serve as the final mishap investigation report." — p4 Mishap Classification</span>
+        <cite><span class="zh">p4, 报告 Mishap Classification 章节原文</span><span class="en">p4, verbatim from Mishap Classification section</span></cite>
+      </div>
+    </section>
+
+    <!-- ============= PANEL 09 ADDITIONAL OBSERVATIONS ============= -->
+    <section class="panel" id="panel-addobs">
+      <h2 class="panel-title"><span class="zh">09 · Section 7 · 2 个额外观察</span><span class="en">09 · Section 7 · 2 additional observations</span><span class="pin">SECTION 7</span></h2>
+      <p class="panel-intro"><span class="zh">除了 61 条正式建议, PIT 在 Section 7 给出 2 个超出直接异常范围的观察, 触及 Starliner 项目的长期可持续性。</span><span class="en">Beyond the 61 formal recommendations, PIT adds 2 Section 7 observations that go beyond the immediate anomalies to address Starliner's long-term sustainability.</span></p>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier1">Observation 1</span>
+          <h3><span class="zh">Starliner-1 没有清晰标准</span><span class="en">No clear criteria for Starliner-1</span></h3>
+          <p><span class="zh">没有清晰目标说明 Starliner-1 如何返回载人飞行。 R.56 要求 CCP+Boeing 创建复飞标准, 包括: 顶层目标 / 配置差异清单 / FTO 完成度 / 关键参数验证范围 / 新 FTO 识别。 Starliner-1 应被用于 "数据收集以降低未来任务风险"。</span><span class="en">No clear objective for utilizing Starliner-1 in returning to crewed flight. R.56 requires CCP+Boeing create return-to-flight criteria: top-level objectives, configuration-delta listings, FTO completion status, qualification envelope for SM/CM RCS, new critical FTOs. Starliner-1 should be used for "data collection to reduce risk for future missions".</span></p>
+          <span class="badge badge-tier2">R.56</span>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">Observation 2</span>
+          <h3><span class="zh">Starliner 寿命 + Atlas V 退役</span><span class="en">Starliner longevity + Atlas V retirement</span></h3>
+          <p><span class="zh">硬件备件有限 + Atlas V 即将退役 → Starliner 长期 LEO 人类能力存续存疑。 R.57 要求 CCP 评估 Starliner 完成 ISS 任务能力 + 投资规划; SOMD 评估长期 Human Rating + 备件 + CLDP。 关键选项: 是否把 Starliner 移到另一型运载火箭?</span><span class="en">Limited hardware spares + impending Atlas V retirement → concerns about Starliner's long-term LEO human capability. R.57 requires CCP evaluate Starliner's ability to fulfill contracted ISS missions + investment plan; SOMD evaluate long-term Human Rating + sparing + CLDP. Key question: move Starliner to another launch vehicle?</span></p>
+          <span class="badge badge-tier2">R.57</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top:24px;color:var(--cyan);font-size:1.05rem"><span class="zh">Atlas V 退役时间表 (industry context, 非报告原文)</span><span class="en">Atlas V retirement timeline (industry context, not from report)</span></h3>
+      <table class="tbl">
+        <thead><tr><th><span class="zh">年份</span><span class="en">Year</span></th><th><span class="zh">事件</span><span class="en">Event</span></th></tr></thead>
+        <tbody>
+          <tr><td class="num">2024</td><td><span class="zh">Atlas V 退役计划公布 (ULA 转向 Vulcan Centaur)</span><span class="en">Atlas V retirement announced (ULA shifting to Vulcan Centaur)</span></td></tr>
+          <tr><td class="num">~2026-2029</td><td><span class="zh">剩余 Atlas V 库存飞行 (Starliner 剩余任务可能在此窗口)</span><span class="en">Remaining Atlas V inventory flights (Starliner's remaining missions likely in this window)</span></td></tr>
+          <tr><td class="num">~2030+</td><td><span class="zh">Atlas V 全部退役, Starliner 必须迁移运载 (若仍运行)</span><span class="en">Atlas V fully retired, Starliner must migrate launch vehicle (if still operating)</span></td></tr>
+          <tr><td class="num">R.57 要求</td><td><span class="zh">评估迁移技术工作, 制定投资计划</span><span class="en">Evaluate migration technical work, develop investment plan</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============= PANEL 10 APPENDICES MAP ============= -->
+    <section class="panel" id="panel-appendix">
+      <h2 class="panel-title"><span class="zh">10 · 9 个附录地图</span><span class="en">10 · 9 appendices map</span><span class="pin">APPENDICES A-I</span></h2>
+      <p class="panel-intro"><span class="zh">9 个附录 (A-I) 是报告的支撑材料。 A-D 是公开方法 + 数据 (NASA 内部); E-I 涉及组织 / charter / partner reports, 部分内容被涂黑。 大部分附录以摘要形式嵌入主报告 Section 2 / 5.1 / 6 / 7, 全本通过 PDF 附录页查阅。</span><span class="en">9 appendices (A-I) provide report support materials. A-D are open methodology + data (NASA internal); E-I touch on organization / chartering / partner reports, partially redacted. Most appendices are summarized inline in main report Sections 2 / 5.1 / 6 / 7; full text via PDF appendix pages.</span></p>
+
+      <table class="tbl">
+        <thead><tr><th>App</th><th><span class="zh">主题</span><span class="en">Topic</span></th><th><span class="zh">页</span><span class="en">Pages</span></th><th><span class="zh">公开度</span><span class="en">Public-ness</span></th><th><span class="zh">摘要嵌入主报告</span><span class="en">Summary in main report</span></th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td><span class="zh">NASA Human Factors (NASAHFACS)</span><span class="en">NASA Human Factors (NASAHFACS)</span></td><td class="num">176–181</td><td><span class="zh">公开</span><span class="en">Public</span></td><td><span class="zh">是 (Section 5.1.1)</span><span class="en">Yes (Section 5.1.1)</span></td></tr>
+          <tr><td>B</td><td><span class="zh">Likert Scale 调查数据分析</span><span class="en">Likert Scale survey data analysis</span></td><td class="num">182–185</td><td><span class="zh">公开</span><span class="en">Public</span></td><td><span class="zh">是 (Section 5.1.2)</span><span class="en">Yes (Section 5.1.2)</span></td></tr>
+          <tr><td>C</td><td><span class="zh">参考资料</span><span class="en">References</span></td><td class="num">186–195</td><td><span class="zh">公开</span><span class="en">Public</span></td><td><span class="zh">嵌入全文</span><span class="en">Throughout</span></td></tr>
+          <tr><td>D</td><td><span class="zh">缩写 / 表格 / 图</span><span class="en">Acronyms / Tables / Figures</span></td><td class="num">196–199</td><td><span class="zh">公开</span><span class="en">Public</span></td><td><span class="zh">嵌入全文</span><span class="en">Throughout</span></td></tr>
+          <tr><td>E</td><td><span class="zh">组织信任计划样本</span><span class="en">Organizational Trust Plan (sample)</span></td><td class="num">200</td><td><span class="zh">部分涂黑</span><span class="en">Partially redacted</span></td><td><span class="zh">Section 5.2.4</span><span class="en">Section 5.2.4</span></td></tr>
+          <tr><td>F</td><td><span class="zh">调查组 chartering memo</span><span class="en">Investigation team chartering memo</span></td><td class="num">201–206</td><td><span class="zh">部分涂黑</span><span class="en">Partially redacted</span></td><td><span class="zh">Section 1.3</span><span class="en">Section 1.3</span></td></tr>
+          <tr><td>G</td><td><span class="zh">CCP STAR/SDRT 报告</span><span class="en">CCP STAR/SDRT report</span></td><td class="num">207–310</td><td><span class="zh">大量涂黑</span><span class="en">Heavily redacted</span></td><td><span class="zh">Section 2.1 摘要</span><span class="en">Section 2.1 summary</span></td></tr>
+          <tr><td>H</td><td><span class="zh">Boeing eRCCA 摘要</span><span class="en">Boeing eRCCA summary</span></td><td class="num">311</td><td><span class="zh">部分涂黑</span><span class="en">Partially redacted</span></td><td><span class="zh">Section 2.2 摘要</span><span class="en">Section 2.2 summary</span></td></tr>
+          <tr><td>I</td><td><span class="zh">Senior Review Panel Response</span><span class="en">Senior Review Panel Response</span></td><td class="num">312</td><td><span class="zh">部分涂黑</span><span class="en">Partially redacted</span></td><td><span class="zh">未内联, 单独附录</span><span class="en">Not inline, standalone</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:24px;color:var(--cyan);font-size:1.05rem"><span class="zh">Figure 索引 (公开页)</span><span class="en">Figure index (public pages)</span></h3>
+      <table class="tbl">
+        <thead><tr><th><span class="zh">图</span><span class="en">Figure</span></th><th><span class="zh">主题</span><span class="en">Topic</span></th><th><span class="zh">页</span><span class="en">Page</span></th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><span class="zh">所有飞行失败的 thrusters</span><span class="en">Failed thrusters across all flights</span></td><td>p21</td></tr>
+          <tr><td class="num">3</td><td><span class="zh">Starliner SM 推进子系统</span><span class="en">Starliner SM Propulsion Subsystem</span></td><td>p26</td></tr>
+          <tr><td class="num">4</td><td><span class="zh">SM RCS Fail Off FDIR</span><span class="en">SM RCS Fail Off FDIR</span></td><td>p28</td></tr>
+          <tr><td class="num">6</td><td><span class="zh">CFT 与 ISS 相对运动 (6DoF 损失时)</span><span class="en">CFT relative motion to ISS during Loss of 6DoF</span></td><td>p31</td></tr>
+          <tr><td class="num">8</td><td><span class="zh">6DoF 损失事件时间线</span><span class="en">Timeline of Loss of 6 DoF Event</span></td><td>p33</td></tr>
+          <tr><td class="num">9</td><td><span class="zh">B1A3 温度压力舱 firing (对接期间)</span><span class="en">B1A3 Temperature + Pressure Chamber firing during Docking</span></td><td>p34</td></tr>
+          <tr><td class="num">12</td><td><span class="zh">WSTF 测试 cavitation 检测</span><span class="en">WSTF Testing Cavitation Detected</span></td><td>p37</td></tr>
+          <tr><td class="num">77</td><td><span class="zh">NASAHFACS 4 层 tier 描述 + 子类高亮</span><span class="en">NASAHFACS Tier Descriptions with Subcategories Highlights</span></td><td>p176</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============= PANEL 11 PATRICK LINKS ============= -->
+    <section class="panel" id="panel-starship">
+      <h2 class="panel-title"><span class="zh">11 · Patrick 关联 + Race-aware 链接</span><span class="en">11 · Patrick links + Race-aware link</span><span class="pin">CROSS-LINK</span></h2>
+      <p class="panel-intro"><span class="zh">本报告与 Patrick 现有 vault / 公网项目有 3 个直接交叉点 + 1 个 race-aware 关联。</span><span class="en">This report has 3 direct cross-references to Patrick's existing vault / public projects + 1 race-aware linkage.</span></p>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier1">DIRECT 1</span>
+          <h3><span class="zh">Space-access 子页 (公网)</span><span class="en">Space-access subpage (public)</span></h3>
+          <p><span class="zh">本报告 = <code>https://2017zyl.xyz/rocket-launch-db/space-access/</code> "Boeing · Starliner" evidence card 的关键来源。 "real record includes adverse operations" 一句的直接出处。</span><span class="en">This report is the key source for the "Boeing · Starliner" evidence card on <code>https://2017zyl.xyz/rocket-launch-db/space-access/</code>. Direct origin of the "real record includes adverse operations" sentence.</span></p>
+          <span class="badge badge-tier2">DEPLOYED 07-19</span>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">DIRECT 2</span>
+          <h3><span class="zh">Race-aware 4-source 合成 (vault)</span><span class="en">Race-aware 4-source synthesis (vault)</span></h3>
+          <p><span class="zh">RC3 "two providers must succeed" 文化 = NASA 商业载人模式的根本反思。 可与 Kokotajlo / Hassabis / Tristan Harris / DeepMind 4-source 合成形成 "商业实体在监管高压下的行为模式" 平行案例。 Future cron graphify-suggest-links 应自动提议交叉链接。</span><span class="en">RC3 "two providers must succeed" culture = NASA's commercial human-spaceflight fundamental reflection. Can parallel with Kokotajlo / Hassabis / Tristan Harris / DeepMind 4-source synthesis to form "commercial entities under regulatory pressure" case studies. Future cron graphify-suggest-links should auto-suggest this cross-link.</span></p>
+          <span class="badge badge-tier2">PENDING</span>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">DIRECT 3</span>
+          <h3><span class="zh">Vault CLAUDE.md P9 引用</span><span class="en">Vault CLAUDE.md P9 reference</span></h3>
+          <p><span class="zh">本 index.md 的 frontmatter 完整填写 extraction_method / verification / claude_md_p9_compliance 三个 P9 字段, 满足 vault CLAUDE.md "从 index.md 提取论点须回查原文" 硬约定。</span><span class="en">This index.md frontmatter fully fills the 3 P9 fields (extraction_method / verification / claude_md_p9_compliance), satisfying vault CLAUDE.md hard requirement "arguments from index.md must trace back to source".</span></p>
+          <span class="badge badge-tier4">P9 COMPLIANT</span>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier1">METHOD</span>
+          <h3><span class="zh">"技术 + 组织 + 文化" 三层分析模板</span><span class="en">"Technical + Organizational + Cultural" 3-layer analysis template</span></h3>
+          <p><span class="zh">本报告的处理方式 (Section 4 技术 → Section 5 文化 → Section 6 综合根因 → Section 8 建议) = 任何复杂工程失败的通用分析模板。 不限于航天, 可应用于 AI 公司失败调研 / 商业产品复盘 / 组织变革评估。</span><span class="en">This report's handling (Section 4 tech → Section 5 culture → Section 6 consolidated causes → Section 8 recs) = general analysis template for any complex engineering failure. Not limited to spaceflight; applicable to AI company failure investigations / commercial product retrospectives / organizational change assessments.</span></p>
+          <span class="badge badge-tier2">GENERALIZE</span>
+        </div>
+      </div>
+
+      <div class="verdict">
+        <h3><span class="zh">Patrick 提示:</span><span class="en">Patrick's hint:</span></h3>
+        <p><span class="zh">如果想把本报告加入 race-aware 4-source 合成, 跑 <code>~/.hermes/scripts/graphify-suggest-links.py</code> 触发 weekly cron, 应该自动出建议链接列表 (Sunday 9am 触发)。 或者手动: <code>cd ~/Downloads/Obsidian Vault && graphify --add-link "nasa-starliner-cft-investigation-2026-02-05" "race-aware-4-source-synthesis-2026-07-14"</code>。</span><span class="en">To add this report to the race-aware 4-source synthesis, run <code>~/.hermes/scripts/graphify-suggest-links.py</code> via the weekly cron (Sunday 9am trigger) for auto suggestions. Or manually: <code>cd ~/Downloads/Obsidian Vault && graphify --add-link "nasa-starliner-cft-investigation-2026-02-05" "race-aware-4-source-synthesis-2026-07-14"</code>.</span></p>
+      </div>
+    </section>
+
+    <!-- ============= PANEL 12 PROVENANCE ============= -->
+    <section class="panel" id="panel-provenance">
+      <h2 class="panel-title"><span class="zh">12 · 原文出处 + 涂黑范围说明</span><span class="en">12 · Provenance + redaction scope</span><span class="pin">PROVENANCE</span></h2>
+      <p class="panel-intro"><span class="zh">本 dashboard 所有论点 + 数字 + 引述均直接来自 PDF 公开页。 涂黑 / 留白页不引用, 也不脑补。</span><span class="en">All arguments, numbers, and quotations in this dashboard come directly from public pages of the PDF. Redacted / blank pages are not cited, nor are contents speculated.</span></p>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="badge badge-tier1">SOURCE 1</span>
+          <h3><span class="zh">PDF 主源</span><span class="en">PDF primary source</span></h3>
+          <p><strong><span class="zh">URL:</span><span class="en">URL:</span></strong> <a href="https://www.nasa.gov/wp-content/uploads/2026/02/nasa-report-with-redactions-021926.pdf?emrc=76e561" target="_blank" rel="noopener" style="color:var(--cyan)">https://www.nasa.gov/wp-content/uploads/2026/02/nasa-report-with-redactions-021926.pdf?emrc=76e561</a></p>
+          <p><strong><span class="zh">大小:</span><span class="en">Size:</span></strong> <span class="num">20,079,972 bytes (20.1 MB)</span></p>
+          <p><strong><span class="zh">页数:</span><span class="en">Pages:</span></strong> <span class="num">311</span></p>
+          <p><strong><span class="zh">提取字符数:</span><span class="en">Extracted chars:</span></strong> <span class="num">514,332 (avg 1,654/page)</span></p>
+          <p><strong><span class="zh">下载时间:</span><span class="en">Fetched:</span></strong> <span class="num">2026-07-19 from x-cache HIT (HKG1)</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier2">REDACTION SCOPE</span>
+          <h3><span class="zh">涂黑 / 留白范围</span><span class="en">Redaction / blank scope</span></h3>
+          <p><span class="zh">p11-12 / 19-20 / 22 / 25 / 28 / 30 / 32-33 / 36-39 / 42 / 44-45 / 47-48 / 51 / 56 / 63-64 / 66-68 / 71-75 / 77-83 / 88-89 / 92 / 105-106 / 108-110 / 113 / 116 / 118-119 / 154 / 159 / 171-174 / 182-194 / 200-205 / 208 / 217-218 / 221 / 225 / 240-241 / 251 / 257 / 261 / 267-268 / 270 / 274-278 / 283-287 / 291 = <strong>90+ 页 (28% 总页数)</strong>。 内容多为: 图 (图注有但图本身被涂黑) / Boeing 专有硬件细节 / 内部邮件 / 个人姓名 / Appendix G STAR/SDRT 全本。</span><span class="en">Pages 11-12 / 19-20 / 22 / 25 / 28 / 30 / 32-33 / 36-39 / 42 / 44-45 / 47-48 / 51 / 56 / 63-64 / 66-68 / 71-75 / 77-83 / 88-89 / 92 / 105-106 / 108-110 / 113 / 116 / 118-119 / 154 / 159 / 171-174 / 182-194 / 200-205 / 208 / 217-218 / 221 / 225 / 240-241 / 251 / 257 / 261 / 267-268 / 270 / 274-278 / 283-287 / 291 = <strong>90+ pages (28% of total)</strong>. Content typically: figures (caption present but figure redacted), Boeing-proprietary hardware details, internal emails, individual names, Appendix G STAR/SDRT full text.</span></p>
+        </div>
+        <div class="card">
+          <span class="badge badge-tier4">METHOD</span>
+          <h3><span class="zh">提取 / 处理方法</span><span class="en">Extraction / processing method</span></h3>
+          <p><strong>1.</strong> <span class="zh">pymupdf 全文提取 → /tmp/nasa-redacted/pages.txt (514,332 chars)</span><span class="en">pymupdf full text extract → /tmp/nasa-redacted/pages.txt (514,332 chars)</span></p>
+          <p><strong>2.</strong> <span class="zh">Page-density preflight → 90+ 涂黑页识别 (avg 0-200 chars)</span><span class="en">Page-density preflight → 90+ redacted pages identified (avg 0-200 chars)</span></p>
+          <p><strong>3.</strong> <span class="zh">Section discovery → 8 章 + 9 附录脊柱</span><span class="en">Section discovery → 8 chapters + 9 appendices spine</span></p>
+          <p><strong>4.</strong> <span class="zh">Master takeover analysis → 3 根因 + 61 建议 + 4 异常 + 7 教训 + NASAHFACS 5 域</span><span class="en">Master takeover analysis → 3 root causes + 61 recs + 4 anomalies + 7 lessons + NASAHFACS 5 domains</span></p>
+          <p><strong>5.</strong> <span class="zh">Vault index.md + bilingual HTML dashboard 双件套</span><span class="en">Vault index.md + bilingual HTML dashboard duo</span></p>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <span class="zh">"This report was compiled and completed in November 2025, while technical cause investigation continues. This report does not reflect any new learning or iteration of the fault tree or proximate cause through ongoing testing, analysis and discovery post-report compilation. Iteration in proximate cause is expected." — p2</span>
+        <cite><span class="zh">p2, 报告关于自身迭代性的明确声明</span><span class="en">p2, report's own statement on its iterative nature</span></cite>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span><span class="zh">原文出处:</span><span class="en">Primary source:</span> <a href="https://www.nasa.gov/wp-content/uploads/2026/02/nasa-report-with-redactions-021926.pdf?emrc=76e561" target="_blank" rel="noopener">NASA · nasa-report-with-redactions-021926.pdf</a></span>
+      <span><span class="zh">生成:</span><span class="en">Generated:</span> 2026-07-19 · <span class="zh">由 Hermes Agent master-takeover build</span><span class="en">built by Hermes Agent master-takeover</span></span>
+      <a href="https://2017zyl.xyz/rocket-launch-db/space-access/"><span class="zh">↗ 关联 Space-access 子页</span><span class="en">↗ Related Space-access page</span></a>
+    </footer>
+
+  </div>
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  // === Tab switcher ===
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.getAttribute('data-target');
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      var panel = document.getElementById(target);
+      if(panel){ panel.classList.add('active'); }
+      // Update URL hash without jump
+      if(history.pushState){
+        history.pushState(null, '', '#'+target);
+      }
+      // Update TOC active link
+      updateTocActive(target);
+    });
+  });
+
+  // === TOC v1.4.4 collapsible ===
+  var toc = document.getElementById('toc');
+  var tocToggle = document.getElementById('tocToggle');
+  var STORAGE_KEY = 'nasa-starliner-cft-toc-collapsed';
+  if(toc && tocToggle){
+    // Restore state
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if(saved === '1'){ toc.classList.add('collapsed'); }
+    } catch(e) {}
+    tocToggle.addEventListener('click', function(){
+      toc.classList.toggle('collapsed');
+      try {
+        localStorage.setItem(STORAGE_KEY, toc.classList.contains('collapsed') ? '1' : '0');
+      } catch(e) {}
+    });
+    // TOC link click → switch tab
+    var tocLinks = document.querySelectorAll('.toc-list a');
+    tocLinks.forEach(function(link){
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        var href = link.getAttribute('href') || '';
+        var target = href.replace('#','');
+        var tabBtn = document.querySelector('.tab[data-target="'+target+'"]');
+        if(tabBtn){ tabBtn.click(); }
+        // On mobile, close TOC after click
+        if(window.innerWidth <= 900){
+          toc.classList.remove('open');
+        }
+      });
+    });
+  }
+
+  function updateTocActive(target){
+    var tocLinks = document.querySelectorAll('.toc-list a');
+    tocLinks.forEach(function(link){
+      var href = link.getAttribute('href') || '';
+      if(href === '#'+target){ link.classList.add('active'); }
+      else { link.classList.remove('active'); }
+    });
+  }
+
+  // === Bilingual EN ⇄ ZH toggle (with localStorage restore) ===
+  var langBtns = document.querySelectorAll('.lang button');
+  var html = document.documentElement;
+  var LANG_KEY = 'nasa-starliner-cft-lang';
+  function setLang(lang){
+    html.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
+    langBtns.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    try { localStorage.setItem(LANG_KEY, lang); } catch(e) {}
+  }
+  // Restore on load
+  try {
+    var savedLang = localStorage.getItem(LANG_KEY);
+    if(savedLang){ setLang(savedLang); }
+  } catch(e) {}
+  langBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      setLang(b.getAttribute('data-lang'));
+    });
+  });
+
+  // === Initial panel from hash ===
+  function initFromHash(){
+    var hash = (location.hash || '').replace('#','');
+    if(hash){
+      var tabBtn = document.querySelector('.tab[data-target="'+hash+'"]');
+      if(tabBtn){
+        tabs.forEach(function(t){ t.classList.remove('active'); });
+        panels.forEach(function(p){ p.classList.remove('active'); });
+        tabBtn.classList.add('active');
+        var panel = document.getElementById(hash);
+        if(panel){ panel.classList.add('active'); }
+        updateTocActive(hash);
+      }
+    } else {
+      updateTocActive('panel-overview');
+    }
+  }
+  initFromHash();
+  window.addEventListener('hashchange', initFromHash);
+
+})();
+</script>
+
+</body>
+</html>

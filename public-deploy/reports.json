@@ -1,5 +1,27 @@
 [
   {
+    "title": "🆕 NASA Starliner CFT 推进异常调查报告 (311 页) · 4 异常 + 3 根因 + 61 建议",
+    "track": "paper",
+    "tag": "nasa · starliner · cft · investigation · type-a-mishap · propulsion · helium · sm-rcs · commercial-crew · safety-culture · bilingual · toc-v1.4.4",
+    "practical": 85,
+    "time": 311,
+    "desc": "NASA 官方报告 2026-02-05 · 4 硬件异常 + 3 综合根因 + 61 建议 (12 类别 A-N) · 7 机构 · 建议追溯 Type A mishap · 中EN 双语可切换 · cross-link space-access + race-aware 4-source 合成",
+    "file": "daily-reports/nasa-starliner-cft-investigation-2026-02-05-dashboard.html",
+    "date": "2026-07-19",
+    "added_at": "2026-07-19",
+    "category": "investigation-report",
+    "tags": [
+      "nasa",
+      "starliner",
+      "cft",
+      "investigation",
+      "type-a-mishap",
+      "propulsion",
+      "commercial-crew",
+      "safety-culture"
+    ]
+  },
+  {
     "title": "🆕 3Blue1Brown《量子计算到底是什么？》· 状态向量 + Grover 几何 · 36:40 · Round 38",
     "track": "video",
     "tag": "quantum-computing · 3blue1brown · grover · state-vector · technical-howto · bilingual · toc-v1.4.4",
