@@ -1,5 +1,24 @@
 [
   {
+    "title": "🆕 旅忆 FAMILY TRAVEL OS · 新疆 13 天 Demo · 单文件静态版",
+    "file": "daily-reports/family-travel-memory-demo-2026-07-20.html",
+    "date": "2026-07-20",
+    "category": "brief",
+    "track": "brief",
+    "summary": "🆕 旅忆 FAMILY TRAVEL OS · 新疆 13 天 Demo · 单文件静态版 · 2大1小家庭行程 · 32 坐标 + 13 天视频路书 + 三阶段可切换 (规划/旅中/回忆) · 脚手架来自 Next.js 全栈项目翻译 · 完整 client UX (验证码登录 / 家庭投票 / 记忆星图 / 同程联动 / 离线 IndexedDB 提示) · 真产品 v2 计划: Workers + D1 + R2 + 12 API route 适配",
+    "featured": true,
+    "tags": [
+      "family-travel",
+      "新疆",
+      "13天",
+      "三阶段",
+      "demo",
+      "单文件-html",
+      "v2-fullstack-plan"
+    ],
+    "added_at": "2026-07-20"
+  },
+  {
     "title": "🆕 2026-07-19 Daily · auto-generated cron report (Hermes Agent daily summary)",
     "file": "2026-07-19-daily.html",
     "date": "2026-07-19",

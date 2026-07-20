@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generated" content="2026-07-20 by Hermes Agent — family-travel-memory single-file demo">
+<meta name="source" content="vinext-starter + trip-data.ts + page.tsx (原 Next.js 全栈, 翻译为单 HTML 静态 demo)">
+<meta name="version" content="demo-v1.0 — 三阶段可切换 + 全部 13 天数据 seed">
+<title>旅忆 · FAMILY TRAVEL OS · 新疆 13 天 Demo</title>
+<style>
+:root{
+  --ink:#20231f;--muted:#6d736b;--paper:#f6f1e7;--paper-strong:#fffdf8;
+  --navy:#092b4b;--navy-deep:#061f38;--moss:#4e6842;--moss-dark:#344e35;
+  --amber:#f0b658;--coral:#e6634d;--line:rgba(35,49,40,.13);
+  --shadow:0 18px 45px rgba(7,23,38,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#071f36;color:#20231f;font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+img{display:block;max-width:100%}
+
+.demo-banner{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:10px;padding:9px 18px;background:linear-gradient(90deg,#f0b658,#e6634d);color:#20231f;font-size:11px;font-weight:750;letter-spacing:.04em;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.demo-banner i{font-style:normal;background:#20231f;color:#f0b658;padding:2px 8px;border-radius:99px;font-size:9px;letter-spacing:.18em}
+.demo-banner a{color:inherit;text-decoration:underline;margin-left:auto}
+
+.app{min-height:100vh;color:#f9f2e7;background:#071f36}
+.travel-state-plan .header-stage,#__{padding-left:0}
+
+/* HEADER */
+.app-header{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:20px;padding:24px 36px;align-items:start;background:linear-gradient(180deg,rgba(7,31,54,.95),rgba(7,31,54,.55));border-bottom:1px solid rgba(255,255,255,.08)}
+.trip-title-block .eyebrow{display:flex;align-items:center;gap:7px;color:#efdcae;font-size:10px;font-weight:800;letter-spacing:.18em;margin-bottom:6px}
+.trip-title-block h1{margin:0;font-family:"Songti SC",serif;font-size:30px;letter-spacing:-.02em}
+.trip-title-block p{margin:4px 0 0;color:rgba(255,255,255,.58);font-size:11px}
+.route-summary{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;color:rgba(255,255,255,.55);font-size:10px}
+.route-summary span{padding:3px 8px;border:1px solid rgba(255,255,255,.15);border-radius:99px}
+
+.stage-switcher{display:flex;gap:6px;align-self:center;justify-self:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:5px}
+.stage-switcher button{display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:99px;color:rgba(255,255,255,.6);font-size:12px;font-weight:750;transition:all .2s}
+.stage-switcher button.active{color:#20231f;background:var(--paper);box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.stage-switcher i{font-size:8px;font-style:normal;padding:1px 5px;border-radius:99px;background:var(--coral);color:#fff;letter-spacing:.1em}
+
+.header-family{display:flex;align-items:center;gap:10px;justify-self:end}
+.family-faces{display:flex;align-items:center;gap:-6px}
+.family-person{position:relative;width:34px;height:34px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.85);margin-left:-8px;background:linear-gradient(135deg,#829878,#344e35);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.04em}
+.family-person:first-child{margin-left:0}
+.family-person .presence-dot{position:absolute;right:1px;bottom:1px;width:9px;height:9px;border-radius:50%;background:#7ed957;border:1.5px solid #071f36}
+.admin-chip,.account-chip{display:flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid rgba(255,255,255,.15);border-radius:99px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.78);font-size:10px}
+.admin-chip b,.account-chip b{display:block;font-size:11px;color:#fff}
+.admin-chip small,.account-chip small{display:block;color:rgba(255,255,255,.5);font-size:8.5px}
+
+/* STAGE PANEL */
+.stage-panel{padding:18px 36px 40px}
+.stage-panel[hidden]{display:none}
+
+/* PLAN STAGE */
+.stage-plan{display:grid;grid-template-columns:280px 1fr 300px;gap:18px;align-items:start}
+.plan-days{position:sticky;top:80px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px}
+.panel-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.panel-heading>div span{display:block;color:#efdcae;font-size:10px;font-weight:800;letter-spacing:.14em}
+.panel-heading>div small{color:rgba(255,255,255,.45);font-size:9px}
+.panel-heading button{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:14px}
+.plan-day-list{display:flex;flex-direction:column;gap:5px;max-height:480px;overflow-y:auto;padding-right:4px}
+.plan-day-list::-webkit-scrollbar{width:4px}
+.plan-day-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:2px}
+.plan-day-list button{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:11px;text-align:left;color:rgba(255,255,255,.7);font-size:10px;border:1px solid transparent;transition:all .15s}
+.plan-day-list button:hover{background:rgba(255,255,255,.04);color:#fff}
+.plan-day-list button.active{background:rgba(240,182,88,.13);border-color:rgba(240,182,88,.4);color:#fff}
+.day-state{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.day-state.active{background:var(--moss)}
+.plan-day-list small{color:rgba(255,255,255,.5);font-size:9px}
+.plan-day-list b{display:block;color:inherit;font-size:11px;margin-top:1px}
+.plan-day-list em{font-style:normal;color:rgba(255,255,255,.4);font-size:9px;font-size:8.5px}
+
+.itinerary-source{display:flex;align-items:center;gap:9px;margin-top:14px;padding:11px 12px;border:1px dashed rgba(240,182,88,.3);border-radius:11px;background:rgba(240,182,88,.04);color:#efdcae;text-decoration:none;font-size:10px}
+.itinerary-source b{display:block;color:#fff;font-size:11px}
+.itinerary-source small{color:rgba(255,255,255,.5);font-size:8.5px}
+
+.plan-center{display:flex;flex-direction:column;gap:18px}
+.terrain-map{position:relative;width:100%;height:360px;border-radius:18px;background:radial-gradient(ellipse at 60% 40%,#1d4a3a,#0c2a3d 70%);border:1px solid rgba(255,255,255,.08);overflow:hidden}
+.terrain-map::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 360'><defs><radialGradient id='t' cx='50%' cy='60%' r='55%'><stop offset='0%' stop-color='%23344e35' stop-opacity='.6'/><stop offset='100%' stop-color='%23000' stop-opacity='0'/></radialGradient></defs><rect width='800' height='360' fill='url(%23t)'/><g fill='none' stroke='%23efdcae' stroke-opacity='.18' stroke-width='1'><path d='M40 200 Q200 100 360 220 T 760 180'/><path d='M60 280 Q260 200 480 300 T 760 260'/><circle cx='120' cy='200' r='4' fill='%23e6634d'/><circle cx='260' cy='150' r='4' fill='%23e6634d'/><circle cx='400' cy='220' r='6' fill='%23f0b658'/><circle cx='540' cy='180' r='4' fill='%23e6634d'/><circle cx='680' cy='240' r='4' fill='%23e6634d'/></g><text x='80' y='40' fill='%23efdcae' font-size='10' font-family='monospace' opacity='.55'>伊犁河谷 — 北疆</text><text x='680' y='340' fill='%23efdcae' font-size='9' font-family='monospace' opacity='.45'>SAMPLE GEO</text></svg>") center/cover no-repeat}
+.map-overlay{position:absolute;inset:auto 0 0 0;padding:14px 18px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.6));color:#fff;display:flex;justify-content:space-between;align-items:end}
+.map-overlay h3{margin:0;font-family:"Songti SC",serif;font-size:18px}
+.map-overlay small{color:rgba(255,255,255,.65);font-size:10px}
+
+.plan-detail{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px}
+.detail-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:14px;gap:18px}
+.detail-header>div span{display:block;color:#efdcae;font-size:10px;font-weight:800;letter-spacing:.1em;margin-bottom:4px}
+.detail-header h2{margin:0;font-family:"Songti SC",serif;font-size:24px}
+.detail-header p{margin:6px 0 0;color:rgba(255,255,255,.6);font-size:11px;line-height:1.6;max-width:600px}
+.booking-state{display:flex;align-items:center;gap:5px;padding:5px 11px;border:1px solid rgba(125,217,87,.4);background:rgba(125,217,87,.1);border-radius:99px;color:#9bd97c;font-size:10px;flex-shrink:0}
+
+.stop-list{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.stop-list button{display:flex;align-items:center;gap:11px;padding:10px 12px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:rgba(255,255,255,.02);text-align:left;color:rgba(255,255,255,.78);transition:all .15s}
+.stop-list button.focused,.stop-list button:hover{background:rgba(240,182,88,.08);border-color:rgba(240,182,88,.3);color:#fff}
+.stop-list time{font-family:monospace;font-size:11px;color:#efdcae;min-width:50px}
+.stop-list b{display:block;font-size:12px}
+.stop-list small{color:rgba(255,255,255,.5);font-size:9.5px}
+
+.journey-guide{border-top:1px solid rgba(255,255,255,.08);padding-top:14px}
+.journey-guide-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.journey-guide-heading>span{display:flex;align-items:center;gap:7px;color:#efdcae;font-size:11px;font-weight:800}
+.journey-guide-heading a{color:rgba(255,255,255,.55);text-decoration:none;font-size:10px}
+.journey-guide-heading b{color:#fff}
+.journey-guide-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+.journey-videos{display:flex;flex-direction:column;gap:6px}
+.journey-videos a{display:flex;gap:11px;padding:10px 12px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:rgba(255,255,255,.02);color:inherit;text-decoration:none;transition:all .15s}
+.journey-videos a:hover{background:rgba(240,182,88,.06);border-color:rgba(240,182,88,.3)}
+.journey-videos span{width:30px;height:30px;border-radius:50%;background:rgba(240,182,88,.15);color:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.journey-videos small{color:rgba(255,255,255,.5);font-size:9.5px}
+.journey-videos b{display:block;font-size:12px;margin:1px 0}
+.journey-videos em{font-style:normal;color:rgba(255,255,255,.4);font-size:9px;font-family:monospace}
+.journey-tips{display:flex;flex-direction:column;gap:11px}
+.journey-tips>div>span{display:block;color:#efdcae;font-size:9.5px;font-weight:800;letter-spacing:.1em;margin-bottom:6px}
+.journey-tips button{display:flex;align-items:start;gap:8px;width:100%;padding:8px 10px;border:1px solid rgba(255,255,255,.06);border-radius:9px;background:transparent;text-align:left;color:rgba(255,255,255,.7);font-size:10px;margin-bottom:4px}
+.journey-tips button:hover{background:rgba(255,255,255,.04);color:#fff}
+.journey-tips b{display:block;font-size:11px;color:#fff}
+.journey-tips small{color:rgba(255,255,255,.5);font-size:9px;display:block;margin-top:1px}
+
+.plan-right{display:flex;flex-direction:column;gap:14px;position:sticky;top:80px}
+.countdown-card{background:linear-gradient(135deg,#344e35,#1a2e1c);border-radius:14px;padding:14px;color:#f6ead9;text-align:center}
+.countdown-card span{display:block;color:rgba(255,255,255,.6);font-size:9.5px;letter-spacing:.14em;font-weight:800;margin-bottom:4px}
+.countdown-card b{display:block;font-family:"Songti SC",serif;font-size:36px;line-height:1}
+.countdown-card small{display:block;color:rgba(255,255,255,.55);font-size:9.5px;margin-top:5px}
+
+.booking-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.booking-strip span{display:flex;align-items:center;gap:5px;padding:7px 9px;border:1px solid rgba(255,255,255,.1);border-radius:9px;font-size:9.5px;color:rgba(255,255,255,.75)}
+
+.vote-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:13px}
+.vote-kicker{display:flex;align-items:center;gap:6px;color:#efdcae;font-size:9.5px;font-weight:800;letter-spacing:.1em;margin-bottom:6px}
+.vote-card h3{margin:0 0 4px;font-family:"Songti SC",serif;font-size:15px;line-height:1.4}
+.vote-card p{margin:0 0 10px;color:rgba(255,255,255,.6);font-size:10px;line-height:1.5}
+.vote-card button.choice{display:flex;justify-content:space-between;align-items:center;gap:9px;width:100%;padding:9px 11px;border:1px solid rgba(255,255,255,.1);border-radius:9px;margin-bottom:5px;text-align:left;color:rgba(255,255,255,.78)}
+.vote-card button.choice:hover,.vote-card button.choice.selected{background:rgba(240,182,88,.1);border-color:rgba(240,182,88,.4);color:#fff}
+.vote-card b{display:block;font-size:11px}
+.vote-card small{color:rgba(255,255,255,.5);font-size:9px}
+.vote-card i{font-style:normal;color:#efdcae;font-size:11px;font-weight:800;font-family:monospace}
+.voter-line{display:flex;align-items:center;gap:7px;margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.55);font-size:9.5px}
+.voter-line .family-faces{margin-right:auto}
+.lock-plan{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:8px;padding:10px;border-radius:99px;background:var(--moss);color:#fff;font-size:11px;font-weight:800}
+
+.seed-button{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px dashed rgba(240,182,88,.35);border-radius:11px;color:#efdcae;text-align:left;background:rgba(240,182,88,.04)}
+.seed-button b{display:block;font-size:11px;color:#fff}
+.seed-button small{color:rgba(255,255,255,.55);font-size:9px}
+
+.sync-line{display:flex;align-items:center;gap:6px;justify-content:center;color:rgba(125,217,87,.85);font-size:9.5px;padding:6px 0}
+
+/* LIVE STAGE */
+.stage-live{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.live-center{display:flex;flex-direction:column;gap:14px}
+.live-memory-shelf{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px}
+.shelf-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.shelf-heading>span{display:flex;align-items:center;gap:7px;color:#9bd97c;font-size:11px;font-weight:800}
+.shelf-heading small{color:rgba(255,255,255,.5);font-size:9.5px;font-weight:400;margin-left:6px}
+.shelf-heading button{color:rgba(255,255,255,.65);font-size:10px;display:flex;align-items:center;gap:4px}
+.moment-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.moment-strip article{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:11px;overflow:hidden;display:flex;flex-direction:column}
+.moment-preview{aspect-ratio:1;background:linear-gradient(135deg,#344e35,#092b4b);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:9px}
+.moment-preview.photo-1{background:linear-gradient(135deg,#5a8062,#2d4a3a)}
+.moment-preview.photo-2{background:linear-gradient(135deg,#8294a8,#3a4a5c)}
+.moment-preview.photo-3{background:linear-gradient(135deg,#c89e6a,#7a5a3a)}
+.moment-preview.photo-4{background:linear-gradient(135deg,#a86a82,#5a3a4a)}
+.moment-strip article>span{padding:8px 10px;display:flex;flex-direction:column;gap:1px}
+.moment-strip b{font-size:10.5px;color:#fff}
+.moment-strip article>span small{color:rgba(255,255,255,.5);font-size:8.5px}
+.moment-strip article>span p{margin:3px 0 0;color:rgba(255,255,255,.7);font-size:9.5px;line-height:1.4}
+
+.capture-dock{background:linear-gradient(135deg,#1a2e1c,#344e35);border:1px solid rgba(125,217,87,.25);border-radius:18px;padding:14px}
+.capture-dock>div:first-child{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}
+.capture-dock button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:11px 6px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:rgba(255,255,255,.04);color:#fff;font-size:10px;transition:all .15s}
+.capture-dock button:hover{background:rgba(240,182,88,.12);border-color:rgba(240,182,88,.3)}
+.capture-dock .icon{width:30px;height:30px;border-radius:50%;background:rgba(240,182,88,.15);color:var(--amber);display:flex;align-items:center;justify-content:center;font-size:14px}
+.capture-dock .sync-line{justify-content:space-between;color:rgba(125,217,87,.75);font-size:9px;padding:7px 9px;border-top:1px solid rgba(255,255,255,.06);margin-top:7px}
+
+.right-rail{display:flex;flex-direction:column;gap:14px;position:sticky;top:80px}
+.memory-portal{position:relative;display:block;width:100%;border-radius:16px;overflow:hidden;border:0;padding:0;text-align:left;aspect-ratio:.85/1;background:#000}
+.memory-portal img{width:100%;height:100%;object-fit:cover;display:block}
+.memory-portal-copy{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.78));color:#fff}
+.memory-portal-copy i{font-style:normal;display:flex;align-items:center;gap:5px;color:#efdcae;font-size:9.5px;font-weight:800;letter-spacing:.1em;margin-bottom:6px}
+.memory-portal-copy b{font-family:"Songti SC",serif;font-size:18px;line-height:1.3;margin-bottom:5px}
+.memory-portal-copy small{color:rgba(255,255,255,.7);font-size:9.5px;line-height:1.4}
+.memory-portal-copy em{font-style:normal;display:flex;align-items:center;gap:4px;color:var(--amber);font-size:10px;font-weight:800;margin-top:8px}
+
+.family-live-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}
+.family-live-card>div{display:flex;align-items:center;gap:7px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.family-live-card>div span{display:flex;flex-direction:column}
+.family-live-card b{font-size:11px;color:#fff}
+.family-live-card>div small{color:rgba(255,255,255,.5);font-size:9px}
+.family-live-card>span:not(:first-child){display:flex;align-items:center;gap:7px;padding:6px 0;font-size:10px}
+.family-live-card>span:not(:first-child) i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);font-style:normal}
+.family-live-card>span:not(:first-child) i.online{background:#7ed957;box-shadow:0 0 6px #7ed957}
+.family-live-card>span:not(:first-child) b{color:#fff;font-size:10.5px}
+.family-live-card>span:not(:first-child) small{color:rgba(255,255,255,.5);font-size:9px;margin-left:auto}
+
+/* MEMORY STAGE */
+.stage-memory{display:grid;grid-template-columns:240px 1fr;gap:18px;align-items:start}
+.memory-sidebar{position:sticky;top:80px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px}
+.memory-brand{display:flex;align-items:center;gap:7px;margin-bottom:11px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.06)}
+.memory-brand span{display:flex;flex-direction:column}
+.memory-brand b{font-size:12px;color:#fff}
+.memory-brand small{color:rgba(255,255,255,.5);font-size:9px}
+.memory-sidebar nav{display:flex;flex-direction:column;gap:4px;margin-bottom:11px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.06)}
+.memory-sidebar nav button{display:flex;align-items:center;gap:7px;padding:8px 10px;border-radius:9px;color:rgba(255,255,255,.65);font-size:11px;text-align:left}
+.memory-sidebar nav button:hover{background:rgba(255,255,255,.04);color:#fff}
+.memory-sidebar nav button.active{background:rgba(240,182,88,.13);color:#fff;font-weight:800}
+.memory-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.06)}
+.memory-stats span{text-align:center;padding:7px 4px;border:1px solid rgba(255,255,255,.06);border-radius:9px}
+.memory-stats b{display:block;font-family:"Songti SC",serif;font-size:18px;color:var(--amber)}
+.memory-stats span small{display:block;color:rgba(255,255,255,.5);font-size:9px}
+.memory-add{width:100%;padding:9px;border-radius:99px;background:var(--moss);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:10px}
+.privacy-note{display:flex;gap:7px;padding:9px 10px;border:1px solid rgba(255,255,255,.06);border-radius:9px;background:rgba(255,255,255,.02)}
+.privacy-note span{display:flex;flex-direction:column}
+.privacy-note b{font-size:10px;color:#fff}
+.privacy-note small{color:rgba(255,255,255,.5);font-size:8.5px;margin-top:1px}
+
+.memory-world{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px}
+.memory-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.year-control{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.65);font-size:11px}
+.year-control button{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.06);color:#fff;font-size:14px}
+.year-control input[type=range]{width:120px;accent-color:var(--amber)}
+.year-control b{font-family:"Songti SC",serif;font-size:18px;color:#fff;min-width:46px;text-align:center}
+
+.memory-search{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;padding:13px 15px;border:1px solid rgba(240,182,88,.25);border-radius:13px;background:rgba(240,182,88,.04)}
+.memory-search>span{display:flex;align-items:center;gap:6px;color:#efdcae;font-size:10.5px;font-weight:800;letter-spacing:.06em}
+.memory-search>div{display:flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid rgba(255,255,255,.1);border-radius:99px;background:rgba(0,0,0,.18)}
+.memory-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#fff;font-size:13px}
+.memory-search input::placeholder{color:rgba(255,255,255,.4)}
+.memory-search button{padding:6px 13px;border-radius:99px;background:var(--amber);color:#20231f;font-size:11px;font-weight:800;display:flex;align-items:center;gap:4px}
+.memory-search small{color:rgba(255,255,255,.5);font-size:9px}
+
+.featured-memory{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:14px}
+.memory-photo-stage{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#5a8062,#1a2e3a)}
+.memory-photo-stage .hero{width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#7a9a82 0%,#3a5a4a 40%,#1a3a3a 100%)}
+.memory-photo-stage .polaroid{position:absolute;width:38%;aspect-ratio:3/4;border-radius:6px;border:5px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.4);background-size:cover}
+.memory-photo-stage .polaroid.one{bottom:6%;left:4%;transform:rotate(-7deg);background:linear-gradient(135deg,#a8b8a8,#6a8a7a)}
+.memory-photo-stage .polaroid.two{top:8%;right:5%;transform:rotate(5deg);background:linear-gradient(135deg,#c8a878,#7a6a4a)}
+
+.memory-story{display:flex;flex-direction:column;gap:9px}
+.memory-date{display:flex;align-items:center;gap:5px;color:#efdcae;font-size:10.5px;font-weight:800;letter-spacing:.06em}
+.memory-story h2{margin:0;font-family:"Songti SC",serif;font-size:22px;line-height:1.3}
+.memory-story blockquote{margin:0;padding:11px 13px;border-left:3px solid var(--amber);background:rgba(240,182,88,.06);color:rgba(255,255,255,.85);font-size:12px;font-style:italic;line-height:1.6;border-radius:0 9px 9px 0}
+.story-people{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.7);font-size:10px}
+.story-media{display:flex;gap:11px;align-items:center;color:rgba(255,255,255,.55);font-size:10px}
+.story-media span{display:flex;align-items:center;gap:4px}
+.story-media button{margin-left:auto;padding:6px 11px;border:1px solid rgba(240,182,88,.3);border-radius:99px;background:rgba(240,182,88,.08);color:var(--amber);font-size:10px;font-weight:800;display:flex;align-items:center;gap:4px}
+.enter-memory{margin-top:auto;padding:10px 14px;border-radius:99px;background:var(--moss);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px}
+
+.related-memories{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.related-memories button{text-align:left;padding:10px 12px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:rgba(255,255,255,.04);color:#fff;display:flex;flex-direction:column;gap:2px;transition:all .15s}
+.related-memories button:hover{background:rgba(240,182,88,.08);border-color:rgba(240,182,88,.3)}
+.related-memories span{color:#efdcae;font-size:9px;font-weight:800;letter-spacing:.1em}
+.related-memories b{font-size:11px;line-height:1.4}
+.related-memories small{color:rgba(255,255,255,.5);font-size:9px;margin-top:1px}
+
+.memory-feedback .feedback-heading{text-align:center;margin-bottom:14px}
+.memory-feedback .feedback-heading span{color:#efdcae;font-size:9.5px;font-weight:800;letter-spacing:.14em}
+.memory-feedback .feedback-heading h2{margin:5px 0;font-family:"Songti SC",serif;font-size:22px}
+.memory-feedback .feedback-heading p{color:rgba(255,255,255,.6);font-size:11px;margin:0}
+.memory-feedback-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.memory-feedback-grid button{display:flex;gap:11px;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:rgba(255,255,255,.04);text-align:left;color:#fff;align-items:center}
+.memory-feedback-grid button:hover{background:rgba(240,182,88,.08);border-color:rgba(240,182,88,.3)}
+.feedback-preview{width:54px;height:54px;border-radius:8px;background:linear-gradient(135deg,#5a8062,#2d4a3a);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:9px}
+.memory-feedback-grid span small{color:rgba(255,255,255,.5);font-size:9px;font-weight:800;letter-spacing:.08em}
+.memory-feedback-grid b{font-size:12px;display:block;margin:1px 0}
+.memory-feedback-grid p{margin:0;color:rgba(255,255,255,.55);font-size:9.5px}
+
+.demo-footer{margin-top:32px;padding:18px 36px;background:rgba(0,0,0,.4);border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.55);font-size:10.5px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px}
+.demo-footer code{font-family:monospace;color:var(--amber);background:rgba(0,0,0,.3);padding:2px 6px;border-radius:4px;font-size:10px}
+.demo-footer a{color:#efdcae;text-decoration:none;border-bottom:1px dashed currentColor}
+.demo-footer a:hover{color:#fff}
+
+@media (max-width:1100px){
+  .app-header{grid-template-columns:1fr;gap:14px}
+  .header-family{justify-self:start}
+  .stage-plan,.stage-live,.stage-memory{grid-template-columns:1fr}
+  .plan-days,.plan-right,.memory-sidebar{position:static}
+  .featured-memory,.journey-guide-grid,.memory-feedback-grid{grid-template-columns:1fr}
+  .moment-strip{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  <i>DEMO v1.0</i>
+  <span>🚧 单文件 HTML 静态 demo — 原 Next.js + D1 + R2 全栈项目翻译为离线版. 真实产品 v2 计划: workers + D1 同步 + 12 API route 适配</span>
+  <a href="#footer">查看完整说明 ↓</a>
+</div>
+
+<div class="app">
+
+<!-- ===== HEADER ===== -->
+<header class="app-header">
+  <div class="trip-title-block">
+    <div class="eyebrow">🧭 家庭旅行记忆</div>
+    <h1>新疆 · 伊犁环线 + 北疆喀纳斯</h1>
+    <p>2026/08/14 — 08/26 · 13天 · 2大1小</p>
+    <div class="route-summary">
+      <span>北京</span><span>→</span><span>伊宁</span><span>→</span><span>那拉提</span><span>→</span><span>独库公路</span><span>→</span><span>赛里木湖</span><span>→</span><span>阿勒泰</span><span>→</span><span>喀纳斯/禾木</span><span>→</span><span>北京</span>
+    </div>
+  </div>
+  <nav class="stage-switcher" id="stageSwitcher" aria-label="旅行阶段">
+    <button data-stage="plan" class="active" type="button">
+      <span>📅</span><span>规划</span>
+    </button>
+    <button data-stage="live" type="button">
+      <span>🗺️</span><span>旅中</span><i>联动</i>
+    </button>
+    <button data-stage="memory" type="button">
+      <span>📖</span><span>回忆</span>
+    </button>
+  </nav>
+  <div class="header-family">
+    <div class="family-faces" aria-label="同一行程中的家人">
+      <div class="family-person" title="爸爸 · 在线">爸<span class="presence-dot"></span></div>
+      <div class="family-person" title="妈妈">妈</div>
+      <div class="family-person" title="安安">安</div>
+    </div>
+    <button class="admin-chip" type="button" title="家庭管理员后台">
+      <span>🛡️</span>
+      <span><b>家庭管理</b><small>手机号与权限</small></span>
+    </button>
+    <button class="account-chip" type="button" title="退出">
+      <span><b>爸爸</b><small>手机 ···· 8856</small></span>
+      <span>↗</span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== STAGE PANELS ===== -->
+<div class="stage-panel">
+
+<!-- ========== PLAN STAGE ========== -->
+<section class="stage-plan" data-stage-panel="plan">
+
+  <aside class="plan-days">
+    <div class="panel-heading">
+      <div><span>真实行程主线</span><small>13天 · 8月14日出发</small></div>
+      <button type="button" title="添加新一天">+</button>
+    </div>
+    <div class="plan-day-list" id="dayList"></div>
+    <a class="itinerary-source" href="https://2017zyl.xyz/xjb-public#top" target="_blank" rel="noopener noreferrer">
+      <span>🛡️</span>
+      <span><b>打开原始完整行程</b><small>已按主参考页校准 · 查看全部规划数据</small></span>
+      <span>→</span>
+    </a>
+  </aside>
+
+  <section class="plan-center">
+    <div class="terrain-map" aria-label="新疆自驾路线示意地图">
+      <div class="map-overlay">
+        <div>
+          <small id="mapDayLabel">Day 1 · 伊宁</small>
+          <h3 id="mapTitle">北京 → 伊宁 · 落地取车</h3>
+        </div>
+        <small>WGS84 · OSM POI 校准</small>
+      </div>
+    </div>
+
+    <div class="plan-detail">
+      <div class="detail-header">
+        <div>
+          <span id="detailEyebrow">Day 1 · 8/14 周五 · 飞行 + 城市短途</span>
+          <h2 id="detailTitle">北京 → 伊宁 · 落地取车</h2>
+          <p id="detailSummary">09:15 北京起飞，14:25 抵达伊宁；15:30 提坦克300，傍晚走进六星街与喀赞其。</p>
+        </div>
+        <span class="booking-state">✓ <span id="detailHotel">EVEN 伊宁绿发逸衡 · 已关联</span></span>
+      </div>
+      <div class="stop-list" id="stopList"></div>
+      <section class="journey-guide">
+        <div class="journey-guide-heading">
+          <span>📖 <b>Day <span id="jgDayNum">1</span> 当天视听路书</b><small id="jgScene">先认识伊宁的颜色，再进入伊犁河谷</small></span>
+          <a href="https://2017zyl.xyz/视频库/index.html?version=journey" target="_blank" rel="noopener noreferrer">打开完整视频库 →</a>
+        </div>
+        <div class="journey-guide-grid">
+          <div class="journey-videos" id="journeyVideos"></div>
+          <div class="journey-tips" id="journeyTips"></div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <aside class="plan-right">
+    <div class="countdown-card">
+      <span>准备进度</span>
+      <b>96%</b>
+      <small>3程机票 · 2段租车 · 12晚住宿</small>
+    </div>
+    <div class="booking-strip">
+      <span>✈️ 机票 3程</span>
+      <span>🛏️ 住宿 12晚</span>
+      <span>🎫 全部预订</span>
+    </div>
+    <div class="vote-card">
+      <span class="vote-kicker">👥 Day 8 家庭决定</span>
+      <h3>飞行日是否绕行<br>特克斯八卦城？</h3>
+      <p>新版主线建议直奔伊宁机场，必须在 13:30 前还车。</p>
+      <button class="choice selected" data-vote="direct" type="button">
+        <span><b>放弃八卦城，直奔机场</b><small>风险最低 · 保留果子沟短停</small></span>
+        <i>2票</i>
+      </button>
+      <button class="choice" data-vote="tekes" type="button">
+        <span><b>极早出发尝试绕行</b><small>高风险 · 不作为主计划</small></span>
+        <i>1票</i>
+      </button>
+      <div class="voter-line">
+        <div class="family-faces" aria-hidden="true">
+          <div class="family-person" style="width:22px;height:22px;font-size:9px;margin-left:-4px">爸</div>
+          <div class="family-person" style="width:22px;height:22px;font-size:9px;margin-left:-4px">妈</div>
+          <div class="family-person" style="width:22px;height:22px;font-size:9px;margin-left:-4px">安</div>
+        </div>
+        <span>3 个家庭账户已关联</span>
+      </div>
+      <button class="lock-plan" id="lockPlan" type="button">🔒 锁定"直奔机场"主线</button>
+    </div>
+    <button class="seed-button" type="button">
+      <span>📤</span>
+      <span><b>添加记忆种子</b><small>票据、灵感、照片或语音</small></span>
+      <span>+</span>
+    </button>
+    <div class="sync-line">☁️ <span>坐标 · 住宿 · 航班 · 家庭成员已关联</span></div>
+  </aside>
+</section>
+
+<!-- ========== LIVE STAGE ========== -->
+<section class="stage-live" data-stage-panel="live" hidden>
+
+  <div>
+    <div class="live-center">
+      <div class="terrain-map" aria-label="今日行程">
+        <div class="map-overlay">
+          <div>
+            <small>Day 4 · 8/17 周一 · 旅中</small>
+            <h3>巴音布鲁克 → 那拉提空中草原</h3>
+          </div>
+          <small>LIVE · 三账户同步</small>
+        </div>
+      </div>
+
+      <div class="live-memory-shelf">
+        <div class="shelf-heading">
+          <span>☁️ <b>今天的家庭内容墙</b><small>4 个云端瞬间 · 三个账户同步可见</small></span>
+          <button type="button">打开完整回忆 →</button>
+        </div>
+        <div class="moment-strip">
+          <article>
+            <div class="moment-preview photo-1">📷 巴音草原</div>
+            <span>
+              <b>妈妈</b>
+              <small>巴音布鲁克 · 09:24</small>
+              <p>从天鹅湖栈道回望, 晨雾还没散</p>
+            </span>
+          </article>
+          <article>
+            <div class="moment-preview photo-2">📷 公路</div>
+            <span>
+              <b>爸爸</b>
+              <small>独库南段 · 11:08</small>
+              <p>路过一段没名字的雪岭, 安安说像棉花糖</p>
+            </span>
+          </article>
+          <article>
+            <div class="moment-preview photo-3">🎙️ 语音 32s</div>
+            <span>
+              <b>安安</b>
+              <small>那拉提小镇 · 14:50</small>
+              <p>我想明天去空中草原骑马, 妈妈说先问问</p>
+            </span>
+          </article>
+          <article>
+            <div class="moment-preview photo-4">📝 文字</div>
+            <span>
+              <b>爸爸</b>
+              <small>那拉提英迪格 · 18:20</small>
+              <p>今天开 150km, 晚饭点了手抓羊肉和馕, 安安吃了三块</p>
+            </span>
+          </article>
+        </div>
+      </div>
+
+      <div class="capture-dock">
+        <div>
+          <button type="button"><span class="icon">📷</span><span>照片</span></button>
+          <button type="button"><span class="icon">🎥</span><span>视频</span></button>
+          <button type="button"><span class="icon">📝</span><span>文字</span></button>
+          <button type="button"><span class="icon">🎙️</span><span>语音</span></button>
+        </div>
+        <div class="sync-line">☁️ <span>本机 IndexedDB → 私有 R2 原片 + D1 关系数据</span><span>已同步 4 / 5</span></div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="right-rail">
+    <button class="memory-portal" type="button" aria-label="进入家庭记忆">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#344e35 0%,#1a2e3a 50%,#0a1a2a 100%);position:relative">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(240,182,88,.25),transparent 60%),radial-gradient(circle at 70% 70%,rgba(125,217,87,.2),transparent 60%)"></div>
+      </div>
+      <div class="memory-portal-copy">
+        <i>✨ 记忆正在生长</i>
+        <b>三个人的记录，<br>会在这里长成同一片星图</b>
+        <small>最新照片 · 妈妈 · 巴音布鲁克 · 4个已同步瞬间</small>
+        <em>走进共同回忆 →</em>
+      </div>
+    </button>
+
+    <div class="family-live-card">
+      <div>
+        <span>👥</span>
+        <span><b>同程联动</b><small>每 4 秒补齐一次家庭事件</small></span>
+      </div>
+      <span><i class="online"></i><b>爸爸</b><small>设备在线</small></span>
+      <span><i class="online"></i><b>妈妈</b><small>iPhone 在线</small></span>
+      <span><i></i><b>安安</b><small>等待上线</small></span>
+    </div>
+  </aside>
+</section>
+
+<!-- ========== MEMORY STAGE ========== -->
+<section class="stage-memory" data-stage-panel="memory" hidden>
+  <aside class="memory-sidebar">
+    <div class="memory-brand">
+      <span>✨</span>
+      <span><b>记忆星图</b><small>我们的家庭旅行档案</small></span>
+    </div>
+    <nav aria-label="回忆筛选">
+      <button class="active" data-mem-view="replay" type="button">✨ 为你重现</button>
+      <button data-mem-view="timeline" type="button">📅 时间轴</button>
+      <button data-mem-view="places" type="button">🗺️ 地点</button>
+      <button data-mem-view="people" type="button">👥 人物</button>
+    </nav>
+    <div class="memory-stats">
+      <span><b>13</b><small>天</small></span>
+      <span><b>4</b><small>瞬间</small></span>
+      <span><b>3</b><small>位家人</small></span>
+      <span><b>2</b><small>个地点</small></span>
+    </div>
+    <button class="memory-add" type="button">+ 补一段回忆</button>
+    <div class="privacy-note">
+      <span>🔒</span>
+      <span><b>只属于同程家人</b><small>R2 原片私有 · D1 权限可追溯</small></span>
+    </div>
+  </aside>
+
+  <section class="memory-world">
+    <div class="memory-topbar">
+      <div class="year-control">
+        <button type="button">‹</button>
+        <span>2019</span>
+        <input type="range" min="2019" max="2032" value="2026" aria-label="回忆年份">
+        <b>2026</b>
+        <span>2032</span>
+        <button type="button">›</button>
+      </div>
+      <div class="family-faces">
+        <div class="family-person">爸</div>
+        <div class="family-person">妈</div>
+        <div class="family-person">安</div>
+      </div>
+    </div>
+
+    <form class="memory-search" onsubmit="event.preventDefault();alert('demo 模式: 真实版本会按文字/地点/人物检索家庭记录')">
+      <span>✨ 问问我们的旅行记忆</span>
+      <div>
+        <span>🔍</span>
+        <input value="找回我们一起看过的日落" placeholder="试试：日落 / 巴音布鲁克 / 安安的笑">
+        <button type="submit">找回它 →</button>
+      </div>
+      <small>会检索你们真实上传的文字、文件名、地点和记录人</small>
+    </form>
+
+    <article class="featured-memory">
+      <div class="memory-photo-stage">
+        <div class="hero"></div>
+        <div class="polaroid one"></div>
+        <div class="polaroid two"></div>
+      </div>
+      <div class="memory-story">
+        <span class="memory-date">📍 巴音布鲁克 · 2026/08/17</span>
+        <h2>三个人的记录，正在长成同一段回忆</h2>
+        <blockquote>"风吹过空中草原, 安安追着自己的帽子跑, 我和妈妈在后面笑到站不稳。"</blockquote>
+        <div class="story-people">
+          <div class="family-faces">
+            <div class="family-person" style="width:24px;height:24px;font-size:9px;margin-left:-4px">爸</div>
+            <div class="family-person" style="width:24px;height:24px;font-size:9px;margin-left:-4px">妈</div>
+            <div class="family-person" style="width:24px;height:24px;font-size:9px;margin-left:-4px">安</div>
+          </div>
+          <span>由 妈妈 记录 · 全家可见</span>
+        </div>
+        <div class="story-media">
+          <span>💾 R2 私有原片</span>
+          <span>☁️ 三账户同步</span>
+          <button type="button">✎ 修改记录</button>
+        </div>
+        <button class="enter-memory" type="button">走进这段回忆 →</button>
+      </div>
+    </article>
+
+    <div class="related-memories">
+      <button type="button">
+        <span>巴音布鲁克 · Day 3</span>
+        <b>路过一段没名字的雪岭, 安安说像棉花糖</b>
+        <small>爸爸 · 点击重现</small>
+      </button>
+      <button type="button">
+        <span>那拉提小镇 · Day 4</span>
+        <b>今天开 150km, 晚饭点了手抓羊肉和馕, 安安吃了三块</b>
+        <small>爸爸 · 点击重现</small>
+      </button>
+    </div>
+  </section>
+</section>
+
+</div><!-- /.stage-panel -->
+
+<!-- ===== FOOTER ===== -->
+<footer class="demo-footer" id="footer">
+  <div>
+    🧭 <b>旅忆 FAMILY TRAVEL OS</b> · 来源: 客户端 <code>page.tsx</code> (1091 行) + <code>globals.css</code> (927 行) + <code>trip-data.ts</code> (479 行, 13 天 / 32 坐标)
+  </div>
+  <div>
+    <a href="https://2017zyl.xyz/xjb-public#top" target="_blank" rel="noopener noreferrer">xjb-public 主行程</a>
+    &nbsp;·&nbsp;
+    <a href="https://2017zyl.xyz/视频库/index.html?version=journey" target="_blank" rel="noopener noreferrer">视频库</a>
+  </div>
+  <div style="font-size:9.5px;color:rgba(255,255,255,.4);max-width:520px;text-align:right">
+    <b>v2 full-stack 计划:</b> 新建 travel-os.2017zyl.xyz + Cloudflare Workers + D1 (DB) + R2 (MEDIA) + 12 API route 适配 workers runtime, 完整三账户联动, 离线优先同步. 详 plan: <a href="https://2017zyl.xyz/agentic-os.html" target="_blank" rel="noopener noreferrer">agentic-os registry</a>
+  </div>
+</footer>
+
+</div><!-- /.app -->
+
+<script>
+// === trip data (extracted from app/lib/trip-data.ts) ===
+const tripDays = [
+  { day: 1, date: "8/14 周五", title: "北京 → 伊宁 · 落地取车", meta: "CZ5437 · 伊宁初见", distance: "飞行 + 城市短途", hotel: "EVEN 伊宁绿发逸衡 · 已关联", summary: "09:15 北京起飞, 14:25 抵达伊宁; 15:30 提坦克300, 傍晚走进六星街与喀赞其。", stops: [
+    {time:"09:15",title:"北京起飞 · CZ5437",status:"14:25 抵达伊宁"},
+    {time:"15:30",title:"伊宁机场提车",status:"坦克300 · 伊犁段"},
+    {time:"17:00",title:"六星街 · 喀赞其",status:"城市漫游"},
+    {time:"20:30",title:"EVEN 伊宁绿发逸衡",status:"已预订"},
+  ]},
+  { day: 2, date: "8/15 周六", title: "伊宁 → 那拉提", meta: "伊犁河谷 · 直达那拉提", distance: "自驾约 260km", hotel: "那拉提智选假日 · 已关联", summary: "沿伊犁河谷一路向东, 直达那拉提; 八卦城不放在今天, 傍晚留给小镇休整。", stops: [
+    {time:"09:00",title:"伊宁出发",status:"沿伊犁河谷东行"},
+    {time:"13:00",title:"河谷沿途午餐",status:"机动停靠"},
+    {time:"18:00",title:"抵达那拉提小镇",status:"轻松休整"},
+    {time:"19:30",title:"那拉提智选假日",status:"已预订"},
+  ]},
+  { day: 3, date: "8/16 周日", title: "那拉提 → 独库南段 → 巴音布鲁克", meta: "天鹅湖 · 九曲日落", distance: "自驾约 150km", hotel: "巴音布鲁克假日 · 已关联", summary: "经独库南段进入巴音布鲁克, 傍晚等待九曲十八弯日落, 并留出天鹅湖时间。", stops: [
+    {time:"09:00",title:"那拉提出发",status:"进入独库南段"},
+    {time:"15:30",title:"天鹅湖",status:"湿地观景"},
+    {time:"18:30",title:"九曲十八弯",status:"等待日落"},
+    {time:"21:30",title:"巴音布鲁克假日",status:"已预订"},
+  ]},
+  { day: 4, date: "8/17 周一", title: "巴音布鲁克 → 那拉提空中草原", meta: "木栈道 · 草原野餐", distance: "自驾约 110km", hotel: "那拉提英迪格 · 已关联", summary: "返回那拉提, 乘区间车进入空中草原, 在木栈道慢走并完成一家人的草原野餐。", stops: [
+    {time:"08:30",title:"巴音布鲁克出发",status:"返回那拉提"},
+    {time:"12:30",title:"那拉提空中草原",status:"区间车入园"},
+    {time:"15:00",title:"木栈道 · 草原野餐",status:"旅中记录重点"},
+    {time:"18:30",title:"那拉提英迪格",status:"已预订"},
+  ]},
+  { day: 5, date: "8/18 周二", title: "那拉提 → 独库北段 → 奎屯", meta: "乔尔玛 · 独山子大峡谷", distance: "自驾约 320km", hotel: "奎屯万达美华 · 已关联", summary: "穿越独库北段的乔尔玛与防雪走廊, 在独山子大峡谷停留, 傍晚抵达奎屯。", stops: [
+    {time:"07:30",title:"那拉提出发",status:"长途驾驶日"},
+    {time:"11:00",title:"乔尔玛 · 防雪走廊",status:"独库北段"},
+    {time:"16:00",title:"独山子大峡谷",status:"重点观景"},
+    {time:"20:00",title:"奎屯万达美华",status:"已预订"},
+  ]},
+  { day: 6, date: "8/19 周三", title: "奎屯 → 赛里木湖", meta: "蓝湖雪山 · 日落", distance: "自驾约 230km", hotel: "赛里木湖英迪格 · 第1晚", summary: "上午抵达赛里木湖, 开始环湖看蓝湖与雪山, 傍晚寻找第一场湖边日落。", stops: [
+    {time:"08:00",title:"奎屯出发",status:"向西返回伊犁"},
+    {time:"12:00",title:"赛里木湖",status:"环湖开始"},
+    {time:"19:30",title:"湖边日落",status:"黄金时刻"},
+    {time:"21:00",title:"赛里木湖英迪格",status:"连住第1晚"},
+  ]},
+  { day: 7, date: "8/20 周四", title: "赛里木湖 · 深度环湖", meta: "日出 · 野餐 · 再等日落", distance: "环湖约 90km", hotel: "赛里木湖英迪格 · 第2晚", summary: "不赶路的一天: 日出, 环湖, 湖边野餐, 再等一次日落, 让孩子真正慢下来。", stops: [
+    {time:"06:20",title:"赛湖日出",status:"清晨光线"},
+    {time:"10:00",title:"环湖观景",status:"随时停车记录"},
+    {time:"13:00",title:"湖边野餐",status:"家庭慢时刻"},
+    {time:"20:00",title:"第二场日落",status:"不赶路"},
+  ]},
+  { day: 8, date: "8/21 周五", title: "赛湖 → 伊宁 ✈ 阿勒泰 → 布尔津", meta: "双段自驾 + EU2295", distance: "飞行 + 100km", hotel: "布尔津金津假日 · 已关联", summary: "飞行日时间很紧: 经果子沟直奔伊宁机场, 13:30前还车; 16:40抵阿勒泰后取车前往布尔津。八卦城仅保留为明确不推荐的备选。", stops: [
+    {time:"08:00",title:"赛里木湖出发",status:"建议不去八卦城"},
+    {time:"09:30",title:"果子沟大桥",status:"沿途短停"},
+    {time:"13:30",title:"伊宁机场还车",status:"最晚完成"},
+    {time:"15:25",title:"EU2295 伊宁 → 阿勒泰",status:"16:40 抵达"},
+    {time:"17:30",title:"阿勒泰机场提车",status:"坦克300 · 北疆段"},
+    {time:"20:00",title:"五彩滩 / 布尔津夜市",status:"视落地时间机动"},
+  ]},
+  { day: 9, date: "8/22 周六", title: "布尔津 → 贾登峪 → 喀纳斯", meta: "三湾 · 观鱼台 · 图瓦村", distance: "约 160km + 区间车", hotel: "喀纳斯禾木假日 · 第1晚", summary: "前往贾登峪并换乘景区交通, 游览三湾, 观鱼台与图瓦村落。", stops: [
+    {time:"08:00",title:"布尔津出发",status:"前往贾登峪"},
+    {time:"12:30",title:"喀纳斯三湾",status:"区间车 + 徒步"},
+    {time:"15:30",title:"喀纳斯湖 · 观鱼台",status:"核心景观"},
+    {time:"20:30",title:"喀纳斯禾木假日",status:"连住第1晚"},
+  ]},
+  { day: 10, date: "8/23 周日", title: "喀纳斯 / 禾木深度游", meta: "木屋 · 牧场 · 晨雾", distance: "约 70km + 区间车", hotel: "喀纳斯禾木假日 · 第2晚", summary: "走进禾木村, 在牧场木屋之间慢慢散步, 并为第二天清晨的观景台留足体力。", stops: [
+    {time:"09:00",title:"前往禾木村",status:"按景区交通执行"},
+    {time:"11:30",title:"禾木村",status:"木屋 · 牧场"},
+    {time:"16:00",title:"村中慢行",status:"自由记录"},
+    {time:"20:00",title:"喀纳斯禾木假日",status:"连住第2晚"},
+  ]},
+  { day: 11, date: "8/24 周一", title: "禾木 · 机动深度日", meta: "日出 · 骑马 · 徒步", distance: "机动", hotel: "喀纳斯禾木假日 · 第3晚", summary: "清晨看禾木日出, 可选骑马或徒步; 白哈巴与周边补游只在体力和交通允许时加入。", stops: [
+    {time:"06:30",title:"禾木观景台日出",status:"晨雾与炊烟"},
+    {time:"10:30",title:"骑马 / 徒步",status:"家庭机动"},
+    {time:"15:00",title:"白哈巴或周边补游",status:"可选"},
+    {time:"19:30",title:"整理装备",status:"为返程做准备"},
+  ]},
+  { day: 12, date: "8/25 周二", title: "禾木 → 布尔津 → 阿勒泰", meta: "补游 · 采购 · 返程缓冲", distance: "自驾约 250km", hotel: "阿勒泰福朋喜来登 · 已关联", summary: "退房后经布尔津返回阿勒泰, 补游或采购特产, 用一整天为返程留出缓冲。", stops: [
+    {time:"09:00",title:"禾木出发",status:"返阿勒泰"},
+    {time:"13:00",title:"布尔津补游 / 采购",status:"弹性停留"},
+    {time:"18:30",title:"阿勒泰市区",status:"返程前休整"},
+    {time:"20:00",title:"阿勒泰福朋喜来登",status:"已预订"},
+  ]},
+  { day: 13, date: "8/26 周三", title: "阿勒泰还车 → 北京", meta: "MU6674 / MU9191", distance: "飞行 · 次日抵京", hotel: "—", summary: "14:00前在阿勒泰雪都机场还车; 15:55起飞, 经中转于次日19:30抵达北京。", stops: [
+    {time:"11:30",title:"阿勒泰市区出发",status:"返程日"},
+    {time:"14:00",title:"阿勒泰机场还车",status:"最晚完成"},
+    {time:"15:55",title:"MU6674 / MU9191",status:"次日 19:30 抵京"},
+  ]},
+];
+
+const journeyByDay = {
+  1: {scene:"先认识伊宁的颜色, 再进入伊犁河谷", videos:[
+    {title:"伊犁 7-8 日路线与节奏总览", creator:"迈得丘 MadQ", duration:"21:10", tag:"出发前看"},
+    {title:"一个人走进北疆: 从城市到草原", creator:"北疆旅行记录", duration:"34:13", tag:"氛围预习"},
+  ], tips:[
+    {label:"六星街", detail:"彩色街区与手风琴庭院, 适合第一组家庭合影。"},
+    {label:"喀赞其", detail:"蓝色院落, 马车与街巷生活, 傍晚光线更柔和。"},
+    {label:"伊犁河谷初见", detail:"从机场进城留意白杨树与远山, 先录一段抵达语音。"},
+  ]},
+  2: {scene:"沿伊犁河谷向东, 草原开始接管视野", videos:[
+    {title:"那拉提 4K 实用游览指南", creator:"新疆在地影像", duration:"实用版", tag:"目的地"},
+    {title:"治愈系那拉提草原", creator:"草原航拍", duration:"短片", tag:"沿途风景"},
+  ], tips:[
+    {label:"那拉提镇", detail:"抵达后先补给与休息, 为独库南段保留体力。"},
+    {label:"河谷观景", detail:"云杉, 河流与牧场交替出现, 选择安全停车点短停。"},
+    {label:"伊犁河谷公路", detail:"车窗外的色带变化很适合拍 10 秒连续视频。"},
+  ]},
+  3: {scene:"独库南段穿山而过, 把日落留给九曲十八弯", videos:[
+    {title:"巴音布鲁克没有海: 九曲日落", creator:"新疆风景短片", duration:"01:13", tag:"黄金时刻"},
+    {title:"乔尔玛到巴音布鲁克公路实景", creator:"独库公路 POV", duration:"长镜头", tag:"沿途路书"},
+  ], tips:[
+    {label:"天鹅湖", detail:"湿地栈道风大, 带好外套与长焦镜头。"},
+    {label:"九曲十八弯", detail:"提前抵达占位, 把等待日落也当成回忆。"},
+    {label:"独库南段", detail:"雪岭, 峡谷和草甸切换很快, 拍摄由副驾完成。"},
+  ]},
+  4: {scene:"返回那拉提, 把一天放慢到一场草原野餐", videos:[
+    {title:"那拉提空中草原 4K 游览", creator:"新疆在地影像", duration:"实用版", tag:"入园前看"},
+    {title:"伊犁童话: 鹰的国", creator:"练凌飞 lkemon", duration:"02:34", tag:"电影感"},
+  ], tips:[
+    {label:"空中草原 · 天界台", detail:"区间车进入后按体力选择木栈道长度。"},
+    {label:"草原野餐", detail:"固定一台手机做延时, 另一台只记录声音。"},
+    {label:"巴音返回那拉提", detail:"回程光线与来时不同, 留意逆光中的牧群。"},
+  ]},
+  5: {scene:"独库北段的工程奇观, 最后在峡谷收束", videos:[
+    {title:"独库公路八日自驾与季节变化", creator:"独库旅行记录", duration:"路线版", tag:"公路史诗"},
+    {title:"独山子大峡谷航拍", creator:"北疆航拍", duration:"短片", tag:"目的地"},
+  ], tips:[
+    {label:"乔尔玛", detail:"短停纪念碑与服务区, 补给后再进入北段。"},
+    {label:"独山子大峡谷", detail:"傍晚纹理更立体, 靠近边缘时注意安全。"},
+    {label:"防雪走廊", detail:"不要停车, 副驾连续拍下工程结构与雪岭。"},
+  ]},
+  6: {scene:"从奎屯向西, 第一眼蓝留给赛里木湖", videos:[
+    {title:"赛里木湖为什么这么蓝", creator:"赛湖风景短片", duration:"短片", tag:"第一眼"},
+    {title:"赛湖, 果子沟与那拉提航拍", creator:"伊犁航拍", duration:"航拍版", tag:"全景"},
+  ], tips:[
+    {label:"赛里木湖", detail:"先看湖面风向, 再决定当天环湖方向。"},
+    {label:"湖边日落", detail:"提前 45 分钟落位, 拍一段全家安静等待。"},
+    {label:"天山北坡", detail:"公路逐渐抬升时, 雪山会从地平线慢慢出现。"},
+  ]},
+  7: {scene:"同一片湖, 用日出, 野餐和日落讲三遍", videos:[
+    {title:"自由的风吹过赛里木湖", creator:"赛湖短片", duration:"短片", tag:"晨间氛围"},
+    {title:"橙色日出下的赛湖航拍", creator:"北疆航拍", duration:"航拍版", tag:"日出机位"},
+  ], tips:[
+    {label:"赛湖环湖", detail:"以家庭体力决定停留点, 不为打卡赶路。"},
+    {label:"湖边野餐", detail:"录一段环境声, 未来回忆页会比照片更有穿透力。"},
+    {label:"草坡与花海", detail:"人物放在画面下三分之一, 让湖和雪山保持层次。"},
+  ]},
+  8: {scene:"果子沟短停后精准转场, 把北疆的第一晚留给布尔津", videos:[
+    {title:"果子沟大桥最佳观景与拍摄点", creator:"伊犁路线指南", duration:"机位版", tag:"短停指南"},
+    {title:"赛湖-果子沟路线实用指南", creator:"北疆自驾", duration:"路线版", tag:"转场路书"},
+  ], tips:[
+    {label:"果子沟大桥", detail:"只做短停, 必须为 13:30 机场还车留足缓冲。"},
+    {label:"五彩滩", detail:"仅在航班与提车顺畅时赶日落, 否则直接夜市。"},
+    {label:"赛湖到伊宁机场", detail:"把果子沟当唯一计划停点, 不新增绕行。"},
+  ]},
+  9: {scene:"从布尔津进入喀纳斯, 让三湾和湖水接管一天", videos:[
+    {title:"喀纳斯河滨步行道 4K 漫步", creator:"4K Xinjiang Walk", duration:"53:45", tag:"徒步预习"},
+    {title:"公共交通勇闯喀纳斯与禾木", creator:"北疆旅行记录", duration:"34:13", tag:"景区交通"},
+  ], tips:[
+    {label:"喀纳斯三湾", detail:"按体力选择卧龙湾到月亮湾的步行段。"},
+    {label:"喀纳斯湖", detail:"把观鱼台与湖边时间分开, 不让区间车打断节奏。"},
+    {label:"布尔津-贾登峪", detail:"白桦林与山路渐密, 途中服务点及时补给。"},
+  ]},
+  10: {scene:"木屋, 牧场与慢行, 给禾木一整天的呼吸", videos:[
+    {title:"盛夏禾木 4K", creator:"北疆 4K", duration:"沉浸版", tag:"村落漫游"},
+    {title:"秋到禾木: 登峰造极的色彩", creator:"禾木风景短片", duration:"00:35", tag:"四季对照"},
+  ], tips:[
+    {label:"禾木村", detail:"先走主街, 再离开人群进入牧场与木屋小路。"},
+    {label:"村中慢行", detail:"让安安选择一条路, 系统把他的视角留作儿童线。"},
+    {label:"区间车进村", detail:"记录从山谷转入木屋聚落的第一眼。"},
+  ]},
+  11: {scene:"天亮前走上山坡, 再把白天交给家庭决定", videos:[
+    {title:"禾木晨雾与木屋的夏日 4K", creator:"北疆 4K", duration:"沉浸版", tag:"日出预习"},
+    {title:"禾木四季色彩短片", creator:"禾木风景短片", duration:"00:35", tag:"灵感"},
+  ], tips:[
+    {label:"禾木观景台", detail:"日出前抵达, 家庭合影放在晨雾出现之后。"},
+    {label:"白哈巴备选", detail:"只在交通与体力都允许时加入, 不挤压休息。"},
+    {label:"骑马或徒步", detail:"由孩子选择, 记录决定过程比结果更有趣。"},
+  ]},
+  12: {scene:"从禾木退场, 把补游, 采购和返程缓冲放在同一天", videos:[
+    {title:"五彩滩日落与地貌", creator:"北疆航拍", duration:"风景版", tag:"补游备选"},
+    {title:"北疆环线旅行日记", creator:"北疆 Vlog", duration:"路线版", tag:"返程回看"},
+  ], tips:[
+    {label:"布尔津补游", detail:"若 Day 8 错过五彩滩, 可按天气与时间补上。"},
+    {label:"阿勒泰市区", detail:"采购, 清理相机与备份, 给返程留完整缓冲。"},
+    {label:"禾木-布尔津", detail:"用车窗固定机位拍一段离开山谷的连续镜头。"},
+  ]},
+  13: {scene:"不是结束, 是把十三天交给未来的自己", videos:[
+    {title:"北疆环线旅行日记", creator:"北疆 Vlog", duration:"路线版", tag:"返程回看"},
+    {title:"伊犁与北疆路线总览", creator:"迈得丘 MadQ", duration:"21:10", tag:"首尾对照"},
+  ], tips:[
+    {label:"阿勒泰雪都机场", detail:"14:00 前完成还车, 给安检与中转留余量。"},
+    {label:"家庭终章录音", detail:"起飞前每个人回答: 下次最想回到哪里？"},
+    {label:"抵京以后", detail:"系统会按时间, 地点和人物生成可回看的记忆入口。"},
+  ]},
+};
+
+// === RENDER: day list ===
+const dayList = document.getElementById("dayList");
+tripDays.forEach((d, i) => {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.dataset.day = d.day;
+  if (i === 0) btn.classList.add("active");
+  btn.innerHTML = `
+    <span class="day-state ${i === 0 ? "active" : "next"}"><span style="font-size:8px">${i + 1}</span></span>
+    <span><small>Day ${d.day} · ${d.date}</small><b>${d.title}</b><em>${d.meta}</em></span>
+    <span style="margin-left:auto;color:rgba(255,255,255,.4)">›</span>
+  `;
+  btn.addEventListener("click", () => selectDay(d.day));
+  dayList.appendChild(btn);
+});
+
+// === RENDER: detail panel ===
+function selectDay(dayNumber) {
+  const d = tripDays.find(x => x.day === dayNumber) || tripDays[0];
+  const jg = journeyByDay[dayNumber] || journeyByDay[1];
+
+  // highlight day list
+  document.querySelectorAll("#dayList button").forEach(b => {
+    b.classList.toggle("active", +b.dataset.day === dayNumber);
+    const state = b.querySelector(".day-state");
+    if (state) state.classList.toggle("active", +b.dataset.day === dayNumber);
+  });
+
+  // detail
+  document.getElementById("mapDayLabel").textContent = `Day ${d.day} · ${d.date}`;
+  document.getElementById("mapTitle").textContent = d.title;
+  document.getElementById("detailEyebrow").textContent = `Day ${d.day} · ${d.date} · ${d.distance}`;
+  document.getElementById("detailTitle").textContent = d.title;
+  document.getElementById("detailSummary").textContent = d.summary;
+  document.getElementById("detailHotel").textContent = d.hotel;
+
+  // stops
+  const stopList = document.getElementById("stopList");
+  stopList.innerHTML = d.stops.map((s, i) => `
+    <button class="${i === 0 ? "focused" : ""}" type="button">
+      <time>${s.time}</time>
+      <span>📍</span>
+      <span><b>${s.title}</b><small>${s.status}</small></span>
+    </button>
+  `).join("");
+
+  // journey
+  document.getElementById("jgDayNum").textContent = d.day;
+  document.getElementById("jgScene").textContent = jg.scene;
+  document.getElementById("journeyVideos").innerHTML = jg.videos.map(v => `
+    <a href="https://2017zyl.xyz/视频库/index.html?version=journey" target="_blank" rel="noopener noreferrer">
+      <span>▶</span>
+      <div><small>${v.tag} · ${v.creator}</small><b>${v.title}</b><em>${v.duration}</em></div>
+      <span style="margin-left:auto">→</span>
+    </a>
+  `).join("");
+  document.getElementById("journeyTips").innerHTML = `
+    <div>
+      <span>目的地推荐</span>
+      ${jg.tips.slice(0,2).map(t => `
+        <button type="button">
+          <span>📍</span>
+          <span><b>${t.label}</b><small>${t.detail}</small></span>
+        </button>
+      `).join("")}
+    </div>
+    <div>
+      <span>沿途风景提醒</span>
+      ${jg.tips.slice(2).map(t => `
+        <button type="button">
+          <span>🧭</span>
+          <span><b>${t.label}</b><small>${t.detail}</small></span>
+        </button>
+      `).join("")}
+    </div>
+  `;
+}
+
+// === stage switcher ===
+document.querySelectorAll("#stageSwitcher button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const stage = btn.dataset.stage;
+    document.querySelectorAll("#stageSwitcher button").forEach(b => b.classList.toggle("active", b === btn));
+    document.querySelectorAll("[data-stage-panel]").forEach(p => {
+      p.hidden = p.dataset.stagePanel !== stage;
+    });
+  });
+});
+
+// === memory view switcher (demo) ===
+document.querySelectorAll(".memory-sidebar nav button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".memory-sidebar nav button").forEach(b => b.classList.toggle("active", b === btn));
+  });
+});
+
+// === lock plan button (demo) ===
+const lockBtn = document.getElementById("lockPlan");
+let locked = false;
+lockBtn.addEventListener("click", () => {
+  locked = !locked;
+  lockBtn.innerHTML = locked ? "✓ Day 8 主线已锁定" : "🔒 锁定\"直奔机场\"主线";
+  lockBtn.style.background = locked ? "var(--moss-dark)" : "var(--moss)";
+});
+
+// === initial render ===
+selectDay(1);
+</script>
+
+</body>
+</html>
