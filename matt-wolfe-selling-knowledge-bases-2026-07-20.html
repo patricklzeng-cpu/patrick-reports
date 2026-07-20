@@ -495,23 +495,23 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-
 </main>
 
 <script>
+function toggleToc(){
+  document.body.classList.toggle('toc-collapsed');
+  try{ localStorage.setItem('ecx3-toc-collapsed', document.body.classList.contains('toc-collapsed')?'1':'0'); }catch(e){}
+}
+function toggleLang(){
+  var html=document.documentElement;
+  var isZh=html.lang==='zh-CN';
+  html.lang=isZh?'en':'zh-CN';
+  var btn=document.getElementById('langBtn');
+  if(btn) btn.textContent=isZh?'ZH':'EN';
+  try{ localStorage.setItem('ecx3-lang', html.lang); }catch(e){}
+}
 (function(){
   // ---- TOC toggle (collapsible v1.4.4) ----
-  function toggleToc(){
-    document.body.classList.toggle('toc-collapsed');
-    try{ localStorage.setItem('ecx3-toc-collapsed', document.body.classList.contains('toc-collapsed')?'1':'0'); }catch(e){}
-  }
   if(localStorage.getItem('ecx3-toc-collapsed')==='1') document.body.classList.add('toc-collapsed');
 
-  // ---- Bilingual lang toggle ----
-  function toggleLang(){
-    var html=document.documentElement;
-    var isZh=html.lang==='zh-CN';
-    html.lang=isZh?'en':'zh-CN';
-    var btn=document.getElementById('langBtn');
-    if(btn) btn.textContent=isZh?'ZH':'EN';
-    try{ localStorage.setItem('ecx3-lang', html.lang); }catch(e){}
-  }
+  // ---- Bilingual lang toggle (lang-restore onload) ----
   (function(){
     var saved=localStorage.getItem('ecx3-lang');
     if(saved==='en'||saved==='zh-CN'){
