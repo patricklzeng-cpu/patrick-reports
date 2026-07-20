@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>把知识库当服务卖给企业 — Matt Wolfe 实战教学 / Selling Knowledge Bases as a Service</title>
+<style>
+:root{
+  --bg:#0a0a14;
+  --bg-2:#131325;
+  --bg-3:#1c1c33;
+  --fg:#e8e8f0;
+  --fg-mute:#8c8ca8;
+  --fg-muted:#6a6a82;
+  --lime:#d5ff3f;
+  --lime-dim:#9bbf2f;
+  --purple:#9b6cff;
+  --pink:#ff6cc5;
+  --green:#5cffa5;
+  --amber:#ffb84d;
+  --red:#ff5c7a;
+  --border:rgba(255,255,255,.08);
+  --border-2:rgba(213,255,63,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:14px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--lime);text-decoration:none}
+a:hover{text-decoration:underline}
+code,kbd,.mono{font-family:ui-monospace,"SF Mono","JetBrains Mono",Consolas,monospace;font-size:13px}
+
+/* Layout */
+.page{max-width:1180px;margin:0 auto;padding:32px 36px 96px}
+.hero{padding:24px 0 18px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.hero h1{font-size:30px;line-height:1.25;margin:0 0 10px;font-weight:700;letter-spacing:-.01em}
+.hero h1 .zh{color:var(--fg)}
+.hero h1 .en{color:var(--lime)}
+.meta{display:flex;flex-wrap:wrap;gap:14px 22px;color:var(--fg-mute);font-size:13px}
+.meta strong{color:var(--fg)}
+.meta a{color:var(--lime)}
+
+/* Bilingual lang switch */
+.lang-switch{position:fixed;top:18px;right:22px;z-index:60;background:rgba(18,18,42,.92);border:1px solid var(--lime);color:var(--lime);border-radius:22px;padding:6px 14px;font:600 12px ui-monospace,"SF Mono",monospace;cursor:pointer;backdrop-filter:blur(8px);letter-spacing:.06em;transition:.2s}
+.lang-switch:hover{background:var(--lime);color:#0a0a14;box-shadow:0 0 16px rgba(213,255,63,.4)}
+
+/* 4-class visibility swap */
+html[lang="zh-CN"] .en{display:none}
+html[lang="en"] .zh{display:none}
+
+/* Stats row */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0 8px}
+.stat-card{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-align:left;transition:.18s}
+.stat-card:hover{border-color:var(--border-2)}
+.stat-card .num{font-size:30px;font-weight:700;color:var(--lime);font-family:ui-monospace,"SF Mono",monospace;line-height:1.1}
+.stat-card .lbl{font-size:12px;color:var(--fg-mute);text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
+
+/* Tabs */
+.tab-nav{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--border);margin:24px 0 18px;padding-bottom:0}
+.tab-nav button{background:transparent;border:none;color:var(--fg-mute);font:600 13px inherit;padding:10px 14px;cursor:pointer;border-radius:6px 6px 0 0;border-bottom:2px solid transparent;transition:.15s;letter-spacing:.02em}
+.tab-nav button:hover{color:var(--fg)}
+.tab-nav button.active{color:var(--lime);border-bottom-color:var(--lime)}
+.tab-content{display:none;padding:8px 0 28px}
+.tab-content.active{display:block}
+
+/* Callouts */
+.callout{background:rgba(255,184,77,.07);border-left:3px solid var(--amber);padding:14px 16px;border-radius:0 8px 8px 0;margin:16px 0;font-size:13.5px;line-height:1.7}
+.callout.warn{border-left-color:var(--amber)}
+.callout.info{border-left-color:var(--purple);background:rgba(155,108,255,.07)}
+.callout.ok{border-left-color:var(--green);background:rgba(92,255,165,.06)}
+.callout strong{color:var(--amber)}
+.callout.info strong{color:var(--purple)}
+.callout.ok strong{color:var(--green)}
+
+/* Cards */
+.chapter{background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin:14px 0;transition:.18s;scroll-margin-top:80px}
+.chapter:hover{border-color:var(--border-2)}
+.chapter h3{margin:0 0 8px;font-size:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.ch-time{font:600 11px ui-monospace,monospace;color:var(--lime);background:rgba(213,255,63,.08);padding:3px 7px;border-radius:4px}
+.ch-num{font:600 11px ui-monospace,monospace;color:var(--purple);background:rgba(155,108,255,.1);padding:3px 7px;border-radius:4px}
+.chapter .summary{margin:8px 0 10px;font-size:14px;line-height:1.7;color:var(--fg)}
+.chapter .pts{margin:8px 0 0;padding:0;list-style:none}
+.chapter .pts li{padding:5px 0 5px 18px;position:relative;font-size:13px;line-height:1.6;color:var(--fg)}
+.chapter .pts li::before{content:"→";position:absolute;left:0;color:var(--lime);font-weight:700}
+
+/* Tier 4 badges */
+.tier4{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tier4 .tag{font:600 10.5px ui-monospace,monospace;padding:3px 8px;border-radius:10px;letter-spacing:.04em}
+.tier4 .tag.mitig{background:rgba(92,255,165,.1);color:var(--green);border:1px solid rgba(92,255,165,.3)}
+.tier4 .tag.warn{background:rgba(255,184,77,.1);color:var(--amber);border:1px solid rgba(255,184,77,.3)}
+.tier4 .tag.gap{background:rgba(255,92,122,.1);color:var(--red);border:1px solid rgba(255,92,122,.3)}
+.tier4 .tag.verified{background:rgba(155,108,255,.1);color:var(--purple);border:1px solid rgba(155,108,255,.3)}
+
+/* Quote cards */
+.quote-card{background:var(--bg-2);border-left:3px solid var(--lime);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13.5px;line-height:1.7}
+.quote-card .ctx{color:var(--fg-mute);font-size:12px;margin-bottom:6px;font-style:italic}
+.quote-card .zh,.quote-card .en{color:var(--fg)}
+
+/* TOC sidebar v1.4.4 collapsible */
+aside.toc{position:fixed;top:80px;left:14px;width:240px;max-height:calc(100vh - 110px);overflow-y:auto;background:rgba(20,20,32,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:14px 12px;z-index:40;font-size:13px;transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .3s cubic-bezier(.16,1,.3,1)}
+aside.toc h3.toc-label{color:var(--lime);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px;font-weight:700;border-bottom:1px solid var(--border);padding-bottom:6px}
+aside.toc ol{list-style:none;padding:0;margin:0}
+aside.toc ol li{margin:0}
+aside.toc a{display:flex;gap:8px;align-items:baseline;color:var(--fg-mute);text-decoration:none;padding:5px 6px;border-radius:5px;border-left:2px solid transparent;line-height:1.3;transition:.12s;cursor:pointer}
+aside.toc a:hover{color:var(--fg);background:rgba(213,255,63,.04)}
+aside.toc a.active{color:var(--lime);background:rgba(213,255,63,.06);border-left-color:var(--lime);font-weight:600}
+aside.toc .toc-num{font:600 10px ui-monospace,monospace;color:var(--lime);min-width:22px}
+aside.toc .toc-label{flex:1}
+.toc-toggle{position:fixed;top:80px;left:14px;z-index:50;background:rgba(20,20,32,.94);border:1px solid var(--lime);color:var(--lime);border-radius:8px;width:36px;height:36px;font-size:18px;cursor:pointer;backdrop-filter:blur(8px);transition:.18s}
+.toc-toggle:hover{background:var(--lime);color:#0a0a14}
+body.toc-collapsed aside.toc{transform:translateX(-260px);opacity:0;pointer-events:none}
+body.toc-collapsed .toc-toggle{left:14px}
+body.toc-collapsed .page{padding-left:36px !important}
+@media (min-width:901px){.page{padding-left:280px}}
+@media (max-width:900px){aside.toc{display:none}.toc-toggle{display:none}.page{padding-left:24px !important}}
+
+/* Section h2 */
+h2{margin:32px 0 12px;font-size:22px;color:var(--lime);border-bottom:1px solid var(--border);padding-bottom:8px}
+h2 .en{color:var(--purple)}
+h3{margin:18px 0 8px;font-size:15px;color:var(--fg)}
+table{border-collapse:collapse;margin:14px 0;font-size:13px;width:100%}
+table th,table td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left}
+table th{color:var(--lime);font-weight:600;background:var(--bg-2)}
+table tr:hover{background:rgba(213,255,63,.03)}
+
+/* Footer */
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--fg-mute);text-align:center}
+</style>
+</head>
+<body>
+<button class="toc-toggle" onclick="toggleToc()" title="折叠 TOC / Toggle TOC">☰</button>
+<button class="lang-switch" onclick="toggleLang()" id="langBtn">EN</button>
+
+<aside class="toc" id="toc">
+  <h3 class="toc-label"><span class="zh">章节导航</span><span class="en">Chapters</span></h3>
+  <ol>
+        <li><a href="#ch-1" data-toc-target="ch-1"><span class="toc-num">01</span><span class="toc-label lang-zh zh">机会:无聊的知识库反而赢了</span><span class="toc-label lang-en en">The Boring Knowledge Base That Actua</span></a></li>
+    <li><a href="#ch-2" data-toc-target="ch-2"><span class="toc-num">02</span><span class="toc-label lang-zh zh">技术栈:Quivr + Postgres pgvector + GPT-</span><span class="toc-label lang-en en">Tech Stack: Quivr + Postgres pgvecto</span></a></li>
+    <li><a href="#ch-3" data-toc-target="ch-3"><span class="toc-num">03</span><span class="toc-label lang-zh zh">构建实战 + 5 个数据源优先级</span><span class="toc-label lang-en en">Build Walkthrough + Data Source Prio</span></a></li>
+    <li><a href="#ch-4" data-toc-target="ch-4"><span class="toc-num">04</span><span class="toc-label lang-zh zh">3 档定价:每客户每月 $5K-$20K</span><span class="toc-label lang-en en">3-Tier Pricing: $5K-$20K/mo per Clie</span></a></li>
+    <li><a href="#ch-5" data-toc-target="ch-5"><span class="toc-num">05</span><span class="toc-label lang-zh zh">CTA:90 天退款保证的 AI 服务加速器课程</span><span class="toc-label lang-en en">CTA: 90-day Refund-Guaranteed AI Ser</span></a></li>
+  </ol>
+</aside>
+
+<main class="page">
+<header class="hero">
+  <h1>
+    <span class="zh">把知识库当服务卖给企业 — Matt Wolfe 实战教学</span>
+    <span class="en">Selling Knowledge Bases as a Service — Matt Wolfe Tutorial</span>
+  </h1>
+  <div class="meta">
+    <span><strong>Matt Wolfe</strong> · <span class="zh">FutureTools</span><span class="en">FutureTools</span></span>
+    <span>2026-07-20</span>
+    <span>23:48</span>
+    <span><span class="zh">观看</span><span class="en">views</span>: <a href="https://www.youtube.com/watch?v=eCx3SSCcISo" target="_blank" rel="noopener">eCx3SSCcISo</a></span>
+    <span><span class="zh">字幕</span><span class="en">transcript</span>: <span class="zh">kome.ai 1-curl fallback</span><span class="en">kome.ai 1-curl fallback</span></span>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="num">5</div>
+    <div class="lbl"><span class="zh">章节</span><span class="en">Chapters</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">29.5K</div>
+    <div class="lbl"><span class="zh">英文字符 transcript</span><span class="en">EN transcript chars</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">5</div>
+    <div class="lbl"><span class="zh">数据源优先级</span><span class="en">Data source priorities</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">$20K-$60K</div>
+    <div class="lbl"><span class="zh">2-3 客户月收入</span><span class="en">mo revenue / 2-3 clients</span></div>
+  </div>
+</div>
+
+<div class="tab-nav" id="tabNav">
+  <button class="active" data-tab="overview">📋 <span class="zh">总览</span><span class="en">Overview</span></button>
+  <button data-tab="chapters">📚 <span class="zh">章节</span><span class="en">Chapters</span></button>
+  <button data-tab="tech">⚡ <span class="zh">技术栈</span><span class="en">Tech Stack</span></button>
+  <button data-tab="pricing">💰 <span class="zh">3 档定价</span><span class="en">3-Tier Pricing</span></button>
+  <button data-tab="quotes">🎯 <span class="zh">金句</span><span class="en">Quotes</span></button>
+  <button data-tab="takeaways">🎓 <span class="zh">要点</span><span class="en">Takeaways</span></button>
+  <button data-tab="sources">🔗 <span class="zh">来源</span><span class="en">Sources</span></button>
+</div>
+
+<div class="tab-content active" id="overview">
+  <div class="callout info">
+    <strong>💡 <span class="zh">视频核心信息</span><span class="en">Video core info</span></strong>
+    <span class="zh">Matt Wolfe 用一个 AI 硬件公司的真实知识库案例开场,展开讲如何把企业内部知识库(基于 Quivr + Postgres + GPT-4o)包装成可售卖的服务:5 个数据源优先级 + 3 档定价模型,目标 1-2 人小团队达 $20K-$60K/月收入。</span>
+    <span class="en">Matt Wolfe opens with a real AI hardware company internal KB case, then walks through packaging enterprise knowledge bases (Quivr + Postgres + GPT-4o) as a sellable service: 5 data source priorities + 3-tier pricing, targeting $20K-$60K/mo revenue for a 1-2 person team.</span>
+  </div>
+
+  <h2><span class="zh">一句话总结</span><span class="en">One-line summary</span></h2>
+  <p style="font-size:15px;line-height:1.8;margin:8px 0">
+    <span class="zh">把企业内部知识库(KB 摄入管道 + RAG 检索)做成 SaaS 服务 — 1-2 人小团队,每客户 $10K-$20K/月,2-3 客户达成 $20K-$60K/月收入。关键不是 LLM,而是数据摄入管道的可靠性。</span>
+    <span class="en">Package enterprise internal knowledge bases (KB ingestion pipeline + RAG retrieval) as a SaaS service — 1-2 person team, $10K-$20K/mo per client, 2-3 clients = $20K-$60K/mo. The key is not the LLM, it's the reliability of the data ingestion pipeline.</span>
+  </p>
+
+  <h2><span class="zh">5 个核心 takeaways</span><span class="en">5 core takeaways</span></h2>
+  <ol style="margin:8px 0;padding-left:24px;line-height:1.9">
+    <li><span class="zh">无聊 = 赢:花哨 obsidian 图 / 3D 大脑漂浮 = 可靠性差;Slack + Confluence + GitHub 摄入管道 = 高价值</span><span class="en">Boring wins: flashy obsidian graphs / 3D brain-in-a-tube = unreliable; Slack + Confluence + GitHub ingestion pipeline = high value</span></li>
+    <li><span class="zh">数据摄入管道 = 80% 工作:LLM 选型只是 20% — 先调摄入,再选 LLM</span><span class="en">Data ingestion pipeline = 80% of work: LLM choice = 20% — tune ingestion first, LLM second</span></li>
+    <li><span class="zh">Quivr + Postgres pgvector + GPT-4o = 可靠默认栈:无需自研、无需额外服务</span><span class="en">Quivr + Postgres pgvector + GPT-4o = reliable default stack: no custom build, no extra services</span></li>
+    <li><span class="zh">5 个数据源优先级:P1 Slack(流失最快) → P5 杂项(PDF/Notion/Google Docs)</span><span class="en">5 data source priorities: P1 Slack (fastest-lost) → P5 misc (PDF/Notion/Google Docs)</span></li>
+    <li><span class="zh">3 档打包 = $10K-$20K/月/客户;2-3 客户 = $20K-$60K/月 — 1-2 人小团队可达 sweet spot</span><span class="en">3-tier packaging = $10K-$20K/mo/client; 2-3 clients = $20K-$60K/mo — 1-2 person team sweet spot</span></li>
+  </ol>
+
+  <div class="tier4" style="margin-top:14px">
+    <span class="tag verified"><span class="zh">已验证</span><span class="en">verified</span></span>
+    <span class="tag verified"><span class="zh">transcript = 30KB EN</span><span class="en">transcript = 30KB EN</span></span>
+    <span class="tag mitig"><span class="zh">视频作者本人主张</span><span class="en">author's own claims</span></span>
+    <span class="tag warn"><span class="zh">CTA 课程推荐</span><span class="en">CTA course pitch</span></span>
+  </div>
+</div>
+
+<div class="tab-content" id="chapters">
+  <h2><span class="zh">全部 5 章节 · 双语对照</span><span class="en">All 5 chapters · bilingual</span></h2>
+    <div class="chapter" id="ch-1">
+    <h3>
+      <span class="ch-time">[00:00-03:45]</span>
+      <span class="ch-num">#01</span>
+      <span class="zh">机会:无聊的知识库反而赢了</span>
+      <span class="en">The Boring Knowledge Base That Actually Works</span>
+    </h3>
+    <div class="summary">
+      <span class="zh">Matt 开场讲 Sarah 所在的大型 AI 硬件公司(做推理芯片,服务多家十亿美元客户)刚发了一篇 blog 介绍内部知识库。他们没有展示 obsidian 图表、没有 3D 大脑漂浮动画,而是展示了一个可靠的数据摄入管道。Slack 每条对话、Confluence wiki、GitHub 仓库、自定义数据库全部吸入,让公司里任何人能问业务问题。Matt 借此批评当下花哨的"第二大脑"工具:知识库应该无聊、可靠、稳健、能从多源摄入数据并吐出准确答案 — 这才是企业愿意付费的价值。</span>
+      <span class="en">Matt opens with Sarah's massive AI hardware company (inference chips, billion-dollar clients). They just blogged about their internal knowledge base — no obsidian graphs, no 3D brain-in-a-tube, just a reliable data ingestion pipeline. Every Slack conversation, Confluence wiki, GitHub repo, custom database — all sucked in, so anyone in the company can ask business questions. Matt uses this to critique today's flashy 'second brain' tools: a knowledge base should be boring, reliable, robust, ingest from multiple sources, and spit out accurate answers — that's what enterprises pay for.</span>
+    </div>
+    <ul class="pts">
+      <li><span class="zh">AI 硬件公司内部知识库:Sarah 团队建了一个能问业务问题的 queryable KB</span></li>
+      <li><span class="zh">数据源覆盖:Slack(全公司历史对话) + Confluence/Wiki + GitHub(代码/issue/PR) + 自定义数据库(CRM/ERP) + 网表 PRM docs</span></li>
+      <li><span class="zh">vs 花哨工具:Obsidian 知识图谱 / 3D 大脑漂浮动画 — 视觉噱头,可靠性差</span></li>
+      <li><span class="zh">核心价值 = 数据摄入管道的准确性和可靠性,不是 UI 美观</span></li>
+      <li><span class="en">AI hardware company internal KB: Sarah's team built a queryable KB for business Q&amp;A</span></li>
+      <li><span class="en">Data source coverage: Slack (all historical chats) + Confluence/Wiki + GitHub (code/issues/PRs) + custom DB (CRM/ERP) + netlist PRM docs</span></li>
+      <li><span class="en">vs flashy tools: Obsidian graphs / 3D brain-in-a-tube — visual gimmick, unreliable</span></li>
+      <li><span class="en">Core value = accuracy + reliability of data ingestion pipeline, not UI polish</span></li>
+    </ul>
+  </div>
+  <div class="chapter" id="ch-2">
+    <h3>
+      <span class="ch-time">[03:45-08:00]</span>
+      <span class="ch-num">#02</span>
+      <span class="zh">技术栈:Quivr + Postgres pgvector + GPT-4o</span>
+      <span class="en">Tech Stack: Quivr + Postgres pgvector + GPT-4o</span>
+    </h3>
+    <div class="summary">
+      <span class="zh">Matt 给出他认为最可靠的 5 件套技术栈。核心是开源项目 Quivr(开源 RAG 系统,无聊但好用)。向量数据库用 Postgres + pgvector 扩展(无聊但已经到处在跑)。Embedding 模型用 OpenAI text-embedding-3-small(性价比最优)。LLM 用 GPT-4o — Matt 解释为什么不用 Claude/开源:不是模型问题,是数据摄入管道问题 — 摄入管道拉胯的话,什么 LLM 都救不了,所以先调摄入,再选 LLM。</span>
+      <span class="en">Matt gives his go-to reliable 5-piece stack. Core = Quivr (open-source RAG, boring but works). Vector DB = Postgres + pgvector extension (boring, probably already running somewhere). Embedding = OpenAI text-embedding-3-small (best cost/perf). LLM = GPT-4o — Matt explains why not Claude/open-source: the problem is the data ingestion pipeline, not the model. If ingestion is crap, no LLM saves it. Tune ingestion first, LLM choice second.</span>
+    </div>
+    <ul class="pts">
+      <li><span class="zh">Quivr:开源 RAG 框架,'无聊但好用' — 不做花哨可视化,专注多源摄入 + 准确回答</span></li>
+      <li><span class="zh">Postgres + pgvector:无聊但到处在跑的向量数据库,无需额外部署</span></li>
+      <li><span class="zh">OpenAI text-embedding-3-small:性价比最优的 embedding 模型</span></li>
+      <li><span class="zh">LLM 选 GPT-4o:指令遵循强、成本合理 — 但 Matt 强调 LLM 选择不是关键</span></li>
+      <li><span class="zh">优先级反转:80% 时间调数据摄入管道,20% 选 LLM</span></li>
+      <li><span class="en">Quivr: open-source RAG framework, 'boring but works' — no fancy visualization, just multi-source ingestion + accurate answers</span></li>
+      <li><span class="en">Postgres + pgvector: boring but ubiquitous vector DB, no extra deployment</span></li>
+      <li><span class="en">OpenAI text-embedding-3-small: best cost/perf embedding model</span></li>
+      <li><span class="en">LLM = GPT-4o: strong instruction-following, reasonable cost — but Matt emphasizes LLM choice is NOT the bottleneck</span></li>
+      <li><span class="en">Priority inversion: 80% time on data ingestion pipeline, 20% on LLM</span></li>
+    </ul>
+  </div>
+  <div class="chapter" id="ch-3">
+    <h3>
+      <span class="ch-time">[08:00-18:30]</span>
+      <span class="ch-num">#03</span>
+      <span class="zh">构建实战 + 5 个数据源优先级</span>
+      <span class="en">Build Walkthrough + Data Source Priorities</span>
+    </h3>
+    <div class="summary">
+      <span class="zh">Matt 演示完整 build 流程。Step 1:clone Quivr + 配环境变量(OpenAI key / DB URL / Slack token)+ 跑迁移 + 启服务。Step 2:接数据源 — 这是 80% 工作量。Matt 给出 5 个优先级:(1) Slack(全公司历史对话,流失最快的知识);(2) Wiki/Confluence(经常过时,需谨慎摄入);(3) GitHub(issue/PR/comment);(4) 自定义数据库(SQL 查询 + chunk);(5) 杂项(PDF/Google Docs/Notion)。每源都有自己的连接方式:Slack API 拉历史 + 过滤 noise / Firecrawl 爬 wiki / GitHub API 拉 issue/PR / 自定义 SQL connector。最后一步是调参:chunk size / overlap / embedding / LLM 选型 — 用一组 test query 反复迭代。</span>
+      <span class="en">Matt demos the full build. Step 1: clone Quivr + env vars (OpenAI key, DB URL, Slack token) + migrations + start server. Step 2: connect data sources — 80% of the work. Matt's 5-priority list: (1) Slack (all company history, fastest-lost knowledge); (2) Wiki/Confluence (often stale, ingest carefully); (3) GitHub (issues/PRs/comments); (4) Custom DBs (SQL query + chunk); (5) Misc (PDFs/Google Docs/Notion). Each has its own connector: Slack API + filter noise / Firecrawl crawl wiki / GitHub API + filter / custom SQL connector. Final step: tune — chunk size / overlap / embedding / LLM via a test-query loop.</span>
+    </div>
+    <ul class="pts">
+      <li><span class="zh">Step 1-4:Quivr setup — git clone → env vars → migrations → server</span></li>
+      <li><span class="zh">数据源优先级 P1=Slack,P2=Wiki/Confluence,P3=GitHub,P4=自定义 DB,P5=杂项(PDF/Notion/Google Docs)</span></li>
+      <li><span class="zh">Slack 连接器:用 Slack API 拉历史 → filter noise(reactions/bot messages) → chunk + ingest</span></li>
+      <li><span class="zh">Wiki 连接器:Firecrawl 爬 → extract content → chunk + ingest</span></li>
+      <li><span class="zh">GitHub 连接器:API 拉 issue/PR/comment → filter → ingest</span></li>
+      <li><span class="zh">调参闭环:用 test query 反复迭代 chunk size / overlap / embedding / LLM 直到答案准确</span></li>
+      <li><span class="en">Step 1-4: Quivr setup — git clone → env vars → migrations → start server</span></li>
+      <li><span class="en">Data source priority P1=Slack, P2=Wiki/Confluence, P3=GitHub, P4=Custom DB, P5=Misc (PDF/Notion/Google Docs)</span></li>
+      <li><span class="en">Slack connector: Slack API pull history → filter noise (reactions/bots) → chunk + ingest</span></li>
+      <li><span class="en">Wiki connector: Firecrawl crawl → extract content → chunk + ingest</span></li>
+      <li><span class="en">GitHub connector: API pull issues/PRs/comments → filter → ingest</span></li>
+      <li><span class="en">Tuning loop: test queries against the KB → adjust chunk size / overlap / embedding / LLM until answers accurate</span></li>
+    </ul>
+  </div>
+  <div class="chapter" id="ch-4">
+    <h3>
+      <span class="ch-time">[18:30-21:15]</span>
+      <span class="ch-num">#04</span>
+      <span class="zh">3 档定价:每客户每月 $5K-$20K</span>
+      <span class="en">3-Tier Pricing: $5K-$20K/mo per Client</span>
+    </h3>
+    <div class="summary">
+      <span class="zh">Matt 给出他推荐的 3 档服务打包方案。Tier 1(基础搭建):$5,000-$10,000 一次性 — 搭 KB + 接 3-5 个数据源 + 调检索 + 交付。Tier 2(持续运维):$1,000-$2,000/月 — 监控 + 加新数据源 + 重索引 + 处理用户反馈。Tier 3(高级定制):$3,000-$5,000/月 — 自定义集成 + 定制 dashboard + 优先支持。3 档叠加 = 每客户 $10K-$20K/月。拿下 2-3 个客户 = $20K-$60K/月收入,一人或两人小团队可达 — 这是 AI 知识库服务的 economics。</span>
+      <span class="en">Matt's recommended 3-tier service packaging. Tier 1 (basic setup): $5K-$10K one-time — build KB + connect 3-5 sources + tune retrieval + hand off. Tier 2 (ongoing maintenance): $1K-$2K/mo — monitoring + add new sources + re-index + handle user feedback. Tier 3 (premium): $3K-$5K/mo — custom integrations + custom dashboards + priority support. Stack all 3 = $10K-$20K/mo per client. 2-3 clients = $20K-$60K/mo revenue, doable by a 1-2 person team — that's the economics of selling AI knowledge base services.</span>
+    </div>
+    <ul class="pts">
+      <li><span class="zh">Tier 1 基础搭建:$5K-$10K 一次性 — 搭 KB + 接 3-5 数据源 + 调检索</span></li>
+      <li><span class="zh">Tier 2 持续运维:$1K-$2K/月 — 监控 + 加源 + 重索引 + 用户反馈</span></li>
+      <li><span class="zh">Tier 3 高级定制:$3K-$5K/月 — 自定义集成 + 定制 dashboard + 优先支持</span></li>
+      <li><span class="zh">Revenue 模型:3 档叠加 = $10K-$20K/月/客户</span></li>
+      <li><span class="zh">2-3 客户 = $20K-$60K/月 — 1-2 人小团队可达</span></li>
+      <li><span class="en">Tier 1 basic setup: $5K-$10K one-time — build KB + 3-5 sources + tune retrieval</span></li>
+      <li><span class="en">Tier 2 ongoing maintenance: $1K-$2K/mo — monitoring + add sources + re-index + feedback</span></li>
+      <li><span class="en">Tier 3 premium: $3K-$5K/mo — custom integrations + dashboards + priority support</span></li>
+      <li><span class="en">Revenue model: 3 tiers stacked = $10K-$20K/mo per client</span></li>
+      <li><span class="en">2-3 clients = $20K-$60K/mo — achievable by 1-2 person team</span></li>
+    </ul>
+  </div>
+  <div class="chapter" id="ch-5">
+    <h3>
+      <span class="ch-time">[21:15-23:48]</span>
+      <span class="ch-num">#05</span>
+      <span class="zh">CTA:90 天退款保证的 AI 服务加速器课程</span>
+      <span class="en">CTA: 90-day Refund-Guaranteed AI Services Accelerator</span>
+    </h3>
+    <div class="summary">
+      <span class="zh">Matt 收尾推自己的课程 — AI Services Accelerator:教你 90 天内拿到第一个 AI/自动化服务客户,可以是 RAG/知识库这类项目。90 天没拿到客户全额退款(因为课程有效所以敢承诺)。Matt 鼓励订阅频道。</span>
+      <span class="en">Matt closes by pitching his course — AI Services Accelerator: teaches you to acquire your first AI/automation service client in 90 days (RAG/knowledge base projects count). Full refund if you don't get a client in 90 days (he backs it because it works). Encourages channel subscription.</span>
+    </div>
+    <ul class="pts">
+      <li><span class="zh">AI Services Accelerator:90 天拿到第一个 AI/自动化服务客户</span></li>
+      <li><span class="zh">适用类型:RAG / 知识库等 AI 服务项目</span></li>
+      <li><span class="zh">90 天没拿到客户 → 全额退款(refund guarantee)</span></li>
+      <li><span class="zh">Matt 推荐订阅频道</span></li>
+      <li><span class="en">AI Services Accelerator: land first AI/automation service client in 90 days</span></li>
+      <li><span class="en">Applies to: RAG / knowledge base AI service projects</span></li>
+      <li><span class="en">No client in 90 days = full refund (refund guarantee)</span></li>
+      <li><span class="en">Matt encourages channel subscription</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="tab-content" id="tech">
+  <h2><span class="zh">技术栈一览</span><span class="en">Tech Stack Overview</span></h2>
+  <table>
+    <thead>
+      <tr><th><span class="zh">层级</span><span class="en">Layer</span></th><th><span class="zh">组件</span><span class="en">Component</span></th><th><span class="zh">为什么选它</span><span class="en">Why this</span></th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="zh">核心框架</span><span class="en">Core framework</span></td><td>Quivr</td><td><span class="zh">开源 RAG,无聊但好用,专注多源摄入 + 准确回答</span><span class="en">Open-source RAG, boring but works — multi-source ingestion + accurate answers</span></td></tr>
+      <tr><td><span class="zh">向量数据库</span><span class="en">Vector DB</span></td><td>Postgres + pgvector</td><td><span class="zh">无聊但已经到处在跑,无需额外服务</span><span class="en">Boring, ubiquitous — no extra service needed</span></td></tr>
+      <tr><td><span class="zh">Embedding</span><span class="en">Embedding</span></td><td>OpenAI text-embedding-3-small</td><td><span class="zh">性价比最优</span><span class="en">Best cost/perf ratio</span></td></tr>
+      <tr><td><span class="zh">LLM</span><span class="en">LLM</span></td><td>GPT-4o</td><td><span class="zh">指令遵循强 + 成本合理(Matt 强调 LLM 选择不是关键)</span><span class="en">Strong instruction-following + reasonable cost (Matt emphasizes LLM choice is NOT the bottleneck)</span></td></tr>
+      <tr><td><span class="zh">部署</span><span class="en">Deploy</span></td><td><span class="zh">本地开发 / Render 云端部署</span><span class="en">Local dev / Render cloud deploy</span></td><td><span class="zh">本地 docker / Render / Railway 通用</span><span class="en">Local docker / Render / Railway — standard</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="zh">5 个数据源优先级</span><span class="en">5 data source priorities</span></h2>
+  <table>
+    <thead>
+      <tr><th><span class="zh">优先级</span><span class="en">Priority</span></th><th><span class="zh">数据源</span><span class="en">Source</span></th><th><span class="zh">连接方式</span><span class="en">Connector</span></th><th><span class="zh">说明</span><span class="en">Notes</span></th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>P1</strong></td><td>Slack</td><td><span class="zh">Slack API 拉历史 + filter noise(reactions/bots)</span><span class="en">Slack API pull history + filter noise (reactions/bots)</span></td><td><span class="zh">流失最快的知识 — 永远第一</span><span class="en">Fastest-lost knowledge — always first</span></td></tr>
+      <tr><td>P2</td><td>Wiki / Confluence</td><td><span class="zh">Firecrawl 爬 + extract content</span><span class="en">Firecrawl crawl + extract content</span></td><td><span class="zh">经常过时,需谨慎摄入</span><span class="en">Often stale, ingest carefully</span></td></tr>
+      <tr><td>P3</td><td>GitHub</td><td><span class="zh">GitHub API 拉 issue/PR/comment</span><span class="en">GitHub API pull issues/PRs/comments</span></td><td><span class="zh">代码注释 / PR 描述 / issue thread</span><span class="en">Code comments / PR descriptions / issue threads</span></td></tr>
+      <tr><td>P4</td><td><span class="zh">自定义 DB</span><span class="en">Custom DB</span></td><td><span class="zh">SQL 查询 + chunk + ingest</span><span class="en">SQL query + chunk + ingest</span></td><td><span class="zh">CRM / ERP / 网表 PRM docs</span><span class="en">CRM / ERP / netlist PRM docs</span></td></tr>
+      <tr><td>P5</td><td><span class="zh">杂项</span><span class="en">Misc</span></td><td><span class="zh">各 connector</span><span class="en">Per-format connector</span></td><td><span class="zh">PDF / Google Docs / Notion</span><span class="en">PDF / Google Docs / Notion</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <strong>⚠️ <span class="zh">关键反直觉</span><span class="en">Counter-intuitive insight</span></strong>
+    <span class="zh">LLM 选择不是关键 — 数据摄入管道拉胯的话,什么 LLM 都救不了。Matt 主张花 80% 时间调摄入管道,20% 选 LLM。</span>
+    <span class="en">LLM choice is NOT the bottleneck — if your ingestion pipeline is crap, no LLM saves it. Matt advocates 80% time on ingestion, 20% on LLM choice.</span>
+  </div>
+</div>
+
+<div class="tab-content" id="pricing">
+  <h2><span class="zh">3 档定价模型</span><span class="en">3-tier pricing model</span></h2>
+  <table>
+    <thead>
+      <tr><th><span class="zh">档次</span><span class="en">Tier</span></th><th><span class="zh">价格</span><span class="en">Price</span></th><th><span class="zh">交付内容</span><span class="en">Deliverable</span></th><th><span class="zh">模式</span><span class="en">Model</span></th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Tier 1</strong></td><td>$5K-$10K</td><td><span class="zh">搭 KB + 接 3-5 数据源 + 调检索 + 交付</span><span class="en">Build KB + connect 3-5 sources + tune retrieval + hand off</span></td><td><span class="zh">一次性</span><span class="en">One-time</span></td></tr>
+      <tr><td><strong>Tier 2</strong></td><td>$1K-$2K<span class="zh">/月</span><span class="en">/mo</span></td><td><span class="zh">监控 + 加新源 + 重索引 + 处理用户反馈</span><span class="en">Monitoring + add new sources + re-index + handle feedback</span></td><td><span class="zh">持续运维</span><span class="en">Ongoing</span></td></tr>
+      <tr><td><strong>Tier 3</strong></td><td>$3K-$5K<span class="zh">/月</span><span class="en">/mo</span></td><td><span class="zh">自定义集成 + 定制 dashboard + 优先支持</span><span class="en">Custom integrations + custom dashboards + priority support</span></td><td><span class="zh">高级定制</span><span class="en">Premium</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="zh">Economics 推导</span><span class="en">Economics derivation</span></h2>
+  <div class="callout ok">
+    <strong>💰 <span class="zh">收入模型</span><span class="en">Revenue model</span></strong>
+    <span class="zh">3 档叠加 = $10K-$20K/月/客户。2-3 客户 = $20K-$60K/月。1-2 人小团队可达 — 这是 AI 服务行业的 sweet spot。</span>
+    <span class="en">3 tiers stacked = $10K-$20K/mo per client. 2-3 clients = $20K-$60K/mo. Achievable by 1-2 person team — the sweet spot of AI service economics.</span>
+  </div>
+
+  <div class="quote-card">
+    <div class="ctx"><span class="zh">Matt 总结经济学</span><span class="en">Matt summarizing economics</span></div>
+    <span class="zh">「3 档叠加,你可以轻松做到每客户每月 $10K-$20K。如果你拿到 2-3 个客户,就是每月 $20K-$60K — 这对一个 1-2 人的小团队来说是相当不错的收入。」</span>
+    <span class="en">"You can easily be making $10,000 to $20,000 per month per client. And so if you get two or three clients, you're looking at $20,000 to $60,000 per month. Which is a really solid income for what is essentially a one or two person operation."</span>
+  </div>
+</div>
+
+<div class="tab-content" id="quotes">
+  <h2><span class="zh">6 段金句 · 双语 verbatim</span><span class="en">6 verbatim quotes · bilingual</span></h2>
+    <div class="quote-card">
+    <div class="ctx">
+      <span class="zh">#01 · Matt 批评花哨的'第二大脑'工具时</span>
+      <span class="en">#01 · Matt critiquing flashy second-brain tools</span>
+    </div>
+    <div class="zh">「知识库需要'无聊'。它需要可靠、稳健、能从多源摄入数据,然后当人们提问时能吐出准确答案 — 就这样。」</div>
+    <div class="en">"A knowledge base needs to be extremely boring. It needs to be reliable, robust, ingest data from multiple sources, and spit out accurate answers when people ask questions. That's it."</div>
+  </div>
+  <div class="quote-card">
+    <div class="ctx">
+      <span class="zh">#02 · Matt 强调摄入管道是核心</span>
+      <span class="en">#02 · Matt emphasizing ingestion is the core</span>
+    </div>
+    <div class="zh">「如果你能搞定数据摄入管道,你就有产品。如果你搞不定,你没有。」</div>
+    <div class="en">"If you can get the data ingestion pipeline right, you have a product. If you can't, you don't."</div>
+  </div>
+  <div class="quote-card">
+    <div class="ctx">
+      <span class="zh">#03 · Matt 解释为什么默认 GPT-4o 就行</span>
+      <span class="en">#03 · Matt explaining why GPT-4o default is fine</span>
+    </div>
+    <div class="zh">「LLM 选择没那么重要 — 数据摄入管道拉胯的话,什么 LLM 都救不了。所以先调摄入,LLM 选型其次。」</div>
+    <div class="en">"LLM choice matters less than the data ingestion pipeline. Because if your data ingestion pipeline is crap, no LLM is going to save you. So focus on the data ingestion pipeline first, LLM choice second."</div>
+  </div>
+  <div class="quote-card">
+    <div class="ctx">
+      <span class="zh">#04 · Matt 解释经济学为什么终于成立</span>
+      <span class="en">#04 · Matt explaining why economics finally work</span>
+    </div>
+    <div class="zh">「现在可以做几周内搭出来,以前要多年 + 整个工程团队 + 巨额预算。」</div>
+    <div class="en">"It used to be that building a knowledge base was a multi-year project that required a team of engineers and a huge budget. But now you can do it with off-the-shelf tools in a matter of days or weeks."</div>
+  </div>
+  <div class="quote-card">
+    <div class="ctx">
+      <span class="zh">#05 · Matt 列出 5 个数据源优先级时</span>
+      <span class="en">#05 · Matt listing 5 data source priorities</span>
+    </div>
+    <div class="zh">「P1 永远是 Slack — 因为 Slack 对话里装着大量机构知识,每天都流失。」</div>
+    <div class="en">"Priority number one is always Slack. Because Slack conversations contain an enormous amount of institutional knowledge that's getting lost every day."</div>
+  </div>
+  <div class="quote-card">
+    <div class="ctx">
+      <span class="zh">#06 · Matt 给出 3 档打包方案的 economics</span>
+      <span class="en">#06 · Matt giving 3-tier service economics</span>
+    </div>
+    <div class="zh">「3 档叠加 = 每客户 $10K-$20K/月。拿 2-3 个客户 = $20K-$60K/月 — 这是 1-2 人小团队能达成的 sweet spot。」</div>
+    <div class="en">"You can easily be making $10,000 to $20,000 per month per client. And so if you get two or three clients, you're looking at $20,000 to $60,000 per month. Which is a really solid income for what is essentially a one or two person operation."</div>
+  </div>
+</div>
+
+<div class="tab-content" id="takeaways">
+  <h2><span class="zh">要点 + 与已有知识链接</span><span class="en">Key takeaways + cross-refs</span></h2>
+  <ul style="margin:8px 0;padding-left:24px;line-height:2">
+    <li><span class="zh">「无聊 = 赢」是本视频最重要论点 — 与已有的「第二大脑」类工具批判文献交叉</span><span class="en">"Boring wins" is the most important thesis — cross-ref with existing 'second brain' critique literature</span></li>
+    <li><span class="zh">5 个数据源优先级可以直接套到任何企业内部 KB 项目 — 是可复用的清单</span><span class="en">5-priority data source list is directly applicable to any enterprise KB project — reusable checklist</span></li>
+    <li><span class="zh">3 档定价是 AI 服务行业的 sweet spot 案例 — 跟 1-2 人 agency 模式匹配</span><span class="en">3-tier pricing is the sweet spot case for AI service industry — matches 1-2 person agency model</span></li>
+    <li><span class="zh">LLM 不是关键的反直觉论点 — 跟「先调数据再选模型」的工程经验一致</span><span class="en">Counter-intuitive LLM-isn't-key argument — aligns with 'tune data first, model second' engineering wisdom</span></li>
+    <li><span class="zh">AI 服务加速器课程(90 天退款)= Matt 自身的获客实验,跟 90 天 trial 类比,可参考</span><span class="en">AI Services Accelerator course (90-day refund) = Matt's own customer-acquisition experiment — analogous to 90-day trial, useful reference</span></li>
+  </ul>
+
+  <div class="callout info">
+    <strong>📚 <span class="zh">已有相关 vault 笔记</span><span class="en">Existing related vault notes</span></strong>
+    <span class="zh">本视频与「AI-native 组织转型」「Fable 5 / Mythos 5 商业化」「Solo AI agent business」类主题高度相关 — 90 天获客 / 1-2 人小团队 economics 是新出现的 sweet spot 案例。</span>
+    <span class="en">This video is highly related to "AI-native org transformation" / "Fable 5 / Mythos 5 commercialization" / "Solo AI agent business" topics — 90-day customer acquisition / 1-2 person team economics is an emerging sweet spot case study.</span>
+  </div>
+</div>
+
+<div class="tab-content" id="sources">
+  <h2><span class="zh">来源 + 工具</span><span class="en">Sources + tools</span></h2>
+  <ul style="margin:8px 0;padding-left:24px;line-height:1.9">
+    <li><a href="https://www.youtube.com/watch?v=eCx3SSCcISo" target="_blank" rel="noopener">YouTube: eCx3SSCcISo</a> — <span class="zh">原视频</span><span class="en">Original video</span></li>
+    <li><a href="https://github.com/QuivrHQ/quivr" target="_blank" rel="noopener">Quivr (GitHub)</a> — <span class="zh">开源 RAG 框架(Matt 推荐核心)</span><span class="en">Open-source RAG framework (Matt's recommended core)</span></li>
+    <li><a href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener">pgvector (GitHub)</a> — <span class="zh">Postgres 向量扩展</span><span class="en">Postgres vector extension</span></li>
+    <li><a href="https://platform.openai.com/docs/guides/embeddings" target="_blank" rel="noopener">OpenAI text-embedding-3-small</a> — <span class="zh">embedding 模型</span><span class="en">embedding model</span></li>
+    <li><a href="https://firecrawl.dev" target="_blank" rel="noopener">Firecrawl</a> — <span class="zh">Wiki/Confluence 爬虫</span><span class="en">Wiki/Confluence crawler</span></li>
+    <li><span class="zh">Transcript 来源</span><span class="en">Transcript source</span>: kome.ai 1-curl POST (PITFALL 68 fallback)</li>
+  </ul>
+</div>
+
+<footer>
+  <div class="tier4" style="justify-content:center">
+    <span class="tag verified"><span class="zh">来源</span><span class="en">source</span>: eCx3SSCcISo</span>
+    <span class="tag verified">transcript 30KB EN</span>
+    <span class="tag mitig"><span class="zh">作者主张</span><span class="en">author claims</span></span>
+    <span class="tag warn"><span class="zh">课程推荐</span><span class="en">course pitch</span></span>
+  </div>
+  <p style="margin-top:14px">
+    <span class="zh">由 Hermes Agent 在 2026-07-20 用 kome.ai transcript + write_file 模板生成</span>
+    <span class="en">Generated by Hermes Agent on 2026-07-20 from kome.ai transcript + write_file template pattern</span>
+  </p>
+</footer>
+</main>
+
+<script>
+(function(){
+  // ---- TOC toggle (collapsible v1.4.4) ----
+  function toggleToc(){
+    document.body.classList.toggle('toc-collapsed');
+    try{ localStorage.setItem('ecx3-toc-collapsed', document.body.classList.contains('toc-collapsed')?'1':'0'); }catch(e){}
+  }
+  if(localStorage.getItem('ecx3-toc-collapsed')==='1') document.body.classList.add('toc-collapsed');
+
+  // ---- Bilingual lang toggle ----
+  function toggleLang(){
+    var html=document.documentElement;
+    var isZh=html.lang==='zh-CN';
+    html.lang=isZh?'en':'zh-CN';
+    var btn=document.getElementById('langBtn');
+    if(btn) btn.textContent=isZh?'ZH':'EN';
+    try{ localStorage.setItem('ecx3-lang', html.lang); }catch(e){}
+  }
+  (function(){
+    var saved=localStorage.getItem('ecx3-lang');
+    if(saved==='en'||saved==='zh-CN'){
+      document.documentElement.lang=saved;
+      var btn=document.getElementById('langBtn');
+      if(btn) btn.textContent=saved==='en'?'ZH':'EN';
+    }
+  })();
+
+  // ---- Tabs ----
+  document.querySelectorAll('.tab-nav button').forEach(function(b){
+    b.addEventListener('click',function(){
+      var id=b.getAttribute('data-tab');
+      document.querySelectorAll('.tab-nav button').forEach(function(x){x.classList.remove('active');});
+      document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+      b.classList.add('active');
+      var tc=document.getElementById(id);
+      if(tc) tc.classList.add('active');
+      try{ history.replaceState(null,'','#'+id); }catch(e){}
+    });
+  });
+
+  // ---- TOC click handler (active highlight + smooth scroll) ----
+  document.querySelectorAll('aside.toc a[data-toc-target]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=this.getAttribute('data-toc-target');
+      var t=document.getElementById(id);
+      if(!t) return;
+      e.preventDefault();
+      document.querySelectorAll('aside.toc a').forEach(function(x){x.classList.remove('active');});
+      this.classList.add('active');
+      setTimeout(function(){
+        var r=t.getBoundingClientRect();
+        window.scrollTo({top:window.scrollY+r.top-80,behavior:'smooth'});
+        try{ history.replaceState(null,'','#'+id); }catch(ex){}
+      },50);
+    });
+  });
+
+  // ---- Intersection observer for TOC active state ----
+  var tocLinks=document.querySelectorAll('aside.toc a[data-toc-target]');
+  var sections=Array.from(tocLinks).map(function(a){return document.getElementById(a.getAttribute('data-toc-target'));}).filter(Boolean);
+  if(sections.length){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          tocLinks.forEach(function(a){a.classList.remove('active');});
+          var id=entry.target.id;
+          var active=document.querySelector('aside.toc a[data-toc-target="'+id+'"]');
+          if(active) active.classList.add('active');
+        }
+      });
+    },{rootMargin:'-20% 0px -70% 0px',threshold:0});
+    sections.forEach(function(s){obs.observe(s);});
+  }
+})();
+</script>
+</body>
+</html>

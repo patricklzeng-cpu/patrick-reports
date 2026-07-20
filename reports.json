@@ -1,5 +1,26 @@
 [
   {
+    "title": "🏁 把知识库当服务卖给企业 · Matt Wolfe 实战教学 · 中EN 双语可切换 · 7 tabs · 5 章节 · 6 verbatim quotes · 23:48",
+    "file": "daily-reports/matt-wolfe-selling-knowledge-bases-2026-07-20.html",
+    "date": "2026-07-20",
+    "category": "video-digest",
+    "track": "video-digest",
+    "summary": "🏁 Matt Wolfe 用 AI 硬件公司真实 KB 案例开场 → 5 件套技术栈 (Quivr + Postgres pgvector + GPT-4o) → 5 数据源优先级 (P1 Slack) → 3 档定价 ($10K-$20K/月/客户, 2-3 客户 = $20K-$60K/月, 1-2 人小团队可达 sweet spot)。反直觉论点:数据摄入管道是 80%,LLM 选型只是 20%。CTA = AI Services Accelerator 90 天退款课程。",
+    "featured": true,
+    "tags": [
+      "video-digest",
+      "matt-wolfe",
+      "knowledge-base",
+      "rag",
+      "ai-services",
+      "pricing",
+      "1-2-person-team",
+      "bilingual",
+      "toc-sidebar"
+    ],
+    "added_at": "2026-07-20"
+  },
+  {
     "title": "🆕 旅忆 FAMILY TRAVEL OS · 新疆 13 天 Demo · 单文件静态版",
     "file": "daily-reports/family-travel-memory-demo-2026-07-20.html",
     "date": "2026-07-20",
