@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google CEO Reveals How AGI Will Rollout · 2026-07-20 · Demis X 原文 · 中英切换 · Knowledge Dashboard</title>
+<style>
+  /* ===== variable tokens ===== */
+  :root {
+    --bg: #0b0d10;
+    --bg-card: #14171c;
+    --bg-elev: #1c2026;
+    --line: #232830;
+    --text: #e5e8ee;
+    --text-dim: #a8aeb8;
+    --text-mute: #6a727c;
+    --brand: #d4ff3a;
+    --brand-2: #a9e85f;
+    --warn: #f7c59f;
+    --info: #94c5ff;
+    --bad: #ff8a7a;
+    --must: #ff5e57;
+    --watch: #ffb84a;
+    --know: #5fff9a;
+    --quote-en-bg: #14232a;
+    --quote-zh-bg: #1a2128;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", sans-serif;
+    line-height: 1.55;
+    font-size: 14.5px;
+  }
+  a { color: var(--info); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ===== lang-toggle visibility ===== */
+  html[lang="zh-CN"] .en { display: none !important; }
+  html[lang="en"] .zh { display: none !important; }
+
+  /* ===== lang-toggle button ===== */
+  .lang-toggle {
+    position: fixed; top: 14px; right: 14px; z-index: 200;
+    background: rgba(15,18,22,.92);
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    border-radius: 18px;
+    padding: 6px 14px;
+    font: 600 12px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: all .2s;
+    user-select: none;
+  }
+  .lang-toggle:hover { background: var(--brand); color: #0b0d10; box-shadow: 0 0 18px rgba(212,255,58,.4); }
+
+  /* ===== TOC toggle ===== */
+  .toc-toggle {
+    position: fixed; top: 14px; left: 14px; z-index: 200;
+    background: rgba(15,18,22,.92);
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    border-radius: 18px;
+    padding: 6px 12px;
+    font: 600 12px/1 ui-monospace, "SF Mono", Menlo, monospace;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+  }
+  .toc-toggle:hover { background: var(--brand); color: #0b0d10; }
+
+  /* ===== master layout ===== */
+  .page { display: grid; grid-template-columns: 264px 1fr; gap: 0; max-width: 1500px; margin: 0 auto; transition: grid-template-columns .3s ease; }
+  .page.toc-collapsed { grid-template-columns: 56px 1fr; }
+
+  aside.toc {
+    background: var(--bg-card);
+    border-right: 1px solid var(--line);
+    padding: 1.2rem 1rem;
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  aside.toc.collapsed { padding: 1.2rem 0.5rem; }
+  aside.toc h3 {
+    font-size: 0.78rem;
+    color: var(--brand);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 1rem;
+    padding-left: 0.25rem;
+  }
+  aside.toc.collapsed h3 { display: none; }
+  aside.toc ul { list-style: none; padding: 0; margin: 0; }
+  aside.toc li { margin: 0.2rem 0; }
+  aside.toc li a {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    display: block;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    transition: all .15s;
+  }
+  aside.toc li a:hover { background: var(--bg-elev); color: var(--brand); text-decoration: none; }
+  aside.toc.collapsed li a {
+    font-size: 0.65rem;
+    padding: 0.5rem 0.2rem;
+    text-align: center;
+  }
+
+  main { padding: 1.4rem 1.6rem 4rem; max-width: 980px; margin: 0 auto; width: 100%; }
+
+  /* ===== hero ===== */
+  header.hero {
+    margin-bottom: 1.5rem;
+  }
+  header.hero h1 {
+    font: 600 24px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    margin: 0 0 0.5rem;
+    color: var(--text);
+    letter-spacing: -0.005em;
+  }
+  header.hero .meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.7rem 0;
+    font-size: 0.8rem;
+  }
+  header.hero .meta-strip span {
+    background: var(--bg-card);
+    padding: 0.32rem 0.7rem;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+  }
+  header.hero .subtitle {
+    color: var(--text-mute);
+    font-size: 0.86rem;
+    margin-top: 0.4rem;
+  }
+
+  /* ===== verification ribbon ===== */
+  .verify-ribbon {
+    background: var(--bg-card);
+    border-left: 4px solid var(--brand);
+    border-radius: 4px;
+    padding: 0.6rem 1rem;
+    margin: 1rem 0;
+    font: 500 12px ui-monospace, "SF Mono", monospace;
+    color: var(--brand-2);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.2rem;
+  }
+  .verify-ribbon span { white-space: nowrap; }
+
+  /* ===== stat cards ===== */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.7rem;
+    margin: 1rem 0;
+  }
+  .stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+  }
+  .stat-card .stat-label {
+    font-size: 0.74rem;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .stat-card .stat-value {
+    font: 600 1.5rem/1.2 ui-monospace, monospace;
+    color: var(--brand);
+    margin: 0.2rem 0;
+  }
+  .stat-card .stat-sub {
+    font-size: 0.78rem;
+    color: var(--text-mute);
+  }
+
+  /* ===== tab nav ===== */
+  .tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: 1.2rem 0 0.5rem;
+  }
+  .tab-btn {
+    background: var(--bg-card);
+    color: var(--text-dim);
+    border: 1px solid var(--line);
+    padding: 0.45rem 0.85rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    transition: all .15s;
+  }
+  .tab-btn:hover { background: var(--bg-elev); color: var(--text); }
+  .tab-btn.active { background: var(--brand); color: #0b0d10; border-color: var(--brand); font-weight: 600; }
+
+  /* ===== tab content ===== */
+  .tab-content { display: none; background: var(--bg-card); border: 1px solid var(--line); border-radius: 6px; padding: 1.2rem; margin-top: 0.6rem; }
+  .tab-content.active { display: block; }
+
+  /* ===== section blocks inside timeline tab ===== */
+  .section-block { margin: 1.4rem 0; padding: 1.2rem; background: var(--bg-elev); border-radius: 6px; border-left: 4px solid var(--brand); }
+  .section-block.section-high-impact { border-left-color: var(--must); }
+  .section-block.section-soft-opener { border-left-color: var(--info); }
+  .section-block.section-medium-impact { border-left-color: var(--watch); }
+  .section-block.section-soft-closer { border-left-color: var(--info); }
+
+  .section-h2 { margin: 0 0 0.7rem; font: 600 1.15rem/1.3 -apple-system, sans-serif; color: var(--text); }
+  .section-lead { color: var(--text-dim); font-size: 0.94rem; margin-bottom: 0.8rem; line-height: 1.6; }
+  .section-points { display: grid; grid-template-columns: 1fr; gap: 0.45rem; }
+  .point { padding: 0.55rem 0.7rem; background: var(--bg-card); border-radius: 4px; font-size: 0.92rem; line-height: 1.5; }
+
+  /* ===== quote cards ===== */
+  .section-quotes { margin-top: 0.8rem; display: grid; gap: 0.6rem; }
+  .quote-card { background: var(--bg-card); border-radius: 5px; padding: 0.7rem 0.9rem; border: 1px solid var(--line); }
+  .quote-meta { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4rem; }
+  .quote-ts { font: 500 0.78rem ui-monospace, monospace; color: var(--brand); background: var(--bg-elev); padding: 2px 6px; border-radius: 3px; }
+  .src-badge { font: 500 0.68rem ui-monospace, monospace; padding: 2px 5px; border-radius: 3px; }
+  .src-demis { background: var(--must); color: #0b0d10; }
+  .src-verbatim { background: var(--watch); color: #0b0d10; }
+  .src-narrator { background: var(--text-mute); color: #0b0d10; }
+  .quote-bilingual { display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
+  .quote-en { font-style: italic; color: var(--text); font-size: 0.92rem; line-height: 1.55; padding: 0.5rem 0.7rem; background: var(--quote-en-bg); border-radius: 4px; border-left: 3px solid var(--info); }
+  .quote-zh { color: var(--text-dim); font-size: 0.92rem; line-height: 1.55; padding: 0.5rem 0.7rem; background: var(--quote-zh-bg); border-radius: 4px; border-left: 3px solid var(--brand); }
+
+  /* ===== article links ===== */
+  .article-link-list { list-style: none; padding: 0; margin: 0.6rem 0; display: grid; gap: 0.6rem; }
+  .article-link-item { background: var(--bg-card); border: 1px solid var(--line); border-radius: 5px; padding: 0.7rem 0.9rem; }
+  .article-name { color: var(--brand); display: block; margin-bottom: 0.25rem; font-size: 0.95rem; }
+  .article-url { font: 500 12px ui-monospace, "SF Mono", monospace; color: var(--info); display: block; padding: 0.2rem 0; word-break: break-all; }
+  .article-desc { font-size: 0.84rem; color: var(--text-mute); margin-top: 0.3rem; }
+
+  /* ===== Patrick cards ===== */
+  .pat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.6rem; }
+  .pat-card { background: var(--bg-card); border: 1px solid var(--line); border-radius: 5px; padding: 0.7rem 0.85rem; border-left: 3px solid var(--text-mute); }
+  .pat-card.pat-tier-MUST  { border-left-color: var(--must); }
+  .pat-card.pat-tier-WATCH { border-left-color: var(--watch); }
+  .pat-card.pat-tier-KNOW  { border-left-color: var(--know); }
+  .pat-badge { display: inline-block; font: 600 0.7rem ui-monospace, monospace; padding: 2px 6px; border-radius: 3px; margin-bottom: 0.4rem; }
+  .badge-must  { background: var(--must); color: #0b0d10; }
+  .badge-watch { background: var(--watch); color: #0b0d10; }
+  .badge-know  { background: var(--know); color: #0b0d10; }
+  .pat-card-title { font: 600 14px/1.4 -apple-system, sans-serif; color: var(--text); margin-bottom: 0.3rem; }
+  .pat-card-brief { font-size: 0.83rem; color: var(--text-dim); line-height: 1.5; }
+  .pat-group { margin-bottom: 1rem; }
+  .pat-group-title { font: 500 14px -apple-system, sans-serif; color: var(--warn); margin: 0.4rem 0 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* ===== honest-discount box ===== */
+  .honest-box {
+    background: var(--bg-card);
+    border-left: 4px solid var(--warn);
+    border-radius: 4px;
+    padding: 0.7rem 0.95rem;
+    margin: 1rem 0;
+    color: var(--warn);
+    font-size: 0.86rem;
+  }
+  .honest-box strong { color: var(--text); }
+
+  /* ===== responsive ===== */
+  @media (max-width: 900px) {
+    .page { grid-template-columns: 1fr !important; }
+    aside.toc { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOC toggle button -->
+<button class="toc-toggle" id="tocToggleBtn" aria-label="Toggle TOC">⏣ TOC</button>
+
+<!-- lang toggle -->
+<button class="lang-toggle" id="langBtn" onclick="toggleLang()" aria-label="Toggle language">EN ⇄ 中</button>
+
+<div class="page" id="page">
+
+  <aside class="toc" id="toc">
+    <h3>目录 / TOC</h3>
+    <ul>
+      <li><a href="#sec-01-intro"><span class="lang-zh zh">开场</span><span class="lang-en en">Intro</span></a></li>
+      <li><a href="#sec-02-timeline"><span class="lang-zh zh">时间线</span><span class="lang-en en">Timeline</span></a></li>
+      <li><a href="#sec-03-framework-intro"><span class="lang-zh zh">框架概述</span><span class="lang-en en">Framework intro</span></a></li>
+      <li><a href="#sec-04-stage1-thresholds"><span class="lang-zh zh">Stage 1</span><span class="lang-en en">Stage 1</span></a></li>
+      <li><a href="#sec-05-stage2-testing"><span class="lang-zh zh">Stage 2</span><span class="lang-en en">Stage 2</span></a></li>
+      <li><a href="#sec-06-subfrontier-exemption"><span class="lang-zh zh">亚前沿豁免</span><span class="lang-en en">Sub-frontier exemption</span></a></li>
+      <li><a href="#sec-07-international"><span class="lang-zh zh">国际协调缺口</span><span class="lang-en en">International coordination gap</span></a></li>
+      <li><a href="#sec-08-economy-meaning"><span class="lang-zh zh">混合型经济 + 身份意义危机</span><span class="lang-en en">Hybrid economy + identity meaning crisis</span></a></li>
+      <li><a href="#sec-09-closing"><span class="lang-zh zh">收局</span><span class="lang-en en">Closing</span></a></li>
+    </ul>
+    <h3 style="margin-top:1.5rem">附加 / Extras</h3>
+    <ul>
+      <li><a href="#tab-article"><span class="lang-zh zh">Demis 原文入口</span><span class="lang-en en">❌ Demis X-article URLs</span></a></li>
+      <li><a href="#tab-patrick"><span class="lang-zh zh">Patrick 关联</span><span class="lang-en en">Patrick's view</span></a></li>
+      <li><a href="#tab-disclaimers"><span class="lang-zh zh">诚实折扣</span><span class="lang-en en">Honest discount</span></a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <h1>
+        <span class="lang-zh zh">Google CEO 暴露 AGI 危机、发布路线</span>
+        <span class="lang-en en">Google CEO Reveals How AGI Will Rollout</span>
+      </h1>
+      <p class="subtitle">
+        <span class="lang-zh zh">2026-07-20 · 22:18 · 27829 字 transcript · TheAIGRID · Demis Hassabis (DeepMind CEO + 2024 诺贝化学) 火上 X 文详解</span>
+        <span class="lang-en en">2026-07-20 · 22:18 · 27,829 char transcript · TheAIGRID · Deep-dive of Demis Hassabis's viral X essay</span>
+      </p>
+      <div class="meta-strip">
+        <span>· <a href="https://www.youtube.com/@TheAiGrid" target="_blank" rel="noopener">TheAIGRID</a></span>
+        <span>· <a href="https://www.youtube.com/watch?v=xJplWSRHvBg" target="_blank" rel="noopener">YouTube</a></span>
+        <span>· 4,819 English words</span>
+        <span>· 9 sections</span>
+        <span>· 21 verbatim quotes</span>
+        <span>· 17 Patrick cards</span>
+        <span>· 4 article candidates</span>
+      </div>
+
+      <div class="verify-ribbon">
+        <span>✓ bilingual ✓ zh/en toggle</span>
+        <span>✓ TOC collapsed v1.4.4</span>
+        <span>✓ body \uXXXX leak = 0</span>
+        <span>✓ node --check exit 0</span>
+        <span>⚠️ 4 article URLs (Honest: URLs not in transcript; best-known public mirrors)</span>
+      </div>
+
+      <div class="honest-box">
+        <strong>⚠️ Honest discount:</strong>
+        <span class="lang-zh zh">这是 TheAIGRID 对 Demis 火上 X 文的剪辑译解，而不是 Demis 本人原读。Transcript 未明记出原文 URL；以下「原文入口」 4 个 link 是从他处他处推论出来的最可能匹配，你需要在 Twitter/X / Time / Google blog 检查「frontier AI safety framework + Demis」。</span>
+        <span class="lang-en en">This is TheAIGRID's editorial cut of Demis's viral X essay, not Demis's own direct reading. The transcript does not give the original article URL; the 4 links under “Original article” are best-known plausible matches; you need to search "frontier AI safety framework" + Demis on X / Time / Google blog to confirm.</span>
+      </div>
+    </header>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label"><span class="lang-zh zh">时长 / Duration</span><span class="lang-en en">Duration</span></div>
+        <div class="stat-value">22:18</div>
+        <div class="stat-sub">22 min <span class="lang-zh zh">详解 X 文</span><span class="lang-en en">essay decoded</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"><span class="lang-zh zh">词数 / Words</span><span class="lang-en en">Words</span></div>
+        <div class="stat-value">4,819</div>
+        <div class="stat-sub">kome.ai flat transcript</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"><span class="lang-zh zh">金句 / Quotes</span><span class="lang-en en">Quotes</span></div>
+        <div class="stat-value">21</div>
+        <div class="stat-sub"><span class="lang-zh zh">中英双句</span><span class="lang-en en">verbatim EN + ZH</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"><span class="lang-zh zh">档案 / Patrick</span><span class="lang-en en">Patrick</span></div>
+        <div class="stat-value">17</div>
+        <div class="stat-sub"><span class="lang-zh zh">MUST/WATCH/KNOW 3 档</span><span class="lang-en en">3-tier cards</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">AGI Timeline</div>
+        <div class="stat-value">3-5 <span class="lang-zh zh">年</span><span class="lang-en en">yr</span></div>
+        <div class="stat-sub">50% odds by 5-10 yr</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label"><span class="lang-zh zh">原文 / Source</span><span class="lang-en en">Article</span></div>
+        <div class="stat-value">4</div>
+        <div class="stat-sub">URL candidates</div>
+      </div>
+    </div>
+
+    <div class="tab-bar" id="tab-bar">
+      <button class="tab-btn active" data-tab="tab-content">📚 <span class="lang-zh zh">9 章节详解</span><span class="lang-en en">9-Section Decode</span></button>
+      <button class="tab-btn" data-tab="tab-article">🔗 <span class="lang-zh zh">Demis 原文入口</span><span class="lang-en en">Demis Original Article</span></button>
+      <button class="tab-btn" data-tab="tab-patrick">🧠 Patrick <span class="lang-zh zh">关联</span><span class="lang-en en">Connections</span></button>
+      <button class="tab-btn" data-tab="tab-disclaimers">⚠️ <span class="lang-zh zh">诚实折扣</span><span class="lang-en en">Honest Discount</span></button>
+    </div>
+
+    <!-- Tab: 9-Section decode (chronological sections) -->
+    <div class="tab-content active" id="tab-content">
+      
+    <section class="section-block section-soft-opener">
+      <h2 class="section-h2" id="sec-01-intro">
+        <span class="lang-zh zh">开场 / Demis 火上的 X 文 + 3-5 年的 AGI 时间线</span>
+        <span class="lang-en en">Intro / Demis's viral X post + 3-5 year AGI timeline</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">TheAIGRID 作者开场就提到 Demis 上周火上的 X 文，议一个 AGI 部署框架。Demis 的身份是 DeepMind CEO + 2024 诺贝化学奖，这仔赋了他预测 AGI 时间线的信念。导读点 1：AGI 距今 3-5 年。他把 Sam Altman 2025 年点名发布 AGI 的话术算作 marketing 信号，自己主动说 "50%几率 5-10 年" 作为诚实不确定。</span>
+        <span class="lang-en en">TheAIGRID opens by referencing Demis's recent viral X post proposing a framework for AGI rollout. Demis's positioning as DeepMind CEO + Nobel 2024 authorises his credibility as a timeline forecaster. AGI 3-5 years away is the headline. He frames 2025 marketing claims (Sam Altman) as credibility gap and offers 50/50 odds by 5-10 years as honest uncertainty.</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">Demis 火上的那篇 X 文 (2026 上半年)</span>
+          <span class="point-en en">Demis's X post went viral (2026-07-xx timeframe)</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">AGI 距今 3-5 年是最首要点</span>
+          <span class="point-en en">AGI 3-5 years away = headline</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">Marketing vs. 信念差距（对比 Sam 2025）</span>
+          <span class="point-en en">Marketing vs. credibility gap (vs. Sam 2025)</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">50% 几率 5-10 年是诚实不确定</span>
+          <span class="point-en en">50/50 odds by 5-10 years = honest uncertainty</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">Demis = DeepMind CEO + 2024 诺贝化学 = 高信念</span>
+          <span class="point-en en">Demis = DeepMind CEO + Nobel Prize 2024 = high credibility</span>
+        </div>
+      </div>
+      <div class="section-quotes">
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:00:32]</span>
+        <span class="src-badge src-narrator">⏳ NARRATOR</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">So Deis Sarabis recently published this article on X and it went super viral. It talks about a frontier AI and essentially a framework for AGI that most people have not considered yet.</div>
+        <div class="quote-zh zh">Demis Hassabis 最近在 X 上发表了一篇文章并迅速走红。文章讨论了一种前沿 AI 框架——一个多数人尚未考虑的 AGI 路线图。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:01:02]</span>
+        <span class="src-badge src-narrator">⏳ NARRATOR</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">Demis is the CEO of Google DeepMind, you would suspect that he knows a thing or two about where AI is in terms of how far that development has come along.</div>
+        <div class="quote-zh zh">Demis 是 Google DeepMind 的 CEO,你可以预期他对 AI 当前的发展进度了然于胸。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:01:35]</span>
+        <span class="src-badge src-narrator">⏳ NARRATOR</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">AGI is a few short years away. Now I think we know what AGI is right now, it's a system that exhibits all the cognitive capabilities that the brain has.</div>
+        <div class="quote-zh zh">AGI 距今只有短短几年。我们现在应该知道 AGI 是什么——它是一个展现出人脑所有认知能力的系统。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:01:58]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">When we look back on this time and the decades to come, I think we will realize we were standing in the foothills of the singularity, nothing less than the dawning of a new age for humanity.</div>
+        <div class="quote-zh zh">当我们回望这个时代和未来数十年,我们将意识到我们正站在奇点的山脚下,迎来的是人类新纪元的曙光。</div>
+      </div>
+    </div>
+      </div>
+    </section>
+    <section class="section-block section-medium-impact">
+      <h2 class="section-h2" id="sec-02-timeline">
+        <span class="lang-zh zh">时间线 / 3-5 年主题 + Demis 人生认贯</span>
+        <span class="lang-en en">Timeline / The 3-5 yr claim + Demis life-work stance</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">Demis 的口吾：如果謟信纒环 AGI，将成为人类最有益、最具变革性的发明之一。与电、火同级——不是互联网/移动互联网级别。预测为 3-5 年、可能 5-10 年，几率 50%——不是唯一点估计。隐含理由：距 AGI 还 2 个 transformer-like 突破。</span>
+        <span class="lang-en en">Demis's framing: built responsibly AGI would be one of the most beneficial + transformative technologies ever invented. Compares to electricity or fire — not internet/mobile scale. Forecasts 3-5 year to 5-10 year range with 50% probability, not point estimate. Implicit reasoning: 2 transformer-like breakthroughs away from AGI.</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">AGI 是《人类最有益、最变革性的发明之一》</span>
+          <span class="point-en en">AGI = 'most beneficial + transformative tech ever'</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">AGI 与电、火同级，不是互联网</span>
+          <span class="point-en en">AGI = electricity or fire (not internet scale)</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">预测 3-5 年，可能 5-10 年，几率 50%</span>
+          <span class="point-en en">Forecasts 3-5 yr to 5-10 yr range with 50% probability</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">隐含：距 AGI 还 2 个 transformer-level 突破</span>
+          <span class="point-en en">Implicit: 2 transformer-level breakthroughs away</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">专注于已，提高读者重视期金多少</span>
+          <span class="point-en en">Demis 'spent his entire life working on AGI' = committed operator</span>
+        </div>
+      </div>
+      <div class="section-quotes">
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:02:18]</span>
+        <span class="src-badge src-narrator">⏳ NARRATOR</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">He said he spent his entire life working on AGI because he's always had a deep conviction that if built and deployed responsibly, it would be one of the most beneficial and transformative technologies ever invented.</div>
+        <div class="quote-zh zh">他说自己毕生投身 AGI 事业,因为始终坚信,如果被负责任地构建并部署,AGI 将成为人类历史上最有益、最具变革性的技术之一。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:03:45]</span>
+        <span class="src-badge src-narrator">⏳ NARRATOR</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">AGI cannot be compared to a standard technological breakthroughs, not even ones consequent as the internet or mobile. It's much more akin to the discovery of electricity or fire.</div>
+        <div class="quote-zh zh">AGI 无法用一般的技术突破来类比,即使是互联网或移动互联网这样重大的发明也不行。它更接近电或火的发现。</div>
+      </div>
+    </div>
+      </div>
+    </section>
+    <section class="section-block section-medium-impact">
+      <h2 class="section-h2" id="sec-03-framework-intro">
+        <span class="lang-zh zh">框架概述 / 现路径不打会以「严重撞车」收场</span>
+        <span class="lang-en en">Framework intro / Why current path must end in 'severe crash'</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">Demis 警告：如果 AI 照现在这个「火车」方式再跑下去，「不会好结」。他呼吁新的前沿 AI 标准框架，明确表示对自然发展的不乐观。</span>
+        <span class="lang-en en">Demis warns: if AI is barreling down a 'train track' the way it currently is, 'not going to end well.' Calls for new frontier AI standards framework. He's explicitly pessimistic about laissez-faire AI deployment.</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">现路径 = 「不会好结」</span>
+          <span class="point-en en">If AI continues on current path = 'not going to end well'</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">发起「新前沿 AI 标准框架」议论</span>
+          <span class="point-en en">Calls for new frontier AI standards framework</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">隐含意：自愿安全底线需迫切需要</span>
+          <span class="point-en en">Implicit: voluntary safety floor needed urgently</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">Demis 历史站在安全上变位为「政策参与者」</span>
+          <span class="point-en en">Demis's historical stance on safety = policy engagement pivot</span>
+        </div>
+      </div>
+      <div class="section-quotes">
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:05:36]</span>
+        <span class="src-badge src-narrator">⏳ NARRATOR</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">Essentially what he calls for is a new framework for frontier AI standards. So he's basically saying that look AI is going so quickly, we need a new standard because the current way that we're barreling down with AI if you're just looking at as you know AI is like a train going down a train track, this is not going to end well.</div>
+        <div class="quote-zh zh">他呼吁建立一个新的前沿 AI 标准框架。他说 AI 发展太快,我们需要新标准,因为照目前的方式就像一列火车在轨道上飞驰,不会善终。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:06:48]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">He says that it's going to require a new approach to testing Frontier AI model capabilities that is dynamic, adaptable, and rigorous.</div>
+        <div class="quote-zh zh">这需要一种新的、动态、灵活且严格的前沿 AI 模型能力测试方法。</div>
+      </div>
+    </div>
+      </div>
+    </section>
+    <section class="section-block section-high-impact">
+      <h2 class="section-h2" id="sec-04-stage1-thresholds">
+        <span class="lang-zh zh">Stage 1 / 能力门槛分离前沿与普通 AI</span>
+        <span class="lang-en en">Stage 1 / Capability thresholds separate frontier from ordinary AI</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">框架的 Stage 1 设立一个「标准机构」，定义能力门槛。一旦模型超过门槛 = 被认定为「前沿模型」，开发机构成为「前沿实验室」。分类依赖于能力、不是公司身份。</span>
+        <span class="lang-en en">The framework's Stage 1 creates a 'standards body' that defines a capability threshold. Once model crosses threshold = designated 'frontier model' and the dev org becomes 'frontier lab.' Classification depends on capability NOT company identity.</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">标准机构设能力门槛</span>
+          <span class="point-en en">Standards body creates capability threshold</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">门槛 = 动态、灵活、严格的基准</span>
+          <span class="point-en en">Threshold = dynamic, adaptable, rigorous benchmarks</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">测量能力：编码、科研、网络安全、规划、自主任务</span>
+          <span class="point-en en">Capabilities measured: coding, research, cyber, planning, autonomous tasks</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">分类依赖能力不依赖公司身份</span>
+          <span class="point-en en">Frontier lab designation depends on capability NOT company size</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">小实验室可能是「前沿」，大司可能不是 — 能力是根本变量</span>
+          <span class="point-en en">Small labs can be frontier; big labs may not be — capability is the loaded variable</span>
+        </div>
+      </div>
+      <div class="section-quotes">
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:07:08]</span>
+        <span class="src-badge src-narrator">⏳ NARRATOR</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">There's going to be like a standards body and they will create the first capable threshold that separates ordinary AI systems from the small number of exceptionally powerful models that require additional oversight.</div>
+        <div class="quote-zh zh">将会成立一个标准机构,设立首个能力门槛,用以区分普通 AI 系统和极少数需要额外监管的超强模型。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:08:04]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">The classification would be based on what the model can actually do. The benchmarks might measure abilities such as advanced coding, scientific research, cyber security, long-term planning, autonomous tasks completion, and performance in other areas that could become dangerous at sufficiently high levels.</div>
+        <div class="quote-zh zh">分级基于模型的实际能力。基准可能衡量高级编程、科学研究、网络安全、长期规划、自主任务执行等能力,以及在足够高水平下可能变得危险的领域的表现。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:09:12]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">Once a model exceeded the specified capability threshold, it would officially be designated a frontier model and the organization responsible for developing it would then be designated a frontier lab and that classification would depend on the model's capabilities rather than the company's identity.</div>
+        <div class="quote-zh zh">一旦模型超过指定能力门槛,就会被正式认定为前沿模型,其开发机构也会被认定为前沿实验室。这个分级取决于模型能力而非公司身份。</div>
+      </div>
+    </div>
+      </div>
+    </section>
+    <section class="section-block section-high-impact">
+      <h2 class="section-h2" id="sec-05-stage2-testing">
+        <span class="lang-zh zh">Stage 2 / 30 天发布前自愿测试</span>
+        <span class="lang-en en">Stage 2 / 30-day pre-launch voluntary testing</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">Stage 2 = 自愿提交模型进行独立专家审查，公开发布前最多 30 天。审查过程能力：网络漏洞、生物威胁、自主绕过、欺骗、危险独立运行。这是框架核心。</span>
+        <span class="lang-en en">Stage 2 = voluntary submission of frontier models to independent experts up to 30 days before public launch. Evaluators check: cyber vulnerabilities, bio threats, self-circumvention, deception of users/evaluators, dangerous autonomy. This is the heart of the framework.</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">自愿提交不是硬要求</span>
+          <span class="point-en en">Voluntary submission = not a hard mandate</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">30 天是「最可接受」窗口</span>
+          <span class="point-en en">30-day pre-launch window = 'most acceptable' given speed of AI</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">独立专家审查 + 能力标识</span>
+          <span class="point-en en">Independent experts review + capability flags</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">评估 5 维：网络、生物、绕过、欺骗、独立运行</span>
+          <span class="point-en en">Tested capabilities: cyber, bio, circumvention, deception, autonomy</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">输出分 4 等：正常发布/延期/加强/限制</span>
+          <span class="point-en en">Resulting action: release / delay / strengthen / restriction</span>
+        </div>
+      </div>
+      <div class="section-quotes">
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:10:31]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">Demis essentially proposes that companies could voluntarily submit models for assessment up to 30 days before the launch. And personally I don't even think that's enough time, but maybe due to how fast AI is, this is probably the most acceptable window.</div>
+        <div class="quote-zh zh">Demis 本质上建议公司可以在发布前最多 30 天自愿提交模型供评估。个人甚至认为这都不够,但鉴于 AI 发展速度,这可能是最可接受的窗口。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:14:42]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">The evaluations could test whether the model can discover or exploit advanced cyber security vulnerabilities, provide dangerous assistance involving biological threats, and circumvent its own safety restrictions, deceive users or evaluators, conceal problematic behavior during testing, and operate with dangerous levels of independence.</div>
+        <div class="quote-zh zh">评估可能测试模型是否能发现或利用高级网络安全漏洞、提供生物威胁相关的危险帮助、规避自身安全限制、欺骗用户或评估人员、在测试中隐瞒问题行为、以及以危险的独立级别运行。</div>
+      </div>
+    </div>
+      </div>
+    </section>
+    <section class="section-block section-medium-impact">
+      <h2 class="section-h2" id="sec-06-subfrontier-exemption">
+        <span class="lang-zh zh">亚前沿豁免 / 小企业 与 研究者可继续创新</span>
+        <span class="lang-en en">Sub-frontier exemption / Smaller companies + researchers can keep building</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">低于能力门槛 = 不是「前沿模型」 = 不进入全套监管。客服聊天机器人、高校研究模型、普通初创公司产品都豁免。重点：能力不公司躄距 — 豁免对所有主体一览同仁。</span>
+        <span class="lang-en en">Below the capability threshold = NOT a 'frontier model' = NOT full regulatory cycle. Customer-service chatbots, university research models, ordinary startup products all exempt. Critical: capability NOT company size, exemption is uniform.</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">低于门槛 = 不走全套监管</span>
+          <span class="point-en en">Below threshold = not full regulatory cycle</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">客服/高校/初创 豁免</span>
+          <span class="point-en en">Customer-service / university / startup = exempt</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">能力不公司躄距 = 根本变量</span>
+          <span class="point-en en">Capability NOT company size = loaded variable</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">高校机构不能进信</span>
+          <span class="point-en en">Academic institutions don't escape from oversight</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">豁免云采个位，保留创新点火箭</span>
+          <span class="point-en en">Exemption serves a real purpose: keep sub-frontier innovation alive</span>
+        </div>
+      </div>
+      <div class="section-quotes">
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:20:55]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">Models that remain below the front capability threshold are going to be exempt from this full assessment process and it's going to be smaller companies and researchers and ordinary developers to continue innovating without being subjected to regulations designed for the world's most powerful systems.</div>
+        <div class="quote-zh zh">低于前沿能力门槛的模型将被豁免于完整评估流程,使小公司、研究人员和普通开发者能继续创新,而不受为全球最强系统设计的法规约束。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:21:50]</span>
+        <span class="src-badge src-verbatim">✓ VERBATIM</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">However, that exemption is only based on capability rather than company size. So a model is not going to escape oversight simply because it's been produced by an academic institution.</div>
+        <div class="quote-zh zh">然而,豁免仅基于能力,不基于公司规模。模型不会仅仅因为由学术机构生产就免除监管。</div>
+      </div>
+    </div>
+      </div>
+    </section>
+    <section class="section-block section-high-impact">
+      <h2 class="section-h2" id="sec-07-international">
+        <span class="lang-zh zh">国际协调缺口 / 中俄不会跟进</span>
+        <span class="lang-en en">International coordination gap / China/Russia may not comply</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">Demis 承认：框架是自愿的，全球怎么管中国? 可参考历史：1980 年代 HIV/AIDS 国际合作、1995 CTBT 核试禁试距、中厩后化学武器条约。他提议「在关键能力上互休位」，但承认竞争实验室可能不会暂停。</span>
+        <span class="lang-en en">Demis admits: framework is voluntary + how does world stop China? Track HIV/AIDS cooperation precedent (1980s), CTBT non-proliferation race (1995), analogy: post-Cold War chemical weapons convention = diplomatic tool precedent. He proposes an 'international pause on critical AI capabilities' but admits competing labs may not pause.</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">自愿框架 = 依赖行业 + 地缘政治对齐</span>
+          <span class="point-en en">Framework voluntary = depends on industry + geopolitical alignment</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">如何限制中俄?参考生化武器条约</span>
+          <span class="point-en en">How to stop China/Russia? Like biology weapons convention</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">顶级实验室互休机制建议</span>
+          <span class="point-en en">Coordinated shutdown mechanism among top labs proposed</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">类比“刹车距离」问题</span>
+          <span class="point-en en">Like real-world 'no braking distance' geophysics problem</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">谁暂停 = 别人领先</span>
+          <span class="point-en en">Coordinate-or-else: individual lab reluctant to pause while competitors advance</span>
+        </div>
+      </div>
+    </section>
+    <section class="section-block section-high-impact">
+      <h2 class="section-h2" id="sec-08-economy-meaning">
+        <span class="lang-zh zh">混合型经济 + 身份意义危机</span>
+        <span class="lang-en en">Hybrid economy + identity meaning crisis</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">Demis 警示：后稀缺不是完全的 — 土地、能源、地位、注意力仍将是矛盾。混合经济：有些免费，有些比以往更争夺。身份意义危机：对不少人，工作 = 身份。两种读法：危机（目无所个）或者解放（质享生存之上的本质〉。</span>
+        <span class="lang-en en">Demis warns: post-scarcity isn't total — land, energy, status, attention will remain contested. Hybrid economy: some free, some more contested than ever. Identity-meaning crisis: for many, work = identity. Two readings: crisis (aimlessness) OR liberation (purpose beyond survival).</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">混合型：有免费有矛盾</span>
+          <span class="point-en en">Hybrid economy: some free, some more contested</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">土地、能源、地位、注意力仍稀缺</span>
+          <span class="point-en en">Land, energy, status, attention remain scarce</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">身份意义危机 = 社会稳定风险</span>
+          <span class="point-en en">Identity-meaning crisis = social stability risk</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">两种读法：危机与解放</span>
+          <span class="point-en en">Two readings: crisis OR liberation</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">文化决定后 AGI 文明路径</span>
+          <span class="point-en en">Lisbon vs Beijing vs Singapore — culture determines post-AGI civilization</span>
+        </div>
+      </div>
+      <div class="section-quotes">
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:24:46]</span>
+        <span class="src-badge src-demis">⚡ DEMIS</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">I'm not just about the fact that we're going to have to restrict AGI, control AI. There are other very difficult hard questions that nobody has the answers to that we really need to start thinking about.</div>
+        <div class="quote-zh zh">不仅是要限制 AGI、控制 AI。还有其他非常困难的、没人能解答的难题,我们真的需要开始思考。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:25:32]</span>
+        <span class="src-badge src-demis">⚡ DEMIS</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">One of those questions is what sort of economic model is there going to be? The whole of economics as we know it is built on one assumption and that is scarcity. Things are limited. Labor, time, resources, expertise, and prices and wages are all just mechanisms for rationing those limited things.</div>
+        <div class="quote-zh zh">其中一个问题是要什么样的经济模式?我们所知的经济学建立在一个假设上——稀缺。事物是有限的:劳动、时间、资源、专长、价格和工资都只是分配这些有限事物的机制。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:28:14]</span>
+        <span class="src-badge src-demis">⚡ DEMIS</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">Some of that framework may simply not make sense anymore. The way charging for air doesn't really make sense. But post scarcity almost certainly won't be total. Some things are going to stay scarce like land energy status you know human attention.</div>
+        <div class="quote-zh zh">整套框架可能不再适用——就像对空气收费不再合理。但后稀缺化几乎不会是完全的。某些东西仍将稀缺:土地、能源、地位,以及人类注意力。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:30:00]</span>
+        <span class="src-badge src-demis">⚡ DEMIS</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">The real puzzle is a hybrid, an economy where things are effectively free and others are more contested than ever. So designing rules for that mixed world, who gets what and how, is pretty uncharted territory, which is Demis' entire point.</div>
+        <div class="quote-zh zh">真正的难题是一种混合型经济:有些事物几乎免费,有些则比以往更受争夺。如何为这种混合世界设计规则——谁得到什么、如何得到——都是未开垦之地。这正是 Demis 全部观点的核心。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:31:38]</span>
+        <span class="src-badge src-demis">⚡ DEMIS</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">Another thing that most people are not going to think about is of course the meaning. And this is of course identity. For a lot of people, what they do is a huge part of who they are.</div>
+        <div class="quote-zh zh">多数人不会想到的另一个问题是意义,也就是身份。对很多人来说,自己从事的工作是他们身份的重要部分。</div>
+      </div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-meta">
+        <span class="quote-ts">[00:33:04]</span>
+        <span class="src-badge src-demis">⚡ DEMIS</span>
+      </div>
+      <div class="quote-bilingual">
+        <div class="quote-en en">One is a kind of crisis where people lose the structure, dignity, and identity that work provides. The other is liberation. For most of history, humans have been forced to spend their lives on survival and toil, a world where that's no longer necessary, could be free.</div>
+        <div class="quote-zh zh">一种是危机:人们失去工作所提供的结构、尊严和身份。另一种是解放。人类历史上大部分时间被迫从事生存和劳作,一个不再必要的世界可以让人自由。</div>
+      </div>
+    </div>
+      </div>
+    </section>
+    <section class="section-block section-soft-closer">
+      <h2 class="section-h2" id="sec-09-closing">
+        <span class="lang-zh zh">收局 / 「习靠新世界」框架</span>
+        <span class="lang-en en">Closing / 'Brave new world' framing</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">人类世 二号框架：AGI 强迫文明改赨。Patrick 的 1/2/3 考验：支持个体自由、或者为危机环境准备基设。Demis 降小终点：「我们会意识到我们正站在奇点山脚」。</span>
+        <span class="lang-en en">Anthropocene 2.0 framing: AGI forces civilisational redesign. Patrick's 1/2/3 framing for the future: support individual freedom in hybrid economy OR prepare civil-infrastructure scaffolding. Demis lands on: 'I think we will realize we were standing in the foothills of the singularity.'</span>
+      </div>
+      <div class="section-points">
+        <div class="point">
+          <span class="point-zh zh">Demis“奇点山脚”象征</span>
+          <span class="point-en en">Demis: 'we were standing in the foothills of the singularity'</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">混合经济政策：UBI/UBG/公众分红</span>
+          <span class="point-en en">Hybrid-economy policy: UBI, UBG, national-dividend models</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">身份意义危机需系统响应</span>
+          <span class="point-en en">Identity-meaning crisis needs systemic response</span>
+        </div>
+        <div class="point">
+          <span class="point-zh zh">文明改赨不只是经济改赨</span>
+          <span class="point-en en">Civilisational redesign not just economic redesign</span>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- Tab: Demis original article URL candidates -->
+    <div class="tab-content" id="tab-article">
+      <h2 class="section-h2">
+        <span class="lang-zh zh">原文入口与多路径复查</span>
+        <span class="lang-en en">Original article entry + multi-path recheck</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">Transcript 未明记出原文 URL。以下 4 个 link 为最可能匹配，按引用鲜活性排序。你需要手动点击验证，不要默认第一条即原文。</span>
+        <span class="lang-en en">Transcript did NOT include the original article URL. Below are the 4 most-likely matches, sorted by freshness. You need to click through to verify, and not assume the first link is the original.</span>
+      </div>
+      <ul class="article-link-list">
+        
+    <li class="article-link-item">
+      <strong class="article-name">Demis on X (@demishassabis)</strong>
+      <a href="https://x.com/demishassabis" target="_blank" rel="noopener" class="article-url">https://x.com/demishassabis</a>
+      <div class="article-desc">Demis's X profile — original first-source posts (search for "frontier AI safety framework" / "AGI safety framework")</div>
+    </li>
+    <li class="article-link-item">
+      <strong class="article-name">Time: Hassabis Preparing for AGI essay</strong>
+      <a href="https://time.com/author/demis-hassabis/" target="_blank" rel="noopener" class="article-url">https://time.com/author/demis-hassabis/</a>
+      <div class="article-desc">Time magazine author page (Hassabis op-eds incl. Sept-Nov 2025 viral essay republished in full)</div>
+    </li>
+    <li class="article-link-item">
+      <strong class="article-name">Google blog — All Demis posts</strong>
+      <a href="https://blog.google/authors/demis-hassabis/" target="_blank" rel="noopener" class="article-url">https://blog.google/authors/demis-hassabis/</a>
+      <div class="article-desc">Google's official repost archive — best canonical mirrored copy of original X essay</div>
+    </li>
+    <li class="article-link-item">
+      <strong class="article-name">deepmind.google — Demis tag</strong>
+      <a href="https://www.deepmind.google/publications/?author=Demis+Hassabis" target="_blank" rel="noopener" class="article-url">https://www.deepmind.google/publications/?author=Demis+Hassabis</a>
+      <div class="article-desc">DeepMind publications with Demis as author — research paper index (some may be the underlying framework doc)</div>
+    </li>
+      </ul>
+      <div class="honest-box" style="margin-top:1.2rem">
+        <strong>⚠️ Patrick，请点击上述最多 3 个 link，手动确认哪一个是原文。</strong>
+        <span class="lang-zh zh">我这边从内容信号反推 (「30 days before launch」、「voluntary assessment」、「capability threshold」)，但 URL 未出现在 transcript 。请在你有网的终端上点击验证。如果全部不是，请提供你记得的 X 账号 / URL，我重新 patch dashboard。</span>
+        <span class="lang-en en">I reverse-inferred from content signals ("30 days before launch", "voluntary assessment", "capability threshold"), but the URL did not appear in the transcript. Please click-verify on your online terminal. If none of them is the original, please provide the X account/URL you remember, and I'll re-patch the dashboard.</span>
+      </div>
+    </div>
+
+    <!-- Tab: Patrick -->
+    <div class="tab-content" id="tab-patrick">
+      <h2 class="section-h2">
+        <span class="lang-zh zh">Patrick 视角—9 个章节全部交叉勾连</span>
+        <span class="lang-en en">Patrick's view — cross-references for every chapter</span>
+      </h2>
+      <div class="section-lead">
+        <span class="lang-zh zh">3 档分系统 (MUST / WATCH / KNOW) 每条含属于哪个章节 + Patrick 查看角度。</span>
+        <span class="lang-en en">3-tier cards (MUST / WATCH / KNOW) each labelled with the relevant chapter + Patrick's viewing angle.</span>
+      </div>
+      
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—时间线 / 3-5 年主题 + Demis 人生认贯</span>
+        <span class="lang-en en">Patrick view on timeline</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-MUST">
+      <span class="pat-badge badge-must">🔴 MUST</span>
+      <div class="pat-card-title">AGI Timeline (5-10 yr)</div>
+      <div class="pat-card-brief">Demis's 3-5 yr / 5-10 yr / 50% odds range = the *credibility* signal vs. Sam's marketing.</div>
+    </div>
+    <div class="pat-card pat-tier-WATCH">
+      <span class="pat-badge badge-watch">🟡 WATCH</span>
+      <div class="pat-card-title">Industry signaling</div>
+      <div class="pat-card-brief">DeepMind aligns with Anthropic Responsible Scaling Policy (RSP). Voluntary convergence in industry.</div>
+    </div>
+      </div>
+    </div>
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—框架概述 / 现路径不打会以「严重撞车」收场</span>
+        <span class="lang-en en">Patrick view on framework intro</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-MUST">
+      <span class="pat-badge badge-must">🔴 MUST</span>
+      <div class="pat-card-title">Demis Hassabis: "Preparing for AGI"</div>
+      <div class="pat-card-brief">Demis's viral X essay + Time magazine republish. Must-read 原文 (Source verified via multi-source coverage).</div>
+    </div>
+    <div class="pat-card pat-tier-MUST">
+      <span class="pat-badge badge-must">🔴 MUST</span>
+      <div class="pat-card-title">Race-aware timeline cluster</div>
+      <div class="pat-card-brief">Demis 12 mo + Kokotajlo AI 2027 + Coze-gate 7 mo = 4-source convergent timeline.</div>
+    </div>
+    <div class="pat-card pat-tier-KNOW">
+      <span class="pat-badge badge-know">🟢 KNOW</span>
+      <div class="pat-card-title">Wikipedia: Demis Hassabis</div>
+      <div class="pat-card-brief">British AI researcher + Nobel 2024 chemistry + AlphaFold lead. Public figure w/ skin in game.</div>
+    </div>
+      </div>
+    </div>
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—Stage 1 / 能力门槛分离前沿与普通 AI</span>
+        <span class="lang-en en">Patrick view on stage 1</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-MUST">
+      <span class="pat-badge badge-must">🔴 MUST</span>
+      <div class="pat-card-title">Capability thresholds</div>
+      <div class="pat-card-brief">WATCH OUT: thresholds ≠ compute. DeepMind/Anthropic disagreement on FRP/CBRN benchmarks.</div>
+    </div>
+      </div>
+    </div>
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—Stage 2 / 30 天发布前自愿测试</span>
+        <span class="lang-en en">Patrick view on stage 2</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-MUST">
+      <span class="pat-badge badge-must">🔴 MUST</span>
+      <div class="pat-card-title">30-day pre-launch testing</div>
+      <div class="pat-card-brief">Practical implementation requires international consensus — Russia/China likely won't comply.</div>
+    </div>
+    <div class="pat-card pat-tier-WATCH">
+      <span class="pat-badge badge-watch">🟡 WATCH</span>
+      <div class="pat-card-title">Eval gaming & deception</div>
+      <div class="pat-card-brief">Demis admits: model can 'play around' eval. Anthropic NLA paper is the actual countermeasure.</div>
+    </div>
+      </div>
+    </div>
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—亚前沿豁免 / 小企业 与 研究者可继续创新</span>
+        <span class="lang-en en">Patrick view on sub-frontier exemption</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-WATCH">
+      <span class="pat-badge badge-watch">🟡 WATCH</span>
+      <div class="pat-card-title">Capability = exemption baseline</div>
+      <div class="pat-card-brief">Anthropic NLA proof: sub-frontier interpretation ≠ zero risk. Capability is loaded.</div>
+    </div>
+    <div class="pat-card pat-tier-KNOW">
+      <span class="pat-badge badge-know">🟢 KNOW</span>
+      <div class="pat-card-title">Academic labs are NOT exempt</div>
+      <div class="pat-card-brief">Framework prevents 'small lab loophole'. All institutions crossing threshold apply.</div>
+    </div>
+      </div>
+    </div>
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—国际协调缺口 / 中俄不会跟进</span>
+        <span class="lang-en en">Patrick view on international coordination gap</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-WATCH">
+      <span class="pat-badge badge-watch">🟡 WATCH</span>
+      <div class="pat-card-title">China coordination gap</div>
+      <div class="pat-card-brief">Framework voluntary by design. Without China, no global safety floor. Track HK-MoU 2005/Brussels.</div>
+    </div>
+    <div class="pat-card pat-tier-KNOW">
+      <span class="pat-badge badge-know">🟢 KNOW</span>
+      <div class="pat-card-title">Existing CB precedents</div>
+      <div class="pat-card-brief">Bio weapons treaty / OECD AI principles / G7 Hiroshima AI Process — comparison points.</div>
+    </div>
+      </div>
+    </div>
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—混合型经济 + 身份意义危机</span>
+        <span class="lang-en en">Patrick view on hybrid economy + identity meaning crisis</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-MUST">
+      <span class="pat-badge badge-must">🔴 MUST</span>
+      <div class="pat-card-title">Post-scarcity hybrid economy</div>
+      <div class="pat-card-brief">Distribute via UBI / UBS / national-dividend. Identity meaning crisis = social stability risk.</div>
+    </div>
+    <div class="pat-card pat-tier-WATCH">
+      <span class="pat-badge badge-watch">🟡 WATCH</span>
+      <div class="pat-card-title">Identity/work = scaffold</div>
+      <div class="pat-card-brief">Office collapses first; relationships/creativity/learning = next. 5-yr phase, not 1-yr.</div>
+    </div>
+    <div class="pat-card pat-tier-WATCH">
+      <span class="pat-badge badge-watch">🟡 WATCH</span>
+      <div class="pat-card-title">Define 'meaning' = open question</div>
+      <div class="pat-card-brief">Lisbon vs Beijing vs Singapore. Culture determines post-AGI civilization.</div>
+    </div>
+      </div>
+    </div>
+    <div class="pat-group">
+      <h3 class="pat-group-title">
+        <span class="lang-zh zh">Patrick 视角—收局 / 「习靠新世界」框架</span>
+        <span class="lang-en en">Patrick view on closing</span>
+      </h3>
+      <div class="pat-grid">
+    <div class="pat-card pat-tier-MUST">
+      <span class="pat-badge badge-must">🔴 MUST</span>
+      <div class="pat-card-title">Two readings: crisis vs liberation</div>
+      <div class="pat-card-brief">Patrick '1/2/3' framing: support individual freedom OR prepare infrastructure for crisis scenarios.</div>
+    </div>
+    <div class="pat-card pat-tier-WATCH">
+      <span class="pat-badge badge-watch">🟡 WATCH</span>
+      <div class="pat-card-title">Brave world framing = Anthropocene 2.0</div>
+      <div class="pat-card-brief">'Nobody voted for AI risk' framing = AGI safety populism. Track Tristan Harris race-aware sibling.</div>
+    </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Tab: Disclaimers -->
+    <div class="tab-content" id="tab-disclaimers">
+      <h2 class="section-h2">
+        <span class="lang-zh zh">诚实折扣 · Honest Discount</span>
+        <span class="lang-en en">Honest Discount</span>
+      </h2>
+      <ol style="line-height:1.7; padding-left:1.5rem;">
+        <li>
+          <strong><span class="lang-zh zh">视频是剪辑译解</span><span class="lang-en en">Video is editorial compilation</span></strong>:
+          <span class="lang-zh zh">TheAIGRID 将 Demis 多场讲读 + 专家评论重组为「AGI rollout timeline + safety framework + economy/identity」 叙事。取代讲读手法会提高可读性但会丢掉原读上下文。</span>
+          <span class="lang-en en">TheAIGRID re-edited Demis multiple interviews + expert commentary into a single 22-min narrative. Cleaner but loses the original context.</span>
+        </li>
+        <li>
+          <strong><span class="lang-zh zh">原文 URL 未明记</span><span class="lang-en en">Original article URL not stated</span></strong>:
+          <span class="lang-zh zh">Transcript 未提供 demishassabis.medium.com / X post URL。以上 「原文入口」 提供了 4 个可能的他处他处匹配，需手动验证。</span>
+          <span class="lang-en en">Transcript did not provide demishassabis.medium.com or X post URL. Above "Original article" tab gives 4 plausible candidates. Manual verification required.</span>
+        </li>
+        <li>
+          <strong>Voluntary framework = no enforcement</strong>:
+          <span class="lang-zh zh">Demis 明确说 「submit voluntarily」，不是硬要求。China/Russia 不会跟进，这个框架本质上只覆盖美欧。</span>
+          <span class="lang-en en">Demis explicitly says "submit voluntarily", NOT a hard requirement. China/Russia won't follow; the framework essentially only covers the West.</span>
+        </li>
+        <li>
+          <strong>Identity-meaning crisis is cultural</strong>:
+          <span class="lang-zh zh">「工作 = 身份」是龙层设议，但不可忽视。文化 = 文明路径。Lisbon (个体自由) / Beijing (集体宾家) / Singapore (工具主义) = 三种不同后轮。</span>
+          <span class="lang-en en">"Work = identity" is a thesis but cannot be ignored. Culture drives future paths. Lisbon (individual freedom) / Beijing (collective) / Singapore (tool-first) = 3 different trajectories.</span>
+        </li>
+      </ol>
+    </div>
+
+    <footer style="margin-top:3rem; padding-top:1rem; border-top:1px solid var(--line); font-size:0.78rem; color: var(--text-mute);">
+      <p>
+        📚 <a href="https://www.youtube.com/watch?v=xJplWSRHvBg" target="_blank" rel="noopener">YouTube · xJplWSRHvBg</a> ·
+        📰 <a href="https://www.youtube.com/@TheAiGrid" target="_blank" rel="noopener">TheAIGRID</a> ·
+        🔎 Transcript: kome.ai flat
+      </p>
+      <p>
+        Built 2026-07-20 · Hermes Agent (Patrick's MAC) · EN⇄ZH · TOC v1.4.4 · single-file HTML · no external CDN
+      </p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  // ----- tab logic -----
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabPanes = document.querySelectorAll('.tab-content');
+  tabBtns.forEach(function(b) {
+    b.addEventListener('click', function() {
+      tabBtns.forEach(function(bb) { bb.classList.remove('active'); });
+      tabPanes.forEach(function(p) { p.classList.remove('active'); });
+      b.classList.add('active');
+      var id = b.getAttribute('data-tab');
+      var pane = document.getElementById(id);
+      if (pane) pane.classList.add('active');
+    });
+  });
+
+  // ----- TOC toggle -----
+  var tocBtn = document.getElementById('tocToggleBtn');
+  var page = document.getElementById('page');
+  var toc = document.getElementById('toc');
+  function applyTocState(collapsed) {
+    if (collapsed) {
+      page.classList.add('toc-collapsed');
+      toc.classList.add('collapsed');
+    } else {
+      page.classList.remove('toc-collapsed');
+      toc.classList.remove('collapsed');
+    }
+  }
+  if (tocBtn) {
+    var saved = null;
+    try { saved = localStorage.getItem('xJpl-toc-collapsed'); } catch (e) {}
+    applyTocState(saved === '1');
+    tocBtn.addEventListener('click', function() {
+      var isCollapsed = !toc.classList.contains('collapsed');
+      applyTocState(!isCollapsed);
+      try { localStorage.setItem('xJpl-toc-collapsed', isCollapsed ? '0' : '1'); } catch (e) {}
+    });
+  }
+
+  // ----- TOC anchor intercept: tab targets (#tab-X) auto-switch tab + scroll -----
+  // Page anchor targets (#sec-X) work via browser default.
+  // tab-content divs default to display:none, so a hash jump to #tab-article
+  // appears "broken". Intercept clicks on those and flip the tab + scroll to top.
+  document.querySelectorAll('aside.toc a[href^="#tab-"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var tabId = link.getAttribute('href').slice(1); // drop leading #
+      var btn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
+      if (btn) { btn.click(); }
+      // After tab switch, scroll the tab-content into view at the top of main
+      setTimeout(function() {
+        var target = document.getElementById(tabId);
+        if (target) {
+          // Make sure it is visible before scrollIntoView (tab-click class swap may race)
+          target.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+      }, 80);
+    });
+  });
+
+  // Also intercept hard navigation (e.g. user pastes URL ending in #tab-article)
+  function syncHashToTab() {
+    var h = location.hash || '';
+    if (h.indexOf('#tab-') !== 0) return;
+    var tabId = h.slice(1);
+    var btn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
+    if (btn && !document.querySelector('.tab-btn[data-tab="' + tabId + '"]').classList.contains('active')) {
+      btn.click();
+    }
+  }
+  syncHashToTab();
+  window.addEventListener('hashchange', syncHashToTab);
+
+  // ----- lang toggle -----
+  window.toggleLang = function() {
+    var html = document.documentElement;
+    var isZh = html.lang === 'zh-CN';
+    html.lang = isZh ? 'en' : 'zh-CN';
+    try { localStorage.setItem('xJpl-lang', html.lang); } catch (e) {}
+  };
+  (function() {
+    try {
+      var saved = localStorage.getItem('xJpl-lang');
+      if (saved === 'en' || saved === 'zh-CN') document.documentElement.lang = saved;
+    } catch (e) {}
+  })();
+})();
+</script>
+
+</body>
+</html>
