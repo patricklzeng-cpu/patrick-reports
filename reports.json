@@ -1,5 +1,17 @@
 [
   {
+    "title": "Eric Brynjolfsson 谈 AI 与就业 (硅娃播客 53min)",
+    "track": "ai",
+    "tag": "podcast",
+    "practical": 9,
+    "time": 53,
+    "desc": "Stanford 经济学家 30 年研究任务 vs 职业 / 需求曲线弹性 / 3-5 年 J 型曲线 / CEO of Agents / 17 张 Patrick 关联卡 + 7 步行动清单",
+    "file": "daily-reports/silicon-valley-girl-brynjolfsson-2026-07-22.html",
+    "date": "2026-07-22",
+    "curated": 1,
+    "added_at": "2026-07-22T21:44:00Z"
+  },
+  {
     "title": "Round 40 - Google CEO Reveals How AGI Will Rollout - Demis Hassabis on X viral essay 2025-09-12 - 22:18 - xJplWSRHvBg",
     "track": "video",
     "tag": "demis-hassabis deepmind agi-framework frontier-ai-safety capability-threshold 30-day-pre-launch-testing voluntary-assessment sub-frontier-exemption identity-meaning hybrid-economy bilingual toc-v1.4.4 round-40",

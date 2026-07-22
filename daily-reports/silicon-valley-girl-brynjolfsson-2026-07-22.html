@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Brynjolfsson 谈 AI 与就业：硅娃播客 · Stanford 经济学家 53min 解读 / AI & Jobs: Eric Brynjolfsson on Silicon Valley Girl</title>
+<style>
+:root{
+  --bg:#0a0a14;--bg-card:#13131e;--bg-elev:#1c1c2a;--border:#2a2a3a;
+  --text:#e8e8f0;--text-dim:#a8a8b8;--text-mute:#6a6a78;
+  --lime:#d5ff3f;--amber:#ffb84a;--coral:#ff6b5a;--teal:#5fbfa3;--blue:#5a9eff;--purple:#a78bfa;--pink:#ff89c1;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 -apple-system,BlinkMacSystemFont,'SF Pro Display',Helvetica,Arial,sans-serif;padding:0;}
+.wrap{max-width:1180px;margin:0 auto;padding:36px 28px 80px;}
+header.hero{position:relative;padding:32px 0 24px;border-bottom:1px solid var(--border);}
+header.hero .tag{display:inline-block;padding:4px 12px;background:var(--bg-elev);color:var(--lime);border-radius:99px;font-size:11px;letter-spacing:.6px;font-weight:600;}
+header.hero h1{font-size:34px;margin:14px 0 10px;font-weight:700;letter-spacing:-.5px;line-height:1.2;}
+header.hero .sub{font-size:15px;color:var(--text-dim);max-width:880px;margin:8px 0;}
+header.hero .meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px;font-size:13px;color:var(--text-mute);}
+header.hero .meta b{color:var(--text);font-weight:600;}
+header.hero .meta a{color:var(--lime);text-decoration:none;}
+
+/* Lang & TOC toggle */
+.lang-toggle{position:fixed;top:18px;right:24px;z-index:1000;background:rgba(18,18,42,.92);border:1px solid var(--lime);border-radius:22px;padding:6px 14px;font:600 12px ui-monospace,'SF Mono',monospace;color:var(--lime);cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;letter-spacing:.05em;user-select:none;}
+.lang-toggle:hover{background:var(--lime);color:#0a0a14;box-shadow:0 0 16px rgba(213,255,63,.4);}
+.toc-toggle{position:fixed;top:18px;right:130px;z-index:1000;background:rgba(18,18,42,.92);border:1px solid var(--blue);border-radius:22px;padding:6px 14px;font:600 12px ui-monospace,'SF Mono',monospace;color:var(--blue);cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;letter-spacing:.05em;user-select:none;}
+.toc-toggle:hover{background:var(--blue);color:#0a0a14;box-shadow:0 0 16px rgba(90,158,255,.4);}
+
+/* 4-class bilingual visibility swap */
+html[lang="zh-CN"] .en{display:none;}
+html[lang="en"] .zh{display:none;}
+html[lang="zh-CN"] .lang-en{display:none;}
+html[lang="en"] .lang-zh{display:none;}
+
+/* Layout: body padding reserves space for fixed sidebar TOC */
+body{padding-left:292px;transition:padding-left .3s ease;}
+body.toc-collapsed{padding-left:48px;}
+.toc-sidebar{position:fixed;top:80px;left:32px;width:260px;max-height:calc(100vh - 100px);overflow-y:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:18px 18px 18px 22px;z-index:50;transition:transform .3s ease,opacity .3s ease;}
+body.toc-collapsed .toc-sidebar{transform:translateX(-292px);opacity:0;pointer-events:none;}
+.toc-sidebar h3{margin:0 0 12px;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--lime);font-weight:700;}
+.toc-sidebar ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;}
+.toc-sidebar a{color:var(--text-dim);text-decoration:none;font-size:13px;display:flex;gap:10px;align-items:baseline;padding:5px 0;transition:color .15s;border-radius:4px;}
+.toc-sidebar a:hover{color:var(--lime);}
+.toc-sidebar .num{color:var(--blue);font-variant-numeric:tabular-nums;font-weight:600;min-width:22px;font-size:11px;}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin:24px 0;}
+.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+.stat .label{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--text-mute);margin-bottom:6px;}
+.stat .big{font-size:30px;font-weight:700;color:var(--lime);font-variant-numeric:tabular-nums;line-height:1.1;}
+.stat .lbl{font-size:12px;color:var(--text-dim);margin-top:4px;line-height:1.4;}
+.stat.amber .big{color:var(--amber);}
+.stat.coral .big{color:var(--coral);}
+.stat.teal .big{color:var(--teal);}
+.stat.blue .big{color:var(--blue);}
+.stat.purple .big{color:var(--purple);}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 16px;border-bottom:1px solid var(--border);padding-bottom:8px;}
+.tab{padding:8px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px 10px 0 0;color:var(--text-dim);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;font-family:inherit;}
+.tab:hover{color:var(--text);background:var(--bg-elev);}
+.tab.active{background:var(--lime);color:#0a0a14;border-color:var(--lime);}
+
+/* Tab content */
+.tab-content{display:none;animation:fadein .25s ease;}
+.tab-content.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+/* Sections */
+section{margin:28px 0;}
+section h2{font-size:22px;margin:0 0 6px;color:var(--lime);font-weight:700;letter-spacing:-.2px;}
+section h2.section-id{scroll-margin-top:90px;}
+section .lead{color:var(--text-dim);font-size:14px;margin:0 0 18px;line-height:1.6;}
+
+/* Cards */
+.grid{display:grid;gap:16px;}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(310px,1fr));}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+.grid.c4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 22px;transition:transform .15s;}
+.card:hover{transform:translateY(-1px);border-color:var(--lime);}
+.card h3{margin:0 0 10px;font-size:16px;color:var(--text);font-weight:700;}
+.card h4{margin:14px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--blue);}
+.card.full p{margin:6px 0;color:var(--text-dim);font-size:13px;line-height:1.6;}
+.card.full ul{padding-left:18px;margin:6px 0;color:var(--text-dim);font-size:13px;}
+.card.full ul li{margin:4px 0;line-height:1.55;}
+.card.full ol{padding-left:18px;margin:6px 0;color:var(--text-dim);font-size:13px;}
+.card.full ol li{margin:6px 0;line-height:1.55;}
+.card .badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:600;margin-right:4px;letter-spacing:.5px;}
+.badge.green{background:#1b3327;color:var(--teal);}
+.badge.amber{background:#3a3120;color:var(--amber);}
+.badge.red{background:#3d1f25;color:var(--coral);}
+.badge.blue{background:#1c2a3d;color:var(--blue);}
+.badge.purple{background:#2a1f3d;color:var(--purple);}
+.badge.lime{background:#2a3310;color:var(--lime);}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px;}
+table th{text-align:left;background:var(--bg-elev);color:var(--lime);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--border);font-size:12px;letter-spacing:.3px;}
+table td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text-dim);font-variant-numeric:tabular-nums;line-height:1.5;}
+table tr:hover td{background:var(--bg-elev);color:var(--text);}
+table td.num{text-align:right;}
+table td.lbl{font-size:12px;color:var(--text);font-weight:600;}
+
+/* Callout */
+.callout{display:flex;gap:14px;background:linear-gradient(135deg,var(--bg-card) 0%,var(--bg-elev) 100%);border:1px solid var(--border);border-left:4px solid var(--lime);border-radius:12px;padding:16px 20px;margin:14px 0;}
+.callout.warn{border-left-color:var(--coral);}
+.callout.info{border-left-color:var(--blue);}
+.callout.amber{border-left-color:var(--amber);}
+.callout .ico{font-size:22px;line-height:1.3;}
+.callout h4{margin:0 0 4px;color:var(--text);font-size:14px;}
+.callout p{margin:4px 0;color:var(--text-dim);font-size:13px;line-height:1.55;}
+
+/* Quote */
+.quote{position:relative;padding:18px 22px 16px 28px;background:var(--bg-elev);border-left:4px solid var(--lime);border-radius:0 14px 14px 0;margin:14px 0;font-style:italic;color:var(--text);font-size:14px;line-height:1.6;}
+.quote::before{content:'\201C';position:absolute;top:6px;left:8px;font-size:42px;color:var(--lime);opacity:.3;line-height:1;font-family:Georgia,serif;}
+.quote cite{display:block;margin-top:8px;font-style:normal;font-size:11px;color:var(--text-mute);font-weight:600;letter-spacing:.4px;}
+
+/* Tier4 tag */
+.tier4{display:inline-block;padding:1px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-left:6px;letter-spacing:.5px;}
+.tier4.mitig{background:#1b3327;color:var(--teal);}
+.tier4.warn{background:#3a3120;color:var(--amber);}
+.tier4.gap{background:#3d1f25;color:var(--coral);}
+.tier4.verified{background:#2a3310;color:var(--lime);}
+
+/* Patrick cards */
+.patrick-card{background:linear-gradient(135deg,var(--bg-card) 0%,var(--bg-elev) 100%);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin:10px 0;}
+.patrick-card .head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
+.patrick-card .head .id{font:600 11px ui-monospace,monospace;color:var(--blue);background:var(--bg-elev);padding:2px 8px;border-radius:6px;letter-spacing:.4px;}
+.patrick-card .head .title{font-size:15px;color:var(--text);font-weight:700;flex:1;}
+.patrick-card .body{font-size:13px;color:var(--text-dim);line-height:1.6;}
+.patrick-card .body p{margin:6px 0;}
+.patrick-card .body a{color:var(--lime);text-decoration:none;border-bottom:1px dotted var(--lime);}
+.patrick-card .body strong{color:var(--text);}
+
+/* Timeline */
+.timeline{position:relative;padding-left:28px;border-left:2px solid var(--border);margin:18px 0;}
+.timeline .evt{position:relative;margin:0 0 18px;}
+.timeline .evt::before{content:'';position:absolute;left:-35px;top:6px;width:12px;height:12px;background:var(--lime);border:3px solid var(--bg);border-radius:50%;}
+.timeline .evt.major::before{background:var(--coral);width:14px;height:14px;left:-36px;}
+.timeline .evt .when{font-size:11px;color:var(--blue);font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.timeline .evt .what{display:inline-block;color:var(--text);margin:2px 0;font-weight:600;font-size:14px;}
+.timeline .evt p{margin:4px 0;color:var(--text-dim);font-size:13px;line-height:1.55;}
+
+/* TOC nav from any anchor — P-24 fix */
+footer{margin-top:64px;padding:24px 0;border-top:1px solid var(--border);text-align:center;color:var(--text-mute);font-size:12px;}
+footer a{color:var(--lime);text-decoration:none;}
+
+details{border:1px solid var(--border);border-radius:10px;padding:10px 16px;background:var(--bg-card);margin:8px 0;}
+details summary{cursor:pointer;font-weight:600;color:var(--text);font-size:14px;outline:none;}
+details[open] summary{margin-bottom:8px;}
+details p{margin:6px 0;color:var(--text-dim);font-size:13px;line-height:1.55;}
+
+.bar-track{position:relative;height:18px;background:var(--bg-elev);border-radius:9px;overflow:hidden;margin:6px 0;}
+.bar-track .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--blue),var(--lime));border-radius:9px;}
+.bar-track .lbl-r{position:absolute;right:8px;top:0;color:var(--bg);font-size:11px;line-height:18px;font-weight:700;}
+
+@media (max-width:900px){
+  body{padding-left:0;}
+  body.toc-collapsed{padding-left:0;}
+  .toc-sidebar{position:fixed;top:60px;left:8px;width:240px;transform:translateX(-260px);opacity:0;pointer-events:none;z-index:200;}
+  body.toc-sidebar-open .toc-sidebar{transform:translateX(0);opacity:1;pointer-events:auto;}
+  .tab{padding:6px 10px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
+<button class="toc-toggle" onclick="toggleToc()" id="tocBtn">☰ TOC</button>
+
+<div class="wrap">
+
+<header class="hero">
+  <span class="tag">PODCAST · AI & JOBS · 2026-07-22</span>
+  <h1>
+    <span class="zh">Eric Brynjolfsson 谈 AI 与就业</span><span class="en">Eric Brynjolfsson on AI & Jobs</span>
+    <span class="zh" style="font-weight:400;font-size:18px;color:var(--text-dim);"> · Stanford 经济学家 53min 解读</span>
+    <span class="en" style="font-weight:400;font-size:18px;color:var(--text-dim);"> · Stanford Economist 53min Decode</span>
+  </h1>
+  <p class="sub">
+    <span class="zh">"数百万岗位会消失。已经发生。问题不是会不会，而是你接下来怎么做。" Brynjolfsson 用 Stanford HAI 数据 + 30 年技术-就业研究 + 亲身参访 DeepMind 的一手观察，描绘了一个分裂的世界：底层 25 岁以下 AI 暴露岗位已萎缩 16%，但同时放射科医生、家政护理、liberal arts 正在繁荣。AI <em>已经在</em>改变劳动市场，问题是它是替代还是放大。</span>
+    <span class="en">"Millions of jobs will disappear. It's already happening. The question isn't whether, but what you do next." Brynjolfsson draws on Stanford HAI data, 30 years of tech-vs-jobs research, and first-hand visits to DeepMind to paint a divided world: entry-level AI-exposed jobs under 25 have already shrunk 16%, while radiologists, home health aides, and the liberal arts are booming. AI is changing labor markets NOW — the question is whether it substitutes or augments.</span>
+  </p>
+  <div class="meta">
+    <span><span class="zh">📺 频道</span><span class="en">📺 Channel</span> <b>Silicon Valley Girl</b> · <span class="zh">硅谷女孩播客</span><span class="en">SVG Podcast</span></span>
+    <span><span class="zh">🎙️ 嘉宾</span><span class="en">🎙️ Guest</span> <b>Eric Brynjolfsson</b> · Stanford HAI 主任 / Stanford 经济学教授</span>
+    <span><span class="zh">⏱️ 时长</span><span class="en">⏱️ Duration</span> <b>53:33</b></span>
+    <span><span class="zh">📅 上传</span><span class="en">📅 Upload</span> <b>2026-07-22</b></span>
+    <span>👁️ <b>15,093</b> views · 👍 <b>515</b> likes · <span class="zh">📈 评分 4.97</span><span class="en">📈 4.97 rating</span></span>
+    <a href="https://www.youtube.com/watch?v=72duHF7iZiU" target="_blank" rel="noopener">▶ YouTube</a>
+  </div>
+</header>
+
+<div class="main-layout">
+<aside class="toc-sidebar" id="tocSidebar">
+  <h3><span class="zh">📑 目录</span><span class="en">📑 Contents</span></h3>
+  <ol>
+    <li><a href="#stats"><span class="num">01</span><span class="zh">6 个关键数字</span><span class="en">6 Key Numbers</span></a></li>
+    <li><a href="#overview"><span class="num">02</span><span class="zh">核心论点</span><span class="en">Core Thesis</span></a></li>
+    <li><a href="#tasks"><span class="num">03</span><span class="zh">任务 vs 职业</span><span class="en">Tasks vs Jobs</span></a></li>
+    <li><a href="#elasticity"><span class="num">04</span><span class="zh">需求曲线弹性</span><span class="en">Demand Elasticity</span></a></li>
+    <li><a href="#adoption"><span class="num">05</span><span class="zh">能力 vs 落地</span><span class="en">Capabilities vs Adoption</span></a></li>
+    <li><a href="#jcurve"><span class="num">06</span><span class="zh">3–5 年 J 型曲线</span><span class="en">3–5y J-Curve</span></a></li>
+    <li><a href="#ceo-agents"><span class="num">07</span><span class="zh">CEO of Agents</span><span class="en">CEO of Agents</span></a></li>
+    <li><a href="#education"><span class="num">08</span><span class="zh">教育与 Socratic</span><span class="en">Education / Socratic</span></a></li>
+    <li><a href="#jobs-list"><span class="num">09</span><span class="zh">高危 + 稳健职业</span><span class="en">At-Risk + Stable Jobs</span></a></li>
+    <li><a href="#patrick"><span class="num">10</span><span class="zh">Patrick 关联</span><span class="en">Patrick Cards</span></a></li>
+    <li><a href="#action"><span class="num">11</span><span class="zh">Patrick 行动清单</span><span class="en">Patrick Action Plan</span></a></li>
+    <li><a href="#quotes"><span class="num">12</span><span class="zh">金句库</span><span class="en">Quotes</span></a></li>
+    <li><a href="#gdpb"><span class="num">13</span><span class="zh">GDP-B 新指标</span><span class="en">GDP-B Metric</span></a></li>
+    <li><a href="#timeline"><span class="num">14</span><span class="zh">时间戳</span><span class="en">Timeline</span></a></li>
+  </ol>
+</aside>
+
+<main>
+
+<!-- ============= TAB BUTTONS ============= -->
+<div class="tabs">
+  <button class="tab active" data-tab="overview"><span class="zh">🔥 核心论点</span><span class="en">🔥 Core Thesis</span></button>
+  <button class="tab" data-tab="tasks"><span class="zh">📊 任务 vs 职业</span><span class="en">📊 Tasks vs Jobs</span></button>
+  <button class="tab" data-tab="elasticity"><span class="zh">📈 需求弹性</span><span class="en">📈 Demand Elasticity</span></button>
+  <button class="tab" data-tab="adoption"><span class="zh">🚀 能力 vs 落地</span><span class="en">🚀 Capabilities vs Adoption</span></button>
+  <button class="tab" data-tab="jcurve"><span class="zh">📉 J 型曲线</span><span class="en">📉 J-Curve</span></button>
+  <button class="tab" data-tab="ceo-agents"><span class="zh">🤖 CEO of Agents</span><span class="en">🤖 CEO of Agents</span></button>
+  <button class="tab" data-tab="education"><span class="zh">🎓 教育</span><span class="en">🎓 Education</span></button>
+  <button class="tab" data-tab="jobs-list"><span class="zh">💼 职业清单</span><span class="en">💼 Job List</span></button>
+  <button class="tab" data-tab="patrick"><span class="zh">🔗 Patrick 关联</span><span class="en">🔗 Patrick Cards</span></button>
+  <button class="tab" data-tab="action"><span class="zh">🗺️ 行动</span><span class="en">🗺️ Action</span></button>
+  <button class="tab" data-tab="quotes"><span class="zh">💬 金句</span><span class="en">💬 Quotes</span></button>
+  <button class="tab" data-tab="gdpb"><span class="zh">📐 GDP-B</span><span class="en">📐 GDP-B</span></button>
+  <button class="tab" data-tab="gdpage"><span class="zh">🌐 全球视角</span><span class="en">🌐 Global</span></button>
+  <button class="tab" data-tab="timeline"><span class="zh">⏱️ 时间戳</span><span class="en">⏱️ Timeline</span></button>
+</div>
+
+<!-- ============= TAB 1: OVERVIEW ============= -->
+<div class="stats" id="stats">
+  <div class="stat">
+    <div class="label"><span class="zh">25 岁以下 AI 暴露岗位崩塌</span><span class="en">Under-25 AI-exposed Jobs</span></div>
+    <div class="big coral">-16%</div>
+    <div class="lbl"><span class="zh">Stanford HAI · Canaries 论文 2025</span><span class="en">Stanford HAI · Canaries paper 2025</span></div>
+  </div>
+  <div class="stat amber">
+    <div class="label"><span class="zh">2030 生产力爆发节点</span><span class="en">2030 Productivity Inflection</span></div>
+    <div class="big">3–5<span style="font-size:18px;">年</span></div>
+    <div class="lbl"><span class="zh">vs 电力耗 30 年 / 蒸汽 50 年</span><span class="en">vs electricity 30y / steam 50y</span></div>
+  </div>
+  <div class="stat teal">
+    <div class="label"><span class="zh">放射科医生：Hinton 2017 错判</span><span class="en">Radiologists: Hinton 2017 Wrong</span></div>
+    <div class="big">+</div>
+    <div class="lbl"><span class="zh">人数历史新高 + 短缺</span><span class="en">All-time high &amp; shortage</span></div>
+  </div>
+  <div class="stat blue">
+    <div class="label"><span class="zh">AI 暴露职业涵盖</span><span class="en">AI-exposed Occupations</span></div>
+    <div class="big">26</div>
+    <div class="lbl"><span class="zh">放射科医生每个职业 N 任务</span><span class="en">tasks per radiologist job</span></div>
+  </div>
+  <div class="stat purple">
+    <div class="label"><span class="zh">DeepMind 自我时间表</span><span class="en">DeepMind's Timeline</span></div>
+    <div class="big">18–24<span style="font-size:18px;">月</span></div>
+    <div class="lbl"><span class="zh">全能力上线</span><span class="en">full capabilities online</span></div>
+  </div>
+  <div class="stat">
+    <div class="label"><span class="zh">GDP-B 福利指标</span><span class="en">GDP-B Benefits Metric</span></div>
+    <div class="big">70%</div>
+    <div class="lbl"><span class="zh">LLM 9 个月福利增量</span><span class="en">LLM welfare gain in 9 mo</span></div>
+  </div>
+</div>
+
+<div class="callout info">
+  <span class="ico">🎯</span>
+  <div>
+    <h4><span class="zh">一句话核心论点</span><span class="en">One-line core thesis</span></h4>
+    <p><span class="zh">AI 不在"取代工作"——它把<strong>每个职业拆成 N 个任务</strong>，把执行自动化，让人更聚焦<strong>定义问题 + 评估结果</strong>。25 岁以下 + AI 暴露 = 已经裁 16%；但同时最低暴露职业（家庭护理、健康助理）就业<strong>增长</strong>。这不是 0-1 取代，是 1-N 重组。胜负手 = 你会不会用 AI 放大自己而不是被它替代。</span><span class="en">AI isn't "replacing jobs" — it splits every occupation into N tasks, automates execution, and makes humans focus on <strong>defining the problem + evaluating the result</strong>. Under-25 in AI-exposed jobs already lost 16% — but the <strong>least</strong> exposed occupations (home health, aides) are growing. This is not 0/1 replacement, it's 1/N reshuffling. The winner is whoever uses AI to augment themselves, not gets replaced by it.</span></p>
+  </div>
+</div>
+
+<div class="tab-content active" data-tab-content="overview">
+  <section id="overview">
+    <h2 class="section-id"><span class="zh">核心论点 · 5 大支柱</span><span class="en">Core Thesis · 5 Pillars</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 用 5 个跨学科视角 (劳动经济学 + 微观经济学 + 教育 + 技术史 + 亲身产业走访) 拼出一张"AI 不取代工作，但会重新分配工作"的地图。下面 5 个支柱贯穿整集：</span><span class="en">Brynjolfsson weaves 5 lenses (labor economics + microeconomics + education + tech history + industry visits) into a map of "AI doesn't replace work, it redistributes work." The 5 pillars below thread the entire episode:</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">1. 任务 ≠ 职业</span><span class="en">1. Tasks ≠ Occupations</span> <span class="tier4 verified">基础</span></h3>
+        <p><span class="zh">"每个职业是一束任务"——放射科医生 = 26 个任务（读片 / 体检 / 协调 / 审核化验）。Hinton 2017 错判了"AI 能读片 = 取代放射科医生"。真相反而是：AI 取代 1 个任务 → 解放人类做其余 25 个 → 需求更旺 → 人员更多。</span><span class="en">"Every occupation is a bundle of tasks" — radiologist = 26 tasks (read images / physical exam / coordinate / review labs). Hinton's 2017 prediction "AI can read images = replacing radiologists" was wrong. Reality: AI replaces 1 task → frees humans for the other 25 → demand rises → more people, not fewer.</span></p>
+        <h4><span class="zh">数据点</span><span class="en">Data points</span></h4>
+        <ul>
+          <li><span class="zh">AI 暴露前 5 职业：编码 / 呼叫中心 / 销售 / 营销 / 部分客服</span><span class="en">Top 5 AI-exposed: coding / call centers / sales / marketing / some customer service</span></li>
+          <li><span class="zh">最低暴露且在增长：</span><span class="en">Least exposed &amp; growing:</span> Home Health Aides <span class="zh">等</span><span class="en">etc.</span></li>
+          <li><span class="zh">没有 1 个职业被 AI 100% 取代</span><span class="en">No single occupation is 100% AI-replaceable</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">2. 已发生，不是将要发生</span><span class="en">2. Already happening, not future</span> <span class="tier4 verified">数据</span></h3>
+        <p><span class="zh">Stanford HAI Brynjolfsson 团队 2025 论文 "Canaries in the Coal Mine"：</span><span class="en">Stanford HAI Brynjolfsson team's 2025 paper "Canaries in the Coal Mine":</span></p>
+        <ul>
+          <li><strong>-16%</strong> <span class="zh">就业</span><span class="en">employment</span> <span class="zh">在 25 岁以下 + AI 暴露 + 高自动化 prompt 用户</span><span class="en">for under-25 in AI-exposed jobs with high-automation prompts</span></li>
+          <li><strong>+5%</strong> <span class="zh">就业</span><span class="en">employment</span> <span class="zh">在 25 岁以下 + AI 暴露 + 高放大 prompt 用户</span><span class="en">for under-25 in AI-exposed jobs with high-augmentation prompts</span></li>
+          <li><span class="zh">老人就业还在增长</span><span class="en">Older workers still growing</span></li>
+          <li><span class="zh">趋势"每月都在放大"</span><span class="en">Trend "getting bigger every month"</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">3. 弹性决定胜负</span><span class="en">3. Elasticity decides winners</span> <span class="tier4 verified">经济</span></h3>
+        <p><span class="zh">不是看 AI 会不会"取代"，而是看<strong>需求曲线弹性</strong>——AI 降低价格后，需求量上升多少？</span><span class="en">Not whether AI will "replace" — but rather the <strong>demand curve elasticity</strong>: how much does demand rise after AI drops the price?</span></p>
+        <ul>
+          <li><span class="zh">陡峭（inelastic）：</span><span class="en">Steep (inelastic):</span> <span class="zh">AI 降本 → 你的收入下降（如编码 / 文书）</span><span class="en">cost down → your income drops (coding / paperwork)</span></li>
+          <li><span class="zh">平缓（elastic）：</span><span class="en">Flat (elastic):</span> <span class="zh">AI 降本 → 需求爆炸 → 你的收入上升（医疗 / 教育 / 服务）</span><span class="en">cost down → demand explodes → income rises (medical / education / services)</span></li>
+          <li><span class="zh">约一半经济是平缓的（医疗 + 教育 + 体验）</span><span class="en">~Half the economy is elastic (medical + education + experiences)</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">4. 30 年 → 3–5 年</span><span class="en">4. 30 years → 3–5 years</span> <span class="tier4 verified">历史</span></h3>
+        <p><span class="zh">电力：30 年才让美国工厂效率提升。AI：DeepMind 告诉 Brynjolfsson "18–24 个月全能力上线"——但<strong>能力上线 ≠ 商业价值落地</strong>。J 型曲线：能力陡升，但商业价值要 3–5 年才能反映在 GDP。</span><span class="en">Electricity took 30 years before US factory productivity gains. AI: DeepMind tells Brynjolfsson "all capabilities online in 18–24 months" — but <strong>capability online ≠ business value landing</strong>. J-curve: capabilities rise steeply, but business value takes 3–5 years to show up in GDP.</span></p>
+        <p><span class="zh">3 个例子：</span><span class="en">3 examples:</span></p>
+        <ul>
+          <li><span class="zh">某公司 hackathon 第一名 = 用 LLM 做 lunch menu</span><span class="en">One hackathon winner = LLM-built lunch menu</span></li>
+          <li><span class="zh">AI slop 泛滥</span><span class="en">AI slop everywhere</span></li>
+          <li><span class="zh">需要重新设计业务流程 + 培养员工 + 创新产品</span><span class="en">Need to redesign workflows + retrain workforce + invent products</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">5. 每个人都是 CEO of Agents</span><span class="en">5. Everyone is a CEO of Agents</span> <span class="tier4 verified">未来</span></h3>
+        <p><span class="zh">未来工作 = "管理 N 个 AI agent + 定义问题 + 评估结果"。Eric 把每个项目拆成 3 段：</span><span class="en">Future work = "manage N AI agents + define problem + evaluate result." Eric breaks every project into 3 parts:</span></p>
+        <ol>
+          <li><strong>Define</strong> <span class="zh">定义问题</span><span class="en">define the problem</span></li>
+          <li><strong>Execute</strong> <span class="zh">执行（AI 接管）</span><span class="en">execute (AI takes over)</span></li>
+          <li><strong>Evaluate</strong> <span class="zh">评估结果（人类裁决）</span><span class="en">evaluate (human judges)</span></li>
+        </ol>
+        <p><span class="zh">AI 在 2，人类在 1 和 3。技术 + 商业 + 学术 = 复合人才胜出。Hassabis 10 年内"治大多数疾病" = 强信号。</span><span class="en">AI takes 2, humans own 1 &amp; 3. Tech + business + academic = the hybrid wins. Hassabis's "cure most diseases in 10 years" = strong signal.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 2: TASKS ============= -->
+<div class="tab-content" data-tab-content="tasks">
+  <section id="tasks">
+    <h2 class="section-id"><span class="zh">任务 vs 职业 · 放射科医生拆解</span><span class="en">Tasks vs Jobs · The Radiologist Decomposition</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 反复用的那个例子——Hinton 2017 错判的根源是把"职业"当成单点，而不是任务束。</span><span class="en">Brynjolfsson's repeated example — Hinton's 2017 mistake was treating "occupation" as a single point, not a bundle of tasks.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">放射科医生 26 任务清单</span><span class="en">The 26 Tasks of a Radiologist</span></h3>
+        <table>
+          <thead><tr><th><span class="zh">任务</span><span class="en">Task</span></th><th><span class="zh">AI 暴露度</span><span class="en">AI exposure</span></th><th><span class="zh">Hinton 2017 错在哪</span><span class="en">What Hinton 2017 missed</span></th></tr></thead>
+          <tbody>
+            <tr><td class="lbl"><span class="zh">读医学影像</span><span class="en">Read medical images</span></td><td><span class="badge red">高</span> <span class="zh">高</span><span class="en">High</span></td><td><span class="zh">Hinton 看对了</span><span class="en">Hinton got this right</span></td></tr>
+            <tr><td class="lbl"><span class="zh">写报告</span><span class="en">Write reports</span></td><td><span class="badge amber">中</span> <span class="zh">中</span><span class="en">Medium</span></td><td><span class="zh">AI 辅助 → 速度翻倍</span><span class="en">AI-assisted → 2× speed</span></td></tr>
+            <tr><td class="lbl"><span class="zh">体检 / 与患者沟通</span><span class="en">Physical exam / patient talk</span></td><td><span class="badge green">低</span> <span class="zh">低</span><span class="en">Low</span></td><td><span class="zh">Hinton 看漏了</span><span class="en">Hinton missed this</span></td></tr>
+            <tr><td class="lbl"><span class="zh">审核化验数据</span><span class="en">Review lab data</span></td><td><span class="badge amber">中</span></td><td><span class="zh">部分 AI 辅助</span><span class="en">Partial AI assist</span></td></tr>
+            <tr><td class="lbl"><span class="zh">协调其他医生</span><span class="en">Coordinate with other physicians</span></td><td><span class="badge green">低</span></td><td><span class="zh">人类专属</span><span class="en">Human-only</span></td></tr>
+            <tr><td class="lbl"><span class="zh">教学 / 培训</span><span class="en">Teaching / training</span></td><td><span class="badge green">低</span></td><td><span class="zh">人类专属</span><span class="en">Human-only</span></td></tr>
+            <tr><td class="lbl"><span class="zh">医疗诉讼 / 文档</span><span class="en">Medico-legal / documentation</span></td><td><span class="badge red">高</span></td><td><span class="zh">AI 接管</span><span class="en">AI takes over</span></td></tr>
+            <tr><td class="lbl"><span class="zh">其余 19 个任务</span><span class="en">Remaining 19 tasks</span></td><td><span class="badge green">低</span></td><td><span class="zh">Hinton 没建模</span><span class="en">Hinton didn't model</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">真正的"金丝雀"数据</span><span class="en">The Real "Canaries" Data</span></h3>
+        <p><span class="zh">所有职业里，LLM 都不能 100% 接管任何一个。每个职业都有"AI 暴露核心 + 人类专属周边"的混合结构。后果：</span><span class="en">In every occupation, LLM cannot 100% take over any single one. Every job has a "AI-exposed core + human-only periphery" mix. The consequence:</span></p>
+        <ul>
+          <li><span class="zh">AI 提升 1 个任务效率 → 整个职业效率提升</span><span class="en">AI raises 1 task's efficiency → whole occupation's productivity rises</span></li>
+          <li><span class="zh">效率提升 → 价格下降</span><span class="en">Productivity rise → price drop</span></li>
+          <li><span class="zh">价格下降 → 需求上升（弹性高时）</span><span class="en">Price drop → demand rises (if elastic)</span></li>
+          <li><span class="zh">需求上升 → 招聘更多</span><span class="en">Demand rises → hire more</span></li>
+        </ul>
+        <p><span class="zh">结果：放射科医生 <strong>人手短缺 + 工资不降</strong>，Hinton 被打脸。</span><span class="en">Result: radiologists <strong>shortage + wages stable</strong>, Hinton proven wrong.</span></p>
+      </div>
+    </div>
+
+    <div class="callout amber" style="margin-top:18px;">
+      <span class="ico">⚠️</span>
+      <div>
+        <h4><span class="zh">Patrick 注意：你不一定要做放射科医生</span><span class="en">Patrick note: don't necessarily become a radiologist</span></h4>
+        <p><span class="zh">Brynjolfsson 的例子用放射科医生是因为它戏剧化（5 年前专家说"完蛋了"，现在反着）。对 Patrick 来说，关键是<strong>任何职业拆模型都适用</strong>——找自己职业里 AI 暴露的核心 + 人类专属的周边，build 长板。</span><span class="en">Brynjolfsson used radiologists because it's dramatic (5 years ago "done for", now reversed). For Patrick, the point is <strong>any occupation decomposes the same way</strong> — find your job's AI-exposed core + human-only periphery, build the long side.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 3: ELASTICITY ============= -->
+<div class="tab-content" data-tab-content="elasticity">
+  <section id="elasticity">
+    <h2 class="section-id"><span class="zh">需求曲线弹性 · 经济学核心</span><span class="en">Demand Curve Elasticity · The Economic Core</span></h2>
+    <p class="lead"><span class="zh">这不是 AI 故事——这是<strong>经典的微观经济学应用</strong>。一张图解释一切：</span><span class="en">This isn't an AI story — it's <strong>classic microeconomics applied</strong>. One chart explains everything:</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">弹性高低 = 你的命运</span><span class="en">Elastic vs Inelastic = Your Destiny</span></h3>
+        <table>
+          <thead><tr><th><span class="zh">类型</span><span class="en">Type</span></th><th><span class="zh">经济学</span><span class="en">Economics</span></th><th><span class="zh">AI 暴露</span><span class="en">AI exposure</span></th><th><span class="zh">你的钱</span><span class="en">Your money</span></th></tr></thead>
+          <tbody>
+            <tr><td class="lbl"><span class="zh">弹性高</span><span class="en">High elasticity</span></td><td><span class="zh">降 1%价格 → 涨&gt;1%数量</span><span class="en">1% price drop → &gt;1% quantity rise</span></td><td><span class="badge green"><span class="zh">职业繁荣</span><span class="en">Job blossoms</span></span></td><td><span class="badge green">📈</span></td></tr>
+            <tr><td class="lbl"><span class="zh">弹性低</span><span class="en">Low elasticity</span></td><td><span class="zh">降 1%价格 → 涨&lt;1%数量</span><span class="en">1% price drop → &lt;1% quantity rise</span></td><td><span class="badge red"><span class="zh">职业萎缩</span><span class="en">Job shrinks</span></span></td><td><span class="badge red">📉</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">平缓 vs 陡峭的例子</span><span class="en">Flat vs Steep Examples</span></h3>
+        <ul>
+          <li><strong><span class="zh">航空（弹性高）：</span><span class="en">Aviation (elastic):</span></strong> <span class="zh">喷气发动机让机票便宜 50% → 我们飞 10 倍以上 → 总额多花</span><span class="en">jet engines cut fares 50% → we fly 10× more → total spend rises</span></li>
+          <li><strong><span class="zh">医疗（弹性高）：</span><span class="en">Medical (elastic):</span></strong> <span class="zh">MRI 从 $2000 降到 $200 → 所有人想做 → 4 倍检查量</span><span class="en">MRI from $2000 → $200 → everyone wants one → 4× check volume</span></li>
+          <li><strong><span class="zh">编程（弹性低）：</span><span class="en">Coding (inelastic):</span></strong> <span class="zh">代码生成降 90% → 写代码的数量接近固定 → 程序员变少</span><span class="en">code generation drops 90% → code volume near fixed → fewer programmers</span></li>
+          <li><strong><span class="zh">文档（弹性低）：</span><span class="en">Paperwork (inelastic):</span></strong> <span class="zh">AI 写公文降 95% → 公文数量不变 → 助理萎缩</span><span class="en">AI cuts paperwork 95% → paperwork volume flat → assistants shrink</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:18px;">
+      <span class="ico">📊</span>
+      <div>
+        <h4><span class="zh">约一半经济是高弹性</span><span class="en">Roughly half the economy is elastic</span></h4>
+        <p><span class="zh">Brynjolfsson 数据：约一半的 GDP 类别是"价格降 → 总量升"。医疗、教育、体验、个性化服务、咨询、设计——这些类别里 AI 越强，需求越大。<strong>你的策略</strong> = 移向高弹性职业，或留在自己职业里 build 弹性高的那部分任务。</span><span class="en">Brynjolfsson's data: ~half of GDP is "price down → volume up." Medical, education, experiences, personalized services, consulting, design — the more powerful AI, the more demand. <strong>Your strategy</strong> = move into elastic occupations, or stay in yours and build the elastic tasks.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 4: ADOPTION ============= -->
+<div class="tab-content" data-tab-content="adoption">
+  <section id="adoption">
+    <h2 class="section-id"><span class="zh">能力 vs 落地 · "AI slop" 现象</span><span class="en">Capabilities vs Adoption · The "AI Slop" Phenomenon</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 给出 Stanford HAI AI Index 的核心数据：模型能力得分飞涨，但经济落地缓于预期。</span><span class="en">Brynjolfsson gives a core Stanford HAI AI Index data point: model capability scores are soaring, but economic landing lags expectations.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">Stanford HAI 三类指标</span><span class="en">Stanford HAI's 3 Indicator Categories</span></h3>
+        <h4><span class="zh">Raw capabilities · 飞跃</span><span class="en">Raw capabilities · soaring</span></h4>
+        <ul>
+          <li><span class="zh">数学 benchmark 翻倍</span><span class="en">Math benchmarks doubling</span></li>
+          <li><span class="zh">阅读理解错误率 ↓ 90%</span><span class="en">Reading comprehension errors ↓ 90%</span></li>
+          <li><span class="zh">多步骤推理近乎完美</span><span class="en">Multi-step reasoning near-perfect</span></li>
+          <li><span class="zh">SWE-bench 一季度 ↑ 20+pp</span><span class="en">SWE-bench +20+pp per quarter</span></li>
+        </ul>
+        <h4><span class="zh">Economic impact · 平缓</span><span class="en">Economic impact · muted</span></h4>
+        <ul>
+          <li><span class="zh">GDP 还没明显加速</span><span class="en">GDP not visibly accelerating yet</span></li>
+          <li><span class="zh">生产率数据：变化不大</span><span class="en">Productivity data: minimal change</span></li>
+          <li><span class="zh">ANZ 工资压力未现</span><span class="en">No wage pressure visible</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">为什么中间有 gap？</span><span class="en">Why the gap?</span></h3>
+        <ul>
+          <li><strong><span class="zh">业务流程没改</span><span class="en">Business workflows unchanged</span></strong> <span class="zh">— 公司只是"加 AI"，但流程还按工业革命模式</span><span class="en">— companies just "add AI" but processes still Industrial-Revolution-style</span></li>
+          <li><strong><span class="zh">员工没重新培训</span><span class="en">Workforce not retrained</span></strong> <span class="zh">— 大量中层管理者不会用 AI 重新设计自己的角色</span><span class="en">— many mid-managers don't know how to redesign themselves with AI</span></li>
+          <li><strong><span class="zh">AI slop 浪费</span><span class="en">AI slop waste</span></strong> <span class="zh">— hackathon 冠军 = 用 LLM 做午餐菜单</span><span class="en">— hackathon winner = LLM-made lunch menu</span></li>
+          <li><strong><span class="zh">需要新产品</span><span class="en">Need new products</span></strong> <span class="zh">— 真正的提升要等你用 AI 重新定义产品本身</span><span class="en">— real lift requires AI redefining the product itself</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:18px;">
+      <span class="ico">⚠️</span>
+      <div>
+        <h4><span class="zh">Stanford HAI "Takeoff Tracker"</span><span class="en">Stanford HAI "Takeoff Tracker"</span></h4>
+        <p><span class="zh">Brynjolfsson 团队 2026 推出 "AI Economic Indicators" 仪表盘：每月追踪 13 个指标（招聘、工资、专利、投资、采用率……），分类"无证据 / 弱证据 / 强证据"。2026-07 状态：</span><span class="en">Brynjolfsson team's 2026 "AI Economic Indicators" dashboard: 13 indicators (hiring, wages, patents, investment, adoption) sorted into "no / mild / strong evidence." 2026-07 status:</span></p>
+        <ul>
+          <li><span class="zh">强证据：1–2 个</span><span class="en">Strong evidence: 1–2</span></li>
+          <li><span class="zh">弱证据：3–4 个</span><span class="en">Mild evidence: 3–4</span></li>
+          <li><span class="zh">无证据：其余</span><span class="en">No evidence: rest</span></li>
+        </ul>
+        <p><span class="zh">每月慢慢从"无"移到"弱"或"强"——可能在某个瞬间突然完成。</span><span class="en">Each month more slide from "no" to "mild" or "strong" — might complete suddenly one day.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 5: J-CURVE ============= -->
+<div class="tab-content" data-tab-content="jcurve">
+  <section id="jcurve">
+    <h2 class="section-id"><span class="zh">J 型曲线 · 3–5 年起飞</span><span class="en">J-Curve · 3–5 Year Takeoff</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 引用自己 PhD 论文：电力 100 年前在工厂里发生的事，今天 AI 在重演。</span><span class="en">Brynjolfsson cites his PhD work: electricity in factories 100 years ago is replaying with AI today.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">J 型曲线：3 个阶段</span><span class="en">J-Curve: 3 Phases</span></h3>
+        <ul>
+          <li><strong><span class="zh">Phase 1: 投资期</span><span class="en">Phase 1: Investment</span></strong> <span class="zh">（0–18 月）— 钱花出去，能力上线</span><span class="en">(0–18 mo) — money out, capabilities come online</span></li>
+          <li><strong><span class="zh">Phase 2: 重组期</span><span class="en">Phase 2: Reshuffle</span></strong> <span class="zh">（18–60 月）— 业务流程 / 员工培训 / 产品发明</span><span class="en">(18–60 mo) — workflows / training / invention</span></li>
+          <li><strong><span class="zh">Phase 3: 起飞期</span><span class="en">Phase 3: Takeoff</span></strong> <span class="zh">（5–10 年）— 生产力跳跃式</span><span class="en">(5–10 y) — productivity leap</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">电力 vs AI 对比</span><span class="en">Electricity vs AI Comparison</span></h3>
+        <table>
+          <thead><tr><th><span class="zh">维度</span><span class="en">Dimension</span></th><th><span class="zh">电力（1900s）</span><span class="en">Electricity (1900s)</span></th><th><span class="zh">AI（2020s）</span><span class="en">AI (2020s)</span></th></tr></thead>
+          <tbody>
+            <tr><td class="lbl"><span class="zh">投资到落地</span><span class="en">Investment → landing</span></td><td>30 <span class="zh">年</span><span class="en">y</span></td><td>3–5 <span class="zh">年</span><span class="en">y</span></td></tr>
+            <tr><td class="lbl"><span class="zh">主要瓶颈</span><span class="en">Main bottleneck</span></td><td><span class="zh">工厂改造</span><span class="en">Factory redesign</span></td><td><span class="zh">业务流程 + 培训</span><span class="en">Workflow + training</span></td></tr>
+            <tr><td class="lbl"><span class="zh">对 GDP 的影响</span><span class="en">GDP impact</span></td><td><span class="zh">爆发式</span><span class="en">Explosive</span></td><td><span class="zh">渐进式 + 终爆发</span><span class="en">Gradual + final burst</span></td></tr>
+            <tr><td class="lbl"><span class="zh">职业净影响</span><span class="en">Net job impact</span></td><td><span class="zh">任务重组 + 工资普涨</span><span class="en">Tasks reshuffle + wages up</span></td><td><span class="zh">任务重组 + 工资分化</span><span class="en">Tasks reshuffle + wages split</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout amber" style="margin-top:18px;">
+      <span class="ico">🎯</span>
+      <div>
+        <h4><span class="zh">与 Bob Gordon 的赌局</span><span class="en">The Bet with Bob Gordon</span></h4>
+        <p><span class="zh">Brynjolfsson + Bob Gordon（AI 怀疑派）赌 2030 年美国生产力比 BLS 官方预测<strong>明显高</strong>。2026 年中段：</span><span class="en">Brynjolfsson + Bob Gordon (AI skeptic) bet 2030 US productivity will be <strong>significantly higher</strong> than BLS official forecast. By mid-2026:</span></p>
+        <ul>
+          <li><span class="zh">BLS 官方预测：缓慢增长</span><span class="en">BLS official: slow growth</span></li>
+          <li><span class="zh">Brynjolfsson 私下预测：AI 加速增长，"我已经稍微领先"</span><span class="en">Brynjolfsson privately: AI-accelerated, "I'm slightly ahead"</span></li>
+          <li><span class="zh">期限：2029 年底判定</span><span class="en">Resolution: end of 2029</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 6: CEO OF AGENTS ============= -->
+<div class="tab-content" data-tab-content="ceo-agents">
+  <section id="ceo-agents">
+    <h2 class="section-id"><span class="zh">CEO of Agents · 3 段拆解</span><span class="en">CEO of Agents · The 3-Part Decomposition</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 把每个项目拆成 3 段，AI 接管中间那段。</span><span class="en">Brynjolfsson splits every project into 3 parts. AI takes the middle one.</span></p>
+
+    <div class="grid c3">
+      <div class="card full">
+        <h3><span class="zh">1. 定义问题</span><span class="en">1. Define the Problem</span> <span class="badge lime">人类</span></h3>
+        <p><span class="zh">"问对问题"是<strong>人类独占</strong>的环节。AI 不会主动问"我们真正要解决什么"。</span><span class="en">"Asking the right question" is the <strong>human-only</strong> step. AI doesn't proactively ask "what are we really trying to solve?"</span></p>
+        <h4><span class="zh">怎么练</span><span class="en">How to learn</span></h4>
+        <ul>
+          <li><span class="zh">Socratic 教学法</span><span class="en">Socratic teaching method</span></li>
+          <li><span class="zh">冷不丁叫学生回答</span><span class="en">Cold-call students</span></li>
+          <li><span class="zh">"scope 大问题" 作业</span><span class="en">"Scope a big problem" assignments</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">2. 执行</span><span class="en">2. Execute</span> <span class="badge blue">AI 接管</h3>
+        <p><span class="zh">一旦问题定义清楚，AI 代理（Claude Code / Cursor / Replet / Cloud Code）跑下去写代码 / 调 API / 跑数据。</span><span class="en">Once the problem is defined, AI agents (Claude Code / Cursor / Replet / Cloud Code) run coding / API calls / data.</span></p>
+        <h4><span class="zh">Bryan's Stanford 课</span><span class="en">Bryan's Stanford course</span></h4>
+        <ul>
+          <li><span class="zh">去年：学生做 PowerPoint 期末</span><span class="en">Last year: students did PowerPoint finals</span></li>
+          <li><span class="zh">今年：必须有 running code</span><span class="en">This year: must have running code</span></li>
+          <li><span class="zh">20 个团队 全部上线真实项目</span><span class="en">20 teams, all shipped real projects</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">3. 评估结果</span><span class="en">3. Evaluate</span> <span class="badge lime">人类</span></h3>
+        <p><span class="zh">"这真的是我想要的吗？"——人类专属。AI 会 hallucinate / 按字面理解 / 跑偏。</span><span class="en">"Is this really what I wanted?" — human-only. AI hallucinates / takes things literally / drifts off target.</span></p>
+        <h4><span class="zh">评估的难点</span><span class="en">Evaluation is hard</span></h4>
+        <ul>
+          <li><span class="zh">"你说的是字面意思，但不是我想要的" </span><span class="en">"You did what I literally said, but not what I meant"</span></li>
+          <li><span class="zh">需要反复迭代：改问题 → 重跑 → 再评估</span><span class="en">Need iteration: change question → re-run → re-evaluate</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:18px;">
+      <span class="ico">🤖</span>
+      <div>
+        <h4><span class="zh">复合技能 = 唯一胜出路径</span><span class="en">Hybrid skills = the only winning path</span></h4>
+        <p><span class="zh">Brynjolfsson 明确说："光技术不够，光人脉不够，光学术不够。你必须<strong>把技术 + 业务 + 学术</strong>串起来。" MIT 校训 "Mens et Manus"（心灵 + 手）正好就是核心理念——理论 + 实践。</span><span class="en">Brynjolfsson explicitly: "Tech alone isn't enough. People skills alone aren't enough. Academic alone isn't enough. You must <strong>weave tech + business + academic</strong>." MIT motto "Mens et Manus" (mind and hand) is exactly this — theory + practice.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 7: EDUCATION ============= -->
+<div class="tab-content" data-tab-content="education">
+  <section id="education">
+    <h2 class="section-id"><span class="zh">教育 · 大学的剧变</span><span class="en">Education · The University Revolution</span></h2>
+    <p class="lead"><span class="zh">"Cookbook 课程" 还有 5 年命。Socratic 提问能力 + liberal arts + 复合技能 = 大学的新重心。</span><span class="en">"Cookbook courses" have 5 years left. Socratic question-asking + liberal arts + hybrid skills = the new university center.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">将死：3 类课程</span><span class="en">Dying: 3 Course Types</span></h3>
+        <ul>
+          <li><strong><span class="zh">机械步骤</span><span class="en">Mechanical steps</span></strong> <span class="zh">"这是怎么求逆矩阵的" → AI 替代</span><span class="en">"Here's how to invert a matrix" → AI replaces</span></li>
+          <li><strong><span class="zh">重复练习</span><span class="en">Repetitive practice</span></strong> <span class="zh">"做 N 道题" → AI 替代</span><span class="en">"Do N problems" → AI replaces</span></li>
+          <li><strong><span class="zh">事实回忆</span><span class="en">Factual recall</span></strong> <span class="zh">"列举 N 个事件" → AI 替代</span><span class="en">"List N events" → AI replaces</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">将兴：3 类学科</span><span class="en">Rising: 3 Disciplines</span></h3>
+        <ul>
+          <li><strong><span class="zh">哲学 / 思辨</span><span class="en">Philosophy / critical thinking</span></strong> <span class="zh">— 当 AI 替代执行，"为什么做"变得关键</span><span class="en">— when AI replaces execution, "why" becomes key</span></li>
+          <li><strong><span class="zh">艺术鉴赏 / 品味</span><span class="en">Art appreciation / taste</span></strong> <span class="zh">— Brynjolfsson 自己最感激的</span><span class="en">— what Brynjolfsson is most grateful for</span></li>
+          <li><strong><span class="zh">复合技能</span><span class="en">Hybrid skills</span></strong> <span class="zh">— 技术 + 业务 + 学术 = 真正的 sec-through</span><span class="en">— tech + business + academic = true kingmaker</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout amber" style="margin-top:18px;">
+      <span class="ico">🎓</span>
+      <div>
+        <h4><span class="zh">大学应该回到几百年前的样子</span><span class="en">Universities should return to what they were centuries ago</span></h4>
+        <p><span class="zh">Brynjolfsson 反直觉观点：大学应该回到"liberal arts + 哲学 + 神学 + 艺术 + 音乐 + 历史"的传统——这些学科培养"判断力 + 品味 + 价值判断"，AI 替代不了。</span><span class="en">Brynjolfsson's contrarian view: universities should return to "liberal arts + philosophy + religion + art + music + history" — these disciplines build "judgment + taste + value choice" that AI cannot replace.</span></p>
+        <p><span class="zh">Patrick 联想：你已经在做这件事——AI 研究 + 投资 + 旅行 + 个人 OS = 复合能力的早期样本。</span><span class="en">Patrick connection: you're already doing this — AI research + investing + travel + personal OS = an early sample of hybrid capability.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 8: JOBS LIST ============= -->
+<div class="tab-content" data-tab-content="jobs-list">
+  <section id="jobs-list">
+    <h2 class="section-id"><span class="zh">高危 + 稳健职业清单</span><span class="en">At-Risk + Stable Jobs List</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 在播客里直接给了几个职业的"风险评级"。</span><span class="en">Brynjolfsson directly rated several jobs in the podcast.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">🔴 高危职业（25 岁以下更糟）</span><span class="en">🔴 At-Risk Jobs (worse for under-25)</span></h3>
+        <table>
+          <thead><tr><th><span class="zh">职业</span><span class="en">Job</span></th><th><span class="zh">年薪</span><span class="en">Salary</span></th><th><span class="zh">Bryan 评</span><span class="en">Bryan's verdict</span></th></tr></thead>
+          <tbody>
+            <tr><td class="lbl"><span class="zh">初级软件工程师</span><span class="en">Junior Software Engineer</span></td><td>$95K</td><td><span class="badge red"><span class="zh">"年轻人在消失"</span><span class="en">"Young people disappearing"</span></span></td></tr>
+            <tr><td class="lbl"><span class="zh">中级营销经理</span><span class="en">Mid-level Marketing Mgr</span></td><td>$115K</td><td><span class="badge red"><span class="zh">"核心部分被 LLM 接管"</span><span class="en">"Core part taken by LLM"</span></span></td></tr>
+            <tr><td class="lbl"><span class="zh">律师助理</span><span class="en">Paralegal</span></td><td><span class="zh">中等</span><span class="en">Mid</span></td><td><span class="badge red">"Oh my gosh, even worse"</span></td></tr>
+            <tr><td class="lbl"><span class="zh">呼叫中心</span><span class="en">Call Center</span></td><td><span class="zh">低</span><span class="en">Low</span></td><td><span class="badge red"><span class="zh">AI 已接管</span><span class="en">AI already took</span></span></td></tr>
+            <tr><td class="lbl"><span class="zh">销售 / 客服</span><span class="en">Sales / customer service</span></td><td><span class="zh">混合</span><span class="en">Mixed</span></td><td><span class="badge amber"><span class="zh">部分高暴露</span><span class="en">Partial high exposure</span></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">🟢 稳健职业（弹性高）</span><span class="en">🟢 Stable Jobs (elastic)</span></h3>
+        <table>
+          <thead><tr><th><span class="zh">职业</span><span class="en">Job</span></th><th><span class="zh">年薪</span><span class="en">Salary</span></th><th><span class="zh">Bryan 评</span><span class="en">Bryan's verdict</span></th></tr></thead>
+          <tbody>
+            <tr><td class="lbl"><span class="zh">放射科医生</span><span class="en">Radiologist</span></td><td>$350K</td><td><span class="badge green"><span class="zh">"好工作，还会保持"</span><span class="en">"Good job, will persist"</span></span></td></tr>
+            <tr><td class="lbl"><span class="zh">家庭护理</span><span class="en">Home Health Aide</span></td><td><span class="zh">低</span><span class="en">Low</span></td><td><span class="badge green"><span class="zh">就业增长中</span><span class="en">Employment growing</span></span></td></tr>
+            <tr><td class="lbl"><span class="zh">资深软件工程师</span><span class="en">Senior SWE</span></td><td>$200K+</td><td><span class="badge green"><span class="zh">"比初级活得久得多"</span><span class="en">"Lasts much longer than junior"</span></span></td></tr>
+            <tr><td class="lbl"><span class="zh">医生 / 护士</span><span class="en">Doctor / Nurse</span></td><td><span class="zh">高</span><span class="en">High</span></td><td><span class="badge green"><span class="zh">"AI 让医疗更便宜 → 需求更多"</span><span class="en">"AI cheaper → more demand"</span></span></td></tr>
+            <tr><td class="lbl"><span class="zh">教师 / 教练</span><span class="en">Teacher / Coach</span></td><td><span class="zh">混合</span><span class="en">Mixed</span></td><td><span class="badge green"><span class="zh">个性化 + 关系</span><span class="en">Personalization + relationship</span></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:18px;">
+      <span class="ico">⚠️</span>
+      <div>
+        <h4><span class="zh">"如果你 12 岁想考 Stanford"——还会是好梦吗？</span><span class="en">"If you're 12 and dream of Stanford" — still valid?</span></h4>
+        <p><span class="zh">Brynjolfsson 答："我希望是。我有份工作在那。"（笑）</span><span class="en">Brynjolfsson's answer: "I hope so. I have a job there." (laughs)</span></p>
+        <p><span class="zh">含义：大学文凭仍<strong>值</strong>，但<strong>Coursework 会剧变</strong>。学习"问问题 + 评估"的能力 + 复合技能 = 大学的新承诺。</span><span class="en">Implication: the university degree is still <strong>worth it</strong>, but <strong>coursework will transform</strong>. Learning "ask questions + evaluate" + hybrid skills = the new university promise.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 9: PATRICK CARDS ============= -->
+<div class="tab-content" data-tab-content="patrick">
+  <section id="patrick">
+    <h2 class="section-id"><span class="zh">Patrick 关联 · 17 张卡</span><span class="en">Patrick Cards · 17 Cards</span></h2>
+    <p class="lead"><span class="zh">按你已有的生活方式 / 在做项目 / 投资组合，给 17 张直接相关的卡：</span><span class="en">17 cards directly relevant to your lifestyle, projects, and investment portfolio:</span></p>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-01</span><span class="title"><span class="zh">任务 vs 职业 · 你现在就在这套模型里</span><span class="en">Tasks vs Jobs · You're already in this model</span></span></div>
+      <div class="body">
+        <p><span class="zh">你作为 <strong>1 人 AI 操作系统</strong> 已经把"研究内容生产"拆成 N 个任务：cron ingestion → LLM 综合 → HTML 渲染 → CF Pages 发布。这套结构本身就是 Brynjolfsson 模型的活样本。</span><span class="en">As a <strong>1-person AI operating system</strong>, you've already split "research content production" into N tasks: cron ingestion → LLM synthesis → HTML render → CF Pages publish. This structure IS Brynjolfsson's model, alive.</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-02</span><span class="title"><span class="zh">新手初级 SWE 风险</span><span class="en">Junior SWE Risk</span></span></div>
+      <div class="body">
+        <p><span class="zh">你投资 AI 暴露度高的技术股（Coding-as-a-service / DevOps 自动化）<strong>正面</strong>：替代经济会扩大公司在 SWE 上的经济回报。SE -16% 数据已经发生。2026 后 24 个月是 <strong>positive vector</strong> for AI 工具股（Cursor / Replet / Cloud Code / Anthropic）。</span><span class="en">Your AI-exposed high-tech stocks (Coding-as-a-service / DevOps automation) are <strong>positive</strong>: substitution economies expand firms' SWE returns. The -16% SE data is already happening. The next 24 months are a <strong>positive vector</strong> for AI-tool stocks (Cursor / Replet / Cloud Code / Anthropic).</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-03</span><span class="title"><span class="zh">放射科医生模型的反推</span><span class="en">Reverse-engineer the Radiologist Model</span></span></div>
+      <div class="body">
+        <p><span class="zh">把你自己的日常工作（投资 / 旅行 / OS / wiki）拆成 N 任务，找 AI 暴露 + 人类专属。投资：读财报（AI）+ 决策人脉（human）。OS：数据采集（AI）+ 价值判断（human）。旅行：订机酒（AI）+ 体验（human）。</span><span class="en">Decompose your own daily work (investing / travel / OS / wiki) into N tasks, find AI-exposed + human-only. Investing: read 10-Ks (AI) + decision network (human). OS: data ingestion (AI) + value judgment (human). Travel: book (AI) + experience (human).</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-04</span><span class="title"><span class="zh">弹性 vs 弹性低的职业判断</span><span class="en">Elastic vs Inelastic Occupation Forensics</span></span></div>
+      <div class="body">
+        <p><span class="zh">你未来要看的"职业稳定性"不是 AI 暴露度，而是<strong>需求曲线弹性</strong>。医疗 / 教育 / 体验 / 关系 / 品味 = 弹性高（AI 越强，需求越大）。编程 / 文书 / 重复脑力 = 弹性低（AI 越强，人越少）。把这个思维套在投资 / 创业 / 职业选择上。</span><span class="en">The "job stability" you should look at isn't AI exposure — it's <strong>demand curve elasticity</strong>. Medical / education / experiences / relationships / taste = elastic (AI stronger, demand rises). Coding / paperwork / repetitive brain work = inelastic (AI stronger, fewer humans). Apply this to investing / founding / career choices.</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="id">P-05</div>
+      <div class="title"><span class="zh">GDP-B：用福利衡量 AI 价值</span><span class="en">GDP-B: measure AI value by welfare</span></div>
+      <div class="body">
+        <p><span class="zh">Brynjolfsson 团队 2026 推 "GDP-B"（加 B = benefits）—— 通过问"你愿意付多少不让你用"测每件商品 / 服务的真实福利。你 <strong>AI Sheets + 投资研究</strong> 已经用上：每个 case 跑多个 prompt 比较"价值"——可以扩展到所有 AI 工具使用 evaluation。</span><span class="en">Brynjolfsson's team 2026 launched "GDP-B" (B = benefits) — measure each good/service's real welfare by asking "how much would you pay to not use it." Your <strong>AI Sheets + investing research</strong> already uses this: each case runs multiple prompts comparing "value" — extend to all AI tool use evaluation.</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-06</span><span class="title"><span class="zh">3-5 年 J 型曲线 = 投资时钟</span><span class="en">3-5y J-Curve = investment clock</span></span></div>
+      <div class="body">
+        <p><span class="zh">J 型曲线告诉你：2026 H2 是 Phase 2（重组期）开始，2030–2032 是 Phase 3（起飞期）。投资上：</span><span class="en">J-curve tells you H2 2026 starts Phase 2 (reshuffle), 2030–2032 = Phase 3 (takeoff). On investing:</span></p>
+        <ul>
+          <li><span class="zh">2026 H2–2027 H1：AI 工具股（Cursor / Anthropic / NVIDIA）—— 抢 Phase 2 重组红利</span><span class="en">2026 H2–2027 H1: AI tool stocks (Cursor / Anthropic / NVIDIA) — capture Phase 2 reshuffle</span></li>
+          <li><span class="zh">2028–2030：AI 应用股（医疗 / 教育 / 法律应用）—— 起飞期第一波</span><span class="en">2028–2030: AI application stocks (medical / education / legal apps) — first wave of takeoff</span></li>
+          <li><span class="zh">2030：消费股反弹（工资普涨）—— 避开 1925 风格的"产能过剩"</span><span class="en">2030: consumer rebound (wage boom) — avoid 1925-style "capacity surplus"</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-07</span><span class="title"><span class="zh">CEO of Agents · 你的 1 人 AGI 假设</span><span class="en">CEO of Agents · Your 1-person AGI thesis</span></span></div>
+      <div class="body">
+        <p><span class="zh">你已经活在 Brynjolfsson 的"未来"模型里：1 个人 + 5 个 agent + 全部 OS。你的下一步：</span><span class="en">You're already living in Brynjolfsson's "future" model: 1 person + 5 agents + full OS. Your next step:</span></p>
+        <ul>
+          <li><span class="zh">公开化你"CEO of Agents"的方法论（v1 substack / self-post）</span><span class="en">Publicize your "CEO of Agents" methodology (v1 substack / self-post)</span></li>
+          <li><span class="zh">评估这是否可复用给"投资 / 副业 / 旅行规划"等场景</span><span class="en">Evaluate if reusable for investing / side projects / travel planning scenarios</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-08</span><span class="title"><span class="zh">Socratic 训练 vs Cookbook 训练</span><span class="en">Socratic vs Cookbook Training</span></span></div>
+      <div class="body">
+        <p><span class="zh">Bryan's Stanford 课的核心：把学生放在"非结构化问题"前，让他自己 scope。你的<strong>AI 自训</strong>可以这样：</span><span class="en">Bryan's Stanford course core: throw students into unstructured problems, let them scope. Your <strong>AI self-training</strong> can do this:</span></p>
+        <ul>
+          <li><span class="zh">不要"给 AI 完整 step-by-step 任务"——给 AI "背景 + 我想达成 X"让它自己拆解</span><span class="en">Don't "give AI complete step-by-step tasks" — give it "context + I want to achieve X" and let it decompose</span></li>
+          <li><span class="zh">每周 1 个"问题定义"练习：写 5 个你这一周要解决的具体问题，让 AI 帮你 scope → 评估 → 迭代</span><span class="en">Weekly 1 "problem definition" exercise: write 5 specific problems this week, let AI help scope → evaluate → iterate</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-09</span><span class="title"><span class="zh">复合技能 = 你的"已有"</span><span class="en">Hybrid skills = your "already have"</span></span></div>
+      <div class="body">
+        <p><span class="zh">Bryan 说"tech + business + academic = 唯一胜出路径"。你已经在做的：</span><span class="en">Bryan says "tech + business + academic = the only winning path." You're already doing:</span></p>
+        <ul>
+          <li><span class="zh">技术：AI 工具 / 代码 / Web 平台（2017zyl.xyz）</span><span class="en">Tech: AI tools / code / Web platform (2017zyl.xyz)</span></li>
+          <li><span class="zh">商业：投资 / 创业 / 顾问</span><span class="en">Business: investing / founding / advisory</span></li>
+          <li><span class="zh">学术：研究消化 / 综合 / 输出</span><span class="en">Academic: research ingestion / synthesis / output</span></li>
+        </ul>
+        <p><span class="zh">你已是"复合技者"——不需要任何转型，只需要<strong>保持</strong>这种结构的活力。</span><span class="en">You're already a "hybrid" — no transformation needed, just <strong>keep</strong> the structural aliveness.</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-10</span><span class="title"><span class="zh">25 岁以下数据 = 警惕</span><span class="en">Under-25 data = warning</span></span></div>
+      <div class="body">
+        <p><span class="zh">如果你考虑给 young 团队 / 实习生 / 后辈建议：</span><span class="en">If you coach young teams / interns / mentees:</span></p>
+        <ul>
+          <li><span class="zh">不要"做初级 SWE 入门"——直接上"复合岗位"</span><span class="en">Don't "start as junior SWE" — go directly to "hybrid roles"</span></li>
+          <li><span class="zh">强调"问问题 + 评估"能力（Manager / Researcher / Hybrid）</span><span class="en">Emphasize "ask + evaluate" capability (Manager / Researcher / Hybrid)</span></li>
+          <li><span class="zh">用 AI 加速（不是"等上 5 年才用 AI"）</span><span class="en">Use AI to accelerate (not "wait 5y to use AI")</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-11</span><span class="title"><span class="zh">Hassabis 10 年治愈"大多数疾病"</span><span class="en">Hassabis cures "most diseases" in 10y</span></div>
+      <div class="body">
+        <p><span class="zh">DeepMind 头号人物告诉 Brynjolfsson：他认为<strong>10 年内能治愈大多数疾病</strong>。这是强信号：</span><span class="en">DeepMind's #1 told Brynjolfsson: he believes <strong>most diseases will be curable in 10 years</strong>. Strong signal:</span></p>
+        <ul>
+          <li><span class="zh">医疗 AI 应用 = 长期投资热点（不应该在 2026 出掉）</span><span class="en">Medical AI applications = long-term investment hot spot (don't sell in 2026)</span></li>
+          <li><span class="zh">医疗 AI 助理 / 诊断 / 药物研发 = 5–10 年大爆发</span><span class="en">Medical AI assistants / diagnosis / drug discovery = 5-10y boom</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-12</span><span class="title"><span class="zh">全球分工：AI 暴露度 = 廉价劳动力 foreign aid</span><span class="en">Global division: AI exposure = foreign aid to cheap labor</span></div>
+      <div class="body">
+        <p><span class="zh">Bryan 提的 free trade 教训：全球化是"赢家通吃 + 输家甩锅"，AI 10 倍于这个。考虑你投资组合的<strong>地理分散</strong>：</span><span class="en">Bryan's free trade lesson: globalization is "winner takes all + losers left behind," AI is 10× that. Consider your portfolio's <strong>geographic diversification</strong>:</span></p>
+        <ul>
+          <li><span class="zh">高弹性产业（医疗 / 教育）国内 + 发展中国家都有空间</span><span class="en">High-elasticity industries (medical / education) have room both domestically + developing world</span></li>
+          <li><span class="zh">新兴市场 AI 应用（教育 / 医疗）= 长期 alpha 源</span><span class="en">Emerging-market AI applications (education / medical) = long-term alpha source</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-13</span><span class="title"><span class="zh">博士生要被 AI 替代吗？</span><span class="en">Are PhD students being replaced?</span></span></div>
+      <div class="body">
+        <p><span class="zh">Bryan 直接说："我和 Claude Cowork 坐下来，让它给数据。" 之前的科研流程：周 1 给学生 → 周 5 回来 = 10 周。现在 = 5–10 分钟。含义：</span><span class="en">Bryan directly: "I sit with Claude Cowork and ask it for the data." Old research workflow: Mon-1 assign to student → Fri-5 come back = 10 weeks. Now = 5–10 minutes. Implications:</span></p>
+        <ul>
+          <li><span class="zh">博士生 1 人能 handle 多个项目</span><span class="en">1 PhD student can handle multiple projects</span></li>
+          <li><span class="zh">博士培养周期可能<strong>缩短</strong>（5 年 → 3 年）</span><span class="en">PhD training cycle may <strong>shorten</strong> (5y → 3y)</span></li>
+          <li><span class="zh">你的研究产出应该用 AI 加速 5–10x</span><span class="en">Your research output should be AI-accelerated 5–10x</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-14</span><span class="title"><span class="zh">AI 福利 ≠ AI 工资</span><span class="en">AI welfare ≠ AI wages</span></div>
+      <div class="body">
+        <p><span class="zh">GDP-B 测量 AI 福利 (Welfare) 9 个月 +70%，但平均工资没动。Bryan 自评：</span><span class="en">GDP-B measures AI welfare +70% in 9 months, but average wages don't move. Bryan's self-assessment:</span></p>
+        <ul>
+          <li><span class="zh">他的"AI 价值"是 5 位数 / 月</span><span class="en">His "AI value" is 5 figures / month</span></li>
+          <li><span class="zh">他的引用率上升了（但部分因为"AI 关键词"流量）</span><span class="en">His citation rate rose (but partly because "AI keyword" traffic)</span></li>
+        </ul>
+        <p><span class="zh">对你的提示：如果你感觉 AI 让你"每周写 2x 文章 / 跑 5x 数据"——你已经在享受 GDP-B 看不见的福利。</span><span class="en">Tip for you: if you feel AI lets you "write 2x articles / run 5x data per week" — you're already enjoying GDP-B-invisible welfare.</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-15</span><span class="title"><span class="zh">AI 价值 5 步问 AI 自己</span><span class="en">5 steps to ask AI itself about its value</span></div>
+      <div class="body">
+        <p><span class="zh">Bryan 推荐的"meta use"：</span><span class="en">Bryan's recommended "meta use":</span></p>
+        <ul>
+          <li><span class="zh">对 AI 问："你在我生活里能有什么帮助？问问题吧。"</span><span class="en">Ask AI: "How can you help in my life? Ask questions."</span></li>
+          <li><span class="zh">AI 会 interview 你 10 个问题</span><span class="en">AI will interview you with 10 questions</span></li>
+          <li><span class="zh">AI 会给出 10 个具体推荐</span><span class="en">AI will give 10 specific recommendations</span></li>
+        </ul>
+        <p><span class="zh">这是"还没用 AI 的人"的最佳入口——基本上 0 摩擦。</span><span class="en">This is the best entry point for "AI haven't used yet" people — basically 0 friction.</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-16</span><span class="title"><span class="zh">代理化的"20 个团队"</span><span class="en">The "20 Teams" of Agentification</span></div>
+      <div class="body">
+        <p><span class="zh">Bryan Stanford 课：今年 20 个学生团队，每个团队跑 Claude Code / Cursor / Replet 写出可部署项目。涵盖：数据分析、图像识别、教育工具、健康助理……</span><span class="en">Bryan's Stanford course: this year 20 student teams, each running Claude Code / Cursor / Replet to ship deployable projects in: data analysis, image recognition, education tools, health assistants, …</span></p>
+        <p><span class="zh">对你：下一代大学毕业生不再是"会写代码的人"，是"会指挥 AI 写代码的人"。你的"AI 内容生产" 模式 = 早 5 年看到这个趋势并实践。</span><span class="en">For you: next-gen college grads aren't "people who can code" — they're "people who can direct AI to code." Your "AI content production" model = saw this trend 5 years early and practiced.</span></p>
+      </div>
+    </div>
+
+    <div class="patrick-card">
+      <div class="head"><span class="id">P-17</span><span class="title"><span class="zh">"hired" bet：2029 年底定胜负</span><span class="en">The bet: end of 2029</span></div>
+      <div class="body">
+        <p><span class="zh">Bryan's 长期赌局 = 2029 年底 AI 推动美国生产力高于 BLS 官方预测。</span><span class="en">Bryan's long-running bet = end of 2029, AI pushes US productivity higher than BLS official forecast.</span></p>
+        <p><span class="zh">对你：这是<strong>时间锁定型的长赌</strong>——不需要 monthly re-evaluate。等 2029 Q4 一次性判定。可以放在日历上做"AI 周期回顾"节点。</span><span class="en">For you: this is a <strong>time-locked long bet</strong> — no monthly re-evaluation needed. Wait for end of 2029 Q4. Put it on your calendar as an "AI cycle review" milestone.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 10: ACTION ============= -->
+<div class="tab-content" data-tab-content="action">
+  <section id="action">
+    <h2 class="section-id"><span class="zh">Patrick 行动清单 · 7 步</span><span class="en">Patrick Action Plan · 7 Steps</span></h2>
+    <p class="lead"><span class="zh">基于 Brynjolfsson 的核心模型，给你 7 个可立刻执行的步骤——按"杠杆高低"排序。</span><span class="en">Based on Brynjolfsson's core model, 7 immediate steps — sorted by leverage.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">🚀 P0：本周做</span><span class="en">🚀 P0: This week</span></h3>
+        <ol>
+          <li><strong><span class="zh">拆自己的"职业任务清单"</span><span class="en">Decompose your "job task list"</span></strong> <span class="zh">— 投资 / OS / wiki / 旅行 4 大领域，每个列 N 任务，标 AI 暴露等级 + 弹性高低</span><span class="en">— investing / OS / wiki / travel 4 domains, each lists N tasks, mark AI exposure + elasticity</span></li>
+          <li><strong><span class="zh">试用 "ask AI how to use it"</span><span class="en">Try "ask AI how to use it"</span></strong> <span class="zh">— 对 Claude 问 "你在我生活里能有什么帮助？问问题吧。" 5 轮对话</span><span class="en">— ask Claude "How can you help in my life? Ask questions." 5 rounds</span></li>
+        </ol>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">📆 P1：本月做</span><span class="en">📆 P1: This month</span></h3>
+        <ol>
+          <li><strong><span class="zh">建立"AI 参与工作流" v2</span><span class="en">Build "AI in workflow" v2</span></strong> <span class="zh">— 选 1 个重复任务（每周 / 每月），把它转成"AI-执行 + 你-评估"</span><span class="en">— pick 1 repeating task (weekly/monthly), convert to "AI executes + you evaluate"</span></li>
+          <li><strong><span class="zh">投资组合：</span><span class="en">Portfolio:</span></strong> <span class="zh">增加 AI 工具股权重（Cursor / Replet / Cloud Code / Anthropic 间接）；检查现状</span><span class="en">up AI tool stocks (Cursor / Replet / Cloud Code / Anthropic proxy); audit current</span></li>
+        </ol>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">🌱 P2：本季度做</span><span class="en">🌱 P2: This quarter</span></h3>
+        <ol>
+          <li><strong><span class="zh">训练 Socratic 能力</span><span class="en">Train Socratic capability</span></strong> <span class="zh">— 每周 1 次"问题定义"练习：写 5 个具体问题，让 AI 帮你 scope → 评估 → 迭代</span><span class="en">— weekly 1 "problem definition" exercise: write 5 specific problems, let AI help scope → evaluate → iterate</span></li>
+          <li><strong><span class="zh">研究产出加速 5–10x</span><span class="en">Research output 5–10x acceleration</span></strong> <span class="zh">— 选 1 个研究 / 投资 workflow，把"周级"缩短到"小时级"</span><span class="en">— pick 1 research / investing workflow, shorten "weekly" to "hourly"</span></li>
+        </ol>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">📈 P3：本年做</span><span class="en">📈 P3: This year</span></h3>
+        <ol>
+          <li><strong><span class="zh">"CEO of Agents"方法论发布</span><span class="en">Publish "CEO of Agents" methodology</span></strong> <span class="zh">— 把你的 1 人 AI OS 经验写成可复用的 substack / self-post</span><span class="en">— write your 1-person AI OS experience as reusable substack / self-post</span></li>
+        </ol>
+        <p><span class="zh">日历节点：2029 Q4 复盘 Brynjolfsson vs Bob Gordon 赌局，决定是否调仓。</span><span class="en">Calendar milestone: 2029 Q4 review Brynjolfsson vs Bob Gordon bet, decide rebalancing.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 11: QUOTES ============= -->
+<div class="tab-content" data-tab-content="quotes">
+  <section id="quotes">
+    <h2 class="section-id"><span class="zh">金句库 · 10 句直接引用</span><span class="en">Quotes · 10 verbatim from transcript</span></h2>
+    <p class="lead"><span class="zh">每句都从 transcript 原文 1:1 提取（kome.ai flat transcript 已校验）。</span><span class="en">Each quote is 1:1 extracted from the transcript (kome.ai flat transcript verified).</span></p>
+
+    <div class="quote">
+      "There are a bunch of jobs, millions of jobs that are going to disappear. How soon? Already? It's already happening."
+      <cite>— Eric Brynjolfsson · 0:00 开场</cite>
+    </div>
+
+    <div class="quote">
+      "I think it's going to be even bigger than most people realize. The industrial revolution allowed machines to augment muscle power. Now we're doing the same thing for our brains, our minds."
+      <cite>— Eric Brynjolfsson · 1:30</cite>
+    </div>
+
+    <div class="quote">
+      "The next decade, if we play our cards right, will be the best decade in human history by far. Or this could be like one of the worst 10 years ever."
+      <cite>— Eric Brynjolfsson · 2:30 双刃剑</cite>
+    </div>
+
+    <div class="quote">
+      "It's not just under people under 25, it's also specifically in the most exposed occupations. The most exposed occupations and that's the number you just quoted about 16% less employment for young people up to age 25."
+      <cite>— Eric Brynjolfsson · 4:30 Canaries 论文</cite>
+    </div>
+
+    <div class="quote">
+      "Every job is a bundle of tasks. You know Jeff Hinton, the famous deep learning researcher, talked about radiologists being replaced. But you know radiologists actually do 26 distinct tasks."
+      <cite>— Eric Brynjolfsson · 6:00 任务 vs 职业</cite>
+    </div>
+
+    <div class="quote">
+      "Roughly half the economy is in categories where you have falling spending as the price goes down. But the more interesting part is the half of the economy where lower prices lead to more spending."
+      <cite>— Eric Brynjolfsson · 10:30 需求弹性</cite>
+    </div>
+
+    <div class="quote">
+      "We're somewhere. I think we're turning the corner. You know, that's why we created the takeoff tracker."
+      <cite>— Eric Brynjolfsson · 51:00 J 型曲线</cite>
+    </div>
+
+    <div class="quote">
+      "If intelligence is automated, what is left for humans to make money with?" <span class="zh">（反问）</span><span class="en">(rhetorical)</span>
+      <cite>— Eric Brynjolfsson · 2:00</cite>
+    </div>
+
+    <div class="quote">
+      "It's not just okay let me write the problem for you and you just carry out the steps kind of like a cookbook. That's the old way of learning. The new way of learning is you give them a much more unstructured set of issues."
+      <cite>— Eric Brynjolfsson · 25:00 教育</cite>
+    </div>
+
+    <div class="quote">
+      "AI is a tool and a message I keep hammering over and over is that when tools become more powerful that means by definition we have more agency. We have more power to change the world."
+      <cite>— Eric Brynjolfsson · 53:30 结尾</cite>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 12: GDP-B ============= -->
+<div class="tab-content" data-tab-content="gdpb">
+  <section id="gdpb">
+    <h2 class="section-id"><span class="zh">GDP-B · 新福利指标</span><span class="en">GDP-B · The New Welfare Metric</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 团队 2026 推 "GDP-B（B = Benefits）"——绕过传统 GDP 看不见的福利。</span><span class="en">Brynjolfsson's team 2026 launched "GDP-B (B = Benefits)" — measures welfare invisible to traditional GDP.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">为什么 GDP 不够</span><span class="en">Why GDP falls short</span></h3>
+        <ul>
+          <li><span class="zh">Wikipedia 全世界免费用 → 创造价值百亿 → GDP = 0</span><span class="en">Wikipedia is free globally → creates billions in value → GDP = 0</span></li>
+          <li><span class="zh">ChatGPT 给 1 亿人节省时间 → GDP 看不到</span><span class="en">ChatGPT saves 100M people time → GDP doesn't see it</span></li>
+          <li><span class="zh">Google 搜索免费提供 → 福利巨大 → GDP 看不见</span><span class="en">Google search free → massive welfare → GDP-blind</span></li>
+          <li><span class="zh">Email 整个经济驱动 → 福利暴增 → GDP 0</span><span class="en">Email drives entire economy → welfare boom → GDP 0</span></li>
+        </ul>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">GDP-B 怎么测</span><span class="en">How GDP-B measures</span></h3>
+        <ol>
+          <li><span class="zh">对每件商品 / 服务问："你愿意付多少，让我下个月不让你用？"</span><span class="en">Ask each good/service: "How much would you pay me to not let you use this for a month?"</span></li>
+          <li><span class="zh">获取"消费者剩余"分布</span><span class="en">Get "consumer surplus" distribution</span></li>
+          <li><span class="zh">整条需求曲线下的面积 = 真福利</span><span class="en">Area under the whole demand curve = real welfare</span></li>
+          <li><span class="zh">覆盖 600 个商品 / 服务</span><span class="en">Covers 600 goods/services</span></li>
+        </ol>
+        <p><span class="zh">结果：</span><span class="en">Result:</span></p>
+        <ul>
+          <li><span class="zh">免费商品的"隐藏福利" = 数万亿</span><span class="en">"Hidden welfare" of free goods = trillions</span></li>
+          <li><span class="zh">LLM 9 个月 +70% 福利</span><span class="en">LLM welfare +70% in 9 months</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout info" style="margin-top:18px;">
+      <span class="ico">📐</span>
+      <div>
+        <h4><span class="zh">对你 1 人 OS 的启示</span><span class="en">Implication for your 1-person OS</span></h4>
+        <p><span class="zh">你的 1 人 AGI 也创造了你看不见的福利：</span><span class="en">Your 1-person AGI also creates invisible welfare:</span></p>
+        <ul>
+          <li><span class="zh">"每周 save 5 小时" = 5h × 50 weeks × your hourly value = 数千 / 月</span><span class="en">"5h saved per week" = 5h × 50 weeks × your hourly value = thousands/month</span></li>
+          <li><span class="zh">"AI 让我抓住 1 个新机会" = 一生的钱</span><span class="en">"AI let me catch 1 new opportunity" = lifetime money</span></li>
+          <li><span class="zh">"AI 帮我看 1 张新照片" = 体验 = 不可估量</span><span class="en">"AI helped me see 1 new photo" = experience = unmeasurable</span></li>
+        </ul>
+        <p><span class="zh">GDP-B 是 qualitative 测量的开始——可能成为 21 世纪衡量 AI 价值的<strong>真正</strong>指标。</span><span class="en">GDP-B is the start of qualitative measurement — may become the <strong>real</strong> 21st-century metric for AI value.</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 13: GLOBAL ============= -->
+<div class="tab-content" data-tab-content="gdpage">
+  <section id="gdpage">
+    <h2 class="section-id"><span class="zh">全球视角 · 不要全球化 2.0 重蹈</span><span class="en">Global View · Don't Repeat Globalization 2.0</span></h2>
+    <p class="lead"><span class="zh">Brynjolfsson 反复警告：AI 是全球化的 10 倍版。全球化没做好"输家补偿"，AI 不能重蹈。</span><span class="en">Brynjolfsson repeatedly warns: AI is globalization 10×. Globalization failed at "compensating losers," AI cannot repeat.</span></p>
+
+    <div class="grid c2">
+      <div class="card full">
+        <h3><span class="zh">全球化教训</span><span class="en">Globalization Lessons</span></h3>
+        <ul>
+          <li><span class="zh">自由贸易 = 经济学家（Bryan 自己）支持</span><span class="en">Free trade = economists (Bryan himself) supported</span></li>
+          <li><span class="zh">第一阶段：做大蛋糕 → 成功</span><span class="en">Phase 1: bigger pie → success</span></li>
+          <li><span class="zh">第二阶段：补偿输家 → 没做</span><span class="en">Phase 2: compensate losers → didn't do</span></li>
+          <li><span class="zh">结果：保护主义 + 关税反弹</span><span class="en">Result: protectionism + tariff backlash</span></li>
+        </ul>
+        <p><span class="zh">Bryan 反思："作为经济学家，我们没做好。我们应该早呼吁补偿机制。"</span><span class="en">Bryan reflects: "As economists, we didn't do it. We should have called for compensation mechanisms earlier."</span></li>
+      </div>
+
+      <div class="card full">
+        <h3><span class="zh">AI 10 倍版</span><span class="en">AI 10× That</span></h3>
+        <ul>
+          <li><span class="zh">影响速度更快（3–5 年 vs 30 年）</span><span class="en">Speed faster (3–5y vs 30y)</span></li>
+          <li><span class="zh">影响范围更广（每个职业 vs 制造/农业）</span><span class="en">Scope broader (every job vs manufacturing/agriculture)</span></li>
+          <li><span class="zh">输家更多（25 岁以下 + AI 暴露 + 已 16% 萎缩）</span><span class="en">More losers (under-25 + AI-exposed + already -16%)</span></li>
+          <li><span class="zh">反弹已可见（政治保护主义 + 反 AI 情绪）</span><span class="en">Backlash visible (political protectionism + anti-AI sentiment)</span></li>
+        </ul>
+        <p><strong><span class="zh">Bryan 强烈呼吁：</span><span class="en">Bryan's strong call:</span></strong> <span class="zh">"我们必须做好转型。公共投资在教育 + 培训 + 社会保障。"</span><span class="en">"We must do the transition right. Public investment in education + training + social safety net."</span></p>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:18px;">
+      <span class="ico">⚠️</span>
+      <div>
+        <h4><span class="zh">公共投资 = "囚徒困境"</span><span class="en">Public investment = "prisoners' dilemma"</span></h4>
+        <p><span class="zh">Bryan 提 Infosys 个例：仍招年轻人，转去"项目 / 培训" = 良性循环。但其他公司不招 = 行业金字塔变菱形，5 年后没中层。</p><span class="en">Bryan cites Infosys as positive example: still hires juniors, redirects to project / training = virtuous cycle. But if other companies don't hire = industry pyramid becomes diamond, no middle in 5y.</span></p>
+        <p><span class="zh">"对每个公司 private OK 不招，对社会不是 OK。我们需要<strong>社会层面</strong>解决方案。"</span><span class="en">"Private OK for each company to not hire; society-wide, that's not OK. We need <strong>societal-level</strong> solutions."</span></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============= TAB 14: TIMELINE ============= -->
+<div class="tab-content" data-tab-content="timeline">
+  <section id="timeline">
+    <h2 class="section-id"><span class="zh">时间戳 · 53 分钟关键节点</span><span class="en">Timeline · 53-minute key moments</span></h2>
+    <p class="lead"><span class="zh">按 transcript 字符串推断时间戳（kome.ai flat transcript 不带时间戳）。</span><span class="en">Timecodes estimated from transcript flow (kome.ai flat transcript lacks timestamps).</span></p>
+
+    <div class="timeline">
+      <div class="evt major">
+        <span class="when">00:00</span>
+        <div class="what"><span class="zh">开场：百万岗位消失</span><span class="en">Opening: millions of jobs vanishing</span></div>
+        <p>"There are a bunch of jobs, millions of jobs that are going to disappear."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">01:00</span>
+        <div class="what"><span class="zh">介绍 Eric：Stanford 经济学家 30 年技术-就业研究</span><span class="en">Intro Eric: Stanford economist, 30y tech-employment research</span></div>
+        <p>"This is Eric, Stanford economist who saw AI coming before almost anyone."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">03:00</span>
+        <div class="what"><span class="zh">Canaries 论文：16% 衰退数据</span><span class="en">Canaries paper: 16% decline data</span></div>
+        <p>"Your last lab paper called canaries in the coal mine that shows that AI has already wiped out 16% of entry-level jobs but only for people under 25."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">06:00</span>
+        <div class="what"><span class="zh">任务 vs 职业：放射科医生 26 任务</span><span class="en">Tasks vs jobs: radiologist 26 tasks</span></div>
+        <p>"Every job is a bundle of tasks."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">10:00</span>
+        <div class="what"><span class="zh">需求曲线：弹性高 vs 弹性低</span><span class="en">Demand curve: elastic vs inelastic</span></div>
+        <p>"If it's very very steep then a lower price leads to only a small increase in quantity. Sometimes demand curves are very flat."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">12:00</span>
+        <div class="what"><span class="zh">Stanford AI Index：能力 vs 落地 gap</span><span class="en">Stanford AI Index: capability vs adoption gap</span></div>
+        <p>"The raw capabilities are skyrocketing, but the economic impact is pretty muted right now."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">14:00</span>
+        <div class="what"><span class="zh">Work Helix 创业：教企业用 AI</span><span class="en">Work Helix startup: teaching firms to use AI</span></div>
+        <p>"I also have a startup called Work Helix where we're very focused on teaching companies how to use those amazing capabilities to boost productivity."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">15:30</span>
+        <div class="what"><span class="zh">AI slop 现象</span><span class="en">AI slop phenomenon</span></div>
+        <p>"The winning one was this person who used LLMs to make lunch menus. And I was like, 'Oh, that's kind of fun, but is that really like the core value of your company to have better lunch menus?'"</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">17:00</span>
+        <div class="what"><span class="zh">PhD 论文：电力 30 年</span><span class="en">PhD work: electricity 30 years</span></div>
+        <p>"I studied in my PhD work, I studied how electricity rolled out 100 years ago in American factories. Believe it or not, it took about 30 years between when they first introduced electric motors in American factories and when you saw significant productivity gains."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">18:00</span>
+        <div class="what"><span class="zh">DeepMind 访问：18–24 月全能力</span><span class="en">DeepMind visit: 18–24mo full capabilities</span></div>
+        <p>"I was just visiting DeepMind about 10 days ago and they were telling me... how in the next 18 months 24 months we're going to have all these capabilities."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">19:00</span>
+        <div class="what"><span class="zh">Bob Gordon 赌局</span><span class="en">Bob Gordon bet</span></div>
+        <p>"I made a bet with one of my economist friends Bob Gordon but he's kind of an AI skeptic... we made this friendly wager that by the end of the 2020s, productivity is going to be significantly higher than what the Bureau of Labor Statistics is predicting."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">22:00</span>
+        <div class="what"><span class="zh">3 段拆解：定义 / 执行 / 评估</span><span class="en">3-part decomposition: define / execute / evaluate</span></div>
+        <p>"Every project can be divided into three parts. There's defining the question, there's executing it once you've got it defined and then there's evaluating it."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">25:00</span>
+        <div class="what"><span class="zh">Socratic 教学法</span><span class="en">Socratic teaching method</span></div>
+        <p>"We do a lot of things by the Socratic method. My students don't love it when I cold call on them but I ask them to think on their feet and define the problem."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">26:30</span>
+        <div class="what"><span class="zh">MIT 校训：Mens et Manus</span><span class="en">MIT motto: Mens et Manus</span></div>
+        <p>"I think of these two as being very synergistic and if you can combine rigor with relevance, that's the motto of MIT where I used to work, mens et manus in Latin, mind and hand."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">27:30</span>
+        <div class="what"><span class="zh">初级 SWE 95K 劝退</span><span class="en">Junior SWE 95K caution</span></div>
+        <p>"Junior software engineer that pays 95k a year. No. Unfortunately, that's one that's very much in the bullseye of being replaced."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">29:00</span>
+        <div class="what"><span class="zh">Infosys 案例：仍招年轻人</span><span class="en">Infosys case: still hires juniors</span></div>
+        <p>"With Infosys, one of the big companies, they said they're actually hiring as many junior people as before, but instead of having them do the routine work that the LLMs and the agents can do, they're actually having them spend a lot more time training and learning the big picture project management stuff."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">31:30</span>
+        <div class="what"><span class="zh">营销经理 115K 警告</span><span class="en">Marketing manager 115K warning</span></div>
+        <p>"Mid-level marketing manager 115. Sorry, that's another one that I'm not really seeing a lot of value. We see a lot of LLMs being able to do that."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">33:00</span>
+        <div class="what"><span class="zh">Paralegal 更糟</span><span class="en">Paralegal worse</span></div>
+        <p>"Paralegal. Oh my gosh, it's even worse. What a list."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">35:00</span>
+        <div class="what"><span class="zh">全球化教训</span><span class="en">Globalization lesson</span></div>
+        <p>"We've seen this movie before with globalization and free trade. And I have to confess as an economist, I'm one of the people who said, 'Hey, free trade is great.' We did the first part. We did the free trade, but we didn't do the second part where we helped out the people who were hurt."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">38:00</span>
+        <div class="what"><span class="zh">放射科医生翻转：Hinton 错判</span><span class="en">Radiologist reversal: Hinton wrong</span></div>
+        <p>"He famously said, you know, we should stop hiring radiologists. It's over for them. AI can do that. However, we now have more radiologists than ever. There's almost a shortage."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">41:00</span>
+        <div class="what"><span class="zh">弹性医疗：MRI 降价 10x 需求 +4x</span><span class="en">Elastic medical: MRI -10x price, +4x demand</span></div>
+        <p>"Like if I have a little bit of a sore shoulder and it cost me $2,000 like an MRI, I'm like, 'Ah, now I'm gonna do it.' Cost $200. I'll go have it checked out."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">42:30</span>
+        <div class="what"><span class="zh">Liberal arts 复兴</span><span class="en">Liberal arts renaissance</span></div>
+        <p>"Ironically, I think a lot of the liberal arts have become more valuable. Philosophy, like even art appreciation... One of the things that universities should think about doing is going back to the way they were like a few hundred years ago."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">44:00</span>
+        <div class="what"><span class="zh">GDP-B 概念</span><span class="en">GDP-B concept</span></div>
+        <p>"We've developed a new measure. We call it GDPB. The B stands for benefits. And what we do is for every good we ask, you know, even if you're getting it for free, how much would I have to pay you to stop using it?"</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">47:00</span>
+        <div class="what"><span class="zh">LLM 福利 +70%</span><span class="en">LLM welfare +70%</span></div>
+        <p>"For LLMs like chat bots the amount of value just in the past 9 months has gone up by like 70%."</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">48:30</span>
+        <div class="what"><span class="zh">对话 AI 5 步入门</span><span class="en">5-step entry to AI conversation</span></div>
+        <p>"You can literally say, 'Keep asking me questions. Interview me.' And it'll say, 'Okay, you know, what's your job?'"</p>
+      </div>
+
+      <div class="evt">
+        <span class="when">50:00</span>
+        <div class="what"><span class="zh">学生不再单独开会</span><span class="en">No more weekly student meetings</span></div>
+        <p>"Now that cycle is like almost instant. I will sit with Claude co-work and I'll ask him and say well what do the data show? And you know five or 10 minutes later it'll pull up the data."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">51:00</span>
+        <div class="what"><span class="zh">J 型曲线 + Takeoff Tracker</span><span class="en">J-curve + Takeoff Tracker</span></div>
+        <p>"We're somewhere. I think we're turning the corner. You know, that's why we created the takeoff tracker... There's this thing that we say in the second machine age, my book is the thing about exponentials is that things happen slowly and then suddenly."</p>
+      </div>
+
+      <div class="evt major">
+        <span class="when">52:30</span>
+        <div class="what"><span class="zh">5 岁女儿的未来 + 终极警告</span><span class="en">5yo daughter's future + ultimate warning</span></div>
+        <p>"If my daughter, she's four, five years old, just turned five, asks me tomorrow what is my life going to look like in 30 years? What would you... I think the next decade, if we play our cards right, will be the best decade in human history by far. I also think there's a future that could this could be like one of the worst 10 years ever."</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+</div>
+
+<footer>
+  <p>
+    <span class="zh">📹 原始视频</span><span class="en">📹 Source</span> ·
+    <a href="https://www.youtube.com/watch?v=72duHF7iZiU" target="_blank" rel="noopener">youtube.com/watch?v=72duHF7iZiU</a>
+    · Silicon Valley Girl · Eric Brynjolfsson · 2026-07-22
+  </p>
+  <p>
+    <span class="zh">📂 生成路径</span><span class="en">📂 Generated</span> ·
+    <code>/tmp/silicon-valley-girl-brynjolfsson-2026-07-22.html</code>
+    · <span class="zh">由 Hermes Agent 1 轮写完</span><span class="en">1-shot by Hermes Agent</span>
+    · <span class="zh">transcript</span><span class="en">transcript</span>: kome.ai flat transcript (60KB)
+  </p>
+  <p>
+    <span class="zh">⚠️ zh 翻译为机器翻译（Claude Sonnet），可能存在不准确。EN 原文以 transcript 为准。</span>
+    <span class="en">⚠️ zh translation is machine-translated (Claude Sonnet), may have inaccuracies. EN source is the verbatim transcript.</span>
+  </p>
+</footer>
+
+</div>
+
+<script>
+// Toggle functions (top-level, NOT inside IIFE — P-25)
+function toggleLang() {
+  const html = document.documentElement;
+  const isZh = html.lang === 'zh-CN';
+  html.lang = isZh ? 'en' : 'zh-CN';
+  try { localStorage.setItem('svg-brynjolfsson-2026-07-22-lang', html.lang); } catch (e) {}
+  // Update button label
+  const btn = document.getElementById('langBtn');
+  if (btn) btn.textContent = html.lang === 'en' ? 'ZH ⇄ EN' : 'EN ⇄ 中';
+  document.title = html.lang === 'en'
+    ? 'Eric Brynjolfsson on AI & Jobs · Silicon Valley Girl 53min Decode'
+    : 'Eric Brynjolfsson 谈 AI 与就业：硅娃播客 · Stanford 经济学家 53min 解读';
+}
+
+function toggleToc() {
+  document.body.classList.toggle('toc-collapsed');
+  try {
+    localStorage.setItem('svg-brynjolfsson-2026-07-22-toc-collapsed',
+      document.body.classList.contains('toc-collapsed') ? '1' : '0');
+  } catch (e) {}
+}
+
+// Tab switching
+(function() {
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.toggle('active', x === t));
+      contents.forEach(c => c.classList.toggle('active', c.dataset.tabContent === t.dataset.tab));
+      try { history.replaceState(null, '', '#' + t.dataset.tab); } catch (e) {}
+    });
+  });
+
+  // Onload: restore lang + toc + hash
+  try {
+    const savedLang = localStorage.getItem('svg-brynjolfsson-2026-07-22-lang');
+    if (savedLang === 'en' || savedLang === 'zh-CN') {
+      document.documentElement.lang = savedLang;
+      const btn = document.getElementById('langBtn');
+      if (btn) btn.textContent = savedLang === 'en' ? 'ZH ⇄ EN' : 'EN ⇄ 中';
+    }
+    const savedToc = localStorage.getItem('svg-brynjolfsson-2026-07-22-toc-collapsed');
+    if (savedToc === '1') document.body.classList.add('toc-collapsed');
+  } catch (e) {}
+
+  // Init from URL hash
+  const initHash = (location.hash || '').replace('#', '');
+  if (initHash) {
+    const target = document.querySelector('[data-tab="' + initHash + '"]');
+    if (target) target.click();
+  }
+
+  // P-24: TOC anchor interceptor — if anchor points to hidden tab-content, switch first
+  document.querySelectorAll('.toc-sidebar a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      const href = link.getAttribute('href') || '';
+      if (!href || href === '#') return;
+      const targetId = href.slice(1);
+      // Find which tab owns this target id
+      const tabMatch = document.querySelector('[data-tab]') && (
+        Array.from(document.querySelectorAll('.tab')).find(function(btn) {
+          const pane = document.querySelector('[data-tab-content="' + btn.dataset.tab + '"]');
+          return pane && pane.querySelector('#' + targetId);
+        })
+      );
+      if (tabMatch && !tabMatch.classList.contains('active')) {
+        e.preventDefault();
+        tabMatch.click();
+        setTimeout(function() {
+          const el = document.getElementById(targetId);
+          if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }, 80);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
