@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>硬科技日报 / Hard Tech Daily</title>
+<style>
+:root { --bg: #0a0e1a; --card: #131927; --card-border: #1f2a40; --text: #dfe5f5; --muted: #8a96b3; --accent: #5b8def; --ok: #6fcf97; --warn: #f0a868; --quantum: #b48cff; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", sans-serif; padding: 24px; line-height: 1.6; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 26px; margin-bottom: 4px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; text-align: center; }
+.stat b { font-size: 24px; display: block; color: var(--accent); }
+.stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(120, 140, 200, 0.12); color: var(--muted); white-space: nowrap; flex-shrink: 0; margin-bottom: 4px; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(111, 207, 151, 0.15); color: var(--ok); }
+.tag.topic { background: rgba(91, 141, 239, 0.08); color: var(--text); margin-left: 2px; }
+.topic-h2 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+.section-h2 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; color: var(--muted); }
+.abstract, .meta, .authors, .cats { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.abstract { color: #b0b8d0; }
+.authors, .cats { font-size: 12px; }
+.meta code { background: rgba(120, 140, 200, 0.12); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+a:hover { color: var(--accent); }
+.footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--card-border); font-size: 12px; color: var(--muted); text-align: center; }
+
+.lang-toggle{cursor:pointer;background:rgba(20,30,40,.85);border:1px solid var(--accent,#58a6ff);color:var(--accent,#58a6ff);border-radius:999px;padding:6px 14px;font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;transition:.18s;backdrop-filter:blur(8px)}.lang-toggle:hover{background:var(--accent,#58a6ff);color:#0a0e1a;box-shadow:0 0 18px rgba(91,141,239,.35)}.en{display:none}.zh{display:inline}html[lang="en"] .en{display:inline}html[lang="en"] .zh{display:none}html[lang="zh-CN"] .en{display:none}html[lang="zh-CN"] .zh{display:inline}
+</style>
+</head>
+<body><div id="langBar" style="position:sticky;top:0;z-index:50;display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;background:rgba(10,14,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(91,141,239,.18)"><button class="lang-toggle" id="langBtn" type="button" onclick="toggleLang()" aria-label="Toggle language">EN ⇄ 中</button></div>
+<div class="wrap">
+  <h1><span class="zh">⚛️ 硬科技热门追踪</span><span class="en">⚛️ 硬科技热门追踪</span></h1>
+  <div class="sub"><span class="zh">2026-07-23 · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;    数据源: arXiv (3 分类 + 电池 full-text) + Hacker News (curated keywords) · v2 envelope_version=1 · 生成于 2026-07-23T01:01:03.628882Z</span><span class="en">
+    &lt;b&gt;2026-07-23&lt;/b&gt; · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;
+    数据源: arXiv (3 分类 + 电池 full-text) + Hacker News (curated keywords) · v2 envelope_version=1 · 生成于 2026-07-23T01:01:03.628882Z
+  </span></div>
+
+  <div class="stats">
+    <div class="stat"><b>25</b><span>arXiv papers</span></div>
+    <div class="stat"><b>15</b><span>HN stories</span></div>
+    <div class="stat"><b>2</b><span>fusion</span></div>
+    <div class="stat"><b>8</b><span>quantum</span></div>
+    <div class="stat"><b>3</b><span>battery</span></div>
+    <div class="stat"><b>0</b><span>space</span></div>
+  </div>
+
+  <h2 class="section-h2"><span class="zh">🔥 Top 20 (跨来源,按影响力排序)</span><span class="en">🔥 Top 20 (cross-source, by impact)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20391v1" target="_blank"><span class="zh">Qoreo:面向量子分布式系统的舞蹈式编程</span><span class="en">Qoreo: Choreographic Programming for Quantum Distributed Systems</span></a>
+<div class="abstract"><span class="zh">对分布式量子系统进行编程需要多个参与方协同完成精确的量子操作、经典通信与纠缠生成序列。直接将此类协议写成分布式过程十分繁琐</span><span class="en">Programming distributed quantum systems requires multiple actors to coordinate precise sequences of quantum operations, classical communication, and entanglement generation. Writing such protocols directly as distributed processes is tediou</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20388v1" target="_blank"><span class="zh">用于复杂度形变非交换输运的 Arnold--Nielsen 几何</span><span class="en">Arnold--Nielsen Geometry for Complexity-Deformed Noncommutative Transport</span></a>
+<div class="abstract"><span class="zh">我们用一个 Arnold--Nielsen 型的复杂度算子对 Carlen--Maas--Wirth 非交换动力学最优输运框架作形变。一个与 Hilbert 双模结构兼容的、与态无关的正算子 $G$ 非交换</span><span class="en">We deform the Carlen--Maas--Wirth framework for noncommutative dynamical optimal transport by an Arnold--Nielsen type complexity operator. A positive state-independent operator $G$ compatible with the Hilbert bimodule structure of a noncomm</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20377v1" target="_blank"><span class="zh">IBM Quantum 上四量子比特 ZZ 量子核的态矢量参考几何存活性</span><span class="en">Statevector-Referenced Geometry Survival of a Four-Qubit ZZ Quantum Kernel on IBM Quantum</span></a>
+<div class="abstract"><span class="zh">量子核方法将数据集的几何编码到 Gram 矩阵中,因此硬件核上的学习论断假设目标几何在执行后仍然存活。我们在 $N=24$ 上对一组冻结的四量子比特 ZZ 特征映射核测量了这种存活性</span><span class="en">Quantum-kernel methods encode a dataset&amp;#x27;s geometry in a Gram matrix, so learning claims on hardware kernels assume the intended geometry survives execution. We measure that survival for one frozen four-qubit ZZ feature-map kernel on $N=24$</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20333v1" target="_blank"><span class="zh">通过红外腔诱导的振电耦合实现集体电子纠缠</span><span class="en">Collective Electronic Entanglement via Infrared Cavity-Induced Vibronic Transduction</span></a>
+<div class="abstract"><span class="zh">极化激元架构试图通过将局域化自由度与非局域光学腔场杂化来调控分子性质。然而,标度律对 N 分子集体强耦合施加了严重瓶颈:b</span><span class="en">Polaritonic architectures seek to engineer molecular properties by hybridizing localized degrees of freedom with delocalized optical cavity fields. However, scaling laws impose a severe bottleneck on N-molecule collective strong coupling: b</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20329v1" target="_blank"><span class="zh">Ginibre 系综中积和式的反集中性</span><span class="en">Anticoncentration of the Permanent in Ginibre Ensembles</span></a>
+<div class="abstract"><span class="zh">设 $\mathbb{K}\in\{\mathbb{R},\mathbb{C},\mathbb{H}\}$,令 $β=\dim_{\mathbb{R}}\mathbb{K}$,令 $G_n^{\mathbb{K}}$ 为一个 $n\times n$ 矩阵,其元素为 i.i.d. 标准 $\mathbb{K}$-高斯变量,即标准 $\mathbb{K}$-Ginibre 矩</span><span class="en">Let $\mathbb{K}\in\{\mathbb{R},\mathbb{C},\mathbb{H}\}$, put $β=\dim_{\mathbb{R}}\mathbb{K}$, and let $G_n^{\mathbb{K}}$ be an $n\times n$ matrix with i.i.d. standard $\mathbb{K}$-Gaussian entries, namely a standard $\mathbb{K}$-Ginibre mat</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20311v1" target="_blank"><span class="zh">量子态块纹理及其量化</span><span class="en">Quantum-state block texture and its quantification</span></a>
+<div class="abstract"><span class="zh">量子态纹理(QST)是一种新兴的量子资源,在量子理论进展中受到越来越多的关注。在本工作中,我们将 QST 推广为量子态块纹理(QSBT)。该推广提供了 prof</span><span class="en">Quantum-state texture (QST) is an emerging quantum resource that has garnered increasing attention amid advances in quantum theory. In this work, we generalize the QST to quantum-state block texture (QSBT). This generalization provides prof</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20292v1" target="_blank"><span class="zh">用于囚禁离子的微波驱动同种对称冷却</span><span class="en">Microwave-driven same-species sympathetic cooling for trapped ions</span></a>
+<div class="abstract"><span class="zh">通过冷却离子对数据量子比特进行对称冷却是囚禁离子量子计算中的一项关键技术。传统上使用第二种离子,需要额外的激光并使光学装置复杂化。我们提出一种方案 fo</span><span class="en">Sympathetic cooling of data qubits by coolant ions is an essential technique for trapped-ion quantum computing. Conventionally a second ion species is used, requiring additional lasers and complicating optical setups. We propose a scheme fo</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20283v1" target="_blank"><span class="zh">荷-通量复合体的角动量量子化:量子电动力学方法</span><span class="en">Angular Momentum Quantization of a Charge-flux Composite: Quantum Electrodynamic Approach</span></a>
+<div class="abstract"><span class="zh">二维荷-通量复合体的分数角动量是一个公认的现象,通常由半经典哈密顿量导出。然而,当该复合体被视为二维自由空间中的孤立系统时</span><span class="en">The fractional angular momentum of a two-dimensional charge-flux composite is a well-established phenomenon usually derived from a semiclassical Hamiltonian. However, when the composite is treated as an isolated system in free two-dimension</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20266v1" target="_blank"><span class="zh">基于量子态约化的局域酉等价性识别</span><span class="en">Identifying local unitary equivalence based on reduction of quantum states</span></a>
+<div class="abstract"><span class="zh">局域酉等价性是纠缠量化与分类的核心。识别局域酉等价性仍然是一项艰巨的挑战。我们针对一类具有一个高简并度的量子态处理该问题</span><span class="en">Local unitary equivalence is central to entanglement quantification and classification. Identifying the local unitary equivalence remains a formidable challenge. We address this problem for a class of quantum states with one highly degenera</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20264v1" target="_blank"><span class="zh">树图 Bhabha 散射中量子资源的动力学再分配</span><span class="en">Dynamical redistribution of quantum resources in tree-level Bhabha scattering</span></a>
+<div class="abstract"><span class="zh">由量子电动力学(QED)支配的基本相互作用本质上富含量子资源,但这些资源在相对论性散射过程中如何动力学再分配仍未被完全理解。在本工作中,</span><span class="en">The fundamental interactions governed by quantum electrodynamics (QED) are intrinsically rich in quantum resources, yet how these resources dynamically redistribute during relativistic scattering is still not fully understood. In this work,</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20297v1" target="_blank"><span class="zh">石墨烯/CrSBr 异质结构中的邻近诱导电荷转移、应变与磁交换</span><span class="en">Proximity-induced charge transfer, strain and magnetic exchange in graphene/CrSBr heterost</span></a>
+<div class="abstract"><span class="zh">堆叠范德华材料提供了一条通过邻近驱动相互作用工程化涌现电子与磁行为的强大路线。石墨烯/CrSBr 异质结构已成为这一前沿领域中引人注目的平台</span><span class="en">Stacking van der Waals materials provides a powerful route to engineer emergent electronic and magnetic behaviors through proximity-driven interactions. The graphene/CrSBr heterostructure has emerged as a compelling platform in this frontie</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20117v1" target="_blank"><span class="zh">紧束缚近似下与频率相关的电-声子耦合及振动响应</span><span class="en">Frequency-dependent electron-phonon coupling and vibrational responses in tight-binding an</span></a>
+<div class="abstract"><span class="zh">核运动在电子原子轨道中诱导出一个依赖于核速度的相位(也称为电子平移因子),它会修改由局域原子轨道构建的有效哈密顿量。在本工作中,</span><span class="en">The nuclear motion induces in the electronic atomic orbitals a nuclear-velocity-dependent phase (also known as electron-translation factor), which modifies the effective Hamiltonians constructed from localised atomic orbitals. In this work,</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20102v1" target="_blank"><span class="zh">磁振子波导中的频分复用</span><span class="en">Frequency-Division Multiplexing in Magnonic Waveguides</span></a>
+<div class="abstract"><span class="zh">频分复用是基于波的信息处理的关键功能，使多个信息通道能够在同一物理介质中共存。本文中，我们实验研究了自旋波复用在一</span><span class="en">Frequency-division multiplexing is a key functionality for wave-based information processing, enabling multiple information channels to coexist within the same physical medium. Here, we experimentally investigate spin-wave multiplexing in a</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20096v1" target="_blank"><span class="zh">高动生电感 NbN 薄膜中超流刚度的幂律抑制</span><span class="en">Power-Law Suppression of Superfluid Stiffness in High-Kinetic-Inductance NbN Films</span></a>
+<div class="abstract"><span class="zh">无序是在超导超薄薄膜中获得高动生电感的有效途径，可实现紧凑的高阻抗量子电路。然而，这一功能的代价是相位刚度降低，并可能导致异常</span><span class="en">Disorder is a powerful route to high kinetic inductance in superconducting ultrathin films, enabling compact high-impedance quantum circuits. This functionality, however, comes at the cost of reduced phase rigidity and potentially anomalous</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.20094v1" target="_blank"><span class="zh">自旋螺旋中手性依赖的 p 波磁性及 Edelstein 效应的精确理论</span><span class="en">Exact theory of chirality-dependent p-wave magnetism and Edelstein effect in spin spirals</span></a>
+<div class="abstract"><span class="zh">自旋-动量锁定通常被视为相对论性自旋-轨道耦合的标志。本文中，我们通过解析方法证明它可以仅从磁手性中产生。求解与自旋螺旋耦合的电子的最小紧束缚模型</span><span class="en">Spin-momentum locking is widely regarded as a hallmark of relativistic spin-orbit coupling. Here we demonstrate analytically that it can instead emerge solely from magnetic chirality. Solving the minimal tight-binding model of electrons cou</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.19180v1" target="_blank"><span class="zh">等离子体中带电尘粒二聚体的自组织探索</span><span class="en">Exploring Self-Organization of Charged Dust Dimers in Plasma</span></a>
+<div class="abstract"><span class="zh">我们使用分子动力学 (MD) 模拟研究等离子体中带电尘粒二聚体的自组织，重点关注位置和取向有序。对于由径向电场约束的有限数量的二聚体，</span><span class="en">We investigate the self-organization of charged dust dimers in plasma using Molecular Dynamics (MD) simulations, with emphasis on both positional and orientational ordering. For a finite number of dimers confined by a radial electric field,</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.19121v1" target="_blank"><span class="zh">用于横向不对称啁啾激光的粒子模拟综合工具</span><span class="en">Combined tools for Particle-In-Cell simulations performed with transversely asymmetric chi</span></a>
+<div class="abstract"><span class="zh">我们介绍非对称啁啾电场重建 (ACE) 工具箱，这是一套能够重建耦合到啁啾时间分布的激光横向分布的算法。该套件包括实现</span><span class="en">We introduce the Asymmetric Chirped Electric field reconstruction (ACE) toolbox, a suite of algorithms enabling the reconstruction of a laser transverse distribution coupled to a chirped temporal profile. This suite includes the implementat</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.18838v1" target="_blank"><span class="zh">结合逆 Abel 变换的定量纹影成像用于流场研究</span><span class="en">Quantitative schlieren imaging coupled with inverse Abel transformation for flow field stu</span></a>
+<div class="abstract"><span class="zh">本工作致力于正确应用纹影成像技术，结合逆 Abel 变换，定量记录由大气压冷等离子体引起的流场。理论上</span><span class="en">The present work is devoted to the proper application of the schlieren imaging technique, combined with inverse Abel transformation, to record the flow field induced by atmospheric pressure cold plasmas, in a quantitative manner. Theoretica</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.18648v1" target="_blank"><span class="zh">具有分裂分数耗散的电子磁流体动力学中的电流片形成</span><span class="en">Current-Sheet Formation in Electron Magnetohydrodynamics with Split Fractional Dissipation</span></a>
+<div class="abstract"><span class="zh">薄电流片是电子磁流体动力学 (EMHD) 中的核心小尺度结构，与电子尺度的能量耗散和快速磁重联密切相关。我们数值研究其在 $2\frac{</span><span class="en">Thin current sheets are central small-scale structures in electron magnetohydrodynamics (EMHD), closely associated with energy dissipation and fast magnetic reconnection at electron scales. We study their formation numerically in a $2\frac{</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.18558v1" target="_blank"><span class="zh">功率耗散约束的 SPARC 分离面运行空间</span><span class="en">The power exhaust constrained SPARC separatrix operational space</span></a>
+<div class="abstract"><span class="zh">在这项工作中，我们将分离面运行空间 (SepOS) 投影外推到 SPARC 并引入脱靶可达性判据，从而构建综合功率耗散约束的 SepOS（即 PE-SepOS），以评估综合功率</span><span class="en">In this work we extrapolate the separatrix operational space (SepOS) projections to SPARC and introduce detachment access criteria, thus formulating the combined power exhaust constrained SepOS (i.e., PE-SepOS) to evaluate integrated power</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-20</span></div>
+</div></div>
+
+  <h2 class="topic-h2"><span class="zh">⚛️ 可控核聚变 Controlled Fusion (2)</span><span class="en">⚛️ 可控核聚变 Controlled Fusion (2)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://arxiv.org/abs/2607.17594v1" target="_blank"><span class="zh">CuCrZr 散热辐照性能揭示热核聚变反应堆的新挑战</span><span class="en">CuCrZr heat-sink irradiation performance reveals new challenges for thermonuclear fusion r</span></a>
+<div class="authors"><span class="zh">authors: Thomas Barzic, Anna-Carina Seitlinger, Christoph Frühwirth</span><span class="en">authors: Thomas Barzic, Anna-Carina Seitlinger, Christoph Frühwirth</span></div>
+<div class="abstract"><span class="zh">商业聚变能要求材料在承受强烈中子轰击的同时提取极端热负载以转化为电力。CuCrZr 合金作为聚变反应堆的领先散热材料，其强度源自</span><span class="en">Commercial fusion energy requires materials that survive intense neutron bombardment whilst extracting extreme heat loads for conversion to electricity. The CuCrZr alloy, the leading heat-sink material for fusion reactors, derives its stren</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.17594v1 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗？</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · 2026-07-13</span></div>
+</div></div>
+  <h2 class="topic-h2"><span class="zh">⚛️ 量子计算 Quantum (8)</span><span class="en">⚛️ 量子计算 Quantum (8)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20391v1" target="_blank"><span class="zh">Qoreo：面向量子分布式系统的编舞式编程</span><span class="en">Qoreo: Choreographic Programming for Quantum Distributed Systems</span></a>
+<div class="authors"><span class="zh">authors: Jennifer Paykin, Steven Baldasty, Joseph P. Near</span><span class="en">authors: Jennifer Paykin, Steven Baldasty, Joseph P. Near</span></div>
+<div class="abstract"><span class="zh">分布式量子系统的编程需要多个参与者协调精确的量子操作序列、经典通信和纠缠生成。将此类协议直接编写为分布式过程繁琐且容易出错</span><span class="en">Programming distributed quantum systems requires multiple actors to coordinate precise sequences of quantum operations, classical communication, and entanglement generation. Writing such protocols directly as distributed processes is tediou</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20391v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20377v1" target="_blank"><span class="zh">IBM Quantum 上四量子比特 ZZ 量子核的态向量参考几何存活</span><span class="en">Statevector-Referenced Geometry Survival of a Four-Qubit ZZ Quantum Kernel on IBM Quantum</span></a>
+<div class="authors"><span class="zh">authors: Rostyslav Sipakov</span><span class="en">authors: Rostyslav Sipakov</span></div>
+<div class="abstract"><span class="zh">量子核方法将数据集的几何编码在 Gram 矩阵中，因此关于硬件核的学习声明假定预期几何在执行后仍然存在。我们在 $N=24$ 上测量一个冻结的四量子比特 ZZ 特征映射核的这种存活</span><span class="en">Quantum-kernel methods encode a dataset&amp;#x27;s geometry in a Gram matrix, so learning claims on hardware kernels assume the intended geometry survives execution. We measure that survival for one frozen four-qubit ZZ feature-map kernel on $N=24$</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20377v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20311v1" target="_blank"><span class="zh">量子态块织构及其量化</span><span class="en">Quantum-state block texture and its quantification</span></a>
+<div class="authors"><span class="zh">authors: Yanjun Chu, Yuhang Xie, Chenyang Cui</span><span class="en">authors: Yanjun Chu, Yuhang Xie, Chenyang Cui</span></div>
+<div class="abstract"><span class="zh">量子态织构（QST）是一种新兴的量子资源，随着量子理论的发展受到越来越多的关注。在本工作中，我们将 QST 推广为量子态块织构（QSBT）。这种推广提供了诸多优势。</span><span class="en">Quantum-state texture (QST) is an emerging quantum resource that has garnered increasing attention amid advances in quantum theory. In this work, we generalize the QST to quantum-state block texture (QSBT). This generalization provides prof</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20311v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20292v1" target="_blank"><span class="zh">微波驱动的同种离子对称冷却用于囚禁离子</span><span class="en">Microwave-driven same-species sympathetic cooling for trapped ions</span></a>
+<div class="authors"><span class="zh">authors: M. C. Smith, E. Vandrey, A. D. Leu</span><span class="en">authors: M. C. Smith, E. Vandrey, A. D. Leu</span></div>
+<div class="abstract"><span class="zh">数据量子比特通过冷却离子的对称冷却是囚禁离子量子计算中的一项重要技术。传统上需要使用第二种离子，这需要额外的激光并使光学设置复杂化。我们提出了一种方案，</span><span class="en">Sympathetic cooling of data qubits by coolant ions is an essential technique for trapped-ion quantum computing. Conventionally a second ion species is used, requiring additional lasers and complicating optical setups. We propose a scheme fo</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20292v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20283v1" target="_blank"><span class="zh">荷通量复合体的角动量量子化：量子电动力学方法</span><span class="en">Angular Momentum Quantization of a Charge-flux Composite: Quantum Electrodynamic Approach</span></a>
+<div class="authors"><span class="zh">authors: Kicheon Kang</span><span class="en">authors: Kicheon Kang</span></div>
+<div class="abstract"><span class="zh">二维荷通量复合体的分数角动量是一个成熟的现象，通常由半经典哈密顿量推导得出。然而，当该复合体在自由二维空间中视为一个孤立系统时，</span><span class="en">The fractional angular momentum of a two-dimensional charge-flux composite is a well-established phenomenon usually derived from a semiclassical Hamiltonian. However, when the composite is treated as an isolated system in free two-dimension</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20283v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20266v1" target="_blank"><span class="zh">基于量子态约化的局域酉等价性识别</span><span class="en">Identifying local unitary equivalence based on reduction of quantum states</span></a>
+<div class="authors"><span class="zh">authors: Yanjun Chu, Chenyang Cui, Yuhang Xie</span><span class="en">authors: Yanjun Chu, Chenyang Cui, Yuhang Xie</span></div>
+<div class="abstract"><span class="zh">局域酉等价性是纠缠量化和分类的核心。识别局域酉等价性仍是一个艰巨的挑战。我们针对一类具有一个高简并度的量子态解决了这一问题。</span><span class="en">Local unitary equivalence is central to entanglement quantification and classification. Identifying the local unitary equivalence remains a formidable challenge. We address this problem for a class of quantum states with one highly degenera</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20266v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20264v1" target="_blank"><span class="zh">树图 Bhabha 散射中量子资源的动力学重分配</span><span class="en">Dynamical redistribution of quantum resources in tree-level Bhabha scattering</span></a>
+<div class="authors"><span class="zh">authors: Zan Cao, Meng-Long Song, Xue-Ke Song</span><span class="en">authors: Zan Cao, Meng-Long Song, Xue-Ke Song</span></div>
+<div class="abstract"><span class="zh">由量子电动力学（QED）主导的基本相互作用本质上富含量子资源，但在相对论散射过程中这些资源如何动力学地重新分配仍未被完全理解。在本工作中，</span><span class="en">The fundamental interactions governed by quantum electrodynamics (QED) are intrinsically rich in quantum resources, yet how these resources dynamically redistribute during relativistic scattering is still not fully understood. In this work,</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20264v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.20297v1" target="_blank"><span class="zh">石墨烯/CrSBr 异质结中邻近效应诱导的电荷转移、应变与磁交换</span><span class="en">Proximity-induced charge transfer, strain and magnetic exchange in graphene/CrSBr heterost</span></a>
+<div class="authors"><span class="zh">authors: Asish K. Kundu, Anil Rajapitamahuni, Niraj Aryal</span><span class="en">authors: Asish K. Kundu, Anil Rajapitamahuni, Niraj Aryal</span></div>
+<div class="abstract"><span class="zh">堆叠范德华材料为通过邻近效应驱动相互作用来设计新奇的电子和磁学行为提供了一条强大途径。石墨烯/CrSBr 异质结已成为这一前沿领域中的一个引人注目的平台。</span><span class="en">Stacking van der Waals materials provides a powerful route to engineer emergent electronic and magnetic behaviors through proximity-driven interactions. The graphene/CrSBr heterostructure has emerged as a compelling platform in this frontie</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20297v1 · 2026-07-22</span></div>
+</div></div>
+  <h2 class="topic-h2"><span class="zh">⚛️ 电池技术 Battery (3)</span><span class="en">⚛️ 电池技术 Battery (3)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">电池技术 Battery</span><span class="en">电池技术 Battery</span></span>
+<a href="https://arxiv.org/abs/2607.20003v1" target="_blank"><span class="zh">驾驭安全-能耗悖论：面向优化 Android 恶意软件检测的绿色 AI 方法</span><span class="en">Taming the Security-Energy Paradox: A Green AI Approach to Optimized Android Malware Detec</span></a>
+<div class="authors"><span class="zh">authors: Shrinidhi Sridhar, Vikas K. Malviya</span><span class="en">authors: Shrinidhi Sridhar, Vikas K. Malviya</span></div>
+<div class="abstract"><span class="zh">高级 Android 恶意软件的增加要求使用可在 Android 设备上运行的深度学习模型。但由于强大的检测模型会快速耗尽设备电池，因此在安全性和能耗之间存在权衡。</span><span class="en">An increase in advanced Android malware requires the use of deep learning models, which can run on Android devices. But there is a trade-off between security and energy use, as strong detection models can drain the battery of devices fast.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20003v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">电池技术 Battery</span><span class="en">电池技术 Battery</span></span>
+<a href="https://arxiv.org/abs/2607.19721v1" target="_blank"><span class="zh">用于微控制器上热带鸟类音频检测的超紧凑 CNN 架构</span><span class="en">Ultra-Compact CNN Architectures for Tropical Bird Audio Detection on Microcontrollers</span></a>
+<div class="authors"><span class="zh">authors: Muhammad Mun&amp;#x27;im Ahmad Zabidi, Mohd Yamani Idna Idris, Norisma Idris</span><span class="en">authors: Muhammad Mun&amp;#x27;im Ahmad Zabidi, Mohd Yamani Idna Idris, Norisma Idris</span></div>
+<div class="abstract"><span class="zh">热带生物多样性的被动声学监测受到存储和电池成本的瓶颈限制，因为持续录制的声音景观中，鸟类鸣声通常只占音频的不到 10%。自主录音单元 b</span><span class="en">Passive acoustic monitoring of tropical biodiversity is bottlenecked by the storage and battery cost of continuously recording soundscapes in which bird vocalisations typically occupy less than 10% of the audio. Autonomous recording units b</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.19721v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">电池技术 Battery</span><span class="en">电池技术 Battery</span></span>
+<a href="https://arxiv.org/abs/2607.19477v1" target="_blank"><span class="zh">量子电池的量子共振增强性能</span><span class="en">Quantum resonance-enhanced performance of quantum battery</span></a>
+<div class="authors"><span class="zh">authors: Ankita Mazumdar, Shashi C. L. Srivastava, Sanku Paul</span><span class="en">authors: Ankita Mazumdar, Shashi C. L. Srivastava, Sanku Paul</span></div>
+<div class="abstract"><span class="zh">每当本征系统频率与驱动频率之比变为有理数时产生的量子共振，已被证明能产生超线性纠缠，增强传输和量子计量性能，</span><span class="en">Quantum resonance arising whenever the ratio of the intrinsic system frequency to the driving frequency becomes a rational number has been demonstrated to generate super-linear entanglement, enhance transport, quantum metrology performance</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.19477v1 · 2026-07-21</span></div>
+</div></div>
+  
+
+  <h2 class="section-h2"><span class="zh">📄 arXiv 全部 (25 篇)</span><span class="en">📄 arXiv 全部 (25 篇)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.19180v1" target="_blank"><span class="zh">等离子体中带电尘埃二聚体的自组织探索</span><span class="en">Exploring Self-Organization of Charged Dust Dimers in Plasma</span></a>
+<div class="abstract"><span class="zh">我们使用分子动力学（MD）模拟研究等离子体中带电尘埃二聚体的自组织，重点关注位置和取向的有序性。对于由径向电场约束的有限数量二聚体，随着粒子数增加，系统从简单排列演化为环状结构。这些环表现出多种取向状态，包括</span><span class="en">We investigate the self-organization of charged dust dimers in plasma using Molecular Dynamics (MD) simulations, with emphasis on both positional and orientational ordering. For a finite number of dimers confined by a radial electric field, the system evolves from simple arrangements to ring-like structures as the particle number increases. These rings exhibit diverse orientational states, includi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.19180v1 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.19121v1" target="_blank"><span class="zh">针对横向非对称啁啾的粒子模拟联合工具</span><span class="en">Combined tools for Particle-In-Cell simulations performed with transversely asymmetric chi</span></a>
+<div class="abstract"><span class="zh">我们介绍了非对称啁啾电场重建（ACE）工具箱，这是一套算法套件，可实现耦合到啁啾时间分布的激光横向分布重建。该套件包括在柱坐标系和笛卡尔坐标系中将重建的分布实现到粒子模拟中。假设可忽略的时空</span><span class="en">We introduce the Asymmetric Chirped Electric field reconstruction (ACE) toolbox, a suite of algorithms enabling the reconstruction of a laser transverse distribution coupled to a chirped temporal profile. This suite includes the implementation of the reconstructed distribution in Particle In-Cell simulations in cylindrical and Cartesian geometry. Under the assumption of negligible spatio-temporal</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.19121v1 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.18838v1" target="_blank"><span class="zh">定量纹影成像结合逆 Abel 变换用于流场研究</span><span class="en">Quantitative schlieren imaging coupled with inverse Abel transformation for flow field stu</span></a>
+<div class="abstract"><span class="zh">本工作致力于正确应用纹影成像技术，结合逆 Abel 变换，以定量方式记录由大气压冷等离子体诱导的流场。详细介绍了理论原理以及有意义的示意图、纹影装置的设计和涉及的校准过程。已证明误差</span><span class="en">The present work is devoted to the proper application of the schlieren imaging technique, combined with inverse Abel transformation, to record the flow field induced by atmospheric pressure cold plasmas, in a quantitative manner. Theoretical principles, along with meaningful diagrams, design of the schlieren setup, and involved calibration process, are given in detail. It is demonstrated that erro</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.18838v1 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.18648v1" target="_blank"><span class="zh">具有分式分数耗散项的电子磁流体动力学中电流片的形成</span><span class="en">Current-Sheet Formation in Electron Magnetohydrodynamics with Split Fractional Dissipation</span></a>
+<div class="abstract"><span class="zh">薄电流片是电子磁流体动力学(EMHD)中的核心小尺度结构,与电子尺度上的能量耗散和快速磁重联密切相关。我们在具有分式分数耗散项的周期区域上的二维半(2½)维EMHD系统中对它们的形成进行了数值研究,其中磁势和垂直磁场分量被阻</span><span class="en">Thin current sheets are central small-scale structures in electron magnetohydrodynamics (EMHD), closely associated with energy dissipation and fast magnetic reconnection at electron scales. We study their formation numerically in a $2\frac{1}{2}$-dimensional EMHD system on a periodic domain with split fractional dissipation, where the magnetic potential and the vertical magnetic component are damp</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.18648v1 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.18558v1" target="_blank"><span class="zh">功率排放约束下的 SPARC 分界面运行空间</span><span class="en">The power exhaust constrained SPARC separatrix operational space</span></a>
+<div class="abstract"><span class="zh">在这项工作中,我们将分界面运行空间(SepOS)的投影外推到 SPARC,并引入脱靶可达性判据,从而构建组合的功率排放约束 SepOS(即 PE-SepOS),用以评估规模化的集成功率排放方案。通过对 SPARC SOLPS-ITER 数据集的解读以及先前在实验中已展示的基础工作,我们制定了一套评估</span><span class="en">In this work we extrapolate the separatrix operational space (SepOS) projections to SPARC and introduce detachment access criteria, thus formulating the combined power exhaust constrained SepOS (i.e., PE-SepOS) to evaluate integrated power exhaust solutions at scale. Through the interpretation of SPARC SOLPS-ITER datasets and foundational work already demonstrated in experiments we formulate an as</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.18558v1 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.18203v1" target="_blank"><span class="zh">快速旋转的轴对称磁镜机的平衡</span><span class="en">Equilibrium of a Rapidly Rotating Axisymmetric Magnetic Mirror Machine</span></a>
+<div class="abstract"><span class="zh">最近的一篇论文[Hazeltine 等人,Phys. Plasmas 33, 072501 (2026)]质疑了标准结果(最终源于 Ferraro)在旋转轴对称磁镜机中,当旋转变为声速或超声速时,等离子体角速度沿单个平衡磁力线近似保持恒定这一结论是否继续成立。为了解决这一问题,</span><span class="en">A recent paper [Hazeltine, et al., Phys. Plasmas 33, 072501 (2026)] has questioned whether the standard result, (ultimately) due to Ferraro, that the plasma angular velocity is approximately constant along individual equilibrium magnetic field-lines in a rotating axisymmetric magnetic mirror machine, continues to hold when the rotation becomes sonic or supersonic. In order to resolve this issue, t</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.18203v1 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.18103v1" target="_blank"><span class="zh">用于射频容性耦合等离子体的隐式时域谐波平衡方法</span><span class="en">An Implicit Time-Domain Harmonic Balance Method for Radio-Frequency Capacitively Coupled P</span></a>
+<div class="abstract"><span class="zh">对射频容性耦合等离子体(RF CCP)进行快速而精确的流体仿真,对现代等离子体反应器的迭代设计与参数优化具有重要意义。本研究首次成功将时域谐波平衡(HB)方法扩展到完全耦合的漂移-扩散-泊松系统,并包含用于 RF 等离子体仿真的完整电子能量输运</span><span class="en">Fast and accurate fluid simulation of radio-frequency capacitively coupled plasmas (RF CCPs) is of great importance for the iterative design and parameter optimization of modern plasma reactors. This study presents the first successful extension of the time-domain harmonic balance (HB) method to a fully coupled drift-diffusion-Poisson system with complete electron-energy transport for RF plasma si</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.18103v1 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.17888v1" target="_blank"><span class="zh">携电流 ELM 丝的线性非线性动力学:螺旋涡量、旋转与速度</span><span class="en">Nonlinear Dynamics of Current-Carrying ELM Filaments: Spiral Vorticity, Rotation, and Velo</span></a>
+<div class="abstract"><span class="zh">在这项工作中,我们使用平板几何下的约化电磁流体模型,研究了孤立携电流边缘局域模(ELM)丝的非线性动力学。数值模拟表明,单向平行电流通过削弱曲率驱动的交换力,显著抑制了丝的径向速度并降低了其向外传播速度。减少的</span><span class="en">In this work, we investigate the nonlinear dynamics of isolated current-carrying edge-localized mode (ELM) filaments using a reduced electromagnetic fluid model in slab geometry. Numerical simulations show that unidirectional parallel current significantly suppresses radial filament velocity and reduces the outward propagation velocity by weakening the curvature-driven interchange force. The reduc</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.17888v1 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.17594v1" target="_blank"><span class="zh">CuCrZr 散热体的辐照性能揭示了热核聚变反应堆的新挑战</span><span class="en">CuCrZr heat-sink irradiation performance reveals new challenges for thermonuclear fusion r</span></a>
+<div class="abstract"><span class="zh">商业聚变能源需要能在承受强烈中子轰击的同时导出极高热负荷以转化为电力的材料。CuCrZr 合金是聚变反应堆的主要散热体材料,其强度源自主时效热处理过程中形成的细小纳米析出相分散。这种析出强化策略能否承受聚变反应堆的工况</span><span class="en">Commercial fusion energy requires materials that survive intense neutron bombardment whilst extracting extreme heat loads for conversion to electricity. The CuCrZr alloy, the leading heat-sink material for fusion reactors, derives its strength from a fine dispersion of nano-precipitates formed during prime-ageing heat-treatment. Whether this precipitation-hardening strategy can withstand fusion-re</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.17594v1 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.17484v1" target="_blank"><span class="zh">帕克太阳探测器对湍流相干结构附近质子相对于 α 粒子优先加热的观测</span><span class="en">Parker Solar Probe Observations of Preferential Heating of Protons over Alpha Particles ne</span></a>
+<div class="abstract"><span class="zh">太阳风中的 α 粒子表现出相对于质子的优先加热和加速;然而,它们在湍流相干结构附近的行为仍不太清楚。我们报告了首次在由 Partial Variance of Increments (PVI) 方法识别的相干结构内部观测到局地 α 粒子与质子加热的证据,这些观测来自帕克太阳探测器(PSP)的</span><span class="en">Solar wind alpha particles exhibit preferential heating and acceleration relative to protons; however, their behavior in the vicinity of turbulent coherent structures remains less understood. We report the first evidence of localized alpha particle and proton heating within coherent structures identified using the Partial Variance of Increments (PVI) method, based on Parker Solar Probe (PSP) obser</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.17484v1 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20391v1" target="_blank"><span class="zh">Qoreo:面向量子分布式系统的编舞式编程</span><span class="en">Qoreo: Choreographic Programming for Quantum Distributed Systems</span></a>
+<div class="abstract"><span class="zh">为分布式量子系统编程需要多个参与者协同完成精确的量子操作序列、经典通信以及纠缠生成。直接将此类协议编写为分布式流程繁琐且容易出错,细微的不匹配可能导致死锁或悄悄产生错误的量子状态。我们提出了 Qoreo,一种面向量子分布式的编舞式编程语言,用于</span><span class="en">Programming distributed quantum systems requires multiple actors to coordinate precise sequences of quantum operations, classical communication, and entanglement generation. Writing such protocols directly as distributed processes is tedious and error-prone, and subtle mismatches can cause deadlock or silently incorrect quantum states. We present Qoreo, a choreographic programming language for qua</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20391v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20388v1" target="_blank"><span class="zh">复杂度形变非交换输运的 Arnold–Nielsen 几何</span><span class="en">Arnold--Nielsen Geometry for Complexity-Deformed Noncommutative Transport</span></a>
+<div class="abstract"><span class="zh">我们通过 Arnold–Nielsen 型复杂度算子,对 Carlen–Maas–Wirth 非交换动力学最优输运框架进行形变。一个与 Hilbert 双模结构兼容的、与态无关的正算子 G 可以被吸收进微积分本身,即 ∂_G := G^{1/2}∂。相应的复杂度</span><span class="en">We deform the Carlen--Maas--Wirth framework for noncommutative dynamical optimal transport by an Arnold--Nielsen type complexity operator. A positive state-independent operator $G$ compatible with the Hilbert bimodule structure of a noncommutative differential calculus $\partial\colon\M\to\Hcal$ can be absorbed into the calculus itself, \[ \partial_G:=G^{1/2}\partial. \] The corresponding complexi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20388v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20377v1" target="_blank"><span class="zh">IBM Quantum 上四量子比特 ZZ 量子核的状态向量参考几何保持</span><span class="en">Statevector-Referenced Geometry Survival of a Four-Qubit ZZ Quantum Kernel on IBM Quantum</span></a>
+<div class="abstract"><span class="zh">量子核方法将数据集的几何编码在 Gram 矩阵中,因此基于硬件核的学习结论假定目标几何在执行后仍能保持。我们在 ibm_fez(每电路 1024 shots)上对一个冻结的四量子比特 ZZ 特征映射核测定了这种保持性,数据集为 N=24 个真实室内空气质量窗口,在基线、单独的动态解耦</span><span class="en">Quantum-kernel methods encode a dataset&amp;#x27;s geometry in a Gram matrix, so learning claims on hardware kernels assume the intended geometry survives execution. We measure that survival for one frozen four-qubit ZZ feature-map kernel on $N=24$ real indoor air-quality windows, reconstructed on ibm_fez (1024 shots per circuit) under baseline, dynamical decoupling alone, and gate twirling alone, each a s</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20377v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20333v1" target="_blank"><span class="zh">通过红外腔诱导的振电转导实现集体电子纠缠</span><span class="en">Collective Electronic Entanglement via Infrared Cavity-Induced Vibronic Transduction</span></a>
+<div class="abstract"><span class="zh">极化激元架构旨在通过将局域自由度与离域光腔场杂化来设计分子性质。然而,标度律对 N 分子集体强耦合施加了严重瓶颈:由于每个分子仅对集体态贡献分数份额,局域响应会遭受 O(1/N) 的系综稀释。我们展示了对该标度的违背,</span><span class="en">Polaritonic architectures seek to engineer molecular properties by hybridizing localized degrees of freedom with delocalized optical cavity fields. However, scaling laws impose a severe bottleneck on N-molecule collective strong coupling: because each molecule contributes only a fractional share to the collective state, localized responses undergo O(1/N) ensemble dilution. We demonstrate a violati</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20333v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20329v1" target="_blank"><span class="zh">Ginibre 系综中永久项的反集中性</span><span class="en">Anticoncentration of the Permanent in Ginibre Ensembles</span></a>
+<div class="abstract"><span class="zh">设 K∈{R,C,H},令 β=dim_R K,并令 G_n^K 为一个 n×n 的矩阵,其元素为 i.i.d. 的标准 K-高斯变量,即标准 K-Ginibre 矩阵。我们证明归一化的行序永久项 W_n^K = per_K G_n^K/√(n!) 具有径向密度 p_n^</span><span class="en">Let $\mathbb{K}\in\{\mathbb{R},\mathbb{C},\mathbb{H}\}$, put $β=\dim_{\mathbb{R}}\mathbb{K}$, and let $G_n^{\mathbb{K}}$ be an $n\times n$ matrix with i.i.d. standard $\mathbb{K}$-Gaussian entries, namely a standard $\mathbb{K}$-Ginibre matrix. We prove that the normalized row-ordered permanent $W_n^{\mathbb{K}}=\operatorname{per}_{\mathbb{K}}G_n^{\mathbb{K}}/\sqrt{n!}$ has a radial density $p_n^{</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20329v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20311v1" target="_blank"><span class="zh">量子态块织构及其量化</span><span class="en">Quantum-state block texture and its quantification</span></a>
+<div class="abstract"><span class="zh">量子态织构 (QST) 是一种新兴的量子资源,随着量子理论的发展而日益受到关注。在本工作中,我们将 QST 推广到量子态块织构 (QSBT)。这一推广为量化量子态在量子信息处理中的优势提供了深刻的操作解释。我们开创了一个替代框架,用于刻画量子态中的量子态块织构 (QSBT)。</span><span class="en">Quantum-state texture (QST) is an emerging quantum resource that has garnered increasing attention amid advances in quantum theory. In this work, we generalize the QST to quantum-state block texture (QSBT). This generalization provides profound operational interpretations for quantifying the advantages of quantum states in quantum information processing. We pioneer an alternative framework for cha</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20311v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20292v1" target="_blank"><span class="zh">微波驱动的同种离子协同冷却用于囚禁离子</span><span class="en">Microwave-driven same-species sympathetic cooling for trapped ions</span></a>
+<div class="abstract"><span class="zh">由冷却离子对数据量子比特进行协同冷却是囚禁离子量子计算中的一项关键技术。传统方法使用第二种离子,需要额外的激光并使光学设置复杂化。我们提出了一种使用同种离子进行协同冷却的方案,并针对 $^{43}$Ca$^+$ 离子进行了测试。脉冲边带冷却和离子寻址通过集成微波技术实现。</span><span class="en">Sympathetic cooling of data qubits by coolant ions is an essential technique for trapped-ion quantum computing. Conventionally a second ion species is used, requiring additional lasers and complicating optical setups. We propose a scheme for sympathetic cooling using the same species and test it for $^{43}$Ca$^+$ ions. Pulsed sideband cooling and ion addressing are implemented via integrated micro</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20292v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20283v1" target="_blank"><span class="zh">电荷-磁通复合物的角动量量子化:量子电动力学方法</span><span class="en">Angular Momentum Quantization of a Charge-flux Composite: Quantum Electrodynamic Approach</span></a>
+<div class="abstract"><span class="zh">二维电荷-磁通复合物的分数角动量是一个公认的现象,通常从半经典哈密顿量推导得出。然而,当该复合物被视为二维自由空间中的孤立系统时,$O(2)$ 群的基本旋转和反射对称性要求其总角动量严格量子化。我们在此探讨这一问题。</span><span class="en">The fractional angular momentum of a two-dimensional charge-flux composite is a well-established phenomenon usually derived from a semiclassical Hamiltonian. However, when the composite is treated as an isolated system in free two-dimensional space, the fundamental rotational and reflection symmetries of the $O(2)$ group demand that its total angular momentum is strictly quantized. We address this</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20283v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20266v1" target="_blank"><span class="zh">基于量子态约化的局域酉等价识别</span><span class="en">Identifying local unitary equivalence based on reduction of quantum states</span></a>
+<div class="abstract"><span class="zh">局域酉等价是纠缠量化和分类的核心。识别局域酉等价仍然是一项艰巨的挑战。我们针对一类具有一个高度简并本征值且其余为非简并简单本征值的量子态解决了这一问题,这些态对于量子资源理论中的结构化资源至关重要。我们引入了一种``约化&#x27;&#x27;方法。</span><span class="en">Local unitary equivalence is central to entanglement quantification and classification. Identifying the local unitary equivalence remains a formidable challenge. We address this problem for a class of quantum states with one highly degenerate eigenvalue and the rest non-degenerate simple eigenvalues that are pivotal to structured resources in quantum resource theory. We introduce a ``reduction&amp;quot; pr</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20266v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20264v1" target="_blank"><span class="zh">树图 Bhabha 散射中量子资源的动力学再分配</span><span class="en">Dynamical redistribution of quantum resources in tree-level Bhabha scattering</span></a>
+<div class="abstract"><span class="zh">由量子电动力学 (QED) 支配的基本相互作用本质上富含量子资源,但这些资源在相对论散射过程中如何动力学再分配仍未被充分理解。在本工作中,我们系统地研究了在量子资源理论框架下的树图 Bhabha 散射过程 (e^- e^+ \rightarrow e^- e^+),揭示了散射过程中量子资源的重分配规律。</span><span class="en">The fundamental interactions governed by quantum electrodynamics (QED) are intrinsically rich in quantum resources, yet how these resources dynamically redistribute during relativistic scattering is still not fully understood. In this work, we systematically investigate the tree-level Bhabha scattering process (e^- e^+ \rightarrow e^- e^+) within the framework of quantum resource theory, revealing</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20264v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20297v1" target="_blank"><span class="zh">石墨烯/CrSBr 异质结中的邻近效应诱导电荷转移、应变与磁交换</span><span class="en">Proximity-induced charge transfer, strain and magnetic exchange in graphene/CrSBr heterost</span></a>
+<div class="abstract"><span class="zh">堆叠范德华材料提供了一条通过邻近驱动相互作用来设计新颖电子和磁行为的强大路径。石墨烯/CrSBr 异质结构已成为这一前沿领域中引人注目的平台,展现出奇异的宏观响应——包括单轴表面等离激元-极化激元的传播以及非常规的量子霍尔效应——表明其中存在新奇的物理机制。</span><span class="en">Stacking van der Waals materials provides a powerful route to engineer emergent electronic and magnetic behaviors through proximity-driven interactions. The graphene/CrSBr heterostructure has emerged as a compelling platform in this frontier, exhibiting exotic macroscopic responses-- including uniaxial surface-plasmon-polariton propagation and an unconventional quantum Hall effect-- indicative of</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20297v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20117v1" target="_blank"><span class="zh">紧束缚原子轨道下频率依赖的电子-声子耦合及振动响应</span><span class="en">Frequency-dependent electron-phonon coupling and vibrational responses in tight-binding an</span></a>
+<div class="abstract"><span class="zh">原子核运动在电子原子轨道中引入一个与核速度相关的相位(也称为电子平移因子),这会修改由局域原子轨道构建的有效哈密顿量。在本工作中,利用针对局域原子轨道 (LCAO) 的 Ehrenfest 拉格朗日方法和紧束缚方法,我们确定了在任何核速度阶数下该相位的修正。</span><span class="en">The nuclear motion induces in the electronic atomic orbitals a nuclear-velocity-dependent phase (also known as electron-translation factor), which modifies the effective Hamiltonians constructed from localised atomic orbitals. In this work, using an Ehrenfest Lagrangian approach for the localised atomic orbitals (LCAO) and tight-binding methods, we determine, at any order in the nuclear velocity,</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20117v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20102v1" target="_blank"><span class="zh">磁振子波导中的频分复用</span><span class="en">Frequency-Division Multiplexing in Magnonic Waveguides</span></a>
+<div class="abstract"><span class="zh">频分复用是基于波的信息处理的关键功能,能够在同一物理介质中并存多个信息通道。在此,我们实验性地研究了在 CoFeB 波导中利用全电激发与探测实现的自旋波复用。两个独立生成的微波信号同时耦合到同一条自旋波信道中。</span><span class="en">Frequency-division multiplexing is a key functionality for wave-based information processing, enabling multiple information channels to coexist within the same physical medium. Here, we experimentally investigate spin-wave multiplexing in a CoFeB waveguide using all-electrical excitation and detection. Two independently generated microwave signals are simultaneously coupled into the same spin-wave</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20102v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20096v1" target="_blank"><span class="zh">高动力学电感 NbN 薄膜中超流劲度的幂律压制</span><span class="en">Power-Law Suppression of Superfluid Stiffness in High-Kinetic-Inductance NbN Films</span></a>
+<div class="abstract"><span class="zh">无序是实现超导超薄膜中高动力学电感的有效途径,可用于构建紧凑的高阻抗量子电路。然而,这一功能以相位刚度降低和潜在的反常电动力学为代价。在此,我们使用厚度低至 2.8 nm、面动力学电感高达 300 pH/方块的 NbN 微波谐振器来探究该薄膜中无序对超流劲度的影响。</span><span class="en">Disorder is a powerful route to high kinetic inductance in superconducting ultrathin films, enabling compact high-impedance quantum circuits. This functionality, however, comes at the cost of reduced phase rigidity and potentially anomalous electrodynamics. Here, we use NbN microwave resonators with thicknesses down to 2.8 nm and sheet kinetic inductance up to 300 pH per square to probe how this t</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20096v1 · 2026-07-22</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.20094v1" target="_blank"><span class="zh">自旋螺旋中手性依赖 p 波磁性及 Edelstein 效应的精确理论</span><span class="en">Exact theory of chirality-dependent p-wave magnetism and Edelstein effect in spin spirals</span></a>
+<div class="abstract"><span class="zh">自旋-动量锁定被广泛认为是相对论自旋-轨道耦合的标志。在此我们解析地证明,它可以纯粹由磁手性产生。利用广义 Bloch 定理求解与自旋螺旋耦合的电子的最小紧束缚模型,我们证明该螺旋产生了由反对称自旋张量表征的手性依赖 p 波磁性。</span><span class="en">Spin-momentum locking is widely regarded as a hallmark of relativistic spin-orbit coupling. Here we demonstrate analytically that it can instead emerge solely from magnetic chirality. Solving the minimal tight-binding model of electrons coupled to a spin spiral using a generalized Bloch theorem, we show that the spiral generates chirality-dependent p-wave magnetism characterized by the antisymmetr</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.20094v1 · 2026-07-22</span></div>
+</div></div>
+
+  <h2 class="section-h2"><span class="zh">💬 Hacker News (15 条)</span><span class="en">💬 Hacker News (15 条)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗?</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · dd-sharma · 2026-07-13</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.reuters.com/world/china/chip-toolmaker-asml-expected-shine-light-capacity-china-challenges-2026-07-14/" target="_blank"><span class="zh">芯片设备制造商 ASML 有望就产能与中国挑战给出展望</span><span class="en">Chip toolmaker ASML expected to shine light on capacity and China challenges</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · technewssss · 2026-07-14</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://medium.com/@subairui/coding-on-principle-toolmaking-is-the-most-effective-way-of-learning-12ed34b60d76" target="_blank"><span class="zh">为什么制造工具是最有效的学习方式</span><span class="en">Why Toolmaking Is the Most Effective Way of Learning</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · subairui · 2026-07-08</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://kerkour.com/128-bit-keys-post-quantum" target="_blank"><span class="zh">128 位对称密钥能否抵御量子计算机？</span><span class="en">Are 128-bit symmetric keys secure against quantum computers?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">6⭐ 3💬 · cold_pizz4 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.technologyreview.com/2026/07/14/1140356/psiquantum-plan-massive-quantum-computer-out-of-light/" target="_blank"><span class="zh">PsiQuantum 有一个用光制造量子计算机的计划</span><span class="en">PsiQuantum has a plan to make a quantum computer out of light</span></a>
+<div class="meta"><span class="zh"></span><span class="en">1⭐ 0💬 · rbanffy · 2026-07-16</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.hpcwire.com/2026/07/21/oratomics-300m-bet-on-low-qubit-quantum-computing/" target="_blank"><span class="zh">Oratomic 向低比特量子计算押注 3 亿美元</span><span class="en">Oratomic&amp;#x27;s $300M Bet on Low-Qubit Quantum Computing</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · rbanffy · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theregister.com/science/2026/07/06/boffins-bet-on-quantum-computers-ai-supers-to-solve-fusion-fuel-dilemma/5267199" target="_blank"><span class="zh">科学家押注量子计算机和 AI 超算以解决聚变燃料难题</span><span class="en">Boffins bet on quantum computers, AI supers to solve fusion fuel dilemma</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 4💬 · Bender · 2026-07-06</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theverge.com/science/959466/quantum-computer-majorana-2-microsoft-trump-eo" target="_blank"><span class="zh">量子计算机能做什么？目前——什么都做不了</span><span class="en">What is a quantum computer good for? nothing – yet</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 3💬 · joak · 2026-07-04</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://theconversation.com/a-new-quantum-computer-sets-a-high-watermark-for-accuracy-are-we-on-the-verge-of-a-big-breakthrough-285753" target="_blank"><span class="zh">新型量子计算机创下精度新标杆</span><span class="en">New quantum computer sets a high watermark for accuracy</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · giuliomagnifico · 2026-06-26</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.youtube.com/playlist?list=PLWOUVwVosA-7aCa6SBXoM_m66WV-K_N0o" target="_blank"><span class="zh">安全量子计算 / CE 395 / 2026 春季 / 西北大学</span><span class="en">Secure Quantum Computing / CE 395 / Spring 2026 / Northwestern University</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · refezs · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.youtube.com/watch?v=RQWpF2Gb-gU" target="_blank"><span class="zh">但量子计算到底是什么？（3blue1brown 2025）</span><span class="en">But what is quantum computing? (3blue1brown 2025)</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 2💬 · andromaton · 2026-07-05</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.wired.com/story/scientists-using-ai-and-quantum-computing-to-generate-new-peptides/" target="_blank"><span class="zh">科学家的副业？用 AI 和量子计算生成新型多肽</span><span class="en">Scientists&amp;#x27; Side Hustle? Using AI and Quantum Computing to Generate New Peptides</span></a>
+<div class="meta"><span class="zh"></span><span class="en">8⭐ 0💬 · joozio · 2026-07-12</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://vechron.com/2026/06/microsofts-quantum-computing-technology-called-into-question-again/" target="_blank"><span class="zh">微软的量子计算技术再次遭到质疑</span><span class="en">Microsoft&amp;#x27;s quantum computing technology called into question, again</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 1💬 · bhartipoddar · 2026-06-26</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://qcroadmaptracker.netlify.app/" target="_blank"><span class="zh">量子计算路线图</span><span class="en">Quantum Computing Roadmaps</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · mathgenius · 2026-07-01</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://news.berkeley.edu/2026/06/30/uc-berkeley-quantum-computing-chip-to-be-buried-in-national-time-capsule-celebrating-americas-250th-birthday/" target="_blank"><span class="zh">UC Berkeley 量子处理器将埋入美国 250 周年时间胶囊</span><span class="en">UC Berkeley quantum processor to be buried in time capsule for US 250th</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · simojo · 2026-06-30</span></div>
+</div></div>
+
+  <div class="footer">
+    Hermes cron · hardtech-daily.sh v2 (search_lib envelope) · 姊妹任务 ai-trending-daily
+  </div>
+</div>
+<script>(function(){var k="hard-tech-daily-lang";function apply(l){document.documentElement.lang=l;try{localStorage.setItem(k,l);}catch(e){}}try{var saved=localStorage.getItem(k);if(saved==='en'||saved==='zh-CN')apply(saved);}catch(e){}window.toggleLang=function(){apply(document.documentElement.lang==='zh-CN'?'en':'zh-CN');};})();</script></body>
+</html>
