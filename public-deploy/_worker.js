@@ -68,8 +68,8 @@ export default {
       const tryReq = new Request(new URL(tryHtml, url).toString(), request);
       const tryResp = await env.ASSETS.fetch(tryReq);
       if (tryResp.ok) {
-        // 重定向到 .html 版本 (保持 URL 干净)
-        return Response.redirect(new URL(tryHtml, url).toString(), 308);
+        // Serve the matching HTML asset at the clean extensionless URL.
+        return tryResp;
       }
     }
     return resp;
