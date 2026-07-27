@@ -1,5 +1,18 @@
 [
   {
+    "title": "GPT Provider 4-path comparison (gpt4free/litellm/PyChatGPT/OpenAI)",
+    "file": "daily-reports/2026-07-27-gpt-provider-comparison-4-paths.html",
+    "date": "2026-07-27",
+    "track": "research",
+    "tag": "tooling",
+    "practical": 1,
+    "time": 1,
+    "desc": "Hermes 实测 4 个 GPT 接入路径 + 评分表. 唯一 ship-ready: 加 openai provider 进 auth.json.",
+    "category": "research",
+    "curated": 1,
+    "added_at": "2026-07-27T18:30+0800"
+  },
+  {
     "title": "🆕 2026-07-26 Daily · auto-generated cron report (Hermes Agent daily summary)",
     "file": "2026-07-26-daily.html",
     "date": "2026-07-26",
