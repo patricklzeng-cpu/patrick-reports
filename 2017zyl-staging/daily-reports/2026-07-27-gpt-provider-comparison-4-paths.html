@@ -60,13 +60,13 @@ ul.tight li{margin:3px 0}
 
 <header>
   <h1>🔬 GPT Provider 接入 4 路径对比</h1>
-  <div class="sub">Hermes Agent 实测报告 · 2026-07-27 · 单文件 HTML · v1.0</div>
+  <div class="sub">Hermes Agent 实测报告 · 2026-07-27 · 单文件 HTML · v1.1 (path C 已被 Patrick 选中)</div>
   <div class="badges">
     <span class="badge g">✅ 4 路径全跑</span>
-    <span class="badge g">✅ 1 路径 ship-ready</span>
-    <span class="badge">Hermes 现有 3 provider 槽</span>
-    <span class="badge">Patricks-Reports 公网存档</span>
-    <span class="badge r">⚠️ GPT-load 3 个名字 0 hits</span>
+    <span class="badge g">🎯 PATH C 选中</span>
+    <span class="badge">openai-codex 已 ship</span>
+    <span class="badge">3 步骤本机 apply</span>
+    <span class="badge r">⚠️ gpt-load 3 个名字 0 hits</span>
   </div>
 </header>
 
@@ -286,7 +286,63 @@ HTTP 401 (1.0s) ← 沙箱可达 (401 是 key 错,不是 block)</pre>
 </section>
 
 <section>
-<h2>7 · Deliverable Status</h2>
+<h2>8 · 🆕 决策更新: Patrick 选 PATH C (2026-07-27 18:50)</h2>
+
+<div class="card recommended" style="background:#15251a;border-color:var(--lime)">
+<h3 class="yes">🎯 ACTIVE_PROVIDER 切到 openai-codex</h3>
+<p>Patrick 拒绝 path A (OpenAI Platform 充值), 选 path C = <strong>已经 ship 的 openai-codex OAuth 路径</strong>. 3 步本机 apply (~15s):</p>
+
+<ol class="tight">
+  <li>备份 <code>~/.hermes/auth.json</code></li>
+  <li>Python atomic write: <code>d['active_provider'] = 'openai-codex'</code> + tmp + rename + chmod 0600</li>
+  <li>verify JSON + /model picker 显示 openai-codex 模型 (gpt-5.6-sol / gpt-5.5 / gpt-5.4-mini)</li>
+</ol>
+
+<div class="ok-box">
+<strong>现状</strong>: <code>~/.codex/auth.json</code> 已 ship (4.3KB, 0600 perm, 2026-07-27 12:23 active), ChatGPT Plus/Pro OAuth token encrypted 完整. <code>~/.codex/config.toml</code> 已 ship <code>model = "gpt-5.6-sol"</code> + <code>model_provider = "openai"</code>. Hermes 全部 ship, 只欠 active_provider flip 1 string.
+</div>
+
+<div class="warn-box">
+<strong>ToS 风险 (仍在)</strong>: PATH C 走 ChatGPT Plus OAuth, 不是 OpenAI Platform Billing. 跟 OpenAI ToS §3 (Use Restrictions) 仍是灰区, 账号 ban 风险跟 openai-oauth 一样存在. Patrick 接受这个权衡.
+</div>
+
+<h3>Trade-off vs Path A</h3>
+<table>
+<thead><tr><th></th><th>PATH A (openai Platform)</th><th class="yes">PATH C (openai-codex) ← 选</th></tr></thead>
+<tbody>
+<tr><td>Cost</td><td>¥30+ API 充值</td><td class="yes">¥0 (ChatGPT Plus 已付)</td></tr>
+<tr><td>ToS</td><td><span class="yes">🟢 合法</span></td><td><span class="warn">🟡 灰区 §3</span></td></tr>
+<tr><td>Models</td><td>Platform 全套 (o3 / o3-mini / gpt-image-2 / embeddings / TTS)</td><td>ChatGPT Plus 内部 (gpt-5.6-sol / gpt-5.5 / gpt-5.4-mini / codex-auto-review)</td></tr>
+<tr><td>Ship 状态</td><td>5 步本机 recipe 已写</td><td class="yes">3 步本机 recipe 已写 + OAuth live</td></tr>
+<tr><td>1 天内能用?</td><td>🟡 等 Patrick 充 + apply</td><td class="yes">15s apply 即用</td></tr>
+</tbody>
+</table>
+
+<h3>Reference (新写, v1.1)</h3>
+<ul class="tight">
+  <li><code>~/.hermes/skills/agentic-os/references/openai-codex-active-provider-swap-2026-07-27.md</code> — 3 步本机 apply recipe (原子写 + verify)</li>
+  <li><code>~/.hermes/skills/agentic-os/references/openai-provider-appliance-2026-07-27.md</code> — Path A 备用 recipe (5 步)</li>
+  <li><code>external-coding-cli-config/SKILL.md</code> — Codex-specific PITFALL X-3.1..3.4 (model_provider 必加 / wire_api=responses / models_cache warning / 桌面 app picker 不可改)</li>
+</ul>
+</section>
+
+<section>
+<h2>9 · Deliverable Status (更新 v1.1)</h2>
+<table>
+<thead><tr><th>DELIVERABLE</th><th>STATUS</th></tr></thead>
+<tbody>
+<tr><td>Path C 3-步本机 recipe</td><td><span class="yes">✅ SHIPPED (4.5KB at <code>references/openai-codex-active-provider-swap-2026-07-27.md</code>)</span></td></tr>
+<tr><td>Path A 5-步本机 recipe (备用)</td><td><span class="yes">✅ SHIPPED (5.3KB at <code>references/openai-provider-appliance-2026-07-27.md</code>)</span></td></tr>
+<tr><td>4 路径综合对比 reference</td><td><span class="yes">✅ SHIPPED (4.3KB at <code>references/gpt-provider-comparison-2026-07-27.md</code>)</span></td></tr>
+<tr><td><code>~/.hermes/auth.json</code> patch (active_provider)</td><td><span class="warn">⏸️ 待 Patrick 本机执行</span></td></tr>
+<tr><td>vault mirror <code>~/patricks-reports/gpt-provider-comparison-2026-07-27.md</code></td><td><span class="yes">✅ SHIPPED (7.4KB)</span></td></tr>
+<tr><td>HTML 公网 (本文件)</td><td><span class="yes">✅ SHIPPED + v1.1 update</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2>7 · Deliverable Status (保留 v1.0 数值)</h2>
 <table>
 <thead><tr><th>DELIVERABLE</th><th>STATUS</th></tr></thead>
 <tbody>
