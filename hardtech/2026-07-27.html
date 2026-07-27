@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>硬科技日报 / Hardtech Daily</title>
+<style>
+:root { --bg: #0a0e1a; --card: #131927; --card-border: #1f2a40; --text: #dfe5f5; --muted: #8a96b3; --accent: #5b8def; --ok: #6fcf97; --warn: #f0a868; --quantum: #b48cff; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", sans-serif; padding: 24px; line-height: 1.6; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 26px; margin-bottom: 4px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; text-align: center; }
+.stat b { font-size: 24px; display: block; color: var(--accent); }
+.stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(120, 140, 200, 0.12); color: var(--muted); white-space: nowrap; flex-shrink: 0; margin-bottom: 4px; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(111, 207, 151, 0.15); color: var(--ok); }
+.tag.topic { background: rgba(91, 141, 239, 0.08); color: var(--text); margin-left: 2px; }
+.topic-h2 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+.section-h2 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; color: var(--muted); }
+.abstract, .meta, .authors, .cats { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.abstract { color: #b0b8d0; }
+.authors, .cats { font-size: 12px; }
+.meta code { background: rgba(120, 140, 200, 0.12); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+a:hover { color: var(--accent); }
+.footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--card-border); font-size: 12px; color: var(--muted); text-align: center; }
+
+.lang-toggle{cursor:pointer;background:rgba(20,30,40,.85);border:1px solid var(--accent,#58a6ff);color:var(--accent,#58a6ff);border-radius:999px;padding:6px 14px;font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;transition:.18s;backdrop-filter:blur(8px)}.lang-toggle:hover{background:var(--accent,#58a6ff);color:#0a0e1a;box-shadow:0 0 18px rgba(91,141,239,.35)}.en{display:none}.zh{display:inline}html[lang="en"] .en{display:inline}html[lang="en"] .zh{display:none}html[lang="zh-CN"] .en{display:none}html[lang="zh-CN"] .zh{display:inline}
+</style>
+</head>
+<body><div id="langBar" style="position:sticky;top:0;z-index:50;display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;background:rgba(10,14,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(91,141,239,.18)"><button class="lang-toggle" id="langBtn" type="button" onclick="toggleLang()" aria-label="Toggle language">EN ⇄ 中</button></div>
+<div class="wrap">
+  <h1><span class="zh">⚛️ 硬科技热门追踪</span><span class="en">⚛️ 硬科技热门追踪</span></h1>
+  <div class="sub"><span class="zh">2026-07-27 · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;    数据源: arXiv (3 分类 + 电池 full-text) + Hacker News (curated keywords) · v2 envelope_version=1 · 生成于 2026-07-27T01:28:36.006473Z</span><span class="en">
+    &lt;b&gt;2026-07-27&lt;/b&gt; · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;
+    数据源: arXiv (3 分类 + 电池 full-text) + Hacker News (curated keywords) · v2 envelope_version=1 · 生成于 2026-07-27T01:28:36.006473Z
+  </span></div>
+
+  <div class="stats">
+    <div class="stat"><b>0</b><span>arXiv papers</span></div>
+    <div class="stat"><b>15</b><span>HN stories</span></div>
+    <div class="stat"><b>1</b><span>fusion</span></div>
+    <div class="stat"><b>8</b><span>quantum</span></div>
+    <div class="stat"><b>0</b><span>battery</span></div>
+    <div class="stat"><b>0</b><span>space</span></div>
+  </div>
+
+  <h2 class="section-h2"><span class="zh">🔥 Top 15 (cross-source, by impact)</span><span class="en">🔥 Top 15 (cross-source, by impact)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://kerkour.com/128-bit-keys-post-quantum" target="_blank"><span class="zh">128 位对称密钥能否抵御量子计算机？</span><span class="en">Are 128-bit symmetric keys secure against quantum computers?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">6⭐ 3💬 · impact=21 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.youtube.com/watch?v=RQWpF2Gb-gU" target="_blank"><span class="zh">量子计算到底是什么？(3blue1brown 2025)</span><span class="en">But what is quantum computing? (3blue1brown 2025)</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 2💬 · impact=19 · 2026-07-05</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变已准备好商业化？</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · impact=17 · 2026-07-13</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.politico.com/news/magazine/2026/07/24/nuclear-fusion-commonwealth-washington-massachusetts-01010625" target="_blank"><span class="zh">核聚变已就绪，特朗普的华盛顿呢？</span><span class="en">Fusion Is Ready. Is Trump&amp;#x27;s Washington?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 1💬 · impact=10 · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://arstechnica.com/information-technology/2026/07/sheetz-moves-838-stores-off-vmware-broadcom-created-too-much-uncertainty/" target="_blank"><span class="zh">Sheetz 弃用 VMware，迁移 11,000 台虚拟机</span><span class="en">Sheetz is quitting VMware, migrating 11,000 virtual machines</span></a>
+<div class="meta"><span class="zh"></span><span class="en">10⭐ 0💬 · impact=10 · 2026-07-23</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.wired.com/story/scientists-using-ai-and-quantum-computing-to-generate-new-peptides/" target="_blank"><span class="zh">科学家们的副业？用 AI 和量子计算生成新型多肽</span><span class="en">Scientists&amp;#x27; Side Hustle? Using AI and Quantum Computing to Generate New Peptides</span></a>
+<div class="meta"><span class="zh"></span><span class="en">8⭐ 0💬 · impact=8 · 2026-07-12</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://medium.com/@subairui/coding-on-principle-toolmaking-is-the-most-effective-way-of-learning-12ed34b60d76" target="_blank"><span class="zh">为什么造工具是最有效的学习方式</span><span class="en">Why Toolmaking Is the Most Effective Way of Learning</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · impact=7 · 2026-07-08</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://news.berkeley.edu/2026/06/30/uc-berkeley-quantum-computing-chip-to-be-buried-in-national-time-capsule-celebrating-americas-250th-birthday/" target="_blank"><span class="zh">UC Berkeley 量子处理器将随时间胶囊封存，纪念美国建国 250 周年</span><span class="en">UC Berkeley quantum processor to be buried in time capsule for US 250th</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · impact=7 · 2026-06-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://qcroadmaptracker.netlify.app/" target="_blank"><span class="zh">量子计算路线图</span><span class="en">Quantum Computing Roadmaps</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · impact=4 · 2026-07-01</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.energy.gov/science/articles/energy-department-announces-initiative-create-and-deploy-worlds-first" target="_blank"><span class="zh">DOE 启动首个容错量子计算计划</span><span class="en">DOE Launching First Fault-Tolerant Quantum Computer Initiative</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · impact=3 · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.reuters.com/world/china/chip-toolmaker-asml-expected-shine-light-capacity-china-challenges-2026-07-14/" target="_blank"><span class="zh">光刻机厂商 ASML 有望揭示产能与在华挑战</span><span class="en">Chip toolmaker ASML expected to shine light on capacity and China challenges</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · impact=3 · 2026-07-14</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://muircheartblog.wpcomstaging.com/2026/05/26/quantum-computing-one-universe-is-more-than-enough/" target="_blank"><span class="zh">量子计算：一个宇宙已经绰绰有余</span><span class="en">Quantum computing: one universe is more than enough</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · impact=3 · 2026-07-10</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://github.com/chipcoin-protocol/chipcoin" target="_blank"><span class="zh">后量子比特币中最难的工程挑战？</span><span class="en">Hardest engineering challenge in post-quantum Bitcoin?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · impact=2 · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.hpcwire.com/2026/07/21/oratomics-300m-bet-on-low-qubit-quantum-computing/" target="_blank"><span class="zh">Oratomic 对低量子比特计算的 3 亿美元豪赌</span><span class="en">Oratomic&amp;#x27;s $300M Bet on Low-Qubit Quantum Computing</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · impact=2 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.youtube.com/playlist?list=PLWOUVwVosA-7aCa6SBXoM_m66WV-K_N0o" target="_blank"><span class="zh">安全量子计算 / CE 395 / 2026 年春季 / 西北大学</span><span class="en">Secure Quantum Computing / CE 395 / Spring 2026 / Northwestern University</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · impact=2 · 2026-07-20</span></div>
+</div></div>
+
+  <h2 class="topic-h2"><span class="zh">⚛️ 可控核聚变 Controlled Fusion (1)</span><span class="en">⚛️ 可控核聚变 Controlled Fusion (1)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗？</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · 2026-07-13</span></div>
+</div></div>
+  <h2 class="topic-h2"><span class="zh">⚛️ 量子计算 Quantum (8)</span><span class="en">⚛️ 量子计算 Quantum (8)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://kerkour.com/128-bit-keys-post-quantum" target="_blank"><span class="zh">128 位对称密钥对量子计算机安全吗？</span><span class="en">Are 128-bit symmetric keys secure against quantum computers?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">6⭐ 3💬 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://www.energy.gov/science/articles/energy-department-announces-initiative-create-and-deploy-worlds-first" target="_blank"><span class="zh">DOE 启动首个容错量子计算机计划</span><span class="en">DOE Launching First Fault-Tolerant Quantum Computer Initiative</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://www.hpcwire.com/2026/07/21/oratomics-300m-bet-on-low-qubit-quantum-computing/" target="_blank"><span class="zh">Oratomic 对低量子比特计算的 3 亿美元豪赌</span><span class="en">Oratomic&amp;#x27;s $300M Bet on Low-Qubit Quantum Computing</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://www.youtube.com/playlist?list=PLWOUVwVosA-7aCa6SBXoM_m66WV-K_N0o" target="_blank"><span class="zh">安全量子计算 / CE 395 / 2026 年春季 / 西北大学</span><span class="en">Secure Quantum Computing / CE 395 / Spring 2026 / Northwestern University</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://www.youtube.com/watch?v=RQWpF2Gb-gU" target="_blank"><span class="zh">但什么是量子计算？（3blue1brown 2025）</span><span class="en">But what is quantum computing? (3blue1brown 2025)</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 2💬 · 2026-07-05</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://www.wired.com/story/scientists-using-ai-and-quantum-computing-to-generate-new-peptides/" target="_blank"><span class="zh">科学家们的副业？用 AI 和量子计算生成新肽</span><span class="en">Scientists&amp;#x27; Side Hustle? Using AI and Quantum Computing to Generate New Peptides</span></a>
+<div class="meta"><span class="zh"></span><span class="en">8⭐ 0💬 · 2026-07-12</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://qcroadmaptracker.netlify.app/" target="_blank"><span class="zh">量子计算路线图</span><span class="en">Quantum Computing Roadmaps</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · 2026-07-01</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://muircheartblog.wpcomstaging.com/2026/05/26/quantum-computing-one-universe-is-more-than-enough/" target="_blank"><span class="zh">量子计算：一个宇宙就够了</span><span class="en">Quantum computing: one universe is more than enough</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · 2026-07-10</span></div>
+</div></div>
+  
+  
+
+  <h2 class="section-h2"><span class="zh">📄 arXiv 全部 (0 篇)</span><span class="en">📄 arXiv 全部 (0 篇)</span></h2>
+  <div class="grid"></div>
+
+  <h2 class="section-h2"><span class="zh">💬 Hacker News (15 条)</span><span class="en">💬 Hacker News (15 条)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.politico.com/news/magazine/2026/07/24/nuclear-fusion-commonwealth-washington-massachusetts-01010625" target="_blank"><span class="zh">核聚变已就绪，特朗普的华盛顿准备好了吗？</span><span class="en">Fusion Is Ready. Is Trump&amp;#x27;s Washington?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 1💬 · 0in · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗？</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · dd-sharma · 2026-07-13</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.reuters.com/world/china/chip-toolmaker-asml-expected-shine-light-capacity-china-challenges-2026-07-14/" target="_blank"><span class="zh">芯片设备厂商 ASML 有望揭示产能与中国挑战</span><span class="en">Chip toolmaker ASML expected to shine light on capacity and China challenges</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · technewssss · 2026-07-14</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://medium.com/@subairui/coding-on-principle-toolmaking-is-the-most-effective-way-of-learning-12ed34b60d76" target="_blank"><span class="zh">为什么造工具是最有效的学习方式</span><span class="en">Why Toolmaking Is the Most Effective Way of Learning</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · subairui · 2026-07-08</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://kerkour.com/128-bit-keys-post-quantum" target="_blank"><span class="zh">128 位对称密钥能抵御量子计算机吗？</span><span class="en">Are 128-bit symmetric keys secure against quantum computers?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">6⭐ 3💬 · cold_pizz4 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.energy.gov/science/articles/energy-department-announces-initiative-create-and-deploy-worlds-first" target="_blank"><span class="zh">DOE 启动首个容错量子计算计划</span><span class="en">DOE Launching First Fault-Tolerant Quantum Computer Initiative</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · donutloop · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.hpcwire.com/2026/07/21/oratomics-300m-bet-on-low-qubit-quantum-computing/" target="_blank"><span class="zh">Oratomic 对低量子比特量子计算的 3 亿美元豪赌</span><span class="en">Oratomic&amp;#x27;s $300M Bet on Low-Qubit Quantum Computing</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · rbanffy · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.youtube.com/playlist?list=PLWOUVwVosA-7aCa6SBXoM_m66WV-K_N0o" target="_blank"><span class="zh">安全量子计算 / CE 395 / 2026 春季 / 西北大学</span><span class="en">Secure Quantum Computing / CE 395 / Spring 2026 / Northwestern University</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · refezs · 2026-07-20</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.youtube.com/watch?v=RQWpF2Gb-gU" target="_blank"><span class="zh">但什么是量子计算？(3blue1brown 2025)</span><span class="en">But what is quantum computing? (3blue1brown 2025)</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 2💬 · andromaton · 2026-07-05</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.wired.com/story/scientists-using-ai-and-quantum-computing-to-generate-new-peptides/" target="_blank"><span class="zh">科学家的副业？用 AI 和量子计算生成新肽</span><span class="en">Scientists&amp;#x27; Side Hustle? Using AI and Quantum Computing to Generate New Peptides</span></a>
+<div class="meta"><span class="zh"></span><span class="en">8⭐ 0💬 · joozio · 2026-07-12</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://qcroadmaptracker.netlify.app/" target="_blank"><span class="zh">量子计算路线图</span><span class="en">Quantum Computing Roadmaps</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · mathgenius · 2026-07-01</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://muircheartblog.wpcomstaging.com/2026/05/26/quantum-computing-one-universe-is-more-than-enough/" target="_blank"><span class="zh">量子计算：一个宇宙绰绰有余</span><span class="en">Quantum computing: one universe is more than enough</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · vismit2000 · 2026-07-10</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://github.com/chipcoin-protocol/chipcoin" target="_blank"><span class="zh">后量子比特币中最难的工程挑战？</span><span class="en">Hardest engineering challenge in post-quantum Bitcoin?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · chipcoinchc · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://news.berkeley.edu/2026/06/30/uc-berkeley-quantum-computing-chip-to-be-buried-in-national-time-capsule-celebrating-americas-250th-birthday/" target="_blank"><span class="zh">UC Berkeley 量子处理器将被埋入美国 250 周年时间胶囊</span><span class="en">UC Berkeley quantum processor to be buried in time capsule for US 250th</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · simojo · 2026-06-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://arstechnica.com/information-technology/2026/07/sheetz-moves-838-stores-off-vmware-broadcom-created-too-much-uncertainty/" target="_blank"><span class="zh">Sheetz 正放弃 VMware，迁移 11,000 台虚拟机</span><span class="en">Sheetz is quitting VMware, migrating 11,000 virtual machines</span></a>
+<div class="meta"><span class="zh"></span><span class="en">10⭐ 0💬 · bookofjoe · 2026-07-23</span></div>
+</div></div>
+
+  <div class="footer">
+    Hermes cron · hardtech-daily.sh v2 (search_lib envelope) · 姊妹任务 ai-trending-daily
+  </div>
+</div>
+<script>(function(){var k="hardtech-daily-lang";function apply(l){document.documentElement.lang=l;try{localStorage.setItem(k,l);}catch(e){}}try{var saved=localStorage.getItem(k);if(saved==='en'||saved==='zh-CN')apply(saved);}catch(e){}window.toggleLang=function(){apply(document.documentElement.lang==='zh-CN'?'en':'zh-CN');};})();</script></body>
+</html>
