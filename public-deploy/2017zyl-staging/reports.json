@@ -1,5 +1,29 @@
 [
   {
+    "title": "🆕 梁文锋投资者交流会 · DeepSeek 的克制、AGI 路线与组织哲学",
+    "file": "daily-reports/liang-wenfeng-investor-exchange-2026-dashboard.html",
+    "date": "2026-07-27",
+    "category": "primary-source-transcript",
+    "track": "research",
+    "tag": "deepseek-founder-transcript",
+    "practical": 93,
+    "time": 25,
+    "summary": "3h44m 录音文字稿结构化解读：42 页、11 tabs、16 条逐字核验金句、12 Patrick 关联、8 个行动与 9 项反方审计。核心覆盖愿景驱动、克制战略、开源商业、持续学习、组织与算力。",
+    "featured": true,
+    "curated": 1,
+    "tags": [
+      "DeepSeek",
+      "梁文锋",
+      "AGI",
+      "open-source",
+      "continual-learning",
+      "agent",
+      "organization",
+      "AI-infrastructure"
+    ],
+    "added_at": "2026-07-27T23:00:00+08:00"
+  },
+  {
     "title": "🆕 NASA Starliner CFT 推进异常调查报告 (311 页) · 4 异常 + 3 根因 + 61 建议",
     "track": "paper",
     "tag": "nasa · starliner · cft · investigation · type-a-mishap · propulsion · helium · sm-rcs · commercial-crew · safety-culture · bilingual · toc-v1.4.4",
