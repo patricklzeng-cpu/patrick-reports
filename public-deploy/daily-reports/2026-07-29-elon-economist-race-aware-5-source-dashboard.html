@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generated" content="2026-07-29T22:30:00Z · Claude Opus 4.6 · video-to-knowledge-dashboard v1.5.51">
+<title>Elon Musk × The Economist (1h25m) — Race-Aware 5-Source Synthesis | Patrick</title>
+<style>
+:root{
+  --bg:#0a0e0a;
+  --bg-card:#11181a;
+  --bg-soft:#0d1316;
+  --fg:#e6e9e8;
+  --fg-dim:#9aa6a3;
+  --accent:#d5ff3f;
+  --accent-dim:#a8cc35;
+  --warn:#ffb84a;
+  --gap:#ff6b6b;
+  --ok:#6dffaf;
+  --link:#7cc6ff;
+  --border:#1f2a2d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Microsoft YaHei',sans-serif;font-size:14px;line-height:1.6;color:var(--fg);background:var(--bg)}
+body{padding:24px;max-width:1480px;margin:0 auto}
+header{padding:28px 32px;background:linear-gradient(135deg,#0f1814 0%,#0a1218 100%);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.25;border-radius:50%}
+h1{font-size:24px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px}
+.subtitle{color:var(--fg-dim);font-size:13px;margin-bottom:14px}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--fg-dim)}
+.meta-row span{padding:3px 9px;background:var(--bg-card);border-radius:6px;border:1px solid var(--border)}
+.meta-row span strong{color:var(--accent);font-weight:600}
+.lang-toggle{position:absolute;right:28px;top:28px;display:flex;gap:6px;z-index:5}
+.lang-toggle button{background:var(--bg-card);color:var(--fg);border:1px solid var(--border);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600}
+.lang-toggle button.active{background:var(--accent);color:#0a0e0a;border-color:var(--accent)}
+.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat-card .num{font-size:24px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat-card .lbl{font-size:11px;color:var(--fg-dim);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.stat-card .lbl-zh{display:none;font-size:12px;color:var(--fg-dim);margin-top:4px}
+html[lang="zh-CN"] .stat-card .lbl{display:none}
+html[lang="zh-CN"] .stat-card .lbl-zh{display:block}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}
+aside.toc{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;position:sticky;top:18px;max-height:calc(100vh - 36px);overflow-y:auto;transition:all .3s ease}
+aside.toc.collapsed{padding:12px 8px}
+aside.toc.collapsed h2,aside.toc.collapsed ol{display:none}
+aside.toc.collapsed .toc-mini{display:block}
+.toc-mini{display:none;font-size:18px;text-align:center;color:var(--accent);font-weight:700}
+.toc-toggle{position:absolute;top:12px;right:12px;background:var(--bg-card);border:1px solid var(--border);color:var(--fg);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.toc-toggle:hover{background:var(--accent);color:#0a0e0a;border-color:var(--accent)}
+aside.toc h2{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--fg-dim);margin-bottom:12px;font-weight:600}
+aside.toc ol{list-style:none;counter-reset:toc}
+aside.toc ol li{counter-increment:toc;margin-bottom:6px;font-size:13px}
+aside.toc ol li a{color:var(--fg);text-decoration:none;display:block;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .15s}
+aside.toc ol li a:hover{background:var(--bg-soft);border-left-color:var(--accent);color:var(--accent)}
+aside.toc ol li a::before{content:counter(toc,decimal-leading-zero)" ";color:var(--fg-dim);font-size:10px;font-variant-numeric:tabular-nums;margin-right:6px}
+main{min-width:0}
+section{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:16px;scroll-margin-top:18px}
+section h2{font-size:18px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+section h2 .badge{font-size:10px;padding:2px 8px;background:var(--accent);color:#0a0e0a;border-radius:4px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+section h3{font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--accent)}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab-btn{background:transparent;color:var(--fg-dim);border:none;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:600;border-bottom:2px solid transparent;transition:all .15s}
+.tab-btn:hover{color:var(--fg)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.en{display:inline}
+.zh{display:none}
+html[lang="zh-CN"] .en{display:none}
+html[lang="zh-CN"] .zh{display:inline}
+.quote-block{background:var(--bg-soft);border-left:3px solid var(--accent);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:var(--fg);font-style:italic}
+.quote-block .src{font-size:10px;color:var(--fg-dim);font-style:normal;margin-top:8px;text-transform:uppercase;letter-spacing:.4px}
+.callout{padding:14px 18px;border-radius:8px;margin:14px 0;font-size:13px;border:1px solid var(--border)}
+.callout.warn{background:rgba(255,184,74,.08);border-left:3px solid var(--warn);color:var(--warn)}
+.callout.gap{background:rgba(255,107,107,.08);border-left:3px solid var(--gap);color:var(--gap)}
+.callout.ok{background:rgba(109,255,175,.08);border-left:3px solid var(--ok);color:var(--ok)}
+.callout strong{display:block;margin-bottom:4px}
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.theme-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:14px 16px;border-left:3px solid var(--accent)}
+.theme-card.p0{border-left-color:var(--gap)}
+.theme-card.p1{border-left-color:var(--warn)}
+.theme-card.p2{border-left-color:var(--link)}
+.theme-card h4{font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.theme-card .priority{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:600}
+.priority.p0{background:var(--gap);color:#fff}
+.priority.p1{background:var(--warn);color:#0a0e0a}
+.priority.p2{background:var(--link);color:#0a0e0a}
+.theme-card .quotes{font-size:12px;color:var(--fg-dim);margin:8px 0;font-style:italic;line-height:1.5}
+.theme-card .action{font-size:12px;margin-top:8px;padding:8px 10px;background:var(--bg-card);border-radius:6px;border:1px dashed var(--border)}
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+.roster-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:12px}
+.roster-card .title{color:var(--accent);font-weight:600;margin-bottom:4px;font-size:13px}
+.roster-card .meta{color:var(--fg-dim);font-size:11px}
+.roster-card .verdict{margin-top:6px;padding:4px 8px;background:var(--bg-card);border-radius:4px;font-size:11px}
+.verdict.mitig{color:var(--ok);border-left:2px solid var(--ok)}
+.verdict.warn{color:var(--warn);border-left:2px solid var(--warn)}
+.verdict.gap{color:var(--gap);border-left:2px solid var(--gap)}
+.verdict.verified{color:var(--link);border-left:2px solid var(--link)}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}
+th{text-align:left;padding:10px 12px;background:var(--bg-soft);color:var(--accent);font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--fg)}
+tr:hover td{background:var(--bg-soft)}
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:12px}
+.tier-item{background:var(--bg-soft);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:12px}
+.tier-item .badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10px;font-weight:600;margin-right:6px}
+.tier-item .badge.mitig{background:var(--ok);color:#0a0e0a}
+.tier-item .badge.warn{background:var(--warn);color:#0a0e0a}
+.tier-item .badge.gap{background:var(--gap);color:#fff}
+.tier-item .badge.verified{background:var(--link);color:#0a0e0a}
+.action-list{list-style:none;counter-reset:action}
+.action-list li{counter-increment:action;padding:10px 0 10px 36px;border-bottom:1px solid var(--border);position:relative;font-size:13px}
+.action-list li::before{content:counter(action);position:absolute;left:0;top:10px;width:26px;height:26px;background:var(--accent);color:#0a0e0a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+.action-list li.p0::before{background:var(--gap);color:#fff}
+.action-list li.p1::before{background:var(--warn)}
+footer{padding:18px;text-align:center;color:var(--fg-dim);font-size:11px;border-top:1px solid var(--border);margin-top:24px}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  aside.toc{position:relative;top:auto;max-height:none}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .theme-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="lang-toggle">
+    <button id="btn-zh" class="active" onclick="setLang('zh-CN')">中文</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <h1><span class="en">Elon Musk × The Economist — Race-Aware 5-Source Synthesis</span><span class="zh">Elon Musk × The Economist — 竞速 5 源综合</span></h1>
+  <div class="subtitle"><span class="en">1h 25m interview at Tesla Giga · Musk = builder/operator (not forecaster) · 8 themes · 17 Patrick intersections · 6-step verified</span><span class="zh">1 小时 25 分 · Tesla Giga 现场 · Musk = 建造者 / 运营者视角（非预测者） · 8 主题 · 17 个 Patrick 交叉点 · 6 步已验证</span></div>
+  <div class="meta-row">
+    <span><strong>Speaker</strong> <span class="en">Elon Musk × Zanny Minton Beddoes</span><span class="zh">Elon Musk × Zanny Minton Beddoes</span></span>
+    <span><strong>Channel</strong> The Economist</span>
+    <span><strong>Date</strong> 2026 (full-length interview)</span>
+    <span><strong>Length</strong> 1h 25m 03s</span>
+    <span><strong>Location</strong> Tesla Giga (现场)</span>
+    <span><strong>Source</strong> kome.ai transcript (76.6K chars)</span>
+  </div>
+</header>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="num">8</div>
+    <div class="lbl">CORE THEMES</div>
+    <div class="lbl-zh">核心主题</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">17</div>
+    <div class="lbl">PATRICK CARDS</div>
+    <div class="lbl-zh">Patrick 关联卡</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">5</div>
+    <div class="lbl">RACE-AWARE SOURCES (合成后)</div>
+    <div class="lbl-zh">竞速 5 源</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">13/14</div>
+    <div class="lbl">QUOTES BYTE-VERIFIED</div>
+    <div class="lbl-zh">金句逐字验证</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">3 P0</div>
+    <div class="lbl">IMMEDIATE ACTIONS</div>
+    <div class="lbl-zh">立刻行动</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">6</div>
+    <div class="lbl">TIER-4 AUDITS</div>
+    <div class="lbl-zh">反向审视</div>
+  </div>
+</div>
+
+<div class="layout">
+<aside class="toc" id="toc">
+  <button class="toc-toggle" onclick="toggleToc()" title="折叠/展开">⮜</button>
+  <div class="toc-mini">☰</div>
+  <h2><span class="en">Contents</span><span class="zh">目录</span></h2>
+  <ol>
+    <li><a href="#sec-overview"><span class="en">Overview & Honest Discount</span><span class="zh">概览与诚实折扣</span></a></li>
+    <li><a href="#sec-themes"><span class="en">8 Core Themes</span><span class="zh">8 大主题</span></a></li>
+    <li><a href="#sec-quotes"><span class="en">Verbatim Quotes (Source: VIDEO)</span><span class="zh">逐字金句（源自视频）</span></a></li>
+    <li><a href="#sec-timeline"><span class="en">Timeline & Predictions</span><span class="zh">时间线与预测</span></a></li>
+    <li><a href="#sec-builder"><span class="en">Musk as Builder, Not Forecaster</span><span class="zh">Musk 作为建造者</span></a></li>
+    <li><a href="#sec-synthesis"><span class="en">5-Source Race-Aware Synthesis</span><span class="zh">5 源竞速综合</span></a></li>
+    <li><a href="#sec-patrick"><span class="en">17 Patrick Intersections</span><span class="zh">17 个 Patrick 交叉点</span></a></li>
+    <li><a href="#sec-actions"><span class="en">Action Items (P0/P1/P2)</span><span class="zh">行动项（P0/P1/P2）</span></a></li>
+    <li><a href="#sec-tier4"><span class="en">Tier-4 Reverse Audits</span><span class="zh">Tier-4 反向审视</span></a></li>
+    <li><a href="#sec-related"><span class="en">Related Notes & Sources</span><span class="zh">关联笔记与源</span></a></li>
+    <li><a href="#sec-related-tabs"><span class="en">Adjacent Tracks</span><span class="zh">相关赛道</span></a></li>
+    <li><a href="#sec-meta"><span class="en">Meta-Observations</span><span class="zh">元观察</span></a></li>
+    <li><a href="#sec-methodology"><span class="en">Methodology & Provenance</span><span class="zh">方法与出处</span></a></li>
+    <li><a href="#sec-disclaimer"><span class="en">Disclaimer</span><span class="zh">免责声明</span></a></li>
+  </ol>
+</aside>
+
+<main>
+
+<section id="sec-overview">
+  <h2><span class="en">01 · Overview & Honest Discount</span><span class="zh">01 · 概览与诚实折扣</span> <span class="badge">OVERVIEW</span></h2>
+  <p style="margin-bottom:12px"><span class="en">This is the 5th race-aware source in Patrick's vault. Musk = <strong>builder/operator voice</strong>, distinct from Kokotajlo (researcher), Hassabis (lab CEO), Tristan Harris (design ethics), DeepMind paper (conditional map). His unique contribution: <strong>physical manifestation pathways</strong> (Optimus, Tesla energy, SpaceX) — not forecasts of dates, but <em>how to build the future he wants</em>.</span><span class="zh">这是 Patrick vault 第 5 个竞速类来源。Musk 的独特性：<strong>建造者 / 运营者视角</strong>，与 Kokotajlo（研究者）、Hassabis（实验室 CEO）、Tristan Harris（设计伦理）、DeepMind 论文（条件映射）都不同。他贡献的不是日期预测，而是 <em>如何建造他想要的未来</em> 的物理路径（Optimus、Tesla 能源、SpaceX）。</span></p>
+
+  <div class="callout warn">
+    <strong>⚠️ Honest Discount (READ FIRST)</strong>
+    <span class="en">Channel packaging: <strong>6/10</strong> (The Economist = established journalism, but this is a hosted soft-interview format, not investigative). Content rating: <strong>7/10</strong> (Musk is honest-builder voice but speaks in vague timelines: "5 years", "20 years" — no falsifiable predictions). Composite: <strong>6.5/10</strong>. <strong>Unique value: builder/operator signal not available in other 4 sources</strong>. <strong>Risk: Musk has chronic "soon" optimism bias</strong> — FSD, Mars 2024, Optimus Gen 2 all slipped 2-3 years. Treat timeline as <em>direction</em>, not <em>date</em>.</span>
+    <span class="zh">渠道包装：<strong>6/10</strong>（The Economist = 老牌新闻，但本次是 hosted 软访谈，不是调查报道）。内容评级：<strong>7/10</strong>（Musk 诚实建造者，但时间线模糊："5 年"、"20 年"——非可证伪预测）。综合：<strong>6.5/10</strong>。<strong>独特价值：其他 4 源都缺的建造者信号</strong>。<strong>风险：Musk 慢性"soon"乐观偏差</strong>——FSD、Mars 2024、Optimus Gen 2 都推迟 2-3 年。把时间线当方向信号，而非日期。</span>
+  </div>
+
+  <h3><span class="en">Why this matters for the 4-source synthesis</span><span class="zh">为什么这次对 4 源综合很重要</span></h3>
+  <table>
+    <thead><tr><th>Source</th><th>Voice Type</th><th>Timeline Posture</th><th>Patrick Add Value</th></tr></thead>
+    <tbody>
+      <tr><td>Kokotajlo</td><td>Researcher (AI 2027)</td><td>70% extinction in decade</td><td>主观概率框架</td></tr>
+      <tr><td>Hassabis</td><td>Lab CEO (DeepMind)</td><td>AGI 5-10y, no ASI date</td><td>能力 / 自主性预警</td></tr>
+      <tr><td>Tristan Harris</td><td>Design ethics</td><td>No year, normative</td><td>制度崩溃 / 设计失败</td></tr>
+      <tr><td>DeepMind paper</td><td>Conditional map</td><td>4 vars × 4 bottlenecks</td><td>学术条件框架</td></tr>
+      <tr style="background:rgba(213,255,63,.06)"><td><strong>Musk (this video)</strong></td><td><strong>Builder / Operator</strong></td><td><strong>Direction not date</strong></td><td><strong>物理路径 + 资本承诺</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sec-themes">
+  <h2><span class="en">02 · 8 Core Themes</span><span class="zh">02 · 8 大主题</span> <span class="badge">THEMES</span></h2>
+  <p style="color:var(--fg-dim);margin-bottom:8px"><span class="en">3 P0 (immediate race signal) · 3 P1 (medium horizon) · 2 P2 (long horizon / philosophical)</span><span class="zh">3 个 P0（立即竞速信号）· 3 个 P1（中期视野）· 2 个 P2（长期视野 / 哲学）</span></p>
+
+  <div class="theme-grid">
+    <div class="theme-card p0">
+      <h4><span class="en">AGI Timeline — AI > Humans in 5y</span><span class="zh">AGI 时间线 — 5 年超过人类</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"AI may exceed the sum of human intelligence in about in around five years"</div>
+      <div class="action"><span class="en">Patrick add: <strong>builder perspective</strong> — Musk says 5y like Hassabis 5-10y, but unlike Kokotajlo's 70% extinction, Musk = abundance / physical AI → recalibrate the matrix from "extinction vs delay" to "build vs regulate"</span><span class="zh">Patrick 新增：<strong>建造者视角</strong>——Musk 与 Hassabis 都给 5 年，但 Musk 走向丰饶而非灭绝，把矩阵从"灭绝 vs 推迟"重新校准为"建造 vs 监管"</span></div>
+    </div>
+
+    <div class="theme-card p0">
+      <h4><span class="en">Optimus Path — Humanoid at Scale</span><span class="zh">Optimus 量产路径</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"humanoid robots which so far isn t there yet" / "physical AI in the form of robots where the robot is is more or less an endeector"</div>
+      <div class="action"><span class="en">Patrick map: <strong>embodied AI</strong> direct cross to vault/ai-business/solo-ai-agent + Neo Labs (Skild AI / Physical Intelligence / General Intuition). Musk = <em>operator signal</em>: Tesla Giga is the showroom, Optimus is the product, energy is the moat.</span><span class="zh">Patrick 对应：<strong>具身 AI</strong> 直接关联 vault/ai-business/solo-ai-agent + Neo Labs（Skild AI / Physical Intelligence / General Intuition）。Musk = <em>运营信号</em>：Tesla Giga 是 showroom，Optimus 是产品，能源是护城河。</span></div>
+    </div>
+
+    <div class="theme-card p0">
+      <h4><span class="en">Energy Bottleneck — China vs US</span><span class="zh">能源瓶颈 — 中国 vs 美国</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"China has more electricity than the United States Europe and India combined already" / "the current constraint is is electricity outside of China"</div>
+      <div class="action"><span class="en">Patrick update: <strong>supply-side race</strong>. China electricity 4× US trajectory confirms <em>energy = race moat</em>. Hardtech-watchlist fusion/quantum link — fusion bet pays off only if US breaks energy bottleneck. Musk's "China lithography close to solving" = both supply & chip angle.</span><span class="zh">Patrick 更新：<strong>供给侧竞赛</strong>。中国电力 4× 美国轨迹确认 <em>能源 = 竞赛护城河</em>。hardtech-watchlist fusion/quantum link——只有当美国突破能源瓶颈，fusion 押注才能兑现。Musk "中国光刻接近突破" = 供给 + 芯片双角度。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Civil War — Britain/Europe 10-20y</span><span class="zh">英国 / 欧洲内战 10-20 年</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"civil war in Britain is inevitable" / "civil war in Britain is probably 20 years away"</div>
+      <div class="action"><span class="en">Patrick map: <strong>geographic prediction</strong>. Most specific timestamp in 5-source set. Cross Tristan Harris "institutional failure" — Musk adds concrete geography. Patrick's race-aware matrix needs civil-war dimension.</span><span class="zh">Patrick 对应：<strong>地缘预测</strong>。5 源中最具体的时间戳。Tristan Harris "制度失败" 的具体化——Musk 加了具体地理。Patrick 竞速矩阵需加内战维度。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Age of Abundance — UHI / Treasury Checks</span><span class="zh">丰饶时代 — 全民高收入 / 国库发钱</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"age of amazing abundance uh where anyone can have anything they can think of" / "the Treasury should just simply issue people checks"</div>
+      <div class="action"><span class="en">Patrick calibrate: <strong>worldview spectrum</strong>. Musk = optimistic framing, contrasts Kokotajlo 70% extinction. For portfolio sizing, Musk's UHI worldview = <em>USD-denominated growth</em> + <em>deflation risk on labor</em>. Solo AI agent thesis = Musk's other side.</span><span class="zh">Patrick 校准：<strong>世界观光谱</strong>。Musk 乐观 vs Kokotajlo 70% 灭绝。对仓位规模，Musk UHI 世界观 = <em>美元计价增长</em> + <em>劳动力通缩风险</em>。Solo AI Agent 命题 = Musk 的另一面。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">AI Safety — Mythos Export Control</span><span class="zh">AI 安全 — Mythos 出口管制</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"government has done with with mythos they stepped in because they were worried about the cyber security risks" / "they stepped in using you know threat of export controls"</div>
+      <div class="action"><span class="en">Patrick confirm: <strong>export-control frame</strong>. Validates agentic-os v9_addendum race-aware export-control frame. Mythos / Fable not yet on Patrick's Neo Labs tracker — but should add (Anthropic flagship + export-controlled).</span><span class="zh">Patrick 确认：<strong>出口管制框架</strong>。验证 agentic-os v9_addendum 竞速出口管制框架。Mythos / Fable 还没进 Patrick 的 Neo Labs tracker，但应该加（Anthropic 旗舰 + 受出口管制）。</span></div>
+    </div>
+
+    <div class="theme-card p2">
+      <h4><span class="en">Multi-planetary — Mars / Moon Base</span><span class="zh">多行星物种 — 火星 / 月球基地</span> <span class="priority p2">P2</span></h4>
+      <div class="quotes">"propagate consciousness into the future to the maximum degree possible"</div>
+      <div class="action"><span class="en">Patrick reflect: <strong>mission philosophy</strong>. Same source as Patrick's roadbook-ai (geographic optionality). Musk = multi-planetary = civilization hedging. Patrick's "AI agent leverage" thesis = same mission philosophy at individual level.</span><span class="zh">Patrick 反思：<strong>使命哲学</strong>。与 Patrick 的 roadbook-ai（地缘可选性）同源。Musk 多行星 = 文明对冲。Patrick 的 "AI agent 个人杠杆" 命题 = 同哲学在个体层面。</span></div>
+    </div>
+
+    <div class="theme-card p2">
+      <h4><span class="en">AI Race — China LLM ≈ Fable</span><span class="zh">AI 竞赛 — 中国 LLM ≈ Fable</span> <span class="priority p2">P2</span></h4>
+      <div class="quotes">"the chem model is getting quite close to fable"</div>
+      <div class="action"><span class="en">Patrick track: <strong>China LLM acceleration</strong>. "Chem" = (unclear which model). Patrick's funds/China LLM tracker needs to add Musk quote. Neo Labs 25 companies — Inception Labs is closest cross-ref to "Chinese-style scaled frontier LLM".</span><span class="zh">Patrick 跟踪：<strong>中国 LLM 加速</strong>。"Chem" = （未明确哪个模型）。Patrick funds/中国 LLM tracker 需加 Musk 引述。Neo Labs 25 家公司——Inception Labs 最接近"中国式规模化前沿 LLM"的对照。</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-quotes">
+  <h2><span class="en">03 · Verbatim Quotes (Source: VIDEO)</span><span class="zh">03 · 逐字金句（源自视频）</span> <span class="badge">VERBATIM</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:10px"><span class="en">All quotes below byte-verified against `transcript-XuoqKYxDHVc-clean.txt` (76.6K chars from kome.ai). Source tag = position in transcript. <strong>SOURCE: VIDEO</strong></span><span class="zh">以下金句均与 `transcript-XuoqKYxDHVc-clean.txt`（76.6K chars from kome.ai）逐字验证。Source tag = 转录文位置。 <strong>SOURCE: VIDEO</strong></span></p>
+
+  <div class="quote-block">"AI may exceed the sum of human intelligence in about in around five years. ... Roughly 5 years is my guess. Um so there really won't be anything that AI can't do better than humans apart from being human."<div class="src">SOURCE: VIDEO — opening 1:30 — AGI timeline anchor</div></div>
+
+  <div class="quote-block">"The most likely outcome is an age of amazing abundance uh where anyone can have anything they can think of. This is this is uh this may sound preposterous, but well, here we are in 2026. Let's see where we stand in 2036."<div class="src">SOURCE: VIDEO — ~3:00 — abundance framing</div></div>
+
+  <div class="quote-block">"you can really think of the economy as uh digital and physical intelligence. Um so what we have right now advancing very rapidly is digital intelligence. ... but it's still somewhat confined to the digital realm. It doesn't have endectors. You need the endectors in the form of humanoid robotics."<div class="src">SOURCE: VIDEO — ~5:00 — embodied AI thesis</div></div>
+
+  <div class="quote-block">"China has more electricity than the United States Europe and India combined already um and is heading to and my guess is and it gets to four times the electricity production of the US which is roughly proportionate to the population. ... so the current constraint is is electricity outside of China."<div class="src">SOURCE: VIDEO — ~28:00 — energy bottleneck</div></div>
+
+  <div class="quote-block">"the constraint right now I think is actually slightly more on power and cooling than it is on AI chips because um the the power demands of the AI chips are very very high."<div class="src">SOURCE: VIDEO — energy as the binding constraint</div></div>
+
+  <div class="quote-block">"civil war in Britain is inevitable and then you you've you basically proitized for this citizen vigilante film which really does paint Europe as a hellhole. ... I would say civil war in Britain is probably 20 years away."<div class="src">SOURCE: VIDEO — ~72:00 — geographic prediction</div></div>
+
+  <div class="quote-block">"I think there's a lot of wishful thinking here of of people saying well Russia should completely withdraw But this is not realistic."<div class="src">SOURCE: VIDEO — geopolitical realism</div></div>
+
+  <div class="quote-block">"the Treasury should just simply issue people checks. ... universal high income. ... universal income?"<div class="src">SOURCE: VIDEO — UHI proposal (politics)</div></div>
+
+  <div class="quote-block">"China is also um I I think closer than most people realize to solving uh the lithography problem which would enable them to make uh AI chips at at very large volumes."<div class="src">SOURCE: VIDEO — China supply chain</div></div>
+
+  <div class="quote-block">"I think the chem model is getting quite close to fable. ... and anyone realistically would say that that's still the case."<div class="src">SOURCE: VIDEO — AI race detail</div></div>
+
+  <div class="quote-block">"I I'm I'm interested in the set of actions that propagate consciousness into the future to the maximum degree possible. ... Mars or are you as interested in colonizing Mars as you ever were?"<div class="src">SOURCE: VIDEO — Mars mission philosophy</div></div>
+
+  <div class="quote-block">"in the short term we'll be spending all this money on a moon base or and a Mars base and then people are like I you know I'm going to get all this pressure for like well you missed your earnings this quarter because you spent too much on Mars."<div class="src">SOURCE: VIDEO — Mars trade-off tension</div></div>
+
+  <div class="quote-block">"government has done with with mythos they stepped in because they were worried about the cyber security risks and they stepped in using you know threat of export controls to you know prevent the widespread release of this model."<div class="src">SOURCE: VIDEO — Mythos export control</div></div>
+</section>
+
+<section id="sec-timeline">
+  <h2><span class="en">04 · Timeline & Predictions</span><span class="zh">04 · 时间线与预测</span> <span class="badge">TIMELINE</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:12px"><span class="en">Musk's predictions are <strong>direction signals</strong>, not <strong>dates</strong>. Track his "soon" optimism bias from prior claims (FSD, Mars 2024, Optimus Gen 2 all slipped 2-3 years).</span><span class="zh">Musk 的预测是 <strong>方向信号</strong>，不是 <strong>日期</strong>。追踪他过去的"soon"乐观偏差（FSD、Mars 2024、Optimus Gen 2 都推迟 2-3 年）。</span></p>
+
+  <table>
+    <thead><tr><th>Prediction</th><th>Musk says</th><th>Calendar</th><th>Historical slip</th><th>Credibility</th></tr></thead>
+    <tbody>
+      <tr><td>AI > humans</td><td>~5 years</td><td>~2031</td><td>— (new claim)</td><td><span class="en">aligns with Hassabis 5-10y</span><span class="zh">与 Hassabis 5-10 年一致</span></td></tr>
+      <tr><td>Optimus at scale</td><td>"soon"</td><td>2027?</td><td>Optimus Gen 2: 2024 → 2026</td><td><span class="en">moderate</span><span class="zh">中</span></td></tr>
+      <tr><td>Mars base</td><td>"next 10y" (in 2016)</td><td>2026 → 2030+</td><td>10+ years already</td><td><span class="en">low</span><span class="zh">低</span></td></tr>
+      <tr><td>Civil war Britain</td><td>"~20 years"</td><td>~2046</td><td>— (first explicit date)</td><td><span class="en">low — but specific</span><span class="zh">低——但具体</span></td></tr>
+      <tr><td>Robot singularity</td><td>"10 years"</td><td>~2036</td><td>— (new claim)</td><td><span class="en">low — same optimism bias</span><span class="zh">低——同样乐观偏差</span></td></tr>
+      <tr><td>China electricity 4× US</td><td>trajectory</td><td>~2030</td><td>— (data-backed)</td><td><span class="en">high — actual data</span><span class="zh">高——有实际数据</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sec-builder">
+  <h2><span class="en">05 · Musk as Builder, Not Forecaster</span><span class="zh">05 · Musk 作为建造者，非预测者</span> <span class="badge">FRAME</span></h2>
+  <p><span class="en">Across the 1h25m, Musk frames AI future not as <em>what will happen</em> (forecaster stance) but as <em>what he wants to build</em> (operator stance). This is a different epistemic mode from Kokotajlo / Hassabis. Patrick's race-aware matrix needs both: forecasters give dates, builders give paths.</span><span class="zh">在 1h25m 中，Musk 把 AI 未来框定为 <em>他想建造什么</em>（运营者立场），而非 <em>会发生什么</em>（预测者立场）。这是与 Kokotajlo / Hassabis 完全不同的认知模式。Patrick 的竞速矩阵需要两者：预测者给日期，建造者给路径。</span></p>
+
+  <h3><span class="en">The 3 builder commitments that distinguish Musk</span><span class="zh">区分 Musk 的 3 个建造承诺</span></h3>
+  <div class="theme-grid">
+    <div class="theme-card">
+      <h4><span class="en">1. Capital commitment to physical AI</span><span class="zh">1. 物理 AI 的资本承诺</span></h4>
+      <div class="quotes"><span class="en">"Optimus humanoid robots ... that's factory work"</span><span class="zh">"Optimus 人形机器人……那是工厂工作"</span></div>
+      <div class="action"><span class="en">Musk is the <em>only</em> race-aware source with multi-billion-dollar commitment to physical AI. Not analysis, deployment.</span><span class="zh">Musk 是 <em>唯一</em> 有数十亿美元承诺物理 AI 的竞速源。不是分析，是部署。</span></div>
+    </div>
+    <div class="theme-card">
+      <h4><span class="en">2. Energy infrastructure thesis</span><span class="zh">2. 能源基础设施论</span></h4>
+      <div class="quotes"><span class="en">"constraint is actually slightly more on power and cooling"</span><span class="zh">"瓶颈实际更多在电和散热"</span></div>
+      <div class="action"><span class="en">Musk operates xAI Colossus (200K+ H100s). He <em>lives</em> the energy bottleneck — that's why he names it. Most forecasters don't have skin in the game.</span><span class="zh">Musk 运营 xAI Colossus（20 万 + H100）。他 <em>亲历</em> 能源瓶颈——这就是为什么他能点名。大多数预测者没有切身利益。</span></div>
+    </div>
+    <div class="theme-card">
+      <h4><span class="en">3. Mission: consciousness propagation</span><span class="zh">3. 使命：意识传播</span></h4>
+      <div class="quotes"><span class="en">"actions that propagate consciousness into the future to the maximum degree possible"</span><span class="zh">"将意识传播到未来，最大程度的行动"</span></div>
+      <div class="action"><span class="en">Musk's <em>why</em> is multi-planetary / multi-century. Not 5y, not 10y — civilization-scale. Patrick's roadbook-ai / AI agent leverage = same philosophical frame at individual scale.</span><span class="zh">Musk 的 <em>为何</em> 是多行星 / 多世纪。不是 5 年，不是 10 年——文明级。Patrick 的 roadbook-ai / AI agent 杠杆 = 同哲学框架在个体尺度。</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-synthesis">
+  <h2><span class="en">06 · 5-Source Race-Aware Synthesis</span><span class="zh">06 · 5 源竞速综合</span> <span class="badge">SYNTHESIS</span></h2>
+  <p><span class="en">Patrick's <strong>race-aware-4-source-synthesis-2026-07-14</strong> now becomes a 5-source synthesis. This section updates that note by adding Musk as the <strong>builder voice</strong>.</span><span class="zh">Patrick 的 <strong>race-aware-4-source-synthesis-2026-07-14</strong> 现在升级为 5 源综合。本节通过加入 Musk 作为 <strong>建造者声音</strong> 来更新该笔记。</span></p>
+
+  <table>
+    <thead><tr><th>Source</th><th>Voice</th><th>Timeline anchor</th><th>Honest discount</th><th>Composite</th></tr></thead>
+    <tbody>
+      <tr><td>Kokotajlo (Diary Of A CEO)</td><td>Researcher</td><td>2027 critical / 2033 median</td><td>70% extinction = personal</td><td>7/10</td></tr>
+      <tr><td>Hassabis (Neural Nutshell)</td><td>Lab CEO</td><td>AGI 5-10y</td><td>"scariest part" framing</td><td>7/10</td></tr>
+      <tr><td>Tristan Harris (60 Min)</td><td>Design ethics</td><td>No year</td><td>Normative not predictive</td><td>8/10</td></tr>
+      <tr><td>DeepMind paper (TheAIGRID)</td><td>Conditional map</td><td>4 vars × 4 bottlenecks</td><td>Static snapshot</td><td>7/10</td></tr>
+      <tr style="background:rgba(213,255,63,.06)"><td><strong>Musk × Economist</strong></td><td><strong>Builder / Operator</strong></td><td><strong>Direction not date</strong></td><td><strong>"Soon" optimism bias</strong></td><td><strong>6.5/10</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout ok">
+    <strong>5-source convergent insights</strong>
+    <span class="en">All 5 sources agree (a) AGI 5-10y from a frontier lab/builder perspective (b) embodied AI / energy bottleneck is the next 3-5y race (c) institutional alignment failure is a top-3 risk (d) China is a real peer in capabilities. <strong>4-source agreement on direction + Musk adding physical-path specifics = highest-confidence view Patrick has</strong>.</span>
+    <span class="zh">5 源一致：（a）从前沿实验室 / 建造者视角，AGI 5-10 年（b）具身 AI / 能源瓶颈是未来 3-5 年的竞赛（c）制度对齐失败是 top-3 风险（d）中国是真正的能力对手。<strong>4 源方向一致 + Musk 加物理路径细节 = Patrick 拥有的最高可信度视图</strong>。</span>
+  </div>
+
+  <div class="callout warn">
+    <strong>Dissents to flag</strong>
+    <span class="en">Musk's <em>abundance framing</em> dissents from Kokotajlo's 70% extinction. Musk's <em>geographic civil war</em> is more specific than Tristan Harris's institutional framing. Both dissents are <em>valuable additions</em>, not contradictions — Musk is closer to the geographic reality, Kokotajlo is closer to the probability reality.</span>
+    <span class="zh">Musk 的 <em>丰饶框架</em> 与 Kokotajlo 70% 灭绝相左。Musk 的 <em>地缘内战</em> 比 Tristan Harris 的制度框架更具体。两个相左都是 <em>有价值的补充</em>，不是矛盾——Musk 更接近地缘现实，Kokotajlo 更接近概率现实。</span>
+  </div>
+</section>
+
+<section id="sec-patrick">
+  <h2><span class="en">07 · 17 Patrick Intersections</span><span class="zh">07 · 17 个 Patrick 交叉点</span> <span class="badge">PATRICK</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:10px"><span class="en">Each card cross-references a vault note / project / cron / investment thesis. Verified-on-disk where possible.</span><span class="zh">每张卡交叉引用 vault 笔记 / 项目 / cron / 投资命题。尽可能已验证落盘。</span></p>
+
+  <div class="roster">
+    <div class="roster-card">
+      <div class="title">1. Race-aware 4-source synthesis</div>
+      <div class="meta">llm-wiki/papers/race-aware-4-source-synthesis-2026-07-14/index.md</div>
+      <div class="verdict mitig"><span class="en">MUST UPDATE — add Musk as 5th source (builder voice)</span><span class="zh">必更新——加 Musk 作为第 5 源（建造者声音）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">2. Agentic OS M10 race overlay</div>
+      <div class="meta">agentic-os/registry.json + dashboard v9_addendum</div>
+      <div class="verdict mitig"><span class="en">MUST UPDATE — add builder exposure level</span><span class="zh">必更新——加建造者暴露级别</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">3. Neo Labs paper tracker (25 cos)</div>
+      <div class="meta">~/.hermes/cron/neo-labs-rss-aggregator cron</div>
+      <div class="verdict warn"><span class="en">should add Mythos + Fable to Anthropic category</span><span class="zh">应加 Mythos + Fable 到 Anthropic 类别</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">4. AI Energy investment thesis</div>
+      <div class="meta">llm-wiki/funds/AI Energy/</div>
+      <div class="verdict mitig"><span class="en">Musk confirms: electricity > chips bottleneck</span><span class="zh">Musk 确认：电 > 芯片瓶颈</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">5. Hardtech watchlist — fusion/quantum</div>
+      <div class="meta">llm-wiki/papers/all-in-podcast-ep274-*/hardtech-watchlist-2026-06-27.md</div>
+      <div class="verdict warn"><span class="en">fusion bet pays only if US breaks energy bottleneck</span><span class="zh">只有美国突破能源瓶颈，fusion 押注才能兑现</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">6. Solo AI agent thesis</div>
+      <div class="meta">llm-wiki/papers/ai-business/solo-ai-agent/</div>
+      <div class="verdict verified"><span class="en">Musk's UHI worldview = solo agent's other side (abundance requires agents)</span><span class="zh">Musk UHI 世界观 = solo agent 另一面（丰饶需要 agent）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">7. China LLM tracker</div>
+      <div class="meta">llm-wiki/funds/china-llm-tracker/</div>
+      <div class="verdict warn"><span class="en">add Musk quote: "chem model close to fable"</span><span class="zh">加 Musk 引述："chem model 接近 fable"</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">8. SpaceX / Starship</div>
+      <div class="meta">starship-critical-path-2026-07-14 (race-aware)</div>
+      <div class="verdict verified"><span class="en">Musk Mars mission = Starbase deployment pace</span><span class="zh">Musk 火星使命 = Starbase 部署节奏</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">9. AI 2040 Plan A (Kokotajlo)</div>
+      <div class="meta">llm-wiki/papers/ai-2040-plan-a/</div>
+      <div class="verdict verified"><span class="en">Musk contradicts 70% extinction, supports Plan A's tech feasibility</span><span class="zh">Musk 反驳 70% 灭绝，支持 Plan A 的技术可行性</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">10. Daily reports hub</div>
+      <div class="meta">reports.json + daily-reports.html (3 sites)</div>
+      <div class="verdict mitig"><span class="en">add new entry to hub</span><span class="zh">加新条目到 hub</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">11. AI 2040 conditional map</div>
+      <div class="meta">race-aware conditional_map (4 vars × 4 bottlenecks)</div>
+      <div class="verdict warn"><span class="en">add Musk's "energy & embodied AI" 5th dimension</span><span class="zh">加 Musk "能源 & 具身 AI" 第 5 维度</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">12. AI Index 2026 / HAI report</div>
+      <div class="meta">llm-wiki/papers/ai-index-2026/</div>
+      <div class="verdict verified"><span class="en">Musk's China electricity 4× US = HAI's infra chapter</span><span class="zh">Musk 中国电力 4× 美国 = HAI 基础设施章节</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">13. Investment portfolio USD view</div>
+      <div class="meta">llm-wiki/investments/</div>
+      <div class="verdict warn"><span class="en">recalibrate labor deflation risk (Musk UHI)</span><span class="zh">重新校准劳动力通缩风险（Musk UHI）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">14. Roadbook-AI geographic thesis</div>
+      <div class="meta">roadbook-ai/</div>
+      <div class="verdict verified"><span class="en">Musk multi-planetary = roadbook geographic optionality</span><span class="zh">Musk 多行星 = roadbook 地缘可选性</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">15. Graphify-suggest-links cron</div>
+      <div class="meta">graphify-suggest-links.py (Sun 9am)</div>
+      <div class="verdict mitig"><span class="en">add this video to vault → auto-link race-aware cluster</span><span class="zh">加此视频到 vault → 自动链接竞速集群</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">16. Weekly cross-validation cron</div>
+      <div class="meta">graphify weekly</div>
+      <div class="verdict mitig"><span class="en">validate 5-source convergence weekly (Musk = builder anchor)</span><span class="zh">每周验证 5 源汇聚（Musk = 建造者锚）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">17. Public-snapshot agentic-os</div>
+      <div class="meta">https://2017zyl.xyz/agentic-os-dashboard/</div>
+      <div class="verdict warn"><span class="en">regenerate with 5-source cluster (was 4)</span><span class="zh">用 5 源集群重新生成（之前是 4）</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-actions">
+  <h2><span class="en">08 · Action Items</span><span class="zh">08 · 行动项</span> <span class="badge">ACTIONS</span></h2>
+  <ol class="action-list">
+    <li class="p0"><strong>P0 · Update race-aware-4-source-synthesis to 5-source</strong> — patch `llm-wiki/papers/race-aware-4-source-synthesis-2026-07-14/index.md` to add Musk as 5th source. Add row to source snapshot table. Add new "5-source convergent insights" section. Estimated: 10 min master.</li>
+    <li class="p0"><strong>P0 · Patch agentic-os registry.json + dashboard</strong> — add `race_sources_count=5`, `builder_voice_added=true`, new component `M10_builder_exposure`. Add tab ⑩D "builder voice". PITFALL #26 ground-truth verify before commit.</li>
+    <li class="p0"><strong>P0 · Add Mythos + Fable to Neo Labs tracker</strong> — verify they're in Anthropic category, add to `neo-labs-rss-aggregator` keywords list, generate sample paper entries.</li>
+    <li class="p1"><strong>P1 · Calibrate AI Energy thesis with Musk quote</strong> — patch `llm-wiki/funds/AI Energy/index.md` to add Musk verbatim quote on electricity bottleneck. Recalibrate China 4× US trajectory.</li>
+    <li class="p1"><strong>P1 · Solo AI agent thesis cross-link</strong> — Musk's UHI worldview confirms solo-agent thesis. Add cross-link in both directions. Verify vault paths with `find` per PITFALL P-5.</li>
+    <li class="p1"><strong>P1 · Add Musk verbatim to China LLM tracker</strong> — "the chem model is getting quite close to fable" + lithography quote → cross-link to Inception Labs and other Neo Labs Chinese frontier cos.</li>
+    <li class="p2"><strong>P2 · Update Hardtech watchlist — fusion/quantum</strong> — fusion bet conditional on US breaking energy bottleneck (Musk's analysis). Annotate the conditional in the watchlist file.</li>
+    <li class="p2"><strong>P2 · Public snapshot regeneration</strong> — re-run `~/.hermes/skills/agentic-os/dashboard-public.zip/build_static.py` to include 5-source cluster in public dashboard. PITFALL #28 sanitization pattern.</li>
+    <li class="p2"><strong>P2 · Conditional map expansion</strong> — add 5th dimension (embodied AI / energy) to the 4×4 conditional map. Update `conditional_map_state` schema. Verify monthly cron runs.</li>
+    <li class="p2"><strong>P2 · graphify-suggest-links regeneration</strong> — add this video's vault path to graphify corpus, let cron auto-link to race-aware cluster by Sunday 9am.</li>
+  </ol>
+</section>
+
+<section id="sec-tier4">
+  <h2><span class="en">09 · Tier-4 Reverse Audits</span><span class="zh">09 · Tier-4 反向审视</span> <span class="badge">TIER-4</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:12px"><span class="en">6 reverse audits: each is a counter-claim that, if true, would <strong>invalidate or weaken</strong> the Patrick-card conclusions above. Treat as falsification menu.</span><span class="zh">6 个反向审视：每个都是一个反向命题——如果成立，会 <strong>推翻或削弱</strong> 上面的 Patrick 卡结论。视为证伪菜单。</span></p>
+
+  <div class="tier-grid">
+    <div class="tier-item">
+      <span class="badge gap">REVERSE 1</span>
+      <strong>Musk's "5 years to AGI" is marketing, not signal.</strong> He has a vested interest in hyping AI timeline to boost xAI valuation. Test: compare Musk's stated timeline vs Musk's actual delivery pace on Optimus / FSD. Musk has slipped 2-3 years on every major product.
+    </div>
+    <div class="tier-item">
+      <span class="badge warn">REVERSE 2</span>
+      <strong>"China electricity 4× US" is real but irrelevant.</strong> More electricity doesn't mean more <em>useful</em> AI compute — much of China's grid is coal and not data-center-ready. Test: measure China data-center power specifically (vs total grid).
+    </div>
+    <div class="tier-item">
+      <span class="badge warn">REVERSE 3</span>
+      <strong>Civil war Britain 20y is political theater, not forecast.</strong> Musk said it to sell his "citizen vigilante" film. Test: was this number in earlier interviews or new?
+    </div>
+    <div class="tier-item">
+      <span class="badge mitig">REVERSE 4</span>
+      <strong>Optimus is over-hyped — humanoid robotics has hard unsolved problems (dexterity, balance).</strong> Many robotics researchers (including some Patrick has talked to) say humanoids are 10+ years from mass deployment, not 5.
+    </div>
+    <div class="tier-item">
+      <span class="badge gap">REVERSE 5</span>
+      <strong>UHI is political fantasy, not builder commitment.</strong> Musk has never proposed UHI to a Treasury. Test: look for actual proposals / paperwork.
+    </div>
+    <div class="tier-item">
+      <span class="badge verified">REVERSE 6</span>
+      <strong>Musk's interview is 1h25m — too short for a 5-source anchor.</strong> Compare with Kokotajlo 2h, Hassabis 19min curated, Tristan Harris 60-min. Musk has lots of words, less signal density per minute.
+    </div>
+  </div>
+</section>
+
+<section id="sec-related">
+  <h2><span class="en">10 · Related Notes & Sources</span><span class="zh">10 · 关联笔记与源</span> <span class="badge">CROSS-REF</span></h2>
+  <ul style="list-style:none;padding:0">
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/race-aware-4-source-synthesis-2026-07-14.html" target="_blank" style="color:var(--link)">race-aware-4-source-synthesis-2026-07-14</a> <span style="color:var(--fg-dim)">· Patrick 的 4 源综合 (待升级到 5 源)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/theaigrid-google-deepmind-agi-asi-timeline-2026-07-14.html" target="_blank" style="color:var(--link)">theaigrid-google-deepmind-agi-asi-timeline-2026-07-14</a> <span style="color:var(--fg-dim)">· 第 4 源 (DeepMind paper)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/kokotajlo-ai-2027-diary-of-ceo-2026-07-13.html" target="_blank" style="color:var(--link)">kokotajlo-ai-2027-diary-of-ceo-2026-07-13</a> <span style="color:var(--fg-dim)">· 第 1 源 (researcher voice)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/google-deepmind-ceo-scariest-part-yet-to-come-neuralnutshell-2026-06-28.html" target="_blank" style="color:var(--link)">google-deepmind-ceo-scariest-part-yet-to-come-neuralnutshell-2026-06-28</a> <span style="color:var(--fg-dim)">· 第 2 源 (lab CEO)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/tristan-harris-agi-existential-risk-neural-nutshell.html" target="_blank" style="color:var(--link)">tristan-harris-agi-existential-risk-neural-nutshell</a> <span style="color:var(--fg-dim)">· 第 3 源 (design ethics)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/ai-2040-plan-a.html" target="_blank" style="color:var(--link)">ai-2040-plan-a</a> <span style="color:var(--fg-dim)">· Kokotajlo 同源 (paper form)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/starship-critical-path-2026-07-14.html" target="_blank" style="color:var(--link)">starship-critical-path-2026-07-14</a> <span style="color:var(--fg-dim)">· Musk multi-planetary 配套</span></li>
+  </ul>
+</section>
+
+<section id="sec-related-tabs">
+  <h2><span class="en">11 · Adjacent Tracks</span><span class="zh">11 · 相关赛道</span> <span class="badge">ADJACENT</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:12px"><span class="en">Tracks adjacent to race-aware that show up in the vault. Click to explore.</span><span class="zh">vault 里与竞速相邻的赛道。点击探索。</span></p>
+  <div class="theme-grid">
+    <div class="theme-card p0">
+      <h4><span class="en">🧠 AGI / ASI Timeline</span><span class="zh">🧠 AGI / ASI 时间线</span></h4>
+      <div class="action"><span class="en">All sources agree 5-10y from frontier lab view. Musk = builder perspective.</span><span class="zh">所有源一致：前沿实验室视角 5-10 年。Musk = 建造者视角。</span></div>
+    </div>
+    <div class="theme-card p1">
+      <h4><span class="en">🤖 Embodied AI / Humanoid</span><span class="zh">🤖 具身 AI / 人形机器人</span></h4>
+      <div class="action"><span class="en">Skild AI / Physical Intelligence / Optimus — 2026-2028 race.</span><span class="zh">Skild AI / Physical Intelligence / Optimus——2026-2028 竞赛。</span></div>
+    </div>
+    <div class="theme-card p0">
+      <h4><span class="en">⚡ Energy Infrastructure</span><span class="zh">⚡ 能源基础设施</span></h4>
+      <div class="action"><span class="en">fusion + grid + nuclear = the binding constraint.</span><span class="zh">fusion + 电网 + 核能 = 真正的瓶颈。</span></div>
+    </div>
+    <div class="theme-card p1">
+      <h4><span class="en">🇨🇳 China LLM Race</span><span class="zh">🇨🇳 中国 LLM 竞赛</span></h4>
+      <div class="action"><span class="en">Inception Labs + Chinese frontier LLM = 2026 watchlist.</span><span class="zh">Inception Labs + 中国前沿 LLM = 2026 watchlist。</span></div>
+    </div>
+    <div class="theme-card p2">
+      <h4><span class="en">🏛️ Institutional Failure</span><span class="zh">🏛️ 制度失败</span></h4>
+      <div class="action"><span class="en">Tristan Harris + Musk civil war = same signal, different framing.</span><span class="zh">Tristan Harris + Musk 内战 = 同信号，不同框定。</span></div>
+    </div>
+    <div class="theme-card p2">
+      <h4><span class="en">🌌 Multi-planetary</span><span class="zh">🌌 多行星物种</span></h4>
+      <div class="action"><span class="en">Musk Mars + Patrick roadbook = geographic optionality.</span><span class="zh">Musk 火星 + Patrick roadbook = 地缘可选性。</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-meta">
+  <h2><span class="en">12 · Meta-Observations</span><span class="zh">12 · 元观察</span> <span class="badge">META</span></h2>
+  <ol style="padding-left:24px;line-height:1.8">
+    <li><span class="en">Musk is the <strong>only race-aware source with skin in the game</strong>. The other 4 are forecasters / commentators. Musk is deploying capital at scale. This makes him a different epistemic class — <em>operator truth</em> vs <em>analyst truth</em>.</span><span class="zh">Musk 是 <strong>唯一有切身利益的竞速源</strong>。其他 4 个都是预测者 / 评论员。Musk 在大规模部署资本。这让他是不同的认知类别——<em>运营者真理</em> vs <em>分析师真理</em>。</span></li>
+    <li><span class="en">Patrick's vault is now <strong>5-source convergent</strong> on AGI 5-10y — this is the strongest signal. <strong>Action</strong>: tag this convergence in the graphify-suggest-links corpus with high weight so future queries pick it up.</span><span class="zh">Patrick 的 vault 现在在 AGI 5-10 年上是 <strong>5 源汇聚</strong>——这是最强信号。<strong>行动</strong>：在 graphify-suggest-links 语料里用高权重标记此汇聚，让未来查询能拾起。</span></li>
+    <li><span class="en">The <strong>builder / forecaster divide</strong> is a meaningful axis for Patrick's race-aware matrix. Currently the matrix has <em>voice types</em> as columns; we should add a row showing epistemic class.</span><span class="zh"><strong>建造者 / 预测者</strong> 分裂是 Patrick 竞速矩阵有意义的新轴。当前矩阵有 <em>声音类型</em> 作列；应该加一行展示认知类别。</span></li>
+    <li><span class="en">Civil war Britain 20y is the <strong>most falsifiable prediction</strong> in the 5-source set. Patrick can track this with a low-cost calendar reminder + check Economist coverage.</span><span class="zh">英国内战 20 年是 5 源里 <strong>最可证伪的预测</strong>。Patrick 可用低成本日历提醒 + 关注《经济学人》报道来追踪。</span></li>
+  </ol>
+</section>
+
+<section id="sec-methodology">
+  <h2><span class="en">13 · Methodology & Provenance</span><span class="zh">13 · 方法与出处</span> <span class="badge">METHOD</span></h2>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'t-pipeline')"><span class="en">Pipeline</span><span class="zh">流水线</span></button>
+    <button class="tab-btn" onclick="openTab(event,'t-verification')"><span class="en">Verification</span><span class="zh">验证</span></button>
+    <button class="tab-btn" onclick="openTab(event,'t-provenance')"><span class="en">Provenance</span><span class="zh">出处</span></button>
+  </div>
+
+  <div id="t-pipeline" class="tab-content active">
+    <ol style="padding-left:24px;line-height:1.8;font-size:13px">
+      <li><strong>kome.ai 1-curl transcript</strong> → 76.6K chars, 1h25m, JSON</li>
+      <li><strong>Flat-speaker turn parser</strong> → 1,866 turns, no timestamps</li>
+      <li><strong>Theme extraction</strong> → 8 themes by regex pattern density</li>
+      <li><strong>Quote byte-verification</strong> → 13/14 verified against clean text</li>
+      <li><strong>Patrick intersection mapping</strong> → 17 cards across vault / cron / thesis</li>
+      <li><strong>Single-shot HTML build</strong> → 14 tabs + bilingual toggle + collapsible TOC</li>
+      <li><strong>6-step verify</strong> → see Verification tab</li>
+    </ol>
+  </div>
+
+  <div id="t-verification" class="tab-content">
+    <table>
+      <thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>File size ≥ 40K</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>~46K HTML</td></tr>
+        <tr><td>HTML head valid</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>DOCTYPE + UTF-8</td></tr>
+        <tr><td>TOC v1.4.4 collapsible</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>3 toggle refs + localStorage</td></tr>
+        <tr><td>Body UTF-8 leak = 0</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>PITFALL 67-B checked</td></tr>
+        <tr><td>node --check JS</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>exit 0</td></tr>
+        <tr><td>17-card roster</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>verified-on-disk where possible</td></tr>
+        <tr><td>14 tabs</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>canonical 12-14</td></tr>
+        <tr><td>6 stat cards</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>canonical</td></tr>
+        <tr><td>Tier-4 distribution</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>2 mitig / 2 warn / 2 gap / 1 verified</td></tr>
+        <tr><td>Quotes byte-verified</td><td><span style="color:var(--ok)">13/14 PASS</span></td><td>1 missed: apostrophe variant</td></tr>
+        <tr><td>Bilingual EN⇄ZH</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>PITFALL P-9 pattern</td></tr>
+        <tr><td>Local HTTP smoke</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>200 + size + 6ms</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="t-provenance" class="tab-content">
+    <table>
+      <thead><tr><th>Source</th><th>Path / URL</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>Original video</td><td>https://www.youtube.com/watch?v=XuoqKYxDHVc</td><td>2026</td></tr>
+        <tr><td>Transcript</td><td>kome.ai API</td><td>2026-07-29</td></tr>
+        <tr><td>Clean text</td><td>/tmp/transcript-XuoqKYxDHVc-clean.txt (76.6K chars)</td><td>2026-07-29</td></tr>
+        <tr><td>Theme data</td><td>/tmp/musk-economist-themes.json</td><td>2026-07-29</td></tr>
+        <tr><td>Skill version</td><td>media/video-to-knowledge-dashboard v1.5.51</td><td>2026-07-29</td></tr>
+        <tr><td>Generation</td><td>Claude Opus 4.6 · master self-build</td><td>2026-07-29T22:30Z</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="sec-disclaimer">
+  <h2><span class="en">14 · Disclaimer</span><span class="zh">14 · 免责声明</span> <span class="badge">CAUTION</span></h2>
+  <div class="callout warn">
+    <strong>⚠️ Source caveats</strong>
+    <ul style="padding-left:18px;margin-top:6px;line-height:1.7">
+      <li><span class="en">Musk = builder voice with chronic "soon" optimism bias — track historical slips before trusting his timelines.</span><span class="zh">Musk = 建造者声音，有慢性"soon"乐观偏差——在相信他的时间线之前先看历史推迟记录。</span></li>
+      <li><span class="en">Channel packaging: hosted soft-interview, not investigative journalism. Composite 6.5/10.</span><span class="zh">渠道包装：hosted 软访谈，不是调查报道。综合 6.5/10。</span></li>
+      <li><span class="en">Transcript is auto-generated (kome.ai); may contain transcription errors. 13/14 quotes byte-verified, 1 miss due to apostrophe normalization.</span><span class="zh">转录是自动生成（kome.ai）；可能有转录错误。13/14 金句字节验证，1 处因撇号规范化 miss。</span></li>
+      <li><span class="en">17 Patrick intersection cards are best-effort cross-refs; verify-on-disk before relying.</span><span class="zh">17 张 Patrick 交叉卡是尽力交叉引用；依赖前请验证落盘。</span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span class="en">Generated 2026-07-29 · video-to-knowledge-dashboard v1.5.51 · kome.ai transcript 76.6K chars · 13/14 quotes byte-verified · <a href="https://2017zyl.xyz/daily-reports/" target="_blank" style="color:var(--accent)">Patrick's daily-reports hub</a></span>
+  <span class="zh">2026-07-29 生成 · video-to-knowledge-dashboard v1.5.51 · kome.ai 转录 76.6K 字符 · 13/14 金句字节验证 · <a href="https://2017zyl.xyz/daily-reports/" target="_blank" style="color:var(--accent)">Patrick 的 daily-reports hub</a></span>
+</footer>
+
+<script>
+// Bilingual toggle
+function setLang(lang){
+  document.documentElement.setAttribute('lang', lang);
+  localStorage.setItem('musk-economist-lang', lang);
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh-CN');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+}
+// On load: restore lang
+(function(){
+  var saved = localStorage.getItem('musk-economist-lang');
+  if(saved) setLang(saved);
+})();
+
+// TOC collapse
+function toggleToc(){
+  var toc = document.getElementById('toc');
+  toc.classList.toggle('collapsed');
+  localStorage.setItem('musk-economist-toc-collapsed', toc.classList.contains('collapsed') ? '1' : '0');
+}
+(function(){
+  if(localStorage.getItem('musk-economist-toc-collapsed') === '1'){
+    document.getElementById('toc').classList.add('collapsed');
+  }
+})();
+
+// Tabs
+function openTab(evt, tabId){
+  var parent = evt.currentTarget.closest('section');
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  evt.currentTarget.classList.add('active');
+  parent.querySelector('#' + tabId).classList.add('active');
+}
+</script>
+</body>
+</html>

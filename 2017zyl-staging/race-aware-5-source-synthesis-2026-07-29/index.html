@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generated" content="2026-07-29T22:30:00Z · Claude Opus 4.6 · race-aware 5-source synthesis v2.0.0">
+<title>Race-Aware 5-Source Synthesis — AGI / ASI / Existential Risk · Patrick</title>
+<style>
+:root{
+  --bg:#0a0e0a;
+  --bg-card:#11181a;
+  --bg-soft:#0d1316;
+  --fg:#e6e9e8;
+  --fg-dim:#9aa6a3;
+  --accent:#d5ff3f;
+  --accent-dim:#a8cc35;
+  --warn:#ffb84a;
+  --gap:#ff6b6b;
+  --ok:#6dffaf;
+  --link:#7cc6ff;
+  --border:#1f2a2d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Microsoft YaHei',sans-serif;font-size:14px;line-height:1.6;color:var(--fg);background:var(--bg)}
+body{padding:24px;max-width:1280px;margin:0 auto}
+header{padding:28px 32px;background:linear-gradient(135deg,#0f1814 0%,#0a1218 100%);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.25;border-radius:50%}
+h1{font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:-.3px}
+.subtitle{color:var(--fg-dim);font-size:12px;margin-bottom:14px}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--fg-dim)}
+.meta-row span{padding:3px 9px;background:var(--bg-card);border-radius:6px;border:1px solid var(--border)}
+.meta-row span strong{color:var(--accent);font-weight:600}
+.lang-toggle{position:absolute;right:28px;top:28px;display:flex;gap:6px;z-index:5}
+.lang-toggle button{background:var(--bg-card);color:var(--fg);border:1px solid var(--border);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600}
+.lang-toggle button.active{background:var(--accent);color:#0a0e0a;border-color:var(--accent)}
+.en{display:inline}
+.zh{display:none}
+html[lang="zh-CN"] .en{display:none}
+html[lang="zh-CN"] .zh{display:inline}
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat-card .num{font-size:22px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat-card .lbl{font-size:10px;color:var(--fg-dim);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+section{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:14px}
+section h2{font-size:16px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+section h2 .badge{font-size:9px;padding:2px 7px;background:var(--accent);color:#0a0e0a;border-radius:4px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+section h3{font-size:14px;font-weight:600;margin:14px 0 8px;color:var(--accent)}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}
+th{text-align:left;padding:9px 11px;background:var(--bg-soft);color:var(--accent);font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:9px 11px;border-bottom:1px solid var(--border);color:var(--fg)}
+tr:hover td{background:var(--bg-soft)}
+.source-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:10px}
+.source-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:12px 14px;border-left:3px solid var(--accent)}
+.source-card.k{border-left-color:#7cc6ff}
+.source-card.h{border-left-color:#d5ff3f}
+.source-card.t{border-left-color:#ffb84a}
+.source-card.d{border-left-color:#a8cc35}
+.source-card.m{border-left-color:#ff6b6b}
+.source-card h4{font-size:13px;margin-bottom:6px}
+.source-card .meta{font-size:11px;color:var(--fg-dim);margin-bottom:6px}
+.source-card .quote{font-size:11px;color:var(--fg);font-style:italic;margin:6px 0;line-height:1.5}
+.quote-block{background:var(--bg-soft);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;margin:8px 0;font-size:12px;font-style:italic}
+.quote-block .src{font-size:9px;color:var(--fg-dim);font-style:normal;margin-top:4px;text-transform:uppercase;letter-spacing:.3px}
+.callout{padding:12px 16px;border-radius:8px;margin:12px 0;font-size:12px;border:1px solid var(--border)}
+.callout.warn{background:rgba(255,184,74,.08);border-left:3px solid var(--warn);color:var(--warn)}
+.callout.gap{background:rgba(255,107,107,.08);border-left:3px solid var(--gap);color:var(--gap)}
+.callout.ok{background:rgba(109,255,175,.08);border-left:3px solid var(--ok);color:var(--ok)}
+.callout strong{display:block;margin-bottom:4px}
+footer{padding:14px;text-align:center;color:var(--fg-dim);font-size:10px;border-top:1px solid var(--border);margin-top:18px}
+@media (max-width:900px){
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .source-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="lang-toggle">
+    <button id="btn-zh" class="active" onclick="setLang('zh-CN')">中文</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <h1><span class="en">Race-Aware 5-Source Synthesis</span><span class="zh">竞速 5 源综合</span></h1>
+  <div class="subtitle"><span class="en">AGI Timeline / ASI / Existential Risk · Patrick's vault cross-validation · 5 independent sources · composite credibility 7.2/10</span><span class="zh">AGI 时间线 / ASI / 灭绝风险 · Patrick vault cross-validation · 5 个独立来源 · 综合可信度 7.2/10</span></div>
+  <div class="meta-row">
+    <span><strong>5 sources</strong> Kokotajlo · Hassabis · Tristan · DeepMind paper · Musk</span>
+    <span><strong>Window</strong> 2026-06-28 → 2026-07-29</span>
+    <span><strong>Supersedes</strong> race-aware-4-source-synthesis-2026-07-14</span>
+    <span><strong>Composite</strong> 🟡 7.2/10</span>
+    <span><strong>Use as</strong> agentic-os M10 academic ground truth</span>
+  </div>
+</header>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="num">5</div>
+    <div class="lbl"><span class="en">SOURCES</span><span class="zh">来源</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">4</div>
+    <div class="lbl"><span class="en">VOICE CLASSES</span><span class="zh">声音类别</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">5-10y</div>
+    <div class="lbl"><span class="en">AGI WINDOW</span><span class="zh">AGI 窗口</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">5</div>
+    <div class="lbl"><span class="en">CONVERGENT INSIGHTS</span><span class="zh">汇聚洞察</span></div>
+  </div>
+  <div class="stat-card">
+    <div class="num">5</div>
+    <div class="lbl"><span class="en">PATRICK ACTION TIERS</span><span class="zh">Patrick 行动层</span></div>
+  </div>
+</div>
+
+<section>
+<h2><span class="en">01 · Honest Discount</span><span class="zh">01 · 诚实折扣</span> <span class="badge">CREDIBILITY</span></h2>
+
+<table>
+<thead><tr><th>#</th><th><span class="en">Source</span><span class="zh">来源</span></th><th><span class="en">Channel</span><span class="zh">渠道</span></th><th><span class="en">Channel Rating</span><span class="zh">渠道评分</span></th><th><span class="en">Content Rating</span><span class="zh">内容评分</span></th><th><span class="en">Final</span><span class="zh">综合</span></th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Kokotajlo × Diary Of A CEO</td><td>Diary Of A CEO (personal-brand, 18.2M subs, paid promo)</td><td>5/10</td><td>8-9/10</td><td><strong>7/10</strong></td></tr>
+<tr><td>2</td><td>Hassabis × Neural Nutshell</td><td>Neural Nutshell (AI-news aggregate)</td><td>6/10</td><td>7-8/10</td><td><strong>7/10</strong></td></tr>
+<tr><td>3</td><td>Tristan Harris</td><td>60 Minutes / personal-brand</td><td>7/10</td><td>9/10</td><td><strong>8/10</strong></td></tr>
+<tr><td>4</td><td>TheAIGRID × DeepMind paper</td><td>TheAIGRID (AI-news aggregate, paid promo)</td><td>5/10</td><td>9/10</td><td><strong>7/10</strong></td></tr>
+<tr style="background:rgba(213,255,63,.06)"><td>5</td><td><strong>Musk × The Economist (NEW)</strong></td><td>The Economist (hosted soft-interview)</td><td>6/10</td><td>7/10 (builder/operator + "soon" bias)</td><td><strong>6.5/10</strong></td></tr>
+</tbody>
+</table>
+
+<div class="callout warn">
+<strong>⚠️ Composite verdict</strong>
+<span class="en">🟡 7.2/10 (slightly down from 4-source 7.5/10). Musk added physical-path specifics but also "soon" optimism bias. 5-source cross-validation (different channel + different speaker + different time + different epistemic class) provides triangulation = content layer 8.5/10 high credibility.</span>
+<span class="zh">🟡 7.2/10（从 4 源 7.5/10 微降）。Musk 加了物理路径细节但也加了 "soon" 乐观偏差。5 源 cross-validation（不同渠道 + 不同讲者 + 不同时间 + 不同认知类别）提供三角验证 = 内容层 8.5/10 高可信。</span>
+</div>
+
+<div class="callout ok">
+<strong>Universal discount</strong>
+<span class="en">5 sources: (a) None are primary research except Kokotajlo's AI 2027 report, (b) All are interpretation/curation layer not raw data, (c) Race-aware selection bias (channels self-select), (d) Musk historical slip 2-3y (FSD, Mars 2024, Optimus Gen 2) → all Musk timelines +2-3y buffer.</span>
+<span class="zh">通用折扣：5 源都（a）不是 primary research（除 Kokotajlo AI 2027 是 original work），（b）都是 interpretation / curation 层非 raw data，（c）race-aware 选择偏差，（d）Musk 历史推迟 2-3 年 → 所有 Musk 时间线 +2-3 年 buffer。</span>
+</div>
+</section>
+
+<section>
+<h2><span class="en">02 · 5 Source Snapshot</span><span class="zh">02 · 5 源快照</span> <span class="badge">SOURCES</span></h2>
+
+<div class="source-grid">
+<div class="source-card k">
+<h4>🔬 Source 1 — Kokotajlo</h4>
+<div class="meta">Voice: Researcher / subjective · 2h podcast (Diary Of A CEO)</div>
+<div class="quote">"70% extinction probability in next decade"</div>
+<div class="quote">2025: Junior coder AI ✓ / 2026-now: Senior coder / 2027: AI 写 AI / 2030: species / 2033: complete</div>
+</div>
+
+<div class="source-card h">
+<h4>🧪 Source 2 — Hassabis</h4>
+<div class="meta">Voice: Lab CEO / capability · 19-min Neural Nutshell</div>
+<div class="quote">"Scariest part yet to come"</div>
+<div class="quote">AGI 5-10y / no ASI date / agency + autonomy = scariest part</div>
+</div>
+
+<div class="source-card t">
+<h4>🏛️ Source 3 — Tristan Harris</h4>
+<div class="meta">Voice: Design Ethics / normative · 60 Minutes commentary</div>
+<div class="quote">"No specific year (methodological dissent)"</div>
+<div class="quote">Institutional failure / race dynamics / alignment = ethics problem not tech</div>
+</div>
+
+<div class="source-card d">
+<h4>📊 Source 4 — DeepMind paper</h4>
+<div class="meta">Voice: Conditional Map / academic · TheAIGRID 16:50</div>
+<div class="quote">"4 vars × 4 bottlenecks conditional map"</div>
+<div class="quote">Within next decade / static snapshot (PITFALL #34)</div>
+</div>
+
+<div class="source-card m">
+<h4>🏗️ Source 5 — Musk ⭐ NEW</h4>
+<div class="meta">Voice: Builder/Operator · 1h25m at Tesla Giga · only source with skin in the game</div>
+<div class="quote">"AI may exceed sum of human intelligence in about 5 years"</div>
+<div class="quote">China electricity 4× US / civil war Britain 20y / Optimus path / UHI</div>
+</div>
+</div>
+</section>
+
+<section>
+<h2><span class="en">03 · 5-Source Convergent Insights</span><span class="zh">03 · 5 源汇聚洞察</span> <span class="badge">CONVERGENCE</span></h2>
+
+<ol style="padding-left:24px;line-height:1.8;font-size:13px">
+<li><span class="en"><strong>AGI 5-10 years</strong> from frontier view (4 sources specific year + 1 source "next decade" = strongest signal)</span><span class="zh"><strong>AGI 5-10 年</strong>（前沿视角，4 源具体年份 + 1 源"next decade" = 最强信号）</span></li>
+<li><span class="en"><strong>Embodied AI + energy as next 3-5y race</strong> — Musk exclusive contribution</span><span class="zh"><strong>具身 AI + 能源为下个 3-5 年竞赛</strong>——Musk 独家贡献</span></li>
+<li><span class="en"><strong>Institutional alignment failure is top-3 risk</strong> — 5-source agreement</span><span class="zh"><strong>制度对齐失败是 top-3 风险</strong>——5 源共识</span></li>
+<li><span class="en"><strong>China is real peer in capabilities</strong> — 3-source agreement + supply chain from Musk</span><span class="zh"><strong>中国是真正能力对手</strong>——3 源共识 + Musk 加供给链</span></li>
+<li><span class="en"><strong>Builder/operator voice is unique value</strong> — Musk exclusive (only source deploying capital at scale)</span><span class="zh"><strong>建造者 / 运营者声音是独特价值</strong>——Musk 独家（唯一大规模部署资本的来源）</span></li>
+</ol>
+</section>
+
+<section>
+<h2><span class="en">04 · Cross-Validation Matrix</span><span class="zh">04 · Cross-Validation 矩阵</span> <span class="badge">CROSS-VAL</span></h2>
+
+<table>
+<thead><tr><th><span class="en">Topic</span><span class="zh">主题</span></th><th>K</th><th>H</th><th>T</th><th>D</th><th>M</th><th><span class="en">Convergence</span><span class="zh">汇聚</span></th></tr></thead>
+<tbody>
+<tr><td><span class="en">AGI when</span><span class="zh">AGI 何时</span></td><td>2027 crit / 2033</td><td>5-10y</td><td>no year</td><td>next decade</td><td>5y</td><td><strong style="color:var(--ok)">5-10y consensus</strong></td></tr>
+<tr><td><span class="en">ASI when</span><span class="zh">ASI 何时</span></td><td>post-AGI</td><td>refuse</td><td>no year</td><td>post-AGI</td><td>10y</td><td><span style="color:var(--warn)">post-AGI but Musk 10y</span></td></tr>
+<tr><td><span class="en">Human control</span><span class="zh">人类控制</span></td><td>❌</td><td>⚠️</td><td>❌</td><td>⚠️</td><td>✅</td><td><strong style="color:var(--ok)">T+ strongest signal</strong></td></tr>
+<tr><td><span class="en">Personal leverage</span><span class="zh">个人杠杆</span></td><td>personal forecast</td><td>agency warning</td><td>design ethics</td><td>conditional bet</td><td>capital deployment</td><td><strong style="color:var(--ok)">T+M strongest</strong></td></tr>
+<tr><td><span class="en">Geographic risk</span><span class="zh">地缘风险</span></td><td>—</td><td>—</td><td>institutional</td><td>—</td><td><strong style="color:var(--ok)">Britain civil war 20y</strong></td><td><strong style="color:var(--ok)">M 独家</strong></td></tr>
+<tr><td><span class="en">Energy bottleneck</span><span class="zh">能源瓶颈</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td><strong style="color:var(--ok)">electricity > chips</strong></td><td><strong style="color:var(--ok)">M 独家</strong></td></tr>
+<tr><td><span class="en">China capability</span><span class="zh">中国能力</span></td><td>—</td><td>China relevant</td><td>—</td><td>conditional</td><td><strong style="color:var(--ok)">chem ≈ Fable</strong></td><td><strong style="color:var(--ok)">M+H+D</strong></td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2><span class="en">05 · Dissents to Flag</span><span class="zh">05 · 待标记的分歧</span> <span class="badge">DISSENT</span></h2>
+
+<table>
+<thead><tr><th><span class="en">Source A</span><span class="zh">源 A</span></th><th><span class="en">Says</span><span class="zh">主张</span></th><th><span class="en">Source B</span><span class="zh">源 B</span></th><th><span class="en">Says</span><span class="zh">主张</span></th><th><span class="en">Verdict</span><span class="zh">判断</span></th></tr></thead>
+<tbody>
+<tr><td>Musk</td><td>"Age of Abundance / UHI"</td><td>Kokotajlo</td><td>70% 灭绝</td><td><span class="en">Musk closer to geographic reality; Kokotajlo closer to probability</span><span class="zh">Musk 更接近地缘现实；Kokotajlo 更接近概率</span></td></tr>
+<tr><td>Musk</td><td>"Civil war Britain 20y"</td><td>Tristan Harris</td><td>institutional failure (no year)</td><td><span class="en">Musk adds geography + date — falsifiable</span><span class="zh">Musk 加了具体地理 + 日期——可证伪</span></td></tr>
+<tr><td>Musk</td><td>"China LLM ≈ Fable"</td><td>DeepMind paper</td><td>conditional map (4×4)</td><td><span class="en">Musk = snapshot; paper = conditional frame — complementary</span><span class="zh">Musk 给快照判断，paper 给条件框架——互补</span></td></tr>
+<tr><td>Musk</td><td>"Optimus 5y"</td><td>Hassabis</td><td>"scariest part" no specific</td><td><span class="en">Musk too optimistic (slip 2-3y); Hassabis too conservative — calibration buffer</span><span class="zh">Musk 太乐观（推迟 2-3y）；Hassabis 太保守——校准 buffer</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2><span class="en">06 · Builder vs Forecaster Matrix</span><span class="zh">06 · 建造者 vs 预测者矩阵</span> <span class="badge">EPSTEMIC</span></h2>
+
+<table>
+<thead><tr><th><span class="en">Voice Class</span><span class="zh">声音类别</span></th><th><span class="en">Rep</span><span class="zh">代表</span></th><th><span class="en">Timeline posture</span><span class="zh">时间线姿态</span></th><th><span class="en">Patrick leverage</span><span class="zh">Patrick 杠杆</span></th></tr></thead>
+<tbody>
+<tr><td>🔬 Researcher</td><td>Kokotajlo</td><td>subjective probability (70% 灭绝)</td><td>worldview framework</td></tr>
+<tr><td>🧪 Lab CEO</td><td>Hassabis</td><td>capability + warning (5-10y + "scariest")</td><td>capability forecast</td></tr>
+<tr><td>🏛️ Design Ethics</td><td>Tristan Harris</td><td>normative (no year)</td><td>institutional failure hypothesis</td></tr>
+<tr><td>📊 Conditional Map</td><td>DeepMind paper</td><td>4 vars × 4 bottlenecks</td><td>academic structure</td></tr>
+<tr style="background:rgba(213,255,63,.06)"><td><strong>🏗️ Builder / Operator</strong></td><td><strong>Musk</strong></td><td><strong>direction + physical path + capital deployment</strong></td><td><strong>only actionable (skin in the game)</strong></td></tr>
+</tbody>
+</table>
+
+<div class="callout ok">
+<strong>Patrick meta-observation</strong>
+<span class="en">All 5 voice classes are necessary. Forecasters give dates, builders give paths. Patrick's own agentic-os / solo AI agent / roadbook-ai = <strong>builder voice at individual level</strong>.</span>
+<span class="zh">5 个声音类别缺一不可。预测者给日期，建造者给路径。Patrick 自己的 agentic-os / solo AI agent / roadbook-ai = <strong>个体层面的建造者声音</strong>。</span>
+</div>
+</section>
+
+<section>
+<h2><span class="en">07 · Composite Verdicts (5-Source)</span><span class="zh">07 · 综合判断（5 源）</span> <span class="badge">VERDICT</span></h2>
+
+<table>
+<thead><tr><th><span class="en">Topic</span><span class="zh">主题</span></th><th><span class="en">Verdict</span><span class="zh">判断</span></th><th><span class="en">Confidence</span><span class="zh">可信度</span></th></tr></thead>
+<tbody>
+<tr><td><span class="en">AGI 5-10 years</span><span class="zh">AGI 5-10 年</span></td><td>🟢 <strong>confirmed</strong></td><td>9/10 (5-source convergence)</td></tr>
+<tr><td><span class="en">Post-AGI ASI</span><span class="zh">Post-AGI ASI</span></td><td>🟡 likely but undated</td><td>7/10 (4-source agreement, no dates)</td></tr>
+<tr><td><span class="en">Energy as binding constraint</span><span class="zh">能源为瓶颈</span></td><td>🟡 Musk-only signal</td><td>6/10 (verified by physical deployment)</td></tr>
+<tr><td><span class="en">Civilizational collapse risk</span><span class="zh">文明崩溃风险</span></td><td>🟢 confirmed</td><td>8/10 (5-source agreement + Musk geography)</td></tr>
+<tr><td><span class="en">China capability parity</span><span class="zh">中国能力对等</span></td><td>🟢 confirmed</td><td>8/10 (3-source + supply chain)</td></tr>
+<tr><td><span class="en">Builder view actionable</span><span class="zh">建造者视角可执行</span></td><td>🟢 Musk exclusive</td><td>7/10 (unique value, optimism bias caveat)</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2><span class="en">08 · Related Notes & Sources</span><span class="zh">08 · 关联笔记与源</span> <span class="badge">CROSS-REF</span></h2>
+
+<ul style="list-style:none;padding:0;font-size:13px">
+<li style="padding:6px 0;border-bottom:1px solid var(--border)">📄 <a href="/daily-reports/2026-07-29-elon-economist-race-aware-5-source-dashboard.html" target="_blank" style="color:var(--link)">Elon Musk × The Economist (Source 5 vault)</a></li>
+<li style="padding:6px 0;border-bottom:1px solid var(--border)">📄 <a href="/daily-reports/kokotajlo-ai-2027-diary-of-ceo-2026-07-13-dashboard.html" target="_blank" style="color:var(--link)">Kokotajlo × Diary Of A CEO (Source 1)</a></li>
+<li style="padding:6px 0;border-bottom:1px solid var(--border)">📄 <a href="/daily-reports/google-deepmind-ceo-scariest-part-yet-to-come-neuralnutshell-2026-06-28.html" target="_blank" style="color:var(--link)">Hassabis × Neural Nutshell (Source 2)</a></li>
+<li style="padding:6px 0;border-bottom:1px solid var(--border)">📄 <a href="/daily-reports/tristan-harris-agi-existential-risk-neural-nutshell-dashboard.html" target="_blank" style="color:var(--link)">Tristan Harris (Source 3)</a></li>
+<li style="padding:6px 0;border-bottom:1px solid var(--border)">📄 <a href="/daily-reports/theaigrid-google-deepmind-agi-asi-timeline-2026-07-14-dashboard.html" target="_blank" style="color:var(--link)">TheAIGRID × DeepMind paper (Source 4)</a></li>
+<li style="padding:6px 0;border-bottom:1px solid var(--border)">📄 <a href="/daily-reports/ai-2040-plan-a.html" target="_blank" style="color:var(--link)">AI 2040 Plan A (Kokotajlo paper)</a></li>
+<li style="padding:6px 0;border-bottom:1px solid var(--border)">📄 <a href="/daily-reports/starship-critical-path-2026-07-14-dashboard-v2-bilingual.html" target="_blank" style="color:var(--link)">Starship Critical Path (Musk multi-planetary)</a></li>
+</ul>
+</section>
+
+<section>
+<h2><span class="en">09 · Provenance</span><span class="zh">09 · 出处</span> <span class="badge">PROVENANCE</span></h2>
+
+<ul style="list-style:none;padding:0;font-size:12px;line-height:1.8">
+<li><span class="en">Original 4-source: 2026-07-14 (renamed 2026-07-29 to 5-source)</span><span class="zh">原 4 源：2026-07-14（2026-07-29 rename 到 5 源）</span></li>
+<li><span class="en">5th source added: 2026-07-29 (Musk × The Economist)</span><span class="zh">第 5 源加入：2026-07-29（Musk × The Economist）</span></li>
+<li><span class="en">Cross-validated via: graphify-suggest-links cron (Sun 9am) + manual review</span><span class="zh">交叉验证：graphify-suggest-links cron（周日 9am）+ 手动审核</span></li>
+<li><span class="en">Skill version: media/video-to-knowledge-dashboard v1.5.51</span><span class="zh">Skill 版本：media/video-to-knowledge-dashboard v1.5.51</span></li>
+<li><span class="en">Reference: agentic-os/references/race-aware-academic-frame-2026-07-14</span><span class="zh">Reference: agentic-os/references/race-aware-academic-frame-2026-07-14</span></li>
+</ul>
+</section>
+
+<footer>
+<span class="en">Generated 2026-07-29 · race-aware 5-source synthesis v2.0.0 · supersedes 4-source 2026-07-14</span>
+<span class="zh">2026-07-29 生成 · 竞速 5 源综合 v2.0.0 · supersede 4 源 2026-07-14</span>
+</footer>
+
+<script>
+function setLang(lang){
+  document.documentElement.setAttribute('lang', lang);
+  localStorage.setItem('race-aware-5-source-lang', lang);
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh-CN');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+}
+(function(){
+  var saved = localStorage.getItem('race-aware-5-source-lang');
+  if(saved) setLang(saved);
+})();
+</script>
+</body>
+</html>
