@@ -1,5 +1,36 @@
 [
   {
+    "title": "🆕 Kimi K3 · 2.8T MoE · 47 页报告工程方案蒸馏 · Why QQ 14:30 · 14 tabs · 6 stat · 17 Patrick 卡 · 中EN 双语 + TOC v1.4.4",
+    "file": "daily-reports/kimi-k3-moonshot-2-8tb-moe-2026-07-29/dashboard.html",
+    "date": "2026-07-29",
+    "category": "video-dashboard",
+    "track": "video",
+    "summary": "Why QQ 拆解 Moonshot 2026-07-27 开源的 Kimi K3. 个人跑不动 1.56TB / 19 张 H100, 但 47 页报告 + FlashKDA / MoonEP / AgentENV 三个 Infra 仓库的工程巧思人人能学. 4 大底层设计 (KDA / 混合 KDA+MLA / AttnRes / LatentMoE) + 5 工程亮点 + 6 凡人实战 + 3 现实 + License 2 钩子 (MaaS 2000 万 + 署名 1 亿 MAU). 17 张 Patrick 关联 verified-on-disk + 8 条 P0/P1/P2/P3 行动清单.",
+    "featured": true,
+    "tags": [
+      "kimi-k3",
+      "moonshot",
+      "kda",
+      "linear-attention",
+      "moe",
+      "attnres",
+      "latent-moe",
+      "flashkda",
+      "moonep",
+      "agentenv",
+      "qat",
+      "prefix-caching",
+      "pause-resume",
+      "harness",
+      "tiered-routing",
+      "hallucination-51pct",
+      "bilingual",
+      "toc-v1.4.4",
+      "round-44"
+    ],
+    "added_at": "2026-07-29"
+  },
+  {
     "title": "⭐ Ilya Sutskever · SSI × Nvidia Partnership · Race-Aware 6th Source · Reuters $5B + 10× compute in 12mo · \"worth scaling\" breakthrough · 9 key details · 15/16 verbatim 字节核验金句 · 17 Patrick 关联卡 · 6 Tier-4 反向审计 · 中EN 双语可切换 · TOC v1.4.4 collapsible",
     "file": "daily-reports/2026-07-29-ilya-ssi-nvidia-race-aware-6-source-dashboard.html",
     "date": "2026-07-29",

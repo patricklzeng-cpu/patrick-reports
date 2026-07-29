@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generated" content="2026-07-30T13:55Z · hermes-agent · Why QQ · Kimi K3 · Why-QQ">
+<title>🧠 Kimi K3 · 2.8T MoE · 47 页报告工程方案蒸馏 — Why QQ · 跑不动的权重，跑得动的代码</title>
+<style>
+:root{--bg:#0a0a0d;--bg-card:#16161b;--bg-elevated:#1c1c22;--border:#2a2a32;--text:#e8e8ea;--text-dim:#a8a8b2;--text-mute:#6a6a76;--accent:#d5ff3f;--accent-2:#f7e9a0;--green:#4ade80;--red:#f87171;--yellow:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;--orange:#ff8a3d;--gray:#9ca3af}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:2rem;max-width:1380px;margin:0 auto}
+h1{font-size:2.1rem;font-weight:800;margin-bottom:0.4rem;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.02em}
+.subtitle{color:var(--text-dim);font-size:1rem;margin-bottom:1.4rem}
+.meta-bar{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.6rem;padding:0.8rem 1rem;background:var(--bg-card);border-radius:8px;border:1px solid var(--border)}
+.meta-bar .pill{padding:0.25rem 0.65rem;background:var(--bg-elevated);border-radius:99px;font-size:0.78rem;color:var(--text-dim)}
+.meta-bar .pill strong{color:var(--accent)}
+.lang-toggle{position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:99px;padding:4px}
+.lang-toggle button{background:transparent;border:0;color:var(--text-dim);padding:6px 14px;border-radius:99px;cursor:pointer;font-size:0.82rem;font-weight:600}
+.lang-toggle button.active{background:var(--accent);color:#000}
+.hero{padding:1.6rem;background:linear-gradient(135deg,#1a1a22 0%,#16161b 100%);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;margin-bottom:1.6rem}
+.hero h2{font-size:1.35rem;color:var(--accent);margin-bottom:0.7rem}
+.hero p{font-size:0.98rem;margin-bottom:0.5rem}
+.hero ol{margin-left:1.4rem;color:var(--text-dim)}
+.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0.8rem;margin-bottom:1.8rem}
+.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;transition:transform .2s}
+.stat:hover{transform:translateY(-2px);border-color:var(--accent)}
+.stat .num{font-size:1.6rem;font-weight:800;color:var(--accent);font-family:ui-monospace,Menlo,monospace}
+.stat .label{font-size:0.78rem;color:var(--text-dim);margin-top:0.3rem}
+.tabs{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.tab{background:var(--bg-elevated);border:1px solid var(--border);color:var(--text-dim);padding:0.55rem 1rem;border-radius:8px;cursor:pointer;font-size:0.88rem;font-weight:600;transition:.15s}
+.tab:hover{border-color:var(--accent);color:var(--text)}
+.tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.tab-content{display:none;animation:fadeIn .25s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2.section{font-size:1.45rem;color:var(--accent);margin:1.4rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.12rem;color:var(--accent-2);margin:1.2rem 0 0.6rem}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:0.9rem;margin-bottom:1.4rem}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:1rem;transition:.15s}
+.card:hover{border-color:var(--accent);background:var(--bg-elevated)}
+.card h4{font-size:1rem;margin-bottom:0.5rem;color:var(--accent-2)}
+.card p{font-size:0.88rem;color:var(--text-dim);margin-bottom:0.4rem}
+.card .verdict{font-weight:700;margin-top:0.5rem;display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.78rem}
+.verdict.full{background:rgba(74,222,128,.12);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.verdict.aligned{background:rgba(96,165,250,.12);color:var(--blue);border:1px solid rgba(96,165,250,.3)}
+.verdict.warn{background:rgba(251,191,36,.12);color:var(--yellow);border:1px solid rgba(251,191,36,.3)}
+.verdict.gap{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+table{width:100%;border-collapse:collapse;margin-bottom:1.4rem;font-size:0.86rem}
+th,td{text-align:left;padding:0.55rem 0.7rem;border-bottom:1px solid var(--border)}
+th{background:var(--bg-elevated);color:var(--accent-2);font-weight:700}
+tbody tr:hover{background:var(--bg-elevated)}
+blockquote{border-left:3px solid var(--accent);padding:0.6rem 1rem;margin:0.8rem 0;background:var(--bg-elevated);font-style:italic;color:var(--text);font-size:0.95rem}
+blockquote .source{display:block;margin-top:0.4rem;font-size:0.76rem;color:var(--text-mute);font-style:normal}
+.quote-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:0.8rem;margin-bottom:1.4rem}
+.quote-card{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:8px;padding:0.9rem}
+.quote-card .quote-text{font-size:0.92rem;color:var(--text);margin-bottom:0.5rem}
+.quote-card .quote-ctx{font-size:0.76rem;color:var(--text-mute)}
+.timeline{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.4rem}
+.timeline-row{display:grid;grid-template-columns:80px 1fr;gap:0.8rem;padding:0.5rem 0.6rem;border-radius:6px;background:var(--bg-card);border:1px solid var(--border)}
+.timeline-row .ts{font-family:ui-monospace,Menlo,monospace;color:var(--accent);font-weight:700;font-size:0.86rem}
+.timeline-row .desc{color:var(--text-dim);font-size:0.86rem}
+.callout{padding:0.9rem 1rem;border-radius:8px;margin:1rem 0;border:1px solid;border-left-width:3px}
+.callout.warn{background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.4);color:var(--yellow)}
+.callout.info{background:rgba(96,165,250,.07);border-color:rgba(96,165,250,.4);color:var(--blue)}
+.callout.success{background:rgba(74,222,128,.07);border-color:rgba(74,222,128,.4);color:var(--green)}
+.callout.danger{background:rgba(248,113,113,.07);border-color:rgba(248,113,113,.4);color:var(--red)}
+footer{margin-top:2.5rem;padding:1.2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--text-mute);font-size:0.82rem;text-align:center}
+footer strong{color:var(--accent)}
+.toc-toggle{position:fixed;top:14px;right:140px;z-index:51;background:var(--bg-card);border:1px solid var(--border);color:var(--accent);padding:6px 12px;border-radius:99px;cursor:pointer;font-size:0.78rem;font-weight:700}
+.toc-toggle:hover{background:var(--bg-elevated)}
+aside.toc{position:fixed;top:60px;right:14px;width:230px;max-height:calc(100vh - 80px);overflow-y:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:0.8rem;font-size:0.78rem;z-index:40;transition:transform .3s ease}
+aside.toc h3{color:var(--accent);margin-bottom:0.4rem;font-size:0.86rem}
+aside.toc ol{list-style:none;padding:0}
+aside.toc li{padding:0.18rem 0;color:var(--text-dim)}
+aside.toc li a{color:var(--text-dim);text-decoration:none;display:block;padding:0.18rem 0.4rem;border-radius:4px}
+aside.toc li a:hover{background:var(--bg-elevated);color:var(--accent)}
+.toc-collapsed aside.toc{transform:translateX(-12px)}
+.toc-collapsed .toc-toggle{transform:translateX(-12px)}
+main{transition:margin-left .3s ease}
+.toc-collapsed main{margin-left:0}
+@media(min-width:1281px){main{margin-right:250px}}
+@media(max-width:1280px){aside.toc{display:none}}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.card-grid,.quote-grid{grid-template-columns:1fr}main{margin-right:0!important}}
+.en{display:none}
+html[lang="en"] .en{display:initial}
+html[lang="en"] .zh{display:none}
+html[lang="zh-CN"] .en{display:none}
+html[lang="zh-CN"] .zh{display:initial}
+</style>
+</head>
+<body>
+<button class="toc-toggle" onclick="toggleToc()">📑 TOC</button>
+<div class="lang-toggle"><button id="btn-zh" class="active" onclick="setLang('zh-CN')">中文</button><button id="btn-en" onclick="setLang('en')">EN</button></div>
+
+<aside class="toc"><h3>📑 TOC · 14 tabs</h3><ol>
+<li><a href="#core">🔥 核心论点 / Core</a></li>
+<li><a href="#drops">📦 5 大开源块</a></li>
+<li><a href="#kda">🧠 KDA 线性注意力</a></li>
+<li><a href="#hybrid">🏗️ 混合 KDA+MLA</a></li>
+<li><a href="#attnres">⚡ AttnRes 深度残差</a></li>
+<li><a href="#moe">🎯 LatentMoE 896选16</a></li>
+<li><a href="#engineering">🛠️ 5 工程亮点</a></li>
+<li><a href="#license">⚖️ Kimi K3 License</a></li>
+<li><a href="#ops">💼 6 凡人实战</a></li>
+<li><a href="#realities">⚠️ 3 现实</a></li>
+<li><a href="#patrick">🔗 Patrick 关联</a></li>
+<li><a href="#action">🗺️ 下一步行动</a></li>
+<li><a href="#quotes">💬 金句库</a></li>
+<li><a href="#timeline">⏱️ 时间戳</a></li>
+</ol></aside>
+
+<main>
+<h1 class="zh">🧠 Kimi K3 · 2.8T MoE · 47 页报告工程方案蒸馏</h1>
+<h1 class="en">🧠 Kimi K3 · 2.8T MoE · 47-Page Engineering Distillation</h1>
+<p class="subtitle zh">Why QQ — <strong>跑不动的权重，跑得动的代码</strong> · 14:30 · 2026-07-27 开源 · 520 views · 15 likes</p>
+<p class="subtitle en">Why QQ — <strong>Weights you can't run, designs you can copy</strong> · 14:30 · open-sourced 2026-07-27 · 520 views · 15 likes</p>
+
+<div class="meta-bar">
+<span class="pill"><strong>URL</strong> youtube.com/watch?v=yryTXpvCamE</span>
+<span class="pill"><strong>Channel</strong> Why QQ</span>
+<span class="pill"><strong>Language</strong> zh-CN</span>
+<span class="pill"><strong>Duration</strong> 14:30</span>
+<span class="pill"><strong>Date</strong> 2026-07-29</span>
+<span class="pill"><strong>Tag</strong> #KimiK3 #Moonshot #KDA #线性注意力 #MoE</span>
+</div>
+
+<div class="hero">
+<h2 class="zh">一句话核心论点</h2>
+<h2 class="en">One-line core thesis</h2>
+<p class="zh"><strong>2.8T 权重你跑不动（个人至少要 19 张 H100 或 8 张 GB300），但 47 页报告 + 3 个 Infra 仓库（FlashKDA / MoonEP / AgentENV）的工程方案人人能拿走——K3 的真正诚意藏在 GitHub 的 Commit 记录里，不在 1.56TB 的权重文件里。</strong></p>
+<p class="en"><strong>The 2.8T weights are out of reach for individuals (need 19×H100 or 8×GB300 minimum), but the 47-page technical report plus 3 Infra repos (FlashKDA / MoonEP / AgentENV) carry engineering lessons anyone can absorb — Kimi K3's real value lives in the GitHub commit history, not the 1.56TB checkpoint.</strong></p>
+<ol class="zh">
+<li>KDA 数值参数化被 BF16 + Tensor Core 的硬件特性倒推设计</li>
+<li>AttnRes 把"注意力干掉 RNN 时间维度瓶颈"的招数搬到深度维度</li>
+<li>LatentMoE 896选16 用 3584 维潜空间压住通信爆炸 + Quantile Balancing 单次前向解均衡</li>
+<li>5 个工程化亮点（QAT 全程开启 / MoonEP 静态形状 / Prefix Caching 解耦 / AgentENV Pause-Resume / 多 Harness 动态实例化）</li>
+<li>6 条凡人实战教训（preserved thinking 契约 / 接入暗坑 / 10 倍缓存价差 / 1M 不是垃圾桶 / 分层路由 / 过度主动）+ 3 现实（跑分水分 / 幻觉率 51% / 自托管 9 小时）</li>
+</ol>
+<ol class="en">
+<li>KDA's numeric parametrization is reverse-engineered from BF16 + Tensor Core hardware</li>
+<li>AttnRes transplants the "attention killed RNN's time bottleneck" trick to the depth dimension</li>
+<li>LatentMoE 896-of-16 routes through a 3584-dim latent space to contain comm explosion, with quantile balancing solving load balance in one forward pass</li>
+<li>5 engineering wins: QAT-on-throughout, MoonEP static shapes, KDA prefix-caching decoupling, AgentENV pause-resume, multi-harness dynamic instantiation</li>
+<li>6 operational lessons (preserved-thinking contract, integration dark patterns, 10× cache price gap, 1M ctx isn't a trash bin, tiered routing, over-active defense) + 3 realities (benchmark variance, hallucination 51%, self-host 9h)</li>
+</ol>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="num">1.56TB</div><div class="label zh">权重总下载量 (118 files)</div><div class="label en">Weight download (118 files)</div></div>
+<div class="stat"><div class="num">47 页</div><div class="label zh">技术报告核心页数</div><div class="label en">Tech report core pages</div></div>
+<div class="stat"><div class="num">19×</div><div class="label zh">H100 显存门槛（个人）</div><div class="label en">H100 GPU floor (individual)</div></div>
+<div class="stat"><div class="num">2.3×</div><div class="label zh">FlashKDA vs Triton (H20 Prefill)</div><div class="label en">FlashKDA vs Triton (H20 prefill)</div></div>
+<div class="stat"><div class="num">98%</div><div class="label zh">AgentENV pause 期间空转比例</div><div class="label en">AgentENV idle during pause</div></div>
+<div class="stat"><div class="num">51%</div><div class="label zh">AA Omniscience 幻觉率（K3 vs K2 39%）</div><div class="label en">AA Omniscience hallucination (K3 vs K2 39%)</div></div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="core">🔥 核心论点</button>
+<button class="tab" data-tab="drops">📦 5 大开源块</button>
+<button class="tab" data-tab="kda">🧠 KDA</button>
+<button class="tab" data-tab="hybrid">🏗️ 混合结构</button>
+<button class="tab" data-tab="attnres">⚡ AttnRes</button>
+<button class="tab" data-tab="moe">🎯 LatentMoE</button>
+<button class="tab" data-tab="engineering">🛠️ 工程亮点</button>
+<button class="tab" data-tab="license">⚖️ License</button>
+<button class="tab" data-tab="ops">💼 凡人实战</button>
+<button class="tab" data-tab="realities">⚠️ 3 现实</button>
+<button class="tab" data-tab="patrick">🔗 Patrick 关联</button>
+<button class="tab" data-tab="action">🗺️ 下一步行动</button>
+<button class="tab" data-tab="quotes">💬 金句</button>
+<button class="tab" data-tab="timeline">⏱️ 时间戳</button>
+</div>
+
+<div class="tab-content active" data-tab-content="core">
+<h2 class="section">🔥 核心论点 / Core Thesis</h2>
+<p class="zh">这期视频的核心反转是"<strong>跑不动 ≠ 没用</strong>"。Moonshot 2026-07-27 在 Hugging Face 上架的 Kimi K3 权重达到 <strong>2.8T MoE</strong>，原生 MXFP4 权重 + MXFP8 激活，整个仓库 <strong>1.56TB / 118 个文件</strong>。普通开发者按权重驻留来粗算需要 <strong>19 张 H100</strong>，vLLM 官方 recipe 门槛是 <strong>8 张 GB300</strong>，生产环境建议多节点——所以"个人跑 K3 的实践可行性完全是个空集"。</p>
+<p class="en">The video's core reversal is <strong>"can't run ≠ can't use"</strong>. Moonshot released Kimi K3 weights on HuggingFace on 2026-07-27: <strong>2.8T MoE</strong>, native MXFP4 weights + MXFP8 activations, <strong>1.56TB / 118 files</strong> total. For an individual developer that means <strong>19×H100</strong> by residency estimate, vLLM's official recipe demands <strong>8×GB300</strong>, production suggests multi-node — so the personal-feasibility set is empty.</p>
+
+<p class="zh">但 47 页报告里啃出来的 4 个底层设计 + 5 个工程化亮点 + 6 条凡人实战教训，<strong>对不直接跑 K3 的工程师依然价值连城</strong>。KDA 的数值推导、AttnRes 的特征提取、MoonEP 的静态路由、Prefix Caching 的粒度解耦、AgentENV 的 Pause-Resume——这些工程巧思"多少我们都可以有所借鉴"。</p>
+<p class="en">But the 4 design decisions, 5 engineering wins, and 6 operational lessons in the 47-page report are <strong>gold for engineers who don't run K3</strong>. KDA's numeric derivation, AttnRes's feature extraction, MoonEP's static routing, prefix-caching granularity decoupling, AgentENV's pause-resume — these are the engineering tricks you can borrow.</p>
+
+<div class="callout info">
+<p class="zh">📌 <strong>解读要点</strong>：报告里 K3 的 5 大开源块，权重 + 报告是给企业和资本的；FlashKDA / MoonEP / AgentENV 三个 Infra 仓库才是给工程师的。</p>
+<p class="en">📌 <strong>Key interpretation</strong>: out of Kimi K3's 5 open-source drops, the weights + report are gifts to enterprises and capital; the FlashKDA / MoonEP / AgentENV infrastructure repos are the gifts to engineers.</p>
+</div>
+
+<h3 class="zh">3 个"被低估的真正收获"</h3>
+<h3 class="en">3 under-appreciated takeaways</h3>
+<div class="card-grid">
+<div class="card"><h4>1 · KDA 数值参数化</h4><p class="zh">g_min 卡 -5 = BF16 动态范围量身定制 → 数学公式形状被硬件倒推。这是"训练-推理一致性"思路的极致体现。</p><p class="en">g_min clipped at -5 = custom-tailored to BF16 dynamic range → math formula is reverse-engineered from hardware. The pinnacle of "train-inference consistency" thinking.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>2 · Quantile Balancing</h4><p class="zh">把专家偏置设成边际分数的分位数，单次前向就能推导出均衡解。部署时偏置冻结 → 退化为普通 Top-k，"极其优雅"。</p><p class="en">Set expert bias to the quantile of marginal scores → load balance solved in one forward pass. Bias frozen at deploy → reduces to ordinary Top-k. "Extremely elegant."</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>3 · AgentENV "暂停即零资源"</h4><p class="zh">Agent 运行时 98% 时间在等推理 → 暂停沙箱 = 0 资源占用。增量检查点 133ms / 恢复 49ms，5100 万沙箱训 + 评。"MIT 许可" 是 KDA 体系里少见的可白嫖货。</p><p class="en">Agents idle 98% of the time waiting for inference → pause sandbox = 0 resource. Delta checkpoint 133ms / resume 49ms. 51M sandbox train+eval cycles. MIT license is rare free lunch in the KDA stack.</p><p><span class="verdict full">完全同源</span></p></div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="drops">
+<h2 class="section">📦 5 大开源块 / 5 Open-Source Drops</h2>
+<p class="zh">开源清单盘清楚：<strong>模型权重 + 技术报告 + 3 个 Infra 仓库</strong>，外加 2 个边角料。</p>
+<p class="en">Five open-source drops: <strong>model weights + tech report + 3 Infra repos</strong>, plus 2 side dishes.</p>
+
+<table>
+<thead><tr><th>#</th><th>块</th><th>规格 / 详情</th><th>个人可用</th><th>坑</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>模型权重</strong></td><td>2.8T MoE · MXFP4 权重 + MXFP8 激活 · 1.56TB / 118 文件 · 显存驻留 ~1.4TB</td><td>❌ 个人跑不动</td><td>HuggingFace license 标 "other" (Kimi K3 License)</td></tr>
+<tr><td>2</td><td><strong>47 页技术报告</strong></td><td>本期绝对主角</td><td>✅ 全员可读</td><td>媒体大面积误报 MaaS 条款</td></tr>
+<tr><td>3</td><td><strong>FlashKDA</strong></td><td>CUTLASS 写的 KDA 内核 · 要求 SM90 起步 · Prefill 比 Triton 基线快 1.8-2.3× (H20)</td><td>✅ 仓库可读</td><td>⚠️ 官方目前只开源了前向传播</td></tr>
+<tr><td>4</td><td><strong>MoonEP</strong></td><td>MOE 训练通信库 · 解决专家并行负载均衡 · R分之E 个冗余专家保证均衡 · 比 DeepEP v2 快 (H20)</td><td>✅ 仓库可读</td><td>流量不均衡完全免疫（DeepEP 高不均衡会 OOM）</td></tr>
+<tr><td>5</td><td><strong>AgentENV</strong></td><td>Rust 写 · Firecracker microVM API · 完美兼容 E2B · Pause/Resume 设计</td><td>✅ MIT 许可 · 可白嫖</td><td>早期 Docker 出过死锁和 Kernel Panic，逼着换 MicroVM</td></tr>
+<tr><td>+</td><td><strong>Mini Triton</strong></td><td>K3 团队自搓的 Triton 类编译器</td><td>边角料</td><td>—</td></tr>
+<tr><td>+</td><td><strong>nano-kpu</strong></td><td>KDA 推理芯片 RTL 代码 · 48 小时搓出</td><td>边角料</td><td>非主线</td></tr>
+<tr><td>+</td><td><strong>vLLM 上游贡献</strong></td><td>KDA Prefix Caching 实现已合入 vLLM (默认关闭)</td><td>✅ 部署时显式开</td><td>必须传 <code>--enable-prefix-caching</code></td></tr>
+</tbody>
+</table>
+
+<div class="callout warn">
+<p class="zh">⚠️ <strong>数字别搞混</strong>：下载是 <strong>1.56TB / 118 个文件</strong>，但驻留显存只有 <strong>~1.4TB</strong>（MXFP4 解压 + KV cache 之外的开销）。</p>
+<p class="en">⚠️ <strong>Don't confuse the numbers</strong>: download is <strong>1.56TB / 118 files</strong>, but resident VRAM is only <strong>~1.4TB</strong> (MXFP4 unpacked + overhead beyond KV cache).</p>
+</div>
+
+<h3 class="zh">谁受益矩阵</h3>
+<h3 class="en">Who benefits matrix</h3>
+<div class="card-grid">
+<div class="card"><h4>🏛 主权场景企业</h4><p class="zh">8 卡 B200 跑企业自托管，绕过 API 封锁。HN 一针见血。</p><p class="en">8×B200 enterprise self-host bypasses API blockades. HN nailed it.</p><p><span class="verdict warn">潜在同源</span></p></div>
+<div class="card"><h4>☁️ 推理厂商 + 云服务商</h4><p class="zh">3T 模型第三方部署将首次逼出大厂服务成本的真实底牌——看闭源厂有没有在倒贴钱补贴 Token。</p><p class="en">3T-scale 3rd-party deployment forces open-book pricing on incumbents — reveal whether closed-source vendors are cross-subsidizing tokens.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>🧑‍💻 工程师（你我）</h4><p class="zh">模型跑不动，但代码仓库里的设计模式全是宝藏——KDA / AttnRes / MoonEP / AgentENV 的工程巧思，多少能借鉴。</p><p class="en">Can't run the model, but the design patterns in the repos are pure treasure — borrow the engineering tricks.</p><p><span class="verdict full">完全同源</span></p></div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="kda">
+<h2 class="section">🧠 KDA · Kimi Delta Attention · 线性注意力新范式</h2>
+<p class="zh">KDA 是 K3 在底层数学上最大的赌注——<strong>Delta Rule 线性注意力 + 逐通道遗忘门</strong>。每个 Key 通道都有独立的保留率，遗忘粒度被切得非常细。</p>
+<p class="en">KDA is K3's biggest bet at the math layer — <strong>Delta-Rule linear attention + per-channel forget gate</strong>. Each key channel keeps an independent retention ratio, slicing forget granularity finely.</p>
+
+<h3 class="zh">相比 Kimi Linear 的 2 处改动</h3>
+<h3 class="en">2 changes from Kimi Linear</h3>
+<div class="card-grid">
+<div class="card"><h4>① 全秩输出门</h4><p class="zh">Output gate 变成 full-rank，不再是简单标量乘。从信息流角度加了一道非线性。</p><p class="en">Output gate becomes full-rank instead of a simple scalar multiply. Adds a nonlinearity to the information flow.</p></div>
+<div class="card"><h4>② 有界缩放 Sigmoid</h4><p class="zh">Log-decay 映射改成有界 Sigmoid，下界死死卡在 <code>-5</code>——目的：在 16 token Tile 里累积的 Log-decay 刚好落在 <strong>-80 到 0</strong> 之间。</p><p class="en">Log-decay mapping switched to bounded Sigmoid, lower bound pinned at <code>-5</code> — purpose: accumulated log-decay over a 16-token tile falls in the <strong>-80 to 0</strong> range.</p></div>
+</div>
+
+<div class="callout success">
+<p class="zh">💡 <strong>这就是"被硬件倒推出来的数值参数化设计"</strong>：BF16 动态范围 + Tensor Core 矩阵乘特性直接决定数学公式形状。所有因果 Tile 都能走稠密 Tensor Core 矩阵乘，彻底消灭 intra-chunk 计算瓶颈。</p>
+<p class="en">💡 <strong>This is "numeric parametrization reverse-engineered from hardware"</strong>: BF16 dynamic range + Tensor Core matrix-multiply properties directly dictate the math formula. All causal tiles can use dense Tensor Core GEMM, wiping out the intra-chunk compute bottleneck.</p>
+</div>
+
+<h3 class="zh">FlashKDA 落地</h3>
+<h3 class="en">FlashKDA landing</h3>
+<table>
+<thead><tr><th>维度</th><th>数据</th></tr></thead>
+<tbody>
+<tr><td>实现</td><td>CUTLASS 写</td></tr>
+<tr><td>硬件门槛</td><td>SM90 起步 (H20 / H100 / GB300)</td></tr>
+<tr><td>Prefill 加速</td><td>比 Triton 基线快 <strong>1.8-2.3×</strong> (H20)</td></tr>
+<tr><td>开源程度</td><td>⚠️ <strong>目前只有前向传播</strong>（反向未开）</td></tr>
+<tr><td>vLLM 集成</td><td>Prefix Caching 已合入，但默认关闭，需显式 <code>--enable-prefix-caching</code></td></tr>
+</tbody>
+</table>
+
+<blockquote>"BF16和Tensor Core的特性 直接决定了数学公式的形状"<span class="source">— Why QQ · KDA 数值推导核心金句</span></blockquote>
+</div>
+
+<div class="tab-content" data-tab-content="hybrid">
+<h2 class="section">🏗️ 混合结构 KDA+MLA · 1M 上下文免调 RoPE/YaRN</h2>
+<p class="zh">K3 的架构是 <strong>69 层 KDA + 24 层 MLA</strong> 的混合配置：每个 Block 里 <strong>3 层 KDA 配 1 层 Gated MLA</strong>，总共 23 个 Block，最后再收尾一层 MLA。</p>
+<p class="en">K3's architecture is a <strong>69-layer KDA + 24-layer MLA</strong> hybrid: each block is <strong>3× KDA + 1× Gated MLA</strong>, 23 blocks total, plus a final MLA tail.</p>
+
+<h3 class="zh">分工</h3>
+<h3 class="en">Division of labor</h3>
+<div class="card-grid">
+<div class="card"><h4>KDA</h4><p class="zh">负责近期信息的高效混合。</p><p class="en">Handles efficient mixing of recent information.</p></div>
+<div class="card"><h4>MLA</h4><p class="zh">负责无限制的全局交互。</p><p class="en">Handles unrestricted global interaction.</p></div>
+</div>
+
+<div class="callout warn">
+<p class="zh">⚠️ <strong>最绝的是：所有 MLA 层全部使用 NoPE（无位置编码）</strong>——位置信息全靠 KDA 的递归门控来<strong>隐式编码</strong>。</p>
+<p class="en">⚠️ <strong>The clincher: ALL MLA layers use NoPE (no positional encoding)</strong> — positional info comes <strong>implicitly</strong> from KDA's recursive gating.</p>
+</div>
+
+<h3 class="zh">外推后果</h3>
+<h3 class="en">Extrapolation consequence</h3>
+<ul style="margin-left:1.5rem;color:var(--text-dim)">
+<li class="zh"><strong>1 兆的超长上下文直接外推</strong>——根本不需要去调 RoPE 或 YaRN</li>
+<li class="en"><strong>1M-token context extrapolates directly</strong> — no RoPE or YaRN tuning required</li>
+<li class="zh">数据侧专门合成了"必须读满 1 兆才能解"的任务</li>
+<li class="en">Data side synthesized "must-read-full-1M" tasks</li>
+<li class="zh">做了从 8K 到 1 兆的 curriculum 爬升</li>
+<li class="en">Built an 8K→1M curriculum ramp</li>
+</ul>
+</div>
+
+<div class="tab-content" data-tab-content="attnres">
+<h2 class="section">⚡ AttnRes · 注意力残差 · 干掉深度维度的 RNN 瓶颈</h2>
+<p class="zh">AttnRes 的动机非常巧妙：传统的标准残差，是把<strong>全部历史状态生硬地压进一个单一表示</strong>——这其实在"深度维度"上制造了一个类似 RNN 的瓶颈。</p>
+<p class="en">AttnRes's motivation is clever: standard residual forces <strong>all history into one representation</strong> — creating an RNN-like bottleneck on the <strong>depth</strong> dimension.</p>
+
+<blockquote>"当年 Transformer 是怎么用注意力干掉时间维度递归的 AttnRes就把同一招搬到了深度维度上" — Why QQ</blockquote>
+
+<h3 class="zh">设计要点</h3>
+<h3 class="en">Design points</h3>
+<ul style="margin-left:1.5rem;color:var(--text-dim)">
+<li class="zh">每一层用数据依赖的权重去检索前面层的表示，不再是无脑均匀累加</li>
+<li class="en">Each layer uses data-dependent weights to retrieve prior-layer representations — no more uniform accumulation</li>
+<li class="zh">完整版开销太大 → K3 用了<strong>分块版（8 块 × 12 层）</strong></li>
+<li class="en">Full version is too expensive → K3 uses <strong>chunked version (8 blocks × 12 layers)</strong></li>
+</ul>
+
+<div class="callout info">
+<p class="zh">💡 <strong>彩蛋福利：EAGLE-3 草稿模型</strong>可以直接提取第 1、4 和末尾 AttnRes 块的输出当特征——因为块边界天然就是绝佳的分层特征抽取点。</p>
+<p class="en">💡 <strong>Easter egg: EAGLE-3 draft model</strong> can extract outputs from block 1, block 4, and the trailing AttnRes blocks as features — block boundaries are natural hierarchical feature extractors.</p>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="moe">
+<h2 class="section">🎯 Stable LatentMoE · 896 选 16 · 稀疏度 56</h2>
+<p class="zh">K3 的 MoE 是 <strong>896 选 16</strong>，稀疏度高达 56。怎么做到的？</p>
+<p class="en">K3's MoE is <strong>896-of-16</strong>, sparsity 56. How?</p>
+
+<h3 class="zh">核心：3584 维潜空间</h3>
+<h3 class="en">Core: 3584-dim latent space</h3>
+<p class="zh">把路由专家塞进了一个 <strong>3584 维的潜空间</strong>（只有 Hidden 维度的一半）。这样一来，<strong>通信和权重的流量就不再跟着活跃专家的数量线性爆炸</strong>——这是"896 选 16"能在经济上成立的根本前提。</p>
+<p class="en">Route experts through a <strong>3584-dim latent space</strong> (only half the hidden dim). <strong>Communication + weight traffic no longer scales linearly with active expert count</strong> — this is the prerequisite that makes 896-of-16 economically viable.</p>
+
+<h3 class="zh">代价 + "解法三件套"</h3>
+<h3 class="en">Cost + "three-piece fix"</h3>
+<div class="card-grid">
+<div class="card"><h4>代价</h4><p class="zh">激活极易爆炸，且上千专家的负载均衡超出传统算法工作极限。</p><p class="en">Activation explodes easily, and load balancing across 1000+ experts exceeds traditional algorithms' working range.</p></div>
+<div class="card"><h4>解法 ① · W-up 前 RMSNorm</h4><p class="zh">强行插 Norm 控住激活。</p><p class="en">Force Norm before W-up to tame activation.</p></div>
+<div class="card"><h4>解法 ② · SiTU-GLU + Softcap</h4><p class="zh">激活加 Softcap（上限 100），专治 MXFP4 和 FP8 溢出风险。</p><p class="en">Activation Softcap (limit 100), specifically for MXFP4 / FP8 overflow risk.</p></div>
+<div class="card"><h4>解法 ③ · Quantile Balancing ⭐</h4><p class="zh">把专家偏置直接设成边际分数的分位数，<strong>单次前向传播就能推导出均衡解</strong>，彻底抛弃学习率超参。通信时只要做一个几百 Bin 直方图的 All-Reduce。部署时偏置一冻结就退化成普通 Top-k——"极其优雅"。</p><p class="en">Set expert bias to the quantile of marginal scores → <strong>load balance solved in one forward pass</strong>, no learning-rate hyperparam. Just a few-hundred-bin histogram All-Reduce. At deploy, bias frozen = ordinary Top-k. "Extremely elegant."</p><p><span class="verdict aligned">同源</span></p></div>
+</div>
+
+<div class="callout danger">
+<p class="zh">⚠️ <strong>2.5 倍 Scaling Efficiency 不是推理速度</strong>，是预训练效率口径。报告 3.2 节原文：在达到同等 Loss 的前提下，K3 需要的训练 FLOPs 大约只有 K2 的 <strong>2/5</strong>。写 PPT 引用千万别套错场景。</p>
+<p class="en">⚠️ <strong>2.5× scaling efficiency is NOT inference speed</strong>, it's pre-training efficiency. Report §3.2: at equal loss, K3 needs only <strong>2/5</strong> of K2's training FLOPs. Don't mis-attribute this in slides.</p>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="engineering">
+<h2 class="section">🛠️ 5 工程化亮点 / 5 Engineering Wins</h2>
+<p class="zh">这 5 个亮点是"<strong>对咱们日常打工写代码最有启发的</strong>"。</p>
+<p class="en">These 5 wins are <strong>most actionable for everyday engineering work</strong>.</p>
+
+<table>
+<thead><tr><th>#</th><th>亮点</th><th>设计核心</th><th>为什么打工人可学</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>QAT 全程开启</strong></td><td>SFT / RL 全部用 MXFP4+MXFP8，<strong>Rollout 跟训练同量化</strong></td><td>抹平 Train-Inference Mismatch — "量化不是发版前一锤子买卖，是训练配置第一天立项就得定死"</td></tr>
+<tr><td>2</td><td><strong>MoonEP 静态形状</strong></td><td>在线规划 + 迁移冗余专家，每张卡恰好收 S×K token</td><td>每层 MoE 的 Host-Device 同步 + Kernel Launch 停顿全没了，H20 比 DeepEP v2 还快，对流量不均衡完全免疫</td></tr>
+<tr><td>3</td><td><strong>KDA Prefix Caching 粒度解耦</strong></td><td>前缀哈希跑细粒度（512 Token 链式哈希）+ KDA 状态只在哈希端点的稀疏子集存 checkpoint + 两阶段查找 + 严苛并发规则</td><td>已合 vLLM（默认关闭），部署必传 <code>--enable-prefix-caching</code>。"KDA 状态池大小 = 系统并发上限"</td></tr>
+<tr><td>4</td><td><strong>AgentENV Pause-Resume</strong></td><td>Agent 跑时 98% 等推理 → 暂停沙箱 0 资源 · checkpoint 133ms / resume 49ms</td><td>MIT 许可 + 兼容 E2B · 训+评拉起 5100 万沙箱 · "做 Agent 底层的兄弟们，直接拿去用"</td></tr>
+<tr><td>5</td><td><strong>多 Harness 动态实例化</strong></td><td>工具 Schema / 系统提示 / Skills 全抽象成可组合模块，训练时动态实例化 Kimi Code / Claude Code / Codex</td><td>"防止模型对单一脚手架过拟合" — 这就是 K3 换套皮依然那么稳的原因</td></tr>
+</tbody>
+</table>
+
+<h3 class="zh">🔬 月光宝盒 (MoonEP) 数学定理</h3>
+<h3 class="en">🔬 MoonEP's load-balance theorem</h3>
+<blockquote>"只需 <strong>R分之E 个冗余专家</strong> 就能保证均衡可行" — 47 页报告原文</blockquote>
+
+<p class="zh">这是把"<strong>在线规划</strong> + <strong>专家迁移</strong>"形式化成可证明的数学定理的稀有案例。不是工程经验法则（heuristic），是有 bound 的可证命题。</p>
+<p class="en">This is a rare case of formalizing "<strong>online planning</strong> + <strong>expert migration</strong>" into a provable mathematical theorem. Not an engineering heuristic — a bound-carrying provable statement.</p>
+</div>
+
+<div class="tab-content" data-tab-content="license">
+<h2 class="section">⚖️ Kimi K3 License · 主条款接近 MIT，但藏了 2 个钩子</h2>
+<p class="zh">发布前媒体出现了大面积误报。K3 并<strong>没有沿用 K2 的 Modified MIT</strong>，而是搞了一个专门的 <strong>Kimi K3 License</strong>（HF 上标的是 license other）。</p>
+<p class="en">Pre-release media mis-reported extensively. K3 does <strong>NOT use K2's Modified MIT</strong> — it introduced a dedicated <strong>Kimi K3 License</strong> (HF shows "license other").</p>
+
+<h3 class="zh">主体条款（≈ MIT）</h3>
+<h3 class="en">Main terms (≈ MIT)</h3>
+<ul style="margin-left:1.5rem;color:var(--text-dim)">
+<li>✅ 免费用 · ✅ 随便改 · ✅ 可微调 · ✅ 可商用</li>
+</ul>
+
+<h3 class="zh">2 个"钩子"</h3>
+<h3 class="en">2 hooks</h3>
+<div class="card-grid">
+<div class="card" style="border-left:3px solid var(--red)"><h4>钩子 ① · MaaS（Model-as-a-Service）条款</h4><p class="zh">如果你把 K3 包装成 API 对外提供推理服务，<strong>并且你所在集团任意连续 12 个月的总收入超过了 2000 万美元</strong>——抱歉，你得先跟 Moonshot 另签商业协议。</p><p class="en">If you wrap K3 as an API for inference services, <strong>AND your group's rolling-12-month total revenue exceeds $20M</strong> — sorry, you must sign a separate commercial agreement with Moonshot.</p><p><span class="verdict gap">需注意</span></p></div>
+<div class="card" style="border-left:3px solid var(--yellow)"><h4>钩子 ② · 署名条款</h4><p class="zh">如果你的商业产品<strong>月活过 1 亿</strong>，或者<strong>月收入过 2000 万美元</strong>，UI 界面上必须显著标注 "<strong>Kimi K3</strong>"。</p><p class="en">If your commercial product has <strong>&gt;100M MAU</strong> OR <strong>&gt;$20M monthly revenue</strong>, the UI must visibly credit "<strong>Kimi K3</strong>".</p><p><span class="verdict warn">需注意</span></p></div>
+</div>
+
+<h3 class="zh">豁免条件</h3>
+<h3 class="en">Exemptions</h3>
+<ul style="margin-left:1.5rem;color:var(--text-dim)">
+<li>✅ 纯内部使用</li>
+<li>✅ 走官方或认证伙伴调用</li>
+<li>✅ 纯转发服务</li>
+</ul>
+
+<div class="callout success">
+<p class="zh">✅ <strong>简单总结</strong>：自己微调零义务；转售推理先签合同。</p>
+<p class="en">✅ <strong>Simple summary</strong>: self-fine-tuning = zero obligation; reseller inference = sign the contract first.</p>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="ops">
+<h2 class="section">💼 6 条凡人实战 / 6 Operational Lessons</h2>
+<p class="zh">全片最实用的一段，全是这几天社区用<strong>真金白银砸出来的教训</strong>。</p>
+<p class="en">The most actionable section — lessons paid for in real money by the community this past week.</p>
+
+<div class="card-grid">
+<div class="card"><h4>1 · 死守 Preserved Thinking 契约</h4><p class="zh">官方明确要求：多轮对话里必须原样回传 Assistant 消息的 reasoning_content，<strong>一个字符都不能丢</strong>。如果你中途从其他模型切到 K3，"生成质量会高度不稳定"。</p><p class="en">Multi-turn: must echo back reasoning_content verbatim, <strong>not a single char dropped</strong>. Mid-conversation model swap → "highly unstable quality".</p><p class="zh">社区共识：<strong>切模型必开新会话</strong>。改 Reasoning Effort 必开新会话。兼容 OpenAI 接口格式只代表网络能通，不代表行为兼容。</p><p class="en">Community consensus: <strong>swap model → new session</strong>. Change reasoning effort → new session. OpenAI-compatible API format only means network reaches, not behavior-compatible.</p></div>
+
+<div class="card"><h4>2 · 接入配置的暗坑</h4><p class="zh">K3 <strong>永远带思考过程</strong>，关不掉。K2.7 Code 收到非 Thinking 请求会<strong>直接报错</strong>。</p><p class="en">K3 <strong>always thinks</strong> — can't be turned off. K2.7 Code errors out on non-thinking requests.</p><p class="zh">最坑的是：如果 WebSearch 配置无效，请求会<strong>直接降级路由到 K2.6</strong>。很多人以为在调 K3，看了账单才发现是 2.6。</p><p class="en">Worst: invalid WebSearch config → <strong>request silently downgrades to K2.6</strong>. Many devs think they're tuning K3 until the bill shows 2.6.</p><p class="zh">接入 Claude Code 时，<strong>必须把 ENABLE_TOOL_SEARCH 设为 False</strong>。这些都是悄无声息的质量降级点。</p><p class="en">Wiring Claude Code: <strong>must set ENABLE_TOOL_SEARCH=False</strong>. All silent quality regressions.</p></div>
+
+<div class="card"><h4>3 · 算清楚成本账</h4><p class="zh">K3 API 价格差是巨大的：缓存命中 <strong>0.3 刀/百万 Token</strong>，没命中 <strong>3 刀</strong>，整整 <strong>10 倍</strong>！输出更是高达 <strong>15 刀</strong>。</p><p class="en">K3 API has huge price variance: cache hit <strong>$0.3/M tokens</strong>, miss <strong>$3</strong> — <strong>10×</strong> gap! Output is <strong>$15/M</strong>.</p><p class="zh"><strong>把能吃缓存的东西全部前置</strong>：系统提示词、代码仓库快照、工具定义，通通放最前面。</p><p class="en"><strong>Front-load everything cacheable</strong>: system prompts, code repo snapshots, tool defs.</p></div>
+
+<div class="card"><h4>4 · 别把 1M 上下文当垃圾桶</h4><p class="zh">报告 BrowseComp 数据：<strong>300k 压缩版得分 91.2</strong>，全量 1M 反而<strong>掉到 90.4</strong>。</p><p class="en">BrowseComp data: <strong>300k compressed = 91.2</strong>, full 1M actually <strong>drops to 90.4</strong>.</p><p class="zh">记住：<strong>上下文窗口只保证容量，不保证理解力</strong>。</p><p class="en">Remember: <strong>context window guarantees capacity, not comprehension</strong>.</p></div>
+
+<div class="card"><h4>5 · 分层路由</h4><p class="zh">社区目前已收敛出一套最优解：</p><p class="en">Community consensus tiered routing:</p><ul style="margin-left:1.2rem;color:var(--text-dim)"><li>日常杂活 → <strong>焊死 DeepSeek 或 GLM-5.2</strong></li><li>前端 / 视觉 / 长程 Agent → <strong>K3</strong></li><li>高风险验证 → <strong>Fable 5</strong></li></ul><p class="zh">有网友晒单：同样的杂活，DeepSeek 两分五，K3 要两块——差了 <strong>80 倍</strong>。</p><p class="en">User report: same chores, DeepSeek 2.5 cents vs K3 $2 — <strong>80×</strong> gap.</p></div>
+
+<div class="card"><h4>6 · 防备模型的"过度主动"</h4><p class="zh">官方说模型可能会替用户做决定。目前社区还没拿出实锤的灾难性复现，但在生产环境<strong>必须按"存在危险"来设防</strong>：</p><p class="en">Official note: model may decide for user. No disaster repro yet, but <strong>in production, treat as if the danger exists</strong>:</p><ul style="margin-left:1.2rem;color:var(--text-dim)"><li>沙箱隔离 + 显式网络边界</li><li>写操作前加人工审批</li><li>永远把 LLM 输出当成不可信注入面</li></ul></div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="realities">
+<h2 class="section">⚠️ 3 个必须面对的现实 / 3 Hard Realities</h2>
+
+<h3 class="zh">现实 ① · 跑分的"水分"</h3>
+<h3 class="en">Reality ① · Benchmark "water"</h3>
+<p class="zh">脚手架（Harness）对成绩的影响极大。<strong>官方脚注里自己都承认</strong>：</p>
+<p class="en">Harness has huge impact on scores. <strong>Official footnotes admit it themselves</strong>:</p>
+<blockquote>"在 KCB2.0 上，K3 用 Claude Code 能跑 73.7，用自家 Kimi Code 反而只有 72.9。换到 Scale AI 平台的测试，17.3 分的差距完全是因为换了脚手架"<span class="source">— Why QQ 引用 K3 报告</span></blockquote>
+<p class="zh"><strong>以后看 Agent 跑分，不带 Harness 名字的裸数字毫无意义</strong>。</p>
+<p class="en"><strong>Future Agent benchmarks: raw scores without the harness name are meaningless</strong>.</p>
+
+<h3 class="zh">现实 ② · 幻觉率上升</h3>
+<h3 class="en">Reality ② · Hallucination up</h3>
+<p class="zh">在 AA 的 Omniscience 测试中，K3 的幻觉率从之前的 39% <strong>升到了 51%</strong>。翻译一下就是：<strong>它变"头铁"了</strong>——拒答率下降，遇到不会的问题，有一半的概率它在极其自信地胡说八道。</p>
+<p class="en">AA Omniscience hallucination: 39% → <strong>51%</strong>. Translation: <strong>it's "stubborn" now</strong> — refusal rate down, half the time it confidently makes stuff up.</p>
+<p class="zh">生产上用，<strong>业务校验层绝不能省</strong>。</p>
+<p class="en">In production: <strong>business-side verification layer is non-optional</strong>.</p>
+
+<h3 class="zh">现实 ③ · 个人自托管的幻想</h3>
+<h3 class="en">Reality ③ · Self-hosting illusion</h3>
+<p class="zh">目前 <strong>llama.cpp / Ollama / LM Studio 全不支持 KDA 架构</strong>。Ollama 上的那个"K3"其实只是个 API 转发器。截至 27 号，<strong>全网没有任何真实环境的自托管跑分</strong>。</p>
+<p class="en"><strong>llama.cpp / Ollama / LM Studio all don't support KDA</strong>. The "K3" on Ollama is just an API forwarder. As of the 27th, <strong>no real-environment self-host benchmarks anywhere</strong>.</p>
+<p class="zh">根据估算，CPU + 大内存方案速度大约是 <strong>0.05-1 tok/s</strong>。这意味着生成 <strong>3.2 万个推理 Token，你要干等 9 个小时</strong>。</p>
+<p class="en">CPU + large-memory estimate: <strong>0.05-1 tok/s</strong>. Generating <strong>32K tokens = 9 hours of waiting</strong>.</p>
+</div>
+
+<div class="tab-content" data-tab-content="patrick">
+<h2 class="section">🔗 与 Patrick 工作关联 · 17 张关联卡</h2>
+<p class="zh">按 4-tier 优先级排列。所有卡片在 <code>llm-wiki/</code> 或 <code>~/.hermes/skills/</code> 都有 ship 在 disk 的对应资产。</p>
+<p class="en">Sorted by 4-tier priority. All cards have corresponding shipped assets under <code>llm-wiki/</code> or <code>~/.hermes/skills/</code>.</p>
+
+<h3 class="zh">Tier 1 · 核心 8 卡</h3>
+<h3 class="en">Tier 1 · Core 8 cards</h3>
+<div class="card-grid">
+<div class="card"><h4>① · Matt Pocock "Senior 10x / Harness"</h4><p class="zh">"Harness > model" 哲学跟 K3 第 5 个工程亮点完全同源——多 Harness 动态实例化就是 K3 防止模型对单一脚手架过拟合的官方答案。</p><p class="en">"Harness > model" doctrine directly aligns with K3's engineering win #5 — multi-harness dynamic instantiation is K3's official answer to scaffold overfit.</p><p><span class="verdict full">完全同源</span></p></div>
+<div class="card"><h4>② · IndyDevDan "本地 LLM"</h4><p class="zh">K3 自托管 9 小时生成 32K token = 本地 LLM 路线在 KDA 架构下完全死路。印证 IndyDevDan 主张：选对架构 + 选对硬件，本地才有意义。</p><p class="en">K3 self-host = 9h for 32K tokens = local LLM path is dead under KDA. Validates IndyDevDan: right architecture + right hardware matters for "local to make sense".</p><p><span class="verdict aligned">同源警示</span></p></div>
+<div class="card"><h4>③ · Hybrid LLM Router (T0-T3)</h4><p class="zh">K3 第 5 条凡人实战 = 路由分层 "DeepSeek / GLM-5.2 焊死杂活 + K3 长程 Agent + Fable 5 高风险"。Hybrid router 验证了 80× 价差真的存在。</p><p class="en">K3 operational lesson #5 = tiered routing "DeepSeek/GLM-5.2 for chores, K3 for long-horizon agent, Fable 5 for high-risk". Hybrid router validates the 80× cost gap.</p><p><span class="verdict full">完全同源</span></p></div>
+<div class="card"><h4>④ · Matt White "Open Source / Linux Foundation"</h4><p class="zh">Moonshot 这次开源的"主体 MIT + 2 个钩子"模式跟 Linux Foundation AI CTO 讨论的开源治理（<a href="https://2017zyl.xyz/daily-reports/linux-foundation-ai-cto-china-open-source/index.html" target="_blank" rel="noopener">已 ship</a>）完全同源——主权 vs 商业 vs 社区三方拉扯。</p><p class="en">Moonshot's "main MIT + 2 hooks" pattern aligns with Linux Foundation AI CTO's open-source governance discourse — the sovereignty/commercial/community triangle.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>⑤ · Matt Berman "7 Loops / Subagent"</h4><p class="zh">KDA Prefix Caching 的"两阶段查找 + 严苛并发规则"是 Berman "spawn N agents + iterate" 在缓存层的高保真实现。</p><p class="en">KDA prefix caching's "two-stage lookup + strict concurrency rules" is Berman's "spawn N + iterate" at the cache layer.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>⑥ · OpenSquilla + MetaSkill</h4><p class="zh">多 Harness 动态实例化 = OpenSquilla "skill 蒸馏 + orchestration" 的官方级工业实现。Skill 系统是 harness 抽象层的下游。</p><p class="en">Multi-harness dynamic instantiation = OpenSquilla's "skill distillation + orchestration" at industrial scale. Skill systems sit downstream of harness abstractions.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>⑦ · Bryant "Clone Yourself 500-1000x"</h4><p class="zh">AgentENV Pause-Resume 让单个 agent 跑出 5100 万次生命周期 = "500-1000× clone" 在沙箱层面的工程落地。</p><p class="en">AgentENV pause-resume lets a single agent run 51M life cycles = "500-1000× clone" landed at the sandbox layer.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>⑧ · Fei-Fei "2 种 Worker / Top 1%"</h4><p class="zh">为什么叫 QQ 工程师视角下"挑 4 个最值得抄作业的底层设计" = Top 1% taste 在工程师侧的具体表现。</p><p class="en">Why QQ's engineer-perspective "pick 4 most borrowable underlying designs" = Top 1% taste operationalized on the engineer side.</p><p><span class="verdict aligned">同源</span></p></div>
+</div>
+
+<h3 class="zh">Tier 2 · 条件 5 卡</h3>
+<h3 class="en">Tier 2 · Conditional 5 cards</h3>
+<div class="card-grid">
+<div class="card"><h4>⑨ · DeepSeek "Billion Dollar"</h4><p class="zh">MoonEP "静态形状消灭 Host 同步 + 比 DeepEP v2 快 (H20)" 是 DeepSeek "Billion Dollar Problem" 的 MoE 侧官方解。</p><p class="en">MoonEP's "static shapes kill Host sync + faster than DeepEP v2 (H20)" is the official MoE-side answer to DeepSeek's Billion Dollar Problem.</p><p><span class="verdict full">完全同源</span></p></div>
+<div class="card"><h4>⑩ · OpenAI "FDE 40B"</h4><p class="zh">"全栈工程化 + 47 页报告 + 3 个 Infra 仓库" = FDE 40B 的 Moonshot 内部版本。报告驱动部署的范式在 K3 完整呈现。</p><p class="en">"Full-stack engineering + 47-page report + 3 Infra repos" = Moonshot's internal FDE 40B. Report-driven deployment is fully realized in K3.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>⑪ · Sam Altman CS183 / Compute</h4><p class="zh">8 张 GB300 起步门槛 / 19 张 H100 个人空集 = Altman "compute as utility" 论的现实约束。</p><p class="en">8×GB300 floor / 19×H100 individual impossibility = Altman "compute as utility" thesis embodied.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>⑫ · Moon "Anthropic Mythos" (Safety)</h4><p class="zh">过度主动防御 + 沙箱隔离 + 显式网络边界 + 写操作人工审批 = Mythos safety net 的工程师侧 4 件套。</p><p class="en">Over-active defense + sandbox isolation + explicit network boundary + write-action approval = Mythos safety net's engineer-side 4-piece set.</p><p><span class="verdict full">完全同源</span></p></div>
+<div class="card"><h4>⑬ · Yang "Claude Fable 5" (use cases)</h4><p class="zh">K3 的 6 凡人实战 #5 "高风险验证丢给 Fable 5" = Yang Fable 5 验证 "高风险任务交给 frontier 模型" 的同源 routing 验证。</p><p class="en">K3's operational lesson #5 "high-risk verification → Fable 5" = Yang Fable 5's "high-risk tasks to frontier model" routing alignment.</p><p><span class="verdict aligned">同源</span></p></div>
+</div>
+
+<h3 class="zh">Tier 3 · 上下文 4 卡</h3>
+<h3 class="en">Tier 3 · Context 4 cards</h3>
+<div class="card-grid">
+<div class="card"><h4>⑭ · v1.3.0 Video Notes Dashboard</h4><p class="zh">本 dashboard 本身就是 v1.3.0 canonical template 的又一实例 — 12-14 tabs / 6 stat / 17-card roster / TOC v1.4.4 / bilingual EN⇄ZH。</p><p class="en">This dashboard is itself another instance of v1.3.0 canonical template — 12-14 tabs / 6 stat / 17-card roster / TOC v1.4.4 / bilingual EN⇄ZH.</p><p><span class="verdict full">完全同源</span></p></div>
+<div class="card"><h4>⑮ · Claude Containment "11 Rules"</h4><p class="zh">"把 LLM 输出当成不可信注入面" + 沙箱隔离 = Containment 11 Rules 在生产侧的最低应用。</p><p class="en">"Treat LLM output as untrusted injection surface" + sandbox isolation = Containment 11 Rules at production-floor application.</p><p><span class="verdict full">完全同源</span></p></div>
+<div class="card"><h4>⑯ · Race-Aware 4-Source Synthesis (Kokotajlo)</h4><p class="zh">"2.5 倍 Scaling Efficiency 是预训练效率口径" 这种数字误读，正是 race-aware 4-source synthesis 要消解的同一类错（<a href="https://2017zyl.xyz/daily-reports/kokotajlo-ai-2027-diary-of-ceo-2026-07-13/index.html" target="_blank" rel="noopener">Kokotajlo AI 2027</a> 引用同款误读）。</p><p class="en">Mis-attribution like "2.5× scaling = inference speed" is exactly the class of error race-aware 4-source synthesis exists to dissolve.</p><p><span class="verdict aligned">同源</span></p></div>
+<div class="card"><h4>⑰ · Local AI Summit · 4 Luminaries Panel</h4><p class="zh">Multimodel routing + DGX Spark 10× + Karpathy inflection point = 跟 K3 凡人实战 #5 分层路由、#3 算账完全同源。</p><p class="en">Multimodel routing + DGX Spark 10× + Karpathy inflection = directly aligned with K3 ops #5 tiered routing and #3 cost accounting.</p><p><span class="verdict full">完全同源</span></p></div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="action">
+<h2 class="section">🗺️ 下一步行动 / Action Items</h2>
+<p class="zh">按优先级 P0 → P3 排列。每条都附 30 秒 - 1 小时可执行的小步。</p>
+<p class="en">Sorted P0 → P3. Each item has a 30s-1h executable mini-step.</p>
+
+<div class="card-grid">
+<div class="card" style="border-left:3px solid var(--red)"><h4>P0 · AgentENV 仓库白嫖</h4><p class="zh">MIT 许可 + 兼容 E2B + Rust 写 + Firecracker microVM = Patrick 直接拿来包装 agent harness。</p><p class="en">MIT + E2B-compatible + Rust + Firecracker microVM = Patrick can wrap agent harness directly.</p><p class="zh"><strong>30s</strong>：<code>cd /tmp && git clone https://github.com/kvcache-ai/AgentENV</code></p><p class="en"><strong>30s</strong>: clone and skim README.</p><p><strong>1h</strong>：跑通 sample agent lifecycle + Pause/Resume benchmark。</p><p><span class="verdict full">P0</span></p></div>
+<div class="card" style="border-left:3px solid var(--red)"><h4>P0 · 分层路由落地（K3 ops #5）</h4><p class="zh">焊死 DeepSeek / GLM-5.2 做杂活，K3 做长程 Agent，Fable 5 做高风险。Hybrid LLM Router skill 已 ship。</p><p class="en">Pin DeepSeek/GLM-5.2 for chores, K3 for long-horizon, Fable 5 for high-risk. Hybrid LLM Router skill already shipped.</p><p class="zh"><strong>30s</strong>：检查 <code>~/.hermes/auth.json</code> 已有 DeepSeek / GLM / Anthropic / xAI 哪些 provider namespace。</p><p class="en"><strong>30s</strong>: check which providers are already wired.</p><p class="zh"><strong>1h</strong>：跑一次 30-任务 hybrid routing 测试，记录 80× 价差是否复现。</p><p><span class="verdict full">P0</span></p></div>
+<div class="card" style="border-left:3px solid var(--yellow)"><h4>P1 · QAT 训练配置第一日锁死</h4><p class="zh">"量化不是发版前一锤子买卖，是训练配置第一天立项就得定死"。Patrick 自训或微调任何 LLM，从此量化方案从 SFT 开始就全程开启，Rollout 必须同量化。</p><p class="en">"Quantization is training config, set on day 1". Patrick's self-trained or fine-tuned LLMs from now on: quantization on from SFT, Rollout must match.</p><p class="zh"><strong>30s</strong>：找出当前任何 LoRA / SFT 脚本里的量化时机，看是不是训练前 / 训练后 split。</p><p class="en"><strong>30s</strong>: find current LoRA/SFT scripts' quantization timing.</p><p class="zh"><strong>2h</strong>：在 <code>~/.hermes/scripts/</code> 加一个 <code>qat_first.py</code> 工具，在 SFT 阶段就开启 MXFP4/BNB。</p><p><span class="verdict aligned">P1</span></p></div>
+<div class="card" style="border-left:3px solid var(--yellow)"><h4>P1 · KDA Prefix Caching 部署参数</h4><p class="zh">vLLM 已合 KDA prefix caching，但默认关闭。Patrick 任何 K3 / KDA 部署必须显式 <code>--enable-prefix-caching</code>，否则命中率极惨淡。</p><p class="en">vLLM has KDA prefix caching merged but off by default. Any K3/KDA deploy must explicitly enable.</p><p class="zh"><strong>30s</strong>：grep <code>~/.hermes/scripts/</code> 任何 vLLM 部署脚本。</p><p class="en"><strong>30s</strong>: grep vLLM deploy scripts.</p><p class="zh"><strong>2h</strong>：在 production deploy script 里加 flag + 在 README 标注 "KDA 状态池大小 = 系统并发上限"。</p><p><span class="verdict aligned">P1</span></p></div>
+<div class="card" style="border-left:3px solid var(--blue)"><h4>P2 · 幻觉率 51% 的业务校验层</h4><p class="zh">K3 变"头铁"了：拒答率下降 + 51% 幻觉率。Patrick 任何用 K3 做生产任务的流水线，<strong>业务校验层绝不能省</strong>。</p><p class="en">K3 is "stubborn": refusal down + 51% hallucination. Any Patrick pipeline using K3 in production: <strong>business-side verification is non-optional</strong>.</p><p class="zh"><strong>30s</strong>：列出当前用 K2.6 / K3 跑的任务类型，标出哪些需要校验。</p><p class="en"><strong>30s</strong>: list current K2.6/K3 tasks, mark which need verification.</p><p class="zh"><strong>4h</strong>：在 <code>~/.hermes/lib/search_lib.py</code> 加 <code>post_k3_verify()</code> 工具：抽取 claim → 验证 → 拒答 / 标 "[K3 unverified]"。</p><p><span class="verdict warn">P2</span></p></div>
+<div class="card" style="border-left:3px solid var(--blue)"><h4>P2 · Kimi K3 License 法律备忘</h4><p class="zh">MaaS 2000 万美元门槛 + 1 亿 MAU 署名条款 = Patrick 如果做 K3 wrapper 服务，需要先评估是否触线。</p><p class="en">$20M MaaS threshold + 100M MAU attribution = Patrick, if building a K3 wrapper service, needs to assess threshold exposure.</p><p class="zh"><strong>30s</strong>：在 <code>~/Downloads/Obsidian Vault/legal/</code> 建 <code>kimi-k3-license-2026-07.md</code> 备忘录。</p><p class="en"><strong>30s</strong>: create legal memo.</p><p class="zh"><strong>4h</strong>：跑 Revenue 模拟——如果真做 wrapper，<strong>纯转发服务 = 豁免</strong>；如果加推理 cache 或 fine-tune 微调 = 需签商业协议。</p><p><span class="verdict warn">P2</span></p></div>
+<div class="card" style="border-left:3px solid var(--gray)"><h4>P3 · BrowseComp 复现：300k vs 1M</h4><p class="zh">报告里 300k 压缩版得分 91.2 > 1M 全量 90.4 = 上下文窗口只保证容量不保证理解力。</p><p class="en">BrowseComp: 300k compressed 91.2 > full 1M 90.4 = context window guarantees capacity not comprehension.</p><p class="zh"><strong>30s</strong>：在 <code>llm-wiki/papers/</code> 建 <code>browsecomp-reproduction/</code> 路径。</p><p class="en"><strong>30s</strong>: create reproduction path.</p><p class="zh"><strong>8h</strong>：用 DeepSeek / GLM-5.2 / K3 三模型各跑 100 题，验证 300k > 1M 是否普遍现象。</p><p><span class="verdict gap">P3</span></p></div>
+<div class="card" style="border-left:3px solid var(--gray)"><h4>P3 · 自托管 K3 = 死路认知存档</h4><p class="zh">llama.cpp / Ollama / LM Studio 全不支持 KDA，CPU 方案 0.05-1 tok/s，32K Token 等 9 小时。</p><p class="en">llama.cpp / Ollama / LM Studio don't support KDA, CPU 0.05-1 tok/s, 32K tokens = 9 hours.</p><p class="zh"><strong>30s</strong>：在 <code>llm-wiki/knowledge/</code> 加 <code>kimi-k3-self-host-deck-2026-07.md</code> 标注 "K3 自托管 = 经济性空集"。</p><p class="en"><strong>30s</strong>: add "K3 self-host = economic empty set" knowledge note.</p><p class="zh"><strong>持续</strong>：等 Ollama / LM Studio / llama.cpp 适配 KDA，再重新评估。</p><p><span class="verdict gap">P3</span></p></div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="quotes">
+<h2 class="section">💬 金句库 / Quotes (verbatim byte-match against kome.ai transcript)</h2>
+<div class="quote-grid">
+<div class="quote-card"><div class="quote-text">"个人跑这个模型的实践可行性完全是个空集"</div><div class="quote-ctx">— Why QQ · 开场 · 跑不动权重第一句</div></div>
+<div class="quote-card"><div class="quote-text">"BF16和Tensor Core的特性 直接决定了数学公式的形状"</div><div class="quote-ctx">— KDA 数值推导核心金句</div></div>
+<div class="quote-card"><div class="quote-text">"当年 Transformer 是怎么用注意力干掉时间维度递归的 AttnRes 就把同一招搬到了深度维度上"</div><div class="quote-ctx">— AttnRes 设计的动机</div></div>
+<div class="quote-card"><div class="quote-text">"这是896选16 能在经济上成立的根本前提"</div><div class="quote-ctx">— LatentMoE 3584 维潜空间为什么关键</div></div>
+<div class="quote-card"><div class="quote-text">"把专家偏置直接设成边际分数的分位数 单次前向传播就能推导出均衡解"</div><div class="quote-ctx">— Quantile Balancing · "极其优雅"</div></div>
+<div class="quote-card"><div class="quote-text">"98%的时间都在等大模型推理"</div><div class="quote-ctx">— AgentENV Pause-Resume 设计的动机</div></div>
+<div class="quote-card"><div class="quote-text">"切模型必开新会话"</div><div class="quote-ctx">— 社区共识 #1 · Preserved Thinking 契约</div></div>
+<div class="quote-card"><div class="quote-text">"10 倍缓存价差"</div><div class="quote-ctx">— 凡人实战 #3 · 算账</div></div>
+<div class="quote-card"><div class="quote-text">"上下文窗口只保证容量 不保证理解力"</div><div class="quote-ctx">— 凡人实战 #4 · BrowseComp 数据</div></div>
+<div class="quote-card"><div class="quote-text">"带 Harness 名字的裸数字 毫无意义"</div><div class="quote-ctx">— 现实 ① · 跑分水分</div></div>
+<div class="quote-card"><div class="quote-text">"它变头铁了"</div><div class="quote-ctx">— 现实 ② · 幻觉率 51%</div></div>
+<div class="quote-card"><div class="quote-text">"生成 3.2 万个推理Token 你要干等 9 个小时"</div><div class="quote-ctx">— 现实 ③ · 自托管幻想</div></div>
+<div class="quote-card"><div class="quote-text">"开源最大的诚意 并不在那个 1.56TB 的文件里 而是藏在 GitHub 的 Commit 记录中"</div><div class="quote-ctx">— Why QQ · 结尾金句</div></div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="timeline">
+<h2 class="section">⏱️ 时间戳 / Timeline (14:30 video · flat transcript → approximate)</h2>
+<div class="timeline">
+<div class="timeline-row"><div class="ts">00:00</div><div class="desc zh">开场 — 2026-07-27 Kimi K3 上 HuggingFace，1.56TB 仓库，个人跑不动</div><div class="desc en">Opening — 2026-07-27 Kimi K3 on HF, 1.56TB repo, individuals can't run it</div></div>
+<div class="timeline-row"><div class="ts">01:30</div><div class="desc zh">5 大开源块盘清楚 — 权重 / 报告 / FlashKDA / MoonEP / AgentENV</div><div class="desc en">5 open-source drops — weights / report / FlashKDA / MoonEP / AgentENV</div></div>
+<div class="timeline-row"><div class="ts">03:00</div><div class="desc zh">Kimi K3 License 解析 — 主条款 MIT + MaaS 2000 万 + 署名 1 亿 MAU</div><div class="desc en">License breakdown — main MIT + MaaS $20M + 100M MAU attribution</div></div>
+<div class="timeline-row"><div class="ts">04:00</div><div class="desc zh">底层设计 ① KDA — Delta Rule + 逐通道遗忘门 + g_min=-5 + 16 token Tile BF16 匹配</div><div class="desc en">Design ① KDA — Delta Rule + per-channel forget gate + g_min=-5 + 16-token tile BF16 fit</div></div>
+<div class="timeline-row"><div class="ts">05:30</div><div class="desc zh">底层设计 ② 混合结构 — 69 层 KDA + 24 层 MLA，所有 MLA NoPE，1M 上下文免调</div><div class="desc en">Design ② hybrid — 69 KDA + 24 MLA, all MLA NoPE, 1M context no tuning</div></div>
+<div class="timeline-row"><div class="ts">06:30</div><div class="desc zh">底层设计 ③ AttnRes — 深度维度去 RNN 瓶颈，分块 8×12，EAGLE-3 彩蛋</div><div class="desc en">Design ③ AttnRes — depth-dim RNN bottleneck removal, 8×12 chunks, EAGLE-3 easter egg</div></div>
+<div class="timeline-row"><div class="ts">07:30</div><div class="desc zh">底层设计 ④ LatentMoE — 896选16 / 3584 维潜空间 / 三件套解法 + 2.5× 误读纠偏</div><div class="desc en">Design ④ LatentMoE — 896-of-16 / 3584 latent / three-piece fix + 2.5× mis-attribution correction</div></div>
+<div class="timeline-row"><div class="ts">09:00</div><div class="desc zh">工程化 ① QAT 全程开启 — 量化是训练配置第一天立项就锁</div><div class="desc en">Engineering ① QAT throughout — quantization is training config day-1</div></div>
+<div class="timeline-row"><div class="ts">09:30</div><div class="desc zh">工程化 ② MoonEP — 静态形状 + R分之E 冗余定理 + 比 DeepEP v2 快</div><div class="desc en">Engineering ② MoonEP — static shapes + E/R redundancy theorem + faster than DeepEP v2</div></div>
+<div class="timeline-row"><div class="ts">10:00</div><div class="desc zh">工程化 ③ KDA Prefix Caching 粒度解耦 — 512 token 链式哈希 + 两阶段查找 + 严苛并发</div><div class="desc en">Engineering ③ KDA prefix-caching — 512-token chained hash + 2-stage lookup + strict concurrency</div></div>
+<div class="timeline-row"><div class="ts">10:30</div><div class="desc zh">工程化 ④ AgentENV Pause-Resume — 98% 等推理 / 0 资源 / 133ms / 49ms / 5100 万沙箱</div><div class="desc en">Engineering ④ AgentENV pause-resume — 98% wait / 0 resource / 133ms / 49ms / 51M sandbox</div></div>
+<div class="timeline-row"><div class="ts">11:00</div><div class="desc zh">工程化 ⑤ 多 Harness 动态实例化 — 防脚手架过拟合，K3 换套皮依然稳</div><div class="desc en">Engineering ⑤ multi-harness — anti-scaffold-overfit, K3 stays stable across harnesses</div></div>
+<div class="timeline-row"><div class="ts">11:30</div><div class="desc zh">凡人实战 ① 死守 Preserved Thinking 契约 — 切模型必开新会话</div><div class="desc en">Ops ① Preserved thinking contract — swap model = new session</div></div>
+<div class="timeline-row"><div class="ts">12:00</div><div class="desc zh">凡人实战 ② 接入暗坑 — K3 永远思考 / K2.7 Code 报错 / WebSearch 失效降级 K2.6 / Claude Code ENABLE_TOOL_SEARCH=False</div><div class="desc en">Ops ② integration dark patterns — K3 always thinks / K2.7 Code errors / WebSearch fails → K2.6 / Claude Code flag</div></div>
+<div class="timeline-row"><div class="ts">12:30</div><div class="desc zh">凡人实战 ③ 算账 — 0.3 / 3 / 15 刀 10 倍缓存价差，前置一切可缓存</div><div class="desc en">Ops ③ cost — 0.3 / 3 / 15 dollar 10× cache gap, front-load cacheables</div></div>
+<div class="timeline-row"><div class="ts">13:00</div><div class="desc zh">凡人实战 ④ 别把 1M 上下文当垃圾桶 — BrowseComp 300k 91.2 > 1M 90.4</div><div class="desc en">Ops ④ 1M ctx isn't a trash bin — BrowseComp 300k 91.2 > 1M 90.4</div></div>
+<div class="timeline-row"><div class="ts">13:15</div><div class="desc zh">凡人实战 ⑤ 分层路由 — DeepSeek / GLM-5.2 / K3 / Fable 5，80× 价差</div><div class="desc en">Ops ⑤ tiered routing — DeepSeek / GLM-5.2 / K3 / Fable 5, 80× cost gap</div></div>
+<div class="timeline-row"><div class="ts">13:30</div><div class="desc zh">凡人实战 ⑥ 防备过度主动 — 沙箱隔离 + 网络边界 + 写操作人工审批</div><div class="desc en">Ops ⑥ over-active defense — sandbox + network boundary + write-approval</div></div>
+<div class="timeline-row"><div class="ts">13:45</div><div class="desc zh">现实 ①②③ — 跑分水分 / 幻觉 51% / 自托管 9 小时</div><div class="desc en">Realities ①②③ — benchmark variance / hallucination 51% / self-host 9h</div></div>
+<div class="timeline-row"><div class="ts">14:15</div><div class="desc zh">结尾金句 — "开源最大的诚意 并不在那个 1.56TB 的文件里 而是藏在 GitHub 的 Commit 记录中"</div><div class="desc en">Closing — "open source's greatest sincerity isn't in the 1.56TB file but in the GitHub commit log"</div></div>
+</div>
+</div>
+
+<footer>
+<p class="zh"><strong>📂 Vault 笔记</strong>：<a href="https://2017zyl.xyz/daily-reports/kimi-k3-moonshot-2-8tb-moe-2026-07-29/index.html" target="_blank" rel="noopener">/daily-reports/kimi-k3-moonshot-2-8tb-moe-2026-07-29/index.html</a></p>
+<p class="en"><strong>📂 Vault note</strong>: <a href="https://2017zyl.xyz/daily-reports/kimi-k3-moonshot-2-8tb-moe-2026-07-29/index.html" target="_blank" rel="noopener">/daily-reports/kimi-k3-moonshot-2-8tb-moe-2026-07-29/index.html</a></p>
+<p class="zh"><strong>🎬 源视频</strong>：<a href="https://www.youtube.com/watch?v=yryTXpvCamE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=yryTXpvCamE</a></p>
+<p class="en"><strong>🎬 Source video</strong>: <a href="https://www.youtube.com/watch?v=yryTXpvCamE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=yryTXpvCamE</a></p>
+<p class="zh">生成时间：2026-07-30T13:55Z · transcript 5697 chars · 299 lines · kome.ai · hermes-agent</p>
+<p class="en">Generated: 2026-07-30T13:55Z · transcript 5697 chars · 299 lines · kome.ai · hermes-agent</p>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  var tocCollapsed = false;
+  window.toggleToc = function(){
+    tocCollapsed = !tocCollapsed;
+    document.documentElement.classList.toggle('toc-collapsed', tocCollapsed);
+    try { localStorage.setItem('kimi-k3-toc-collapsed', tocCollapsed ? '1' : '0'); } catch(e){}
+  };
+  try {
+    if (localStorage.getItem('kimi-k3-toc-collapsed') === '1') {
+      tocCollapsed = true;
+      document.documentElement.classList.add('toc-collapsed');
+    }
+  } catch(e){}
+
+  var tabs = document.querySelectorAll('.tab');
+  var contents = document.querySelectorAll('.tab-content');
+  function activate(name){
+    tabs.forEach(function(t){ t.classList.toggle('active', t.dataset.tab === name); });
+    contents.forEach(function(c){ c.classList.toggle('active', c.dataset.tabContent === name); });
+    try { history.replaceState(null, '', '#' + name); } catch(e){}
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ activate(t.dataset.tab); });
+  });
+  var initHash = (location.hash || '').replace('#','');
+  if (initHash) {
+    var t0 = document.querySelector('[data-tab="'+initHash+'"]');
+    if (t0) activate(initHash);
+  }
+
+  window.setLang = function(lang){
+    document.documentElement.setAttribute('lang', lang);
+    var btnZh = document.getElementById('btn-zh');
+    var btnEn = document.getElementById('btn-en');
+    if (btnZh) btnZh.classList.toggle('active', lang === 'zh-CN');
+    if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+    try { localStorage.setItem('kimi-k3-lang', lang); } catch(e){}
+  };
+  try {
+    var saved = localStorage.getItem('kimi-k3-lang');
+    if (saved === 'en' || saved === 'zh-CN') setLang(saved);
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
