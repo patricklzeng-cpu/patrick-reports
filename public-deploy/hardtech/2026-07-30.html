@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>硬科技日报 / Hardtech Daily</title>
+<style>
+:root { --bg: #0a0e1a; --card: #131927; --card-border: #1f2a40; --text: #dfe5f5; --muted: #8a96b3; --accent: #5b8def; --ok: #6fcf97; --warn: #f0a868; --quantum: #b48cff; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", sans-serif; padding: 24px; line-height: 1.6; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 26px; margin-bottom: 4px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; text-align: center; }
+.stat b { font-size: 24px; display: block; color: var(--accent); }
+.stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(120, 140, 200, 0.12); color: var(--muted); white-space: nowrap; flex-shrink: 0; margin-bottom: 4px; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(111, 207, 151, 0.15); color: var(--ok); }
+.tag.topic { background: rgba(91, 141, 239, 0.08); color: var(--text); margin-left: 2px; }
+.topic-h2 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+.section-h2 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; color: var(--muted); }
+.abstract, .meta, .authors, .cats { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.abstract { color: #b0b8d0; }
+.authors, .cats { font-size: 12px; }
+.meta code { background: rgba(120, 140, 200, 0.12); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+a:hover { color: var(--accent); }
+.footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--card-border); font-size: 12px; color: var(--muted); text-align: center; }
+
+.lang-toggle{cursor:pointer;background:rgba(20,30,40,.85);border:1px solid var(--accent,#58a6ff);color:var(--accent,#58a6ff);border-radius:999px;padding:6px 14px;font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;transition:.18s;backdrop-filter:blur(8px)}.lang-toggle:hover{background:var(--accent,#58a6ff);color:#0a0e1a;box-shadow:0 0 18px rgba(91,141,239,.35)}.en{display:none}.zh{display:inline}html[lang="en"] .en{display:inline}html[lang="en"] .zh{display:none}html[lang="zh-CN"] .en{display:none}html[lang="zh-CN"] .zh{display:inline}
+</style>
+</head>
+<body><div id="langBar" style="position:sticky;top:0;z-index:50;display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;background:rgba(10,14,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(91,141,239,.18)"><button class="lang-toggle" id="langBtn" type="button" onclick="toggleLang()" aria-label="Toggle language">EN ⇄ 中</button></div>
+<div class="wrap">
+  <h1><span class="zh">⚛️ 硬科技热门追踪</span><span class="en">⚛️ 硬科技热门追踪</span></h1>
+  <div class="sub"><span class="zh">2026-07-30 · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;    数据源：arXiv（3 分类 + 电池 full-text）+ Hacker News（curated keywords）· v2 envelope_version=1 · 生成于 2026-07-30T01:00:45.501693Z</span><span class="en">
+    &lt;b&gt;2026-07-30&lt;/b&gt; · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;
+    数据源: arXiv (3 分类 + 电池 full-text) + Hacker News (curated keywords) · v2 envelope_version=1 · 生成于 2026-07-30T01:00:45.501693Z
+  </span></div>
+
+  <div class="stats">
+    <div class="stat"><b>25</b><span>arXiv papers</span></div>
+    <div class="stat"><b>15</b><span>HN stories</span></div>
+    <div class="stat"><b>2</b><span>fusion</span></div>
+    <div class="stat"><b>8</b><span>quantum</span></div>
+    <div class="stat"><b>1</b><span>battery</span></div>
+    <div class="stat"><b>0</b><span>space</span></div>
+  </div>
+
+  <h2 class="section-h2"><span class="zh">🔥 Top 20（跨来源，按影响力排序）</span><span class="en">🔥 Top 20 (cross-source, by impact)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27086v1" target="_blank"><span class="zh">磁性外尔半金属球体中的角动量转移</span><span class="en">Angular Momentum Transfer in Magnetic Weyl Semimetal Spheres</span></a>
+<div class="abstract"><span class="zh">在本工作中，我们在外尔半金属的框架下研究电磁角动量问题，该问题由轴子电动力学描述。具体而言，我们计算了球体的电磁角动量</span><span class="en">In this work, we investigate the problem of electromagnetic angular momentum within the framework of topological materials, described by axion electrodynamics. Specifically, we calculate the electromagnetic angular momentum for a spherical</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27067v1" target="_blank"><span class="zh">具有全电学正交控制的简并单态-三重态量子比特</span><span class="en">A Degenerate Singlet-Triplet Qubit with All-Electrical Orthogonal Control</span></a>
+<div class="abstract"><span class="zh">单态-三重态量子比特为半导体量子计算提供了一种有吸引力的编码方式，结合了无需辅助量子位的读出、对共模噪声的降低灵敏度以及基带电压控制。然而，塞曼能量差 $ΔE_\math</span><span class="en">Singlet-triplet qubits offer an attractive encoding for semiconductor quantum computing, combining ancilla-free readout, reduced sensitivity to common-mode noise, and baseband voltage control. However, the Zeeman energy difference $ΔE_\math</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27016v1" target="_blank"><span class="zh">铁磁体中的各向异性自旋极化和磁性自旋霍尔效应</span><span class="en">Anisotropic Spin Polarization and magnetic spin hall effect in Ferromagnets</span></a>
+<div class="abstract"><span class="zh">铁磁体中的自旋相关传输支撑着高密度自旋电子学存储器的发展。具有强自旋-轨道耦合的铁磁体中的自旋相关传输表现出显著的各向异性。整体自旋极化</span><span class="en">Spin-dependent transport in ferromagnets underpins the development of high-density spintronic memories. Spin-dependent transport in strong spin-orbit-coupled ferromagnets exhibits a significant anisotropy. Both the overall spin polarization</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26974v1" target="_blank"><span class="zh">Lippmann-Schwinger 方程框架下的双磁振子散射</span><span class="en">Two-magnon scattering in the framework of the Lippmann-Schwinger equation</span></a>
+<div class="abstract"><span class="zh">控制磁性损耗需要确定外在线宽展宽的微观起源。我们引入了一个针对弱缺陷势的双磁振子散射的 Lippmann--Schwinger 框架，表明散射由</span><span class="en">Controlling magnetic losses requires identifying the microscopic origin of extrinsic linewidth broadening. We introduce a Lippmann--Schwinger framework for two-magnon scattering from weak defect potentials, showing that scattering is set by</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26971v1" target="_blank"><span class="zh">具有电荷序的铁电可切换类交变磁补偿亚铁磁体</span><span class="en">Ferroelectric switchable altermagnetic-like compensated ferrimagnets with charge ordering</span></a>
+<div class="abstract"><span class="zh">具有几乎零磁化但显著非相对论性自旋分裂的非常规共线磁体（如交变磁体）可以同时继承铁磁体和反铁磁体的优点。通过引入更多自由度</span><span class="en">Unconventional collinear magnets with almost zero magnetization but prominent nonrelativistic spin-splitting, such as altermagnets, can inherit the advantages of both ferromagnets and antiferromagnets. By incorporating more degrees of freed</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25923v1" target="_blank"><span class="zh">Yukawa 流体的变分方法 II：瞬时弹性模量与声速</span><span class="en">Variational approach to Yukawa fluids. II. Instantaneous elastic moduli and sound velociti</span></a>
+<div class="abstract"><span class="zh">基于 Bogoliubov 不等式、以硬球流体作为参考体系的变分方法被用于评估 Yukawa 流体的瞬时剪切、体积和纵向弹性模量以及相关声速</span><span class="en">The variational approach based on the Bogoliubov inequality using the fluid of hard spheres as a reference system is implemented to evaluate instantaneous shear, bulk and longitudinal elastic moduli, as well as related sound velocities of Y</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25908v1" target="_blank"><span class="zh">Yukawa 流体的变分方法 I：热力学</span><span class="en">Variational approach to Yukawa fluids. I. Thermodynamics</span></a>
+<div class="abstract"><span class="zh">使用以硬球流体作为参考体系的变分方法，计算了强耦合 Yukawa 流体的超额能量、熵和压强。与单组分等离子体情况一样，Percus-Yevick 维里</span><span class="en">The excess energy, entropy, and pressure of a strongly coupled Yukawa fluid are calculated from the variational approach using the fluid of hard spheres as a reference system. As in the case of the one-component plasma, the Percus-Yevick vi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25843v1" target="_blank"><span class="zh">空间激光能量传输：基于等离子体的能量电池</span><span class="en">Laser power transmission in space: Plasma-based power cell</span></a>
+<div class="abstract"><span class="zh">激光能量束传输为空间能源输送提供了一条途径，但半导体激光光伏接收器面临热化、欧姆热和辐射复合损耗等问题。本文提出了一种气相等离子体能量电池，可将</span><span class="en">Laser power beaming offers a route to space energy delivery, but semiconductor laser photovoltaic receivers face thermalization, joule heat, and radiative recombination waste, etc. Here we propose a gas-phase plasma power cell that converts</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25829v1" target="_blank"><span class="zh">Parker Solar Probe 探测到的共转流的剪切相互作用与加速</span><span class="en">Shear interaction and acceleration of a corotating stream detected by Parker Solar Probe</span></a>
+<div class="abstract"><span class="zh">对 Parker Solar Probe（PSP）和 Solar Orbiter 数据的最新分析表明，在日心距离 15 至 120 Rsun 之间的太阳风快速流中，波动能量被传输给整体流动。为了深入了解</span><span class="en">Recent analysis of Parker Solar Probe (PSP) and Solar Orbiter data indicates that fluctuations energy is transferred to the bulk flow in fast streams of the solar wind at heliocentric distances between 15 and 120 Rsun. To gain insight into</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25556v1" target="_blank"><span class="zh">HIR：一种用于具有各向异性快离子等离子体中氢电离的碰撞-辐射模型</span><span class="en">HIR: A collisional-radiative model for hydrogen ionization in plasma with anisotropic fast</span></a>
+<div class="abstract"><span class="zh">本文介绍了为计算原子氢的能级布居及其在热等离子体中的电离动力学而开发的 HIR（Hydrogen Ionization Rates）软件包，包括具有各向异性的快离子情形</span><span class="en">The paper presents the HIR (Hydrogen Ionization Rates) software package developed for calculating the level populations of atomic hydrogen and the dynamics of its ionization in hot plasma, including the case of fast ions with an anisotropic</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25481v1" target="_blank"><span class="zh">使 X 射线汤姆逊散射的化学模型与 Bethe $f$-求和定则一致</span><span class="en">Reconciling chemical models of X-ray Thomson Scattering with the Bethe $f$-sum rule</span></a>
+<div class="abstract"><span class="zh">X 射线汤姆逊散射（XRTS）是高能量密度等离子体的关键诊断手段，即使在较高温度下也能表现出显著的量子效应。XRTS 实验通常使用千原分解进行解释，</span><span class="en">X-ray Thomson scattering (XRTS) is a key diagnostic for high-energy-density plasmas, which can exhibit significant quantum effects even at elevated temperatures. XRTS experiments are commonly interpreted using the Chihara decomposition, tha</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25409v1" target="_blank"><span class="zh">Polaris：一款采用简单模块化线圈的灵活仿星器演示实验装置</span><span class="en">Polaris: a flexible stellarator demonstration experiment with simple modular coils</span></a>
+<div class="abstract"><span class="zh">我们介绍了位于瑞士等离子体中心的 Polaris——一台新的小型仿星器实验装置（大半径 R ~ 0.4 m）的设计、建造和首次等离子体实验。Polaris 由一个相对较大的真空容器（~0.5 m</span><span class="en">We present the design, construction, and first plasma experiments of Polaris, a new small-scale stellarator experiment (major radius R ~ 0.4 m) located at the Swiss Plasma Center. Polaris consists of a relatively large vacuum vessel (~0.5 m</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25313v1" target="_blank"><span class="zh">使用自旋极化燃料增强 alpha 通道效应</span><span class="en">Enhanced alpha channeling with spin-polarized fuel</span></a>
+<div class="abstract"><span class="zh">氘-氚 (D-T) 燃料的核自旋态决定了 D-T 聚变截面以及聚变产生的 alpha 粒子和中子的发射方向。我们展示了自旋极化燃料 (SPF) 增强 alpha 通道效应的两种方式,</span><span class="en">The nuclear spin state of deuterium-tritium (D-T) fuel sets both the D-T fusion cross section and the emission direction of the fusion-born alphas and neutrons. We show two ways that spin-polarized fuel (SPF) could enhance alpha channeling,</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25158v1" target="_blank"><span class="zh">具有剪切流的正则动理学平衡的统计结构</span><span class="en">Statistical structure of canonical kinetic equilibrium with sheared flow</span></a>
+<div class="abstract"><span class="zh">在具有剪切流的等离子体的等温动理学平衡中,静电势是速度分布的累积量生成函数,编码了所有非麦克斯韦统计量。因此,在多项式形式的通量中,</span><span class="en">In isothermal kinetic equilibrium of a plasma with sheared flow, the electrostatic potential is the cumulant generating function of the velocity distribution, encoding all non-Maxwellian statistics. Consequently, of the polynomial-form flux</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26029v1" target="_blank"><span class="zh">驱动-耗散自旋截断维格纳近似的路径积分方法</span><span class="en">Path integral approach to the truncated Wigner approximation of driven-dissipative spins</span></a>
+<div class="abstract"><span class="zh">截断维格纳近似 (TWA) 等相空间方法为开放量子多体系统动力学提供了一种有效的半经典近似模拟框架,超越了精确数值方法的范围。</span><span class="en">Phase-space approaches such as the truncated Wigner approximation (TWA) provide an efficient semiclassical framework for performing approximate simulations of the dynamics of open quantum many-body systems outside the reach of exact numeric</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26028v1" target="_blank"><span class="zh">超图 Moore 界的谱证明</span><span class="en">A Spectral Proof of the Hypergraph Moore Bound</span></a>
+<div class="abstract"><span class="zh">一个 $k$-均匀超图的非空子族若其每个顶点位于偶数条超边中,则称为偶覆盖;当 $k=2$ 时,它们是边不相交的圈的并,因此偶覆盖的最小大小是自然的超图形式。</span><span class="en">A nonempty subfamily of a $k$-uniform hypergraph is an \emph{even cover} if every vertex lies in an even number of its hyperedges; for $k=2$ these are edge-disjoint unions of cycles, so the minimum size of an even cover is the natural hyper</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26019v1" target="_blank"><span class="zh">预测半导体自旋量子比特中核自旋噪声的慢漂移</span><span class="en">Predicting the Slow Drift of Nuclear Spin Noise in Semiconductor Spin Qubits</span></a>
+<div class="abstract"><span class="zh">核自旋浴的动力学产生磁噪声,这是静电定义量子点中电子自旋比特退相干的关键因素。在本文中,我们扩展了团簇相关展开 (CCE) 技术,</span><span class="en">The dynamics of a nuclear spin bath generates magnetic noise that is a key contributor to the decoherence of electron spin qubits in electrostatically-defined quantum dots. In this paper, we extend the cluster correlation expansion (CCE) te</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26011v1" target="_blank"><span class="zh">Krylov 空间记忆核</span><span class="en">Krylov-Space Memory Cores</span></a>
+<div class="abstract"><span class="zh">我们将 Krylov 空间记忆核引入为静止的、深度分辨的结构,揭示了在其他热化不可积系统的 Krylov 空间中,反常初态记忆是如何组织的。静止占据</span><span class="en">We introduce Krylov-space memory cores as stationary, depth-resolved structures that reveal how anomalous initial-state memory is organized inside the Krylov space of otherwise thermalizing nonintegrable systems. The stationary occupation p</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25998v1" target="_blank"><span class="zh">在缺乏经典验证下的可观测量估计</span><span class="en">Observable Estimation in the Absence of Classical Verification</span></a>
+<div class="abstract"><span class="zh">量子力学的预测成功支撑了现代科学的许多领域,即使大型相互作用量子系统的精确模拟仍超出经典计算的能力范围。这一成功得益于</span><span class="en">The predictive success of quantum mechanics underpins many areas of modern science, even as the exact simulation of large, interacting quantum systems remains beyond the reach of classical computation. This success has been enabled by the r</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.25969v1" target="_blank"><span class="zh">具有非马尔可夫影响矩阵的可解量子电路</span><span class="en">Solvable Quantum Circuits with non-Markovian Influence Matrices</span></a>
+<div class="abstract"><span class="zh">影响矩阵编码了扩展量子多体系统的其余部分在演化过程中对局部子系统施加的作用。因此,了解影响矩阵有助于对局部子系统进行计算高效的模拟。</span><span class="en">Influence matrices encode the action exerted on local subsystems by the rest of an extended quantum many-body system during their evolution. Thus, knowledge of the influence matrix facilitates computationally efficient simulations of local</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-28</span></div>
+</div></div>
+
+  <h2 class="topic-h2"><span class="zh">⚛️ 可控核聚变 Controlled Fusion（2）</span><span class="en">⚛️ 可控核聚变 Controlled Fusion (2)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://arxiv.org/abs/2607.25409v1" target="_blank"><span class="zh">Polaris:一个采用简单模块化线圈的灵活仿星器演示实验</span><span class="en">Polaris: a flexible stellarator demonstration experiment with simple modular coils</span></a>
+<div class="authors"><span class="zh">authors: Simon P. H. Vincent, Joaquim Loizu, Matthieu Toussaint</span><span class="en">authors: Simon P. H. Vincent, Joaquim Loizu, Matthieu Toussaint</span></div>
+<div class="abstract"><span class="zh">我们展示了 Polaris 的设计、建造和首次等离子体实验,这是位于瑞士等离子体中心的一个新的小型仿星器实验(大半径 R ~ 0.4 m)。Polaris 由一个相对较大的真空容器(~0.5 m</span><span class="en">We present the design, construction, and first plasma experiments of Polaris, a new small-scale stellarator experiment (major radius R ~ 0.4 m) located at the Swiss Plasma Center. Polaris consists of a relatively large vacuum vessel (~0.5 m</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25409v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗?</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · 2026-07-13</span></div>
+</div></div>
+  <h2 class="topic-h2"><span class="zh">⚛️ 量子计算 Quantum（8）</span><span class="en">⚛️ 量子计算 Quantum (8)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.25481v1" target="_blank"><span class="zh">X 射线汤姆逊散射的化学模型与 Bethe $f$-求和规则的协调</span><span class="en">Reconciling chemical models of X-ray Thomson Scattering with the Bethe $f$-sum rule</span></a>
+<div class="authors"><span class="zh">authors: Maximilian P. Böhme, Paul Hamann, Veronika A. Kruse</span><span class="en">authors: Maximilian P. Böhme, Paul Hamann, Veronika A. Kruse</span></div>
+<div class="abstract"><span class="zh">X 射线汤姆逊散射 (XRTS) 是高能量密度等离子体的关键诊断手段,即使在较高温度下也可能表现出显著的量子效应。XRTS 实验通常使用千原分解来解释,</span><span class="en">X-ray Thomson scattering (XRTS) is a key diagnostic for high-energy-density plasmas, which can exhibit significant quantum effects even at elevated temperatures. XRTS experiments are commonly interpreted using the Chihara decomposition, tha</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25481v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.26029v1" target="_blank"><span class="zh">驱动-耗散自旋截断维格纳近似的路径积分方法</span><span class="en">Path integral approach to the truncated Wigner approximation of driven-dissipative spins</span></a>
+<div class="authors"><span class="zh">authors: Viktoria Noel, Michael Fleischhauer, Igor Lesanovsky</span><span class="en">authors: Viktoria Noel, Michael Fleischhauer, Igor Lesanovsky</span></div>
+<div class="abstract"><span class="zh">截断维格纳近似 (TWA) 等相空间方法为开放量子多体系统动力学提供了一种有效的半经典近似模拟框架,超越了精确数值方法的范围。</span><span class="en">Phase-space approaches such as the truncated Wigner approximation (TWA) provide an efficient semiclassical framework for performing approximate simulations of the dynamics of open quantum many-body systems outside the reach of exact numeric</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26029v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.26019v1" target="_blank"><span class="zh">预测半导体自旋量子比特中核自旋噪声的缓慢漂移</span><span class="en">Predicting the Slow Drift of Nuclear Spin Noise in Semiconductor Spin Qubits</span></a>
+<div class="authors"><span class="zh">authors: Wayne M. Witzel, Jesse J. Lutz, Matthew D. Grace</span><span class="en">authors: Wayne M. Witzel, Jesse J. Lutz, Matthew D. Grace</span></div>
+<div class="abstract"><span class="zh">核自旋浴的动力学会产生磁噪声，这是电学定义量子点中电子自旋量子比特退相干的主要来源之一。本文作者扩展了团簇关联展开 (CCE) 技术，对长达数千次自旋回波演化过程中的退相干进行预测。作者引入了一种机器学习辅助的互补方法……</span><span class="en">The dynamics of a nuclear spin bath generates magnetic noise that is a key contributor to the decoherence of electron spin qubits in electrostatically-defined quantum dots. In this paper, we extend the cluster correlation expansion (CCE) te</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26019v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.25998v1" target="_blank"><span class="zh">无经典验证下的可观测量估计</span><span class="en">Observable Estimation in the Absence of Classical Verification</span></a>
+<div class="authors"><span class="zh">authors: Samantha V. Barron, Bradley Mitchell, Vinay Tripathi</span><span class="en">authors: Samantha V. Barron, Bradley Mitchell, Vinay Tripathi</span></div>
+<div class="abstract"><span class="zh">量子力学的预测能力支撑着现代科学的众多领域，尽管对大型相互作用量子系统的精确模拟仍超出经典计算的能力范围。这一成功得益于可靠实验结果的发展……</span><span class="en">The predictive success of quantum mechanics underpins many areas of modern science, even as the exact simulation of large, interacting quantum systems remains beyond the reach of classical computation. This success has been enabled by the r</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25998v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.25969v1" target="_blank"><span class="zh">具有非马尔可夫影响矩阵的可解量子电路</span><span class="en">Solvable Quantum Circuits with non-Markovian Influence Matrices</span></a>
+<div class="authors"><span class="zh">authors: Samuel H. Pickering, Max McGinley, Bhavik Kumar</span><span class="en">authors: Samuel H. Pickering, Max McGinley, Bhavik Kumar</span></div>
+<div class="abstract"><span class="zh">影响矩阵描述了在演化过程中，扩展量子多体系统的其余部分对局部子系统施加的作用。因此，掌握影响矩阵有助于以计算高效的方式模拟局域观测量……</span><span class="en">Influence matrices encode the action exerted on local subsystems by the rest of an extended quantum many-body system during their evolution. Thus, knowledge of the influence matrix facilitates computationally efficient simulations of local</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25969v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.25954v1" target="_blank"><span class="zh">四部分量子态的等熵映射</span><span class="en">Equi-Entropic Maps for Four-Partite Quantum States</span></a>
+<div class="authors"><span class="zh">authors: Wojciech Bruzda, Zahra Raissi</span><span class="en">authors: Wojciech Bruzda, Zahra Raissi</span></div>
+<div class="abstract"><span class="zh">绝对最大纠缠态是一种高度受限的多体纠缠形式，在量子信息理论中扮演重要角色。作者针对四体系统研究了一种较弱的纠缠均匀性形式……</span><span class="en">Absolutely maximally entangled states represent a highly constrained form of multipartite entanglement and play an important role in quantum information theory. We investigate a weaker form of uniformity of entanglement for four-party syste</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25954v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.25941v1" target="_blank"><span class="zh">以可验证的高保真度采样困难电路</span><span class="en">Sampling hard circuits with verifiably high fidelity</span></a>
+<div class="authors"><span class="zh">authors: Simon Martiel, Jay-U Chung, Alireza Seif</span><span class="en">authors: Simon Martiel, Jay-U Chung, Alireza Seif</span></div>
+<div class="abstract"><span class="zh">基于采样的方案是展示超越经典超级计算机能力的量子计算的重要候选方案。然而，要将其复杂性理论的困难性与实际应用所需的两种能力结合起来一直十分困难……</span><span class="en">Sampling-based proposals are prominent candidates for demonstrating quantum computations beyond the reach of classical supercomputers. However, it has been difficult to combine their complexity-theoretic hardness with two capabilities neede</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25941v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.25900v1" target="_blank"><span class="zh">效应值测量模型与上下文性</span><span class="en">Effect-valued measurement models and contextuality</span></a>
+<div class="authors"><span class="zh">authors: Samson Abramsky</span><span class="en">authors: Samson Abramsky</span></div>
+<div class="abstract"><span class="zh">作者用凸效应代数 \(A\) 中的分布替代概率分布，从而推广了 Abramsky–Brandenburger 对上下文性的层论处理方式。这给出了一种 \(A\)-值测量模型的概念……</span><span class="en">We generalize the Abramsky--Brandenburger sheaf-theoretic treatment of contextuality by replacing probability distributions with distributions valued in a convex effect algebra \(A\). This yields a notion of \(A\)-valued measurement model e</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25900v1 · 2026-07-28</span></div>
+</div></div>
+  <h2 class="topic-h2"><span class="zh">⚛️ 电池技术 Battery（1）</span><span class="en">⚛️ 电池技术 Battery (1)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">电池技术 Battery</span><span class="en">电池技术 Battery</span></span>
+<a href="https://arxiv.org/abs/2607.25817v1" target="_blank"><span class="zh">农村地区射频供电物联网性能评估：无线电力数字鸿沟</span><span class="en">Performance Evaluation of RF-powered IoT in Rural Areas: The Wireless Power Digital Divide</span></a>
+<div class="authors"><span class="zh">authors: Hao Lin, Mustafa A. Kishk, Mohamed-Slim Alouini</span><span class="en">authors: Hao Lin, Mustafa A. Kishk, Mohamed-Slim Alouini</span></div>
+<div class="abstract"><span class="zh">弥合数字鸿沟是未来移动网络的目标之一，而在农村地区进一步建设物联网是一种可行的解决方案。本文研究了农村无线网络的下行链路性能，其中物联网设备……</span><span class="en">Bridging the digital divide is one of the goals of mobile networks in the future, and further building IoT networks in rural areas is a feasible solution. This paper studies the downlink performance of rural wireless networks, where IoT dev</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25817v1 · 2026-07-28</span></div>
+</div></div>
+  
+
+  <h2 class="section-h2"><span class="zh">📄 arXiv 全部（25 篇）</span><span class="en">📄 arXiv 全部 (25 篇)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25923v1" target="_blank"><span class="zh">Yukawa 流体的变分方法 II. 瞬时弹性模量与声速</span><span class="en">Variational approach to Yukawa fluids. II. Instantaneous elastic moduli and sound velociti</span></a>
+<div class="abstract"><span class="zh">作者基于 Bogoliubov 不等式、以硬球流体为参考体系实现了变分方法，用于评估 Yukawa 流体的瞬时剪切、体积与纵向弹性模量及相关声速。该方法的精度显著。此外，作者通过适当的状态方程评估了绝热声速……</span><span class="en">The variational approach based on the Bogoliubov inequality using the fluid of hard spheres as a reference system is implemented to evaluate instantaneous shear, bulk and longitudinal elastic moduli, as well as related sound velocities of Yukawa fluids. The remarkable accuracy of this method is documented. In addition, we evaluate the adiabatic sound velocity from an appropriate equation of state</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25923v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25908v1" target="_blank"><span class="zh">Yukawa 流体的变分方法 I. 热力学</span><span class="en">Variational approach to Yukawa fluids. I. Thermodynamics</span></a>
+<div class="abstract"><span class="zh">作者使用以硬球流体为参考体系的变分方法，计算了强耦合 Yukawa 流体的剩余能量、熵与压强。如同一组分等离子体的情况，Percus-Yevick 维里熵适用于此类计算，并与分子动力学模拟的现有结果高度吻合……</span><span class="en">The excess energy, entropy, and pressure of a strongly coupled Yukawa fluid are calculated from the variational approach using the fluid of hard spheres as a reference system. As in the case of the one-component plasma, the Percus-Yevick virial entropy is appropriate for such calculations and delivers remarkable agreement with available results from molecular dynamics simulations. The agreement wi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25908v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25843v1" target="_blank"><span class="zh">空间中的激光能量传输：基于等离子体的能量电池</span><span class="en">Laser power transmission in space: Plasma-based power cell</span></a>
+<div class="abstract"><span class="zh">激光能量传输为空间能量输送提供了一种途径，但半导体激光光伏接收器存在热化、焦耳热以及辐射复合损耗等问题。本文作者提出了一种气相等离子体能量电池，可通过氙光电离与磁偏置电荷分离将真空紫外光子转换为电能。粒子模拟蒙特卡罗仿真……</span><span class="en">Laser power beaming offers a route to space energy delivery, but semiconductor laser photovoltaic receivers face thermalization, joule heat, and radiative recombination waste, etc. Here we propose a gas-phase plasma power cell that converts vacuum-ultraviolet photons into electrical output through xenon photoionization and magnetically biased charge separation. Particle-in-cell Monte Carlo simulat</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25843v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25829v1" target="_blank"><span class="zh">Parker Solar Probe 探测到共转流的剪切相互作用与加速</span><span class="en">Shear interaction and acceleration of a corotating stream detected by Parker Solar Probe</span></a>
+<div class="abstract"><span class="zh">近期对 Parker Solar Probe (PSP) 与 Solar Orbiter 数据的分析表明，在日心距离 15 至 120 Rsun 之间，波动能量被传递到太阳风高速流的体流中。为深入了解该过程，作者分析了 PSP 第 10 次相遇内向轨道期间收集的数据……</span><span class="en">Recent analysis of Parker Solar Probe (PSP) and Solar Orbiter data indicates that fluctuations energy is transferred to the bulk flow in fast streams of the solar wind at heliocentric distances between 15 and 120 Rsun. To gain insight into this process, we analyze data collected during the inbound orbit of PSP in Encounter 10, when it is in approximate corotation with the Sun and an accelerating s</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25829v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25556v1" target="_blank"><span class="zh">HIR：用于等离子体中氢电离（含各向异性快离子）的碰撞-辐射模型</span><span class="en">HIR: A collisional-radiative model for hydrogen ionization in plasma with anisotropic fast</span></a>
+<div class="abstract"><span class="zh">本文介绍了 HIR（Hydrogen Ionization Rates，氢电离速率）软件包，用于计算高温等离子体中原子氢的能级布居及其电离动力学，包括快离子具有各向异性分布函数的情形。该代码基于稳态碰撞-辐射模型，涵盖电子与离子碰撞激发、退激发、电离……</span><span class="en">The paper presents the HIR (Hydrogen Ionization Rates) software package developed for calculating the level populations of atomic hydrogen and the dynamics of its ionization in hot plasma, including the case of fast ions with an anisotropic distribution function. The code is based on a steady-state collisional-radiative model that includes electron and ion impact excitation, de-excitation, ionizat</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25556v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25481v1" target="_blank"><span class="zh">调和 X 射线汤姆逊散射的化学模型与 Bethe $f$-求和定则</span><span class="en">Reconciling chemical models of X-ray Thomson Scattering with the Bethe $f$-sum rule</span></a>
+<div class="abstract"><span class="zh">X 射线汤姆逊散射 (XRTS) 是高能量密度等离子体的关键诊断手段，即使在较高温度下也可能表现出显著的量子效应。XRTS 实验通常被解释</span><span class="en">X-ray Thomson scattering (XRTS) is a key diagnostic for high-energy-density plasmas, which can exhibit significant quantum effects even at elevated temperatures. XRTS experiments are commonly interpreted using the Chihara decomposition, that was derived in the chemical picture and, thus, separates contributions from bound and free electrons. Despite being the de-facto standard for analysing measur</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25481v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25409v1" target="_blank"><span class="zh">Polaris：一种采用简单模块化线圈的灵活仿星器演示实验</span><span class="en">Polaris: a flexible stellarator demonstration experiment with simple modular coils</span></a>
+<div class="abstract"><span class="zh">我们介绍了 Polaris 的设计、建造及首次等离子体实验，这是一项位于瑞士等离子体中心的新型小型仿星器实验（大半径 R ~ 0.4 m）。Polaris 由</span><span class="en">We present the design, construction, and first plasma experiments of Polaris, a new small-scale stellarator experiment (major radius R ~ 0.4 m) located at the Swiss Plasma Center. Polaris consists of a relatively large vacuum vessel (~0.5 m^3) predominantly made of glass windows and inside which different sets of magnetic coils can be installed. A first modular coil configuration has been designed</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25409v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25313v1" target="_blank"><span class="zh">利用自旋极化燃料增强 alpha 通道效应</span><span class="en">Enhanced alpha channeling with spin-polarized fuel</span></a>
+<div class="abstract"><span class="zh">氘-氚 (D-T) 燃料的核自旋态决定了 D-T 聚变截面以及聚变产生的 alpha 粒子和中子的发射方向。我们展示了利用自旋极化燃料的两种方式</span><span class="en">The nuclear spin state of deuterium-tritium (D-T) fuel sets both the D-T fusion cross section and the emission direction of the fusion-born alphas and neutrons. We show two ways that spin-polarized fuel (SPF) could enhance alpha channeling, the wave-mediated damping of alpha power onto fuel ions rather than electrons, which is predicted to increase fusion power significantly. First, the enhanced S</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25313v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25158v1" target="_blank"><span class="zh">具有剪切流的正则动力学平衡的统计结构</span><span class="en">Statistical structure of canonical kinetic equilibrium with sheared flow</span></a>
+<div class="abstract"><span class="zh">在具有剪切流的等离子体的等温动力学平衡中，静电势是速度分布的累积量生成函数，编码了所有非麦克斯韦统计信息。</span><span class="en">In isothermal kinetic equilibrium of a plasma with sheared flow, the electrostatic potential is the cumulant generating function of the velocity distribution, encoding all non-Maxwellian statistics. Consequently, of the polynomial-form flux-function equilibrium flows, only the linear one is admissible, and every other equilibrium sheared flow has non-zero cumulants to all orders. The identity is s</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25158v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25113v1" target="_blank"><span class="zh">湍流中电子尺度电流片的涌现与探测：MMS 观测</span><span class="en">Emergence and Detection of Electron-Scale Current Sheets in Turbulence with MMS Observatio</span></a>
+<div class="abstract"><span class="zh">太阳风以湍流为特征，其中级联过程产生间歇性的电流结构，称为电流片 (CS)，能有效地将能量耗散到等离子体中。这些结构已被研究</span><span class="en">The solar wind is characterized by turbulence, where a cascade produces intermittent current structures called current sheets (CS) that efficiently dissipate energy into the plasma. These have been studied with in situ spacecraft observations, but single-spacecraft techniques such as the partial variance of increments (PVI) are inherently limited since they lack spatial context. A combined analysi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25113v1 · 2026-07-27</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26029v1" target="_blank"><span class="zh">驱动耗散自旋的截断维格纳近似的路径积分方法</span><span class="en">Path integral approach to the truncated Wigner approximation of driven-dissipative spins</span></a>
+<div class="abstract"><span class="zh">截断维格纳近似 (TWA) 等相空间方法为开放量子多体系统动力学的近似模拟提供了一种高效的半经典框架</span><span class="en">Phase-space approaches such as the truncated Wigner approximation (TWA) provide an efficient semiclassical framework for performing approximate simulations of the dynamics of open quantum many-body systems outside the reach of exact numerical methods but beyond the mean-field level. For bosonic systems, TWA is known to be equivalent to a Keldysh path-integral formulation truncated at second order</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26029v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26028v1" target="_blank"><span class="zh">超图 Moore 界的谱证明</span><span class="en">A Spectral Proof of the Hypergraph Moore Bound</span></a>
+<div class="abstract"><span class="zh">$k$-均匀超图的一个非空子族若每个顶点都在偶数条超边中，则称为 \emph{偶覆盖}；当 $k=2$ 时，它们是边不相交的圈的并集，因此最小尺</span><span class="en">A nonempty subfamily of a $k$-uniform hypergraph is an \emph{even cover} if every vertex lies in an even number of its hyperedges; for $k=2$ these are edge-disjoint unions of cycles, so the minimum size of an even cover is the natural hypergraph analogue of girth. We prove Feige&amp;#x27;s 2008 conjecture on the hypergraph Moore bound: there are absolute constants $A$ and $C$ (independent of $k$) such that</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26028v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26019v1" target="_blank"><span class="zh">预测半导体自旋量子比特中核自旋噪声的缓慢漂移</span><span class="en">Predicting the Slow Drift of Nuclear Spin Noise in Semiconductor Spin Qubits</span></a>
+<div class="abstract"><span class="zh">核自旋浴的动力学会产生磁噪声，这是静电定义量子点中电子自旋量子比特退相干的关键因素。在本文中，我们扩展了该</span><span class="en">The dynamics of a nuclear spin bath generates magnetic noise that is a key contributor to the decoherence of electron spin qubits in electrostatically-defined quantum dots. In this paper, we extend the cluster correlation expansion (CCE) technique, which has proven useful for predicting solid-state qubit coherence times across various settings but is limited to shorter time scales, to incorporate</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26019v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26011v1" target="_blank"><span class="zh">Krylov 空间记忆核</span><span class="en">Krylov-Space Memory Cores</span></a>
+<div class="abstract"><span class="zh">我们引入 Krylov 空间记忆核，作为静止的、按深度分解的结构，揭示了在原本可热化的不可积系统的 Krylov 空间中，异常初态记忆是如何被组织</span><span class="en">We introduce Krylov-space memory cores as stationary, depth-resolved structures that reveal how anomalous initial-state memory is organized inside the Krylov space of otherwise thermalizing nonintegrable systems. The stationary occupation profile identifies where late-time probability is concentrated along the Krylov chain, while complementary diagnostics of residual equilibration fluctuations, de</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26011v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25998v1" target="_blank"><span class="zh">缺乏经典验证时的可观测量估计</span><span class="en">Observable Estimation in the Absence of Classical Verification</span></a>
+<div class="abstract"><span class="zh">量子力学的预测性成功支撑着现代科学的诸多领域，尽管大型相互作用量子系统的精确模拟仍然超出经典计算的能力</span><span class="en">The predictive success of quantum mechanics underpins many areas of modern science, even as the exact simulation of large, interacting quantum systems remains beyond the reach of classical computation. This success has been enabled by the remarkable advancement of scalable numerical approximation methods, which often demonstrate practical accuracy despite the absence of formal guarantees. As quant</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25998v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25969v1" target="_blank"><span class="zh">具有非马尔可夫影响矩阵的可解量子电路</span><span class="en">Solvable Quantum Circuits with non-Markovian Influence Matrices</span></a>
+<div class="abstract"><span class="zh">影响矩阵编码了扩展量子多体系统的其余部分在演化过程中对局部子系统施加的作用。因此，了解影响矩阵有助于计算</span><span class="en">Influence matrices encode the action exerted on local subsystems by the rest of an extended quantum many-body system during their evolution. Thus, knowledge of the influence matrix facilitates computationally efficient simulations of local dynamics. Here we propose a new systematic approach to generating quantum circuits with complex dynamics for which the influence matrices can be written down ex</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25969v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25954v1" target="_blank"><span class="zh">四部分量子态的等熵映射</span><span class="en">Equi-Entropic Maps for Four-Partite Quantum States</span></a>
+<div class="abstract"><span class="zh">绝对最大纠缠态代表了一种高度受限的多体纠缠形式，在量子信息理论中扮演着重要角色。我们研究了一种较弱的均匀分布形式</span><span class="en">Absolutely maximally entangled states represent a highly constrained form of multipartite entanglement and play an important role in quantum information theory. We investigate a weaker form of uniformity of entanglement for four-party systems of local dimension $d&amp;amp;gt;2$ that requires the three balanced bipartitions to have equal but not necessarily maximal linear entropy. We introduce a linear map</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25954v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25941v1" target="_blank"><span class="zh">以可验证的高保真度采样硬电路</span><span class="en">Sampling hard circuits with verifiably high fidelity</span></a>
+<div class="abstract"><span class="zh">基于采样的方案是展示超越经典超级计算机能力的量子计算的有力候选。然而,一直难以将其复杂性理论的硬度与可扩展量子计算更普遍所需的两种能力相结合:抑制硬件错误,以及验证量子计算本身。本文通过引入……</span><span class="en">Sampling-based proposals are prominent candidates for demonstrating quantum computations beyond the reach of classical supercomputers. However, it has been difficult to combine their complexity-theoretic hardness with two capabilities needed for scalable quantum computing more generally: suppressing hardware errors, and verifying the quantum computation itself. Here we address both issues by intro</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25941v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25938v1" target="_blank"><span class="zh">具有退相干噪声的无自旋费米子中的相互作用流体力学模式</span><span class="en">Interacting hydrodynamic modes in spinless fermions with dephasing noise</span></a>
+<div class="abstract"><span class="zh">我们在多粒子 Lindblad 方程框架下研究具有退相干噪声的无自旋费米子的非平衡动力学。通过映射到可精确求解的具有纯虚隧穿幅度的一维 Hubbard 模型,我们分析费米子四次方算符的海森堡绘景动力学并确定其流体力学投影。我们构建了相关的扩散……</span><span class="en">We study the non-equilibrium dynamics of spinless fermions with dephasing noise in the framework of a many-particle Lindblad equation. Using a mapping to the exactly solvable one-dimensional Hubbard model with purely imaginary tunneling amplitude we analyze the Heisenberg-picture dynamics of operators quartic in fermions and determine their hydrodynamic projections. We construct the relevant diffu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25938v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.25900v1" target="_blank"><span class="zh">效应值测量模型与上下文性</span><span class="en">Effect-valued measurement models and contextuality</span></a>
+<div class="abstract"><span class="zh">我们通过用凸效应代数 \(A\) 中的分布代替概率分布,推广了 Abramsky--Brandenburger 关于上下文性的层论处理。这产生了一个 \(A\)-值测量模型的概念,在单一框架内涵盖概率性、确定性和量子测量结构。态 \(σ:A\to[0,1]\) 诱导出普通经验模型……</span><span class="en">We generalize the Abramsky--Brandenburger sheaf-theoretic treatment of contextuality by replacing probability distributions with distributions valued in a convex effect algebra \(A\). This yields a notion of \(A\)-valued measurement model encompassing probabilistic, deterministic, and quantum measurement structures within a single framework. States \(σ:A\to[0,1]\) induce ordinary empirical models,</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.25900v1 · 2026-07-28</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27086v1" target="_blank"><span class="zh">磁性外尔半金属球体中的角动量转移</span><span class="en">Angular Momentum Transfer in Magnetic Weyl Semimetal Spheres</span></a>
+<div class="abstract"><span class="zh">在本工作中,我们在拓扑材料框架内研究电磁角动量问题,由轴子电动力学描述。具体而言,我们计算了点电荷存在下磁性外尔半金属球形样品的电磁角动量。然后,我们分析了通过准静态移动点电荷,角动量存储……</span><span class="en">In this work, we investigate the problem of electromagnetic angular momentum within the framework of topological materials, described by axion electrodynamics. Specifically, we calculate the electromagnetic angular momentum for a spherical sample of magnetic Weyl semimetal in the presence of a point charge. We then analyze how, by moving the point charge quasi-statically, the angular momentum stor</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27086v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27067v1" target="_blank"><span class="zh">具有全电气正交控制的简并单态-三重态量子比特</span><span class="en">A Degenerate Singlet-Triplet Qubit with All-Electrical Orthogonal Control</span></a>
+<div class="abstract"><span class="zh">单态-三重态量子比特为半导体量子计算提供了一种有吸引力的编码方式,结合了无需辅助量子比特的读出、对共模噪声的降低灵敏度以及基带电压控制。然而,塞曼能差 $ΔE_\mathrm{Z}$ 通常由局部磁场梯度或 $g$-因子不均匀性固定,使得交换相互作用 $J$ 成为唯一动态可调的……</span><span class="en">Singlet-triplet qubits offer an attractive encoding for semiconductor quantum computing, combining ancilla-free readout, reduced sensitivity to common-mode noise, and baseband voltage control. However, the Zeeman energy difference $ΔE_\mathrm{Z}$ is typically fixed by local magnetic field gradients or $g$-factor inhomogeneities, leaving the exchange interaction $J$ as the only dynamically tunable</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27067v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27016v1" target="_blank"><span class="zh">铁磁体中的各向异性自旋极化与磁性自旋霍尔效应</span><span class="en">Anisotropic Spin Polarization and magnetic spin hall effect in Ferromagnets</span></a>
+<div class="abstract"><span class="zh">铁磁体中的自旋相关输运支撑着高密度自旋电子学存储器的发展。具有强自旋-轨道耦合的铁磁体中的自旋相关输运表现出显著的各向异性。当磁化方向偏离晶体……时,电荷输运期间的整体自旋极化和磁性自旋霍尔电导率都表现出明显的各向异性。</span><span class="en">Spin-dependent transport in ferromagnets underpins the development of high-density spintronic memories. Spin-dependent transport in strong spin-orbit-coupled ferromagnets exhibits a significant anisotropy. Both the overall spin polarization during charge transport and the magnetic spin Hall conductivity are found to exhibit pronounced anisotropy when the magnetization is tilted away from the cryst</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27016v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26974v1" target="_blank"><span class="zh">Lippmann-Schwinger 方程框架下的双磁振子散射</span><span class="en">Two-magnon scattering in the framework of the Lippmann-Schwinger equation</span></a>
+<div class="abstract"><span class="zh">控制磁损耗需要确定外禀线宽展宽的微观起源。我们引入了用于弱缺陷势双磁振子散射的 Lippmann--Schwinger 框架,表明散射由有效场的微扰与简并自旋波态之间的重叠决定。应用于铁石榴石薄膜、YIG/GGG(111) 和 YIG/GGG(110),我们识别……</span><span class="en">Controlling magnetic losses requires identifying the microscopic origin of extrinsic linewidth broadening. We introduce a Lippmann--Schwinger framework for two-magnon scattering from weak defect potentials, showing that scattering is set by the overlap between the perturbation of the effective field and degenerate spin-wave states. Applied to iron garnet films, YIG/GGG(111) and YIG/GGG(110), we id</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26974v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26971v1" target="_blank"><span class="zh">具有电荷序的铁电可调类交变磁性补偿亚铁磁体</span><span class="en">Ferroelectric switchable altermagnetic-like compensated ferrimagnets with charge ordering</span></a>
+<div class="abstract"><span class="zh">具有几乎零磁化但显著非相对论自旋分裂的非传统共线磁体(如交变磁体)可以同时继承铁磁体和反铁磁体的优点。通过引入更多自由度,如铁电性和电荷序,这些非传统磁体可以变得更加有趣和功能化。基于此设计原则,F……</span><span class="en">Unconventional collinear magnets with almost zero magnetization but prominent nonrelativistic spin-splitting, such as altermagnets, can inherit the advantages of both ferromagnets and antiferromagnets. By incorporating more degrees of freedom such as ferroelectricity and charge ordering, these unconventional magnets can be even more interesting and functionalized. With this design principle, the F</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26971v1 · 2026-07-29</span></div>
+</div></div>
+
+  <h2 class="section-h2"><span class="zh">💬 Hacker News（15 条）</span><span class="en">💬 Hacker News (15 条)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.politico.com/news/magazine/2026/07/24/nuclear-fusion-commonwealth-washington-massachusetts-01010625" target="_blank"><span class="zh">核聚变已就绪,特朗普的华盛顿准备好了吗?</span><span class="en">Fusion Is Ready. Is Trump&amp;#x27;s Washington?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 1💬 · 0in · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗?</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · dd-sharma · 2026-07-13</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://medium.com/@subairui/coding-on-principle-toolmaking-is-the-most-effective-way-of-learning-12ed34b60d76" target="_blank"><span class="zh">为什么造工具是最有效的学习方式</span><span class="en">Why Toolmaking Is the Most Effective Way of Learning</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · subairui · 2026-07-08</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.energy.gov/science/articles/energy-department-announces-initiative-create-and-deploy-worlds-first" target="_blank"><span class="zh">DOE 启动首个容错量子计算计划</span><span class="en">DOE Launching First Fault-Tolerant Quantum Computer Initiative</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · donutloop · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://quantumcomputingreport.com/japan-launches-fully-domestically-produced-quantum-computer-in-collaboration-with-riken-and-fujitsu/" target="_blank"><span class="zh">日本推出国产量子计算机</span><span class="en">Japan Launches Domestically Produced Quantum Computer</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · Tomte · 2026-07-27</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://zenodo.org/records/21359923" target="_blank"><span class="zh">没人核对过 IBM 旗舰量子化学结果计算的是哪个态</span><span class="en">Nobody checked which state IBM&amp;#x27;s flagship quantum chemistry results compute</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 0💬 · purestatelabs · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theregister.com/science/2026/07/06/boffins-bet-on-quantum-computers-ai-supers-to-solve-fusion-fuel-dilemma/5267199" target="_blank"><span class="zh">研究员押注量子计算机与 AI 超算来解决聚变燃料难题</span><span class="en">Boffins bet on quantum computers, AI supers to solve fusion fuel dilemma</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 4💬 · Bender · 2026-07-06</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://kerkour.com/128-bit-keys-post-quantum" target="_blank"><span class="zh">128 位对称密钥能抵御量子计算机吗？</span><span class="en">Are 128-bit symmetric keys secure against quantum computers?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">6⭐ 3💬 · cold_pizz4 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theverge.com/science/959466/quantum-computer-majorana-2-microsoft-trump-eo" target="_blank"><span class="zh">量子计算机能做什么？还什么都不行</span><span class="en">What is a quantum computer good for? nothing – yet</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 3💬 · joak · 2026-07-04</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://news.ycombinator.com/item?id=49098762" target="_blank"><span class="zh">四款 AI 竞争回答一个经典问题</span><span class="en">Four Competing AIs Answer 1 Classic Question</span></a>
+<div class="abstract"><span class="zh">我向四个主流 AI 咨询了一个常见的消费场景问题，对我而言，不同的回答风格相当耐人寻味。&lt;p&gt;背景：一台安装不牢的烘干机在运行中猛然从墙上被扯脱，滚筒</span><span class="en">I sought advice from four mainstream A.Is for a basic consumer use case question and to me, the differing style of the answers are quite revealing.&amp;lt;p&amp;gt;Premise: A poorly hung clothes dryer spectacularly ripped from the wall whilst on and tumb</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · notsydonia · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.youtube.com/watch?v=RQWpF2Gb-gU" target="_blank"><span class="zh">量子计算到底是什么？（3blue1brown 2025）</span><span class="en">But what is quantum computing? (3blue1brown 2025)</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 2💬 · andromaton · 2026-07-05</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.wired.com/story/scientists-using-ai-and-quantum-computing-to-generate-new-peptides/" target="_blank"><span class="zh">科学家的副业？用 AI 和量子计算生成新肽</span><span class="en">Scientists&amp;#x27; Side Hustle? Using AI and Quantum Computing to Generate New Peptides</span></a>
+<div class="meta"><span class="zh"></span><span class="en">8⭐ 0💬 · joozio · 2026-07-12</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://qcroadmaptracker.netlify.app/" target="_blank"><span class="zh">量子计算路线图</span><span class="en">Quantum Computing Roadmaps</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · mathgenius · 2026-07-01</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://muircheartblog.wpcomstaging.com/2026/05/26/quantum-computing-one-universe-is-more-than-enough/" target="_blank"><span class="zh">量子计算：一个宇宙就够了</span><span class="en">Quantum computing: one universe is more than enough</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · vismit2000 · 2026-07-10</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://medium.com/@jkim_tran/the-anatomy-of-a-quantum-chip-6f9daffc61cf" target="_blank"><span class="zh">为什么量子芯片的内部结构至关重要</span><span class="en">Why the anatomy of a quantum chip matters</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · jennifer-trin · 2026-07-27</span></div>
+</div></div>
+
+  <div class="footer">
+    Hermes cron · hardtech-daily.sh v2 (search_lib envelope) · 姊妹任务 ai-trending-daily
+  </div>
+</div>
+<script>(function(){var k="hardtech-daily-lang";function apply(l){document.documentElement.lang=l;try{localStorage.setItem(k,l);}catch(e){}}try{var saved=localStorage.getItem(k);if(saved==='en'||saved==='zh-CN')apply(saved);}catch(e){}window.toggleLang=function(){apply(document.documentElement.lang==='zh-CN'?'en':'zh-CN');};})();</script></body>
+</html>
