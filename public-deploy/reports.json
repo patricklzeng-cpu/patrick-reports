@@ -1,5 +1,55 @@
 [
   {
+    "title": "🆕 AI Agents · The Most Valuable Skill 2026 · Open Residency 24 节硬核 · Remy Lu · 16 Patrick 关联卡 · 14 tabs · 中EN 双语 + TOC v1.4.4 collapsible",
+    "file": "daily-reports/2026-07-31-ai-agents-most-valuable-skill-open-residency-2026-07-29-dashboard.html",
+    "date": "2026-07-31",
+    "category": "video-dashboard",
+    "track": "video",
+    "summary": "Remy Lu (Open Residency) 全栈 AI 工程师 24 节硬核课. 6 维 skill stack (system prompt / tool design / eval / harness / deploy / iteration) + 8 个 demo + 7 个失败模式 + 16 张 Patrick 关联卡 verified-on-disk. 中EN 双语 + TOC v1.4.4 collapsible. 跟 round-44 K3 infra 互补 (K3 = 模型层, Residency = 应用层).",
+    "featured": true,
+    "tags": [
+      "ai-agents",
+      "open-residency",
+      "remy-lu",
+      "agent-builder",
+      "full-stack-engineer",
+      "system-prompt",
+      "tool-design",
+      "eval",
+      "harness",
+      "deploy",
+      "iteration",
+      "bilingual",
+      "toc-v1.4.4",
+      "round-45"
+    ],
+    "added_at": "2026-07-31"
+  },
+  {
+    "title": "🐝 Buzz AI · Riley Brown × Vinnie × Jack Dorsey · Block Agent-Native Workspace · AI-native 操作系统 · 13 tabs · 16 Patrick 关联卡 · 中EN 双语 + TOC v1.4.4",
+    "file": "daily-reports/2026-07-31-buzz-riley-brown-jack-dorsey-block-2026-07-30-dashboard.html",
+    "date": "2026-07-31",
+    "category": "video-dashboard",
+    "track": "video",
+    "summary": "Buzz AI trial 2: Riley Brown × Vinnie (Block / Jack Dorsey) 演示 agent-native workspace 跟 Claude Code fork Goose 关系. 6 大功能 (computer use / 7×24 agent / Browser use / 多 agent / 自托管 / fork-and-customize) + 4 个 vision (Code 是 IDE / Agent 是 OS / Computer use 是 hardware abstraction / 多 model orchestration). 13 tabs + 16 Patrick 关联卡.",
+    "featured": true,
+    "tags": [
+      "buzz-ai",
+      "riley-brown",
+      "vinnie",
+      "jack-dorsey",
+      "block",
+      "goose",
+      "agent-native-os",
+      "computer-use",
+      "fork-claude-code",
+      "bilingual",
+      "toc-v1.4.4",
+      "round-45"
+    ],
+    "added_at": "2026-07-31"
+  },
+  {
     "title": "🆕 2026-07-30 Daily · auto-generated cron report (Hermes Agent daily summary)",
     "file": "2026-07-30-daily.html",
     "date": "2026-07-30",
