@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>硬科技日报 / Hardtech Daily</title>
+<style>
+:root { --bg: #0a0e1a; --card: #131927; --card-border: #1f2a40; --text: #dfe5f5; --muted: #8a96b3; --accent: #5b8def; --ok: #6fcf97; --warn: #f0a868; --quantum: #b48cff; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", sans-serif; padding: 24px; line-height: 1.6; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 26px; margin-bottom: 4px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; text-align: center; }
+.stat b { font-size: 24px; display: block; color: var(--accent); }
+.stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(120, 140, 200, 0.12); color: var(--muted); white-space: nowrap; flex-shrink: 0; margin-bottom: 4px; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(111, 207, 151, 0.15); color: var(--ok); }
+.tag.topic { background: rgba(91, 141, 239, 0.08); color: var(--text); margin-left: 2px; }
+.topic-h2 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+.section-h2 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; color: var(--muted); }
+.abstract, .meta, .authors, .cats { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.abstract { color: #b0b8d0; }
+.authors, .cats { font-size: 12px; }
+.meta code { background: rgba(120, 140, 200, 0.12); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+a:hover { color: var(--accent); }
+.footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--card-border); font-size: 12px; color: var(--muted); text-align: center; }
+
+.lang-toggle{cursor:pointer;background:rgba(20,30,40,.85);border:1px solid var(--accent,#58a6ff);color:var(--accent,#58a6ff);border-radius:999px;padding:6px 14px;font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;transition:.18s;backdrop-filter:blur(8px)}.lang-toggle:hover{background:var(--accent,#58a6ff);color:#0a0e1a;box-shadow:0 0 18px rgba(91,141,239,.35)}.en{display:none}.zh{display:inline}html[lang="en"] .en{display:inline}html[lang="en"] .zh{display:none}html[lang="zh-CN"] .en{display:none}html[lang="zh-CN"] .zh{display:inline}
+</style>
+</head>
+<body><div id="langBar" style="position:sticky;top:0;z-index:50;display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;background:rgba(10,14,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(91,141,239,.18)"><button class="lang-toggle" id="langBtn" type="button" onclick="toggleLang()" aria-label="Toggle language">EN ⇄ 中</button></div>
+<div class="wrap">
+  <h1><span class="zh">⚛️ 硬科技热门追踪</span><span class="en">⚛️ 硬科技热门追踪</span></h1>
+  <div class="sub"><span class="zh">2026-07-31 · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;    数据源：arXiv（3 分类 + 电池 full-text）+ Hacker News（curated keywords）· v2 envelope_version=1 · 生成于 2026-07-31T01:01:20.133729Z</span><span class="en">
+    &lt;b&gt;2026-07-31&lt;/b&gt; · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;
+    数据源: arXiv (3 分类 + 电池 full-text) + Hacker News (curated keywords) · v2 envelope_version=1 · 生成于 2026-07-31T01:01:20.133729Z
+  </span></div>
+
+  <div class="stats">
+    <div class="stat"><b>25</b><span>arXiv papers</span></div>
+    <div class="stat"><b>15</b><span>HN stories</span></div>
+    <div class="stat"><b>4</b><span>fusion</span></div>
+    <div class="stat"><b>8</b><span>quantum</span></div>
+    <div class="stat"><b>0</b><span>battery</span></div>
+    <div class="stat"><b>0</b><span>space</span></div>
+  </div>
+
+  <h2 class="section-h2"><span class="zh">🔥 Top 20（跨来源，按影响力排序）</span><span class="en">🔥 Top 20 (cross-source, by impact)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28260v1" target="_blank"><span class="zh">稀疏性下的最优 T 计数：从 QROM 到态制备与块编码</span><span class="en">Optimal T Counts under Sparsity: from QROM to State Preparation and Block Encoding</span></a>
+<div class="abstract"><span class="zh">许多量子算法需要对经典数据的相干访问，通常建模为量子只读存储器（QROM）。我们开启了稀疏 QROM 的 $T$ 计数研究，其中 $2^n$ 个地址中只有 $s$ 个存储非零数据。我们证明</span><span class="en">Many quantum algorithms require coherent access to classical data, often modeled by quantum read-only memory (QROM). We initiate the study of the $T$ count of sparse QROM, in which only $s$ of the $2^n$ addresses store nonzero data. We prov</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28255v1" target="_blank"><span class="zh">相互作用量子对称排他过程</span><span class="en">Interacting Quantum Symmetric Exclusion Process</span></a>
+<div class="abstract"><span class="zh">我们引入并求解了相互作用量子对称排他过程（IQSEP），这是一族描述带电粒子沿晶格边的随机量子跳跃的模型，其跳跃幅度依赖于其他</span><span class="en">We introduce and solve the Interacting Quantum Symmetric Exclusion Process (IQSEP), a family of models describing the stochastic quantum hopping of charged particles along the edges of a lattice, with hopping amplitudes that depend on the o</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28231v1" target="_blank"><span class="zh">光子位移自旋态的量子 Arago-Fresnel 干涉</span><span class="en">Quantum Arago-Fresnel interference of displaced spin states of photons</span></a>
+<div class="abstract"><span class="zh">Arago 和 Fresnel 的四条定律区分了两束光的共面性以确定它们的干涉能力，奠定了光偏振概念化的历史里程碑。借助现代的</span><span class="en">The four laws by Arago and Fresnel distinguish the coplanarity of two light beams to determine their capacity of interference, laying the historic milestone for conceptualizing the polarization of light. Equipped with modern descriptions of</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28202v1" target="_blank"><span class="zh">凸锥的纯化</span><span class="en">Purifications for Convex Cones</span></a>
+<div class="abstract"><span class="zh">鉴于纯化原理在量子理论和广义概率论中的重要性，我们仅使用有限维真凸锥的几何来研究纯化。我们证明了存在性定理，</span><span class="en">Motivated by the importance of the purification principle in quantum theory and generalized probabilistic theories, we study purifications using only the geometry of a finite-dimensional proper convex cone. We prove an existence theorem for</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28184v1" target="_blank"><span class="zh">用于量子中继器的集成窄带光子源纠缠交换</span><span class="en">Entanglement Swapping with Integrated Narrowband Photon Sources for Quantum Repeaters</span></a>
+<div class="abstract"><span class="zh">有前景的第一代量子中继器实现预计需要基于原子的量子存储系统与光子源接口。集成光子学为基于光纤的、可现场部署的</span><span class="en">Promising implementations of first generation quantum repeaters are predicted to require atomic-based quantum memory systems interfaced with photonic sources. Integrated photonics provides a promising solution for fibre-based, field-deploye</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28149v1" target="_blank"><span class="zh">使用单个 AOD 实现量子纠错原语的高效原子重排</span><span class="en">Efficient atom rearrangements for quantum error correction primitives with a single AOD</span></a>
+<div class="abstract"><span class="zh">中性原子量子计算机提供由原子传输支持的任意连接性。一些逻辑操作可以因此被简化或完全归结为原子的几何重排。最小化这些移动的持续时间至关重要</span><span class="en">Neutral-atom quantum computers offer arbitrary connectivity enabled by atom transport. Some logical operations can then be simplified or reduced entirely to geometric rearrangements of the atoms. Minimizing the duration of these movements i</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28120v1" target="_blank"><span class="zh">通过马尔可夫链蒙特卡洛方法从解码量子干涉进行近似采样</span><span class="en">Approximate sampling from decoded quantum interferometry via Markov chain Monte Carlo meth</span></a>
+<div class="abstract"><span class="zh">优化问题是工业相关量子优势的主要候选之一。解码量子干涉（DQI）已被提出用于处理近似优化，与经典解码建立了联系</span><span class="en">Optimization problems are among the leading candidates for industrially relevant quantum advantage. Decoded quantum interferometry (DQI) has been proposed to tackle approximate optimization, establishing a connection to classical decoding p</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28313v1" target="_blank"><span class="zh">碳纳米管中的基于电流的射频电荷传感</span><span class="en">Current-based RF charge sensing in a carbon nanotube</span></a>
+<div class="abstract"><span class="zh">超灵敏电荷检测是量子电子学中广泛使用的工具，应用于量子信息处理和凝聚态系统物理学的探测。现有方法需要阻抗匹配</span><span class="en">Ultra-sensitive charge detection is a widely used tool for quantum electronics with applications in quantum information processing and in probing the physics of condensed matter systems. Existing approaches require either an impedance-match</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28310v1" target="_blank"><span class="zh">外延和多晶 Bi 及 Bi/Ag 层中的电荷-自旋转换</span><span class="en">Charge-to-spin conversion in epitaxial and polycrystalline Bi and Bi/Ag layers</span></a>
+<div class="abstract"><span class="zh">Bi 被预测为自旋轨道矩（SOTs）的有效产生器，其电荷-自旋转换效率可与 Ta、W 和 Pt 等典型重金属相媲美。然而，实验报告提供了广泛分散的</span><span class="en">Bi is predicted to be an efficient generator of spin-orbit torques (SOTs), with charge-to-spin conversion efficiency comparable to those of prototypical heavy metals, such as Ta, W, and Pt. However, experimental reports provide widely scatt</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28297v1" target="_blank"><span class="zh">石墨烯中金团簇插层的影响：驻波与修饰的 QPI 特征</span><span class="en">Effects of gold cluster intercalation in graphene: stationary waves and modified QPI featu</span></a>
+<div class="abstract"><span class="zh">在 SiC 上的外延石墨烯下方金插层产生了一个具有不寻常驻波和集中在石墨烯 M 点附近的准粒子干涉（QPI）特征的团簇相。我们表明这可以由 Au 插层</span><span class="en">Gold intercalation beneath epitaxial graphene on SiC produces a cluster phase with unusual standing waves and quasiparticle-interference (QPI) features concentrated near the graphene M points. We show that this can be explained by Au interc</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28296v1" target="_blank"><span class="zh">一种在插层材料中连接 DFT、无序平均与实验的迭代方法</span><span class="en">An iterative method bridging DFT, disorder averaging, and experiment in intercalated mater</span></a>
+<div class="abstract"><span class="zh">插层可以强烈改变主体材料的电子色散，这由角分辨光电子能谱（ARPES）直接揭示。我们开发了一种结合密度泛函理论（DFT）、紧束缚的通用迭代方法</span><span class="en">Intercalation can strongly modify the electronic dispersion of a host material, as directly revealed by angle-resolved photoemission spectroscopy (ARPES). We develop a general iterative method combining density functional theory (DFT), tigh</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28181v1" target="_blank"><span class="zh">一致对称性破缺与拓扑相</span><span class="en">Consistent symmetry breaking and topological phases</span></a>
+<div class="abstract"><span class="zh">对称群下的不变算符在任何有限指数子群下也是不变的。这些算符的等变指标在对称破缺下必须一致。我们利用这一原理建立规范的弱/强</span><span class="en">Operators invariant under a symmetry group are also invariant under any finite-index subgroup. The equivariant indices of such operators must be consistent under symmetry breaking. We use this principle to establish a canonical weak/strong</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27135v1" target="_blank"><span class="zh">SPECTRE：一种适用于任意拓扑三维平衡的稳健求解器</span><span class="en">SPECTRE: A robust solver for 3D equilibria with arbitrary topology</span></a>
+<div class="abstract"><span class="zh">我们提出 SPECTRE，一种基于多区域松弛 MHD 模型的新型平衡代码，可稳健计算具有一般磁拓扑的三维平衡，支持磁面、磁岛和混沌。该代码建立在先前工作的基础之上。</span><span class="en">We present SPECTRE, a new equilibrium code based on the Multi-Region relaxed MHD model for robustly calculating 3D equilibria with general magnetic topology, allowing for flux surfaces, magnetic islands, and chaos. The code builds on a prev</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27127v1" target="_blank"><span class="zh">仿星器的偏滤器拓扑与真空室设计</span><span class="en">Divertor topology and vacuum vessel design for stellarators</span></a>
+<div class="abstract"><span class="zh">我们提出用于在真空场中设计边缘磁场结构连同真空室的仿星器优化算法。首先，我们引入一种数值方法，可稳健计算任意类型的周期轨道不动点。</span><span class="en">We present stellarator optimization algorithms for designing the edge magnetic structure in vacuum fields, together with the vacuum vessel. First, we introduce a numerical method that robustly computes periodic-orbit fixed points of any typ</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27024v1" target="_blank"><span class="zh">具有全方向箍缩压缩的旋转磁镜——可控核聚变中美与简的体现</span><span class="en">Rotating mirror with all-directional pinch compressions - The beauty and simplicity in con</span></a>
+<div class="abstract"><span class="zh">控制核聚变如此艰难，以至于几十年来人们一直在追问：我们离无限的清洁能源更近了吗？秉持美与简的理念，本文指出可能存在一条捷径：旋转。</span><span class="en">Controlling nuclear fusion is so challenging that for decades, people have been asking: Are we closer to infinite clean energy? Upon the philosophy of beauty and simplicity, the current work points out that there can be a shortcut: the rota</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26965v1" target="_blank"><span class="zh">在纳秒激光烧蚀的多维信号中测量多种力学性能</span><span class="en">Measurement of multiple mechanical properties from multi-dimensional signals in nanosecond</span></a>
+<div class="abstract"><span class="zh">在老化或服役条件下准确评估钢材的力学性能仍是一项重大挑战。我们提出一种基于能量守恒的纳秒激光烧蚀热-力耦合框架，该框架嵌入了……</span><span class="en">Accurate evaluation of mechanical properties in steels under ageing or service conditions remains a major challenge. We propose a thermo-mechanical coupling framework for nanosecond laser ablation based on energy conservation, which is embe</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26916v1" target="_blank"><span class="zh">用于可持续平面等离子体射流的低温共烧陶瓷及其均匀等离子体</span><span class="en">Low-Temperature Co-Fired Ceramics for a Sustainable Planar Plasma Jet with Homogeneous Pla</span></a>
+<div class="abstract"><span class="zh">本研究提出一种便携式平面氩基等离子体射流，面向大面积生物医学应用，强调放电的均匀性、稳定性和安全性。该装置采用可更换的后部和侧部进气适配器。</span><span class="en">This study presents a portable planar argon-based plasma jet designed for large-area biomedical applications, with an emphasis on uniform discharge, stability, and safety. The device incorporates interchangeable rear and side inlet gas adap</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26557v1" target="_blank"><span class="zh">具有真实碰撞的一维高阶矩模型用于非平衡离子输运</span><span class="en">One dimensional high-order moment models with realistic collisions for nonequilibrium ion</span></a>
+<div class="abstract"><span class="zh">离子-中性碰撞是部分电离等离子体输运中的基本过程。当碰撞尺度与系统尺度相当或电场较强时，会产生超出常规描述范围的离子非平衡状态。</span><span class="en">Ion-neutral collisions are fundamental in the transport of partially ionized plasmas. When collisional scales are comparable to the system scales or the electric field is strong, nonequilibrium conditions for the ions arise that are beyond</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26494v1" target="_blank"><span class="zh">重新审视容性耦合等离子体（CCP）放电中的电子加热：一种非线性动力学研究</span><span class="en">Revisiting Electron Heating in Capacitively Coupled Plasma (CCP) Discharges: A Nonlinear D</span></a>
+<div class="abstract"><span class="zh">尽管已研究数十年，宽工况范围内容性耦合等离子体（CCP）放电中的电子加热机制仍未被完全理解。虽然随机加热通常被认为是主要的……</span><span class="en">Despite decades of research, the electron heating mechanisms in capacitively coupled plasma (CCP) discharges over a wide range of operating conditions is not fully understood. Although stochastic heating is generally regarded as the dominan</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.26479v1" target="_blank"><span class="zh">磁镜约束的动力学优化：超越经典损失锥理论</span><span class="en">Kinetic Optimization of Magnetic Mirror Confinement: Beyond Classical Loss-Cone Theory</span></a>
+<div class="abstract"><span class="zh">磁镜是概念上最简单的等离子体约束构型之一，仍是热核聚变的有力候选方案。其设计需要塑形外加磁场以将等离子体约束在一定范围内。</span><span class="en">Magnetic mirrors are among the conceptually simplest plasma confinement configurations and remain promising candidates for thermonuclear fusion. Their design requires shaping an externally applied magnetic field to confine plasma within an</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-29</span></div>
+</div></div>
+
+  <h2 class="topic-h2"><span class="zh">⚛️ 可控核聚变 Controlled Fusion（4）</span><span class="en">⚛️ 可控核聚变 Controlled Fusion (4)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://arxiv.org/abs/2607.27127v1" target="_blank"><span class="zh">仿星器的偏滤器拓扑与真空室设计</span><span class="en">Divertor topology and vacuum vessel design for stellarators</span></a>
+<div class="authors"><span class="zh">authors: Andrew Giuliani, Raffael Wendlinger, Misha Padidar</span><span class="en">authors: Andrew Giuliani, Raffael Wendlinger, Misha Padidar</span></div>
+<div class="abstract"><span class="zh">我们提出用于在真空场中设计边缘磁场结构连同真空室的仿星器优化算法。首先，我们引入一种数值方法，可稳健计算任意类型的周期轨道不动点。</span><span class="en">We present stellarator optimization algorithms for designing the edge magnetic structure in vacuum fields, together with the vacuum vessel. First, we introduce a numerical method that robustly computes periodic-orbit fixed points of any typ</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27127v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://arxiv.org/abs/2607.27024v1" target="_blank"><span class="zh">具有全方向箍缩压缩的旋转磁镜——可控核聚变中美与简的体现</span><span class="en">Rotating mirror with all-directional pinch compressions - The beauty and simplicity in con</span></a>
+<div class="authors"><span class="zh">authors: Linjin Zheng</span><span class="en">authors: Linjin Zheng</span></div>
+<div class="abstract"><span class="zh">控制核聚变如此艰难，以至于几十年来人们一直在追问：我们离无限的清洁能源更近了吗？秉持美与简的理念，本文指出可能存在一条捷径：旋转。</span><span class="en">Controlling nuclear fusion is so challenging that for decades, people have been asking: Are we closer to infinite clean energy? Upon the philosophy of beauty and simplicity, the current work points out that there can be a shortcut: the rota</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27024v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://arxiv.org/abs/2607.26479v1" target="_blank"><span class="zh">磁镜约束的动力学优化：超越经典损失锥理论</span><span class="en">Kinetic Optimization of Magnetic Mirror Confinement: Beyond Classical Loss-Cone Theory</span></a>
+<div class="authors"><span class="zh">authors: Lukas Einkemmer, Martin Guerra, Qin Li</span><span class="en">authors: Lukas Einkemmer, Martin Guerra, Qin Li</span></div>
+<div class="abstract"><span class="zh">磁镜是概念上最简单的等离子体约束构型之一，仍是热核聚变的有力候选方案。其设计需要塑形外加磁场以将等离子体约束在一定范围内。</span><span class="en">Magnetic mirrors are among the conceptually simplest plasma confinement configurations and remain promising candidates for thermonuclear fusion. Their design requires shaping an externally applied magnetic field to confine plasma within an</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26479v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变是否已准备好迈向商业化？</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · 2026-07-13</span></div>
+</div></div>
+  <h2 class="topic-h2"><span class="zh">⚛️ 量子计算 Quantum（8）</span><span class="en">⚛️ 量子计算 Quantum (8)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.26408v1" target="_blank"><span class="zh">真空中多光子电子-正电子对产生的相位控制</span><span class="en">Phase control of multi-photon electron-positron pair creation from vacuum</span></a>
+<div class="authors"><span class="zh">authors: C. K. Li, X. X. Zhou, B. An</span><span class="en">authors: C. K. Li, X. X. Zhou, B. An</span></div>
+<div class="abstract"><span class="zh">我们使用计算量子场论，研究两个具有相对相位的时空非均匀电场产生电子-正电子对的过程。我们发现，当两个电场靠得很近时，对产生</span><span class="en">We investigate the creation of electron-positron pairs by two spatiotemporally inhomogeneous electric fields with a relative phase, employing computational quantum field theory. We find that, when the two fields are closely spaced, the pair</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26408v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28260v1" target="_blank"><span class="zh">稀疏条件下的最优 T 门计数：从 QROM 到态制备与块编码</span><span class="en">Optimal T Counts under Sparsity: from QROM to State Preparation and Block Encoding</span></a>
+<div class="authors"><span class="zh">authors: Tongyang Li, Fengning Ou, Xinzhao Wang</span><span class="en">authors: Tongyang Li, Fengning Ou, Xinzhao Wang</span></div>
+<div class="abstract"><span class="zh">许多量子算法需要对经典数据的相干访问，通常通过量子只读存储器（QROM）来建模。我们首次研究稀疏 QROM 的 T 门计数，其中 $2^n$ 个地址中只有 $s$ 个存储非零数据。我们证明</span><span class="en">Many quantum algorithms require coherent access to classical data, often modeled by quantum read-only memory (QROM). We initiate the study of the $T$ count of sparse QROM, in which only $s$ of the $2^n$ addresses store nonzero data. We prov</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28260v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28255v1" target="_blank"><span class="zh">相互作用量子对称排他过程</span><span class="en">Interacting Quantum Symmetric Exclusion Process</span></a>
+<div class="authors"><span class="zh">authors: Denis Bernard, Friedrich Hübner, Stefano Scopa</span><span class="en">authors: Denis Bernard, Friedrich Hübner, Stefano Scopa</span></div>
+<div class="abstract"><span class="zh">我们提出并求解了相互作用量子对称排他过程（IQSEP），这是一族描述带电粒子沿格点边随机量子跃迁的模型，其跃迁幅度取决于其他</span><span class="en">We introduce and solve the Interacting Quantum Symmetric Exclusion Process (IQSEP), a family of models describing the stochastic quantum hopping of charged particles along the edges of a lattice, with hopping amplitudes that depend on the o</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28255v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28231v1" target="_blank"><span class="zh">光子位移自旋态的量子 Arago-Fresnel 干涉</span><span class="en">Quantum Arago-Fresnel interference of displaced spin states of photons</span></a>
+<div class="authors"><span class="zh">authors: Yan Zhang, Xiang Liu, Hou Ian</span><span class="en">authors: Yan Zhang, Xiang Liu, Hou Ian</span></div>
+<div class="abstract"><span class="zh">Arago 和 Fresnel 的四条定律通过区分两束光的共面性来确定它们的干涉能力，奠定了光的偏振概念的历史里程碑。借助现代描述</span><span class="en">The four laws by Arago and Fresnel distinguish the coplanarity of two light beams to determine their capacity of interference, laying the historic milestone for conceptualizing the polarization of light. Equipped with modern descriptions of</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28231v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28202v1" target="_blank"><span class="zh">凸锥的纯化</span><span class="en">Purifications for Convex Cones</span></a>
+<div class="authors"><span class="zh">authors: Felix Campidell, Tim Netzer</span><span class="en">authors: Felix Campidell, Tim Netzer</span></div>
+<div class="abstract"><span class="zh">鉴于纯化原理在量子理论和广义概率论中的重要性，我们仅使用有限维真凸锥的几何来研究纯化。我们证明了存在性定理，对</span><span class="en">Motivated by the importance of the purification principle in quantum theory and generalized probabilistic theories, we study purifications using only the geometry of a finite-dimensional proper convex cone. We prove an existence theorem for</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28202v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28184v1" target="_blank"><span class="zh">面向量子中继器的集成窄带光子源纠缠交换</span><span class="en">Entanglement Swapping with Integrated Narrowband Photon Sources for Quantum Repeaters</span></a>
+<div class="authors"><span class="zh">authors: Mingsong Wu, Leili Esmaeilifar, Rui Ning Wang</span><span class="en">authors: Mingsong Wu, Leili Esmaeilifar, Rui Ning Wang</span></div>
+<div class="abstract"><span class="zh">人们预测，第一代量子中继器的有前景实现需要基于原子的量子存储器系统与光子源接口。集成光子学为基于光纤、可现场部署的</span><span class="en">Promising implementations of first generation quantum repeaters are predicted to require atomic-based quantum memory systems interfaced with photonic sources. Integrated photonics provides a promising solution for fibre-based, field-deploye</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28184v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28149v1" target="_blank"><span class="zh">使用单个 AOD 实现量子纠错原语的高效原子重排</span><span class="en">Efficient atom rearrangements for quantum error correction primitives with a single AOD</span></a>
+<div class="abstract"><span class="zh">中性原子量子计算机通过原子传输实现任意连接性。一些逻辑操作因此可以被简化或完全归结为原子的几何重排。最小化这些移动的时长对于</span><span class="en">Neutral-atom quantum computers offer arbitrary connectivity enabled by atom transport. Some logical operations can then be simplified or reduced entirely to geometric rearrangements of the atoms. Minimizing the duration of these movements i</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28149v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28120v1" target="_blank"><span class="zh">通过马尔可夫链蒙特卡洛方法从解码量子干涉中进行近似采样</span><span class="en">Approximate sampling from decoded quantum interferometry via Markov chain Monte Carlo meth</span></a>
+<div class="authors"><span class="zh">authors: Elies Gil-Fuster, Matan Ninio, Lennart Bittel</span><span class="en">authors: Elies Gil-Fuster, Matan Ninio, Lennart Bittel</span></div>
+<div class="abstract"><span class="zh">优化问题是工业相关量子优势的主要候选之一。解码量子干涉（DQI）已被提出用于近似优化，建立了与经典解码问题的联系</span><span class="en">Optimization problems are among the leading candidates for industrially relevant quantum advantage. Decoded quantum interferometry (DQI) has been proposed to tackle approximate optimization, establishing a connection to classical decoding p</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28120v1 · 2026-07-30</span></div>
+</div></div>
+  
+  
+
+  <h2 class="section-h2"><span class="zh">📄 arXiv 全部（25 篇）</span><span class="en">📄 arXiv 全部 (25 篇)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27135v1" target="_blank"><span class="zh">SPECTRE：一种适用于任意拓扑三维平衡的稳健求解器</span><span class="en">SPECTRE: A robust solver for 3D equilibria with arbitrary topology</span></a>
+<div class="abstract"><span class="zh">我们展示 SPECTRE，一个基于多区域弛豫 MHD 模型的新平衡代码，用于稳健地计算具有一般磁拓扑的三维平衡，允许存在通量面、磁岛和混沌。该代码基于之前的 MRxMHD 求解器 SPEC 构建，但由于新的力公式化、采用稳定的信赖域最小二乘最小化方法，性能显著提升</span><span class="en">We present SPECTRE, a new equilibrium code based on the Multi-Region relaxed MHD model for robustly calculating 3D equilibria with general magnetic topology, allowing for flux surfaces, magnetic islands, and chaos. The code builds on a previous MRxMHD solver, SPEC, but performs significantly better thanks to a new formulation of force, the use of a stable trust-region-based least squares minimizat</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27135v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27127v1" target="_blank"><span class="zh">仿星器的偏滤器拓扑与真空室设计</span><span class="en">Divertor topology and vacuum vessel design for stellarators</span></a>
+<div class="abstract"><span class="zh">我们展示用于在真空场中设计边缘磁结构以及真空室的仿星器优化算法。首先，我们引入一种数值方法，能稳健地计算任意类型（椭圆、双曲或抛物）的周期轨道不动点，这些不动点可作为偏滤器的基础。为了耦合偏滤器与真空室设计，我们引入参数化族</span><span class="en">We present stellarator optimization algorithms for designing the edge magnetic structure in vacuum fields, together with the vacuum vessel. First, we introduce a numerical method that robustly computes periodic-orbit fixed points of any type (elliptic, hyperbolic, or parabolic), which could form the basis of a divertor. To couple divertor and vacuum vessel design, we introduce parametric families</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27127v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27024v1" target="_blank"><span class="zh">具有全方向箍缩压缩的旋转镜——可控核聚变中的简洁之美</span><span class="en">Rotating mirror with all-directional pinch compressions - The beauty and simplicity in con</span></a>
+<div class="abstract"><span class="zh">可控核聚变如此艰难，以至于数十年来人们一直在问：我们离无限清洁能源更近了吗？本着简洁美的理念，当前工作指出存在一条捷径：具有分离电极和全方向箍缩压缩的旋转镜。这基于德克萨斯大学近期提交的临时专利</span><span class="en">Controlling nuclear fusion is so challenging that for decades, people have been asking: Are we closer to infinite clean energy? Upon the philosophy of beauty and simplicity, the current work points out that there can be a shortcut: the rotating mirror with detached electrodes and all-directional pinch compressions. This is based on the provisional patents filed recently by the University of Texas</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27024v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26965v1" target="_blank"><span class="zh">基于纳秒激光烧蚀多维信号的多机械性能测量</span><span class="en">Measurement of multiple mechanical properties from multi-dimensional signals in nanosecond</span></a>
+<div class="abstract"><span class="zh">准确评估钢材在老化或服役条件下的机械性能仍是一项重大挑战。我们提出了一种基于能量守恒的纳秒激光烧蚀热-力耦合框架，并将其嵌入物理信息神经网络（PINN）中，以实现多种机械性能的同时反演。一个热-力耦合系数</span><span class="en">Accurate evaluation of mechanical properties in steels under ageing or service conditions remains a major challenge. We propose a thermo-mechanical coupling framework for nanosecond laser ablation based on energy conservation, which is embedded into a physics-informed neural network (PINN) to enable simultaneous inversion of multiple mechanical properties. A thermo-mechanical coupling coefficient</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26965v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26916v1" target="_blank"><span class="zh">用于可持续平面等离子体射流的低温共烧陶瓷,实现均匀等离子体片</span><span class="en">Low-Temperature Co-Fired Ceramics for a Sustainable Planar Plasma Jet with Homogeneous Pla</span></a>
+<div class="abstract"><span class="zh">本研究展示了一种便携式平面氩基等离子体射流,面向大面积生物医学应用,重点关注均匀放电、稳定性和安全性。该装置采用可更换的后置和侧置进气适配器,配合限流板和通道以均衡气流,同时电极封装在低温共烧陶瓷中以降低降解和</span><span class="en">This study presents a portable planar argon-based plasma jet designed for large-area biomedical applications, with an emphasis on uniform discharge, stability, and safety. The device incorporates interchangeable rear and side inlet gas adapters with restriction plates and channels to equalize gas flow, while electrodes are encapsulated in low-temperature co-fired ceramics to reduce degradation and</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26916v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26557v1" target="_blank"><span class="zh">具有真实碰撞的一维高阶矩模型用于非平衡离子输运</span><span class="en">One dimensional high-order moment models with realistic collisions for nonequilibrium ion</span></a>
+<div class="abstract"><span class="zh">离子-中性粒子碰撞是部分电离等离子体输运中的基本过程。当碰撞尺度与系统尺度相当或电场很强时,离子会出现超出经典输运模型的非平衡条件,表现为大漂移、强热通量和温度各向异性。本文提出在非线性的高阶框架下求解非平衡</span><span class="en">Ion-neutral collisions are fundamental in the transport of partially ionized plasmas. When collisional scales are comparable to the system scales or the electric field is strong, nonequilibrium conditions for the ions arise that are beyond classical transport models due to large drifts, strong heat flux, and temperature anisotropy. In this paper, we propose the resolution of non-linear high-order</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26557v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26494v1" target="_blank"><span class="zh">重新审视容性耦合等离子体 (CCP) 放电中的电子加热:非线性动力学分析</span><span class="en">Revisiting Electron Heating in Capacitively Coupled Plasma (CCP) Discharges: A Nonlinear D</span></a>
+<div class="abstract"><span class="zh">尽管已有数十年的研究,在广泛工况下容性耦合等离子体 (CCP) 放电中的电子加热机制仍未被完全理解。虽然随机加热通常被认为是低压下的主要无碰撞加热机制,但导致该过程的内在非线性电子动力学尚未被完全量化。本文</span><span class="en">Despite decades of research, the electron heating mechanisms in capacitively coupled plasma (CCP) discharges over a wide range of operating conditions is not fully understood. Although stochastic heating is generally regarded as the dominant collisionless heating mechanism at low pressures, the inherently nonlinear electron dynamics responsible for this process have not been fully quantified. Thes</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26494v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26479v1" target="_blank"><span class="zh">磁镜约束的动力学优化:超越经典的损失锥理论</span><span class="en">Kinetic Optimization of Magnetic Mirror Confinement: Beyond Classical Loss-Cone Theory</span></a>
+<div class="abstract"><span class="zh">磁镜是概念上最简单的等离子体约束构型之一,仍然是热核聚变的有力候选方案。其设计需要塑形外加磁场以在开端式圆柱装置中约束等离子体。与托卡马克和仿星器等环向闭合装置不同,磁镜中的约束本质上依赖于</span><span class="en">Magnetic mirrors are among the conceptually simplest plasma confinement configurations and remain promising candidates for thermonuclear fusion. Their design requires shaping an externally applied magnetic field to confine plasma within an open-ended cylindrical device. In contrast to toroidally closed devices such as tokamaks and stellarators, confinement in magnetic mirrors depends intrinsically</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26479v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26466v1" target="_blank"><span class="zh">低压火花中极向磁通发射的观测:对约束动力学假说的验证</span><span class="en">Observation of poloidal magnetic flux emission from a low-pressure spark: validation of th</span></a>
+<div class="abstract"><span class="zh">本文以更精细的实验和更深入的洞见重新讨论了先前关于约束动力学假说的探讨 [IEEE Trans. Plasma Sci. 41, 2013 pp. 437-446]。该假说涉及以下观察:承载电流的等离子体的标准单流体运动方程包含由多种物理现象支配的项,这些现象被约束于以差别悬殊的特征</span><span class="en">This paper revisits an earlier discussion of the hypothesis of constrained dynamics [IEEE Trans. Plasma Sci. 41, 2013 pp. 437-446] with better experiments and insights. This hypothesis pertains to the observation that the standard single fluid equation of motion of a current-carrying plasma has terms governed by diverse physical phenomena which are constrained to evolve at widely mismatched charac</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26466v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.26408v1" target="_blank"><span class="zh">真空中多光子电子-正电子对生成的相位控制</span><span class="en">Phase control of multi-photon electron-positron pair creation from vacuum</span></a>
+<div class="abstract"><span class="zh">我们使用计算量子场论,研究了由两个具有相对相位的时空非均匀电场产生的电子-正电子对。我们发现,当两个电场靠得很近时,粒子对的产额对相对相位呈余弦式依赖。这表明相对相位提供了一种增强多光子跃迁的有效方法</span><span class="en">We investigate the creation of electron-positron pairs by two spatiotemporally inhomogeneous electric fields with a relative phase, employing computational quantum field theory. We find that, when the two fields are closely spaced, the pair yield exhibits a cosine-like dependence on the relative phase. This suggests that the relative phase provides an effective way to enhance multi-photon transiti</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.26408v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28260v1" target="_blank"><span class="zh">稀疏性下的最优 T 门数:从 QROM 到态制备与块编码</span><span class="en">Optimal T Counts under Sparsity: from QROM to State Preparation and Block Encoding</span></a>
+<div class="abstract"><span class="zh">许多量子算法需要对经典数据的相干访问,通常由量子只读存储器 (QROM) 建模。我们开启了对稀疏 QROM 的 $T$ 门数研究,其中 $2^n$ 个地址中仅有 $s$ 个存储非零数据。我们证明了渐近最优的 $T$ 门数界 $Θ(\sqrt{sm} + \sqrt{sn})$,其对支撑大小 $s$ 和消息长度 $m$ 均呈平方根依赖。我们的上界</span><span class="en">Many quantum algorithms require coherent access to classical data, often modeled by quantum read-only memory (QROM). We initiate the study of the $T$ count of sparse QROM, in which only $s$ of the $2^n$ addresses store nonzero data. We prove asymptotically optimal $T$-count bounds $Θ(\sqrt{sm} + \sqrt{sn})$ with square-root dependence on the support size $s$ and message length $m$. Our upper bound</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28260v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28255v1" target="_blank"><span class="zh">相互作用的量子对称排他过程</span><span class="en">Interacting Quantum Symmetric Exclusion Process</span></a>
+<div class="abstract"><span class="zh">我们提出并求解了相互作用量子对称排他过程 (IQSEP),这是一族描述带电粒子沿格点边随机量子跳跃的模型,其跳跃振幅依赖于相邻格点的占据数。在无相互作用时,它们退化为标准的量子简单对称排他过程,表现出相干扩散</span><span class="en">We introduce and solve the Interacting Quantum Symmetric Exclusion Process (IQSEP), a family of models describing the stochastic quantum hopping of charged particles along the edges of a lattice, with hopping amplitudes that depend on the occupations of neighbouring sites. In the absence of interactions, they reduce to the standard quantum simple symmetric exclusion process, exhibiting coherent di</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28255v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28231v1" target="_blank"><span class="zh">光子位移自旋态的量子 Arago-Fresnel 干涉</span><span class="en">Quantum Arago-Fresnel interference of displaced spin states of photons</span></a>
+<div class="abstract"><span class="zh">Arago 和 Fresnel 提出的四条定律通过区分两束光是否共面来决定它们能否干涉,为光的偏振概念化奠定了历史性里程碑。借助现代的非经典态描述,我们重新研究由光子螺旋度产生的宏观 Arago-Fresnel 干涉。为此,我们计算了 Stokes 参数</span><span class="en">The four laws by Arago and Fresnel distinguish the coplanarity of two light beams to determine their capacity of interference, laying the historic milestone for conceptualizing the polarization of light. Equipped with modern descriptions of non-classical states, we re-investigate the macroscopic Arago-Fresnel interference producible by photon helicities. To this end, we compute the Stokes paramete</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28231v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28202v1" target="_blank"><span class="zh">凸锥的纯化</span><span class="en">Purifications for Convex Cones</span></a>
+<div class="abstract"><span class="zh">受纯化原理在量子理论和广义概率论中的重要性驱动,我们仅使用有限维真凸锥的几何来研究纯化。我们证明了不可分解锥与包含最大纠缠态的中间张量锥的存在性定理;特别地,不可分解齐次锥的每个内点</span><span class="en">Motivated by the importance of the purification principle in quantum theory and generalized probabilistic theories, we study purifications using only the geometry of a finite-dimensional proper convex cone. We prove an existence theorem for indecomposable cones and intermediate tensor cones containing the maximally entangled state; in particular, every interior point of an indecomposable homogeneo</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28202v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28184v1" target="_blank"><span class="zh">用于量子中继器的集成窄带光子源纠缠交换</span><span class="en">Entanglement Swapping with Integrated Narrowband Photon Sources for Quantum Repeaters</span></a>
+<div class="abstract"><span class="zh">有前景的第一代量子中继器实现预计需要与光子源对接的基于原子的量子存储系统。集成光子学为量子中继器的光纤化、现场部署运行提供了有前景的解决方案,但许多主流的量子存储平台需要窄带宽光子,而通过集成方式产生这些光子颇具挑战性</span><span class="en">Promising implementations of first generation quantum repeaters are predicted to require atomic-based quantum memory systems interfaced with photonic sources. Integrated photonics provides a promising solution for fibre-based, field-deployed operation of quantum repeaters, however many leading quantum memory platforms require narrow-bandwidth photons that are challenging to generate with integrate</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28184v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28149v1" target="_blank"><span class="zh">使用单个 AOD 的量子纠错原语高效原子重排</span><span class="en">Efficient atom rearrangements for quantum error correction primitives with a single AOD</span></a>
+<div class="abstract"><span class="zh">中性原子量子计算机提供由原子输运带来的任意连接性。某些逻辑操作因而可被简化或完全归约为原子的几何重排。因此,最小化这些移动的耗时对于高逻辑吞吐至关重要。我们引入新的原语,通过扫描在静态光阱中对二维原子阵列进行剪切、旋转和反射</span><span class="en">Neutral-atom quantum computers offer arbitrary connectivity enabled by atom transport. Some logical operations can then be simplified or reduced entirely to geometric rearrangements of the atoms. Minimizing the duration of these movements is therefore essential for high logical throughput. We introduce new primitives to shear, rotate and reflect 2D arrays of atoms in a static lattice using sweeps</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28149v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28120v1" target="_blank"><span class="zh">通过马尔可夫链蒙特卡洛方法从解码量子干涉测量中进行近似采样</span><span class="en">Approximate sampling from decoded quantum interferometry via Markov chain Monte Carlo meth</span></a>
+<div class="abstract"><span class="zh">优化问题是有望实现工业相关量子优势的主要候选方向之一。解码量子干涉测量(DQI)已被提出用于近似优化，与经典解码问题建立了联系。此前的工作主要关注 DQI 的理论复杂性,对于其相对的经验性能所知甚少。</span><span class="en">Optimization problems are among the leading candidates for industrially relevant quantum advantage. Decoded quantum interferometry (DQI) has been proposed to tackle approximate optimization, establishing a connection to classical decoding problems. While previous work has primarily focused on the theoretical complexity of DQI, comparatively little is known about its empirical performance relative</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28120v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27206v1" target="_blank"><span class="zh">面向高维特征的实用化量子拓扑数据分析</span><span class="en">Practical Quantum Topological Data Analysis with Applications to High-Dimensional Feature</span></a>
+<div class="abstract"><span class="zh">拓扑数据分析(TDA)为提取复杂非结构化数据的形状信息提供了强大的框架,但计算高维拓扑特征的经典成本限制了其应用。针对 TDA 的量子算法提供了一条绕过该瓶颈的途径,然而现有方法通常关注精确或高精度的 Betti 数估计,因此</span><span class="en">Topological data analysis (TDA) provides a powerful framework for extracting information about the shape of complex, unstructured data, but the classical cost of computing high dimensional topological features limits its application. Quantum algorithms for TDA offer a route around this bottleneck, yet existing approaches typically focus on exact or high precision Betti number estimation, making th</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27206v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27204v1" target="_blank"><span class="zh">模块化量子架构中的容错逻辑运算与高效态制备</span><span class="en">Fault-Tolerant Logical Operations and Efficient State Preparation in Modular Quantum Archi</span></a>
+<div class="abstract"><span class="zh">模块化量子计算是突破单体设备资源限制以扩展量子计算的主要范式。在该架构中,多个量子处理单元(QPU)采用相同或不同的量子比特模式,通过共享纠缠互连。本文研究了模块接口处及各个 QPU 内部的错误如何影响容错计算</span><span class="en">Modular quantum computing is a leading paradigm for scaling quantum computation beyond the resource limitations of monolithic devices. In this architecture, multiple quantum processing units (QPUs), employing identical or distinct qubit modalities, are interconnected via shared entanglement. Here, we investigate how errors at module interfaces and within individual QPUs affect fault-tolerant compu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27204v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27195v1" target="_blank"><span class="zh">量子纠缠的极强不可逆性</span><span class="en">Very Strong Irreversibility of Quantum Entanglement</span></a>
+<div class="abstract"><span class="zh">量子纠缠的操控本质上是不可逆的:某些混合纠缠态需要纯纠缠来制备,虽然无法通过局域操作和经典通信从它们中回收任何纯纠缠。已知这种不可逆性即使在最大类的不产生纠缠的操作下依然存在,揭示了一个基本</span><span class="en">The manipulation of quantum entanglement is fundamentally irreversible: some mixed entangled states require pure entanglement for their preparation, although no pure entanglement can be recovered from them by local operations and classical communication. This irreversibility is known to persist even under the maximal class of operations that do not generate entanglement, revealing a fundamental di</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27195v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28313v1" target="_blank"><span class="zh">碳纳米管中基于电流的射频电荷传感</span><span class="en">Current-based RF charge sensing in a carbon nanotube</span></a>
+<div class="abstract"><span class="zh">超高灵敏度电荷探测是量子电子学中广泛使用的工具,可应用于量子信息处理及凝聚态系统物理性质的探测。现有方法需要阻抗匹配的谐振电路,或将放大器与样品保持在毫米级距离,两者都增加了复杂度并限制了器件设计。本文介绍了</span><span class="en">Ultra-sensitive charge detection is a widely used tool for quantum electronics with applications in quantum information processing and in probing the physics of condensed matter systems. Existing approaches require either an impedance-matched resonant circuit, or millimeter-scale proximity between amplifier and sample, both adding complexity and constraining device design. In this work, we introdu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28313v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28310v1" target="_blank"><span class="zh">外延与多晶 Bi 及 Bi/Ag 层中的电荷-自旋转换</span><span class="en">Charge-to-spin conversion in epitaxial and polycrystalline Bi and Bi/Ag layers</span></a>
+<div class="abstract"><span class="zh">Bi 被预测为一种高效的自旋轨道力矩(SOT)产生材料,其电荷-自旋转换效率可与典型重金属 Ta、W 和 Pt 相媲美。然而实验报道的相互转换效率差异很大,而 Bi/Ag 双层膜中巨大转换信号的起源仍存争议。本文研究了电荷-自旋</span><span class="en">Bi is predicted to be an efficient generator of spin-orbit torques (SOTs), with charge-to-spin conversion efficiency comparable to those of prototypical heavy metals, such as Ta, W, and Pt. However, experimental reports provide widely scattered interconversion efficiencies, while the origin of the large conversion signal in Bi/Ag bilayers remains controversial. Here, we investigate charge-to-spin</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28310v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28297v1" target="_blank"><span class="zh">石墨烯中金团簇插层的影响:驻波与修正的 QPI 特征</span><span class="en">Effects of gold cluster intercalation in graphene: stationary waves and modified QPI featu</span></a>
+<div class="abstract"><span class="zh">在 SiC 上外延石墨烯下方进行金插层可产生一种具有反常驻波和集中于石墨烯 M 点附近准粒子干涉(QPI)特征的团簇相。我们表明这可由石墨烯空位下方 Au 插层来解释,该插层对其周围六个碳原子施加了局部散射势。在 T 矩阵处理框架下,这种环状</span><span class="en">Gold intercalation beneath epitaxial graphene on SiC produces a cluster phase with unusual standing waves and quasiparticle-interference (QPI) features concentrated near the graphene M points. We show that this can be explained by Au intercalation below graphene hollow sites, which induces a local scattering potential on the six surrounding carbon atoms. Within a T-matrix treatment, this ring-like</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28297v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28296v1" target="_blank"><span class="zh">插层材料中连接 DFT、无序平均和实验的迭代方法</span><span class="en">An iterative method bridging DFT, disorder averaging, and experiment in intercalated mater</span></a>
+<div class="abstract"><span class="zh">插层可显著改变宿主材料的电子色散,这在角分辨光电子能谱(ARPES)中被直接揭示。我们开发了一种通用迭代方法,结合密度泛函理论(DFT)、紧束缚(TB)、自洽 T 矩阵近似(SCTMA)框架下的无序平均,以及实验数据,以构建插层的有效模型</span><span class="en">Intercalation can strongly modify the electronic dispersion of a host material, as directly revealed by angle-resolved photoemission spectroscopy (ARPES). We develop a general iterative method combining density functional theory (DFT), tight-binding (TB), disorder averaging within the self-consistent T-matrix approximation (SCTMA), and experiment, to construct an effective model of the intercalate</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28296v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28181v1" target="_blank"><span class="zh">一致的对称性破缺与拓扑相</span><span class="en">Consistent symmetry breaking and topological phases</span></a>
+<div class="abstract"><span class="zh">对称群不变的算子在任意有限指数子群下同样不变。这类算子的等变指标在对称性破缺下必须保持一致。我们利用这一原理在等变指标之间建立了一种典型的弱/强二分法,基于源自固体物理中拓扑绝缘体理论的一个构想。我们还研究了</span><span class="en">Operators invariant under a symmetry group are also invariant under any finite-index subgroup. The equivariant indices of such operators must be consistent under symmetry breaking. We use this principle to establish a canonical weak/strong dichotomy for equivariant indices, building on an idea originating in the theory of topological insulators in solid-state physics. We also study the relationshi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28181v1 · 2026-07-30</span></div>
+</div></div>
+
+  <h2 class="section-h2"><span class="zh">💬 Hacker News（15 条）</span><span class="en">💬 Hacker News (15 条)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.politico.com/news/magazine/2026/07/24/nuclear-fusion-commonwealth-washington-massachusetts-01010625" target="_blank"><span class="zh">核聚变已就绪,特朗普的华盛顿准备好了吗?</span><span class="en">Fusion Is Ready. Is Trump&amp;#x27;s Washington?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 1💬 · 0in · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗?</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · dd-sharma · 2026-07-13</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.haykranen.nl/2026/07/30/wikimania-2026-every-wikimedian-toolmaker/" target="_blank"><span class="zh">为何每位维基媒体人都应成为工具创造者</span><span class="en">Why every Wikimedian should be a toolmaker</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · janvdberg · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.reuters.com/world/china/chip-toolmaker-asml-expected-shine-light-capacity-china-challenges-2026-07-14/" target="_blank"><span class="zh">芯片设备制造商 ASML 有望揭示产能与中国业务挑战</span><span class="en">Chip toolmaker ASML expected to shine light on capacity and China challenges</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · technewssss · 2026-07-14</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://medium.com/@subairui/coding-on-principle-toolmaking-is-the-most-effective-way-of-learning-12ed34b60d76" target="_blank"><span class="zh">为什么造物是最好的学习方式</span><span class="en">Why Toolmaking Is the Most Effective Way of Learning</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · subairui · 2026-07-08</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.energy.gov/science/articles/energy-department-announces-initiative-create-and-deploy-worlds-first" target="_blank"><span class="zh">DOE 启动首个容错量子计算计划</span><span class="en">DOE Launching First Fault-Tolerant Quantum Computer Initiative</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · donutloop · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://thenewstack.io/ibm-quantum-advantage-verification/" target="_blank"><span class="zh">IBM 表示量子计算机越来越难以验证——这正是进步</span><span class="en">IBM says quantum computers are getting harder to verify. That&amp;#x27;s progress</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · Brajeshwar · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://quantumcomputingreport.com/japan-launches-fully-domestically-produced-quantum-computer-in-collaboration-with-riken-and-fujitsu/" target="_blank"><span class="zh">日本推出国产量子计算机</span><span class="en">Japan Launches Domestically Produced Quantum Computer</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · Tomte · 2026-07-27</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://quantego.org/" target="_blank"><span class="zh">Quantego：一套基于乐高的 IBM 量子计算机模型家族</span><span class="en">Quantego: A Family of Lego Models of IBM Quantum Computers</span></a>
+<div class="meta"><span class="zh"></span><span class="en">1⭐ 0💬 · rbanffy · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theregister.com/science/2026/07/06/boffins-bet-on-quantum-computers-ai-supers-to-solve-fusion-fuel-dilemma/5267199" target="_blank"><span class="zh">科学家押注量子计算机与 AI 超算以破解聚变燃料难题</span><span class="en">Boffins bet on quantum computers, AI supers to solve fusion fuel dilemma</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 4💬 · Bender · 2026-07-06</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://kerkour.com/128-bit-keys-post-quantum" target="_blank"><span class="zh">128 位对称密钥能否抵御量子计算机？</span><span class="en">Are 128-bit symmetric keys secure against quantum computers?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">6⭐ 3💬 · cold_pizz4 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theverge.com/science/959466/quantum-computer-majorana-2-microsoft-trump-eo" target="_blank"><span class="zh">量子计算机能干什么？目前还什么都干不了</span><span class="en">What is a quantum computer good for? nothing – yet</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 3💬 · joak · 2026-07-04</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://arstechnica.com/science/2026/07/quantum-computing-roundup-still-more-technologies-making-waves/" target="_blank"><span class="zh">量子计算动态：更多技术持续引发关注</span><span class="en">Quantum computing roundup: Still more technologies making waves</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 1💬 · rbanffy · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.nextplatform.com/compute/2026/07/29/with-the-carina-system-quix-pushes-photonic-quantum-computing-forward/5280744" target="_blank"><span class="zh">借助 Carina 系统，QuiX 推动光子量子计算向前发展</span><span class="en">With the Carina System, QuiX Pushes Photonic Quantum Computing Forward</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · rbanffy · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://news.ycombinator.com/item?id=49098762" target="_blank"><span class="zh">四款竞品 AI 回答一个经典问题</span><span class="en">Four Competing AIs Answer 1 Classic Question</span></a>
+<div class="abstract"><span class="zh">我就一个常见的消费场景问题向四款主流 AI 寻求建议，对我而言，这些答案各异的风格颇能说明问题。&lt;p&gt;前提：一台挂装不当的干衣机在运转时从墙上被猛然扯落，场面十分壮观</span><span class="en">I sought advice from four mainstream A.Is for a basic consumer use case question and to me, the differing style of the answers are quite revealing.&amp;lt;p&amp;gt;Premise: A poorly hung clothes dryer spectacularly ripped from the wall whilst on and tumb</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · notsydonia · 2026-07-29</span></div>
+</div></div>
+
+  <div class="footer">
+    Hermes cron · hardtech-daily.sh v2 (search_lib envelope) · 姊妹任务 ai-trending-daily
+  </div>
+</div>
+<script>(function(){var k="hardtech-daily-lang";function apply(l){document.documentElement.lang=l;try{localStorage.setItem(k,l);}catch(e){}}try{var saved=localStorage.getItem(k);if(saved==='en'||saved==='zh-CN')apply(saved);}catch(e){}window.toggleLang=function(){apply(document.documentElement.lang==='zh-CN'?'en':'zh-CN');};})();</script></body>
+</html>
