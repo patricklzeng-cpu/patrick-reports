@@ -1,5 +1,25 @@
 [
   {
+    "title": "🏷️ Matthew Berman · Claude Tag & Anthropic Context Lock-in (2026-06-26)",
+    "track": "video-knowledge",
+    "tag": "anthropic/anthropic-mcp",
+    "practical": 9,
+    "time": 15,
+    "date": "2026-08-01",
+    "file": "daily-reports/2026-08-01-matthew-berman-claude-tag-anthropic-context-lockin-dashboard.html",
+    "desc": "Cryptocurrency of corporate context = next gold. Berman cites 65% Anthropic internal code from Claude Tag (dogfooding). 3 defense lines: open-source / multi-provider / government.",
+    "added_at": "2026-08-01T09:30:00Z",
+    "category": "ai-anthropic",
+    "tags": [
+      "claude-tag",
+      "context-lockin",
+      "ashwin-gopinath",
+      "karpathy",
+      "anthropic",
+      "saas-cascade"
+    ]
+  },
+  {
     "title": "🆕 2026-07-31 Daily · auto-generated cron report (Hermes Agent daily summary)",
     "file": "2026-07-31-daily.html",
     "date": "2026-07-31",
