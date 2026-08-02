@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 热门周报 · 2026-07-27 ~ 2026-08-02</title>
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --code-bg: rgba(255,255,255,0.06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  background: var(--bg);
+  background-image: radial-gradient(at 20% 0%, rgba(91,141,239,0.15) 0%, transparent 50%),
+                    radial-gradient(at 80% 100%, rgba(93,211,158,0.10) 0%, transparent 50%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 { font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px; }
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 28px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); text-decoration: underline; }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; }
+.abstract { color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600; letter-spacing: 0.5px; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(245, 166, 35, 0.18); color: #f5a623; }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: #5dd39e; }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: #f0b048; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>📅 AI 热门周报</h1>
+    <div class="subtitle">2026-07-27 ~ 2026-08-02 · 聚合 2 天 · 总 71 个去重 item · envelope v1</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">26</div><div class="label">Hacker News</div></div>
+      <div class="stat"><div class="num">27</div><div class="label">GitHub</div></div>
+      <div class="stat"><div class="num">18</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">30</div><div class="label">Top 30</div></div>
+    </div>
+  </header>
+
+  <h2>🔥 本周 Top 30 (按 7 天累计 score)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/ultraworkers/claw-code" target="_blank" rel="noopener" class="title">ultraworkers/claw-code</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">An agent-managed museum exhibit, built in Rust with Gajae-Code / LazyCodex — developed and maintained with no human intervention.</div>
+    
+    
+    <div class="meta">impact: 5,663,912 · ★ 0 · 💬 0 · Rust</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/affaan-m/ECC" target="_blank" rel="noopener" class="title">affaan-m/ECC</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</div>
+    
+    
+    <div class="meta">impact: 2,035,786 · ★ 0 · 💬 0 · JavaScript</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener" class="title">huggingface/transformers</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.</div>
+    
+    
+    <div class="meta">impact: 1,867,311 · ★ 0 · 💬 0 · Python</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/langgenius/dify" target="_blank" rel="noopener" class="title">langgenius/dify</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.</div>
+    
+    
+    <div class="meta">impact: 1,340,580 · ★ 0 · 💬 0 · TypeScript</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener" class="title">langchain-ai/langchain</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The agent engineering platform.</div>
+    
+    
+    <div class="meta">impact: 1,334,965 · ★ 0 · 💬 0 · Python</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/f/prompts.chat" target="_blank" rel="noopener" class="title">f/prompts.chat</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.</div>
+    
+    
+    <div class="meta">impact: 1,242,322 · ★ 0 · 💬 0 · HTML</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener" class="title">open-webui/open-webui</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">User-friendly AI Interface (Supports Ollama, OpenAI API, ...)</div>
+    
+    
+    <div class="meta">impact: 1,218,833 · ★ 0 · 💬 0 · Python</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/multica-ai/andrej-karpathy-skills" target="_blank" rel="noopener" class="title">multica-ai/andrej-karpathy-skills</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy&#x27;s observations on LLM coding pitfalls.</div>
+    
+    
+    <div class="meta">impact: 1,217,473 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/ollama/ollama" target="_blank" rel="noopener" class="title">ollama/ollama</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Get up and running with Kimi-K2.6, GLM-5.2, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</div>
+    
+    
+    <div class="meta">impact: 1,038,405 · ★ 0 · 💬 0 · Go</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/google-gemini/gemini-cli" target="_blank" rel="noopener" class="title">google-gemini/gemini-cli</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">An open-source AI agent that brings the power of Gemini directly into your terminal.</div>
+    
+    
+    <div class="meta">impact: 824,183 · ★ 0 · 💬 0 · TypeScript</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noopener" class="title">Graphify-Labs/graphify</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.</div>
+    
+    
+    <div class="meta">impact: 582,986 · ★ 0 · 💬 0 · Python</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/farion1231/cc-switch" target="_blank" rel="noopener" class="title">farion1231/cc-switch</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build &amp; Hermes Agent. Only official website: ccswitch.io</div>
+    
+    
+    <div class="meta">impact: 538,662 · ★ 0 · 💬 0 · Rust</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/langchain4j/langchain4j" target="_blank" rel="noopener" class="title">langchain4j/langchain4j</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">LangChain4j is an idiomatic, open-source Java library for building LLM-powered applications on the JVM. It offers a unified API over popular LLM providers and vector stores, and makes implementing tool calling (including MCP support), agents and RAG easy. It integrates seamlessly with enterprise Jav</div>
+    
+    
+    <div class="meta">impact: 133,207 · ★ 0 · 💬 0 · Java</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//openai/whisper" target="_blank" rel="noopener" class="title">openai/whisper</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Robust Speech Recognition via Large-Scale Weak Supervision</div>
+    
+    
+    <div class="meta">impact: 106,799 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//karpathy/autoresearch" target="_blank" rel="noopener" class="title">karpathy/autoresearch</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-02</span>
+    </div>
+    <div class="abstract">AI agents running research on single-GPU nanochat training automatically</div>
+    
+    
+    <div class="meta">impact: 93,249 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//bytedance/deer-flow" target="_blank" rel="noopener" class="title">bytedance/deer-flow</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-02</span>
+    </div>
+    <div class="abstract">An open-source long-horizon SuperAgent harness that researches, codes, and creates. With the help of sandboxes, memories, tools, skill, subagents and message gateway, it handles different levels of tasks that could take minutes to hours.</div>
+    
+    
+    <div class="meta">impact: 79,215 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//ansible/ansible" target="_blank" rel="noopener" class="title">ansible/ansible</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-02</span>
+    </div>
+    <div class="abstract">Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on rem</div>
+    
+    
+    <div class="meta">impact: 70,593 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//Panniantong/Agent-Reach" target="_blank" rel="noopener" class="title">Panniantong/Agent-Reach</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Give your AI agent eyes to see the entire internet. Read &amp;amp; search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.</div>
+    
+    
+    <div class="meta">impact: 63,903 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//mvanhorn/last30days-skill" target="_blank" rel="noopener" class="title">mvanhorn/last30days-skill</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary</div>
+    
+    
+    <div class="meta">impact: 56,713 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/Orchestra-Research/AI-Research-SKILLs" target="_blank" rel="noopener" class="title">Orchestra-Research/AI-Research-SKILLs</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. Maintained by Orchestra Research.</div>
+    
+    
+    <div class="meta">impact: 52,594 · ★ 0 · 💬 0 · TeX</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//ashishpatel26/500-AI-Agents-Projects" target="_blank" rel="noopener" class="title">ashishpatel26/500-AI-Agents-Projects</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-02</span>
+    </div>
+    <div class="abstract">The 500 AI Agents Projects is a curated collection of AI agent use cases across various industries. It showcases practical applications and provides links to open-source projects for implementation, illustrating how AI agents are transforming sectors such as healthcare, finance, education, retail, a</div>
+    
+    
+    <div class="meta">impact: 36,065 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//langchain-ai/deepagents" target="_blank" rel="noopener" class="title">langchain-ai/deepagents</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The batteries-included agent harness.</div>
+    
+    
+    <div class="meta">impact: 27,667 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//different-ai/openwork" target="_blank" rel="noopener" class="title">different-ai/openwork</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The open-source alternative to Claude Cowork (powered by opencode)</div>
+    
+    
+    <div class="meta">impact: 19,985 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//0x4m4/hexstrike-ai" target="_blank" rel="noopener" class="title">0x4m4/hexstrike-ai</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security capa</div>
+    
+    
+    <div class="meta">impact: 11,220 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//zhaoxuya520/reverse-skill" target="_blank" rel="noopener" class="title">zhaoxuya520/reverse-skill</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Reverse Engineering / Authorized Penetration Testing / Security Research Skill Router Pack AI-powered routing + On-demand toolchain bootstrapping + Self-evolving knowledge base Supports Claude Code, Kiro, Cursor, Cline, and other AI coding clients 逆向/渗透/安全技能路由包 - AI 自动路由 + 按需自举工具链 + 自动进化经验库 | 支持 Cla</div>
+    
+    
+    <div class="meta">impact: 11,195 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#26</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//TencentCloud/TencentDB-Agent-Memory" target="_blank" rel="noopener" class="title">TencentCloud/TencentDB-Agent-Memory</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-02</span>
+    </div>
+    <div class="abstract">TencentDB Agent Memory is a team-level memory hub for AI Agents — turning conversations, docs, and code into four reusable memory assets (Chat Memory, Skill, LLM-Wiki, Code-Graph) that are governed, shared, and equipped across agents and frameworks.</div>
+    
+    
+    <div class="meta">impact: 10,782 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#27</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com//trailofbits/skills" target="_blank" rel="noopener" class="title">trailofbits/skills</a>
+      <span class="tag ok">GH</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Trail of Bits Claude Code skills for security research, vulnerability detection, and audit workflows</div>
+    
+    
+    <div class="meta">impact: 6,867 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#28</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://huggingface.co/moonshotai/Kimi-K3" target="_blank" rel="noopener" class="title">Kimi-K3 on HuggingFace</a>
+      <span class="tag accent">HN</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 4,097 · ★ 1,377 · 💬 544</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#29</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.ctgt.ai/research/distillation-censorship-transfer" target="_blank" rel="noopener" class="title">Show HN: Distilling DeepSeek into GPT-OSS doesn&#x27;t transfer censorship. Try it</a>
+      <span class="tag accent">HN</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 521 · ★ 161 · 💬 72</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#30</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/YoanWai/agent-manager" target="_blank" rel="noopener" class="title">Agent-Manager: A Tmux TUI for Running Claude Code, Codex and OpenCode</a>
+      <span class="tag accent">HN</span>
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 477 · ★ 97 · 💬 76</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:00 自动生成 · v2 (2026-07-06) 用 search_lib envelope 聚合</p>
+    <p>Source: HN Algolia + GitHub Search + GitHub Trending + arXiv Atom/RSS</p>
+  </footer>
+</div>
+</body>
+</html>
