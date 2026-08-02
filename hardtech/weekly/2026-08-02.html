@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-07-27 ~ 2026-08-02</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-07-27 ~ 2026-08-02 · 聚合 2 天 · 总 23 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">22</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">1</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">3</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">8</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">0</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28530v1" target="_blank" rel="noopener" class="title">The Diagnostic Temperature Discrepancy as a Kinetic Measurement: Shape, Transport, and Termination of the Suprathermal Electron Tail</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Two standard thermometers applied to the same quiet-Sun corona disagree by a stable factor: radio brightness reads about 0.6 MK while ionization- and scale-height-based diagnostics read about 1.5 MK, a ratio of 2.4 +/- 0.3 over eight years. We argue this discrepancy is not an anomaly awaiting reconciliation but a kinetic measurement, and we read it three times: for the shape of the electron distri</div>
+    <div class="authors">👥 Victor Edmonds</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28305v1" target="_blank" rel="noopener" class="title">Variational Formulation of a Hybrid Kinetic and Gyrokinetic Model for Astrophysical and Laboratory Plasmas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">We present a Lagrangian model that encapsulates fully kinetic ions and gyrokinetic electrons for solar wind electromagnetic turbulence. Using a consistent method, where both electrons and protons are treated with the same mathematical formalism, we derive and implement a model in which high-frequency waves and kinetic electron effects are described in a computationally cost-efficient way. Higher-o</div>
+    <div class="authors">👥 F. N. deOliveira-Lopes, S. C. Thatikonda, D. Told 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28208v1" target="_blank" rel="noopener" class="title">Electromagnetically Driven Thermal Dissipation Scaling in Plasma Centrifuges for Mass Separation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Electromagnetically driven centrifuges (EMDCs) rotate fluids using the Lorentz force, but their separative performance is limited by thermal dissipation that is coupled to electromagnetic forcing. This follows because local centrifugal strength is proportional to λ=mV_θ^2/2k_B T, which compares directed kinetic energy that drives species separation to thermal energy that smooths concentration grad</div>
+    <div class="authors">👥 Drue P. Hood-McFadden, Shreyas Kotla, Thomas C. Underwood</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28189v1" target="_blank" rel="noopener" class="title">Effect of confinement anisotropy on particle transport and structural relaxation of finite dust clusters in complex plasma</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">A finite dusty plasma cluster of charged microparticles confined in an anisotropic potential well is investigated experimentally and through Langevin dynamics simulations. As the confinement anisotropy is increased, the cluster undergoes a structural transition from near isotropic concentric shells to a linear chain configuration. The spatiotemporal modes of the cluster are analyzed by using Singu</div>
+    <div class="authors">👥 Hirakjyoti Sarma, Sushree Monalisha Sahu, P. Bandyopadhyay 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.27981v1" target="_blank" rel="noopener" class="title">The Second Quadratic Invariant of Astrophysical Gyrokinetics</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">We show that gyrokinetics in a spatially uniform equilibrium (or `astrophysical gyrokinetics&#x27;) possesses a previously unknown quadratic invariant, which we call the gyrokinetic helicity. We derive the limiting forms of the gyrokinetic helicity in five subsidiary expansions of astrophysical gyrokinetics: the isothermal electron fluid (ITEF) approximation, kinetic reduced magnetohydrodynamics (KRMHD</div>
+    <div class="authors">👥 Benjamin D. G. Chandran, Alfred Mallet, Romain Meyrand</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.27545v1" target="_blank" rel="noopener" class="title">Coaxial Gyromagnetic Nonlinear Transmission Line with a Slow-Wave Structure: 2D/3D FDTD Modeling</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">A coaxial gyromagnetic nonlinear transmission line (GNLTL) enables pulse-front compression and oscillation packet generation in the 0.3-10 GHz range. Numerical modeling of such systems typically employs a 2D axially symmetric FDTD scheme coupled with the parallel solution of full non-linearized Landau-Lifshitz-Gilbert equations. Previous studies have shown that using an insulating dielectric with</div>
+    <div class="authors">👥 Serhii Karelin, Ivan Onishchenko</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28621v1" target="_blank" rel="noopener" class="title">Lifting Lifted Product Codes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Lifted product (LP) codes form an important class of quantum error correcting codes with favorable code parameters. We introduce a systematic construction of LP code families based on group extensions and graph lifts. The construction increases the code size while preserving the local structure of the Tanner graph, and relates code parameters, logical operators, and fault-tolerant logical-operatio</div>
+    <div class="authors">👥 Yuta Hirasaki, Jong Yeon Lee</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28620v1" target="_blank" rel="noopener" class="title">On Optimal Measurement-State Preparation via Geometric Transport of the Squeezing Ellipse</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Preparation of optimal measurement states is a key requirement in quantum metrology utilizing squeezed states. We discuss a geometric framework that transforms an initially misaligned squeezed input into a measurement-optimal state in SU(2)-symmetric systems. Within this framework, the orientation of the squeezing ellipse constitutes an additional geometric degree of freedom and evolves as the mea</div>
+    <div class="authors">👥 Vsevolod Salakhutdinov, Nikolay Kalinin</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28610v1" target="_blank" rel="noopener" class="title">Learning Arbitrary Lindbladians from Time Evolution</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">We study the problem of learning an unknown Markovian open-system generator from access to its physical time evolution. This generator, called a Lindbladian, contains Hamiltonian and dissipative coefficients indexed by an exponentially large family of possible Pauli terms. We propose an efficient algorithm that learns arbitrary Lindbladians from time evolution under minimal assumptions. For a Lind</div>
+    <div class="authors">👥 Zhili Chen, Zhan Yu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28605v1" target="_blank" rel="noopener" class="title">Logical computation with canonical lifted product codes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">High-rate quantum low-density parity-check (qLDPC) codes encode many logical qubits with low physical-qubit overhead, but realizing efficient fault-tolerant computation on such dense encodings remains a major challenge. Generic, code-agnostic techniques such as code surgery and gate teleportation apply broadly, but are difficult to make modular, low-overhead, and fully certifiable on complex high-</div>
+    <div class="authors">👥 Han Zheng, Guo Zheng, Liang Jiang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28602v1" target="_blank" rel="noopener" class="title">Pauli Encodings &amp;amp; Unclonable Encryption</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The unclonable bit question asks whether quantum encryption can prevent an adversary from producing two systems that both reveal the plaintext once the key is disclosed. We introduce and study Pauli Encodings, a simple class of one-bit encryption schemes whose ciphertexts are normalized eigenspace projectors of Pauli strings. For every Pauli Encoding with K Pauli strings, we prove a universal lowe</div>
+    <div class="authors">👥 Pierre Botteron, Sébastien Designolle, Omar Fawzi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28600v1" target="_blank" rel="noopener" class="title">SymFT: Universal Fault-Tolerant Quantum Circuit Simulation via Symbolic Clifford--Pauli Frames and Stabilizer Coordinates</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Fault-tolerant protocols often consist largely of stabilizer subcircuits, yet the non-Clifford operations required for universality make exact sampling costly. We present SymFT, a high-throughput simulator for Clifford-dominated circuits with Pauli rotations, stochastic Pauli noise, mid-circuit Pauli measurements, and measurement-record-controlled Pauli feedback. It combines two ideas. First, symb</div>
+    <div class="authors">👥 Wang Fang, Huazhe Lou, Riling Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28598v1" target="_blank" rel="noopener" class="title">Explicit Matrices over $\mathbb Z_2$ with CNOT and Row Complexity $4n-\mathrm{o}(n)$ and Local Logic Gates</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">In this article, we present an explicit family of invertible $n\times n$ matrices over $\mathbb Z_2$ whose CNOT and row complexity is at least $4n-\text{o}(n)$; equivalently, reducing these matrices to the identity requires at least $4n-\text{o}(n)$ elementary row operations. Moreover, the same complexity lower bound holds in the stronger computational model where the CNOT gates are replaced by ar</div>
+    <div class="authors">👥 Sherry Gong, Andrew Yu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28579v1" target="_blank" rel="noopener" class="title">Quantum Chaos and Diffusive Transport from Geometric Randomness</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The physics of quantum chaos and diffusive transport is typically studied in settings with microscopic disorder or many-body interactions. In this Letter, we demonstrate that these phenomena can arise purely from geometric randomness. By studying non-interacting quantum particles on random locally tree-like layered graphs with uniform couplings, we show that the geometric randomness and effective</div>
+    <div class="authors">👥 Bibek Saha, Abhishek Dhar, Sthitadhi Roy</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28572v1" target="_blank" rel="noopener" class="title">Quantum Fidelity-per-Cost: A Metric for Evaluation of Quantum Computing Systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Cloud-accessible quantum computing has made hardware comparison not only a physics benchmark but also a practical purchasing decision. Cost-aware comparison of quantum computers remains underexplored and is difficult to do under the heterogeneous billing models offered by various cloud-based quantum computing providers. This paper makes two main contributions to enable price-aware comparison of qu</div>
+    <div class="authors">👥 Siddarth Shinde, Jakub Szefer</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28570v1" target="_blank" rel="noopener" class="title">Benchmarking Quantum Simulations of the Lipkin-Meshkov-Glick Model Using Large Tensor Networks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">As quantum computing matures, it is critical to benchmark its real-world problem solving performance against competitive classical methods, such as tensor networks. In this work, we leverage the Density Matrix Renormalization Group (DMRG) algorithm to compute ground state energies of the Lipkin Meshkov Glick (LMG) model as a comparative benchmark against popular noisy intermediate-scale (NISQ) alg</div>
+    <div class="authors">👥 Maggie Bao, Rushil Dandamudi, Jerimiah Wright 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28613v1" target="_blank" rel="noopener" class="title">Lattice composite Fermi liquid with broken inversion symmetry</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">We study transport in lattice composite Fermi liquids realized in half-filled Chern bands with broken inversion symmetry. We show that reduced crystalline symmetry exposes intrinsic singular dynamical responses of composite fermions that are otherwise hidden in the conventional Landau-level setting. At zero wave vector, inversion breaking allows gauge-field fluctuations to generate a non-analytic</div>
+    <div class="authors">👥 Pavel A. Nosov, Zhengyan Darius Shi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28480v1" target="_blank" rel="noopener" class="title">Observation of long-lived spin order in nanoconfined water</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Liquids confined to nanometer-scale geometries exhibit behavior that departs markedly from their bulk counterparts, yet studying their dynamics under controlled conditions remains experimentally challenging. Here, we use nitrogen-vacancy (NV) center nuclear magnetic resonance (NMR) spectroscopy to probe water confined in 5.6 nm channels as a function of temperature. The system remains liquid throu</div>
+    <div class="authors">👥 Rohma Khan, Kang Xu, Nathaniel Jeffries 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28441v1" target="_blank" rel="noopener" class="title">Transport Evidence of Magnetic Polarization in the Altermagnetic Candidate MnTe</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The ability to precisely control magnetic properties is central to the development of future spin-based electronics. In this work, we report the successful growth of epitaxial α-MnTe thin films on InP(111) substrates using molecular beam epitaxy. Magneto-transport measurements at low temperatures reveal a distinct, hysteretic butterfly longitudinal magnetoresistance alongside a nonlinear transvers</div>
+    <div class="authors">👥 Younes Ghorbani, Nayana Devaraj, Joshua Maile 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28425v1" target="_blank" rel="noopener" class="title">Anomalous metal and superconducting phases in rhombohedral graphene</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Two-dimensional superconductivity is now well established in graphene-based systems, with many such realizations showing evidence for unconventional pairing. Yet in several of the gate-tuned phases that otherwise exhibit clear signatures of superconductivity, the resistance does not vanish as temperature is lowered, instead saturating at a finite value. Here we report a systematic study of this be</div>
+    <div class="authors">👥 Anna Okounkova, Abigail Sohm, Tobias Faehndrich 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.27127v1" target="_blank" rel="noopener" class="title">Divertor topology and vacuum vessel design for stellarators</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">We present stellarator optimization algorithms for designing the edge magnetic structure in vacuum fields, together with the vacuum vessel. First, we introduce a numerical method that robustly computes periodic-orbit fixed points of any type (elliptic, hyperbolic, or parabolic), which could form the basis of a divertor. To couple divertor and vacuum vessel design, we introduce parametric families</div>
+    <div class="authors">👥 Andrew Giuliani, Raffael Wendlinger, Misha Padidar 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.27024v1" target="_blank" rel="noopener" class="title">Rotating mirror with all-directional pinch compressions - The beauty and simplicity in controlled nuclear fusion</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Controlling nuclear fusion is so challenging that for decades, people have been asking: Are we closer to infinite clean energy? Upon the philosophy of beauty and simplicity, the current work points out that there can be a shortcut: the rotating mirror with detached electrodes and all-directional pinch compressions. This is based on the provisional patents filed recently by the University of Texas</div>
+    <div class="authors">👥 Linjin Zheng</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank" rel="noopener" class="title">Nuclear Fusion Ready for Commercialization?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 17 · ★ 2 · 💬 3</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 3</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.27127v1" target="_blank" rel="noopener" class="title">Divertor topology and vacuum vessel design for stellarators</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">We present stellarator optimization algorithms for designing the edge magnetic structure in vacuum fields, together with the vacuum vessel. First, we introduce a numerical method that robustly computes periodic-orbit fixed points of any type (elliptic, hyperbolic, or parabolic), which could form the basis of a divertor. To couple divertor and vacuum vessel design, we introduce parametric families</div>
+    <div class="authors">👥 Andrew Giuliani, Raffael Wendlinger, Misha Padidar 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.27024v1" target="_blank" rel="noopener" class="title">Rotating mirror with all-directional pinch compressions - The beauty and simplicity in controlled nuclear fusion</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Controlling nuclear fusion is so challenging that for decades, people have been asking: Are we closer to infinite clean energy? Upon the philosophy of beauty and simplicity, the current work points out that there can be a shortcut: the rotating mirror with detached electrodes and all-directional pinch compressions. This is based on the provisional patents filed recently by the University of Texas</div>
+    <div class="authors">👥 Linjin Zheng</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank" rel="noopener" class="title">Nuclear Fusion Ready for Commercialization?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 17 · ★ 2 · 💬 3</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28621v1" target="_blank" rel="noopener" class="title">Lifting Lifted Product Codes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Lifted product (LP) codes form an important class of quantum error correcting codes with favorable code parameters. We introduce a systematic construction of LP code families based on group extensions and graph lifts. The construction increases the code size while preserving the local structure of the Tanner graph, and relates code parameters, logical operators, and fault-tolerant logical-operatio</div>
+    <div class="authors">👥 Yuta Hirasaki, Jong Yeon Lee</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28620v1" target="_blank" rel="noopener" class="title">On Optimal Measurement-State Preparation via Geometric Transport of the Squeezing Ellipse</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Preparation of optimal measurement states is a key requirement in quantum metrology utilizing squeezed states. We discuss a geometric framework that transforms an initially misaligned squeezed input into a measurement-optimal state in SU(2)-symmetric systems. Within this framework, the orientation of the squeezing ellipse constitutes an additional geometric degree of freedom and evolves as the mea</div>
+    <div class="authors">👥 Vsevolod Salakhutdinov, Nikolay Kalinin</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28605v1" target="_blank" rel="noopener" class="title">Logical computation with canonical lifted product codes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">High-rate quantum low-density parity-check (qLDPC) codes encode many logical qubits with low physical-qubit overhead, but realizing efficient fault-tolerant computation on such dense encodings remains a major challenge. Generic, code-agnostic techniques such as code surgery and gate teleportation apply broadly, but are difficult to make modular, low-overhead, and fully certifiable on complex high-</div>
+    <div class="authors">👥 Han Zheng, Guo Zheng, Liang Jiang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28602v1" target="_blank" rel="noopener" class="title">Pauli Encodings &amp;amp; Unclonable Encryption</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The unclonable bit question asks whether quantum encryption can prevent an adversary from producing two systems that both reveal the plaintext once the key is disclosed. We introduce and study Pauli Encodings, a simple class of one-bit encryption schemes whose ciphertexts are normalized eigenspace projectors of Pauli strings. For every Pauli Encoding with K Pauli strings, we prove a universal lowe</div>
+    <div class="authors">👥 Pierre Botteron, Sébastien Designolle, Omar Fawzi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28600v1" target="_blank" rel="noopener" class="title">SymFT: Universal Fault-Tolerant Quantum Circuit Simulation via Symbolic Clifford--Pauli Frames and Stabilizer Coordinates</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Fault-tolerant protocols often consist largely of stabilizer subcircuits, yet the non-Clifford operations required for universality make exact sampling costly. We present SymFT, a high-throughput simulator for Clifford-dominated circuits with Pauli rotations, stochastic Pauli noise, mid-circuit Pauli measurements, and measurement-record-controlled Pauli feedback. It combines two ideas. First, symb</div>
+    <div class="authors">👥 Wang Fang, Huazhe Lou, Riling Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28579v1" target="_blank" rel="noopener" class="title">Quantum Chaos and Diffusive Transport from Geometric Randomness</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">The physics of quantum chaos and diffusive transport is typically studied in settings with microscopic disorder or many-body interactions. In this Letter, we demonstrate that these phenomena can arise purely from geometric randomness. By studying non-interacting quantum particles on random locally tree-like layered graphs with uniform couplings, we show that the geometric randomness and effective</div>
+    <div class="authors">👥 Bibek Saha, Abhishek Dhar, Sthitadhi Roy</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28572v1" target="_blank" rel="noopener" class="title">Quantum Fidelity-per-Cost: A Metric for Evaluation of Quantum Computing Systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">Cloud-accessible quantum computing has made hardware comparison not only a physics benchmark but also a practical purchasing decision. Cost-aware comparison of quantum computers remains underexplored and is difficult to do under the heterogeneous billing models offered by various cloud-based quantum computing providers. This paper makes two main contributions to enable price-aware comparison of qu</div>
+    <div class="authors">👥 Siddarth Shinde, Jakub Szefer</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2607.28570v1" target="_blank" rel="noopener" class="title">Benchmarking Quantum Simulations of the Lipkin-Meshkov-Glick Model Using Large Tensor Networks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-01</span>
+    </div>
+    <div class="abstract">As quantum computing matures, it is critical to benchmark its real-world problem solving performance against competitive classical methods, such as tensor networks. In this work, we leverage the Density Matrix Renormalization Group (DMRG) algorithm to compute ground state energies of the Lipkin Meshkov Glick (LMG) model as a comparative benchmark against popular noisy intermediate-scale (NISQ) alg</div>
+    <div class="authors">👥 Maggie Bao, Rushil Dandamudi, Jerimiah Wright 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
