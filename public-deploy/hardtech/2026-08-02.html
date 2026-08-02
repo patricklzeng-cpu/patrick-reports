@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>硬科技日报 / Hardtech Daily</title>
+<style>
+:root { --bg: #0a0e1a; --card: #131927; --card-border: #1f2a40; --text: #dfe5f5; --muted: #8a96b3; --accent: #5b8def; --ok: #6fcf97; --warn: #f0a868; --quantum: #b48cff; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", sans-serif; padding: 24px; line-height: 1.6; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 26px; margin-bottom: 4px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 24px; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px; text-align: center; }
+.stat b { font-size: 24px; display: block; color: var(--accent); }
+.stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.card { background: var(--card); border: 1px solid var(--card-border); border-radius: 10px; padding: 14px; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(120, 140, 200, 0.12); color: var(--muted); white-space: nowrap; flex-shrink: 0; margin-bottom: 4px; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(111, 207, 151, 0.15); color: var(--ok); }
+.tag.topic { background: rgba(91, 141, 239, 0.08); color: var(--text); margin-left: 2px; }
+.topic-h2 { font-size: 20px; font-weight: 600; margin: 32px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--card-border); }
+.section-h2 { font-size: 18px; font-weight: 600; margin: 32px 0 12px; color: var(--muted); }
+.abstract, .meta, .authors, .cats { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.abstract { color: #b0b8d0; }
+.authors, .cats { font-size: 12px; }
+.meta code { background: rgba(120, 140, 200, 0.12); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+a { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; }
+a:hover { color: var(--accent); }
+.footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--card-border); font-size: 12px; color: var(--muted); text-align: center; }
+
+.lang-toggle{cursor:pointer;background:rgba(20,30,40,.85);border:1px solid var(--accent,#58a6ff);color:var(--accent,#58a6ff);border-radius:999px;padding:6px 14px;font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;transition:.18s;backdrop-filter:blur(8px)}.lang-toggle:hover{background:var(--accent,#58a6ff);color:#0a0e1a;box-shadow:0 0 18px rgba(91,141,239,.35)}.en{display:none}.zh{display:inline}html[lang="en"] .en{display:inline}html[lang="en"] .zh{display:none}html[lang="zh-CN"] .en{display:none}html[lang="zh-CN"] .zh{display:inline}
+</style>
+</head>
+<body><div id="langBar" style="position:sticky;top:0;z-index:50;display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;background:rgba(10,14,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(91,141,239,.18)"><button class="lang-toggle" id="langBtn" type="button" onclick="toggleLang()" aria-label="Toggle language">EN ⇄ 中</button></div>
+<div class="wrap">
+  <h1><span class="zh">⚛️ 硬科技热门追踪</span><span class="en">⚛️ 硬科技热门追踪</span></h1>
+  <div class="sub"><span class="zh">2026-08-02 · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;    数据源: arXiv（3 分类 + 电池 full-text）+ Hacker News（curated keywords）· v2 envelope_version=1 · 生成于 2026-08-02T01:00:46.190500Z</span><span class="en">
+    &lt;b&gt;2026-08-02&lt;/b&gt; · 可控核聚变 · 量子计算 · 电池材料 · 航天&lt;br&gt;
+    数据源: arXiv (3 分类 + 电池 full-text) + Hacker News (curated keywords) · v2 envelope_version=1 · 生成于 2026-08-02T01:00:46.190500Z
+  </span></div>
+
+  <div class="stats">
+    <div class="stat"><b>25</b><span>arXiv papers</span></div>
+    <div class="stat"><b>15</b><span>HN stories</span></div>
+    <div class="stat"><b>3</b><span>fusion</span></div>
+    <div class="stat"><b>8</b><span>quantum</span></div>
+    <div class="stat"><b>0</b><span>battery</span></div>
+    <div class="stat"><b>0</b><span>space</span></div>
+  </div>
+
+  <h2 class="section-h2"><span class="zh">🔥 Top 20（跨源，按影响力排序）</span><span class="en">🔥 Top 20 (cross-source, by impact)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28530v1" target="_blank"><span class="zh">日冕诊断温度差异作为一种动力学测量：形状、输运与 Ter</span><span class="en">The Diagnostic Temperature Discrepancy as a Kinetic Measurement: Shape, Transport, and Ter</span></a>
+<div class="abstract"><span class="zh">两种标准温度计应用于同一宁静日冕时存在稳定差异：射电亮度约为 0.6 MK，而基于电离与标高的诊断约为 1.5 MK，</span><span class="en">Two standard thermometers applied to the same quiet-Sun corona disagree by a stable factor: radio brightness reads about 0.6 MK while ionization- and scale-height-based diagnostics read about 1.5 MK, a ratio of 2.4 +/- 0.3 over eight years.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28305v1" target="_blank"><span class="zh">天体物理与实验室等离子体电磁湍流的混合动力学与回旋动理学模型的变分表述</span><span class="en">Variational Formulation of a Hybrid Kinetic and Gyrokinetic Model for Astrophysical and La</span></a>
+<div class="abstract"><span class="zh">我们提出一种拉格朗日模型，封装完全动力学离子与回旋动理学电子，用于太阳风电磁湍流。使用一种一致方法，</span><span class="en">We present a Lagrangian model that encapsulates fully kinetic ions and gyrokinetic electrons for solar wind electromagnetic turbulence. Using a consistent method, where both electrons and protons are treated with the same mathematical forma</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28208v1" target="_blank"><span class="zh">用于质量分离的等离子体离心机中电磁驱动的热耗散标度律</span><span class="en">Electromagnetically Driven Thermal Dissipation Scaling in Plasma Centrifuges for Mass Sepa</span></a>
+<div class="abstract"><span class="zh">电磁驱动离心机（EMDC）利用洛伦兹力旋转流体，但其分离性能受限于与电磁驱动耦合的热耗散。</span><span class="en">Electromagnetically driven centrifuges (EMDCs) rotate fluids using the Lorentz force, but their separative performance is limited by thermal dissipation that is coupled to electromagnetic forcing. This follows because local centrifugal stre</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28189v1" target="_blank"><span class="zh">约束各向异性对有限尘埃等离子体团簇粒子输运与结构弛豫的影响</span><span class="en">Effect of confinement anisotropy on particle transport and structural relaxation of finite</span></a>
+<div class="abstract"><span class="zh">实验与朗之万动力学模拟研究了被束缚在势阱各向异性中的带电微粒组成的有限尘埃等离子体团簇。</span><span class="en">A finite dusty plasma cluster of charged microparticles confined in an anisotropic potential well is investigated experimentally and through Langevin dynamics simulations. As the confinement anisotropy is increased, the cluster undergoes a</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27981v1" target="_blank"><span class="zh">天体物理回旋动力学的第二二次不变量</span><span class="en">The Second Quadratic Invariant of Astrophysical Gyrokinetics</span></a>
+<div class="abstract"><span class="zh">我们证明，空间均匀平衡中的回旋动力学（或称“天体物理回旋动力学”）具有一个此前未知的二次不变量，</span><span class="en">We show that gyrokinetics in a spatially uniform equilibrium (or `astrophysical gyrokinetics&amp;#x27;) possesses a previously unknown quadratic invariant, which we call the gyrokinetic helicity. We derive the limiting forms of the gyrokinetic helic</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.27545v1" target="_blank"><span class="zh">带慢波结构的同轴旋磁非线性传输线：2D/3D FDTD 建模</span><span class="en">Coaxial Gyromagnetic Nonlinear Transmission Line with a Slow-Wave Structure: 2D/3D FDTD Mo</span></a>
+<div class="abstract"><span class="zh">同轴旋磁非线性传输线（GNLTL）可在 0.3-10 GHz 范围内实现脉冲前沿压缩与振荡包生成。</span><span class="en">A coaxial gyromagnetic nonlinear transmission line (GNLTL) enables pulse-front compression and oscillation packet generation in the 0.3-10 GHz range. Numerical modeling of such systems typically employs a 2D axially symmetric FDTD scheme co</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28621v1" target="_blank"><span class="zh">提升提升乘积码</span><span class="en">Lifting Lifted Product Codes</span></a>
+<div class="abstract"><span class="zh">提升乘积（LP）码是量子纠错码中具有优良码参数的重要类别。我们基于群扩张引入 LP 码族的系统构造。</span><span class="en">Lifted product (LP) codes form an important class of quantum error correcting codes with favorable code parameters. We introduce a systematic construction of LP code families based on group extensions and graph lifts. The construction incre</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28620v1" target="_blank"><span class="zh">通过压缩椭圆的几何输运实现最优测量态制备</span><span class="en">On Optimal Measurement-State Preparation via Geometric Transport of the Squeezing Ellipse</span></a>
+<div class="abstract"><span class="zh">最优测量态的制备是利用压缩态进行量子计量的关键要求。我们讨论一个几何框架，</span><span class="en">Preparation of optimal measurement states is a key requirement in quantum metrology utilizing squeezed states. We discuss a geometric framework that transforms an initially misaligned squeezed input into a measurement-optimal state in SU(2)</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28610v1" target="_blank"><span class="zh">从时间演化中学习任意 Lindbladian</span><span class="en">Learning Arbitrary Lindbladians from Time Evolution</span></a>
+<div class="abstract"><span class="zh">我们研究从物理时间演化中学习未知马尔可夫开放系统生成元的问题。该生成元称为 Lindbladian，</span><span class="en">We study the problem of learning an unknown Markovian open-system generator from access to its physical time evolution. This generator, called a Lindbladian, contains Hamiltonian and dissipative coefficients indexed by an exponentially larg</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28605v1" target="_blank"><span class="zh">使用规范提升乘积码进行逻辑计算</span><span class="en">Logical computation with canonical lifted product codes</span></a>
+<div class="abstract"><span class="zh">高码率量子低密度奇偶校验（qLDPC）码以低物理量子比特开销编码多个逻辑量子比特，但在这种密集编码上实现高效容错计算仍具有挑战性。</span><span class="en">High-rate quantum low-density parity-check (qLDPC) codes encode many logical qubits with low physical-qubit overhead, but realizing efficient fault-tolerant computation on such dense encodings remains a major challenge. Generic, code-agnost</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28602v1" target="_blank"><span class="zh">Pauli 编码与不可克隆加密</span><span class="en">Pauli Encodings &amp;amp;amp; Unclonable Encryption</span></a>
+<div class="abstract"><span class="zh">不可克隆比特问题询问量子加密能否阻止对手在密钥披露后产生两个都能揭示明文的系统。</span><span class="en">The unclonable bit question asks whether quantum encryption can prevent an adversary from producing two systems that both reveal the plaintext once the key is disclosed. We introduce and study Pauli Encodings, a simple class of one-bit encr</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28600v1" target="_blank"><span class="zh">SymFT：通过符号 Clifford–Pauli 框架实现的通用容错量子电路模拟</span><span class="en">SymFT: Universal Fault-Tolerant Quantum Circuit Simulation via Symbolic Clifford--Pauli Fr</span></a>
+<div class="abstract"><span class="zh">容错协议通常主要由稳定子子电路构成，但通用性所需的非 Clifford 操作使精确采样成本高昂。</span><span class="en">Fault-tolerant protocols often consist largely of stabilizer subcircuits, yet the non-Clifford operations required for universality make exact sampling costly. We present SymFT, a high-throughput simulator for Clifford-dominated circuits wi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28598v1" target="_blank"><span class="zh">使用 CNOT 和行复杂度 4n−o(n) 的 $\mathbb Z_2$ 上的显式矩阵及其 L</span><span class="en">Explicit Matrices over $\mathbb Z_2$ with CNOT and Row Complexity $4n-\mathrm{o}(n)$ and L</span></a>
+<div class="abstract"><span class="zh">在本文中,我们给出一个显式的 $\mathbb Z_2$ 上 $n\times n$ 可逆矩阵族,其 CNOT 和行复杂度至少为 $4n-\text{o}(n)$;等价地,将这些矩阵化简为恒等矩阵至少需要 $4n-\te</span><span class="en">In this article, we present an explicit family of invertible $n\times n$ matrices over $\mathbb Z_2$ whose CNOT and row complexity is at least $4n-\text{o}(n)$; equivalently, reducing these matrices to the identity requires at least $4n-\te</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28579v1" target="_blank"><span class="zh">几何随机性带来的量子混沌与扩散输运</span><span class="en">Quantum Chaos and Diffusive Transport from Geometric Randomness</span></a>
+<div class="abstract"><span class="zh">量子混沌和扩散输运的物理通常在具有微观无序或多体相互作用的设定下进行研究。在本信中,我们证明这些现象可以纯粹由几何随机性产生。通过 st</span><span class="en">The physics of quantum chaos and diffusive transport is typically studied in settings with microscopic disorder or many-body interactions. In this Letter, we demonstrate that these phenomena can arise purely from geometric randomness. By st</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28572v1" target="_blank"><span class="zh">量子保真度单价:用于评估量子计算系统的度量</span><span class="en">Quantum Fidelity-per-Cost: A Metric for Evaluation of Quantum Computing Systems</span></a>
+<div class="abstract"><span class="zh">云端可访问的量子计算使得硬件比较不仅成为一项物理基准测试,也是一项实际的采购决策。量子计算机的代价感知比较仍属未被充分探索的领域,在异构</span><span class="en">Cloud-accessible quantum computing has made hardware comparison not only a physics benchmark but also a practical purchasing decision. Cost-aware comparison of quantum computers remains underexplored and is difficult to do under the heterog</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28570v1" target="_blank"><span class="zh">使用大张量网络基准测试 Lipkin-Meshkov-Glick 模型的量子模拟</span><span class="en">Benchmarking Quantum Simulations of the Lipkin-Meshkov-Glick Model Using Large Tensor Netw</span></a>
+<div class="abstract"><span class="zh">随着量子计算走向成熟,关键在于将其真实世界的问题求解性能与竞争性的经典方法(如张量网络)进行基准对比。在本工作中,我们利用密度矩阵重正化群(DMRG)和</span><span class="en">As quantum computing matures, it is critical to benchmark its real-world problem solving performance against competitive classical methods, such as tensor networks. In this work, we leverage the Density Matrix Renormalization Group (DMRG) a</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28613v1" target="_blank"><span class="zh">具有反转对称破缺的晶格复合费米液体</span><span class="en">Lattice composite Fermi liquid with broken inversion symmetry</span></a>
+<div class="abstract"><span class="zh">我们研究在具有反转对称破缺的半填充 Chern 能带中实现的晶格复合费米液体中的输运。我们表明,降低的晶体对称性暴露出复合费米子固有的奇异动力学响应,这些 ar</span><span class="en">We study transport in lattice composite Fermi liquids realized in half-filled Chern bands with broken inversion symmetry. We show that reduced crystalline symmetry exposes intrinsic singular dynamical responses of composite fermions that ar</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28480v1" target="_blank"><span class="zh">纳米受限水中长寿命自旋有序的观测</span><span class="en">Observation of long-lived spin order in nanoconfined water</span></a>
+<div class="abstract"><span class="zh">被限制在纳米尺度几何中的液体表现出明显偏离其体相的行为,然而在受控条件下研究其动力学在实验上仍具挑战性。在这里,我们使用氮空位(N</span><span class="en">Liquids confined to nanometer-scale geometries exhibit behavior that departs markedly from their bulk counterparts, yet studying their dynamics under controlled conditions remains experimentally challenging. Here, we use nitrogen-vacancy (N</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28441v1" target="_blank"><span class="zh">在交变磁性候选体 MnTe 中磁极化的输运证据</span><span class="en">Transport Evidence of Magnetic Polarization in the Altermagnetic Candidate MnTe</span></a>
+<div class="abstract"><span class="zh">精确控制磁性是未来自旋电子学发展的核心。在本工作中,我们报告使用分子束外延在 InP(111) 衬底上成功生长外延 α-MnTe 薄膜</span><span class="en">The ability to precisely control magnetic properties is central to the development of future spin-based electronics. In this work, we report the successful growth of epitaxial α-MnTe thin films on InP(111) substrates using molecular beam ep</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2607.28425v1" target="_blank"><span class="zh">菱面体石墨烯中的反常金属和超导相</span><span class="en">Anomalous metal and superconducting phases in rhombohedral graphene</span></a>
+<div class="abstract"><span class="zh">二维超导性现已在石墨烯体系中得到充分确立,许多此类实现显示出非常规配对的证据。然而在几个门可调的相中,尽管表现出清晰特征,但</span><span class="en">Two-dimensional superconductivity is now well established in graphene-based systems, with many such realizations showing evidence for unconventional pairing. Yet in several of the gate-tuned phases that otherwise exhibit clear signatures of</span></div>
+<div class="meta"><span class="zh"></span><span class="en">impact=50 · 2026-07-30</span></div>
+</div></div>
+
+  <h2 class="topic-h2"><span class="zh">⚛️ 可控核聚变 Controlled Fusion (3)</span><span class="en">⚛️ 可控核聚变 Controlled Fusion (3)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://arxiv.org/abs/2607.27127v1" target="_blank"><span class="zh">仿星器的偏滤器拓扑与真空室设计</span><span class="en">Divertor topology and vacuum vessel design for stellarators</span></a>
+<div class="authors"><span class="zh">authors: Andrew Giuliani, Raffael Wendlinger, Misha Padidar</span><span class="en">authors: Andrew Giuliani, Raffael Wendlinger, Misha Padidar</span></div>
+<div class="abstract"><span class="zh">我们提出用于设计真空场中边缘磁结构与真空室的仿星器优化算法。首先,我们引入一种数值方法,该方法可稳健地计算任意类型的周期轨道不动点。</span><span class="en">We present stellarator optimization algorithms for designing the edge magnetic structure in vacuum fields, together with the vacuum vessel. First, we introduce a numerical method that robustly computes periodic-orbit fixed points of any typ</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27127v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://arxiv.org/abs/2607.27024v1" target="_blank"><span class="zh">全方向箍缩压缩的旋转镜 — 受控核聚变中的美与简</span><span class="en">Rotating mirror with all-directional pinch compressions - The beauty and simplicity in con</span></a>
+<div class="authors"><span class="zh">authors: Linjin Zheng</span><span class="en">authors: Linjin Zheng</span></div>
+<div class="abstract"><span class="zh">受控核聚变极具挑战,数十年来人们一直在问:我们离无限清洁能源更近了吗?秉持美与简的理念,当前工作指出存在一条捷径:旋转</span><span class="en">Controlling nuclear fusion is so challenging that for decades, people have been asking: Are we closer to infinite clean energy? Upon the philosophy of beauty and simplicity, the current work points out that there can be a shortcut: the rota</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27024v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">可控核聚变 Controlled Fusion</span><span class="en">可控核聚变 Controlled Fusion</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变是否已准备好商业化?</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · 2026-07-13</span></div>
+</div></div>
+  <h2 class="topic-h2"><span class="zh">⚛️ 量子计算 Quantum (8)</span><span class="en">⚛️ 量子计算 Quantum (8)</span></h2><div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28621v1" target="_blank"><span class="zh">提升提升乘积码</span><span class="en">Lifting Lifted Product Codes</span></a>
+<div class="authors"><span class="zh">authors: Yuta Hirasaki, Jong Yeon Lee</span><span class="en">authors: Yuta Hirasaki, Jong Yeon Lee</span></div>
+<div class="abstract"><span class="zh">提升乘积 (LP) 码是具有有利编码参数的一类重要量子纠错码。我们引入基于群扩张和图提升的 LP 码族的系统化构造。该构造 incre</span><span class="en">Lifted product (LP) codes form an important class of quantum error correcting codes with favorable code parameters. We introduce a systematic construction of LP code families based on group extensions and graph lifts. The construction incre</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28621v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28620v1" target="_blank"><span class="zh">通过压缩椭圆的几何传输实现最优测量态制备</span><span class="en">On Optimal Measurement-State Preparation via Geometric Transport of the Squeezing Ellipse</span></a>
+<div class="authors"><span class="zh">authors: Vsevolod Salakhutdinov, Nikolay Kalinin</span><span class="en">authors: Vsevolod Salakhutdinov, Nikolay Kalinin</span></div>
+<div class="abstract"><span class="zh">最优测量态的制备是利用压缩态进行量子计量的关键要求。我们讨论一个几何框架，该框架可将初始未对准的压缩输入态进行传输，以对信号状态进行最优测量。</span><span class="en">Preparation of optimal measurement states is a key requirement in quantum metrology utilizing squeezed states. We discuss a geometric framework that transforms an initially misaligned squeezed input into a measurement-optimal state in SU(2)</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28620v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28605v1" target="_blank"><span class="zh">使用规范提升乘积码进行逻辑计算</span><span class="en">Logical computation with canonical lifted product codes</span></a>
+<div class="authors"><span class="zh">authors: Han Zheng, Guo Zheng, Liang Jiang</span><span class="en">authors: Han Zheng, Guo Zheng, Liang Jiang</span></div>
+<div class="abstract"><span class="zh">高码率量子低密度奇偶校验（qLDPC）码以较低的物理比特开销编码大量逻辑比特，但在如此密集的编码上实现高效的容错计算仍然是一项重大挑战。</span><span class="en">High-rate quantum low-density parity-check (qLDPC) codes encode many logical qubits with low physical-qubit overhead, but realizing efficient fault-tolerant computation on such dense encodings remains a major challenge. Generic, code-agnost</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28605v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28602v1" target="_blank"><span class="zh">Pauli 编码与不可克隆加密</span><span class="en">Pauli Encodings &amp;amp;amp; Unclonable Encryption</span></a>
+<div class="authors"><span class="zh">authors: Pierre Botteron, Sébastien Designolle, Omar Fawzi</span><span class="en">authors: Pierre Botteron, Sébastien Designolle, Omar Fawzi</span></div>
+<div class="abstract"><span class="zh">不可克隆比特问题探讨的是：量子加密能否阻止对手在密钥披露后产生两个都能揭示明文的系统。我们引入并研究了 Pauli 编码……</span><span class="en">The unclonable bit question asks whether quantum encryption can prevent an adversary from producing two systems that both reveal the plaintext once the key is disclosed. We introduce and study Pauli Encodings, a simple class of one-bit encr</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28602v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28600v1" target="_blank"><span class="zh">SymFT：通过符号化 Clifford–Pauli 框架实现通用容错量子电路模拟</span><span class="en">SymFT: Universal Fault-Tolerant Quantum Circuit Simulation via Symbolic Clifford--Pauli Fr</span></a>
+<div class="authors"><span class="zh">authors: Wang Fang, Huazhe Lou, Riling Li</span><span class="en">authors: Wang Fang, Huazhe Lou, Riling Li</span></div>
+<div class="abstract"><span class="zh">容错协议通常主要由稳定子子电路组成，但实现通用性所需的非 Clifford 操作使得精确采样成本高昂。我们提出了 SymFT，一个高通量模拟……</span><span class="en">Fault-tolerant protocols often consist largely of stabilizer subcircuits, yet the non-Clifford operations required for universality make exact sampling costly. We present SymFT, a high-throughput simulator for Clifford-dominated circuits wi</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28600v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28579v1" target="_blank"><span class="zh">几何随机性导致的量子混沌与扩散输运</span><span class="en">Quantum Chaos and Diffusive Transport from Geometric Randomness</span></a>
+<div class="authors"><span class="zh">authors: Bibek Saha, Abhishek Dhar, Sthitadhi Roy</span><span class="en">authors: Bibek Saha, Abhishek Dhar, Sthitadhi Roy</span></div>
+<div class="abstract"><span class="zh">量子混沌和扩散输运的物理性质通常在具有微观无序或多体相互作用的背景下进行研究。在这篇 Letter 中，我们证明这些现象可以从纯粹的几何随机性中产生。</span><span class="en">The physics of quantum chaos and diffusive transport is typically studied in settings with microscopic disorder or many-body interactions. In this Letter, we demonstrate that these phenomena can arise purely from geometric randomness. By st</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28579v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28572v1" target="_blank"><span class="zh">量子保真度-成本：量子计算系统评估的指标</span><span class="en">Quantum Fidelity-per-Cost: A Metric for Evaluation of Quantum Computing Systems</span></a>
+<div class="authors"><span class="zh">authors: Siddarth Shinde, Jakub Szefer</span><span class="en">authors: Siddarth Shinde, Jakub Szefer</span></div>
+<div class="abstract"><span class="zh">云端可访问的量子计算使得硬件对比不仅是一项物理基准测试，也是一个实际的采购决策。量子计算机的成本感知对比仍然未被充分探索。</span><span class="en">Cloud-accessible quantum computing has made hardware comparison not only a physics benchmark but also a practical purchasing decision. Cost-aware comparison of quantum computers remains underexplored and is difficult to do under the heterog</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28572v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">量子计算 Quantum</span><span class="en">量子计算 Quantum</span></span>
+<a href="https://arxiv.org/abs/2607.28570v1" target="_blank"><span class="zh">使用大型张量网络对 Lipkin-Meshkov-Glick 模型量子模拟进行基准测试</span><span class="en">Benchmarking Quantum Simulations of the Lipkin-Meshkov-Glick Model Using Large Tensor Netw</span></a>
+<div class="authors"><span class="zh">authors: Maggie Bao, Rushil Dandamudi, Jerimiah Wright</span><span class="en">authors: Maggie Bao, Rushil Dandamudi, Jerimiah Wright</span></div>
+<div class="abstract"><span class="zh">随着量子计算的成熟，将其真实世界的问题解决性能与张量网络等竞争性经典方法进行基准测试至关重要。在这项工作中，我们利用 Densi……</span><span class="en">As quantum computing matures, it is critical to benchmark its real-world problem solving performance against competitive classical methods, such as tensor networks. In this work, we leverage the Density Matrix Renormalization Group (DMRG) a</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28570v1 · 2026-07-30</span></div>
+</div></div>
+  
+  
+
+  <h2 class="section-h2"><span class="zh">📄 arXiv 全部（25 篇）</span><span class="en">📄 arXiv 全部 (25 篇)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28530v1" target="_blank"><span class="zh">作为动力学测量的诊断温度差异：形状、输运与第三种温度计</span><span class="en">The Diagnostic Temperature Discrepancy as a Kinetic Measurement: Shape, Transport, and Ter</span></a>
+<div class="abstract"><span class="zh">应用于同一宁静太阳日冕的两种标准温度计存在稳定的差异：射电亮度测量约为 0.6 MK，而基于电离和标高的诊断测量约为 1.5 MK。</span><span class="en">Two standard thermometers applied to the same quiet-Sun corona disagree by a stable factor: radio brightness reads about 0.6 MK while ionization- and scale-height-based diagnostics read about 1.5 MK, a ratio of 2.4 +/- 0.3 over eight years. We argue this discrepancy is not an anomaly awaiting reconciliation but a kinetic measurement, and we read it three times: for the shape of the electron distri</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28530v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28305v1" target="_blank"><span class="zh">用于天体物理与实验室等离子体的混合动力学和回旋动理学模型的变分表述</span><span class="en">Variational Formulation of a Hybrid Kinetic and Gyrokinetic Model for Astrophysical and La</span></a>
+<div class="abstract"><span class="zh">我们提出了一个拉格朗日模型，封装了全动力学离子和回旋动理学电子，用于太阳风电磁湍流研究。使用一种自洽方法，其中电子和质子均被……</span><span class="en">We present a Lagrangian model that encapsulates fully kinetic ions and gyrokinetic electrons for solar wind electromagnetic turbulence. Using a consistent method, where both electrons and protons are treated with the same mathematical formalism, we derive and implement a model in which high-frequency waves and kinetic electron effects are described in a computationally cost-efficient way. Higher-o</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28305v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28208v1" target="_blank"><span class="zh">用于质量分离的等离子体离心机中电磁驱动的热耗散标度律</span><span class="en">Electromagnetically Driven Thermal Dissipation Scaling in Plasma Centrifuges for Mass Sepa</span></a>
+<div class="abstract"><span class="zh">电磁驱动离心机（EMDCs）使用洛伦兹力旋转流体，但其分离性能受到与电磁驱动耦合的热耗散的限制。本文……</span><span class="en">Electromagnetically driven centrifuges (EMDCs) rotate fluids using the Lorentz force, but their separative performance is limited by thermal dissipation that is coupled to electromagnetic forcing. This follows because local centrifugal strength is proportional to λ=mV_θ^2/2k_B T, which compares directed kinetic energy that drives species separation to thermal energy that smooths concentration grad</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28208v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28189v1" target="_blank"><span class="zh">约束各向异性对有限尘埃等离子体团簇粒子输运和结构弛豫的影响</span><span class="en">Effect of confinement anisotropy on particle transport and structural relaxation of finite</span></a>
+<div class="abstract"><span class="zh">我们通过实验和 Langevin 动力学模拟研究了限制在各向异性势阱中的带电微粒组成的有限尘埃等离子体团簇。随着约束各向异性的……</span><span class="en">A finite dusty plasma cluster of charged microparticles confined in an anisotropic potential well is investigated experimentally and through Langevin dynamics simulations. As the confinement anisotropy is increased, the cluster undergoes a structural transition from near isotropic concentric shells to a linear chain configuration. The spatiotemporal modes of the cluster are analyzed by using Singu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28189v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27981v1" target="_blank"><span class="zh">天体物理回旋动力学的第二个二次不变量</span><span class="en">The Second Quadratic Invariant of Astrophysical Gyrokinetics</span></a>
+<div class="abstract"><span class="zh">我们证明，空间均匀平衡中的回旋动力学（或“天体物理回旋动力学”）拥有一个先前未知的二次不变量，我们称之为回旋动理学螺旋度。我们推导……</span><span class="en">We show that gyrokinetics in a spatially uniform equilibrium (or `astrophysical gyrokinetics&amp;#x27;) possesses a previously unknown quadratic invariant, which we call the gyrokinetic helicity. We derive the limiting forms of the gyrokinetic helicity in five subsidiary expansions of astrophysical gyrokinetics: the isothermal electron fluid (ITEF) approximation, kinetic reduced magnetohydrodynamics (KRMHD</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27981v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27545v1" target="_blank"><span class="zh">同轴旋磁非线性传输线与慢波结构:2D/3D FDTD 建模</span><span class="en">Coaxial Gyromagnetic Nonlinear Transmission Line with a Slow-Wave Structure: 2D/3D FDTD Mo</span></a>
+<div class="abstract"><span class="zh">同轴旋磁非线性传输线 (GNLTL) 能够在 0.3-10 GHz 范围内实现脉冲前沿压缩和振荡包络生成。对此类系统的数值建模通常采用二维轴对称 FDTD 方案,并耦合求解未线性化的 Landau-Lifshitz-Gilbert 方程。以前的研究已表明,使用绝缘介质并</span><span class="en">A coaxial gyromagnetic nonlinear transmission line (GNLTL) enables pulse-front compression and oscillation packet generation in the 0.3-10 GHz range. Numerical modeling of such systems typically employs a 2D axially symmetric FDTD scheme coupled with the parallel solution of full non-linearized Landau-Lifshitz-Gilbert equations. Previous studies have shown that using an insulating dielectric with</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27545v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27312v1" target="_blank"><span class="zh">暗物质等离子体子晕的非线性演化</span><span class="en">Non-linear Evolution of Dark Plasma Subhalos</span></a>
+<div class="abstract"><span class="zh">通过长程力自相互作用的暗物质表现出短程相互作用所没有的相干集体效应。在暗物质通过暗光子媒介子相互作用的情形下,其动力学与标准模型等离子体高度相似。在此类模型中,多种天体物理环境(包括团簇碰撞以及绕宿主晕运行的子晕)都</span><span class="en">Dark matter that self interacts through long-range forces exhibits coherent, collective effects that are absent in short-range interactions. In the case where dark matter interacts through a hidden-photon mediator, its dynamics closely resemble those of Standard Model plasmas. In such models, various astrophysical environments, including cluster collisions and subhalos orbiting their host halo, ar</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27312v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27135v1" target="_blank"><span class="zh">SPECTRE:一种适用于任意拓扑三维平衡的鲁棒求解器</span><span class="en">SPECTRE: A robust solver for 3D equilibria with arbitrary topology</span></a>
+<div class="abstract"><span class="zh">我们推出 SPECTRE,一种基于多区域弛豫 MHD 模型的新型平衡代码,可鲁棒地计算具有一般磁拓扑结构的三维平衡,允许存在磁面、磁岛和混沌区。该代码建立在前一个 MRxMHD 求解器 SPEC 之上,但由于引入了新的力表达形式并采用基于稳定信赖域的最小二乘方法,性能显著</span><span class="en">We present SPECTRE, a new equilibrium code based on the Multi-Region relaxed MHD model for robustly calculating 3D equilibria with general magnetic topology, allowing for flux surfaces, magnetic islands, and chaos. The code builds on a previous MRxMHD solver, SPEC, but performs significantly better thanks to a new formulation of force, the use of a stable trust-region-based least squares minimizat</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27135v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27127v1" target="_blank"><span class="zh">仿星器的偏滤器拓扑与真空室设计</span><span class="en">Divertor topology and vacuum vessel design for stellarators</span></a>
+<div class="abstract"><span class="zh">我们提出用于在真空场中设计边缘磁结构连同真空室的仿星器优化算法。首先,我们引入一种数值方法,可鲁棒地计算任意类型(椭圆型、双曲型或抛物型)的周期轨道不动点,这些不动点可构成偏滤器的基础。为将偏滤器设计与真空室设计耦合,我们引入参数化族</span><span class="en">We present stellarator optimization algorithms for designing the edge magnetic structure in vacuum fields, together with the vacuum vessel. First, we introduce a numerical method that robustly computes periodic-orbit fixed points of any type (elliptic, hyperbolic, or parabolic), which could form the basis of a divertor. To couple divertor and vacuum vessel design, we introduce parametric families</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27127v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.27024v1" target="_blank"><span class="zh">带全方向箍缩压缩的旋转镜 — 受控核聚变中美与简洁的力量</span><span class="en">Rotating mirror with all-directional pinch compressions - The beauty and simplicity in con</span></a>
+<div class="abstract"><span class="zh">可控核聚变极具挑战,以至于数十年来人们一直在问:我们离无限清洁能源是否更近了一步?秉承美与简洁的理念,本工作指出存在一条捷径:采用分离电极和全方向箍缩压缩的旋转镜。本工作基于 University of Texas 最近提交的临时专利</span><span class="en">Controlling nuclear fusion is so challenging that for decades, people have been asking: Are we closer to infinite clean energy? Upon the philosophy of beauty and simplicity, the current work points out that there can be a shortcut: the rotating mirror with detached electrodes and all-directional pinch compressions. This is based on the provisional patents filed recently by the University of Texas</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.27024v1 · 2026-07-29</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28621v1" target="_blank"><span class="zh">提升提升乘积码</span><span class="en">Lifting Lifted Product Codes</span></a>
+<div class="abstract"><span class="zh">提升乘积 (LP) 码是量子纠错码中的一类重要成员,具有优良的码参数。我们引入一种基于群扩张与图提升的 LP 码族系统化构造方法。该构造在保持 Tanner 图局部结构的同时增大码规模,并关联码参数、逻辑算符以及容错逻辑运算</span><span class="en">Lifted product (LP) codes form an important class of quantum error correcting codes with favorable code parameters. We introduce a systematic construction of LP code families based on group extensions and graph lifts. The construction increases the code size while preserving the local structure of the Tanner graph, and relates code parameters, logical operators, and fault-tolerant logical-operatio</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28621v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28620v1" target="_blank"><span class="zh">关于通过压缩椭圆几何输运的最优测量态制备</span><span class="en">On Optimal Measurement-State Preparation via Geometric Transport of the Squeezing Ellipse</span></a>
+<div class="abstract"><span class="zh">最优测量态的制备是利用压缩态进行量子计量的关键要求。我们讨论一种几何框架,它可将初始未对齐的压缩输入变换为 SU(2) 对称系统中测量最优的态。在该框架内,压缩椭圆的取向构成一个额外的几何自由度,并随测量过程演化</span><span class="en">Preparation of optimal measurement states is a key requirement in quantum metrology utilizing squeezed states. We discuss a geometric framework that transforms an initially misaligned squeezed input into a measurement-optimal state in SU(2)-symmetric systems. Within this framework, the orientation of the squeezing ellipse constitutes an additional geometric degree of freedom and evolves as the mea</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28620v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28610v1" target="_blank"><span class="zh">从时间演化中学习任意 Lindblad 算符</span><span class="en">Learning Arbitrary Lindbladians from Time Evolution</span></a>
+<div class="abstract"><span class="zh">我们研究从对其物理时间演化的访问中学习未知马尔可夫开放系统生成元的问题。该生成元称为 Lindblad 算符,包含由指数规模的 Pauli 项族所索引的哈密顿量和耗散系数。我们提出一种高效算法,可在最小假设下从时间演化中学习任意 Lindblad 算符。对于 Lind</span><span class="en">We study the problem of learning an unknown Markovian open-system generator from access to its physical time evolution. This generator, called a Lindbladian, contains Hamiltonian and dissipative coefficients indexed by an exponentially large family of possible Pauli terms. We propose an efficient algorithm that learns arbitrary Lindbladians from time evolution under minimal assumptions. For a Lind</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28610v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28605v1" target="_blank"><span class="zh">用规范提升乘积码实现逻辑计算</span><span class="en">Logical computation with canonical lifted product codes</span></a>
+<div class="abstract"><span class="zh">高码率量子低密度奇偶校验 (qLDPC) 码以较低物理比特开销编码大量逻辑比特,但在这种稠密编码上实现高效容错计算仍是重大挑战。通用、与具体码无关的技术(如码手术和门隐形传态)适用范围广,但难以同时做到模块化、低开销且对复杂高密度</span><span class="en">High-rate quantum low-density parity-check (qLDPC) codes encode many logical qubits with low physical-qubit overhead, but realizing efficient fault-tolerant computation on such dense encodings remains a major challenge. Generic, code-agnostic techniques such as code surgery and gate teleportation apply broadly, but are difficult to make modular, low-overhead, and fully certifiable on complex high-</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28605v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28602v1" target="_blank"><span class="zh">Pauli 编码与不可克隆加密</span><span class="en">Pauli Encodings &amp;amp;amp; Unclonable Encryption</span></a>
+<div class="abstract"><span class="zh">不可克隆比特问题询问量子加密能否阻止对手在密钥公开后产出两个都能揭示明文的系统。我们引入并研究 Pauli 编码,这是一类简单的单比特加密方案,其密文为 Pauli 串的归一化本征空间投影。对于任意使用 K 个 Pauli 串的 Pauli 编码,我们证明一个通用下界</span><span class="en">The unclonable bit question asks whether quantum encryption can prevent an adversary from producing two systems that both reveal the plaintext once the key is disclosed. We introduce and study Pauli Encodings, a simple class of one-bit encryption schemes whose ciphertexts are normalized eigenspace projectors of Pauli strings. For every Pauli Encoding with K Pauli strings, we prove a universal lowe</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28602v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28600v1" target="_blank"><span class="zh">SymFT:通过符号化 Clifford–Pauli 框架实现的通用容错量子电路仿真</span><span class="en">SymFT: Universal Fault-Tolerant Quantum Circuit Simulation via Symbolic Clifford--Pauli Fr</span></a>
+<div class="abstract"><span class="zh">容错协议通常主要由稳定子子电路组成,但实现通用性所需的非 Clifford 操作使精确采样代价高昂。我们推出 SymFT,一款面向以 Clifford 为主、含 Pauli 旋转、随机 Pauli 噪声、电路中 Pauli 测量以及由测量记录控制的 Pauli 反馈的高吞吐仿真器。它融合了两个思路。首先,符号</span><span class="en">Fault-tolerant protocols often consist largely of stabilizer subcircuits, yet the non-Clifford operations required for universality make exact sampling costly. We present SymFT, a high-throughput simulator for Clifford-dominated circuits with Pauli rotations, stochastic Pauli noise, mid-circuit Pauli measurements, and measurement-record-controlled Pauli feedback. It combines two ideas. First, symb</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28600v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28598v1" target="_blank"><span class="zh">具有 CNOT 与行复杂度 $4n-\mathrm{o}(n)$ 的 $\mathbb Z_2$ 上显式矩阵及 L</span><span class="en">Explicit Matrices over $\mathbb Z_2$ with CNOT and Row Complexity $4n-\mathrm{o}(n)$ and L</span></a>
+<div class="abstract"><span class="zh">在本文中,我们给出 $\mathbb Z_2$ 上 $n\times n$ 可逆矩阵的一个显式族,其 CNOT 复杂度与行复杂度至少为 $4n-\text{o}(n)$;等价地,将这些矩阵化简为恒等矩阵至少需要 $4n-\text{o}(n)$ 次初等行变换。此外,在更强的计算模型(将 CNOT 门替换为算术</span><span class="en">In this article, we present an explicit family of invertible $n\times n$ matrices over $\mathbb Z_2$ whose CNOT and row complexity is at least $4n-\text{o}(n)$; equivalently, reducing these matrices to the identity requires at least $4n-\text{o}(n)$ elementary row operations. Moreover, the same complexity lower bound holds in the stronger computational model where the CNOT gates are replaced by ar</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28598v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28579v1" target="_blank"><span class="zh">几何随机性引起的量子混沌与扩散输运</span><span class="en">Quantum Chaos and Diffusive Transport from Geometric Randomness</span></a>
+<div class="abstract"><span class="zh">量子混沌与扩散输运的物理通常在具有微观无序或多体相互作用的体系中进行研究。在这篇快报中，我们证明这些现象可以纯粹源自几何随机性。通过研究具有均匀耦合的随机局部类树分层图上的非相互作用量子粒子，我们表明几何随机性和有效的</span><span class="en">The physics of quantum chaos and diffusive transport is typically studied in settings with microscopic disorder or many-body interactions. In this Letter, we demonstrate that these phenomena can arise purely from geometric randomness. By studying non-interacting quantum particles on random locally tree-like layered graphs with uniform couplings, we show that the geometric randomness and effective</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28579v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28572v1" target="_blank"><span class="zh">量子保真度-成本：量子计算系统评估的指标</span><span class="en">Quantum Fidelity-per-Cost: A Metric for Evaluation of Quantum Computing Systems</span></a>
+<div class="abstract"><span class="zh">云端可访问的量子计算使硬件比较不仅是一项物理基准测试，也是一项实际的采购决策。在各种云量子计算提供商所提供的异构计费模型下，成本感知的量子计算机比较仍探讨不足且难以进行。本文做出两项主要贡献，以实现量子计算机的价格感知比较</span><span class="en">Cloud-accessible quantum computing has made hardware comparison not only a physics benchmark but also a practical purchasing decision. Cost-aware comparison of quantum computers remains underexplored and is difficult to do under the heterogeneous billing models offered by various cloud-based quantum computing providers. This paper makes two main contributions to enable price-aware comparison of qu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28572v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28570v1" target="_blank"><span class="zh">使用大型张量网络对 Lipkin-Meshkov-Glick 模型量子模拟的基准测试</span><span class="en">Benchmarking Quantum Simulations of the Lipkin-Meshkov-Glick Model Using Large Tensor Netw</span></a>
+<div class="abstract"><span class="zh">随着量子计算走向成熟，将其在真实问题上的求解能力与张量网络等竞争性经典方法进行基准测试至关重要。在本工作中，我们利用密度矩阵重整化群 (DMRG) 算法计算 Lipkin Meshkov Glick (LMG) 模型的基态能量，作为对流行噪声中等规模 (NISQ) 算法的比较基准</span><span class="en">As quantum computing matures, it is critical to benchmark its real-world problem solving performance against competitive classical methods, such as tensor networks. In this work, we leverage the Density Matrix Renormalization Group (DMRG) algorithm to compute ground state energies of the Lipkin Meshkov Glick (LMG) model as a comparative benchmark against popular noisy intermediate-scale (NISQ) alg</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28570v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28613v1" target="_blank"><span class="zh">具有破缺反演对称性的格点复合费米液体</span><span class="en">Lattice composite Fermi liquid with broken inversion symmetry</span></a>
+<div class="abstract"><span class="zh">我们研究在破缺反演对称性的半填充 Chern 带中实现的格点复合费米液体输运。我们表明，降低的晶体对称性暴露出复合费米子的内在奇异动力学响应，而在常规朗道能级设置中这些响应是被隐藏的。在零波矢处，反演破缺允许规范场涨落产生一个非解析的</span><span class="en">We study transport in lattice composite Fermi liquids realized in half-filled Chern bands with broken inversion symmetry. We show that reduced crystalline symmetry exposes intrinsic singular dynamical responses of composite fermions that are otherwise hidden in the conventional Landau-level setting. At zero wave vector, inversion breaking allows gauge-field fluctuations to generate a non-analytic</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28613v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28480v1" target="_blank"><span class="zh">纳米受限水中长寿命自旋有序的观测</span><span class="en">Observation of long-lived spin order in nanoconfined water</span></a>
+<div class="abstract"><span class="zh">受限在纳米尺度几何中的液体表现出与体相截然不同的行为，但在受控条件下研究其动力学仍然在实验上具有挑战性。在这里，我们使用氮空位 (NV) 中心核磁共振 (NMR) 波谱来探测受限在 5.6 nm 通道中的水随温度的变化。系统在低温下仍保持液态</span><span class="en">Liquids confined to nanometer-scale geometries exhibit behavior that departs markedly from their bulk counterparts, yet studying their dynamics under controlled conditions remains experimentally challenging. Here, we use nitrogen-vacancy (NV) center nuclear magnetic resonance (NMR) spectroscopy to probe water confined in 5.6 nm channels as a function of temperature. The system remains liquid throu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28480v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28441v1" target="_blank"><span class="zh">交变磁性候选材料 MnTe 中磁极化的输运证据</span><span class="en">Transport Evidence of Magnetic Polarization in the Altermagnetic Candidate MnTe</span></a>
+<div class="abstract"><span class="zh">精确控制磁性是未来自旋电子学发展的核心。在本工作中，我们报告使用分子束外延在 InP(111) 衬底上成功生长了外延 α-MnTe 薄膜。低温磁输运测量揭示了一种独特的、滞回型的蝶形纵向磁电阻，并伴随非线性横向</span><span class="en">The ability to precisely control magnetic properties is central to the development of future spin-based electronics. In this work, we report the successful growth of epitaxial α-MnTe thin films on InP(111) substrates using molecular beam epitaxy. Magneto-transport measurements at low temperatures reveal a distinct, hysteretic butterfly longitudinal magnetoresistance alongside a nonlinear transvers</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28441v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28425v1" target="_blank"><span class="zh">菱形石墨烯中的反常金属与超导相</span><span class="en">Anomalous metal and superconducting phases in rhombohedral graphene</span></a>
+<div class="abstract"><span class="zh">二维超导性如今已在石墨烯基体系中得到充分确立，许多这样的体系显示出非常规配对的证据。然而，在若干栅压调控的相中，尽管它们表现出明显的超导性迹象，电阻并未随温度降低而消失，而是饱和在一个有限值上。在这里，我们报告对此行为的系统研究</span><span class="en">Two-dimensional superconductivity is now well established in graphene-based systems, with many such realizations showing evidence for unconventional pairing. Yet in several of the gate-tuned phases that otherwise exhibit clear signatures of superconductivity, the resistance does not vanish as temperature is lowered, instead saturating at a finite value. Here we report a systematic study of this be</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28425v1 · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag accent"><span class="zh">arXiv</span><span class="en">arXiv</span></span>
+<a href="https://arxiv.org/abs/2607.28313v1" target="_blank"><span class="zh">碳纳米管中的电流型射频电荷传感</span><span class="en">Current-based RF charge sensing in a carbon nanotube</span></a>
+<div class="abstract"><span class="zh">超高灵敏度的电荷检测是量子电子学中广泛使用的工具，可应用于量子信息处理和探测凝聚态体系的物理。现有的方法要么需要阻抗匹配的谐振电路，要么需要放大器与样品之间毫米级的近邻距离，这两者都增加了复杂性并限制了器件设计。在本工作中，我们引入了</span><span class="en">Ultra-sensitive charge detection is a widely used tool for quantum electronics with applications in quantum information processing and in probing the physics of condensed matter systems. Existing approaches require either an impedance-matched resonant circuit, or millimeter-scale proximity between amplifier and sample, both adding complexity and constraining device design. In this work, we introdu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2607.28313v1 · 2026-07-30</span></div>
+</div></div>
+
+  <h2 class="section-h2"><span class="zh">💬 Hacker News（15 条）</span><span class="en">💬 Hacker News (15 条)</span></h2>
+  <div class="grid"><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank"><span class="zh">核聚变准备好商业化了吗？</span><span class="en">Nuclear Fusion Ready for Commercialization?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 3💬 · dd-sharma · 2026-07-13</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.politico.com/news/magazine/2026/07/24/nuclear-fusion-commonwealth-washington-massachusetts-01010625" target="_blank"><span class="zh">聚变已就绪，特朗普的华盛顿准备好了吗？</span><span class="en">Fusion Is Ready. Is Trump&amp;#x27;s Washington?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 1💬 · 0in · 2026-07-25</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.haykranen.nl/2026/07/30/wikimania-2026-every-wikimedian-toolmaker/" target="_blank"><span class="zh">为什么每个维基媒体人都应该成为工具制作者</span><span class="en">Why every Wikimedian should be a toolmaker</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · janvdberg · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.reuters.com/world/china/chip-toolmaker-asml-expected-shine-light-capacity-china-challenges-2026-07-14/" target="_blank"><span class="zh">芯片工具制造商 ASML 预计将就产能与中国挑战给出指引</span><span class="en">Chip toolmaker ASML expected to shine light on capacity and China challenges</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · technewssss · 2026-07-14</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://medium.com/@subairui/coding-on-principle-toolmaking-is-the-most-effective-way-of-learning-12ed34b60d76" target="_blank"><span class="zh">为什么造工具是最有效的学习方法</span><span class="en">Why Toolmaking Is the Most Effective Way of Learning</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 1💬 · subairui · 2026-07-08</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.ibm.com/quantum/blog/hardware-metrics-2026" target="_blank"><span class="zh">如何衡量量子计算机的性能</span><span class="en">How to measure the performance of a quantum computer</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 0💬 · mrkO99 · 2026-08-01</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://thenewstack.io/ibm-quantum-advantage-verification/" target="_blank"><span class="zh">IBM 表示量子计算机越来越难以验证,这反而是进步</span><span class="en">IBM says quantum computers are getting harder to verify. That&amp;#x27;s progress</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · Brajeshwar · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://quantego.org/" target="_blank"><span class="zh">Quantego:一组 IBM 量子计算机的乐高模型</span><span class="en">Quantego: A Family of Lego Models of IBM Quantum Computers</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · rbanffy · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://quantumcomputingreport.com/japan-launches-fully-domestically-produced-quantum-computer-in-collaboration-with-riken-and-fujitsu/" target="_blank"><span class="zh">日本推出国产量子计算机</span><span class="en">Japan Launches Domestically Produced Quantum Computer</span></a>
+<div class="meta"><span class="zh"></span><span class="en">2⭐ 0💬 · Tomte · 2026-07-27</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theregister.com/science/2026/07/06/boffins-bet-on-quantum-computers-ai-supers-to-solve-fusion-fuel-dilemma/5267199" target="_blank"><span class="zh">学者押注量子计算机与 AI 超算以解决聚变燃料难题</span><span class="en">Boffins bet on quantum computers, AI supers to solve fusion fuel dilemma</span></a>
+<div class="meta"><span class="zh"></span><span class="en">9⭐ 4💬 · Bender · 2026-07-06</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://kerkour.com/128-bit-keys-post-quantum" target="_blank"><span class="zh">128 位对称密钥能抵御量子计算机吗?</span><span class="en">Are 128-bit symmetric keys secure against quantum computers?</span></a>
+<div class="meta"><span class="zh"></span><span class="en">6⭐ 3💬 · cold_pizz4 · 2026-07-21</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.theverge.com/science/959466/quantum-computer-majorana-2-microsoft-trump-eo" target="_blank"><span class="zh">量子计算机能干什么?——暂时没什么用</span><span class="en">What is a quantum computer good for? nothing – yet</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 3💬 · joak · 2026-07-04</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://arstechnica.com/science/2026/07/quantum-computing-roundup-still-more-technologies-making-waves/" target="_blank"><span class="zh">量子计算综述:仍有更多技术掀起波澜</span><span class="en">Quantum computing roundup: Still more technologies making waves</span></a>
+<div class="meta"><span class="zh"></span><span class="en">4⭐ 1💬 · rbanffy · 2026-07-30</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.cnbc.com/2026/07/30/ibm-ceo-quantum-computing-measurable-impact-earnings-2028-2029.html" target="_blank"><span class="zh">IBM CEO 称量子计算将在 2028 或 2029 年开始影响公司业绩</span><span class="en">IBM CEO says quantum computing will have impact on earnings by 2028 or 2029</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · mrkO99 · 2026-08-01</span></div>
+</div><div class="card">
+<span class="tag ok"><span class="zh">HN</span><span class="en">HN</span></span>
+<a href="https://www.nextplatform.com/compute/2026/07/29/with-the-carina-system-quix-pushes-photonic-quantum-computing-forward/5280744" target="_blank"><span class="zh">凭借 Carina 系统,QuiX 推动光子量子计算向前发展</span><span class="en">With the Carina System, QuiX Pushes Photonic Quantum Computing Forward</span></a>
+<div class="meta"><span class="zh"></span><span class="en">3⭐ 0💬 · rbanffy · 2026-07-30</span></div>
+</div></div>
+
+  <div class="footer">
+    Hermes cron · hardtech-daily.sh v2 (search_lib envelope) · 姊妹任务 ai-trending-daily
+  </div>
+</div>
+<script>(function(){var k="hardtech-daily-lang";function apply(l){document.documentElement.lang=l;try{localStorage.setItem(k,l);}catch(e){}}try{var saved=localStorage.getItem(k);if(saved==='en'||saved==='zh-CN')apply(saved);}catch(e){}window.toggleLang=function(){apply(document.documentElement.lang==='zh-CN'?'en':'zh-CN');};})();</script></body>
+</html>
