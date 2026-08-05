@@ -1,5 +1,25 @@
 [
   {
+    "title": "🧭 中国企业上市路径罗盘 · 官方规则与客户打标工作台",
+    "file": "daily-reports/china-ipo-compass-2026-08-05.html",
+    "date": "2026-08-05",
+    "category": "finance-toolkit",
+    "track": "market",
+    "summary": "证监会 + 沪深北港官方规则，境内 IPO 八步流程，H/Q/E/R 四层客户标签，T0–T4 阶段判断与 11 问互动快筛。仅用于路径初筛与证据补全，不构成上市承诺。",
+    "featured": true,
+    "tags": [
+      "china-ipo",
+      "csrc",
+      "sse",
+      "szse",
+      "bse",
+      "hkex",
+      "client-tagging",
+      "official-rules"
+    ],
+    "added_at": "2026-08-05"
+  },
+  {
     "title": "🆕 2026-08-03 Daily · auto-generated cron report (Hermes Agent daily summary)",
     "file": "2026-08-03-daily.html",
     "date": "2026-08-03",

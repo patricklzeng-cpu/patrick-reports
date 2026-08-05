@@ -1,0 +1,1384 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0b1515">
+  <meta name="description" content="面向客户初访的中国企业上市路径罗盘：用官方规则解释境内IPO流程，对照沪深主板、科创板、创业板、北交所与港交所，并生成合规的客户打标结论。">
+  <meta name="report-marker" content="ipo-compass-public-2026-08-05">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="上市路径罗盘｜中国企业 IPO 客户初筛">
+  <meta property="og:description" content="不是替客户承诺上市，而是把路径、证据缺口与下一步验证成本说清楚。">
+  <meta property="og:url" content="https://2017zyl.xyz/daily-reports/china-ipo-compass-2026-08-05">
+  <meta property="og:image" content="https://2017zyl.xyz/daily-reports/china-ipo-compass-2026-08-05-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="上市路径罗盘：先筛路径，再补证据">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="上市路径罗盘｜中国企业 IPO 客户初筛">
+  <meta name="twitter:description" content="用官方规则把路径、证据缺口与下一步验证成本说清楚。">
+  <meta name="twitter:image" content="https://2017zyl.xyz/daily-reports/china-ipo-compass-2026-08-05-og.png">
+  <link rel="canonical" href="https://2017zyl.xyz/daily-reports/china-ipo-compass-2026-08-05">
+  <title>上市路径罗盘｜中国企业 IPO 客户初筛与官方规则</title>
+  <style>
+    :root {
+      --night: #0b1515;
+      --night-soft: #142220;
+      --paper: #f2eee4;
+      --paper-strong: #fffdf7;
+      --ink: #14201e;
+      --ink-soft: #5f6b66;
+      --line: rgba(20, 32, 30, .14);
+      --line-dark: rgba(255, 255, 255, .13);
+      --lime: #c7f36b;
+      --lime-deep: #8fbd35;
+      --signal: #ff6542;
+      --blue: #5878ff;
+      --gold: #d9b977;
+      --green: #2d8a65;
+      --amber: #b86c1e;
+      --red: #bd4437;
+      --shadow: 0 24px 80px rgba(3, 12, 11, .18);
+      --serif: "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif;
+      --sans: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--night); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body::selection { color: var(--night); background: var(--lime); }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: fixed;
+      z-index: 999;
+      top: -80px;
+      left: 16px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: white;
+      background: var(--blue);
+      text-decoration: none;
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 14px; }
+    .shell { width: min(1240px, calc(100% - 44px)); margin: 0 auto; }
+    .micro { font-size: 11px; font-weight: 760; letter-spacing: .1em; text-transform: uppercase; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); }
+    .eyebrow::before { width: 22px; height: 2px; content: ""; background: currentColor; }
+    .section-heading { max-width: 820px; margin-bottom: 34px; }
+    .section-heading h2 {
+      margin: 10px 0 12px;
+      font-family: var(--serif);
+      font-size: clamp(34px, 4.7vw, 64px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -.055em;
+    }
+    .section-heading p { max-width: 720px; margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.85; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 30px;
+      padding: 0 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 730;
+      white-space: nowrap;
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 16%, transparent); }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 780;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: var(--night); background: var(--lime); }
+    .button-secondary { color: white; border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.06); }
+    .button-paper { color: var(--ink); border-color: var(--line); background: var(--paper-strong); }
+    .button-small { min-height: 38px; padding: 0 14px; font-size: 11px; }
+
+    .topbar {
+      position: fixed;
+      z-index: 90;
+      top: 0;
+      right: 0;
+      left: 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.86);
+      background: rgba(11,21,21,.84);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+    }
+    .topbar-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; color: white; text-decoration: none; }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(199,243,107,.56);
+      border-radius: 50%;
+      color: var(--lime);
+      font-family: var(--serif);
+      font-size: 18px;
+    }
+    .brand-copy { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand-copy b { font-size: 13px; letter-spacing: .08em; }
+    .brand-copy small { margin-top: 4px; color: rgba(255,255,255,.42); font-size: 8px; letter-spacing: .12em; }
+    .desktop-nav { display: flex; align-items: center; gap: 5px; }
+    .desktop-nav a {
+      padding: 9px 11px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.56);
+      font-size: 11px;
+      font-weight: 720;
+      text-decoration: none;
+      transition: color .2s ease, background .2s ease;
+    }
+    .desktop-nav a:hover, .desktop-nav a.active { color: white; background: rgba(255,255,255,.08); }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .top-actions button {
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      color: rgba(255,255,255,.72);
+      background: transparent;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 830px;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      padding: 130px 0 72px;
+      color: white;
+      background:
+        radial-gradient(circle at 78% 32%, rgba(88,120,255,.23), transparent 27%),
+        radial-gradient(circle at 12% 72%, rgba(199,243,107,.11), transparent 28%),
+        var(--night);
+    }
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      content: "";
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 74px 74px;
+      -webkit-mask-image: linear-gradient(to bottom, black, transparent 88%);
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    .hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(420px, .88fr); align-items: center; gap: clamp(32px, 5vw, 78px); }
+    .hero-copy { max-width: 760px; }
+    .hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 30px; }
+    .hero-meta .pill { color: var(--lime); border-color: rgba(199,243,107,.28); background: rgba(199,243,107,.07); }
+    .hero-meta span:last-child { color: rgba(255,255,255,.45); font-size: 10px; letter-spacing: .08em; }
+    .hero h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(54px, 7.2vw, 104px);
+      line-height: .96;
+      letter-spacing: -.075em;
+    }
+    .hero h1 em { color: var(--lime); font-style: normal; }
+    .hero-lead { max-width: 660px; margin: 28px 0 0; color: rgba(255,255,255,.65); font-size: clamp(16px, 1.6vw, 20px); line-height: 1.75; }
+    .hero-rule { max-width: 640px; display: grid; grid-template-columns: 5px 1fr; gap: 14px; margin-top: 28px; padding: 15px 17px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(255,255,255,.04); }
+    .hero-rule::before { content: ""; border-radius: 999px; background: var(--signal); }
+    .hero-rule b { display: block; margin-bottom: 4px; color: rgba(255,255,255,.92); font-size: 12px; }
+    .hero-rule span { color: rgba(255,255,255,.5); font-size: 11px; line-height: 1.65; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 22px 34px; margin-top: 42px; }
+    .hero-stats span { display: flex; flex-direction: column; gap: 4px; }
+    .hero-stats b { color: var(--lime); font-family: var(--serif); font-size: 27px; line-height: 1; }
+    .hero-stats small { color: rgba(255,255,255,.38); font-size: 9px; letter-spacing: .08em; }
+
+    .route-orbit { position: relative; width: min(100%, 520px); aspect-ratio: 1; justify-self: end; }
+    .orbit-glow { position: absolute; inset: 18%; border-radius: 50%; background: rgba(88,120,255,.13); filter: blur(40px); }
+    .orbit-ring { position: absolute; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; }
+    .orbit-ring.r1 { inset: 9%; }
+    .orbit-ring.r2 { inset: 22%; border-style: dashed; }
+    .orbit-ring.r3 { inset: 36%; }
+    .orbit-axis::before, .orbit-axis::after { position: absolute; inset: 50% 8%; height: 1px; content: ""; background: rgba(255,255,255,.08); }
+    .orbit-axis::after { transform: rotate(90deg); }
+    .orbit-core {
+      position: absolute;
+      z-index: 3;
+      inset: 37%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(199,243,107,.5);
+      border-radius: 50%;
+      color: var(--night);
+      background: var(--lime);
+      box-shadow: 0 0 0 10px rgba(199,243,107,.06), 0 22px 60px rgba(0,0,0,.25);
+      text-align: center;
+    }
+    .orbit-core b { font-family: var(--serif); font-size: clamp(17px, 2vw, 25px); line-height: 1.15; }
+    .orbit-core small { display: block; margin-top: 4px; font-size: 8px; letter-spacing: .12em; }
+    .orbit-node {
+      position: absolute;
+      z-index: 4;
+      min-width: 96px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 13px;
+      color: rgba(255,255,255,.88);
+      background: rgba(17,35,33,.88);
+      box-shadow: 0 15px 35px rgba(0,0,0,.24);
+      text-align: left;
+    }
+    .orbit-node::before { width: 7px; height: 7px; display: inline-block; margin-right: 7px; border-radius: 50%; content: ""; background: var(--node); }
+    .orbit-node b { font-size: 11px; }
+    .orbit-node small { display: block; margin: 5px 0 0 14px; color: rgba(255,255,255,.38); font-size: 8px; }
+    .node-main { --node: var(--gold); top: 7%; left: 37%; }
+    .node-star { --node: var(--blue); top: 29%; right: 0; }
+    .node-chi { --node: var(--signal); right: 8%; bottom: 17%; }
+    .node-bse { --node: var(--lime); bottom: 4%; left: 26%; }
+    .node-hk { --node: #d47eff; top: 38%; left: 0; }
+    .orbit-note { position: absolute; right: 7%; bottom: -6px; color: rgba(255,255,255,.32); font-size: 8px; letter-spacing: .08em; }
+
+    .definition-strip { position: relative; z-index: 3; margin-top: -28px; }
+    .definition-card { display: grid; grid-template-columns: 1.2fr repeat(3, .6fr); overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--paper-strong); box-shadow: var(--shadow); }
+    .definition-main { padding: 26px 28px; }
+    .definition-main span { color: var(--green); }
+    .definition-main h2 { margin: 7px 0 7px; font-family: var(--serif); font-size: 24px; letter-spacing: -.03em; }
+    .definition-main p { margin: 0; color: var(--ink-soft); font-size: 11px; line-height: 1.65; }
+    .definition-stat { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 22px; border-left: 1px solid var(--line); }
+    .definition-stat b { font-family: var(--serif); font-size: 26px; }
+    .definition-stat span { color: var(--ink-soft); font-size: 9px; line-height: 1.5; }
+
+    .section { padding: 110px 0; }
+    .section-dark { color: white; background: var(--night); }
+    .section-dark .section-heading p { color: rgba(255,255,255,.52); }
+    .section-dark .eyebrow { color: var(--lime); }
+    .truth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .truth-card { min-height: 210px; padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,253,247,.62); }
+    .truth-card span { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--green); font-family: var(--serif); font-size: 15px; }
+    .truth-card h3 { margin: 24px 0 9px; font-family: var(--serif); font-size: 22px; }
+    .truth-card p { margin: 0; color: var(--ink-soft); font-size: 12px; line-height: 1.75; }
+    .truth-card strong { color: var(--red); }
+    .myth-row { display: grid; grid-template-columns: .7fr 1.3fr; gap: 12px; margin-top: 12px; }
+    .myth-label, .myth-answer { padding: 22px 24px; border-radius: 18px; }
+    .myth-label { color: white; background: var(--signal); }
+    .myth-label small { display: block; opacity: .68; }
+    .myth-label b { display: block; margin-top: 7px; font-family: var(--serif); font-size: 23px; line-height: 1.2; }
+    .myth-answer { border: 1px solid var(--line); background: var(--paper-strong); }
+    .myth-answer b { font-size: 12px; }
+    .myth-answer p { margin: 8px 0 0; color: var(--ink-soft); font-size: 11px; line-height: 1.75; }
+
+    .process-rail { position: relative; display: grid; gap: 10px; }
+    .process-rail::before { position: absolute; z-index: 0; top: 36px; bottom: 36px; left: 27px; width: 1px; content: ""; background: rgba(199,243,107,.28); }
+    .process-step { position: relative; z-index: 1; display: grid; grid-template-columns: 56px 170px 1fr auto; align-items: center; gap: 18px; min-height: 88px; padding: 12px 16px 12px 0; border: 1px solid var(--line-dark); border-radius: 18px; background: rgba(255,255,255,.035); transition: background .2s ease, transform .2s ease; }
+    .process-step:hover { transform: translateX(4px); background: rgba(255,255,255,.06); }
+    .step-index { width: 56px; height: 56px; display: grid; place-items: center; border: 1px solid rgba(199,243,107,.3); border-radius: 50%; color: var(--lime); background: var(--night); font-family: var(--serif); font-size: 19px; }
+    .step-name small { color: rgba(255,255,255,.36); font-size: 8px; letter-spacing: .1em; }
+    .step-name h3 { margin: 5px 0 0; font-family: var(--serif); font-size: 19px; }
+    .step-copy { color: rgba(255,255,255,.56); font-size: 11px; line-height: 1.7; }
+    .step-proof { min-width: 116px; text-align: right; }
+    .step-proof b { display: block; color: rgba(255,255,255,.8); font-size: 10px; }
+    .step-proof span { display: block; margin-top: 4px; color: var(--lime); font-size: 9px; }
+    .clock-warning { display: grid; grid-template-columns: auto 1fr; gap: 14px; margin-top: 18px; padding: 20px 22px; border: 1px solid rgba(255,101,66,.3); border-radius: 18px; background: rgba(255,101,66,.07); }
+    .clock-warning > span { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--night); background: var(--signal); font-weight: 900; }
+    .clock-warning b { display: block; color: #ffc0b2; font-size: 12px; }
+    .clock-warning p { margin: 6px 0 0; color: rgba(255,255,255,.5); font-size: 11px; line-height: 1.7; }
+    .clock-warning a { color: white; text-underline-offset: 3px; }
+
+    .lab-shell { display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 14px; }
+    .lab-legend { position: sticky; top: 84px; align-self: start; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--paper-strong); }
+    .legend-head { padding: 22px; color: white; background: var(--ink); }
+    .legend-head span { color: var(--lime); }
+    .legend-head h3 { margin: 7px 0 6px; font-family: var(--serif); font-size: 25px; }
+    .legend-head p { margin: 0; color: rgba(255,255,255,.5); font-size: 10px; line-height: 1.6; }
+    .legend-list { padding: 8px 14px; }
+    .legend-item { display: grid; grid-template-columns: 34px 1fr; gap: 10px; padding: 14px 6px; border-bottom: 1px solid var(--line); }
+    .legend-item:last-child { border-bottom: 0; }
+    .legend-code { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 10px; color: white; font-family: var(--serif); font-weight: 800; }
+    .legend-code.h { background: var(--red); }
+    .legend-code.q { background: var(--blue); }
+    .legend-code.e { color: var(--night); background: var(--lime); }
+    .legend-code.r { background: var(--signal); }
+    .legend-item b { display: block; font-size: 11px; }
+    .legend-item p { margin: 4px 0 0; color: var(--ink-soft); font-size: 9px; line-height: 1.55; }
+    .legend-note { margin: 0 14px 14px; padding: 11px; border-radius: 11px; color: #75483e; background: #f9e8e2; font-size: 9px; line-height: 1.55; }
+    .lab-main { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--paper-strong); box-shadow: 0 24px 60px rgba(18,32,29,.08); }
+    .lab-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 24px 26px; border-bottom: 1px solid var(--line); }
+    .lab-top h3 { margin: 0 0 6px; font-family: var(--serif); font-size: 27px; }
+    .lab-top p { margin: 0; color: var(--ink-soft); font-size: 10px; line-height: 1.6; }
+    .progress-wrap { min-width: 180px; }
+    .progress-copy { display: flex; justify-content: space-between; color: var(--ink-soft); font-size: 9px; }
+    .progress-bar { height: 7px; overflow: hidden; margin-top: 7px; border-radius: 999px; background: #e8e4db; }
+    .progress-bar i { width: 0; height: 100%; display: block; border-radius: inherit; background: var(--blue); transition: width .25s ease; }
+    .question-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .question {
+      min-width: 0;
+      margin: 0;
+      padding: 22px 24px 24px;
+      border: 0;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .question:nth-child(2n) { border-right: 0; }
+    .question legend { width: 100%; padding: 0; font-size: 12px; font-weight: 780; }
+    .question legend small { display: block; margin-bottom: 6px; color: var(--blue); font-size: 8px; letter-spacing: .1em; }
+    .choices { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 13px; }
+    .choice { min-height: 34px; padding: 0 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-soft); background: white; cursor: pointer; font-size: 9px; transition: color .15s ease, border-color .15s ease, background .15s ease; }
+    .choice:hover { border-color: var(--blue); color: var(--blue); }
+    .choice.selected { color: white; border-color: var(--blue); background: var(--blue); }
+    .lab-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 20px 24px; background: #f6f3eb; }
+    .lab-actions span { max-width: 540px; color: var(--ink-soft); font-size: 9px; line-height: 1.55; }
+    .lab-actions > div { display: flex; gap: 8px; }
+    .result-panel { display: none; padding: 26px; border-top: 1px solid var(--line); background: #eef1ff; }
+    .result-panel.show { display: block; animation: reveal .35s ease both; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .result-head { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 15px; }
+    .result-status { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; color: white; background: var(--blue); font-family: var(--serif); font-size: 23px; font-weight: 800; }
+    .result-head h3 { margin: 0; font-family: var(--serif); font-size: 26px; }
+    .result-head p { margin: 5px 0 0; color: var(--ink-soft); font-size: 10px; line-height: 1.55; }
+    .result-head .button { color: white; background: var(--ink); }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    .result-tag { padding: 7px 9px; border: 1px solid rgba(88,120,255,.22); border-radius: 9px; color: #344ba7; background: rgba(255,255,255,.72); font-size: 9px; font-weight: 720; }
+    .route-results { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+    .route-result { min-height: 144px; padding: 13px; border: 1px solid rgba(88,120,255,.16); border-radius: 13px; background: rgba(255,255,255,.78); }
+    .route-result > span { display: inline-flex; padding: 4px 6px; border-radius: 6px; color: #fff; background: var(--blue); font-size: 7px; font-weight: 800; letter-spacing: .08em; }
+    .route-result[data-level="stop"] > span { background: var(--red); }
+    .route-result[data-level="parallel"] > span { color: var(--ink); background: var(--lime); }
+    .route-result[data-level="unknown"] > span { background: #8d948f; }
+    .route-result h4 { margin: 11px 0 7px; font-family: var(--serif); font-size: 16px; }
+    .route-result p { margin: 0; color: var(--ink-soft); font-size: 8px; line-height: 1.55; }
+    .result-next { display: grid; grid-template-columns: 1fr auto; gap: 14px; margin-top: 14px; padding: 15px; border-radius: 13px; color: white; background: var(--ink); }
+    .result-next b { display: block; color: var(--lime); font-size: 10px; }
+    .result-next p { margin: 5px 0 0; color: rgba(255,255,255,.55); font-size: 9px; line-height: 1.6; }
+    .crm-code { align-self: center; padding: 8px 10px; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; color: rgba(255,255,255,.72); background: rgba(255,255,255,.05); font-family: ui-monospace, monospace; font-size: 8px; line-height: 1.5; }
+
+    .script-layout { display: grid; grid-template-columns: .84fr 1.16fr; gap: 14px; }
+    .script-card, .question-bank { border: 1px solid var(--line-dark); border-radius: 20px; background: rgba(255,255,255,.035); }
+    .script-card { overflow: hidden; }
+    .script-tabs { display: grid; grid-template-columns: repeat(3, 1fr); padding: 7px; border-bottom: 1px solid var(--line-dark); }
+    .script-tabs button { min-height: 40px; border: 0; border-radius: 10px; color: rgba(255,255,255,.44); background: transparent; cursor: pointer; font-size: 10px; font-weight: 760; }
+    .script-tabs button.active { color: var(--night); background: var(--lime); }
+    .script-content { min-height: 330px; padding: 28px; }
+    .script-pane { display: none; }
+    .script-pane.active { display: block; animation: reveal .25s ease both; }
+    .script-pane small { color: var(--lime); font-size: 8px; letter-spacing: .1em; }
+    .script-pane h3 { margin: 9px 0 18px; font-family: var(--serif); font-size: 27px; }
+    .script-quote { margin: 0; padding: 0 0 0 18px; border-left: 3px solid var(--signal); color: rgba(255,255,255,.82); font-family: var(--serif); font-size: 18px; line-height: 1.85; }
+    .script-note { margin: 20px 0 0; color: rgba(255,255,255,.42); font-size: 9px; line-height: 1.65; }
+    .script-copy { margin-top: 22px; }
+    .question-bank { padding: 24px; }
+    .question-bank header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .question-bank h3 { margin: 0; font-family: var(--serif); font-size: 25px; }
+    .question-bank header p { max-width: 360px; margin: 4px 0 0; color: rgba(255,255,255,.42); font-size: 9px; line-height: 1.55; }
+    .meeting-questions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin-top: 18px; }
+    .meeting-q { min-height: 62px; display: grid; grid-template-columns: 26px 1fr; gap: 9px; padding: 11px; border: 1px solid var(--line-dark); border-radius: 11px; background: rgba(255,255,255,.025); }
+    .meeting-q span { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; color: var(--lime); background: rgba(199,243,107,.08); font-family: var(--serif); font-size: 10px; }
+    .meeting-q b { display: block; color: rgba(255,255,255,.78); font-size: 9px; }
+    .meeting-q p { margin: 4px 0 0; color: rgba(255,255,255,.4); font-size: 8px; line-height: 1.45; }
+
+    .market-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin: -10px 0 24px; }
+    .market-tab { min-height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-soft); background: transparent; cursor: pointer; font-size: 10px; font-weight: 760; }
+    .market-tab.active { color: white; border-color: var(--ink); background: var(--ink); }
+    .matrix-wrap { overflow-x: auto; margin-bottom: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper-strong); }
+    .matrix { width: 100%; min-width: 900px; border-collapse: collapse; }
+    .matrix th, .matrix td { padding: 15px 16px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .matrix th:last-child, .matrix td:last-child { border-right: 0; }
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix th { color: var(--ink-soft); background: #e9e5db; font-size: 8px; letter-spacing: .08em; }
+    .matrix td { font-size: 10px; line-height: 1.55; }
+    .matrix td:first-child { font-family: var(--serif); font-size: 15px; font-weight: 700; }
+    .matrix .yes { color: var(--green); font-weight: 800; }
+    .matrix .conditional { color: var(--amber); font-weight: 800; }
+    .rule-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .rule-card { overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--paper-strong); }
+    .rule-card[data-group].hidden { display: none; }
+    .rule-head { min-height: 126px; display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: 22px; color: white; background: var(--rule-color, var(--ink)); }
+    .rule-head small { color: rgba(255,255,255,.52); font-size: 8px; letter-spacing: .09em; }
+    .rule-head h3 { margin: 7px 0 5px; font-family: var(--serif); font-size: 25px; }
+    .rule-head p { max-width: 420px; margin: 0; color: rgba(255,255,255,.58); font-size: 9px; line-height: 1.55; }
+    .rule-version { flex: 0 0 auto; padding: 6px 8px; border: 1px solid rgba(255,255,255,.2); border-radius: 8px; color: rgba(255,255,255,.76); font-size: 8px; text-align: right; }
+    .rule-body { padding: 20px 22px 22px; }
+    .gate-line { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+    .gate-line span { padding: 6px 8px; border-radius: 7px; color: var(--ink-soft); background: #ece8de; font-size: 8px; font-weight: 710; }
+    .standards { display: grid; gap: 7px; }
+    .standard { display: grid; grid-template-columns: 28px 1fr; gap: 9px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; }
+    .standard > span { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 8px; color: white; background: var(--rule-color, var(--ink)); font-family: var(--serif); font-size: 11px; }
+    .standard b { display: block; font-size: 9px; line-height: 1.5; }
+    .standard p { margin: 4px 0 0; color: var(--ink-soft); font-size: 8px; line-height: 1.55; }
+    .rule-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+    .rule-foot span { color: var(--ink-soft); font-size: 8px; line-height: 1.5; }
+    .official-link { display: inline-flex; align-items: center; gap: 5px; color: var(--blue); font-size: 9px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .official-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .scope-note { margin-top: 14px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 12px; color: var(--ink-soft); font-size: 9px; line-height: 1.65; }
+
+    .source-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 14px; }
+    .source-search { position: relative; flex: 1; max-width: 560px; }
+    .source-search input { width: 100%; min-height: 46px; padding: 0 16px 0 40px; border: 1px solid var(--line-dark); border-radius: 999px; color: white; background: rgba(255,255,255,.05); outline: 0; }
+    .source-search input::placeholder { color: rgba(255,255,255,.35); }
+    .source-search::before { position: absolute; top: 14px; left: 16px; content: "⌕"; color: var(--lime); font-size: 18px; }
+    .source-toolbar span { color: rgba(255,255,255,.38); font-size: 9px; }
+    .source-list { overflow: hidden; border: 1px solid var(--line-dark); border-radius: 18px; }
+    .source-row { display: grid; grid-template-columns: 118px 1fr 140px auto; align-items: center; gap: 14px; min-height: 72px; padding: 12px 16px; border-bottom: 1px solid var(--line-dark); }
+    .source-row:last-child { border-bottom: 0; }
+    .source-row.hidden { display: none; }
+    .source-org { color: var(--lime); font-size: 9px; font-weight: 800; }
+    .source-title b { display: block; color: rgba(255,255,255,.82); font-size: 10px; }
+    .source-title small { display: block; margin-top: 5px; color: rgba(255,255,255,.35); font-size: 8px; }
+    .source-date { color: rgba(255,255,255,.4); font-size: 8px; }
+    .source-row a { min-height: 34px; display: inline-flex; align-items: center; justify-content: center; padding: 0 11px; border: 1px solid rgba(199,243,107,.24); border-radius: 999px; color: var(--lime); font-size: 8px; font-weight: 800; text-decoration: none; }
+    .source-row a:hover { color: var(--night); background: var(--lime); }
+    .source-empty { display: none; padding: 30px; color: rgba(255,255,255,.4); text-align: center; font-size: 10px; }
+    .source-empty.show { display: block; }
+    .verify-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+    .verify-card { min-height: 140px; display: flex; flex-direction: column; justify-content: space-between; padding: 17px; border: 1px solid var(--line-dark); border-radius: 14px; color: white; background: rgba(255,255,255,.035); text-decoration: none; }
+    .verify-card:hover { border-color: rgba(199,243,107,.5); background: rgba(199,243,107,.05); }
+    .verify-card span { color: var(--lime); font-family: var(--serif); font-size: 24px; }
+    .verify-card b { display: block; margin-top: 13px; font-size: 10px; }
+    .verify-card small { display: block; margin-top: 5px; color: rgba(255,255,255,.38); font-size: 8px; line-height: 1.45; }
+
+    .faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+    .faq { border: 1px solid var(--line); border-radius: 14px; background: var(--paper-strong); }
+    .faq summary { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; cursor: pointer; list-style: none; font-family: var(--serif); font-size: 16px; font-weight: 700; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; color: var(--blue); font-family: var(--sans); font-size: 20px; }
+    .faq[open] summary::after { content: "−"; }
+    .faq p { margin: 0; padding: 0 18px 18px; color: var(--ink-soft); font-size: 10px; line-height: 1.7; }
+
+    .footer { padding: 52px 0 32px; color: white; background: #07100f; }
+    .footer-main { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; }
+    .footer h2 { max-width: 760px; margin: 15px 0 0; font-family: var(--serif); font-size: clamp(32px, 5vw, 66px); line-height: 1.05; letter-spacing: -.055em; }
+    .footer h2 em { color: var(--lime); font-style: normal; }
+    .footer-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .disclaimer { margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--line-dark); color: rgba(255,255,255,.36); font-size: 8px; line-height: 1.75; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; margin-top: 20px; color: rgba(255,255,255,.24); font-size: 8px; letter-spacing: .06em; }
+    .toast {
+      position: fixed;
+      z-index: 120;
+      right: 18px;
+      bottom: 18px;
+      max-width: min(420px, calc(100% - 36px));
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 13px 15px;
+      border: 1px solid rgba(199,243,107,.34);
+      border-radius: 13px;
+      color: white;
+      background: rgba(11,21,21,.94);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity .2s ease, transform .2s ease;
+      font-size: 10px;
+    }
+    .toast.show { opacity: 1; transform: none; }
+    .toast::before { width: 8px; height: 8px; border-radius: 50%; content: ""; background: var(--lime); }
+
+    @media (max-width: 1040px) {
+      .desktop-nav { display: none; }
+      .hero { min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .route-orbit { width: min(620px, 100%); justify-self: center; }
+      .definition-card { grid-template-columns: 1fr repeat(3, .46fr); }
+      .lab-shell { grid-template-columns: 250px minmax(0,1fr); }
+      .route-results { grid-template-columns: repeat(3, 1fr); }
+      .verify-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 820px) {
+      .shell { width: min(100% - 28px, 1240px); }
+      .topbar-inner { min-height: 60px; }
+      .top-actions button:first-child { display: none; }
+      .hero { padding-top: 112px; }
+      .hero h1 { font-size: clamp(51px, 14vw, 78px); }
+      .route-orbit { margin-top: -10px; }
+      .definition-strip { margin-top: -12px; }
+      .definition-card { grid-template-columns: 1fr; }
+      .definition-stat { min-height: 94px; border-top: 1px solid var(--line); border-left: 0; }
+      .section { padding: 82px 0; }
+      .truth-grid, .rule-grid, .faq-grid { grid-template-columns: 1fr; }
+      .myth-row, .script-layout { grid-template-columns: 1fr; }
+      .process-step { grid-template-columns: 48px 1fr; gap: 12px; padding-right: 12px; }
+      .step-index { width: 48px; height: 48px; grid-row: span 2; }
+      .step-copy { grid-column: 2; }
+      .step-proof { display: none; }
+      .process-rail::before { left: 23px; }
+      .lab-shell { grid-template-columns: 1fr; }
+      .lab-legend { position: static; }
+      .legend-list { display: grid; grid-template-columns: repeat(2, 1fr); }
+      .legend-item:nth-child(2n) { border-left: 1px solid var(--line); }
+      .question-list { grid-template-columns: 1fr; }
+      .question { border-right: 0; }
+      .lab-top, .lab-actions { align-items: stretch; flex-direction: column; }
+      .progress-wrap { min-width: 0; }
+      .lab-actions > div { width: 100%; }
+      .lab-actions button { flex: 1; }
+      .result-head { grid-template-columns: auto 1fr; }
+      .result-head .button { grid-column: 1 / -1; }
+      .route-results { grid-template-columns: repeat(2, 1fr); }
+      .result-next { grid-template-columns: 1fr; }
+      .meeting-questions { grid-template-columns: 1fr; }
+      .source-row { grid-template-columns: 86px 1fr auto; }
+      .source-date { display: none; }
+      .footer-main { grid-template-columns: 1fr; }
+      .footer-actions { justify-content: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .brand-copy small { display: none; }
+      .top-actions button { min-width: 36px; padding: 0 9px; }
+      .hero-meta { margin-bottom: 22px; }
+      .hero-lead { font-size: 15px; }
+      .hero-stats { gap: 18px 24px; }
+      .route-orbit { transform: scale(.94); }
+      .orbit-node { min-width: 82px; padding: 8px; }
+      .node-main { left: 31%; }
+      .node-star { right: -3%; }
+      .node-hk { left: -3%; }
+      .section-heading h2 { font-size: 38px; }
+      .legend-list { grid-template-columns: 1fr; }
+      .legend-item:nth-child(2n) { border-left: 0; }
+      .route-results { grid-template-columns: 1fr; }
+      .rule-head { min-height: 0; flex-direction: column; }
+      .rule-version { text-align: left; }
+      .source-toolbar { align-items: stretch; flex-direction: column; }
+      .source-row { grid-template-columns: 1fr auto; gap: 7px; }
+      .source-org { grid-column: 1 / -1; }
+      .verify-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+    @media print {
+      .topbar, .hero-cta, .top-actions, .script-copy, .market-tabs, .source-toolbar, .footer-actions, .toast { display: none !important; }
+      .hero { min-height: 0; padding: 44px 0; color: var(--ink); background: white; }
+      .hero::before, .route-orbit { display: none; }
+      .hero-inner { display: block; }
+      .hero h1, .hero-lead, .hero-meta span:last-child { color: var(--ink); }
+      .hero-rule { border-color: var(--line); }
+      .hero-rule span, .hero-rule b { color: var(--ink); }
+      .definition-strip { margin-top: 0; }
+      .section { padding: 44px 0; }
+      .section-dark { color: var(--ink); background: white; }
+      .section-dark .section-heading p, .step-copy, .clock-warning p, .script-note, .question-bank header p, .meeting-q p, .source-title small, .source-date, .disclaimer { color: var(--ink-soft); }
+      .process-step, .script-card, .question-bank, .source-list, .meeting-q { border-color: var(--line); background: white; break-inside: avoid; }
+      .step-name h3, .source-title b, .meeting-q b { color: var(--ink); }
+      .rule-card, .truth-card, .faq { break-inside: avoid; }
+      .lab-legend { position: static; }
+      .source-row a { color: var(--ink); border-color: var(--line); }
+      .footer { color: var(--ink); background: white; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="topbar" aria-label="页面导航">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/daily-reports.html" aria-label="返回 Daily Reports" title="返回 Daily Reports">
+        <span class="brand-mark">路</span>
+        <span class="brand-copy"><b>上市路径罗盘</b><small>← DAILY REPORTS · PRC</small></span>
+      </a>
+      <nav class="desktop-nav" aria-label="章节">
+        <a href="#process">流程</a>
+        <a href="#lab">客户打标</a>
+        <a href="#script">会谈话术</a>
+        <a href="#rules">规则库</a>
+        <a href="#sources">官方渠道</a>
+      </nav>
+      <div class="top-actions">
+        <button type="button" id="printTop">打印 / PDF</button>
+        <button type="button" id="downloadTop">初访清单 ↓</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <div class="hero-meta">
+            <span class="pill"><i class="dot"></i> 官方规则校准</span>
+            <span>资料基准日 · 2026.08.05 · 中国标准时间</span>
+          </div>
+          <h1>把“想上市”<br>变成一张<em>可验证</em>的路线图</h1>
+          <p class="hero-lead">给第一次面对企业客户的你：先用官方规则识别路径，再标记证据缺口与红旗，最后只约定下一次验证——不替监管判断，不向客户承诺结果。</p>
+          <div class="hero-rule">
+            <div>
+              <b>注册制 ≠ 备案即上市</b>
+              <span>境内 IPO 仍要同时回答三件事：是否符合发行条件、是否符合所选板块上市条件、信息披露是否真实准确完整。</span>
+            </div>
+          </div>
+          <div class="hero-cta">
+            <a class="button button-primary" href="#lab">开始 60 秒客户快筛 <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#rules">直接看交易所规则</a>
+          </div>
+          <div class="hero-stats" aria-label="内容范围">
+            <span><b>5</b><small>核心上市路径</small></span>
+            <span><b>8</b><small>境内流程站点</small></span>
+            <span><b>H/Q/E/R</b><small>四层客户标签</small></span>
+            <span><b>0</b><small>“包上市”承诺</small></span>
+          </div>
+        </div>
+
+        <div class="route-orbit" aria-label="上市路径示意图">
+          <div class="orbit-glow"></div>
+          <div class="orbit-ring r1"></div>
+          <div class="orbit-ring r2"></div>
+          <div class="orbit-ring r3"></div>
+          <div class="orbit-axis"></div>
+          <div class="orbit-core"><b>先筛路径<br>再补证据</b><small>NOT A PROMISE</small></div>
+          <div class="orbit-node node-main"><b>沪深主板</b><small>成熟 · 规模 · 代表性</small></div>
+          <div class="orbit-node node-star"><b>科创板</b><small>硬科技 · 科创属性</small></div>
+          <div class="orbit-node node-chi"><b>创业板</b><small>成长 · 创新创业</small></div>
+          <div class="orbit-node node-bse"><b>北交所</b><small>创新型中小企业</small></div>
+          <div class="orbit-node node-hk"><b>港交所</b><small>国际资本 · 境外备案</small></div>
+          <span class="orbit-note">示意图不代表监管优先级</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="definition-strip">
+      <div class="shell definition-card">
+        <div class="definition-main">
+          <span class="micro">Scope / 本页口径</span>
+          <h2>“中国各大交易所”在此指什么？</h2>
+          <p>覆盖境内股票发行上市的上海、深圳、北京证券交易所，并把香港联合交易所作为中国企业常见境外路径对照；不含期货、商品、区域性股权市场、债券与 REITs。</p>
+        </div>
+        <div class="definition-stat"><b>沪 / 深</b><span>主板、科创板、创业板</span></div>
+        <div class="definition-stat"><b>北交所</b><span>创新层身份 + 股转连续挂牌满 12 个月</span></div>
+        <div class="definition-stat"><b>港交所</b><span>主板、GEM、18A、18C 对照</span></div>
+      </div>
+    </div>
+
+    <section class="section" id="basics">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow micro">01 / 先建立正确认知</span>
+          <h2>小白先懂三件事，客户面前就不会说错</h2>
+          <p>上市不是一次填表，而是一场把企业历史、经营数据与治理能力变成可核验证据的公开工程。</p>
+        </div>
+        <div class="truth-grid">
+          <article class="truth-card">
+            <span>审</span>
+            <h3>谁审核？</h3>
+            <p>交易所受理、问询并由上市委审议；审核通过后报中国证监会履行注册程序。辅导验收机构只评价辅导工作，<strong>不实质判断能否上市</strong>。</p>
+          </article>
+          <article class="truth-card">
+            <span>看</span>
+            <h3>审核看什么？</h3>
+            <p>既看可量化的市值财务指标，也看板块定位、独立性、持续经营、合规与披露质量。数字达标从来不是自动通行证。</p>
+          </article>
+          <article class="truth-card">
+            <span>问</span>
+            <h3>初访问什么？</h3>
+            <p>先问目标与动机，再问三年数据、股权控制、客户供应商、资质处罚与原始凭证。先记录“未知”，不要用想象替客户补答案。</p>
+          </article>
+        </div>
+        <div class="myth-row">
+          <div class="myth-label"><small class="micro">错误开场</small><b>“您利润够了，应该能上。”</b></div>
+          <div class="myth-answer"><b>更专业的表达</b><p>“这组数据可能让某些路径值得进一步验证，但还需要把板块定位、扣非口径、现金流、股权和重大合规事项一起核清。我今天先给您形成路径候选与材料缺口，不做上市结论。”</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="process">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow micro">02 / 境内 IPO 流程</span>
+          <h2>从企业准备到敲钟，监管链条这样走</h2>
+          <p>以下是面向小白的主干流程。每一步都可能往返补证、整改或中止，不能把规则“净用时”当成项目日历。</p>
+        </div>
+        <div class="process-rail">
+          <article class="process-step">
+            <span class="step-index">0</span>
+            <div class="step-name"><small>PREPARATION</small><h3>战略与规范准备</h3></div>
+            <div class="step-copy">确认上市目的与板块定位；处理股改、历史沿革、股权、财务税务、内控、独立性、资质许可和募投方案。保荐、会计师、律师尽调与内核。</div>
+            <div class="step-proof"><b>客户要准备</b><span>三年一期底稿</span></div>
+          </article>
+          <article class="process-step">
+            <span class="step-index">1</span>
+            <div class="step-name"><small>COUNSELLING</small><h3>辅导备案与验收</h3></div>
+            <div class="step-copy">辅导机构签约后按规定向注册地证监局备案，推动治理、会计基础、内控与规则认知规范。一般辅导期不少于 3 个月；完成函通常有效 12 个月。</div>
+            <div class="step-proof"><b>官方动作</b><span>证监局辅导监管</span></div>
+          </article>
+          <article class="process-step">
+            <span class="step-index">2</span>
+            <div class="step-name"><small>APPLICATION</small><h3>保荐申报与受理</h3></div>
+            <div class="step-copy">发行人通过保荐人电子提交招股说明书、保荐书、审计报告、法律意见书等。交易所收到文件后按规则决定是否受理，受理后预披露。</div>
+            <div class="step-proof"><b>公开可查</b><span>招股书与项目状态</span></div>
+          </article>
+          <article class="process-step">
+            <span class="step-index">3</span>
+            <div class="step-name"><small>INQUIRY</small><h3>审核问询</h3></div>
+            <div class="step-copy">交易所围绕发行条件、上市条件和信息披露提出首轮及后续问询；发行人与中介逐项回复，必要时现场检查、现场督导或专项核查。</div>
+            <div class="step-proof"><b>核心能力</b><span>证据链与回复质量</span></div>
+          </article>
+          <article class="process-step">
+            <span class="step-index">4</span>
+            <div class="step-name"><small>COMMITTEE</small><h3>上市委审议</h3></div>
+            <div class="step-copy">上市委对审核报告和申请文件合议审议，可现场问询、暂缓审议或要求补充披露，形成是否符合发行上市条件和披露要求的审议意见。</div>
+            <div class="step-proof"><b>不是“过会宴”</b><span>仍可能落实事项</span></div>
+          </article>
+          <article class="process-step">
+            <span class="step-index">5</span>
+            <div class="step-name"><small>REGISTRATION</small><h3>证监会注册</h3></div>
+            <div class="step-copy">交易所审核通过后报证监会。证监会依法履行注册程序，可要求进一步说明、问询、核查或检查；注册决定不代表对投资价值作保证。</div>
+            <div class="step-proof"><b>规则净用时</b><span>决定环节 20 个工作日</span></div>
+          </article>
+          <article class="process-step">
+            <span class="step-index">6</span>
+            <div class="step-name"><small>OFFERING</small><h3>发行与承销</h3></div>
+            <div class="step-copy">取得注册后，发行人与主承销商报送发行承销方案，进行路演、询价或定价、申购配售、缴款验资与股份登记；市场窗口会影响节奏。</div>
+            <div class="step-proof"><b>商业关键</b><span>估值与发行窗口</span></div>
+          </article>
+          <article class="process-step">
+            <span class="step-index">7</span>
+            <div class="step-name"><small>LISTING</small><h3>上市与持续监管</h3></div>
+            <div class="step-copy">发行完成后办理上市申请并披露上市公告书。挂牌只是持续信息披露、公司治理、募集资金管理和保荐督导的新起点。</div>
+            <div class="step-proof"><b>长期责任</b><span>持续披露与治理</span></div>
+          </article>
+        </div>
+        <div class="clock-warning">
+          <span>!</span>
+          <div><b>最容易误传的“3 个月”</b><p>沪深规则列示的交易所审核与证监会注册净用时合计不超过 3 个月，但企业回复、中止、现场检查/督导、专项核查、落实上市委意见、补充修改等时间不计。它绝不等于“从签约到上市只要三个月”。<a href="https://www.sse.com.cn/listing/aboutus/auditprocess/" target="_blank" rel="noopener">查看上交所官方流程说明 ↗</a></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="lab">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow micro">03 / 客户打标工作台</span>
+          <h2>不做一个“能不能上”的总分</h2>
+          <p>用 H/Q/E/R 把不可替代的门槛、需要专业判断的定位、执行成熟度与红旗分开。Unknown 就是待补证，不能自动当作 Yes。</p>
+        </div>
+
+        <div class="lab-shell">
+          <aside class="lab-legend" aria-label="打标规则">
+            <div class="legend-head"><span class="micro">Tagging model</span><h3>四层，不互相抵消</h3><p>硬门槛或红旗不能被“高分”抵消，因此本工具不输出总分。</p></div>
+            <div class="legend-list">
+              <div class="legend-item"><span class="legend-code h">H</span><div><b>硬门槛 · Gate</b><p>经营年限、前置挂牌、发行条件、市值财务等。No = 暂停；Unknown = 补证。</p></div></div>
+              <div class="legend-item"><span class="legend-code q">Q</span><div><b>板块判断 · Qualitative</b><p>成熟代表性、硬科技、成长创新、创新型中小企业等必审判断。</p></div></div>
+              <div class="legend-item"><span class="legend-code e">E</span><div><b>执行成熟度 · Execution</b><p>底稿、内控、募投、中介进场、整改责任人，用于安排优先级。</p></div></div>
+              <div class="legend-item"><span class="legend-code r">R</span><div><b>红旗 · Red flags</b><p>R-stop 可能构成障碍；R-review 必须专项核验，不能轻率判死刑。</p></div></div>
+            </div>
+            <p class="legend-note">每条标签都应记录：事实来源、材料日期、规则版本、核验人和下一步待办。</p>
+          </aside>
+
+          <div class="lab-main">
+            <div class="lab-top">
+              <div><h3>60 秒初访快筛</h3><p>选择最接近客户当前情况的答案。范围档位仅用于决定“先验证哪条路”，不用于证明达标。</p></div>
+              <div class="progress-wrap" aria-label="答题进度">
+                <div class="progress-copy"><span>已完成</span><b id="progressText">0 / 11</b></div>
+                <div class="progress-bar"><i id="progressBar"></i></div>
+              </div>
+            </div>
+
+            <form id="screeningForm">
+              <div class="question-list">
+                <fieldset class="question" data-key="stage">
+                  <legend><small>01 · E / 阶段</small>客户目前走到哪一步？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="intent">只有上市意向</button><button class="choice" type="button" data-value="joint">已股改 / 规范中</button><button class="choice" type="button" data-value="counsel">辅导中</button><button class="choice" type="button" data-value="submit">正式申报准备或在审</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="goal">
+                  <legend><small>02 · Q / 目标</small>客户倾向哪里上市？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="domestic">境内 A 股</button><button class="choice" type="button" data-value="hk">香港</button><button class="choice" type="button" data-value="both">两地都评估</button><button class="choice" type="button" data-value="unknown">尚未决定</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="profile">
+                  <legend><small>03 · Q / 定位</small>企业最接近哪种画像？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="mature">成熟大中型 / 行业代表</button><button class="choice" type="button" data-value="hardtech">硬科技 / 高研发</button><button class="choice" type="button" data-value="growth">成长型创新创业</button><button class="choice" type="button" data-value="sme">专精特新 / 创新型中小企业</button><button class="choice" type="button" data-value="bio">生物科技 / 特专科技 / 国际化</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="years">
+                  <legend><small>04 · H / 主体</small>股份公司持续经营一般已满 3 年？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="yes">是，有材料</button><button class="choice" type="button" data-value="unknown">不确定</button><button class="choice" type="button" data-value="no">否 / 尚未股改</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="neeq">
+                  <legend><small>05 · H / 北交前置</small>申报时为创新层公司，且全国股转连续挂牌满 12 个月？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="yes">是</button><button class="choice" type="button" data-value="no">否</button><button class="choice" type="button" data-value="unknown">不清楚 / 不适用</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="revenue">
+                  <legend><small>06 · H / 财务线索</small>最近一年营业收入（人民币）</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="lt1">低于 1 亿</button><button class="choice" type="button" data-value="1-2">1–2 亿</button><button class="choice" type="button" data-value="2-4">2–4 亿</button><button class="choice" type="button" data-value="4-6">4–6 亿</button><button class="choice" type="button" data-value="6-10">6–10 亿</button><button class="choice" type="button" data-value="10+">10 亿以上</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="profit">
+                  <legend><small>07 · H / 财务线索</small>最近一年扣非前后孰低净利润（人民币）</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="loss">亏损</button><button class="choice" type="button" data-value="0-.25">0–2500 万</button><button class="choice" type="button" data-value=".25-.6">2500–6000 万</button><button class="choice" type="button" data-value=".6-1">6000 万–1 亿</button><button class="choice" type="button" data-value="1+">1 亿以上</button><button class="choice" type="button" data-value="unknown">口径不清</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="mcap">
+                  <legend><small>08 · H / 估值线索</small>有依据的预计发行后市值（人民币）</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="lt2">低于 2 亿</button><button class="choice" type="button" data-value="2-10">2–10 亿</button><button class="choice" type="button" data-value="10-15">10–15 亿</button><button class="choice" type="button" data-value="15-30">15–30 亿</button><button class="choice" type="button" data-value="30-50">30–50 亿</button><button class="choice" type="button" data-value="50-100">50–100 亿</button><button class="choice" type="button" data-value="100+">100 亿以上</button><button class="choice" type="button" data-value="unknown">没有可靠依据</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="engine">
+                  <legend><small>09 · Q / 增长引擎</small>最可验证的经营特征是？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="stable">持续稳定盈利</button><button class="choice" type="button" data-value="cagr30">近三年收入复合增长 ≥30%</button><button class="choice" type="button" data-value="rd15">研发占比高 / 核心技术</button><button class="choice" type="button" data-value="milestone">未盈利但有关键产品里程碑</button><button class="choice" type="button" data-value="unknown">尚无清晰证据</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="evidence">
+                  <legend><small>10 · E / 证据</small>审计、内控与底稿成熟度？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="clean">三年数据可追溯，审计/内控清晰</button><button class="choice" type="button" data-value="partial">部分齐全，仍需整改</button><button class="choice" type="button" data-value="weak">资料弱 / 口径多变</button></div>
+                </fieldset>
+                <fieldset class="question" data-key="risk">
+                  <legend><small>11 · R / 红旗</small>重大违法、造假、股权争议或资金占用等？</legend>
+                  <div class="choices"><button class="choice" type="button" data-value="none">初步未发现</button><button class="choice" type="button" data-value="unknown">尚未核查</button><button class="choice" type="button" data-value="existing">已知存在重大事项</button></div>
+                </fieldset>
+              </div>
+              <div class="lab-actions">
+                <span>工具结果只用于内部路由：T0 信息不足、T1 暂停推进、T2 培育整改、T3 可进入保荐机构正式预评估、T4 正式申报准备中。</span>
+                <div><button class="button button-paper button-small" type="reset" id="resetLab">重置</button><button class="button button-primary" type="button" id="evaluateLab">生成打标结论</button></div>
+              </div>
+            </form>
+
+            <div class="result-panel" id="resultPanel" aria-live="polite">
+              <div class="result-head">
+                <span class="result-status" id="resultStatus">T0</span>
+                <div><h3 id="resultTitle">信息不足</h3><p id="resultSummary">完成问题后生成内部初筛结论。</p></div>
+                <button class="button button-small" type="button" id="copyResult">复制结论</button>
+              </div>
+              <div class="tag-row" id="tagRow"></div>
+              <div class="route-results" id="routeResults"></div>
+              <div class="result-next">
+                <div><b>建议下一步</b><p id="nextStep"></p></div>
+                <code class="crm-code" id="crmCode"></code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="script">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow micro">04 / 客户会谈话术</span>
+          <h2>把“销售式承诺”换成“专业式验证”</h2>
+          <p>会谈的目标不是当场选板，而是让客户同意：哪些事实已知、哪些材料待补、下一次谁来验证。</p>
+        </div>
+        <div class="script-layout">
+          <div class="script-card">
+            <div class="script-tabs" role="tablist" aria-label="会谈阶段">
+              <button class="active" type="button" data-pane="opening" role="tab" aria-selected="true">开场 30 秒</button>
+              <button type="button" data-pane="bridge" role="tab" aria-selected="false">转入诊断</button>
+              <button type="button" data-pane="closing" role="tab" aria-selected="false">收口约下一步</button>
+            </div>
+            <div class="script-content">
+              <div class="script-pane active" id="pane-opening"><small>OPENING</small><h3>先降承诺，再升专业度</h3><blockquote class="script-quote">“今天我不先回答能不能上市。我会用现行规则帮您把路径候选、硬门槛、材料缺口和红旗分开，最后只确认下一步值得花多少钱、找谁验证。”</blockquote><p class="script-note">好处：把客户期待从“要答案”转到“要证据”，也避免把初筛误当保荐、法律或审计意见。</p></div>
+              <div class="script-pane" id="pane-bridge"><small>DIAGNOSIS</small><h3>用事实替代“感觉不错”</h3><blockquote class="script-quote">“我先按扣非口径看三年收入、利润、现金流和研发，再看控制权、关联交易、资质处罚与板块定位。凡是今天没有材料支持的，我都先标成 Unknown。”</blockquote><p class="script-note">不要只问“利润多少”。相同利润，在主板、科创板、创业板和北交所对应的是完全不同的路径判断。</p></div>
+              <div class="script-pane" id="pane-closing"><small>CLOSING</small><h3>只承诺可交付的下一步</h3><blockquote class="script-quote">“今天的结论是内部路由，不是上市判断。下一步建议用这份材料清单做一次保荐机构预评估；我们约定资料负责人、截止日，以及三项最先证伪的风险。”</blockquote><p class="script-note">把会后动作写成：材料、责任人、日期、验证人。不要写“尽快推进上市”。</p></div>
+              <button class="button button-secondary button-small script-copy" type="button" id="copyScript">复制当前话术</button>
+            </div>
+          </div>
+
+          <div class="question-bank">
+            <header><div><h3>初访 12 问</h3><p>顺序有意从战略、事实到敏感事项，先建立信任再进入红旗核查。</p></div><button class="button button-secondary button-small" type="button" id="downloadChecklist">下载清单</button></header>
+            <div class="meeting-questions">
+              <div class="meeting-q"><span>01</span><div><b>为什么上市？</b><p>融资、品牌、并购货币、股东退出，还是估值诉求？</p></div></div>
+              <div class="meeting-q"><span>02</span><div><b>公司与股改时间？</b><p>设立、整体变更、持续经营；北交另问创新层身份与股转挂牌时长。</p></div></div>
+              <div class="meeting-q"><span>03</span><div><b>三年核心数据？</b><p>收入、扣非净利、现金流、净资产、研发与预计市值依据。</p></div></div>
+              <div class="meeting-q"><span>04</span><div><b>审计与内控？</b><p>意见类型、会计更正、月结能力、原始凭证可追溯性。</p></div></div>
+              <div class="meeting-q"><span>05</span><div><b>稳定性如何？</b><p>主营业务、实控人、董高与核心技术人员近年变化。</p></div></div>
+              <div class="meeting-q"><span>06</span><div><b>股权是否清晰？</b><p>代持、对赌回购、质押冻结、员工持股、控制权争议。</p></div></div>
+              <div class="meeting-q"><span>07</span><div><b>独立性事项？</b><p>关联交易、同业竞争、资金占用、违规担保。</p></div></div>
+              <div class="meeting-q"><span>08</span><div><b>客户供应商结构？</b><p>集中度、关联性、收入确认、现金流与利润背离。</p></div></div>
+              <div class="meeting-q"><span>09</span><div><b>核心技术与资质？</b><p>知识产权、许可、研发归集、关键产品里程碑。</p></div></div>
+              <div class="meeting-q"><span>10</span><div><b>重大合规记录？</b><p>税社保、环保安全、数据网安、诉讼处罚与舆情。</p></div></div>
+              <div class="meeting-q"><span>11</span><div><b>钱怎么用？</b><p>募资金额与用途、上市前分红、老股退出、估值依据。</p></div></div>
+              <div class="meeting-q"><span>12</span><div><b>谁负责补证？</b><p>能否开放底稿；资料负责人、整改责任人与截止日。</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rules">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow micro">05 / 交易所规则库</span>
+          <h2>先看定位，再看数字；数字只按规则原文读</h2>
+          <p>下列为常见境内发行上市量化标准与港股对照的白话摘要。每个项目仍须核对特殊表决权、红筹、行业指引、发行承销和最新过渡安排。</p>
+        </div>
+
+        <div class="market-tabs" role="tablist" aria-label="筛选交易所规则">
+          <button class="market-tab active" type="button" data-filter="all">全部路径</button>
+          <button class="market-tab" type="button" data-filter="mainland">境内三所</button>
+          <button class="market-tab" type="button" data-filter="sse">上交所</button>
+          <button class="market-tab" type="button" data-filter="szse">深交所</button>
+          <button class="market-tab" type="button" data-filter="bse">北交所</button>
+          <button class="market-tab" type="button" data-filter="hkex">港交所</button>
+        </div>
+
+        <div class="matrix-wrap" aria-label="上市路径一屏比较">
+          <table class="matrix">
+            <thead><tr><th>板块</th><th>核心定位</th><th>关键前置</th><th>常见量化起点</th><th>未盈利上市</th><th>初访最容易误判</th></tr></thead>
+            <tbody>
+              <tr><td>沪 / 深主板</td><td>业务模式成熟、经营业绩稳定、规模较大、具有行业代表性</td><td>境内发行人通常持续经营 3 年以上</td><td>第一套不设预计市值，但要求三年利润、最近一年利润及现金流或收入同时达标</td><td>一般不适用</td><td>只看最近一年利润，忽略三年累计与板块定位</td></tr>
+              <tr><td>科创板</td><td>面向世界科技前沿、经济主战场、国家重大需求；强调科创属性</td><td>行业领域与科创属性专项判断</td><td>五套标准，最低常见预计市值 10 亿元</td><td class="yes">规则允许特定路径</td><td>把“高新技术企业证书”直接等同科创属性</td></tr>
+              <tr><td>创业板</td><td>成长型创新创业企业，支持传统产业与新技术、新模式融合</td><td>板块定位与行业要求</td><td>四套标准；2026 版新增高成长 / 高研发路径</td><td class="conditional">有条件路径</td><td>仍在使用 2025 年以前的三套标准旧表</td></tr>
+              <tr><td>北交所</td><td>创新型中小企业，突出“更早、更小、更新”</td><td>申报时为创新层公司；全国股转连续挂牌满 12 个月</td><td>四套标准，最低预计市值 2 亿元</td><td class="conditional">研发型路径可不以利润为核心</td><td>误以为必须“在创新层待满12个月”，或漏掉挂牌时长与公众股东要求</td></tr>
+              <tr><td>港交所</td><td>国际化资本平台；主板、GEM 及 18A / 18C 多元路径</td><td>保荐人、香港规则、中国境外上市备案及行业监管</td><td>主板利润测试最低上市市值 5 亿港元</td><td class="yes">18A / 18C 等允许</td><td>把人民币口径直接套入港币测试，漏掉境内备案</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="rule-grid" id="ruleGrid">
+          <article class="rule-card" data-group="mainland sse szse" style="--rule-color:#1e4039">
+            <div class="rule-head"><div><small>SSE + SZSE · MAIN BOARD</small><h3>沪深主板</h3><p>两所主板核心量化上市标准一致；实际申报分别适用上交所或深交所现行规则。</p></div><span class="rule-version">2026.04<br>现行版本</span></div>
+            <div class="rule-body">
+              <div class="gate-line"><span>发行后股本 ≥ 5000 万元</span><span>公开发行 ≥ 25%</span><span>股本超 4 亿元时 ≥ 10%</span><span>净利润取扣非前后孰低</span></div>
+              <div class="standards">
+                <div class="standard"><span>1</span><div><b>最近 3 年净利润均为正；累计 ≥ 2 亿元；最近一年 ≥ 1 亿元</b><p>并且最近 3 年经营现金流累计 ≥ 2 亿元，或营业收入累计 ≥ 15 亿元。</p></div></div>
+                <div class="standard"><span>2</span><div><b>预计市值 ≥ 50 亿元；最近一年净利润为正；营业收入 ≥ 6 亿元</b><p>并且最近 3 年经营现金流累计 ≥ 2.5 亿元。</p></div></div>
+                <div class="standard"><span>3</span><div><b>预计市值 ≥ 100 亿元；最近一年净利润为正</b><p>并且最近一年营业收入 ≥ 10 亿元。</p></div></div>
+              </div>
+              <div class="rule-foot"><span>红筹、特别表决权等适用更高或另行标准；本卡不展开。</span><div><a class="official-link" href="https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/mainipo/c/c_20260424_10816589.shtml" target="_blank" rel="noopener">上交所规则 ↗</a><br><a class="official-link" href="https://www.szse.cn/lawrules/rule/allrules/bussiness/t20260424_620193.html" target="_blank" rel="noopener">深交所规则 ↗</a></div></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-group="mainland sse" style="--rule-color:#334fbb">
+            <div class="rule-head"><div><small>SSE · STAR MARKET</small><h3>科创板</h3><p>允许多元指标，但“符合科创板定位 / 科创属性”是必须单独论证的审查事项。</p></div><span class="rule-version">2026.04<br>现行版本</span></div>
+            <div class="rule-body">
+              <div class="gate-line"><span>发行后股本 ≥ 3000 万元</span><span>预计市值 + 多元指标</span><span>可覆盖未盈利研发型企业</span></div>
+              <div class="standards">
+                <div class="standard"><span>1</span><div><b>市值 ≥ 10 亿 + 两年净利均正且累计 ≥ 5000 万</b><p>或市值 ≥ 10 亿 + 最近一年净利为正且收入 ≥ 1 亿。</p></div></div>
+                <div class="standard"><span>2</span><div><b>市值 ≥ 15 亿 + 最近一年收入 ≥ 2 亿</b><p>且最近 3 年累计研发投入占累计收入比例 ≥ 15%。</p></div></div>
+                <div class="standard"><span>3</span><div><b>市值 ≥ 20 亿 + 最近一年收入 ≥ 3 亿</b><p>且最近 3 年经营现金流累计 ≥ 1 亿。</p></div></div>
+                <div class="standard"><span>4</span><div><b>市值 ≥ 30 亿 + 最近一年收入 ≥ 3 亿</b><p>不以利润为前提，但仍需符合发行条件、科创定位与披露要求。</p></div></div>
+                <div class="standard"><span>5</span><div><b>市值 ≥ 40 亿 + 主要业务 / 产品经有关部门批准并取得阶段性成果</b><p>医药企业至少一项核心产品获准开展二期临床；其他科创企业需明显技术优势并满足相应条件。</p></div></div>
+              </div>
+              <div class="rule-foot"><span>科创成长层与最新行业、申报推荐细则需按项目另查。</span><a class="official-link" href="https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/staripo/c/c_20260424_10816592.shtml" target="_blank" rel="noopener">科创板规则原文 ↗</a></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-group="mainland szse" style="--rule-color:#d6543a">
+            <div class="rule-head"><div><small>SZSE · CHINEXT</small><h3>创业板</h3><p>2026 年修订增加第 4 套高成长 / 高研发标准，旧版“三套标准图”已不完整。</p></div><span class="rule-version">2026.04<br>现行版本</span></div>
+            <div class="rule-body">
+              <div class="gate-line"><span>境内企业</span><span>本卡适用于无表决权差异安排</span><span>成长型创新创业定位</span></div>
+              <div class="standards">
+                <div class="standard"><span>1</span><div><b>最近 2 年净利润均为正；累计 ≥ 1 亿元</b><p>且最近一年净利润 ≥ 6000 万元。</p></div></div>
+                <div class="standard"><span>2</span><div><b>预计市值 ≥ 15 亿元</b><p>最近一年净利润为正，且营业收入 ≥ 4 亿元。</p></div></div>
+                <div class="standard"><span>3</span><div><b>预计市值 ≥ 50 亿元</b><p>且最近一年营业收入 ≥ 3 亿元。</p></div></div>
+                <div class="standard"><span>4</span><div><b>高成长：市值 ≥ 30 亿 + 收入 ≥ 2 亿 + 三年收入 CAGR ≥ 30%</b><p>或高研发：市值 ≥ 40 亿 + 收入 ≥ 2 亿 + 三年研发累计 ≥ 1 亿且占三年累计收入 ≥ 15%。</p></div></div>
+              </div>
+              <div class="rule-foot"><span>红筹与表决权差异安排另有标准；净利润仍取扣非前后孰低。</span><a class="official-link" href="https://www.szse.cn/lawrules/rule/stock/supervision/chinext/t20260424_620189.html" target="_blank" rel="noopener">创业板规则原文 ↗</a></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-group="mainland bse" style="--rule-color:#6a9028">
+            <div class="rule-head"><div><small>BSE · INNOVATIVE SMEs</small><h3>北京证券交易所</h3><p>面向创新型中小企业。发行人须为全国股转系统连续挂牌满 12 个月的创新层公司；并不要求“在创新层本身待满 12 个月”。</p></div><span class="rule-version">2026.04<br>现行版本</span></div>
+            <div class="rule-body">
+              <div class="gate-line"><span>创新层公司</span><span>股转连续挂牌满 12 个月</span><span>期末净资产 ≥ 5000 万</span><span>发行后股本 ≥ 3000 万</span><span>股东 ≥ 200 人</span></div>
+              <div class="standards">
+                <div class="standard"><span>1</span><div><b>市值 ≥ 2 亿 + 两年净利各 ≥ 1500 万 + 平均 ROE ≥ 8%</b><p>或最近一年净利 ≥ 2500 万且 ROE ≥ 8%。</p></div></div>
+                <div class="standard"><span>2</span><div><b>市值 ≥ 4 亿 + 两年平均收入 ≥ 1 亿</b><p>最近一年收入增长率 ≥ 30%，且最近一年经营现金流为正。</p></div></div>
+                <div class="standard"><span>3</span><div><b>市值 ≥ 8 亿 + 最近一年收入 ≥ 2 亿</b><p>最近两年研发投入合计占最近两年收入合计比例 ≥ 8%。</p></div></div>
+                <div class="standard"><span>4</span><div><b>市值 ≥ 15 亿</b><p>最近两年研发投入合计 ≥ 5000 万元；主营业务还应属于规则指引所列重点鼓励的战略性新兴产业。</p></div></div>
+              </div>
+              <div class="rule-foot"><span>公开发行不少于 100 万股、对象不少于 100 人；公众持股比例另有要求。</span><a class="official-link" href="https://www.bse.cn/cxjg_list/200028220.html" target="_blank" rel="noopener">北交所规则原文 ↗</a></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-group="hkex" style="--rule-color:#69408f">
+            <div class="rule-head"><div><small>HKEX · MAIN BOARD</small><h3>港交所主板</h3><p>下列均为港元口径，并通常要求三年财务记录。中国企业还需判断境外发行上市备案及行业监管。</p></div><span class="rule-version">截至<br>2026.08</span></div>
+            <div class="rule-body">
+              <div class="gate-line"><span>币种：港元 HKD</span><span>三年财务记录</span><span>三套常规测试择一</span><span>公众持股等另查</span></div>
+              <div class="standards">
+                <div class="standard"><span>利</span><div><b>利润测试：上市市值 ≥ 5 亿港元</b><p>最近一年股东应占利润 ≥ 3500 万港元；之前两年合计 ≥ 4500 万港元。</p></div></div>
+                <div class="standard"><span>现</span><div><b>市值 / 收入 / 现金流：市值 ≥ 20 亿港元</b><p>最近审计年度收入 ≥ 5 亿港元；前三年经营现金流合计为正且 ≥ 1 亿港元。</p></div></div>
+                <div class="standard"><span>收</span><div><b>市值 / 收入：市值 ≥ 40 亿港元</b><p>最近审计年度收入 ≥ 5 亿港元。</p></div></div>
+              </div>
+              <div class="rule-foot"><span>常规测试之外，生物科技、特专科技、矿业、SPAC 等另有章节。</span><a class="official-link" href="https://www.hkex.com.hk/Listing/Explore-By-Role/Potential-Applicants/Equity-Securities?sc_lang=en" target="_blank" rel="noopener">港交所资格页 ↗</a></div>
+            </div>
+          </article>
+
+          <article class="rule-card" data-group="hkex" style="--rule-color:#8b5a29">
+            <div class="rule-head"><div><small>HKEX · GEM / 18A / 18C</small><h3>港股多元路径</h3><p>适合增长企业、未满足常规财务测试的生物科技与特专科技企业，但定性与专业投资者要求同样重要。</p></div><span class="rule-version">特别路径<br>摘要</span></div>
+            <div class="rule-body">
+              <div class="standards">
+                <div class="standard"><span>G</span><div><b>GEM：两年记录 + 两套财务测试择一</b><p>现金流测试：市值 ≥ 1.5 亿港元、两年经营现金流合计 ≥ 3000 万；或市值 ≥ 2.5 亿、两年收入合计 ≥ 1 亿且同比增长、两年研发合计 ≥ 3000 万且每年研发占总经营开支 ≥ 15%。</p></div></div>
+                <div class="standard"><span>A</span><div><b>18A 生物科技：上市市值 ≥ 15 亿港元</b><p>当前业务线运营至少两个完整财年、管理层大致相同；核心产品须超越概念阶段，并满足营运资金等要求。</p></div></div>
+                <div class="standard"><span>C</span><div><b>18C 特专科技：商业公司市值 ≥ 40 亿；未商业化公司 ≥ 80 亿港元</b><p>临时下调门槛适用期为 2024-09-01 至 2027-08-31；商业公司最近审计年度收入通常 ≥ 2.5 亿港元，并另有研发与第三方投资等要求。</p></div></div>
+              </div>
+              <div class="rule-foot"><span>这三条只做路由摘要，必须进入港交所对应章节与申请人指南逐项核验。</span><div><a class="official-link" href="https://www.hkex.com.hk/-/media/HKEX-Market/Listing/Getting-Started/GEM-Listing-Financial-Eligibility-eng.pdf" target="_blank" rel="noopener">GEM 官方图表 ↗</a><br><a class="official-link" href="https://en-rules.hkex.com.hk/entiresection/5199" target="_blank" rel="noopener">18A 规则 ↗</a></div></div>
+            </div>
+          </article>
+        </div>
+        <p class="scope-note">重要：以上是最常用于初访的量化入口，不是完整上市条件。预计市值按“发行后总股本 × 发行价格”计算，不能直接拿最近一轮融资估值代替。发行条件、板块定位、行业负面清单/科创属性、股本与公众持股、红筹、特殊表决权、未盈利企业持续监管、发行承销及最新过渡期安排，都可能改变项目结论。请点击官方原文，并由保荐、会计师与律师按项目核验。</p>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="sources">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow micro">06 / 官方渠道</span>
+          <h2>不靠二手表格，直接回到监管原文</h2>
+          <p>规则会修订。客户每进入一个新阶段，都应记录当日规则版本，并从交易所项目动态核验公开进度。</p>
+        </div>
+        <div class="source-toolbar">
+          <label class="source-search"><span class="sr-only"></span><input id="sourceSearch" type="search" placeholder="搜索：辅导、主板、创业板、境外备案……" aria-label="搜索官方来源"></label>
+          <span id="sourceCount">12 条官方入口</span>
+        </div>
+        <div class="source-list" id="sourceList">
+          <div class="source-row" data-search="证监会 首次公开发行 股票 注册 管理 办法 发行条件"><span class="source-org">中国证监会</span><div class="source-title"><b>《首次公开发行股票注册管理办法》</b><small>境内首发注册制的发行条件与注册程序底座</small></div><span class="source-date">2023-02-17 施行</span><a href="https://www.csrc.gov.cn/csrc/c101953/c7121923/content.shtml" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="证监会 辅导 备案 验收 监管 3个月"><span class="source-org">中国证监会</span><div class="source-title"><b>《首次公开发行股票并上市辅导监管规定》</b><small>辅导备案、辅导期与验收边界</small></div><span class="source-date">2024-03-15 施行</span><a href="https://www.csrc.gov.cn/csrc/c101954/c7467955/content.shtml" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="上交所 上海 主板 股票 上市规则 2026"><span class="source-org">上海证券交易所</span><div class="source-title"><b>《上海证券交易所股票上市规则（2026年4月修订）》</b><small>主板上市与持续监管基本业务规则</small></div><span class="source-date">2026-04-24 施行</span><a href="https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/mainipo/c/c_20260424_10816589.shtml" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="上交所 上海 科创板 股票 上市规则 2026"><span class="source-org">上海证券交易所</span><div class="source-title"><b>《上海证券交易所科创板股票上市规则（2026年4月修订）》</b><small>科创板五套上市标准及持续监管</small></div><span class="source-date">2026-04-24 施行</span><a href="https://www.sse.com.cn/lawandrules/sselawsrules2025/stocks/staripo/c/c_20260424_10816592.shtml" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="深交所 深圳 主板 股票 上市规则 2026"><span class="source-org">深圳证券交易所</span><div class="source-title"><b>《深圳证券交易所股票上市规则（2026年修订）》</b><small>深市主板上市与持续监管规则</small></div><span class="source-date">2026-04-24 施行</span><a href="https://www.szse.cn/lawrules/rule/allrules/bussiness/t20260424_620193.html" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="深交所 深圳 创业板 股票 上市规则 2026 成长 研发"><span class="source-org">深圳证券交易所</span><div class="source-title"><b>《深圳证券交易所创业板股票上市规则（2026年修订）》</b><small>含 2026 年新增高成长 / 高研发上市路径</small></div><span class="source-date">2026-04-24 施行</span><a href="https://www.szse.cn/lawrules/rule/stock/supervision/chinext/t20260424_620189.html" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="北交所 北京 股票 上市规则 2026 创新层"><span class="source-org">北京证券交易所</span><div class="source-title"><b>《北京证券交易所股票上市规则》</b><small>创新层前置、四套上市标准及持续监管</small></div><span class="source-date">2026-04-24 修订</span><a href="https://www.bse.cn/cxjg_list/200028220.html" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="上交所 审核 流程 受理 问询 上市委 注册"><span class="source-org">上海证券交易所</span><div class="source-title"><b>IPO 审核流程</b><small>受理、问询、上市委、报送注册与净用时说明</small></div><span class="source-date">官方流程页</span><a href="https://www.sse.com.cn/listing/aboutus/auditprocess/" target="_blank" rel="noopener">查看流程 ↗</a></div>
+          <div class="source-row" data-search="港交所 香港 主板 上市 资格 利润 收入 现金流"><span class="source-org">香港交易所</span><div class="source-title"><b>Main Board Listing Eligibility</b><small>主板三套财务资格测试官方摘要</small></div><span class="source-date">2026 数据页</span><a href="https://www.hkex.com.hk/Listing/Explore-By-Role/Potential-Applicants/Equity-Securities?sc_lang=en" target="_blank" rel="noopener">打开页面 ↗</a></div>
+          <div class="source-row" data-search="港交所 香港 GEM 上市 财务 资格 研发 现金流"><span class="source-org">香港交易所</span><div class="source-title"><b>GEM Listing Financial Eligibility</b><small>GEM 两套财务资格测试官方图表</small></div><span class="source-date">2026 官方 PDF</span><a href="https://www.hkex.com.hk/-/media/HKEX-Market/Listing/Getting-Started/GEM-Listing-Financial-Eligibility-eng.pdf" target="_blank" rel="noopener">打开 PDF ↗</a></div>
+          <div class="source-row" data-search="证监会 境内企业 境外 发行 上市 管理 备案 香港"><span class="source-org">中国证监会</span><div class="source-title"><b>《境内企业境外发行证券和上市管理试行办法》</b><small>中国企业赴港等境外上市备案制度底座</small></div><span class="source-date">2023-03-31 施行</span><a href="https://www.csrc.gov.cn/csrc/c101954/c7124478/content.shtml" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-row" data-search="证监会 严把 发行 上市 准入 源头 质量"><span class="source-org">中国证监会</span><div class="source-title"><b>《关于严把发行上市准入关从源头上提高上市公司质量的意见（试行）》</b><small>发行上市准入与中介责任的重要政策口径</small></div><span class="source-date">2024-03-15</span><a href="https://www.csrc.gov.cn/csrc/c100028/c7467846/content.shtml" target="_blank" rel="noopener">打开原文 ↗</a></div>
+          <div class="source-empty" id="sourceEmpty">没有匹配项，试试“主板”或“辅导”。</div>
+        </div>
+
+        <div class="verify-grid" aria-label="项目进度官方核验入口">
+          <a class="verify-card" href="http://eid.csrc.gov.cn/fd.html" target="_blank" rel="noopener"><span>辅</span><div><b>证监会辅导公示</b><small>核验企业是否已辅导备案、辅导机构及进度</small></div></a>
+          <a class="verify-card" href="https://www.sse.com.cn/listing/renewal/ipo/index_listing_detail.shtml" target="_blank" rel="noopener"><span>沪</span><div><b>上交所 IPO 项目动态</b><small>受理、问询、上会与注册状态</small></div></a>
+          <a class="verify-card" href="https://www.szse.cn/listing/projectdynamic/ipo/index.html" target="_blank" rel="noopener"><span>深</span><div><b>深交所 IPO 项目动态</b><small>主板、创业板项目公开进度</small></div></a>
+          <a class="verify-card" href="https://www.bse.cn/audit/project_news.html" target="_blank" rel="noopener"><span>北</span><div><b>北交所审核项目动态</b><small>公开发行并上市项目审核信息</small></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="shell">
+        <div class="section-heading">
+          <span class="eyebrow micro">07 / 会被客户追问的事</span>
+          <h2>四个常见问题，先把边界说清楚</h2>
+        </div>
+        <div class="faq-grid">
+          <details class="faq"><summary>财务指标够了，就能上市吗？</summary><p>不能。量化标准只是上市条件的一部分，还要满足证监会发行条件、板块定位、独立性、持续经营、重大合规与信息披露要求。预计市值也不是企业自行报一个数字，而是与发行定价和发行后总股本相关。</p></details>
+          <details class="faq"><summary>辅导验收通过，是否等于上市审核通过？</summary><p>不是。辅导验收评价辅导机构工作及成效，不对企业是否符合发行上市条件作实质判断。它是申报前的重要规范环节，不是监管“预审通过”。</p></details>
+          <details class="faq"><summary>沪市主板与深市主板，按公司所在地选吗？</summary><p>不是简单按所在地。两所主板核心量化标准一致，申报选择还需结合企业定位、行业与项目具体情况，并由保荐机构专业判断。不能把“离哪家交易所近”当成选板逻辑。</p></details>
+          <details class="faq"><summary>去香港就不用经过中国证监会了吗？</summary><p>不对。属于适用范围的境内企业直接或间接境外发行上市，应按《境内企业境外发行证券和上市管理试行办法》履行备案，并同时处理行业监管、数据安全、保密档案等可能适用的要求。</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-main">
+        <div><span class="eyebrow micro">最后的专业判断</span><h2>最好的客户标签，不是“能上”。<br>是<em>下一步如何被证实。</em></h2></div>
+        <div class="footer-actions"><button class="button button-primary" type="button" id="downloadFooter">下载初访清单</button><a class="button button-secondary" href="#lab">重新做客户快筛</a></div>
+      </div>
+      <p class="disclaimer">免责声明：本页面仅为面向小白的教育、内部客户路由与会谈辅助工具，不构成法律意见、审计意见、保荐意见、投资建议或任何上市承诺；打标结果不得用于对外宣称企业已满足发行上市条件。规则摘要基于截至 2026 年 8 月 5 日可核验的官方资料，规则、监管口径与过渡安排可能变化。具体项目应由具备资质的保荐机构、会计师事务所、律师事务所结合最新规则和完整事实独立核查。</p>
+      <div class="footer-bottom"><span>LISTING COMPASS · CHINA ENTERPRISE EDITION</span><span>RULES CHECKED · 2026.08.05 · ASIA/SHANGHAI</span></div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">已复制</div>
+
+  <script>
+    (() => {
+      const answers = {};
+      const totalQuestions = document.querySelectorAll('.question[data-key]').length;
+      const progressText = document.getElementById('progressText');
+      const progressBar = document.getElementById('progressBar');
+      const toast = document.getElementById('toast');
+      let toastTimer;
+
+      const showToast = (message) => {
+        toast.textContent = message;
+        toast.classList.add('show');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove('show'), 2200);
+      };
+
+      const copyText = async (text, message = '已复制到剪贴板') => {
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast(message);
+        } catch {
+          const area = document.createElement('textarea');
+          area.value = text;
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          document.body.appendChild(area);
+          area.select();
+          document.execCommand('copy');
+          area.remove();
+          showToast(message);
+        }
+      };
+
+      const updateProgress = () => {
+        const count = Object.keys(answers).length;
+        progressText.textContent = `${count} / ${totalQuestions}`;
+        progressBar.style.width = `${Math.round(count / totalQuestions * 100)}%`;
+      };
+
+      document.querySelectorAll('.question .choice').forEach((button) => {
+        button.addEventListener('click', () => {
+          const fieldset = button.closest('.question');
+          const key = fieldset.dataset.key;
+          fieldset.querySelectorAll('.choice').forEach((item) => item.classList.remove('selected'));
+          button.classList.add('selected');
+          answers[key] = button.dataset.value;
+          updateProgress();
+        });
+      });
+
+      const labelMap = {
+        stage: { intent: '意向期', joint: '规范准备', counsel: '辅导中', submit: '正式申报准备/在审' },
+        goal: { domestic: '境内A股', hk: '香港', both: '境内+香港', unknown: '路径未定' },
+        profile: { mature: '成熟大中型', hardtech: '硬科技', growth: '成长创新', sme: '创新型中小企业', bio: '生物/特专科技' },
+        years: { yes: '经营年限已核', unknown: '经营年限待核', no: '主体年限未满足' },
+        neeq: { yes: '创新层身份+股转挂牌满12个月', no: '北交前置未满足', unknown: '创新层/挂牌时长待核' },
+        evidence: { clean: 'E2证据较完整', partial: 'E1部分待补', weak: 'E0资料薄弱' },
+        risk: { none: '初步无重大红旗', unknown: '红旗未核查', existing: '已知重大事项' }
+      };
+
+      const revRank = { lt1: 0, '1-2': 1, '2-4': 2, '4-6': 3, '6-10': 4, '10+': 5 };
+      const profitRank = { loss: 0, '0-.25': 1, '.25-.6': 2, '.6-1': 3, '1+': 4, unknown: -1 };
+      const mcapRank = { lt2: 0, '2-10': 1, '10-15': 2, '15-30': 3, '30-50': 4, '50-100': 5, '100+': 6, unknown: -1 };
+
+      const routeCard = (name, level, reason) => ({ name, level, reason });
+
+      const evaluateRoutes = () => {
+        const routes = [];
+        const majorStop = answers.risk === 'existing';
+        const yearsStop = answers.years === 'no';
+        const incomplete = !answers.revenue || !answers.profit || !answers.mcap || answers.profit === 'unknown' || answers.mcap === 'unknown';
+        const rev = revRank[answers.revenue] ?? -1;
+        const profit = profitRank[answers.profit] ?? -1;
+        const mcap = mcapRank[answers.mcap] ?? -1;
+
+        if (majorStop || yearsStop) {
+          const reason = majorStop ? '已知重大事项应先由律师、保荐和会计师判断是否构成 R-stop。' : '主体形态或持续经营年限线索未满足，先处理硬门槛。';
+          ['沪深主板','科创板','创业板'].forEach((name) => routes.push(routeCard(name, 'stop', reason)));
+        } else {
+          let mainLevel = 'unknown';
+          let mainReason = '需补三年累计利润、最近一年利润及现金流/收入组合证据。';
+          if (answers.profile === 'mature' && profit >= 3 && rev >= 4) { mainLevel = 'priority'; mainReason = '画像与最近一年线索支持优先核验主板三套标准及行业代表性。'; }
+          else if (answers.profile === 'mature' || (profit >= 2 && rev >= 3)) { mainLevel = 'parallel'; mainReason = '可作为备选，但三年累计指标与成熟主板定位尚未被证明。'; }
+          routes.push(routeCard('沪深主板', mainLevel, mainReason));
+
+          let starLevel = 'unknown';
+          let starReason = '需先证明科创板定位、科创属性与相应市值财务标准。';
+          if ((answers.profile === 'hardtech' || answers.profile === 'bio') && (answers.engine === 'rd15' || answers.engine === 'milestone') && mcap >= 2) { starLevel = 'priority'; starReason = '硬科技/研发里程碑与市值线索支持优先做科创属性专项预评估。'; }
+          else if (answers.profile === 'hardtech' || answers.engine === 'rd15') { starLevel = 'parallel'; starReason = '存在科创线索，但行业领域、研发口径与具体上市标准待补证。'; }
+          routes.push(routeCard('科创板', starLevel, starReason));
+
+          let chiLevel = 'unknown';
+          let chiReason = '需核验成长创新定位及 2026 年四套标准中的具体一套。';
+          if ((answers.profile === 'growth' || answers.engine === 'cagr30') && rev >= 2 && mcap >= 3) { chiLevel = 'priority'; chiReason = '成长、收入与市值线索支持优先核验创业板第2–4套标准。'; }
+          else if (answers.profile === 'growth' || answers.engine === 'cagr30' || profit >= 3) { chiLevel = 'parallel'; chiReason = '可并行评估，但两年利润、增长率或研发投入仍缺完整口径。'; }
+          routes.push(routeCard('创业板', chiLevel, chiReason));
+        }
+
+        if (majorStop) routes.push(routeCard('北交所', 'stop', '先处理已知重大事项，再讨论挂牌与上市路径。'));
+        else if (answers.neeq === 'no') routes.push(routeCard('北交所', 'stop', '创新层身份或全国股转连续挂牌满12个月的前置线索未满足。'));
+        else if (answers.neeq === 'yes' && (answers.profile === 'sme' || rev >= 1) && mcap >= 1) routes.push(routeCard('北交所', 'priority', '创新层前置与中小企业画像支持优先核验四套标准。'));
+        else if (answers.neeq === 'yes') routes.push(routeCard('北交所', 'parallel', '已具备关键前置线索，仍需核验净资产、公众股东与具体财务标准。'));
+        else routes.push(routeCard('北交所', 'unknown', '先分别核查创新层身份与全国股转连续挂牌时长；前置条件不能被其他指标替代。'));
+
+        if (majorStop) routes.push(routeCard('港交所', 'stop', '境外路径同样需处理境内重大合规与备案问题。'));
+        else if (answers.goal === 'hk' || answers.goal === 'both') {
+          const hkReason = answers.profile === 'bio' ? '可优先核验主板常规测试与18A/18C；全部改用港元口径并同步做境外备案判断。' : '客户目标支持并行港股预评估；需换算港元口径、核验三年记录与境外备案。';
+          routes.push(routeCard('港交所', 'priority', hkReason));
+        } else routes.push(routeCard('港交所', incomplete ? 'unknown' : 'parallel', '作为境外备选；人民币快筛不能直接证明港币财务资格，且需中国证监会备案。'));
+        return routes;
+      };
+
+      const statusFromAnswers = (routes) => {
+        const count = Object.keys(answers).length;
+        if (count < totalQuestions) return ['T0', '信息不足', '还有关键问题未回答；所有空白都应记录为 Unknown，而不是推测。'];
+        if (answers.risk === 'existing' || answers.years === 'no') return ['T1', '暂停推进', '存在硬门槛未满足或已知重大事项，先做专项核验，不进入“选板”讨论。'];
+        if (answers.stage === 'submit') return ['T4', '正式申报准备中', '仅按客户自述记录为 T4；仍应以中介尽调、内核和交易所公开状态为准。'];
+        const hasPriority = routes.some((route) => route.level === 'priority');
+        if (hasPriority && answers.evidence === 'clean' && answers.risk === 'none' && answers.years === 'yes') return ['T3', '可进入保荐机构正式预评估', '路径线索与基础证据相对完整，下一步应由保荐、会计师和律师正式预评估。'];
+        return ['T2', '培育整改', '存在可验证的路径线索，但证据成熟度、板块判断或红旗核验仍有缺口。'];
+      };
+
+      const levelLabel = { priority: '优先验证', parallel: '并行备选', unknown: '证据不足', stop: '暂停 / 前置未满足' };
+
+      const nextStepMap = {
+        T0: '补齐 11 项快筛答案，并要求客户提供三年财务、股权和合规基础材料；未提供前不讨论选板。',
+        T1: '建立 R-stop 专项清单，由律师、会计师与保荐机构先判断事项性质、规则期间和可整改性。',
+        T2: '做一次 4–6 周上市差距诊断：为每个缺口指定材料、负责人、验证人和截止日。',
+        T3: '安排 90 分钟保荐机构预评估会，同步邀请会计师与律师，逐项选择具体上市标准并形成书面差距表。',
+        T4: '以中介项目计划和交易所公开状态为准管理节点；跟踪问询回复、专项核查与发行窗口，不对时间作承诺。'
+      };
+
+      const renderResult = () => {
+        const routes = evaluateRoutes();
+        const [status, title, summary] = statusFromAnswers(routes);
+        document.getElementById('resultStatus').textContent = status;
+        document.getElementById('resultTitle').textContent = title;
+        document.getElementById('resultSummary').textContent = summary;
+
+        const tags = [
+          `阶段·${labelMap.stage[answers.stage] || 'Unknown'}`,
+          `目标·${labelMap.goal[answers.goal] || 'Unknown'}`,
+          `画像·${labelMap.profile[answers.profile] || 'Unknown'}`,
+          `H·${labelMap.years[answers.years] || '待补证'}`,
+          `H·${labelMap.neeq[answers.neeq] || '待补证'}`,
+          `${labelMap.evidence[answers.evidence] || 'E0待补证'}`,
+          `R·${labelMap.risk[answers.risk] || '未核查'}`
+        ];
+        const tagRow = document.getElementById('tagRow');
+        tagRow.innerHTML = tags.map((tag) => `<span class="result-tag">${tag}</span>`).join('');
+
+        const routeResults = document.getElementById('routeResults');
+        routeResults.innerHTML = routes.map((route) => `<article class="route-result" data-level="${route.level}"><span>${levelLabel[route.level]}</span><h4>${route.name}</h4><p>${route.reason}</p></article>`).join('');
+
+        const priorityNames = routes.filter((route) => route.level === 'priority').map((route) => route.name).join('/') || '待补证';
+        const riskTag = answers.risk === 'existing' ? 'R-stop专项核验' : answers.risk === 'unknown' ? '红旗待核查' : '初步无重大红旗';
+        const crm = `路径候选·${priorityNames} / 阶段·${labelMap.stage[answers.stage] || 'Unknown'} / 成熟度·${status} / 证据·${labelMap.evidence[answers.evidence] || 'E0'} / 红旗·${riskTag}`;
+        document.getElementById('crmCode').textContent = crm;
+        document.getElementById('nextStep').textContent = nextStepMap[status];
+        document.getElementById('resultPanel').classList.add('show');
+        document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+
+      document.getElementById('evaluateLab').addEventListener('click', renderResult);
+      document.getElementById('resetLab').addEventListener('click', () => {
+        Object.keys(answers).forEach((key) => delete answers[key]);
+        document.querySelectorAll('.choice.selected').forEach((item) => item.classList.remove('selected'));
+        document.getElementById('resultPanel').classList.remove('show');
+        updateProgress();
+      });
+      document.getElementById('copyResult').addEventListener('click', () => {
+        const status = document.getElementById('resultStatus').textContent;
+        const title = document.getElementById('resultTitle').textContent;
+        const tags = [...document.querySelectorAll('.result-tag')].map((tag) => tag.textContent).join('｜');
+        const routes = [...document.querySelectorAll('.route-result')].map((card) => `${card.querySelector('h4').textContent}：${card.querySelector('span').textContent}；${card.querySelector('p').textContent}`).join('\n');
+        const next = document.getElementById('nextStep').textContent;
+        const crm = document.getElementById('crmCode').textContent;
+        copyText(`【内部初筛 ${status}·${title}】\n${tags}\n\n${routes}\n\n下一步：${next}\nCRM：${crm}\n\n内部初筛，不构成法律、审计、保荐意见或上市承诺。`, '打标结论已复制');
+      });
+
+      document.querySelectorAll('.script-tabs button').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.script-tabs button').forEach((item) => { item.classList.remove('active'); item.setAttribute('aria-selected','false'); });
+          document.querySelectorAll('.script-pane').forEach((pane) => pane.classList.remove('active'));
+          button.classList.add('active');
+          button.setAttribute('aria-selected','true');
+          document.getElementById(`pane-${button.dataset.pane}`).classList.add('active');
+        });
+      });
+      document.getElementById('copyScript').addEventListener('click', () => {
+        const pane = document.querySelector('.script-pane.active');
+        copyText(`${pane.querySelector('h3').textContent}\n${pane.querySelector('.script-quote').textContent.trim()}\n\n${pane.querySelector('.script-note').textContent.trim()}`, '当前话术已复制');
+      });
+
+      document.querySelectorAll('.market-tab').forEach((button) => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.market-tab').forEach((item) => item.classList.remove('active'));
+          button.classList.add('active');
+          const filter = button.dataset.filter;
+          document.querySelectorAll('.rule-card[data-group]').forEach((card) => {
+            const groups = card.dataset.group.split(' ');
+            card.classList.toggle('hidden', filter !== 'all' && !groups.includes(filter));
+          });
+        });
+      });
+
+      const sourceSearch = document.getElementById('sourceSearch');
+      sourceSearch.addEventListener('input', () => {
+        const query = sourceSearch.value.trim().toLowerCase();
+        let visible = 0;
+        document.querySelectorAll('.source-row').forEach((row) => {
+          const match = !query || `${row.dataset.search} ${row.textContent}`.toLowerCase().includes(query);
+          row.classList.toggle('hidden', !match);
+          if (match) visible += 1;
+        });
+        document.getElementById('sourceCount').textContent = `${visible} 条官方入口`;
+        document.getElementById('sourceEmpty').classList.toggle('show', visible === 0);
+      });
+
+      const checklist = `中国企业上市客户初访清单（规则资料基准日：2026-08-05）
+
+一、会谈边界
+□ 已向客户说明：本次为内部初筛，不构成法律、审计、保荐意见或上市承诺
+□ 未使用“包过”“最快X个月上市”“辅导验收等于通过”等表述
+
+二、H/Q/E/R 标签
+H 硬门槛：Yes / No / Unknown（No暂停，Unknown补证）
+Q 板块判断：主板成熟代表性 / 科创属性 / 创业板成长创新 / 北交所创新型中小企业
+E 执行成熟度：E0资料弱 / E1部分齐全 / E2可追溯
+R 红旗：R-stop可能构成障碍 / R-review必须专项核验
+
+三、初访12问
+1. 为什么上市：融资、品牌、并购货币、退出还是估值？
+2. 公司设立、股改与持续经营时间；北交所另问创新层身份及全国股转连续挂牌时长。
+3. 最近三年收入、扣非净利润、经营现金流、净资产、研发、预计市值依据。
+4. 审计意见、内控鉴证、历年会计更正与月结能力。
+5. 主营业务、实际控制人、董高、核心技术人员变化。
+6. 股权代持、对赌回购、质押冻结、员工持股、权属争议。
+7. 关联交易、同业竞争、资金占用、违规担保。
+8. 主要客户供应商集中度、关联性、收入确认、现金流与利润匹配。
+9. 知识产权、许可资质、研发归集、关键产品里程碑。
+10. 税社保、环保安全、数据网安、诉讼处罚、失信与负面舆情。
+11. 募资金额用途、上市前分红、老股退出、估值依据。
+12. 原始凭证能否开放；资料负责人、整改责任人、验证人、截止日。
+
+四、会后必须形成
+□ T0/T1/T2/T3/T4工作状态
+□ 每条标签的事实来源、材料日期、规则版本、核验人
+□ 三项最先证伪的风险
+□ 下一次会议所需材料、责任人与截止日
+
+官方入口：证监会、上交所、深交所、北交所、港交所官网现行规则与项目动态。
+`;
+
+      const downloadChecklist = () => {
+        const blob = new Blob([checklist], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = '中国企业上市客户初访清单-2026-08-05.txt';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        showToast('初访清单已下载');
+      };
+      ['downloadTop','downloadChecklist','downloadFooter'].forEach((id) => document.getElementById(id).addEventListener('click', downloadChecklist));
+      document.getElementById('printTop').addEventListener('click', () => window.print());
+
+      const sectionLinks = [...document.querySelectorAll('.desktop-nav a')];
+      const sections = sectionLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          sectionLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+        });
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+      sections.forEach((section) => observer.observe(section));
+    })();
+  </script>
+</body>
+</html>
