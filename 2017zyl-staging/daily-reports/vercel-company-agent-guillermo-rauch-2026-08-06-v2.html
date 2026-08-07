@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="A bilingual, evidence-labeled knowledge dashboard with verified quotes, Patrick's local skill graph, and an executable action cockpit.">
+  <title>公司智能体 · Patrick Lens v2 / The Company Agent</title>
+  <script>
+    (function () {
+      try {
+        var savedLang = localStorage.getItem('hqxi-company-agent-v2-lang');
+        var savedTheme = localStorage.getItem('hqxi-company-agent-v2-theme');
+        document.documentElement.lang = savedLang === 'en' ? 'en' : 'zh-CN';
+        document.documentElement.dataset.theme = savedTheme === 'light' ? 'light' : 'dark';
+      } catch (error) {}
+    })();
+  </script>
+  <style>
+    :root {
+      --rail: 276px;
+      --paper: #080a0d;
+      --paper-2: #101318;
+      --paper-3: #171b21;
+      --ink: #f3f1eb;
+      --ink-2: #b6b5b1;
+      --ink-3: #777b83;
+      --line: rgba(255, 255, 255, 0.10);
+      --line-strong: rgba(255, 255, 255, 0.18);
+      --orange: #ff6332;
+      --orange-soft: #ffb49b;
+      --mint: #72f7c4;
+      --blue: #70a7ff;
+      --violet: #b59cff;
+      --yellow: #f4d35e;
+      --red: #ff7c87;
+      --shadow: 0 26px 90px rgba(0, 0, 0, 0.35);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --serif: Iowan Old Style, Baskerville, "Times New Roman", "Songti SC", serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    html[data-theme="light"] {
+      --paper: #f4f1e9;
+      --paper-2: #fffdf8;
+      --paper-3: #ebe7de;
+      --ink: #17191d;
+      --ink-2: #50535a;
+      --ink-3: #7b7d82;
+      --line: rgba(15, 18, 22, 0.11);
+      --line-strong: rgba(15, 18, 22, 0.20);
+      --orange: #e94f1d;
+      --orange-soft: #8f2b0c;
+      --mint: #087d5a;
+      --blue: #195ec8;
+      --violet: #6a43ce;
+      --yellow: #8b6800;
+      --red: #bd2838;
+      --shadow: 0 24px 70px rgba(58, 51, 36, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 94px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 78% 9%, rgba(255, 99, 50, 0.13), transparent 26rem),
+        radial-gradient(circle at 38% 28%, rgba(112, 167, 255, 0.08), transparent 30rem),
+        var(--paper);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.68;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.17;
+      z-index: 20;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    a { color: inherit; }
+    ::selection { color: #111; background: var(--mint); }
+
+    .en { display: none; }
+    html[lang="en"] .zh { display: none; }
+    html[lang="en"] .en { display: initial; }
+    html[lang="zh-CN"] .en { display: none; }
+    html[lang="zh-CN"] .zh { display: initial; }
+
+    .progress-track {
+      position: fixed;
+      inset: 0 0 auto;
+      height: 3px;
+      z-index: 100;
+      background: transparent;
+    }
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--orange), var(--yellow), var(--mint));
+      box-shadow: 0 0 18px rgba(255, 99, 50, 0.7);
+      transition: width 0.1s linear;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 3px;
+      left: var(--rail);
+      right: 0;
+      z-index: 70;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      height: 70px;
+      padding: 0 clamp(18px, 4vw, 54px);
+      background: color-mix(in srgb, var(--paper) 80%, transparent);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px) saturate(1.25);
+      -webkit-backdrop-filter: blur(18px) saturate(1.25);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      color: #101114;
+      background: var(--orange);
+      border-radius: 10px;
+      font-family: var(--mono);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      box-shadow: 0 10px 28px rgba(255, 99, 50, 0.25);
+    }
+    .brand-copy { min-width: 0; }
+    .brand-kicker {
+      color: var(--ink-3);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .brand-title {
+      overflow: hidden;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 720;
+      line-height: 1.25;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .icon-btn, .action-btn, .toc-toggle, .mobile-menu {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      color: var(--ink-2);
+      background: color-mix(in srgb, var(--paper-2) 88%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease);
+    }
+    .icon-btn { width: 42px; padding: 0; }
+    .action-btn { padding: 0 14px; font-size: 12px; font-weight: 700; }
+    .icon-btn:hover, .action-btn:hover, .toc-toggle:hover, .mobile-menu:hover {
+      color: var(--ink);
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+    .icon-btn:focus-visible, .action-btn:focus-visible, .toc-toggle:focus-visible,
+    .mobile-menu:focus-visible, .toc-link:focus-visible, .chapter-link:focus-visible,
+    .source-link:focus-visible {
+      outline: 2px solid var(--mint);
+      outline-offset: 3px;
+    }
+    .kbd {
+      color: var(--ink-3);
+      font-family: var(--mono);
+      font-size: 9px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 1px 4px;
+    }
+    .mobile-menu { display: none; width: 42px; padding: 0; }
+
+    aside.toc {
+      position: fixed;
+      inset: 3px auto 0 0;
+      z-index: 80;
+      width: var(--rail);
+      color: var(--ink-2);
+      background: color-mix(in srgb, var(--paper-2) 93%, transparent);
+      border-right: 1px solid var(--line);
+      backdrop-filter: blur(18px) saturate(1.15);
+      -webkit-backdrop-filter: blur(18px) saturate(1.15);
+      transition: width 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+    .toc-inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 24px 18px 18px;
+      overflow: hidden;
+    }
+    .toc-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 44px;
+      margin-bottom: 30px;
+    }
+    .toc-wordmark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .toc-pulse {
+      position: relative;
+      width: 11px;
+      height: 11px;
+      flex: 0 0 auto;
+      background: var(--mint);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--mint) 16%, transparent);
+    }
+    .toc-pulse::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border: 1px solid var(--mint);
+      border-radius: 50%;
+      animation: pulse 2.8s ease-out infinite;
+    }
+    @keyframes pulse { from { opacity: 0.8; transform: scale(0.45); } to { opacity: 0; transform: scale(1.5); } }
+    .toc-name {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      white-space: nowrap;
+    }
+    .toc-toggle { width: 38px; min-height: 38px; flex: 0 0 auto; padding: 0; }
+    .toc-list {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow: auto;
+      scrollbar-width: none;
+    }
+    .toc-list::-webkit-scrollbar { display: none; }
+    .toc-link {
+      position: relative;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 7px 9px;
+      color: var(--ink-3);
+      border: 1px solid transparent;
+      border-radius: 11px;
+      text-decoration: none;
+      transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+    .toc-link:hover { color: var(--ink); background: var(--paper-3); }
+    .toc-link.active {
+      color: var(--ink);
+      background: color-mix(in srgb, var(--orange) 12%, var(--paper-3));
+      border-color: color-mix(in srgb, var(--orange) 34%, var(--line));
+    }
+    .toc-link.active::before {
+      content: "";
+      position: absolute;
+      inset: 10px auto 10px -10px;
+      width: 3px;
+      background: var(--orange);
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(255, 99, 50, 0.65);
+    }
+    .toc-index {
+      color: var(--ink-3);
+      font-family: var(--mono);
+      font-size: 10px;
+      text-align: center;
+    }
+    .toc-label { overflow: hidden; font-size: 12px; font-weight: 660; text-overflow: ellipsis; white-space: nowrap; }
+    .toc-foot {
+      margin-top: 24px;
+      padding: 14px;
+      color: var(--ink-3);
+      background: var(--paper-3);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-family: var(--mono);
+      font-size: 9px;
+      line-height: 1.65;
+    }
+    .toc-foot strong { color: var(--mint); font-weight: 800; }
+
+    body.toc-collapsed { --rail: 78px; }
+    body.toc-collapsed .toc-inner { padding-inline: 13px; }
+    body.toc-collapsed .toc-name,
+    body.toc-collapsed .toc-foot { display: none; }
+    body.toc-collapsed .toc-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    body.toc-collapsed .toc-head { justify-content: center; }
+    body.toc-collapsed .toc-wordmark { display: none; }
+    body.toc-collapsed .toc-link { grid-template-columns: 1fr; padding-inline: 5px; }
+    body.toc-collapsed .toc-index { font-size: 11px; }
+
+    main {
+      position: relative;
+      margin-left: var(--rail);
+      padding-top: 73px;
+      transition: margin-left 0.4s var(--ease);
+    }
+    .page {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 0 0 100px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 73px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(340px, 0.88fr);
+      align-items: center;
+      gap: clamp(28px, 6vw, 86px);
+      padding: clamp(70px, 9vw, 130px) 0 80px;
+      isolation: isolate;
+    }
+    .hero::after {
+      content: "HQXI / 04";
+      position: absolute;
+      right: 0;
+      bottom: 34px;
+      z-index: -1;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--line);
+      font-family: var(--mono);
+      font-size: clamp(62px, 10vw, 150px);
+      font-weight: 900;
+      letter-spacing: -0.09em;
+      line-height: 0.75;
+      opacity: 0.8;
+      white-space: nowrap;
+    }
+    .eyebrow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 28px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      color: var(--ink-2);
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .pill.live { color: var(--mint); border-color: color-mix(in srgb, var(--mint) 32%, var(--line)); }
+    .pill.live::before { content: ""; width: 6px; height: 6px; margin-right: 7px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 10px var(--mint); }
+    .hero h1 {
+      max-width: 770px;
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(50px, 6.6vw, 104px);
+      font-weight: 530;
+      letter-spacing: -0.066em;
+      line-height: 0.93;
+      text-wrap: balance;
+    }
+    .hero h1 em { color: var(--orange); font-style: italic; }
+    .hero-deck {
+      max-width: 680px;
+      margin: 30px 0 0;
+      color: var(--ink-2);
+      font-size: clamp(16px, 1.7vw, 21px);
+      line-height: 1.62;
+      text-wrap: pretty;
+    }
+    .hero-byline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 34px;
+      color: var(--ink-3);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.03em;
+    }
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 16px;
+      color: #101114;
+      background: var(--orange);
+      border-radius: 12px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 16px 35px rgba(255, 99, 50, 0.20);
+      transition: transform 0.25s var(--ease), box-shadow 0.25s ease;
+    }
+    .source-link:hover { transform: translateY(-3px) rotate(-0.5deg); box-shadow: 0 20px 45px rgba(255, 99, 50, 0.32); }
+
+    .agent-orbit {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      width: min(100%, 480px);
+      margin: 0 auto;
+    }
+    .orbit-ring {
+      position: absolute;
+      inset: 8%;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+    }
+    .orbit-ring::before, .orbit-ring::after {
+      content: "";
+      position: absolute;
+      inset: 17%;
+      border: 1px dashed var(--line);
+      border-radius: 50%;
+    }
+    .orbit-ring::after { inset: -8%; border-style: solid; opacity: 0.32; }
+    .orbit-core {
+      position: relative;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      width: 142px;
+      height: 142px;
+      color: #101114;
+      background: linear-gradient(135deg, var(--orange), #ff9c62 55%, var(--yellow));
+      border-radius: 38% 62% 56% 44% / 48% 42% 58% 52%;
+      box-shadow: 0 0 0 12px color-mix(in srgb, var(--orange) 10%, transparent), 0 34px 90px rgba(255, 99, 50, 0.28);
+      animation: morph 8s ease-in-out infinite alternate;
+    }
+    @keyframes morph { to { border-radius: 60% 40% 40% 60% / 42% 60% 40% 58%; transform: rotate(3deg); } }
+    .core-letter { font-family: var(--serif); font-size: 78px; font-style: italic; font-weight: 700; letter-spacing: -0.09em; line-height: 1; }
+    .core-caption { position: absolute; bottom: 22px; font-family: var(--mono); font-size: 8px; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; }
+    .orbit-node {
+      position: absolute;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      min-width: 86px;
+      min-height: 42px;
+      padding: 8px 12px;
+      color: var(--ink-2);
+      background: color-mix(in srgb, var(--paper-2) 91%, transparent);
+      border: 1px solid var(--line-strong);
+      border-radius: 13px;
+      box-shadow: var(--shadow);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-align: center;
+      text-transform: uppercase;
+      transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s var(--ease);
+    }
+    .orbit-node:hover { color: var(--ink); border-color: var(--orange); transform: scale(1.08); }
+    .orbit-node.n1 { top: 3%; left: 34%; }
+    .orbit-node.n2 { top: 22%; right: 1%; }
+    .orbit-node.n3 { right: 4%; bottom: 20%; }
+    .orbit-node.n4 { bottom: 2%; left: 34%; }
+    .orbit-node.n5 { bottom: 22%; left: 0; }
+    .orbit-node.n6 { top: 22%; left: 0; }
+    .orbit-scan {
+      position: absolute;
+      inset: 8%;
+      z-index: 2;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0 80%, color-mix(in srgb, var(--mint) 20%, transparent) 93%, transparent 100%);
+      animation: spin 10s linear infinite;
+      mask: radial-gradient(transparent 0 56%, #000 57% 60%, transparent 61%);
+      -webkit-mask: radial-gradient(transparent 0 56%, #000 57% 60%, transparent 61%);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .section {
+      position: relative;
+      padding: clamp(76px, 10vw, 142px) 0 0;
+    }
+    .section-rule {
+      display: grid;
+      grid-template-columns: 78px 1fr auto;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 34px;
+      color: var(--ink-3);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .section-rule::after { content: ""; height: 1px; background: var(--line); }
+    .section-rule .signal { color: var(--orange); }
+    .section h2 {
+      max-width: 900px;
+      margin: 0 0 22px;
+      font-family: var(--serif);
+      font-size: clamp(38px, 5vw, 72px);
+      font-weight: 520;
+      letter-spacing: -0.052em;
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+    .section-lede {
+      max-width: 800px;
+      margin: 0 0 48px;
+      color: var(--ink-2);
+      font-size: clamp(16px, 1.8vw, 21px);
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+    .micro-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 13px;
+      color: var(--ink-3);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .micro-label::before { content: ""; width: 7px; height: 7px; background: currentColor; border-radius: 50%; }
+    .micro-label.video { color: var(--mint); }
+    .micro-label.synthesis { color: var(--orange); }
+    .micro-label.design { color: var(--blue); }
+
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .stat {
+      min-height: 146px;
+      padding: 25px 18px;
+      border-right: 1px solid var(--line);
+    }
+    .stat:last-child { border-right: 0; }
+    .stat-value { color: var(--ink); font-family: var(--serif); font-size: clamp(34px, 4vw, 55px); line-height: 1; letter-spacing: -0.05em; }
+    .stat-value small { color: var(--orange); font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: 0; }
+    .stat-label { margin-top: 13px; color: var(--ink-3); font-size: 11px; line-height: 1.45; }
+
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(22px, 3vw, 34px);
+      background: linear-gradient(145deg, color-mix(in srgb, var(--paper-2) 96%, transparent), color-mix(in srgb, var(--paper-3) 84%, transparent));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 18px 58px rgba(0, 0, 0, 0.10);
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -90px;
+      bottom: -100px;
+      background: var(--panel-glow, var(--orange));
+      border-radius: 50%;
+      filter: blur(55px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+    .panel.span-7 { grid-column: span 7; }
+    .panel.span-5 { grid-column: span 5; }
+    .panel.span-4 { grid-column: span 4; }
+    .panel.span-8 { grid-column: span 8; }
+    .panel.full { grid-column: 1 / -1; }
+    .panel h3 {
+      margin: 0 0 13px;
+      font-size: clamp(19px, 2vw, 26px);
+      line-height: 1.2;
+      letter-spacing: -0.025em;
+    }
+    .panel p { margin: 0; color: var(--ink-2); font-size: 14px; line-height: 1.75; }
+    .panel p + p { margin-top: 14px; }
+    .panel-number {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      color: var(--line-strong);
+      font-family: var(--serif);
+      font-size: 58px;
+      font-style: italic;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
+    .chip { padding: 5px 9px; color: var(--ink-3); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; font-family: var(--mono); font-size: 9px; }
+
+    .shift-line {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr 1.5fr;
+      gap: 1px;
+      overflow: hidden;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+    }
+    .era { position: relative; min-height: 280px; padding: 30px; background: var(--paper-2); }
+    .era.agent { background: linear-gradient(145deg, color-mix(in srgb, var(--orange) 14%, var(--paper-2)), var(--paper-2)); }
+    .era-index { color: var(--ink-3); font-family: var(--mono); font-size: 10px; }
+    .era h3 { margin: 55px 0 12px; font-family: var(--serif); font-size: clamp(28px, 3.2vw, 46px); font-weight: 520; letter-spacing: -0.04em; line-height: 1; }
+    .era p { color: var(--ink-2); font-size: 13px; line-height: 1.7; }
+    .era-arrow { position: absolute; top: 25px; right: 26px; color: var(--orange); font-size: 24px; }
+
+    .stack-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+    .stack-list { display: flex; flex-direction: column; gap: 10px; }
+    .stack-layer {
+      display: grid;
+      grid-template-columns: 52px 116px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      min-height: 80px;
+      padding: 12px 18px;
+      color: var(--ink-2);
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      transition: border-color 0.2s ease, transform 0.25s var(--ease), background 0.2s ease;
+    }
+    .stack-layer:hover { transform: translateX(7px); border-color: var(--layer-color, var(--orange)); background: color-mix(in srgb, var(--layer-color, var(--orange)) 6%, var(--paper-2)); }
+    .layer-index { color: var(--layer-color, var(--orange)); font-family: var(--mono); font-size: 11px; }
+    .layer-name { color: var(--ink); font-family: var(--mono); font-size: 12px; font-weight: 850; letter-spacing: 0.08em; }
+    .layer-question { font-size: 12px; }
+    .layer-status { width: 8px; height: 8px; background: var(--layer-color, var(--orange)); border-radius: 50%; box-shadow: 0 0 13px var(--layer-color, var(--orange)); }
+
+    .formula-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+      padding: 34px;
+      color: #111318;
+      background: linear-gradient(145deg, #f4d35e, #ff9f68 62%, #ff6332);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 30px 80px rgba(255, 99, 50, 0.18);
+    }
+    .formula-card .micro-label { color: rgba(17, 19, 24, 0.58); }
+    .formula {
+      margin: 24px 0 40px;
+      font-family: var(--serif);
+      font-size: clamp(27px, 3.5vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.045em;
+    }
+    .formula-card p { margin: 0; color: rgba(17, 19, 24, 0.72); font-size: 13px; line-height: 1.65; }
+
+    .routing-map {
+      display: grid;
+      grid-template-columns: minmax(180px, 0.7fr) 50px minmax(0, 1.3fr);
+      align-items: center;
+      gap: 18px;
+      min-height: 470px;
+      padding: clamp(24px, 4vw, 48px);
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+    }
+    .front-door {
+      display: grid;
+      place-items: center;
+      min-height: 240px;
+      padding: 24px;
+      color: #101114;
+      background: var(--orange);
+      border-radius: 36% 64% 62% 38% / 47% 39% 61% 53%;
+      text-align: center;
+      box-shadow: 0 26px 70px rgba(255, 99, 50, 0.22);
+    }
+    .front-door strong { display: block; font-family: var(--serif); font-size: 82px; font-style: italic; line-height: 0.8; }
+    .front-door span { display: block; margin-top: 18px; font-family: var(--mono); font-size: 9px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
+    .route-arrow { color: var(--ink-3); font-size: 34px; text-align: center; }
+    .specialists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .specialist {
+      min-height: 102px;
+      padding: 18px;
+      background: var(--paper-3);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    .specialist strong { display: block; margin-bottom: 7px; color: var(--ink); font-size: 13px; }
+    .specialist span { color: var(--ink-3); font-size: 11px; line-height: 1.45; }
+    .specialist.output { border-color: color-mix(in srgb, var(--mint) 40%, var(--line)); }
+
+    .loop {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      align-items: stretch;
+    }
+    .loop-step {
+      position: relative;
+      min-height: 180px;
+      padding: 24px 16px 18px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+    }
+    .loop-step::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -13px;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      color: var(--orange);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .loop-step:last-child::after { content: "↻"; }
+    .loop-step b { display: block; margin-bottom: 30px; color: var(--orange); font-family: var(--mono); font-size: 10px; }
+    .loop-step strong { display: block; margin-bottom: 8px; color: var(--ink); font-size: 13px; }
+    .loop-step span { color: var(--ink-3); font-size: 10px; line-height: 1.55; }
+
+    .trigger-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .trigger-card { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 20px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 15px; }
+    .trigger-time { color: var(--mint); font-family: var(--mono); font-size: 10px; font-weight: 900; }
+    .trigger-card strong { display: block; margin-bottom: 5px; color: var(--ink); font-size: 12px; }
+    .trigger-card p { margin: 0; color: var(--ink-3); font-size: 11px; line-height: 1.55; }
+
+    .permission-table { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-lg); }
+    table { width: 100%; border-collapse: collapse; min-width: 730px; background: var(--paper-2); }
+    .permission-table caption { padding: 12px 16px; color: var(--ink-3); background: var(--paper-3); border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 9px; font-weight: 800; letter-spacing: 0.09em; text-align: left; text-transform: uppercase; }
+    th, td { padding: 17px 16px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); font-size: 12px; text-align: left; }
+    th:last-child, td:last-child { border-right: 0; }
+    tr:last-child th, tr:last-child td { border-bottom: 0; }
+    th { color: var(--ink-3); background: var(--paper-3); font-family: var(--mono); font-size: 9px; letter-spacing: 0.09em; text-transform: uppercase; }
+    .permission-table tbody th[scope="row"] { color: var(--ink); background: transparent; font-family: inherit; font-size: 12px; font-weight: 750; letter-spacing: 0; text-transform: none; }
+    td { color: var(--ink-2); }
+    td:first-child { color: var(--ink); font-weight: 750; }
+    .yes { color: var(--mint); font-weight: 900; }
+    .no { color: var(--ink-3); }
+    .gate { color: var(--yellow); font-weight: 850; }
+    .risk-note {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      margin-top: 18px;
+      padding: 24px;
+      color: var(--ink-2);
+      background: color-mix(in srgb, var(--red) 8%, var(--paper-2));
+      border: 1px solid color-mix(in srgb, var(--red) 30%, var(--line));
+      border-radius: 16px;
+    }
+    .risk-icon { color: var(--red); font-family: var(--mono); font-size: 18px; }
+    .risk-note strong { display: block; margin-bottom: 6px; color: var(--ink); }
+    .risk-note p { margin: 0; font-size: 13px; }
+
+    .roadmap {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .week {
+      min-height: 370px;
+      padding: 26px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+    .week:nth-child(2) { transform: translateY(18px); }
+    .week:nth-child(3) { transform: translateY(36px); }
+    .week:nth-child(4) { transform: translateY(54px); border-color: color-mix(in srgb, var(--orange) 42%, var(--line)); }
+    .week-num { color: var(--orange); font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.12em; }
+    .week h3 { margin: 32px 0 13px; font-size: 20px; line-height: 1.2; }
+    .week p { color: var(--ink-3); font-size: 12px; line-height: 1.65; }
+    .week ul { margin: 18px 0 0; padding: 0; list-style: none; }
+    .week li { position: relative; margin: 9px 0; padding-left: 16px; color: var(--ink-2); font-size: 11px; line-height: 1.5; }
+    .week li::before { content: "+"; position: absolute; left: 0; color: var(--mint); font-family: var(--mono); }
+    .done-line { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--mint); font-family: var(--mono); font-size: 9px; line-height: 1.55; }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: 72px repeat(2, 1fr);
+      grid-template-rows: 38px repeat(2, minmax(190px, auto));
+      gap: 8px;
+    }
+    .axis { display: grid; place-items: center; color: var(--ink-3); font-family: var(--mono); font-size: 9px; letter-spacing: 0.09em; text-transform: uppercase; }
+    .axis.vertical { writing-mode: vertical-rl; transform: rotate(180deg); }
+    .quadrant { padding: 25px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 16px; }
+    .quadrant.featured { background: linear-gradient(145deg, color-mix(in srgb, var(--orange) 10%, var(--paper-2)), var(--paper-2)); border-color: color-mix(in srgb, var(--orange) 35%, var(--line)); }
+    .quadrant h3 { margin: 0 0 8px; font-size: 16px; }
+    .quadrant p { margin: 0; color: var(--ink-3); font-size: 11px; line-height: 1.55; }
+    .q-model { display: inline-flex; margin-top: 16px; padding: 5px 8px; color: var(--ink-2); background: var(--paper-3); border-radius: 7px; font-family: var(--mono); font-size: 9px; }
+
+    .chapters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .chapter-link {
+      display: grid;
+      grid-template-columns: 68px 1fr auto;
+      align-items: center;
+      gap: 16px;
+      min-height: 94px;
+      padding: 17px 20px;
+      color: var(--ink-2);
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      text-decoration: none;
+      transition: transform 0.25s var(--ease), border-color 0.2s ease, color 0.2s ease;
+    }
+    .chapter-link:hover { color: var(--ink); transform: translateY(-4px); border-color: var(--orange); }
+    .chapter-time { color: var(--orange); font-family: var(--mono); font-size: 12px; font-weight: 850; }
+    .chapter-title { display: block; color: var(--ink); font-size: 13px; font-weight: 760; line-height: 1.35; }
+    .chapter-question { display: block; margin-top: 5px; color: var(--ink-3); font-size: 10px; line-height: 1.4; }
+    .chapter-go { color: var(--ink-3); font-size: 19px; }
+
+    .verdict-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; }
+    .verdict { padding: 30px; background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius-lg); }
+    .verdict.good { border-top: 3px solid var(--mint); }
+    .verdict.gap { border-top: 3px solid var(--red); }
+    .verdict h3 { margin: 0 0 22px; font-size: 20px; }
+    .verdict ol { margin: 0; padding: 0; list-style: none; counter-reset: verdict; }
+    .verdict li { counter-increment: verdict; position: relative; margin: 18px 0; padding-left: 38px; color: var(--ink-2); font-size: 13px; }
+    .verdict li::before { content: counter(verdict, decimal-leading-zero); position: absolute; left: 0; color: var(--ink-3); font-family: var(--mono); font-size: 10px; }
+    .verdict li strong { color: var(--ink); }
+
+    .memo {
+      position: relative;
+      overflow: hidden;
+      margin-top: 18px;
+      padding: clamp(28px, 5vw, 58px);
+      color: #101114;
+      background: linear-gradient(120deg, #f5d75f, #ff9b63 60%, #ff6332);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 34px 100px rgba(255, 99, 50, 0.20);
+    }
+    .memo::after { content: "MON"; position: absolute; right: -16px; bottom: -48px; color: rgba(16, 17, 20, 0.08); font-family: var(--serif); font-size: 220px; font-weight: 900; letter-spacing: -0.1em; line-height: 1; }
+    .memo .micro-label { color: rgba(16, 17, 20, 0.55); }
+    .memo h3 { max-width: 720px; margin: 8px 0 26px; font-family: var(--serif); font-size: clamp(34px, 5vw, 68px); font-weight: 520; letter-spacing: -0.055em; line-height: 0.98; }
+    .memo ol { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: monday; }
+    .memo li { counter-increment: monday; padding-top: 15px; border-top: 1px solid rgba(16, 17, 20, 0.25); color: rgba(16, 17, 20, 0.72); font-size: 11px; line-height: 1.5; }
+    .memo li::before { content: counter(monday, decimal-leading-zero); display: block; margin-bottom: 12px; color: #101114; font-family: var(--mono); font-size: 10px; font-weight: 900; }
+    .memo .copy-memo {
+      position: relative;
+      z-index: 3;
+      margin-top: 30px;
+      min-height: 44px;
+      padding: 0 16px;
+      color: #f6f2e8;
+      background: #101114;
+      border: 0;
+      border-radius: 11px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 800;
+      transition: transform 0.2s var(--ease);
+    }
+    .memo .copy-memo:hover { transform: translateY(-2px); }
+
+    .evidence-key {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0 24px;
+    }
+    .evidence-badge, .status-badge, .priority-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 25px;
+      padding: 4px 8px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .evidence-badge.verbatim { color: var(--mint); border-color: color-mix(in srgb, var(--mint) 44%, var(--line)); }
+    .evidence-badge.paraphrase { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 44%, var(--line)); }
+    .evidence-badge.lens { color: var(--violet); border-color: color-mix(in srgb, var(--violet) 44%, var(--line)); }
+    .quote-toolbar, .action-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 24px 0 18px;
+      padding: 12px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+    }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 7px; }
+    .filter-btn, .mini-btn {
+      min-height: 36px;
+      padding: 0 12px;
+      color: var(--ink-2);
+      background: var(--paper-3);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .filter-btn:hover, .mini-btn:hover, .filter-btn.active { color: var(--ink); border-color: var(--orange); }
+    .filter-btn.active { background: color-mix(in srgb, var(--orange) 12%, var(--paper-3)); }
+    .quote-grid, .patrick-grid, .action-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .quote-card, .patrick-card, .action-card {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+    .quote-card[hidden] { display: none; }
+    .quote-meta, .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .time-link { color: var(--orange); font-family: var(--mono); font-size: 11px; font-weight: 900; text-decoration: none; }
+    .time-link:hover { text-decoration: underline; }
+    .quote-card blockquote { margin: 0; padding: 0; border: 0; }
+    .quote-card blockquote p, .quote-card .quote-text { margin: 0; color: var(--ink); font-family: var(--serif); font-size: clamp(22px, 2.5vw, 31px); letter-spacing: -0.025em; line-height: 1.14; }
+    .quote-card .translation { margin: 13px 0 0; color: var(--ink-2); font-size: 13px; }
+    .why-line { margin: 20px 0 0; padding-top: 15px; color: var(--ink-3); border-top: 1px solid var(--line); font-size: 11px; line-height: 1.55; }
+    .quote-copy { position: absolute; right: 16px; bottom: 14px; min-height: 30px; padding: 0 9px; color: var(--ink-3); background: transparent; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; font-size: 9px; }
+    .quote-copy:hover { color: var(--ink); border-color: var(--mint); }
+    .lookup-table { margin-top: 18px; overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; }
+    .lookup-table table { min-width: 650px; }
+    .patrick-card { min-height: 250px; border-top: 3px solid var(--violet); }
+    .patrick-card h3, .action-card h3 { margin: 0 0 12px; font-size: 18px; line-height: 1.25; }
+    .patrick-card p, .action-card p { margin: 0; color: var(--ink-2); font-size: 12px; line-height: 1.65; }
+    .mapping-arrow { display: block; margin: 16px 0; color: var(--orange); font-family: var(--mono); font-size: 10px; font-weight: 900; letter-spacing: 0.08em; }
+    .skill-path { display: block; overflow: hidden; margin-top: 18px; padding: 9px 10px; color: var(--ink-3); background: var(--paper-3); border-radius: 8px; font-family: var(--mono); font-size: 9px; line-height: 1.45; overflow-wrap: anywhere; }
+    .status-badge.live { color: var(--mint); }
+    .status-badge.reference { color: var(--yellow); }
+    .status-badge.gap { color: var(--red); }
+    .vault-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; margin-top: 18px; }
+    .vault-ref { min-height: 96px; padding: 14px; color: var(--ink-2); background: var(--paper-2); border: 1px solid var(--line); border-radius: 12px; font-size: 10px; line-height: 1.45; overflow-wrap: anywhere; }
+    .vault-ref b { display: block; margin-bottom: 7px; color: var(--ink); font-size: 11px; }
+    .action-summary { display: flex; align-items: center; gap: 14px; }
+    .progress-ring { --done: 0; display: grid; place-items: center; width: 58px; height: 58px; flex: 0 0 auto; background: conic-gradient(var(--mint) calc(var(--done) * 1%), var(--paper-3) 0); border-radius: 50%; }
+    .progress-ring::after { content: attr(data-label); display: grid; place-items: center; width: 46px; height: 46px; color: var(--ink); background: var(--paper-2); border-radius: 50%; font-family: var(--mono); font-size: 10px; font-weight: 900; }
+    .action-card { min-height: 330px; padding-left: 62px; }
+    .action-check { position: absolute; top: 24px; left: 22px; width: 24px; height: 24px; accent-color: var(--mint); cursor: pointer; }
+    .action-card.done { opacity: 0.64; border-color: color-mix(in srgb, var(--mint) 45%, var(--line)); }
+    .action-card.done h3 { text-decoration: line-through; }
+    .priority-badge.p0 { color: var(--red); }
+    .priority-badge.p1 { color: var(--yellow); }
+    .priority-badge.p2 { color: var(--blue); }
+    .action-spec { display: grid; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+    .action-spec li { color: var(--ink-3); font-size: 10px; line-height: 1.5; }
+    .action-spec b { color: var(--ink-2); }
+    .micro-step { margin-top: 18px; padding: 12px; color: var(--ink); background: color-mix(in srgb, var(--orange) 8%, var(--paper-3)); border-left: 3px solid var(--orange); border-radius: 0 9px 9px 0; font-size: 10px; line-height: 1.55; }
+    .lens-note { margin: 20px 0; padding: 18px 20px; color: var(--ink-2); background: color-mix(in srgb, var(--violet) 8%, var(--paper-2)); border: 1px solid color-mix(in srgb, var(--violet) 35%, var(--line)); border-radius: 14px; font-size: 12px; }
+
+    .method {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .method-card { padding: 20px; background: var(--paper-2); border: 1px solid var(--line); border-radius: 14px; }
+    .method-card b { display: block; margin-bottom: 7px; color: var(--ink); font-family: var(--mono); font-size: 10px; }
+    .method-card p { margin: 0; color: var(--ink-3); font-size: 11px; }
+
+    footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      margin-top: 110px;
+      padding-top: 30px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-3);
+      font-size: 11px;
+    }
+    .footer-title { margin-bottom: 7px; color: var(--ink); font-family: var(--serif); font-size: 24px; }
+    .footer-code { font-family: var(--mono); font-size: 9px; text-align: right; }
+
+    .toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 120;
+      max-width: min(360px, calc(100vw - 48px));
+      padding: 13px 16px;
+      color: var(--ink);
+      background: var(--paper-2);
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(14px);
+      transition: opacity 0.25s ease, transform 0.25s var(--ease);
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .mobile-backdrop { display: none; }
+
+    @media (max-width: 1080px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-copy { max-width: 850px; }
+      .agent-orbit { width: min(78vw, 470px); }
+      .stat-strip { grid-template-columns: repeat(3, 1fr); }
+      .stat:nth-child(3) { border-right: 0; }
+      .stat:nth-child(n+4) { border-top: 1px solid var(--line); }
+      .stack-wrap, .verdict-grid { grid-template-columns: 1fr; }
+      .loop { grid-template-columns: repeat(3, 1fr); }
+      .loop-step:nth-child(3)::after { content: "↓"; right: 50%; top: auto; bottom: -17px; transform: translateX(50%); }
+      .roadmap { grid-template-columns: repeat(2, 1fr); }
+      .week:nth-child(n) { transform: none; }
+      .memo ol { grid-template-columns: repeat(3, 1fr); }
+      .vault-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      :root { --rail: 0px; }
+      .topbar { left: 0; padding-inline: 14px; }
+      .mobile-menu { display: inline-flex; }
+      .top-actions .action-btn .action-label, .kbd { display: none; }
+      main { margin-left: 0; }
+      aside.toc {
+        width: min(310px, 88vw);
+        transform: translateX(-104%);
+        box-shadow: 24px 0 80px rgba(0, 0, 0, 0.35);
+      }
+      body.toc-mobile-open aside.toc { transform: translateX(0); }
+      body.toc-collapsed aside.toc { width: min(310px, 88vw); }
+      body.toc-collapsed .toc-inner { padding: 24px 18px 18px; }
+      body.toc-collapsed .toc-name, body.toc-collapsed .toc-label, body.toc-collapsed .toc-foot { display: block; }
+      body.toc-collapsed .toc-wordmark { display: flex; }
+      body.toc-collapsed .toc-head { justify-content: space-between; }
+      body.toc-collapsed .toc-link { grid-template-columns: 28px minmax(0, 1fr); padding: 7px 9px; }
+      .mobile-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 75;
+        display: block;
+        background: rgba(0, 0, 0, 0.56);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+      }
+      body.toc-mobile-open .mobile-backdrop { opacity: 1; pointer-events: auto; }
+      .page { width: min(100% - 32px, 780px); }
+      .hero { min-height: auto; padding-top: 78px; }
+      .panel.span-7, .panel.span-5, .panel.span-4, .panel.span-8 { grid-column: 1 / -1; }
+      .shift-line { grid-template-columns: 1fr; }
+      .era { min-height: 220px; }
+      .routing-map { grid-template-columns: 1fr; }
+      .route-arrow { transform: rotate(90deg); }
+      .front-door { min-height: 190px; }
+      .stack-layer { grid-template-columns: 38px 96px minmax(0, 1fr); }
+      .layer-status { display: none; }
+      .chapters { grid-template-columns: 1fr; }
+      .quote-grid, .patrick-grid, .action-grid { grid-template-columns: 1fr; }
+      .matrix { grid-template-columns: 44px repeat(2, 1fr); }
+      footer { grid-template-columns: 1fr; }
+      .footer-code { text-align: left; }
+    }
+
+    @media (max-width: 640px) {
+      .brand-kicker { display: none; }
+      .brand-title { max-width: 145px; }
+      .top-actions { gap: 5px; }
+      .top-actions .action-btn { width: 42px; padding: 0; }
+      .hero h1 { font-size: clamp(46px, 14vw, 70px); }
+      .hero::after { font-size: 76px; }
+      .agent-orbit { width: 100%; }
+      .orbit-core { width: 116px; height: 116px; }
+      .core-letter { font-size: 62px; }
+      .orbit-node { min-width: 70px; min-height: 38px; padding: 6px 8px; font-size: 7px; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(n) { border-top: 0; border-right: 1px solid var(--line); }
+      .stat:nth-child(even) { border-right: 0; }
+      .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+      .stat:last-child { grid-column: 1 / -1; border-right: 0; }
+      .section-rule { grid-template-columns: 50px 1fr; }
+      .section-rule::after { display: none; }
+      .loop { grid-template-columns: 1fr; }
+      .loop-step::after, .loop-step:nth-child(3)::after { content: "↓"; right: 50%; top: auto; bottom: -17px; transform: translateX(50%); }
+      .loop-step:last-child::after { content: "↻"; }
+      .trigger-grid, .roadmap, .specialists, .method { grid-template-columns: 1fr; }
+      .vault-grid { grid-template-columns: 1fr; }
+      .quote-toolbar, .action-toolbar { align-items: stretch; }
+      .filter-group { width: 100%; }
+      .filter-btn { flex: 1 1 auto; }
+      .action-card { padding: 66px 20px 22px; }
+      .action-check { top: 22px; left: 22px; }
+      .stack-layer { grid-template-columns: 34px 1fr; gap: 9px; }
+      .layer-question { grid-column: 2; }
+      .matrix { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .axis { display: none; }
+      .memo ol { grid-template-columns: 1fr; }
+      .chapter-link { grid-template-columns: 58px 1fr; }
+      .chapter-go { display: none; }
+    }
+
+    @media print {
+      :root { --paper: #fff; --paper-2: #fff; --paper-3: #f2f2f2; --ink: #111; --ink-2: #333; --ink-3: #666; --line: rgba(0,0,0,.15); --rail: 0px; }
+      body { background: #fff; font-size: 11pt; }
+      body::before, .topbar, aside.toc, .progress-track, .mobile-backdrop, .toast, .copy-memo, .quote-toolbar, .action-toolbar, .quote-copy { display: none !important; }
+      main { margin: 0; padding: 0; }
+      .page { width: 100%; padding: 0 22mm; }
+      .hero { min-height: auto; grid-template-columns: 1fr; padding: 18mm 0 10mm; page-break-after: always; }
+      .agent-orbit { display: none; }
+      .section { padding-top: 14mm; page-break-before: always; }
+      .panel, .week, .chapter-link, .quadrant, .verdict, .quote-card, .patrick-card, .action-card { break-inside: avoid; box-shadow: none; }
+      .roadmap { grid-template-columns: repeat(2, 1fr); }
+      .week:nth-child(n) { transform: none; }
+      .memo { color: #111; background: #f3d35c; box-shadow: none; }
+      a { text-decoration: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+
+  <aside class="toc toc-shell" id="toc" aria-label="Table of contents">
+    <div class="toc-inner">
+      <div class="toc-head">
+        <div class="toc-wordmark">
+          <span class="toc-pulse" aria-hidden="true"></span>
+          <span class="toc-name">SIGNAL MAP</span>
+        </div>
+        <button class="toc-toggle" type="button" id="tocToggle" aria-controls="toc" aria-expanded="true" aria-label="Collapse table of contents" title="Collapse / Expand (M)">‹</button>
+      </div>
+      <nav aria-label="Section navigation">
+        <ol class="toc-list">
+          <li><a class="toc-link active" href="#signal"><span class="toc-index">00</span><span class="toc-label"><span class="zh">信号速览</span><span class="en">Signal brief</span></span></a></li>
+          <li><a class="toc-link" href="#quotes"><span class="toc-index">01</span><span class="toc-label"><span class="zh">金句证据</span><span class="en">Quote evidence</span></span></a></li>
+          <li><a class="toc-link" href="#shift"><span class="toc-index">02</span><span class="toc-label"><span class="zh">范式转移</span><span class="en">The shift</span></span></a></li>
+          <li><a class="toc-link" href="#stack"><span class="toc-index">03</span><span class="toc-label"><span class="zh">六层智能栈</span><span class="en">Six-layer stack</span></span></a></li>
+          <li><a class="toc-link" href="#architecture"><span class="toc-index">04</span><span class="toc-label"><span class="zh">一个入口，多专家</span><span class="en">One door, many experts</span></span></a></li>
+          <li><a class="toc-link" href="#proactivity"><span class="toc-index">05</span><span class="toc-label"><span class="zh">主动性闭环</span><span class="en">Proactivity loop</span></span></a></li>
+          <li><a class="toc-link" href="#governance"><span class="toc-index">06</span><span class="toc-label"><span class="zh">权限与治理</span><span class="en">Permission &amp; governance</span></span></a></li>
+          <li><a class="toc-link" href="#roadmap"><span class="toc-index">07</span><span class="toc-label"><span class="zh">30 天路线</span><span class="en">30-day roadmap</span></span></a></li>
+          <li><a class="toc-link" href="#models"><span class="toc-index">08</span><span class="toc-label"><span class="zh">模型路由</span><span class="en">Model routing</span></span></a></li>
+          <li><a class="toc-link" href="#chapters"><span class="toc-index">09</span><span class="toc-label"><span class="zh">原片章节</span><span class="en">Video chapters</span></span></a></li>
+          <li><a class="toc-link" href="#verdict"><span class="toc-index">10</span><span class="toc-label"><span class="zh">编辑判断</span><span class="en">Editorial verdict</span></span></a></li>
+          <li><a class="toc-link" href="#patrick"><span class="toc-index">11</span><span class="toc-label"><span class="zh">Patrick 相关</span><span class="en">Patrick lens</span></span></a></li>
+          <li><a class="toc-link" href="#action"><span class="toc-index">12</span><span class="toc-label"><span class="zh">下一步行动</span><span class="en">Action cockpit</span></span></a></li>
+        </ol>
+      </nav>
+      <div class="toc-foot">
+        <strong>OFFLINE READY</strong><br>
+        HQXi4snP36I · PATRICK LENS v2<br>
+        <span class="zh">中文默认 · L 切换语言</span><span class="en">English mode · L toggles</span>
+      </div>
+    </div>
+  </aside>
+
+  <header class="topbar">
+    <div class="brand">
+      <button class="mobile-menu" id="mobileMenu" type="button" aria-controls="toc" aria-expanded="false" aria-label="Open table of contents">☰</button>
+      <span class="brand-mark" aria-hidden="true">V</span>
+      <div class="brand-copy">
+        <div class="brand-kicker">AGENT NATIVE · FIELD NOTE 04</div>
+        <div class="brand-title"><span class="zh">公司智能体：从洞见到行动</span><span class="en">The Company Agent · Patrick Lens v2</span></div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="action-btn" type="button" onclick="toggleLang()" aria-label="Toggle language" title="Language (L)"><span aria-hidden="true">文</span><span class="action-label"><span class="zh">EN</span><span class="en">中文</span></span><span class="kbd">L</span></button>
+      <button class="icon-btn" type="button" id="themeToggle" aria-label="Toggle theme" title="Theme (T)">◐</button>
+      <button class="icon-btn" type="button" id="printButton" aria-label="Print or save PDF" title="Print">↧</button>
+      <a class="action-btn" href="https://www.youtube.com/watch?v=HQXi4snP36I" target="_blank" rel="noopener"><span aria-hidden="true">▶</span><span class="action-label">YouTube</span></a>
+    </div>
+  </header>
+
+  <main>
+    <div class="page">
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="pill live"><span class="zh">已核对章节</span><span class="en">Chapters verified</span></span>
+            <span class="pill">54:22</span>
+            <span class="pill">2026.08.06</span>
+            <span class="pill">RILEY BROWN × GUILLERMO RAUCH</span>
+            <span class="pill live">PATRICK LENS v2</span>
+          </div>
+          <h1 id="heroTitle">
+            <span class="zh">先造<em>智能</em>，<br>再造界面。</span>
+            <span class="en">Build the <em>intelligence</em><br>before the interface.</span>
+          </h1>
+          <p class="hero-deck">
+            <span class="zh">真正的公司 Agent 不是一个更会聊天的机器人，而是把知识、方法、工具、权限和主动触发编排成一套可学习的组织操作系统。</span>
+            <span class="en">A real company agent is not simply better chat. It orchestrates knowledge, methods, tools, permissions, and proactive triggers into an organizational operating system that can learn.</span>
+          </p>
+          <div class="hero-byline">
+            <a class="source-link" href="https://www.youtube.com/watch?v=HQXi4snP36I" target="_blank" rel="noopener"><span aria-hidden="true">▶</span><span class="zh">观看原片</span><span class="en">Watch source</span></a>
+            <span><span class="zh">Riley Brown 频道 · Agent Native #4</span><span class="en">Riley Brown · Agent Native #4</span></span>
+          </div>
+        </div>
+        <div class="agent-orbit" aria-label="Company agent capability orbit">
+          <div class="orbit-scan" aria-hidden="true"></div>
+          <div class="orbit-ring" aria-hidden="true"></div>
+          <div class="orbit-core"><span class="core-letter">V</span><span class="core-caption">FRONT DOOR</span></div>
+          <div class="orbit-node n1"><span class="zh">灵魂</span><span class="en">Soul</span></div>
+          <div class="orbit-node n2"><span class="zh">技能</span><span class="en">Skills</span></div>
+          <div class="orbit-node n3"><span class="zh">工具</span><span class="en">Tools</span></div>
+          <div class="orbit-node n4"><span class="zh">权限</span><span class="en">Permissions</span></div>
+          <div class="orbit-node n5"><span class="zh">触发器</span><span class="en">Triggers</span></div>
+          <div class="orbit-node n6"><span class="zh">评估</span><span class="en">Evals</span></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="signal">
+        <div class="section-rule"><span>00</span><span class="signal">EXECUTIVE SIGNAL</span></div>
+        <div class="micro-label video"><span class="zh">视频主旨</span><span class="en">Video-grounded</span></div>
+        <h2 id="signal"><span class="zh">90 秒，抓住整场访谈。</span><span class="en">The entire conversation in 90 seconds.</span></h2>
+        <p class="section-lede"><span class="zh">编码 Agent 是第一波杀手应用；把公司运行得更好的“公司脑”是第二波。Vercel 的 V 展示了它的产品形态：一个入口、多个专业能力、身份化权限，以及持续更新的 Skill。</span><span class="en">Coding agents are the first killer app. The second is a company brain that helps the organization operate. Vercel's V shows the product shape: one front door, multiple specialist capabilities, identity-aware permissions, and continuously improved skills.</span></p>
+
+        <div class="stat-strip" aria-label="Key facts">
+          <div class="stat"><div class="stat-value">~1K</div><div class="stat-label"><span class="zh">公司级入口服务的员工规模</span><span class="en">employees sharing the internal front door</span></div></div>
+          <div class="stat"><div class="stat-value">1<small> FRONT DOOR</small></div><div class="stat-label"><span class="zh">用户不必先选择专家 Agent</span><span class="en">users do not choose specialists first</span></div></div>
+          <div class="stat"><div class="stat-value">6<small> LAYERS</small></div><div class="stat-label"><span class="zh">Soul 到 Eval 的完整智能栈</span><span class="en">from soul to evaluation</span></div></div>
+          <div class="stat"><div class="stat-value">24/7</div><div class="stat-label"><span class="zh">Trigger 让工作脱离“等人问”</span><span class="en">triggers move beyond waiting for prompts</span></div></div>
+          <div class="stat"><div class="stat-value">2<small> MODES</small></div><div class="stat-label"><span class="zh">交互要快，异步要准</span><span class="en">interactive speed, async accuracy</span></div></div>
+        </div>
+
+        <div class="bento" style="margin-top: 28px;">
+          <article class="panel span-7" style="--panel-glow: var(--orange);">
+            <span class="panel-number">01</span>
+            <div class="micro-label synthesis"><span class="zh">核心判断</span><span class="en">Core judgment</span></div>
+            <h3><span class="zh">Agent 的护城河不在模型，在公司方法。</span><span class="en">The moat is not the model. It is the company's method.</span></h3>
+            <p><span class="zh">模型会更快、更便宜，也会被替换。真正能积累的是：资深员工如何判断、哪些证据可信、什么时候需要批准、失败怎样回归测试。把这些写成 Skill，才把一次优秀表现变成组织能力。</span><span class="en">Models become faster, cheaper, and replaceable. What compounds is how experts decide, which evidence they trust, when approval is required, and how failures become regression tests. A skill turns one strong performance into organizational capability.</span></p>
+            <div class="chips"><span class="chip">SKILL IP</span><span class="chip">MODEL-AGNOSTIC</span><span class="chip">COMPOUNDING</span></div>
+          </article>
+          <article class="panel span-5" style="--panel-glow: var(--mint);">
+            <span class="panel-number">02</span>
+            <div class="micro-label video"><span class="zh">产品形态</span><span class="en">Product shape</span></div>
+            <h3><span class="zh">一个名字，一扇门，一队专家。</span><span class="en">One name, one door, a team of experts.</span></h3>
+            <p><span class="zh">员工在 Slack 中找 V；V 再调用内容、数据、知识和编码能力。统一的是体验与责任，不是底层执行器。</span><span class="en">Employees meet V in Slack; V calls content, data, knowledge, and coding capabilities. The experience and accountability are unified—not the executor underneath.</span></p>
+          </article>
+          <article class="panel span-4" style="--panel-glow: var(--blue);">
+            <div class="micro-label design"><span class="zh">能力边界</span><span class="en">Capability boundary</span></div>
+            <h3><span class="zh">Tool ≠ Permission</span><span class="en">Tool ≠ Permission</span></h3>
+            <p><span class="zh">接入 WordPress 只说明“能发布”；当前用户是否能发布，是另一层产品逻辑。</span><span class="en">Connecting WordPress means publishing is possible. Whether this user may publish is a separate product decision.</span></p>
+          </article>
+          <article class="panel span-8" style="--panel-glow: var(--violet);">
+            <div class="micro-label synthesis"><span class="zh">设计原则</span><span class="en">Design principle</span></div>
+            <h3><span class="zh">先让一次工作可信，再让它主动。</span><span class="en">Make one workflow trustworthy before making it proactive.</span></h3>
+            <p><span class="zh">如果没有明确输入、证据、审批和 Eval，主动性只会放大模糊。正确顺序是：边界化 Skill → 最小工具 → 身份权限 → 可核查结果 → Trigger。</span><span class="en">Without explicit inputs, evidence, approval, and evaluations, proactivity magnifies ambiguity. The right order is bounded skill, minimal tool, identity-aware authority, verifiable output, and only then a trigger.</span></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="quotes">
+        <div class="section-rule"><span>01</span><span class="signal">EVIDENCE LEDGER</span></div>
+        <div class="micro-label video"><span class="zh">金句与证据</span><span class="en">Quotes &amp; evidence</span></div>
+        <h2 id="quotes"><span class="zh">先分清原话，再提炼观点。</span><span class="en">Separate verbatim speech from synthesis before extracting meaning.</span></h2>
+        <p class="section-lede"><span class="zh">这里刻意只保留一条经字幕逐字核对的短原话；其余七张卡全部标为转述，避免把编辑总结伪装成嘉宾措辞。点击时间可回到原片核对。</span><span class="en">Only one short excerpt is marked verbatim after exact caption verification. The other seven cards are explicitly labeled paraphrase, so editorial synthesis is never presented as the guest's wording. Every timestamp links back to the video.</span></p>
+        <div class="evidence-key" aria-label="Evidence labels">
+          <span class="evidence-badge verbatim">VERBATIM · <span class="zh">逐字核对</span><span class="en">exact match</span></span>
+          <span class="evidence-badge paraphrase">PARAPHRASE · <span class="zh">编辑转述</span><span class="en">editorial synthesis</span></span>
+          <span class="evidence-badge lens">WHY IT MATTERS · <span class="zh">影响判断</span><span class="en">decision relevance</span></span>
+        </div>
+        <div class="quote-toolbar">
+          <div class="filter-group" role="group" aria-label="Filter quote cards">
+            <button class="filter-btn active" type="button" data-quote-filter="all"><span class="zh">全部 8</span><span class="en">All 8</span></button>
+            <button class="filter-btn" type="button" data-quote-filter="verbatim"><span class="zh">原话 1</span><span class="en">Verbatim 1</span></button>
+            <button class="filter-btn" type="button" data-quote-filter="paraphrase"><span class="zh">转述 7</span><span class="en">Paraphrase 7</span></button>
+          </div>
+          <span class="micro-label"><span class="zh">speaker · Guillermo Rauch</span><span class="en">speaker · Guillermo Rauch</span></span>
+        </div>
+        <div class="quote-grid">
+          <article class="quote-card" data-quote-kind="paraphrase">
+            <div class="quote-meta"><span class="evidence-badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=460s" target="_blank" rel="noopener">07:40 ↗</a></div>
+            <p class="quote-text"><span class="zh">公司的优势，不是“拥有一个 Agent”，而是能持续创造、调优并传播 Agent 能力。</span><span class="en">The company edge is not merely owning an agent; it is the ability to create, tune, and disseminate agent capabilities.</span></p>
+            <p class="why-line"><span class="zh">为什么重要：把竞争优势从模型采购，转向可积累的组织方法。</span><span class="en">Why it matters: competitive advantage moves from model procurement to compounding organizational method.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+          <article class="quote-card" data-quote-kind="paraphrase">
+            <div class="quote-meta"><span class="evidence-badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=984s" target="_blank" rel="noopener">16:24 ↗</a></div>
+            <p class="quote-text"><span class="zh">Agent 的“灵魂”可以写进指令文件：它是谁、相信什么、怎样做判断。</span><span class="en">An agent's “soul” can live in an instruction file: who it is, what it values, and how it makes decisions.</span></p>
+            <p class="why-line"><span class="zh">为什么重要：身份不是头像，而是可检查、可版本化的行为边界。</span><span class="en">Why it matters: identity becomes an inspectable, versioned behavioral boundary rather than a persona.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+          <article class="quote-card" data-quote-kind="paraphrase">
+            <div class="quote-meta"><span class="evidence-badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=1464s" target="_blank" rel="noopener">24:24 ↗</a></div>
+            <p class="quote-text"><span class="zh">用户只需要一扇前门；背后可以是一组各有边界的专业 Agent。</span><span class="en">The user needs one front door; behind it can sit a team of bounded specialist agents.</span></p>
+            <p class="why-line"><span class="zh">为什么重要：统一体验与专业执行不再是二选一。</span><span class="en">Why it matters: a unified experience no longer requires monolithic execution.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+          <article class="quote-card" data-quote-kind="paraphrase">
+            <div class="quote-meta"><span class="evidence-badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=1848s" target="_blank" rel="noopener">30:48 ↗</a></div>
+            <p class="quote-text"><span class="zh">当一篇文章不够好时，应改进写作 Skill，而不只是重写这篇文章。</span><span class="en">When a post underperforms, improve the writing skill—not merely that single post.</span></p>
+            <p class="why-line"><span class="zh">为什么重要：一次反馈进入系统资产，才会产生复利。</span><span class="en">Why it matters: feedback compounds only when it updates the reusable system asset.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+          <article class="quote-card" data-quote-kind="paraphrase">
+            <div class="quote-meta"><span class="evidence-badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=1965s" target="_blank" rel="noopener">32:45 ↗</a></div>
+            <p class="quote-text"><span class="zh">真正的主动 Agent 不等人提问；它由事件、时间和状态变化触发工作。</span><span class="en">A genuinely proactive agent does not wait for a prompt; events, time, and state changes trigger its work.</span></p>
+            <p class="why-line"><span class="zh">为什么重要：主动性必须由明确 Trigger 定义，而不是泛化自治。</span><span class="en">Why it matters: proactivity should be defined by explicit triggers, not vague autonomy.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+          <article class="quote-card" data-quote-kind="paraphrase">
+            <div class="quote-meta"><span class="evidence-badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=2073s" target="_blank" rel="noopener">34:33 ↗</a></div>
+            <p class="quote-text"><span class="zh">最难的部分不是生成文本，而是安全地连接公司系统。</span><span class="en">The hard part is not generating text; it is connecting company systems securely.</span></p>
+            <p class="why-line"><span class="zh">为什么重要：Connector、身份、审批和审计必须被当作产品核心。</span><span class="en">Why it matters: connectors, identity, approval, and audit belong at the center of the product.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+          <article class="quote-card" data-quote-kind="paraphrase">
+            <div class="quote-meta"><span class="evidence-badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=2350s" target="_blank" rel="noopener">39:10 ↗</a></div>
+            <p class="quote-text"><span class="zh">把负面反馈聚合成改进建议，但让人类保留最终批准权。</span><span class="en">Aggregate negative feedback into improvement proposals while keeping a human in the approval loop.</span></p>
+            <p class="why-line"><span class="zh">为什么重要：自我改进需要证据、提案与签核三段式。</span><span class="en">Why it matters: self-improvement needs evidence, a proposal, and an approval gate.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+          <article class="quote-card" data-quote-kind="verbatim">
+            <div class="quote-meta"><span class="evidence-badge verbatim">VERBATIM</span><a class="time-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=3218s" target="_blank" rel="noopener">53:38 ↗</a></div>
+            <blockquote><p lang="en">“having an intelligence of your own”</p></blockquote>
+            <p class="translation"><span class="zh">“拥有属于你自己的智能。”</span><span class="en">Chinese: “拥有属于你自己的智能。”</span></p>
+            <p class="why-line"><span class="zh">为什么重要：最终护城河是公司掌握自己的知识、Skill、路由与反馈闭环。</span><span class="en">Why it matters: the durable moat is owning the company's knowledge, skills, routing, and feedback loop.</span></p><button class="quote-copy" type="button"><span class="zh">复制</span><span class="en">Copy</span></button>
+          </article>
+        </div>
+        <div class="lookup-table">
+          <table>
+            <caption><span class="zh">金句 ↔ 原片章节对照</span><span class="en">Quote ↔ chapter lookup</span></caption>
+            <thead><tr><th><span class="zh">时间</span><span class="en">Time</span></th><th><span class="zh">主题</span><span class="en">Theme</span></th><th><span class="zh">对应章节</span><span class="en">Chapter</span></th><th><span class="zh">证据等级</span><span class="en">Evidence</span></th></tr></thead>
+            <tbody>
+              <tr><td>07:40</td><td><span class="zh">公司能力</span><span class="en">Company capability</span></td><td>V — Internal Agent</td><td>PARAPHRASE</td></tr>
+              <tr><td>16:24</td><td>Soul / identity</td><td>OpenClaw</td><td>PARAPHRASE</td></tr>
+              <tr><td>24:24</td><td><span class="zh">一个入口</span><span class="en">One front door</span></td><td>God Agent or Team?</td><td>PARAPHRASE</td></tr>
+              <tr><td>30:48</td><td>Skill improvement</td><td>Skills, Tools &amp; Permissions</td><td>PARAPHRASE</td></tr>
+              <tr><td>32:45</td><td>Proactivity</td><td>Triggers &amp; Self-Improvement</td><td>PARAPHRASE</td></tr>
+              <tr><td>34:33</td><td>Secure connectors</td><td>Triggers &amp; Self-Improvement</td><td>PARAPHRASE</td></tr>
+              <tr><td>39:10</td><td>Human approval</td><td>Triggers &amp; Self-Improvement</td><td>PARAPHRASE</td></tr>
+              <tr><td>53:38</td><td>Own intelligence</td><td>The Future</td><td>VERBATIM</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="shift">
+        <div class="section-rule"><span>02</span><span class="signal">PLATFORM SHIFT</span></div>
+        <div class="micro-label video"><span class="zh">访谈框架</span><span class="en">Interview framing</span></div>
+        <h2 id="shift"><span class="zh">从“缩小界面”到“创造新用例”。</span><span class="en">From shrinking interfaces to creating new use cases.</span></h2>
+        <p class="section-lede"><span class="zh">Guillermo 用 PC 与移动革命类比 Agent：新平台的价值不是把旧界面搬过去，而是出现原来做不到的行为。Agent 的新行为，是让知识工作者调用编码能力，并让组织在无人盯屏时继续工作。</span><span class="en">Guillermo compares agents with the PC and mobile revolutions: a new platform matters when it enables behavior that was previously impossible, not when it merely ports the old interface. Agents let knowledge workers invoke coding as a capability and let organizations continue useful work without a person watching the screen.</span></p>
+        <div class="shift-line">
+          <article class="era">
+            <span class="era-index">ERA / 01</span>
+            <span class="era-arrow">→</span>
+            <h3><span class="zh">个人电脑</span><span class="en">Personal computer</span></h3>
+            <p><span class="zh">文字处理与个人软件，把计算放到每张桌面。</span><span class="en">Word processing and personal software put computation on every desk.</span></p>
+          </article>
+          <article class="era">
+            <span class="era-index">ERA / 02</span>
+            <span class="era-arrow">→</span>
+            <h3><span class="zh">移动计算</span><span class="en">Mobile computing</span></h3>
+            <p><span class="zh">不只是更小的屏幕，而是位置、相机、通知与随身连接。</span><span class="en">Not just a smaller screen: location, camera, notifications, and always-on connection.</span></p>
+          </article>
+          <article class="era agent">
+            <span class="era-index">ERA / 03 · NOW</span>
+            <span class="era-arrow">↗</span>
+            <h3><span class="zh">智能体计算</span><span class="en">Agentic computing</span></h3>
+            <p><span class="zh">把编码、知识、数据和动作变成可委派能力；把“提示一次”升级成“持续运行一套方法”。</span><span class="en">Coding, knowledge, data, and action become delegable capabilities. A one-time prompt becomes a continuously operating method.</span></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="stack">
+        <div class="section-rule"><span>03</span><span class="signal">AGENT STACK</span></div>
+        <div class="micro-label synthesis"><span class="zh">结构化综合</span><span class="en">Structured synthesis</span></div>
+        <h2 id="stack"><span class="zh">六层智能栈：从灵魂到评估。</span><span class="en">A six-layer intelligence stack, from soul to evaluation.</span></h2>
+        <p class="section-lede"><span class="zh">这六层不是六个功能列表，而是一条依赖链。身份约束方法，方法选择工具，身份与任务共同收缩权限，触发器启动工作，评估把结果重新写回方法。</span><span class="en">These are not six independent features. They form a dependency chain: identity constrains method; method chooses tools; user and task scope authority; triggers start work; evaluations feed results back into the method.</span></p>
+        <div class="stack-wrap">
+          <div class="stack-list">
+            <article class="stack-layer" style="--layer-color: var(--violet);"><span class="layer-index">01</span><span class="layer-name">SOUL</span><span class="layer-question"><span class="zh">我是谁？用什么原则判断？</span><span class="en">Who am I, and what principles guide judgment?</span></span><span class="layer-status"></span></article>
+            <article class="stack-layer" style="--layer-color: var(--orange);"><span class="layer-index">02</span><span class="layer-name">SKILLS</span><span class="layer-question"><span class="zh">我们反复做对的方法是什么？</span><span class="en">What repeatable method does the company know?</span></span><span class="layer-status"></span></article>
+            <article class="stack-layer" style="--layer-color: var(--blue);"><span class="layer-index">03</span><span class="layer-name">TOOLS</span><span class="layer-question"><span class="zh">我能读取和改变哪些系统？</span><span class="en">Which systems can I read or change?</span></span><span class="layer-status"></span></article>
+            <article class="stack-layer" style="--layer-color: var(--yellow);"><span class="layer-index">04</span><span class="layer-name">PERMISSIONS</span><span class="layer-question"><span class="zh">这次能代表谁做到什么程度？</span><span class="en">Whom may I represent, and how far may I act?</span></span><span class="layer-status"></span></article>
+            <article class="stack-layer" style="--layer-color: var(--mint);"><span class="layer-index">05</span><span class="layer-name">TRIGGERS</span><span class="layer-question"><span class="zh">什么时间或事件应该启动工作？</span><span class="en">Which time or event should start the work?</span></span><span class="layer-status"></span></article>
+            <article class="stack-layer" style="--layer-color: var(--red);"><span class="layer-index">06</span><span class="layer-name">EVALS</span><span class="layer-question"><span class="zh">怎样证明新版比旧版更好？</span><span class="en">How do we prove the new version is better?</span></span><span class="layer-status"></span></article>
+          </div>
+          <aside class="formula-card" aria-label="Capability formula">
+            <div>
+              <div class="micro-label"><span class="zh">权限公式</span><span class="en">Authority formula</span></div>
+              <div class="formula">
+                <span class="zh">能力 = Skill ∩ 身份 ∩ 任务 ∩ 环境</span>
+                <span class="en">Authority = Skill ∩ Identity ∩ Task ∩ Environment</span>
+              </div>
+            </div>
+            <p><span class="zh">“Agent 有发布工具”不等于“当前用户能让 Agent 发布”。把交集做成产品逻辑，才能共享方法而不共享越权。</span><span class="en">An agent having a publishing tool does not mean the current user may publish through it. Productize the intersection so methods can be shared without sharing excess authority.</span></p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="architecture">
+        <div class="section-rule"><span>04</span><span class="signal">PRODUCT ARCHITECTURE</span></div>
+        <div class="micro-label video"><span class="zh">Vercel V 模式</span><span class="en">Vercel V pattern</span></div>
+        <h2 id="architecture"><span class="zh">产品上是一个 Agent，系统上是一支团队。</span><span class="en">One agent in the product, a team in the system.</span></h2>
+        <p class="section-lede"><span class="zh">“God Agent 还是多 Agent”不是二选一。员工需要一个无需学习路由规则的前门；执行层需要不同上下文、工具、成本和权限的专业能力。</span><span class="en">“God agent or many agents” is a false binary. Employees need one front door that hides routing complexity. Execution needs specialists with different contexts, tools, cost profiles, and authority.</span></p>
+        <div class="routing-map">
+          <div class="front-door"><div><strong>V</strong><span><span class="zh">统一意图入口</span><span class="en">Unified intent layer</span></span></div></div>
+          <div class="route-arrow" aria-hidden="true">⇄</div>
+          <div class="specialists">
+            <div class="specialist"><strong><span class="zh">知识专家</span><span class="en">Knowledge specialist</span></strong><span><span class="zh">文档、SOP、组织导航</span><span class="en">Docs, SOPs, org navigation</span></span></div>
+            <div class="specialist"><strong><span class="zh">数据专家</span><span class="en">Data specialist</span></strong><span><span class="zh">客户、产品、营收分析</span><span class="en">Customer, product, revenue analysis</span></span></div>
+            <div class="specialist"><strong><span class="zh">编码专家</span><span class="en">Coding specialist</span></strong><span><span class="zh">修改软件与自动化流程</span><span class="en">Software changes and automation</span></span></div>
+            <div class="specialist"><strong><span class="zh">内容专家</span><span class="en">Content specialist</span></strong><span><span class="zh">从工程事实到市场表达</span><span class="en">Engineering facts to market language</span></span></div>
+            <div class="specialist"><strong><span class="zh">权限代理</span><span class="en">Authority broker</span></strong><span><span class="zh">身份传播、审批、最小权限</span><span class="en">Identity, approval, least privilege</span></span></div>
+            <div class="specialist output"><strong><span class="zh">统一结果</span><span class="en">Unified result</span></strong><span><span class="zh">证据、责任、回滚路径</span><span class="en">Evidence, accountability, rollback</span></span></div>
+          </div>
+        </div>
+        <div class="bento" style="margin-top: 16px;">
+          <article class="panel span-5"><div class="micro-label design"><span class="zh">前门职责</span><span class="en">Front-door duties</span></div><h3><span class="zh">理解目标，而不是假装全能。</span><span class="en">Understand intent; do not pretend omnipotence.</span></h3><p><span class="zh">前门要分解任务、选择专家、保留上下文、解释委派，并合成最终答案。它不应该拥有所有工具的永久权限。</span><span class="en">The front door decomposes work, chooses specialists, preserves context, explains delegation, and synthesizes the result. It should not permanently own every tool permission.</span></p></article>
+          <article class="panel span-7"><div class="micro-label synthesis"><span class="zh">真正的工程难题</span><span class="en">The real engineering problem</span></div><h3><span class="zh">交接时，身份与责任不能丢。</span><span class="en">Identity and accountability must survive every handoff.</span></h3><p><span class="zh">多 Agent 的难点不是“会不会调用”，而是任务状态、身份声明、最小权限、证据链和失败恢复能否跨边界保持一致。没有这些，统一入口只是把复杂性藏起来，而不是解决它。</span><span class="en">The hard part of multi-agent systems is not whether one agent can call another. Task state, identity claims, least privilege, evidence, and recovery must remain coherent across boundaries. Otherwise the front door only hides complexity.</span></p></article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="proactivity">
+        <div class="section-rule"><span>05</span><span class="signal">PROACTIVITY LOOP</span></div>
+        <div class="micro-label synthesis"><span class="zh">从提示到运营</span><span class="en">From prompting to operations</span></div>
+        <h2 id="proactivity"><span class="zh">主动不是自由发挥，而是闭环运行。</span><span class="en">Proactivity is not free-form autonomy. It is a closed loop.</span></h2>
+        <p class="section-lede"><span class="zh">当 Agent 在夜间扫描机会、响应事件、主动总结时，价值从“回答速度”迁移到“发现本来不会被问到的问题”。但主动性必须绑定证据、复核和 Eval。</span><span class="en">When an agent scans overnight, responds to events, and summarizes without being asked, value shifts from answer speed to discovering questions no one would have remembered to ask. That proactivity must remain coupled to evidence, review, and evaluation.</span></p>
+        <div class="loop" aria-label="Proactivity lifecycle">
+          <div class="loop-step"><b>01</b><strong><span class="zh">触发</span><span class="en">Trigger</span></strong><span><span class="zh">时间、邮件、退款、指标异常</span><span class="en">Time, email, refund, metric anomaly</span></span></div>
+          <div class="loop-step"><b>02</b><strong><span class="zh">工作</span><span class="en">Work</span></strong><span><span class="zh">调用边界明确的 Skill</span><span class="en">Invoke a bounded skill</span></span></div>
+          <div class="loop-step"><b>03</b><strong><span class="zh">证据</span><span class="en">Evidence</span></strong><span><span class="zh">附来源、时间与不确定性</span><span class="en">Attach source, time, uncertainty</span></span></div>
+          <div class="loop-step"><b>04</b><strong><span class="zh">复核</span><span class="en">Review</span></strong><span><span class="zh">批准、拒绝或请求补充</span><span class="en">Approve, reject, or request more</span></span></div>
+          <div class="loop-step"><b>05</b><strong><span class="zh">评估</span><span class="en">Evaluate</span></strong><span><span class="zh">把失败变成回归样本</span><span class="en">Turn failure into regression cases</span></span></div>
+          <div class="loop-step"><b>06</b><strong><span class="zh">更新</span><span class="en">Update</span></strong><span><span class="zh">修订 Skill，而非只修提示</span><span class="en">Revise the skill, not only the prompt</span></span></div>
+        </div>
+        <div class="trigger-grid">
+          <article class="trigger-card"><div class="trigger-time">23:00</div><div><strong><span class="zh">夜间机会扫描</span><span class="en">Overnight opportunity scan</span></strong><p><span class="zh">读取社交反馈与产品信号，早晨交付带来源的机会清单。</span><span class="en">Read social and product signals; deliver a sourced opportunity brief by morning.</span></p></div></article>
+          <article class="trigger-card"><div class="trigger-time">EVENT</div><div><strong><span class="zh">退款风险分级</span><span class="en">Refund risk triage</span></strong><p><span class="zh">分析原因并建议动作，但不自动退款。</span><span class="en">Analyze cause and recommend action, without issuing the refund.</span></p></div></article>
+          <article class="trigger-card"><div class="trigger-time">SHIP</div><div><strong><span class="zh">产品变更转表达</span><span class="en">Product change to narrative</span></strong><p><span class="zh">把工程细节提炼为业务收益、成本和采用方式。</span><span class="en">Translate engineering detail into benefit, cost, and adoption steps.</span></p></div></article>
+          <article class="trigger-card"><div class="trigger-time">FEED</div><div><strong><span class="zh">反馈进入 Eval</span><span class="en">Feedback into evals</span></strong><p><span class="zh">点踩与纠错经过脱敏，形成下一版必须通过的测试。</span><span class="en">Sanitized corrections become tests the next version must pass.</span></p></div></article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="governance">
+        <div class="section-rule"><span>06</span><span class="signal">PERMISSION DESIGN</span></div>
+        <div class="micro-label synthesis"><span class="zh">现实约束</span><span class="en">Operational constraint</span></div>
+        <h2 id="governance"><span class="zh">共享 Skill，不共享越权。</span><span class="en">Share the skill, not the excess authority.</span></h2>
+        <p class="section-lede"><span class="zh">团队希望复用同一种高质量方法，但个人邮箱、客户数据和发布凭据不能因此扩散。权限必须跟随身份和任务，而不是永久附着在 Agent 名字上。</span><span class="en">Teams want to reuse the same high-quality method, but personal email, customer data, and publishing credentials must not spread with it. Authority should follow identity and task—not remain permanently attached to the agent's name.</span></p>
+        <div class="permission-table" role="region" aria-label="Permission matrix" tabindex="0">
+          <table>
+            <caption><span class="zh">身份 × 动作权限矩阵</span><span class="en">Identity × action permission matrix</span></caption>
+            <thead><tr><th><span class="zh">身份</span><span class="en">Identity</span></th><th><span class="zh">读取资料</span><span class="en">Read sources</span></th><th><span class="zh">生成草稿</span><span class="en">Draft</span></th><th><span class="zh">修改 CMS</span><span class="en">Edit CMS</span></th><th><span class="zh">对外发布</span><span class="en">Publish</span></th><th><span class="zh">客户数据</span><span class="en">Customer data</span></th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><span class="zh">实习生</span><span class="en">Intern</span></th><td class="yes"><span class="zh">公共资料 ✓</span><span class="en">PUBLIC ✓</span></td><td class="yes"><span class="zh">是 ✓</span><span class="en">YES ✓</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td></tr>
+              <tr><th scope="row"><span class="zh">内容编辑</span><span class="en">Editor</span></th><td class="yes"><span class="zh">内部资料 ✓</span><span class="en">INTERNAL ✓</span></td><td class="yes"><span class="zh">是 ✓</span><span class="en">YES ✓</span></td><td class="gate"><span class="zh">仅草稿</span><span class="en">DRAFT ONLY</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td></tr>
+              <tr><th scope="row"><span class="zh">内容负责人</span><span class="en">Content lead</span></th><td class="yes"><span class="zh">内部资料 ✓</span><span class="en">INTERNAL ✓</span></td><td class="yes"><span class="zh">是 ✓</span><span class="en">YES ✓</span></td><td class="yes"><span class="zh">是 ✓</span><span class="en">YES ✓</span></td><td class="yes"><span class="zh">是 ✓</span><span class="en">YES ✓</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td></tr>
+              <tr><th scope="row"><span class="zh">客户团队代理</span><span class="en">Account agent</span></th><td class="gate"><span class="zh">授权范围</span><span class="en">SCOPED</span></td><td class="yes"><span class="zh">仅摘要 ✓</span><span class="en">SUMMARY ✓</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td><td class="no"><span class="zh">否</span><span class="en">NO</span></td><td class="gate"><span class="zh">最小必要</span><span class="en">MINIMUM</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="risk-note"><div class="risk-icon">⚠</div><div><strong><span class="zh">公司脑也可能变成公司监控系统。</span><span class="en">A company brain can become a company surveillance system.</span></strong><p><span class="zh">连接邮件、客户、代码和社交信号之前，必须定义目的限制、保留周期、员工可见性、访问审计和删除权。技术可连接，不代表组织应连接。</span><span class="en">Before connecting email, customer, code, and social signals, define purpose limitation, retention, employee visibility, access audit, and deletion rights. Technical connectability is not organizational legitimacy.</span></p></div></div>
+      </section>
+
+      <section class="section" aria-labelledby="roadmap">
+        <div class="section-rule"><span>07</span><span class="signal">30-DAY TRACER BULLET</span></div>
+        <div class="micro-label design"><span class="zh">落地路线</span><span class="en">Implementation route</span></div>
+        <h2 id="roadmap"><span class="zh">别先造万能 Agent。先闭合一条可信回路。</span><span class="en">Do not start with a universal agent. Close one trustworthy loop.</span></h2>
+        <p class="section-lede"><span class="zh">访谈给出的起点是“秘方”：你做得很好、却耗时、而且希望多做的事情。下面把它压缩成 30 天 tracer bullet。</span><span class="en">The interview's starting point is a “secret sauce”: something the company does unusually well, that consumes time, and that it wants to do more often. Here is a 30-day tracer bullet.</span></p>
+        <div class="roadmap">
+          <article class="week"><span class="week-num">WEEK 01</span><h3><span class="zh">捕获一种方法</span><span class="en">Capture one method</span></h3><p><span class="zh">选择高频、耗时、规则稳定、输出可复核的工作。</span><span class="en">Choose frequent, costly work with a stable method and reviewable output.</span></p><ul><li><span class="zh">收集 5 个真实输入</span><span class="en">Collect five real inputs</span></li><li><span class="zh">保留优秀与失败输出</span><span class="en">Keep strong and failed outputs</span></li><li><span class="zh">写出判断顺序</span><span class="en">Write the decision sequence</span></li></ul><div class="done-line"><span class="zh">完成：新人可完成 70%</span><span class="en">DONE: a newcomer reaches 70%</span></div></article>
+          <article class="week"><span class="week-num">WEEK 02</span><h3><span class="zh">一个渠道，一个只读源</span><span class="en">One channel, one read-only source</span></h3><p><span class="zh">从员工已经工作的地方进入，减少学习新界面的成本。</span><span class="en">Enter where employees already work and avoid teaching another interface.</span></p><ul><li><span class="zh">Slack / Teams 前门</span><span class="en">Slack or Teams front door</span></li><li><span class="zh">单一高价值数据源</span><span class="en">One high-value source</span></li><li><span class="zh">每次附证据</span><span class="en">Attach evidence every time</span></li></ul><div class="done-line"><span class="zh">完成：8/10 正确路由</span><span class="en">DONE: 8/10 requests routed correctly</span></div></article>
+          <article class="week"><span class="week-num">WEEK 03</span><h3><span class="zh">身份、审批、回滚</span><span class="en">Identity, approval, rollback</span></h3><p><span class="zh">把草拟、修改和发布拆开，让拒绝也成为清晰体验。</span><span class="en">Separate drafting, editing, and publishing; make denial a clear experience.</span></p><ul><li><span class="zh">三种身份测试</span><span class="en">Test three identities</span></li><li><span class="zh">高风险动作需确认</span><span class="en">Confirm high-impact action</span></li><li><span class="zh">记录回滚路径</span><span class="en">Record rollback path</span></li></ul><div class="done-line"><span class="zh">完成：边界与角色一致</span><span class="en">DONE: boundaries match roles</span></div></article>
+          <article class="week"><span class="week-num">WEEK 04</span><h3><span class="zh">一个 Trigger，一组 Eval</span><span class="en">One trigger, one eval set</span></h3><p><span class="zh">先选低风险夜间汇总，让无人提示的成果仍可拒绝、可审计。</span><span class="en">Start with a low-risk overnight brief that remains reviewable and rejectable.</span></p><ul><li><span class="zh">定时启动</span><span class="en">Scheduled start</span></li><li><span class="zh">失败变回归测试</span><span class="en">Failures become regression tests</span></li><li><span class="zh">每周只升级一个 Skill</span><span class="en">Upgrade one skill per week</span></li></ul><div class="done-line"><span class="zh">完成：可信主动成果</span><span class="en">DONE: trustworthy proactive output</span></div></article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="models">
+        <div class="section-rule"><span>08</span><span class="signal">MODEL ROUTING</span></div>
+        <div class="micro-label video"><span class="zh">未来部分</span><span class="en">Future section</span></div>
+        <h2 id="models"><span class="zh">实时任务买速度，异步任务买准确。</span><span class="en">Buy speed for interaction; accuracy for asynchronous work.</span></h2>
+        <p class="section-lede"><span class="zh">模型选择不是忠诚度测试，而是服务级别设计。数据、Skill、Eval 与路由留在公司手里，模型才能成为可替换执行层。</span><span class="en">Model choice is not a loyalty test; it is service-level design. Keep data, skills, evaluations, and routing inside the company so models remain replaceable execution layers.</span></p>
+        <div class="matrix" aria-label="Model routing matrix">
+          <div></div><div class="axis"><span class="zh">低延迟优先</span><span class="en">Low latency</span></div><div class="axis"><span class="zh">深度推理优先</span><span class="en">Deep reasoning</span></div>
+          <div class="axis vertical"><span class="zh">交互</span><span class="en">Interactive</span></div>
+          <article class="quadrant featured"><h3><span class="zh">协作线程 / 客服</span><span class="en">Collaboration / support</span></h3><p><span class="zh">用户在另一端等待。用快模型、短上下文、明确工具边界与渐进式结果。</span><span class="en">A person is waiting. Use a fast model, short context, strict tool boundaries, and progressive results.</span></p><span class="q-model">FAST WORKHORSE</span></article>
+          <article class="quadrant"><h3><span class="zh">实时高风险判断</span><span class="en">Real-time high-stakes judgment</span></h3><p><span class="zh">不要只堆推理；先降低动作权限，并要求证据与人工确认。</span><span class="en">Do not only add reasoning. Reduce authority and require evidence plus human confirmation.</span></p><span class="q-model">FRONTIER + GATE</span></article>
+          <div class="axis vertical"><span class="zh">异步</span><span class="en">Asynchronous</span></div>
+          <article class="quadrant"><h3><span class="zh">批量处理</span><span class="en">Batch processing</span></h3><p><span class="zh">容忍延迟，优化单位成本和吞吐；让闲置算力填单。</span><span class="en">Tolerate delay, optimize unit economics and throughput, and let spare capacity fill the order.</span></p><span class="q-model">BATCH MARKET</span></article>
+          <article class="quadrant featured"><h3><span class="zh">夜间机会扫描</span><span class="en">Overnight opportunity scan</span></h3><p><span class="zh">允许多个模型提出不同观点，再由独立汇总器比较证据、冲突与未知。</span><span class="en">Let several models form independent views, then use a separate synthesizer to compare evidence, conflicts, and unknowns.</span></p><span class="q-model">MODEL CONSORTIUM</span></article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="chapters">
+        <div class="section-rule"><span>09</span><span class="signal">SOURCE NAVIGATION</span></div>
+        <div class="micro-label video"><span class="zh">上传者章节</span><span class="en">Uploader chapters</span></div>
+        <h2 id="chapters"><span class="zh">从结论跳回证据。</span><span class="en">Jump from synthesis back to source.</span></h2>
+        <p class="section-lede"><span class="zh">下列 10 个时间点来自上传者视频描述，而非自动推测。每张卡都直接打开对应原片位置。</span><span class="en">These ten timestamps come from the uploader's description, not inferred segmentation. Every card opens the matching position in the original video.</span></p>
+        <div class="chapters">
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=0s" target="_blank" rel="noopener"><span class="chapter-time">00:00</span><span><span class="chapter-title">Intro</span><span class="chapter-question"><span class="zh">公司为什么需要自己的智能入口？</span><span class="en">Why does a company need its own intelligence layer?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=81s" target="_blank" rel="noopener"><span class="chapter-time">01:21</span><span><span class="chapter-title">The State of Agent Adoption</span><span class="chapter-question"><span class="zh">两类杀手应用如何出现？</span><span class="en">How do the two killer apps emerge?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=446s" target="_blank" rel="noopener"><span class="chapter-time">07:26</span><span><span class="chapter-title">“V” — Vercel's Internal Agent</span><span class="chapter-question"><span class="zh">近千名员工怎样共用 V？</span><span class="en">How do nearly 1,000 employees share V?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=618s" target="_blank" rel="noopener"><span class="chapter-time">10:18</span><span><span class="chapter-title">Building V and the Eve Framework</span><span class="chapter-question"><span class="zh">内部实践怎样产品化？</span><span class="en">How does internal practice become a product?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=872s" target="_blank" rel="noopener"><span class="chapter-time">14:32</span><span><span class="chapter-title">OpenClaw: Soul MD + Computer Use</span><span class="chapter-question"><span class="zh">身份与完整计算环境有什么作用？</span><span class="en">Why do identity and a full computer matter?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=1340s" target="_blank" rel="noopener"><span class="chapter-time">22:20</span><span><span class="chapter-title">One God Agent or a Team?</span><span class="chapter-question"><span class="zh">一个入口与多专家如何兼得？</span><span class="en">How can one door and many experts coexist?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=1631s" target="_blank" rel="noopener"><span class="chapter-time">27:11</span><span><span class="chapter-title">Skills, Tools &amp; Permissions</span><span class="chapter-question"><span class="zh">怎样拆开方法、动作与授权？</span><span class="en">How do method, action, and authority separate?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=2032s" target="_blank" rel="noopener"><span class="chapter-time">33:52</span><span><span class="chapter-title">Triggers &amp; Self-Improvement</span><span class="chapter-question"><span class="zh">Agent 怎样主动并持续变好？</span><span class="en">How does an agent act proactively and improve?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=2430s" target="_blank" rel="noopener"><span class="chapter-time">40:30</span><span><span class="chapter-title">Who Will Build Agents?</span><span class="chapter-question"><span class="zh">谁来构建，应该从哪里开始？</span><span class="en">Who builds them, and where should they start?</span></span></span><span class="chapter-go">↗</span></a>
+          <a class="chapter-link" href="https://www.youtube.com/watch?v=HQXi4snP36I&amp;t=2782s" target="_blank" rel="noopener"><span class="chapter-time">46:22</span><span><span class="chapter-title">The Future</span><span class="chapter-question"><span class="zh">成本、速度与开放模型会改变什么？</span><span class="en">What change follows cheaper, faster, open models?</span></span></span><span class="chapter-go">↗</span></a>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="verdict">
+        <div class="section-rule"><span>10</span><span class="signal">EDITORIAL VERDICT</span></div>
+        <div class="micro-label synthesis"><span class="zh">独立判断</span><span class="en">Independent assessment</span></div>
+        <h2 id="verdict"><span class="zh">最值得带走的，不是某个 Agent 产品。</span><span class="en">The most valuable takeaway is not a specific agent product.</span></h2>
+        <p class="section-lede"><span class="zh">真正值得复制的是组织设计：把隐性方法变成 Skill，把能力与授权拆开，把统一体验建立在专业执行之上，再用 Eval 让系统持续变好。</span><span class="en">What deserves replication is the organizational design: turn tacit methods into skills, separate capability from authority, place a unified experience over specialist execution, and use evaluations to make the system improve.</span></p>
+        <div class="verdict-grid">
+          <article class="verdict good"><h3><span class="zh">这套叙事最强的三点</span><span class="en">Where the thesis is strongest</span></h3><ol><li><strong><span class="zh">Skill 是可累积的公司 IP。</span><span class="en">Skills are compounding company IP.</span></strong> <span class="zh">它把专家经验从个人记忆变成可测试资产。</span><span class="en">They turn expert memory into a testable asset.</span></li><li><strong><span class="zh">一个入口与多 Agent 解耦。</span><span class="en">One interface is decoupled from many agents.</span></strong> <span class="zh">统一体验不必牺牲执行边界。</span><span class="en">A unified experience need not erase execution boundaries.</span></li><li><strong><span class="zh">速度与准确成为两种模式。</span><span class="en">Speed and accuracy become separate modes.</span></strong> <span class="zh">模型路由终于服从工作，而不是品牌。</span><span class="en">Routing serves the work rather than the brand.</span></li></ol></article>
+          <article class="verdict gap"><h3><span class="zh">仍然欠账的四件事</span><span class="en">What remains unresolved</span></h3><ol><li><strong><span class="zh">效果归因：</span><span class="en">Causal impact:</span></strong> <span class="zh">省时不等于创造价值。</span><span class="en">saving time is not the same as creating value.</span></li><li><strong><span class="zh">组织激励：</span><span class="en">Incentives:</span></strong> <span class="zh">谁贡献方法，谁拥有与维护？</span><span class="en">who contributes, owns, and maintains the method?</span></li><li><strong><span class="zh">监控边界：</span><span class="en">Surveillance:</span></strong> <span class="zh">连接越多，治理责任越重。</span><span class="en">more connections create more governance duty.</span></li><li><strong><span class="zh">故障隔离：</span><span class="en">Fault isolation:</span></strong> <span class="zh">统一入口也可能成为统一故障域。</span><span class="en">one front door can become one failure domain.</span></li></ol></article>
+        </div>
+
+        <div class="memo">
+          <div class="micro-label"><span class="zh">周一早晨备忘</span><span class="en">Monday morning memo</span></div>
+          <h3><span class="zh">如果今天开始，只做这五件事。</span><span class="en">If you start today, do only these five things.</span></h3>
+          <ol>
+            <li><span class="zh">挑一种团队秘方，不挑“万能 Agent”平台。</span><span class="en">Pick one company method, not a universal-agent platform.</span></li>
+            <li><span class="zh">收集五个真实输入、优秀输出和失败边界。</span><span class="en">Collect five real inputs, strong outputs, and failure boundaries.</span></li>
+            <li><span class="zh">先接一个只读数据源，并让每个结论带证据。</span><span class="en">Connect one read-only source and require evidence for every claim.</span></li>
+            <li><span class="zh">用三种身份测试同一个 Skill 的权限差异。</span><span class="en">Test the same skill under three identities.</span></li>
+            <li><span class="zh">把本周第一个失败变成下周必须通过的 Eval。</span><span class="en">Turn the first failure this week into an eval for next week.</span></li>
+          </ol>
+          <button class="copy-memo" type="button" id="copyMemo"><span class="zh">复制这份备忘</span><span class="en">Copy this memo</span></button>
+        </div>
+
+        <div class="method" aria-label="Source fidelity">
+          <article class="method-card"><b>L1 · METADATA</b><p><span class="zh">标题、频道、日期、时长与章节来自上传者元数据。</span><span class="en">Title, channel, date, duration, and chapters come from uploader metadata.</span></p></article>
+          <article class="method-card"><b>L2 · AUTO CAPTIONS</b><p><span class="zh">自动字幕用于定位主题；未复刻完整逐字稿。</span><span class="en">Auto captions support topic location; no full transcript is reproduced.</span></p></article>
+          <article class="method-card"><b>L3 · SYNTHESIS</b><p><span class="zh">六层栈、30 天路线与批判部分是结构化分析。</span><span class="en">The six-layer stack, roadmap, and critique are structured analysis.</span></p></article>
+          <article class="method-card"><b>L4 · PATRICK LENS</b><p><span class="zh">个人关联来自本机已验证的 Skill 与 Vault 路径，不归因给视频嘉宾。</span><span class="en">Personal mappings come from verified local skill and Vault paths and are not attributed to the guest.</span></p></article>
+          <article class="method-card"><b>L5 · QUOTE INTEGRITY</b><p><span class="zh">仅 VERBATIM 卡承诺逐字匹配；所有编辑总结均标 PARAPHRASE。</span><span class="en">Only VERBATIM cards claim exact wording; every editorial summary is labeled PARAPHRASE.</span></p></article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="patrick">
+        <div class="section-rule"><span>11</span><span class="signal">PATRICK LENS</span></div>
+        <div class="micro-label synthesis"><span class="zh">个人工作图谱映射</span><span class="en">Personal work-graph mapping</span></div>
+        <h2 id="patrick"><span class="zh">这支视频，如何接进 Patrick 已有的系统？</span><span class="en">How does this video connect to Patrick's existing system?</span></h2>
+        <p class="section-lede"><span class="zh">这不是在声称“Patrick 说过什么”，而是把视频原则映射到本机已安装的 Hermes Skills、Obsidian 笔记与 Loop OS。每张卡都标明当前状态，避免把目标架构写成已上线事实。</span><span class="en">This does not attribute views to Patrick. It maps video principles onto locally installed Hermes skills, Obsidian notes, and the Loop OS. Every card carries a status so target architecture is not confused with a live deployment.</span></p>
+        <div class="lens-note"><span class="evidence-badge lens">PATRICK LENS</span> <span class="zh">以下均为个人化综合，不是视频原话。状态：<b>LIVE</b> = skill 已安装可用；<b>REFERENCE</b> = 有配置或设计资产，但此视频流程中的实际调用未证实；<b>GAP</b> = 仍需建设。</span><span class="en">Everything below is personalized synthesis, not source speech. Status: <b>LIVE</b> means the skill is installed; <b>REFERENCE</b> means design/config assets exist but active use in this pipeline is unverified; <b>GAP</b> means work remains.</span></div>
+        <div class="patrick-grid">
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge live">LIVE</span><span class="micro-label">01 · COMPANY METHOD</span></div><h3><span class="zh">把专家秘方变成可执行 Skill</span><span class="en">Turn expert method into an executable skill</span></h3><p><span class="zh">视频强调 Skill 是公司 IP；本地的 SOP 转 Agent 与 skillify 正好承担“抽取方法 → 明确边界 → 可重复执行”。</span><span class="en">The video frames skills as company IP; the local SOP-to-agent and skillify capabilities cover method extraction, boundaries, and repeatable execution.</span></p><span class="mapping-arrow">VIDEO PRINCIPLE → LOCAL CAPABILITY</span><code class="skill-path">autonomous-ai-agents/sop-to-agentic-workflow · skillify</code></article>
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge live">LIVE</span><span class="micro-label">02 · ONE FRONT DOOR</span></div><h3><span class="zh">一个入口，幕后多专家</span><span class="en">One front door over many specialists</span></h3><p><span class="zh">视频里的 V 是统一入口，而非万能执行器；本地编排 Skill 可把 transcript、金句、关联、行动、QA 分给不同 specialist，再统一汇总。</span><span class="en">V is a unified entrance rather than a universal executor; the local orchestration skill can route transcript, quote, mapping, action, and QA work to specialists and synthesize one result.</span></p><span class="mapping-arrow">FRONT DOOR → ROUTED SPECIALISTS</span><code class="skill-path">autonomous-ai-agents/agent-orchestration</code></article>
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge live">LIVE</span><span class="micro-label">03 · APPROVAL</span></div><h3><span class="zh">把高成本错误放进人工签核区</span><span class="en">Put costly errors inside human validation zones</span></h3><p><span class="zh">工具能力与用户权限必须拆开。发布、发送、删除和对外承诺进入审批区；只读检索与草稿生成可低摩擦运行。</span><span class="en">Capability and authority remain separate. Publishing, sending, deletion, and external commitments require approval; read-only retrieval and drafting can stay low-friction.</span></p><span class="mapping-arrow">TOOL ≠ PERMISSION</span><code class="skill-path">autonomous-ai-agents/human-validation-zones</code></article>
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge live">LIVE</span><span class="micro-label">04 · TRIGGERS</span></div><h3><span class="zh">主动性建立在 Trigger 与可恢复状态上</span><span class="en">Proactivity rests on triggers and recoverable state</span></h3><p><span class="zh">本地 proactive Skill 已覆盖 trigger、WAL 与上下文恢复；适合先从新 URL 入队或定时 heartbeat 这类低风险事件开始。</span><span class="en">The local proactive skill covers triggers, a write-ahead log, and context recovery; start with low-risk events such as a queued URL or scheduled heartbeat.</span></p><span class="mapping-arrow">EVENT → WORK → EVIDENCE</span><code class="skill-path">productivity/hermes-proactive</code></article>
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge live">LIVE</span><span class="micro-label">05 · AUDIT</span></div><h3><span class="zh">每次判断都留下证据与失败轨迹</span><span class="en">Leave evidence and a failure trail for every judgment</span></h3><p><span class="zh">可观测性负责 action trace 与 watchdog；judgment log 记录为什么做出判断。两者合起来，失败才有机会变成下一轮测试。</span><span class="en">Observability supplies action traces and watchdogs; the judgment log records why a decision was made. Together they turn failures into test material.</span></p><span class="mapping-arrow">FAILURE → JUDGMENT LOG</span><code class="skill-path">autonomous-ai-agents/agent-observability · judgment-log</code></article>
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge live">LIVE</span><span class="micro-label">06 · EVAL</span></div><h3><span class="zh">改进 Skill，而不是只修一次输出</span><span class="en">Improve the skill, not only one output</span></h3><p><span class="zh">这正对应本地 eval-driven-improvement：把原句核对、时间戳、双语配对、TOC 锚点和磁盘链接写成可重复验收。</span><span class="en">This maps directly to eval-driven improvement: make quote fidelity, timestamps, bilingual pairing, TOC anchors, and on-disk links repeatable acceptance checks.</span></p><span class="mapping-arrow">FEEDBACK → REGRESSION EVAL</span><code class="skill-path">eval-driven-improvement</code></article>
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge live">LIVE</span><span class="micro-label">07 · LOOP OS</span></div><h3><span class="zh">从洞见进入 Capture → Act 闭环</span><span class="en">Move insight into the Capture → Act loop</span></h3><p><span class="zh">Patrick's Vault OS 把视频洞见从“收藏”推进到 Observe、Orient、Decide 与 Act，并要求行动带 owner、证据、阈值和回滚。</span><span class="en">Patrick's Vault OS moves a saved insight through Observe, Orient, Decide, and Act, with an owner, evidence, threshold, and rollback for each action.</span></p><span class="mapping-arrow">INSIGHT → INSPECTABLE MISSION</span><code class="skill-path">patricks-vault-os</code></article>
+          <article class="patrick-card"><div class="card-meta"><span class="status-badge reference">REFERENCE</span><span class="micro-label">08 · MODEL ROUTING</span></div><h3><span class="zh">路由资产存在，但本流程是否启用未证实</span><span class="en">Routing assets exist; active use here is unverified</span></h3><p><span class="zh">本机有路由配置和 48 条模型指标记录；但尚未证明当前视频管线实际经过该 router，因此诚实标为 REFERENCE，而不是 LIVE。</span><span class="en">A routing config and 48 model-metric records exist locally, but this video pipeline has not been proven to use that router; the honest status is REFERENCE, not LIVE.</span></p><span class="mapping-arrow">CONFIG EXISTS → SHADOW TEST NEXT</span><code class="skill-path">autonomous-ai-agents/hermes-model-router</code></article>
+        </div>
+        <div class="vault-grid" aria-label="Verified Obsidian cross references">
+          <div class="vault-ref" title="llm-wiki/papers/opensquilla-metaskill-skill-2-0/index.md"><b>MetaSkill / Skill 2.0</b><span class="zh">Skill 组合、蒸馏与微内核编排</span><span class="en">Skill composition, distillation, microkernel orchestration</span></div>
+          <div class="vault-ref" title="llm-wiki/papers/hybrid-llm-routing-framework/index.md"><b>Hybrid LLM Routing</b><span class="zh">低延迟与异步高准确的路由框架</span><span class="en">Routing for low latency vs. async accuracy</span></div>
+          <div class="vault-ref" title="llm-wiki/papers/claude-containment-stack-11-rules/index.md"><b>Containment Stack</b><span class="zh">身份、凭证、记忆与审计边界</span><span class="en">Identity, credential, memory, and audit boundaries</span></div>
+          <div class="vault-ref" title="llm-wiki/papers/ooda-loop-infinite-brain-ai-impact/index.md"><b>OODA Loop</b><span class="zh">触发、工作、证据、评估、更新闭环</span><span class="en">Trigger, work, evidence, eval, update loop</span></div>
+          <div class="vault-ref" title="llm-wiki/papers/openai-fde-40-billion-silicon-valley-101/index.md"><b>FDE / Expert Method</b><span class="zh">把专家做法沉淀为可复用资产</span><span class="en">Capture expert method as reusable assets</span></div>
+          <div class="vault-ref" title="llm-wiki/papers/openclaw-on-steroids-multi-agent-latent/index.md"><b>Multi-Agent Latent</b><span class="zh">多专家协作；仅作同源警示，不等同 V 架构</span><span class="en">Specialist collaboration; analogy only, not V-equivalent</span></div>
+          <div class="vault-ref" title="llm-wiki/papers/ai-native-org-structure-2026-07-14/index.md"><b>AI-Native Org</b><span class="zh">Trainer / Auditor / Owner 内部框架，原笔记待核验</span><span class="en">Trainer / Auditor / Owner internal frame, source note flagged TO VERIFY</span></div>
+          <div class="vault-ref" title="agency-wiki/hermes-openclaw-comparison.md"><b>Hermes ↔ OpenClaw</b><span class="zh">个人 OS、多 Agent 平台与可观测性差距</span><span class="en">Personal OS, multi-agent platform, observability gaps</span></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="action">
+        <div class="section-rule"><span>12</span><span class="signal">ACTION COCKPIT</span></div>
+        <div class="micro-label design"><span class="zh">下一步行动</span><span class="en">Next actions</span></div>
+        <h2 id="action"><span class="zh">不要再收藏一遍：把洞见变成七个有门槛的动作。</span><span class="en">Do not merely save the insight again. Turn it into seven gated actions.</span></h2>
+        <p class="section-lede"><span class="zh">优先级按 Patrick's Vault OS 排列。每项都包含负责人、产物、完成阈值、证据与回滚；勾选状态只保存在这台浏览器中。</span><span class="en">Priorities follow Patrick's Vault OS. Every item has an owner, artifact, done threshold, evidence, and rollback. Checkmarks persist only in this browser.</span></p>
+        <div class="action-toolbar">
+          <div class="action-summary"><div class="progress-ring" id="actionProgress" data-label="0/7" aria-label="Action progress"></div><div><b><span class="zh">行动进度</span><span class="en">Action progress</span></b><div class="micro-label" id="actionProgressText"><span class="zh">0 已完成 · 7 待办</span><span class="en">0 complete · 7 open</span></div></div></div>
+          <div class="filter-group"><button class="mini-btn" type="button" id="copyActions"><span class="zh">复制 Markdown</span><span class="en">Copy Markdown</span></button><button class="mini-btn" type="button" id="resetActions"><span class="zh">重置</span><span class="en">Reset</span></button></div>
+        </div>
+        <div class="action-grid">
+          <article class="action-card" data-action="pilot-contract"><input class="action-check" type="checkbox" data-action-id="pilot-contract" aria-label="Complete pilot contract"><div class="card-meta"><span class="priority-badge p0">P0 · TODAY</span><span class="micro-label">01</span></div><h3><span class="zh">写 V-style Pilot Contract</span><span class="en">Write the V-style pilot contract</span></h3><p><span class="zh">把 YouTube → 双语 Obsidian Dashboard 定义成一个有输入、输出、允许路径与禁止项的可重跑任务。</span><span class="en">Define YouTube → bilingual Obsidian dashboard as a repeatable task with inputs, outputs, allowed paths, and prohibitions.</span></p><div class="micro-step"><b>30 SEC</b> · <span class="zh">新建 contract 标题，先写四行：URL / 输出 slug / 可写路径 / 禁止发布。</span><span class="en">Create the contract heading and write four lines: URL, output slug, writable path, no publishing.</span></div><ul class="action-spec"><li><b>Owner</b> · Patrick</li><li><b>Artifact</b> · <code>pilot-contract.md</code></li><li><b>Done</b> · <span class="zh">同 URL 重跑，结构稳定</span><span class="en">same URL reruns with stable structure</span></li><li><b>Evidence</b> · <span class="zh">两次产物结构 diff</span><span class="en">structure diff across two runs</span></li><li><b>Rollback</b> · <span class="zh">恢复为只读草稿</span><span class="en">return to read-only draft mode</span></li></ul></article>
+          <article class="action-card" data-action="five-evals"><input class="action-check" type="checkbox" data-action-id="five-evals" aria-label="Complete five evals"><div class="card-meta"><span class="priority-badge p0">P0 · TODAY</span><span class="micro-label">02</span></div><h3><span class="zh">建立最小 5-Eval Contract</span><span class="en">Build the minimum five-eval contract</span></h3><p><span class="zh">把“看起来不错”替换为五个硬检查：原话、时间戳、双语、TOC、磁盘链接。</span><span class="en">Replace “looks good” with five hard checks: verbatim quote, timestamp, bilingual pairing, TOC, and on-disk links.</span></p><div class="micro-step"><b>30 SEC</b> · <span class="zh">复制五项检查，给每项写 PASS/FAIL。</span><span class="en">Copy the five checks and add PASS/FAIL to each.</span></div><ul class="action-spec"><li><b>Owner</b> · Hermes QA</li><li><b>Artifact</b> · <code>eval-contract.md</code></li><li><b>Done</b> · 5/5 PASS</li><li><b>Evidence</b> · <span class="zh">可重复验证输出</span><span class="en">repeatable validation output</span></li><li><b>Rollback</b> · <span class="zh">标记草稿，不同步 Vault</span><span class="en">mark draft; do not sync to Vault</span></li></ul></article>
+          <article class="action-card" data-action="permission-matrix"><input class="action-check" type="checkbox" data-action-id="permission-matrix" aria-label="Complete permission matrix"><div class="card-meta"><span class="priority-badge p0">P0 · 72H</span><span class="micro-label">03</span></div><h3><span class="zh">落一张权限矩阵</span><span class="en">Ship one permission matrix</span></h3><p><span class="zh">网络只读；Vault 只写目标 slug；发布、发送与删除必须人工批准。</span><span class="en">Network is read-only; Vault writes are limited to the target slug; publishing, sending, and deletion require human approval.</span></p><div class="micro-step"><b>30 SEC</b> · <span class="zh">先把“发布 / 发送 / 删除”三项全部设为 ASK。</span><span class="en">Set publish, send, and delete to ASK first.</span></div><ul class="action-spec"><li><b>Owner</b> · Patrick</li><li><b>Artifact</b> · <code>execution-policy.yaml</code></li><li><b>Done</b> · <span class="zh">越界动作被拒绝</span><span class="en">out-of-scope actions are refused</span></li><li><b>Evidence</b> · action trace</li><li><b>Rollback</b> · <span class="zh">禁用所有写工具</span><span class="en">disable every write tool</span></li></ul></article>
+          <article class="action-card" data-action="front-door"><input class="action-check" type="checkbox" data-action-id="front-door" aria-label="Complete front door"><div class="card-meta"><span class="priority-badge p1">P1 · WEEK</span><span class="micro-label">04</span></div><h3><span class="zh">保留一个前门，幕后五个 Specialist</span><span class="en">Keep one front door over five specialists</span></h3><p><span class="zh">用户只交一个 URL；系统分别处理 transcript、quote、Patrick mapping、action 与 QA，再交付一次综合。</span><span class="en">The user supplies one URL; transcript, quote, Patrick mapping, action, and QA specialists produce one synthesis.</span></p><div class="micro-step"><b>30 SEC</b> · <span class="zh">画出五个 specialist 的输入输出，不先改入口。</span><span class="en">Sketch the five specialist inputs and outputs without changing the front door.</span></div><ul class="action-spec"><li><b>Owner</b> · Hermes</li><li><b>Artifact</b> · <code>orchestration-map.md</code></li><li><b>Done</b> · <span class="zh">一次请求只产生一份最终交付</span><span class="en">one request yields one final delivery</span></li><li><b>Evidence</b> · specialist traces</li><li><b>Rollback</b> · <span class="zh">退回单 skill 串行</span><span class="en">return to sequential single-skill mode</span></li></ul></article>
+          <article class="action-card" data-action="draft-trigger"><input class="action-check" type="checkbox" data-action-id="draft-trigger" aria-label="Complete draft trigger"><div class="card-meta"><span class="priority-badge p1">P1 · WEEK</span><span class="micro-label">05</span></div><h3><span class="zh">只加一个低风险 Trigger</span><span class="en">Add exactly one low-risk trigger</span></h3><p><span class="zh">新 URL 入队或定时 heartbeat 触发生成，但默认只产出 draft，不自动发布。</span><span class="en">A queued URL or scheduled heartbeat triggers generation, but the default output remains draft-only and never auto-publishes.</span></p><div class="micro-step"><b>30 SEC</b> · <span class="zh">在 Trigger 规格第一行写上 <code>mode: draft-only</code>。</span><span class="en">Put <code>mode: draft-only</code> on the first line of the trigger spec.</span></div><ul class="action-spec"><li><b>Owner</b> · Hermes Proactive</li><li><b>Artifact</b> · <code>trigger-spec.yaml</code></li><li><b>Done</b> · <span class="zh">3 次触发均无外部写入</span><span class="en">three triggers with zero external writes</span></li><li><b>Evidence</b> · WAL + draft paths</li><li><b>Rollback</b> · <span class="zh">停用 trigger</span><span class="en">disable the trigger</span></li></ul></article>
+          <article class="action-card" data-action="judgment-regression"><input class="action-check" type="checkbox" data-action-id="judgment-regression" aria-label="Complete judgment regression"><div class="card-meta"><span class="priority-badge p1">P1 · WEEK</span><span class="micro-label">06</span></div><h3><span class="zh">失败进入 Judgment Log，再进入回归测试</span><span class="en">Move failures from judgment log into regression tests</span></h3><p><span class="zh">记录错误、当时证据与判断原因；把同类错误写成下一轮必须拦截的 Eval。</span><span class="en">Record the error, evidence available, and rationale; convert the failure class into a required eval for the next run.</span></p><div class="micro-step"><b>30 SEC</b> · <span class="zh">把最近一次“打不开”记录为路径持久性回归案例。</span><span class="en">Record today's broken-link incident as a path-persistence regression case.</span></div><ul class="action-spec"><li><b>Owner</b> · Hermes QA</li><li><b>Artifact</b> · <code>judgment-log.md</code></li><li><b>Done</b> · <span class="zh">同类错误第二次被测试拦截</span><span class="en">the next recurrence is blocked by a test</span></li><li><b>Evidence</b> · failing then passing eval</li><li><b>Rollback</b> · <span class="zh">保留日志，撤销自动阻断</span><span class="en">keep log; remove automated gate</span></li></ul></article>
+          <article class="action-card" data-action="routing-shadow"><input class="action-check" type="checkbox" data-action-id="routing-shadow" aria-label="Complete routing shadow test"><div class="card-meta"><span class="priority-badge p2">P2 · MONTH</span><span class="micro-label">07</span></div><h3><span class="zh">模型路由先 Shadow-Test 20 个任务</span><span class="en">Shadow-test model routing on 20 tasks first</span></h3><p><span class="zh">把交互延迟与异步准确分开测；在不切真实流量的情况下比较路由建议与当前选择。</span><span class="en">Measure interactive latency separately from asynchronous accuracy; compare routing recommendations without switching production traffic.</span></p><div class="micro-step"><b>30 SEC</b> · <span class="zh">建立 20 行任务表，只填任务类型与成功标准。</span><span class="en">Create a 20-row task sheet containing only task type and success criterion.</span></div><ul class="action-spec"><li><b>Owner</b> · Patrick + Router</li><li><b>Artifact</b> · <code>routing-shadow-report.md</code></li><li><b>Done</b> · <span class="zh">20/20 有延迟、质量、成本记录</span><span class="en">20/20 have latency, quality, and cost records</span></li><li><b>Evidence</b> · shadow comparison</li><li><b>Gate</b> · <span class="zh">目前仍是 REFERENCE</span><span class="en">currently REFERENCE only</span></li><li><b>Rollback</b> · <span class="zh">不切流量，保留现状</span><span class="en">do not switch traffic</span></li></ul></article>
+        </div>
+      </section>
+
+      <footer>
+        <div><div class="footer-title"><span class="zh">公司智能体 / The Company Agent</span><span class="en">The Company Agent / 公司智能体</span></div><div><span class="zh">为深度阅读而设计 · 默认中文 · 离线单文件 · 可打印</span><span class="en">Designed for deep reading · bilingual · offline · print-ready</span></div></div>
+        <div class="footer-code">SOURCE · HQXi4snP36I<br>BUILT · 2026-08-07 · v2<br>SELF-CONTAINED · NO EXTERNAL DEPENDENCIES</div>
+      </footer>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var root = document.documentElement;
+      var body = document.body;
+      var progressBar = document.getElementById('progressBar');
+      var toc = document.getElementById('toc');
+      var tocToggle = document.getElementById('tocToggle');
+      var mobileMenu = document.getElementById('mobileMenu');
+      var mobileBackdrop = document.getElementById('mobileBackdrop');
+      var themeToggle = document.getElementById('themeToggle');
+      var printButton = document.getElementById('printButton');
+      var copyMemo = document.getElementById('copyMemo');
+      var quoteFilterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-quote-filter]'));
+      var quoteCards = Array.prototype.slice.call(document.querySelectorAll('.quote-card'));
+      var quoteCopyButtons = Array.prototype.slice.call(document.querySelectorAll('.quote-copy'));
+      var actionChecks = Array.prototype.slice.call(document.querySelectorAll('.action-check'));
+      var actionProgress = document.getElementById('actionProgress');
+      var actionProgressText = document.getElementById('actionProgressText');
+      var copyActions = document.getElementById('copyActions');
+      var resetActions = document.getElementById('resetActions');
+      var toast = document.getElementById('toast');
+      var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc-link'));
+      var sections = tocLinks.map(function (link) {
+        return document.querySelector(link.getAttribute('href'));
+      }).filter(Boolean);
+      var toastTimer;
+
+      try {
+        if (localStorage.getItem('hqxi-company-agent-v2-toc') === 'collapsed' && window.innerWidth > 900) {
+          body.classList.add('toc-collapsed');
+          tocToggle.textContent = '›';
+        }
+      } catch (error) {}
+
+      function showToast(zhText, enText) {
+        toast.textContent = root.lang === 'en' ? enText : zhText;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 1900);
+      }
+
+      window.toggleLang = function toggleLang() {
+        var next = root.lang === 'en' ? 'zh-CN' : 'en';
+        root.lang = next;
+        try { localStorage.setItem('hqxi-company-agent-v2-lang', next); } catch (error) {}
+        showToast('已切换到中文', 'Switched to English');
+      };
+
+      function toggleTheme() {
+        var next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        try { localStorage.setItem('hqxi-company-agent-v2-theme', next); } catch (error) {}
+        showToast(next === 'light' ? '已切换到浅色' : '已切换到深色', next === 'light' ? 'Light theme' : 'Dark theme');
+      }
+
+      function closeMobileToc() {
+        if (toc.contains(document.activeElement)) { mobileMenu.focus(); }
+        body.classList.remove('toc-mobile-open');
+        syncTocA11y();
+      }
+
+      function syncTocA11y() {
+        var mobile = window.innerWidth <= 900;
+        var mobileOpen = body.classList.contains('toc-mobile-open');
+        var collapsed = body.classList.contains('toc-collapsed');
+        tocToggle.setAttribute('aria-expanded', String(!collapsed));
+        tocToggle.setAttribute('aria-label', collapsed ? 'Expand table of contents' : 'Collapse table of contents');
+        mobileMenu.setAttribute('aria-expanded', String(mobileOpen));
+        mobileMenu.setAttribute('aria-label', mobileOpen ? 'Close table of contents' : 'Open table of contents');
+        if (mobile && !mobileOpen) {
+          toc.setAttribute('aria-hidden', 'true');
+          toc.setAttribute('inert', '');
+        } else {
+          toc.removeAttribute('aria-hidden');
+          toc.removeAttribute('inert');
+        }
+      }
+
+      function toggleToc() {
+        if (window.innerWidth <= 900) {
+          body.classList.toggle('toc-mobile-open');
+          syncTocA11y();
+          if (body.classList.contains('toc-mobile-open')) {
+            window.requestAnimationFrame(function () { tocLinks[0].focus(); });
+          }
+          return;
+        }
+        body.classList.toggle('toc-collapsed');
+        var collapsed = body.classList.contains('toc-collapsed');
+        tocToggle.textContent = collapsed ? '›' : '‹';
+        syncTocA11y();
+        try { localStorage.setItem('hqxi-company-agent-v2-toc', collapsed ? 'collapsed' : 'expanded'); } catch (error) {}
+      }
+
+      function updateProgress() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var percent = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+        progressBar.style.width = percent.toFixed(2) + '%';
+      }
+
+      function setActive(id) {
+        tocLinks.forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        var visible = entries.filter(function (entry) { return entry.isIntersecting; })
+          .sort(function (a, b) { return b.intersectionRatio - a.intersectionRatio; });
+        if (visible[0]) { setActive(visible[0].target.id); }
+      }, { rootMargin: '-18% 0px -62% 0px', threshold: [0.01, 0.2, 0.55] });
+      sections.forEach(function (section) { observer.observe(section); });
+
+      tocLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (window.innerWidth <= 900) { closeMobileToc(); }
+        });
+      });
+
+      function fallbackCopy(text) {
+        var area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        try { document.execCommand('copy'); } catch (error) {}
+        document.body.removeChild(area);
+      }
+
+      function copyMondayMemo() {
+        var zhMemo = '公司智能体 · 周一早晨备忘\n1. 挑一种团队秘方，不挑万能 Agent 平台。\n2. 收集五个真实输入、优秀输出和失败边界。\n3. 先接一个只读数据源，并让每个结论带证据。\n4. 用三种身份测试同一个 Skill 的权限差异。\n5. 把本周第一个失败变成下周必须通过的 Eval。\nSource: https://www.youtube.com/watch?v=HQXi4snP36I';
+        var enMemo = 'The Company Agent · Monday Memo\n1. Pick one company method, not a universal-agent platform.\n2. Collect five real inputs, strong outputs, and failure boundaries.\n3. Connect one read-only source and require evidence for every claim.\n4. Test the same skill under three identities.\n5. Turn the first failure this week into an eval for next week.\nSource: https://www.youtube.com/watch?v=HQXi4snP36I';
+        var text = root.lang === 'en' ? enMemo : zhMemo;
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(function () {
+            showToast('备忘已复制', 'Memo copied');
+          }).catch(function () {
+            fallbackCopy(text);
+            showToast('备忘已复制', 'Memo copied');
+          });
+        } else {
+          fallbackCopy(text);
+          showToast('备忘已复制', 'Memo copied');
+        }
+      }
+
+      function copyText(text, zhMessage, enMessage) {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(function () {
+            showToast(zhMessage, enMessage);
+          }).catch(function () {
+            fallbackCopy(text);
+            showToast(zhMessage, enMessage);
+          });
+        } else {
+          fallbackCopy(text);
+          showToast(zhMessage, enMessage);
+        }
+      }
+
+      function localizedText(container) {
+        if (!container) { return ''; }
+        var selector = root.lang === 'en' ? '.en' : '.zh';
+        var localized = container.querySelector(selector);
+        return (localized || container).textContent.trim();
+      }
+
+      function applyQuoteFilter(filter, persist) {
+        var safeFilter = /^(all|verbatim|paraphrase)$/.test(filter) ? filter : 'all';
+        quoteCards.forEach(function (card) {
+          card.hidden = safeFilter !== 'all' && card.dataset.quoteKind !== safeFilter;
+        });
+        quoteFilterButtons.forEach(function (button) {
+          var active = button.dataset.quoteFilter === safeFilter;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        if (persist !== false) {
+          try { localStorage.setItem('hqxi-company-agent-v2-quote-filter', safeFilter); } catch (error) {}
+        }
+      }
+
+      quoteFilterButtons.forEach(function (button) {
+        button.addEventListener('click', function () { applyQuoteFilter(button.dataset.quoteFilter); });
+      });
+      try { applyQuoteFilter(localStorage.getItem('hqxi-company-agent-v2-quote-filter') || 'all', false); }
+      catch (error) { applyQuoteFilter('all', false); }
+
+      quoteCopyButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var card = button.closest('.quote-card');
+          var label = card.dataset.quoteKind === 'verbatim' ? 'VERBATIM' : 'PARAPHRASE';
+          var time = card.querySelector('.time-link').textContent.replace('↗', '').trim();
+          var main = card.querySelector('.quote-text');
+          var text = main ? localizedText(main) : card.querySelector('blockquote').textContent.trim();
+          var why = localizedText(card.querySelector('.why-line'));
+          copyText('[' + label + ' · ' + time + ']\n' + text + '\n' + why + '\nhttps://www.youtube.com/watch?v=HQXi4snP36I&t=' + Math.round(parseInt(card.querySelector('.time-link').href.split('t=')[1], 10)) + 's', '金句卡已复制', 'Quote card copied');
+        });
+      });
+
+      function updateActionProgress(persist) {
+        var done = actionChecks.filter(function (check) { return check.checked; }).length;
+        var total = actionChecks.length;
+        var percent = total ? Math.round(done / total * 100) : 0;
+        actionChecks.forEach(function (check) {
+          var card = check.closest('.action-card');
+          card.classList.toggle('done', check.checked);
+        });
+        actionProgress.style.setProperty('--done', percent);
+        actionProgress.dataset.label = done + '/' + total;
+        actionProgress.setAttribute('aria-label', done + ' of ' + total + ' actions complete');
+        actionProgressText.querySelector('.zh').textContent = done + ' 已完成 · ' + (total - done) + ' 待办';
+        actionProgressText.querySelector('.en').textContent = done + ' complete · ' + (total - done) + ' open';
+        if (persist !== false) {
+          var completed = actionChecks.filter(function (check) { return check.checked; }).map(function (check) { return check.dataset.actionId; });
+          try { localStorage.setItem('hqxi-company-agent-v2-actions', JSON.stringify(completed)); } catch (error) {}
+        }
+      }
+
+      try {
+        var completedActions = JSON.parse(localStorage.getItem('hqxi-company-agent-v2-actions') || '[]');
+        actionChecks.forEach(function (check) { check.checked = completedActions.indexOf(check.dataset.actionId) !== -1; });
+      } catch (error) {}
+      updateActionProgress(false);
+      actionChecks.forEach(function (check) { check.addEventListener('change', function () { updateActionProgress(true); }); });
+
+      copyActions.addEventListener('click', function () {
+        var lines = ['# Company Agent · Patrick Lens v2 — Action Plan', ''];
+        actionChecks.forEach(function (check) {
+          var card = check.closest('.action-card');
+          var priority = card.querySelector('.priority-badge').textContent.trim();
+          var title = localizedText(card.querySelector('h3'));
+          lines.push('- [' + (check.checked ? 'x' : ' ') + '] ' + priority + ' — ' + title);
+        });
+        lines.push('', 'Source: https://www.youtube.com/watch?v=HQXi4snP36I');
+        copyText(lines.join('\n'), '行动清单已复制', 'Action checklist copied');
+      });
+
+      resetActions.addEventListener('click', function () {
+        var message = root.lang === 'en' ? 'Reset all seven local checkmarks?' : '重置这 7 项本地勾选状态？';
+        if (!window.confirm(message)) { return; }
+        actionChecks.forEach(function (check) { check.checked = false; });
+        updateActionProgress(true);
+        showToast('行动状态已重置', 'Action state reset');
+      });
+
+      tocToggle.addEventListener('click', toggleToc);
+      mobileMenu.addEventListener('click', toggleToc);
+      mobileBackdrop.addEventListener('click', closeMobileToc);
+      themeToggle.addEventListener('click', toggleTheme);
+      printButton.addEventListener('click', function () { window.print(); });
+      copyMemo.addEventListener('click', copyMondayMemo);
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 900) { closeMobileToc(); }
+        else { syncTocA11y(); }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.metaKey || event.ctrlKey || event.altKey) { return; }
+        var target = event.target;
+        if (target && /INPUT|TEXTAREA|SELECT/.test(target.tagName)) { return; }
+        if (event.key === 'l' || event.key === 'L') { window.toggleLang(); }
+        if (event.key === 't' || event.key === 'T') { toggleTheme(); }
+        if (event.key === 'm' || event.key === 'M') { toggleToc(); }
+        if (event.key === 'Escape') { closeMobileToc(); }
+      });
+
+      syncTocA11y();
+      updateProgress();
+      toc.setAttribute('data-ready', 'true');
+    })();
+  </script>
+</body>
+</html>
