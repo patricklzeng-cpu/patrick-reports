@@ -1,5 +1,35 @@
 [
   {
+    "title": "🧭 The Oracle Gap · Dexter Horthy Agentic Engineering Workflow · Hermes Skillbook",
+    "file": "daily-reports/xgkjtF89-44/dashboard.html",
+    "date": "2026-08-07",
+    "category": "video-dashboard",
+    "track": "video",
+    "tag": "agentic-engineering · dexter-horthy · humanlayer · design-gates · vertical-slices · maintainability · patrick-lens",
+    "practical": 94,
+    "time": 59,
+    "summary": "从 David Ondrej 对 Dexter Horthy 的访谈提炼四道前置设计门、纵向切片、可维护性 oracle 缺口、上下文压缩与真正瓶颈；视频未提 Patrick，相关区明确作为个人综合映射。",
+    "desc": "2 条逐字字幕金句 + 6 条标注转述 · 7 张 Patrick Lens 状态卡 · 8 项可验证行动 · 28 段编辑时间轴 · 中英文切换 + TOC + Obsidian 笔记 + 证据包。",
+    "featured": true,
+    "curated": 1,
+    "url": "https://www.youtube.com/watch?v=xgkjtF89-44",
+    "tags": [
+      "agentic-engineering",
+      "dexter-horthy",
+      "humanlayer",
+      "design-gates",
+      "vertical-slices",
+      "maintainability",
+      "context-engineering",
+      "patrick-lens",
+      "action-cockpit",
+      "obsidian",
+      "bilingual",
+      "toc"
+    ],
+    "added_at": "2026-08-07"
+  },
+  {
     "title": "🆕 公司智能体 · Guillermo Rauch × Riley Brown · Vercel V / Eve · Patrick Lens v2",
     "file": "daily-reports/vercel-company-agent-guillermo-rauch-2026-08-06-v2.html",
     "date": "2026-08-07",

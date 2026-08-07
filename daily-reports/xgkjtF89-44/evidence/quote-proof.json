@@ -1,0 +1,21 @@
+{
+  "source": "YouTube en-orig automatic captions",
+  "method": "direct slice followed by byte-exact substring assertion",
+  "checks": [
+    {
+      "id": "oracle",
+      "startSeconds": 1566,
+      "wordCount": 5,
+      "sha256": "509d7eea1617436ae07a454cf6c592315a4f5be3dfbc7cb332eddb2353fde204",
+      "byteExactSubstring": true
+    },
+    {
+      "id": "works",
+      "startSeconds": 2583,
+      "wordCount": 4,
+      "sha256": "a14897c4708bbf096ce5e9855994d68802b0348bd5a9527d3a788e787e004344",
+      "byteExactSubstring": true
+    }
+  ],
+  "note": "The full transcript is intentionally not redistributed. Six additional key-line cards are labeled editorial paraphrase."
+}
