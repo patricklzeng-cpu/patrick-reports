@@ -1,5 +1,38 @@
 [
   {
+    "title": "🧠 从会回答到会闭环 · Stanford CS329A Self-Improving AI Agents Part 1 · Patrick Lens",
+    "file": "daily-reports/stanford-cs329a-self-improving-agents-part1-2026-08-07.html",
+    "date": "2026-08-07",
+    "category": "video-dashboard",
+    "track": "video",
+    "tag": "stanford-cs329a · self-improving-agents · test-time-scaling · verifiers · agentic-workflows · patrick-lens · bilingual",
+    "practical": 94,
+    "time": 70,
+    "summary": "Stanford CS329A 第一讲把预训练 scaling、post-training、test-time compute、agent workflow 与 verifier 串成 Goal → Plan → Act → Verify → Correct/Stop → Learn 的自我改进闭环，并明确区分视频证据与 Patrick 个人映射。",
+    "desc": "12 章时间戳 · 10 张金句卡（2 VERBATIM / 8 EDITORIAL，英文逐字共 23 词）· 17 张 Patrick 映射卡 · 7 项 P0–P2 行动 · 7 张盲点卡（5 GAP）· 中英文切换 + 13 项 TOC · 离线单文件。",
+    "featured": true,
+    "curated": 1,
+    "url": "https://www.youtube.com/watch?v=6YnLB0XbTnI",
+    "source": "https://www.youtube.com/watch?v=6YnLB0XbTnI",
+    "tags": [
+      "video-dashboard",
+      "stanford-cs329a",
+      "self-improving-agents",
+      "agentic-workflows",
+      "verifiers",
+      "inference-time-scaling",
+      "test-time-scaling",
+      "post-training",
+      "rlhf",
+      "patrick-lens",
+      "action-plan",
+      "obsidian",
+      "bilingual",
+      "toc"
+    ],
+    "added_at": "2026-08-07"
+  },
+  {
     "title": "🧭 The Oracle Gap · Dexter Horthy Agentic Engineering Workflow · Hermes Skillbook",
     "file": "daily-reports/xgkjtF89-44/dashboard.html",
     "date": "2026-08-07",
