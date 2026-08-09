@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-08-03 ~ 2026-08-09</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-08-03 ~ 2026-08-09 · 聚合 5 天 · 总 64 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">45</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">19</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">6</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">36</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">1</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.03714v1" target="_blank" rel="noopener" class="title">Cavity control of quantum phase transitions in a two-dimensional kondo lattice</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Cavity quantum electrodynamics offers a route to control quantum phases by using vacuum fluctuations of confined electromagnetic fields. In particular, planar cavities based on polar van der Waals materials can generate strongly confined modes and are promising for controlling two-dimensional correlated materials. Recently, moiré materials have become central platforms for studying two-dimensional</div>
+    <div class="authors">👥 Jun Mochida, Atac Imamoglu, Yuto Ashida</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.03680v1" target="_blank" rel="noopener" class="title">Machine Learning Bandgap Prediction of Nanoporous Graphenes with Water</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">The structure and dynamical behavior of water confined at or within nanostructures is a topic central to many fields, from biology to emerging electronics such as carbon nanostructures. Nanoporous graphene (NPG) containing periodic nanoscale pores with specific topologies has emerged as a promising material in carbon-based nanoelectronics; however, its interaction with ambient water remains poorly</div>
+    <div class="authors">👥 Sneha Mittal, Alan E. Anaya Morales, Victor Rosendal 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.03665v1" target="_blank" rel="noopener" class="title">Quantum Impurities as Probes of Finite-Temperature Fluctuations in Two-Dimensional Bose Gases</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Two-dimensional quantum gases provide a distinctive setting in which enhanced thermal fluctuations, finite-size effects, and two-body bound-state formation are intrinsically intertwined. In this work, we study a single attractive impurity immersed in a finite, weakly interacting two-dimensional Bose gas, where finite size stabilizes a nonzero condensate fraction by introducing an infrared momentum</div>
+    <div class="authors">👥 Victor Velasco, Gabriele Spada, Giovanni Midei 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.03634v1" target="_blank" rel="noopener" class="title">Entangling Topological Invariants</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">An isolated occupied multiplet may admit local tensor-product descriptions without a globally consistent subsystem structure. We characterize the obstruction by comparing the transition functions of the occupied multiplet with those generated by independent basis changes in the two candidate subsystems. When a decomposition into rank-one sectors over a closed surface is specified, the resulting qu</div>
+    <div class="authors">👥 Kazuki Ikeda, Yaron Oz</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.03621v1" target="_blank" rel="noopener" class="title">Enhancement of far-field thermal emission via polaritonic cavity modes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Controlling thermal emission is crucial for applications involving thermophotovoltaics, thermal sensing, imaging, and camouflage. While prior studies focused on the emission of thermally excited guided modes (TEGMs) inside cavities, their contribution to the far-field radiation outside cavities has remained unexplored. Here, we demonstrate a tunable far-field thermal channel enabled by TEGMs arisi</div>
+    <div class="authors">👥 Maelie Coral, Jose Ordonez-Miranda, Georges Hamaoui 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02418v1" target="_blank" rel="noopener" class="title">Direct Optimization of Stellarator Omnigenity from the Second Adiabatic Invariant</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Stellarators offer a steady-state, disruption-free path to fusion energy but suffer from enhanced particle losses due to their three-dimensional geometry. Existing optimization methods rely on geometric proxies rather than the actual trapped-particle orbit condition. We present a differentiable framework that directly optimizes the fundamental orbit action governing particle confinement. The appro</div>
+    
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02226v1" target="_blank" rel="noopener" class="title">Mass Spectrometry Studies of Hydrogen Ions Energy Distributions in an ECR- based Large Volume Plasma Source</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Plasma is produced in a Large Volume Plasma Source (LVPS; dia. = 1 m, height = 1m) using CW microwaves (= 400 - 600 W, 2.45 GHz), in a compact ECR plasma source (CEPS) attached to LVPS, at hydrogen gas pressures = 1 - 3 mTorr. Plasma expands along the CEPS magnetic field into LVPS. A Hiden Analytical HPR 60 molecular beam mass spectrometer (MBMS) is used to measure the H^- ion energy distribution</div>
+    <div class="authors">👥 Bibekananda Naik, Ramesh Narayanan, Debaprasad Sahu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02199v1" target="_blank" rel="noopener" class="title">Performance of radio-based detection to operational monitoring M5+ class solar flares</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Early detection of major solar flares is critical for defense operations due to their potential to disturb radar and radio systems. Typically, soft X-ray flux is used to monitor and classify solar flares, but since this flux has to be measured in space, it means that its availability itself is dependent on space weather conditions. For this reason, in this paper, we investigated the feasibility of</div>
+    <div class="authors">👥 Julia van Ravenswaaij, Ines Wilms, Ivan Ricardo 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02121v1" target="_blank" rel="noopener" class="title">Hybrid Kinetic-MHD Simulations of Drift-Orbit Effects on the Stability and Non-Linear Dynamics of Runaway Electron Beams</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">During tokamak disruptions, the Ohmic current may be replaced by a non-inductive runaway electron (RE) current, affecting resistive stability. Previous studies suggest that, in the linear phase, the presence of REs acts destabilizing for tearing modes (TM) compared to a scenario with Ohmic current. In the non-linear regime, this translates to larger saturation amplitudes. These results are based o</div>
+    <div class="authors">👥 the JOREK Team</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.01750v1" target="_blank" rel="noopener" class="title">AGNI: A differentiable MHD stability solver &amp;amp; optimizer for magnetic confinement fusion devices</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">The existence of an ideal MagnetoHydroDynamic (MHD) equilibrium does not guarantee its stability. Finite toroidal mode number (n) instabilities degrade performance in both tokamaks and stellarators and differentiable stability optimization tools to date have operated only in the infinite-n limit. We present AGNI (Analysis of Global Normal modes in Ideal MHD), a GPU-accelerated, automatically diffe</div>
+    <div class="authors">👥 Rahul Gaur, Sanket Patil, Prateek Gupta 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02600v1" target="_blank" rel="noopener" class="title">Nearly tight lower bounds for estimating quantum functionals: Uhlmann fidelity, trace distance, and von Neumann entropy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">In this paper, we present a unified framework for proving lower bounds for estimating functionals of quantum states. We therefore resolve several open problems by establishing lower bounds that match known upper bounds: we show that it requires $\widetildeΩ(N^2)$ samples to estimate the Uhlmann fidelity, trace distance, and von Neumann entropy. Moreover, they immediately imply matching query lower</div>
+    <div class="authors">👥 Qisheng Wang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02594v1" target="_blank" rel="noopener" class="title">An Argmax Principle for Sum-of-Squares Relaxations on the Sphere</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">We develop an argmax principle for analyzing sum-of-squares relaxations of optimization problems over the unit sphere. Given a feasible pseudo-expectation, we form a polynomial of high-order pseudo-moments, such as $Φ_k(u)=\widetilde{\mathbb E}\langle x,u\rangle^{2k}$. Our guiding principle is that its maximizers are rounding candidates: their local and global optimality conditions reveal the rewe</div>
+    <div class="authors">👥 Fernando Jeronimo Granha, Pei Wu, Haochen Xu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02590v1" target="_blank" rel="noopener" class="title">Optimal Quantum de Finetti Theorems via Argmax Rounding</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">We prove optimal finite quantum de Finetti upper bounds. Given a bosonic state $ρ_N\in D(\mathrm{Sym}^N(\mathbb C^d))$, there is a probability measure $ν$ on the unit sphere such that \[ \left\| ρ_N^{(2)}-\int |u\rangle\langle u|^{\otimes 2}\,dν(u) \right\|_1 \le \frac{\sqrt{d-1}}{N-1}. \] By purification, the bosonic theorem also gives the optimal $O(d/N)$ upper bound for arbitrary exchangeable s</div>
+    <div class="authors">👥 Fernando Granha Jeronimo, Pei Wu, Haochen Xu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02587v1" target="_blank" rel="noopener" class="title">Entanglement of flower states</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">The mysterious nature of entanglement, one of the most prominent exquisitely quantum phenomena, is reflected in its intricate operational structure, with a hierarchy of classes of free operations that enable its manipulation at different levels of effectiveness. Here we use the class of &#x27;flower states&#x27;, parametrised by their (even) local dimension $2k$, to shine light on some aspects of this varie</div>
+    <div class="authors">👥 Samrat Sen, Ludovico Lami</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02521v1" target="_blank" rel="noopener" class="title">Squeezing-Fueled Quantum Otto Engine via Measurement-Induced Cooling: The Two-Qubit Quantum Rabi Model</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">We investigate a quantum Otto engine (QOE) constructed from the two-qubit quantum Rabi model, operating within a cavity quantum electrodynamics (QED) architecture. The engine operates with two qubits as the working substance and a single non-Markovian hot thermal bath, modeled via the hierarchical equations of motion (HEOM) formalism. In place of a conventional cold thermal reservoir, the cooling</div>
+    <div class="authors">👥 S R Rathnakaran, Asoka Biswas</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02517v1" target="_blank" rel="noopener" class="title">Thermalization of open quantum systems with pseudomodes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Pseudomode approaches allow for an exact and unapproximated description of a quantum system interacting arbitrarily strongly with a bath. In general, a system coupled to pseudomodes will not thermalize to the system&#x27;s Gibbs state: This is to be expected when the system-bath coupling is non-perturbative, but conflicts with common thermodynamic intuition when the system-bath coupling is asymptotical</div>
+    <div class="authors">👥 R. Kevin Kessing, Thibaut Lacroix, Susana F. Huelga 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02511v1" target="_blank" rel="noopener" class="title">Comparison of Lindblad and circuit approaches for quantum heat transport</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">We compare two popular models applicable to analyzing heat transport by thermal microwave photons in quantum circuits. The first model is derived from a weak-coupling Lindblad master equation, with transition rates determined by Fermi&#x27;s golden rule induced by thermal dissipation sources. The second approach employs a circuit model, where thermal Johnson-Nyquist noise generated by dissipative eleme</div>
+    <div class="authors">👥 Bayan Karimi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02490v1" target="_blank" rel="noopener" class="title">High-dimensional quantum process tomography with undetected photons</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">The goal of quantum process tomography is to fully characterize an operation performed on a quantum state. By considering high-dimensional quantum states (qudit), we show that it is possible to fully reconstruct an arbitrary operation without performing any measurement on the transformed qudit. Our method is interferometric and conceptually different from existing techniques of quantum process tom</div>
+    <div class="authors">👥 Salini Rajeev, Mayukh Lahiri</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02473v1" target="_blank" rel="noopener" class="title">Optimized Tensor-Network Renormalization for Quantum Dynamics: Resolving the Spectral Function of $\mathrm{K_2Co(SeO_3)_2}$</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Tensor-network methods have opened a powerful route for the study of dynamical spectral functions in two-dimensional quantum systems. However, existing approaches within the framework of infinite projected entangled-pair states construct the required renormalization tensors solely from the ground-state environment and can suffer from severe numerical instability. We identify the origin of this ins</div>
+    <div class="authors">👥 Jiahang Hu, Runze Chi, B. Normand 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02462v1" target="_blank" rel="noopener" class="title">Nanohertz Pendulum toward Macroscopic Entanglement under Structural Damping</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Pendulums are attractive for macroscopic quantum control because gravity dilution reduces mechanical loss, while the $1/f$ force-noise spectrum associated with structural damping allows nearly lossless trapping to suppress the thermal noise sampled at an upward-shifted resonance. The same $1/f$ spectrum, however, produces a low-frequency tail that penalizes entanglement. With $10\%$ detection loss</div>
+    <div class="authors">👥 Azusa Sawada, Hina Nakano, Kanta Watanabe 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05937v1" target="_blank" rel="noopener" class="title">Polarization-Conditioned Fourier-enhanced DeepONet for Electric Field Reconstruction from EFISH Measurements</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Electric-field-induced second-harmonic generation (EFISH) is an established laser diagnostic for quantifying electric fields in plasmas, yet ensuring field accuracy remains challenging given the coherent, path-integrated nature of the signal. We address this via machine learning, developing a Polarization-Conditioned Fourier-enhanced Deep Operator Network (PC-FDON) -- a unified operator-learning m</div>
+    <div class="authors">👥 Zhijian Yang, Edwin Setiadi Sugeng, Yaqi Zhang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05698v1" target="_blank" rel="noopener" class="title">Net electron spin rotation in a plane-wave pulse: Holonomy set by the anomalous magnetic moment</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">We compute the spin rotation that survives after a relativistic electron has crossed a plane-wave laser pulse of finite duration. In the interaction picture built on the exact $g=2$ evolution, the Thomas-Bargmann-Michel-Telegdi equation becomes parallel transport by a connection with constant coefficients on the polarization plane, and the pulse enters only through the closed curve that the transv</div>
+    <div class="authors">👥 N. S. Akintsov, A. P. Nevecheria, S. N. Andreev 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05669v1" target="_blank" rel="noopener" class="title">SafeDivertor: Faithful Divertor Heat Flux Reconstruction from Macroscopic Plasma State Signals via Time-Frequency Prior Exploitation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Divertor heat-flux analysis is essential for understanding plasma-wall interactions and protecting plasma-facing components in magnetic-confinement fusion devices, while conventional infrared-based inversion is usually performed after discharge and requires heat-conduction modeling with device-specific material properties, divertor geometry, and boundary conditions. Rather than accelerating this c</div>
+    <div class="authors">👥 Hao Si, Zehua Chen, Qingquan Yang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05667v1" target="_blank" rel="noopener" class="title">BORAY-3D: A ray tracing code for three-dimensional magnetized plasma configurations</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Ray tracing codes are useful tools for studying electromagnetic wave propagation and absorption using the geometrical-optics approximation. Existing codes commonly provide either broad radio-frequency coverage in axisymmetric equilibria or three-dimensional capability specialized for electron-cyclotron (EC) applications. BORAY-3D integrates three desirable features in a single version. First, it h</div>
+    <div class="authors">👥 Yuxuan Wang, Huasheng Xie</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05555v1" target="_blank" rel="noopener" class="title">Millisecond-Scale Neural Operator Surrogates for Double-Null Free-Boundary Grad-Shafranov Equilibria</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">The Grad-Shafranov (GS) equation governs ideal magnetohydrodynamic equilibrium in tokamak plasmas. Free-boundary GS solvers are central to diverted-equilibrium modeling, but nonlinear Picard iteration introduces computational cost and sample-dependent latency that can become prohibitive in optimization, modeling, and control-oriented loops. Here we train a geometrically conditioned Fourier Neural</div>
+    
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#26</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05414v1" target="_blank" rel="noopener" class="title">A Symplectic Map Approach to Magnetic Field-Line Dynamics in Tokamaks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Magnetic field-line transport in tokamaks is governed by the interplay between chaotic dynamics and invariant phase-space structures that act as partial transport barriers. We investigate the conservative Tokamap, an exact symplectic mapping for magnetic field-line dynamics, using a unified geometrical, dynamical, and statistical framework. Phase-space portraits and Lyapunov exponents characterize</div>
+    <div class="authors">👥 Diego F. M. Oliveira, Edson D. Leonel</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#27</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05091v1" target="_blank" rel="noopener" class="title">Spherically Polarized Alfvén Waves and the Gosling Boost</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Alfvén waves are thought to play critical roles in solar wind acceleration and plasma heating in the solar corona and inner heliosphere. Parker Solar Probe (PSP) has highlighted the role of large amplitude Spherically Polarized Alfvén Waves (SPAWs), where the locally constant magnetic field magnitude $|\mathbf{B}|$ together with outward propagation explains the observed one sided radial velocity e</div>
+    <div class="authors">👥 Yuliang Ding, Marco Velli, Zesen Huang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#28</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.04932v1" target="_blank" rel="noopener" class="title">A plasma photocathode for spin-polarized electron beams using excited hydrogen halides</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Spin-polarized electron beams are essential tools for probing fundamental symmetries and for the search beyond the Standard Model. While plasma-based accelerators are a promising pathway towards higher-energy frontiers, they have so far failed to deliver a competitive polarized source: existing proposals are challenging to realize and achievable polarizations remain far below conventional sources.</div>
+    <div class="authors">👥 Lars Reichwein, Thomas C. Wilson, Dimitris Sofikitis 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#29</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.04517v1" target="_blank" rel="noopener" class="title">On the relationship between the gain of Stimulated Raman Backscatter of a short-pulse laser in a plasma and the Pierce parameter for XFELs</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">It is shown that the convective gain of Stimulated Raman Backscatter (SRBS) within a single laser wavelength in the strongly coupled regime is equivalent to the Pierce parameter commonly used to describe high gain x-ray Free Electron Lasers (XFELs). The comparison utilizes the fact that the gain is a Lorentz invariant so the Pierce parameter is written in terms of the FEL parameters in the electro</div>
+    <div class="authors">👥 Xinlu Xu, Warren Mori</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#30</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.04363v1" target="_blank" rel="noopener" class="title">Polarization-resolved attosecond gamma-ray emission from few-cycle laser interactions with cone targets</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Linearly polarized attosecond $γ$-ray pulses in the MeV range are generated from a cone target irradiated by a single few-cycle laser pulse. Electron layers are periodically extracted from the cone walls and subsequently accelerated. Their interaction with the counter-propagating reflected attosecond field produces high-energy photons through nonlinear Compton scattering (NCS), forming attosecond</div>
+    <div class="authors">👥 De-Sheng Zhang, Cui-Wen Zhang, Xue-Ren Hong 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 6</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02418v1" target="_blank" rel="noopener" class="title">Direct Optimization of Stellarator Omnigenity from the Second Adiabatic Invariant</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Stellarators offer a steady-state, disruption-free path to fusion energy but suffer from enhanced particle losses due to their three-dimensional geometry. Existing optimization methods rely on geometric proxies rather than the actual trapped-particle orbit condition. We present a differentiable framework that directly optimizes the fundamental orbit action governing particle confinement. The appro</div>
+    
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02121v1" target="_blank" rel="noopener" class="title">Hybrid Kinetic-MHD Simulations of Drift-Orbit Effects on the Stability and Non-Linear Dynamics of Runaway Electron Beams</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">During tokamak disruptions, the Ohmic current may be replaced by a non-inductive runaway electron (RE) current, affecting resistive stability. Previous studies suggest that, in the linear phase, the presence of REs acts destabilizing for tearing modes (TM) compared to a scenario with Ohmic current. In the non-linear regime, this translates to larger saturation amplitudes. These results are based o</div>
+    <div class="authors">👥 the JOREK Team</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.01750v1" target="_blank" rel="noopener" class="title">AGNI: A differentiable MHD stability solver &amp;amp; optimizer for magnetic confinement fusion devices</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">The existence of an ideal MagnetoHydroDynamic (MHD) equilibrium does not guarantee its stability. Finite toroidal mode number (n) instabilities degrade performance in both tokamaks and stellarators and differentiable stability optimization tools to date have operated only in the infinite-n limit. We present AGNI (Analysis of Global Normal modes in Ideal MHD), a GPU-accelerated, automatically diffe</div>
+    <div class="authors">👥 Rahul Gaur, Sanket Patil, Prateek Gupta 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05555v1" target="_blank" rel="noopener" class="title">Millisecond-Scale Neural Operator Surrogates for Double-Null Free-Boundary Grad-Shafranov Equilibria</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">The Grad-Shafranov (GS) equation governs ideal magnetohydrodynamic equilibrium in tokamak plasmas. Free-boundary GS solvers are central to diverted-equilibrium modeling, but nonlinear Picard iteration introduces computational cost and sample-dependent latency that can become prohibitive in optimization, modeling, and control-oriented loops. Here we train a geometrically conditioned Fourier Neural</div>
+    
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.05414v1" target="_blank" rel="noopener" class="title">A Symplectic Map Approach to Magnetic Field-Line Dynamics in Tokamaks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-07</span>
+    </div>
+    <div class="abstract">Magnetic field-line transport in tokamaks is governed by the interplay between chaotic dynamics and invariant phase-space structures that act as partial transport barriers. We investigate the conservative Tokamap, an exact symplectic mapping for magnetic field-line dynamics, using a unified geometrical, dynamical, and statistical framework. Phase-space portraits and Lyapunov exponents characterize</div>
+    <div class="authors">👥 Diego F. M. Oliveira, Edson D. Leonel</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank" rel="noopener" class="title">Nuclear Fusion Ready for Commercialization?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 17 · ★ 2 · 💬 3</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.03714v1" target="_blank" rel="noopener" class="title">Cavity control of quantum phase transitions in a two-dimensional kondo lattice</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Cavity quantum electrodynamics offers a route to control quantum phases by using vacuum fluctuations of confined electromagnetic fields. In particular, planar cavities based on polar van der Waals materials can generate strongly confined modes and are promising for controlling two-dimensional correlated materials. Recently, moiré materials have become central platforms for studying two-dimensional</div>
+    <div class="authors">👥 Jun Mochida, Atac Imamoglu, Yuto Ashida</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.03665v1" target="_blank" rel="noopener" class="title">Quantum Impurities as Probes of Finite-Temperature Fluctuations in Two-Dimensional Bose Gases</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Two-dimensional quantum gases provide a distinctive setting in which enhanced thermal fluctuations, finite-size effects, and two-body bound-state formation are intrinsically intertwined. In this work, we study a single attractive impurity immersed in a finite, weakly interacting two-dimensional Bose gas, where finite size stabilizes a nonzero condensate fraction by introducing an infrared momentum</div>
+    <div class="authors">👥 Victor Velasco, Gabriele Spada, Giovanni Midei 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02600v1" target="_blank" rel="noopener" class="title">Nearly tight lower bounds for estimating quantum functionals: Uhlmann fidelity, trace distance, and von Neumann entropy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">In this paper, we present a unified framework for proving lower bounds for estimating functionals of quantum states. We therefore resolve several open problems by establishing lower bounds that match known upper bounds: we show that it requires $\widetildeΩ(N^2)$ samples to estimate the Uhlmann fidelity, trace distance, and von Neumann entropy. Moreover, they immediately imply matching query lower</div>
+    <div class="authors">👥 Qisheng Wang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02590v1" target="_blank" rel="noopener" class="title">Optimal Quantum de Finetti Theorems via Argmax Rounding</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">We prove optimal finite quantum de Finetti upper bounds. Given a bosonic state $ρ_N\in D(\mathrm{Sym}^N(\mathbb C^d))$, there is a probability measure $ν$ on the unit sphere such that \[ \left\| ρ_N^{(2)}-\int |u\rangle\langle u|^{\otimes 2}\,dν(u) \right\|_1 \le \frac{\sqrt{d-1}}{N-1}. \] By purification, the bosonic theorem also gives the optimal $O(d/N)$ upper bound for arbitrary exchangeable s</div>
+    <div class="authors">👥 Fernando Granha Jeronimo, Pei Wu, Haochen Xu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02587v1" target="_blank" rel="noopener" class="title">Entanglement of flower states</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">The mysterious nature of entanglement, one of the most prominent exquisitely quantum phenomena, is reflected in its intricate operational structure, with a hierarchy of classes of free operations that enable its manipulation at different levels of effectiveness. Here we use the class of &#x27;flower states&#x27;, parametrised by their (even) local dimension $2k$, to shine light on some aspects of this varie</div>
+    <div class="authors">👥 Samrat Sen, Ludovico Lami</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02521v1" target="_blank" rel="noopener" class="title">Squeezing-Fueled Quantum Otto Engine via Measurement-Induced Cooling: The Two-Qubit Quantum Rabi Model</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">We investigate a quantum Otto engine (QOE) constructed from the two-qubit quantum Rabi model, operating within a cavity quantum electrodynamics (QED) architecture. The engine operates with two qubits as the working substance and a single non-Markovian hot thermal bath, modeled via the hierarchical equations of motion (HEOM) formalism. In place of a conventional cold thermal reservoir, the cooling</div>
+    <div class="authors">👥 S R Rathnakaran, Asoka Biswas</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02517v1" target="_blank" rel="noopener" class="title">Thermalization of open quantum systems with pseudomodes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">Pseudomode approaches allow for an exact and unapproximated description of a quantum system interacting arbitrarily strongly with a bath. In general, a system coupled to pseudomodes will not thermalize to the system&#x27;s Gibbs state: This is to be expected when the system-bath coupling is non-perturbative, but conflicts with common thermodynamic intuition when the system-bath coupling is asymptotical</div>
+    <div class="authors">👥 R. Kevin Kessing, Thibaut Lacroix, Susana F. Huelga 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.02511v1" target="_blank" rel="noopener" class="title">Comparison of Lindblad and circuit approaches for quantum heat transport</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-05</span>
+    </div>
+    <div class="abstract">We compare two popular models applicable to analyzing heat transport by thermal microwave photons in quantum circuits. The first model is derived from a weak-coupling Lindblad master equation, with transition rates determined by Fermi&#x27;s golden rule induced by thermal dissipation sources. The second approach employs a circuit model, where thermal Johnson-Nyquist noise generated by dissipative eleme</div>
+    <div class="authors">👥 Bayan Karimi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 1</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.06154v1" target="_blank" rel="noopener" class="title">Visual Grounding in Zero-Shot Vision-Language Control</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-09</span>
+    </div>
+    <div class="abstract">Vision-language models (VLMs) are increasingly used as zero-shot controllers, but successful trajectories do not necessarily show that decisions are grounded in visual input: simulator dynamics and conservative action priors can produce favourable scores without meaningful perception. We investigate this with an input-ablation battery: blind-image controls, repeated identical inputs, lane-axis ref</div>
+    <div class="authors">👥 J. de Curtò, Dayani Plasencia, Diego Sánchez 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
