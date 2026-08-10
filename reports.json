@@ -1,5 +1,34 @@
 [
   {
+    "title": "🏢 ENTERPRISE LOCAL AI BLUEPRINT · 企业本地模型与 Agents 一站式部署方案",
+    "file": "https://enterprise-local-ai-blueprint.patrick-l-zeng.chatgpt.site",
+    "date": "2026-08-10",
+    "category": "enterprise-ai-blueprint",
+    "track": "ai",
+    "tag": "enterprise-ai · local-llm · agents · rag · mcp · kubernetes · vllm · governance · capacity-planning · china-compliance",
+    "practical": 98,
+    "time": 18,
+    "summary": "四套可落地的企业本地模型与 Agents 方案：稳态一体机、Kubernetes 高可用、信创国产化双区、集团级 AI Fabric；覆盖选型、架构、安全治理、容量、预算、交付与验收。",
+    "desc": "互动式决策矩阵、容量计算器、Agent 七道控制、90 天实施路线、RACI、验收门槛与官方技术依据，可直接用于立项、技术评审和供应商沟通。",
+    "featured": true,
+    "curated": 1,
+    "url": "https://enterprise-local-ai-blueprint.patrick-l-zeng.chatgpt.site",
+    "source": "https://enterprise-local-ai-blueprint.patrick-l-zeng.chatgpt.site",
+    "tags": [
+      "enterprise-ai",
+      "local-llm",
+      "agents",
+      "rag",
+      "mcp",
+      "kubernetes",
+      "vllm",
+      "governance",
+      "capacity-planning",
+      "china-compliance"
+    ],
+    "added_at": "2026-08-10T21:52:59+08:00"
+  },
+  {
     "title": "🥽 X/EYE FIELD GUIDE · XREAL One Pro × Eye · 33 个应用与 GitHub 项目 · 5 条加载路线",
     "file": "https://xreal-eye-field-guide.patrick-l-zeng.chatgpt.site",
     "date": "2026-08-10",
