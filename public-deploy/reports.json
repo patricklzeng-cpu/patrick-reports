@@ -1,5 +1,33 @@
 [
   {
+    "title": "🥽 X/EYE FIELD GUIDE · XREAL One Pro × Eye · 33 个应用与 GitHub 项目 · 5 条加载路线",
+    "file": "https://xreal-eye-field-guide.patrick-l-zeng.chatgpt.site",
+    "date": "2026-08-10",
+    "category": "interactive-field-guide",
+    "track": "product",
+    "tag": "xreal · one-pro · xreal-eye · spatial-computing · 6dof · beam-pro · github · app-guide · sdk-3.1",
+    "practical": 96,
+    "time": 18,
+    "summary": "全网、XREAL 官网与 GitHub 逐项核验的 One Pro × Eye 应用指南：33 个候选、5 条加载路线，以及每项功能、安装载体、Eye 参与程度和风险边界。",
+    "desc": "明确 APK 不安装在眼镜本体；覆盖 Beam Pro、Android、iPhone/iPad、Windows/macOS、Linux/Steam Deck 与 Unity SDK 3.1，并区分原生 Spatial Anchor 和开发者空间锚点 API。",
+    "featured": true,
+    "curated": 1,
+    "url": "https://xreal-eye-field-guide.patrick-l-zeng.chatgpt.site",
+    "source": "https://xreal-eye-field-guide.patrick-l-zeng.chatgpt.site",
+    "tags": [
+      "xreal",
+      "xreal-one-pro",
+      "xreal-eye",
+      "spatial-computing",
+      "6dof",
+      "beam-pro",
+      "github",
+      "app-guide",
+      "sdk-3.1"
+    ],
+    "added_at": "2026-08-10T21:03:00+08:00"
+  },
+  {
     "title": "₿ 丰裕之后，稀缺性迁移 · Michael Saylor × Steven Bartlett · AI × Bitcoin × 长期主义 · Patrick Lens",
     "file": "daily-reports/michael-saylor-ai-abundance-scarcity-2026-08-07.html",
     "date": "2026-08-07",
