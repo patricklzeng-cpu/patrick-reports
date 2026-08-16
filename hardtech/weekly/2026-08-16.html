@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-08-10 ~ 2026-08-16</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-08-10 ~ 2026-08-16 · 聚合 5 天 · 总 71 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">58</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">13</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">7</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">30</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">3</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.construction-physics.com/p/why-is-everyone-trying-to-build-a" target="_blank" rel="noopener" class="title">Why is everyone trying to build a solid-state battery?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-14</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 1,803 · ★ 233 · 💬 314</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://quantego.org/" target="_blank" rel="noopener" class="title">Quantego: A Family of Lego Models of IBM Quantum Computers</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 209 · ★ 69 · 💬 28</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.08903v1" target="_blank" rel="noopener" class="title">Energy-optimized scaling laws for self-guided laser wakefield accelerators</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">Laser wakefield acceleration promises compact electron accelerators for applications in medicine, industry, and fundamental science. Yet, despite rapid progress, accurately predicting the electron energy attainable in a given experimental configuration and the acceleration length required to reach it remains an open challenge. Here we use Bayesian optimization combined with advanced particle-in-ce</div>
+    <div class="authors">👥 Petr Valenta, Marcel Lamač, Kyle G. Miller 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.08649v1" target="_blank" rel="noopener" class="title">Transitional evolution of the wave dispersion relation during helicon discharge ignition: an analytical theory from vacuum to steady operation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">The dispersion relations of the helicon and Trivelpiece--Gould (TG) waves in a steady, fully developed magnetised plasma column are well established, but the discharge does not begin in that state. During ignition the electron density rises through five to seven orders of magnitude and the electron--neutral collision frequency falls by two to three, so the dispersion relation is itself a time-depe</div>
+    <div class="authors">👥 Lei Chang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.08586v1" target="_blank" rel="noopener" class="title">Terahertz-based longitudinal phase space diagnostics of laser wakefield accelerated electron beams</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">Femtosecond relativistic electron beams are key probes of ultrafast dynamics, and their pulse duration directly limits the achievable temporal resolution. Laser wakefield acceleration (LWFA) provides a compact source of such beams, but the injection-induced energy spread makes bunch compression sensitive to nonlinear longitudinal transport, motivating direct longitudinal phase space (LPS) measurem</div>
+    <div class="authors">👥 Zhihao Chen, Yu Fang, Ran Li 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.08448v1" target="_blank" rel="noopener" class="title">Plasmoid-Mediated 2D Magnetic Reconnection in Partially Ionized Plasmas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">Magnetic reconnection in partially ionized plasmas is an important channel for energy release. While the plasmoid instability is well characterized in 2D fully ionized plasmas, its behavior in the presence of neutral-dominated plasma remains poorly understood in the nonlinear, high-Lundquist-number ($S = 10^5$) regime. We present high-resolution ($16384 \times 4096$ cells) two-dimensional two-flui</div>
+    <div class="authors">👥 Yue Hu, Siyao Xu, Grzegorz Kowal 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.08031v1" target="_blank" rel="noopener" class="title">Beam experiments for reactive ion etching of silicon (Si)-based materials by silicon halide ions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">Etching yields of Si, SiO2, and Si3N4 have been determined for silicon ion (Si+), halogen ions (F+, Cl+, and Br+) and silicon halide ions (SiF+, SiF3+, SiCl+, SiCl3+, SiBr+, and SiBr3+) irradiation in 300 to 1000 eV using a mass-selected ion beam apparatus that can irradiate a single species ion to sample surfaces under an ultra-high vacuum condition. Si+ irradiation below 1000eV deposits silicon</div>
+    <div class="authors">👥 Kazuhiro Karahashi, Tomoko Ito, Satoshi Hamaguchi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.07961v1" target="_blank" rel="noopener" class="title">Simulations of self-accelerating electron phase space holes in an applied electric field</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">The self-acceleration of electron phase space holes in an applied electric field is investigated via one-dimensional electrostatic Vlasov simulations. The electron holes (EHs) are initialized in a self-consistent manner with immobile ions, and the ion response is enabled at the beginning of simulations. A benchmark simulation is conducted to confirm the EH self-acceleration in the absence of the e</div>
+    <div class="authors">👥 Ran Guo</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.07721v1" target="_blank" rel="noopener" class="title">PASCHEN-1D: A one-dimensional fluid plasma solver with multi-mechanism surface emission and flexible external circuit coupling</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">We present PASCHEN-1D (Plasma Advanced Solver with Coupled High-fidelity Emission and external Network), a one-dimensional time-dependent fluid plasma solver developed for self-consistent simulation of gas discharges and plasma breakdown with coupled electrode surface emission and flexible external circuit networks. The code solves drift-diffusion continuity equations for electrons and ions togeth</div>
+    <div class="authors">👥 Asif Iqbal, Yves Heri, Bingqing Wang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.07466v1" target="_blank" rel="noopener" class="title">Characterization of a prototype parallel-plate $^{238}$U fission chamber with DD and DT fusion neutron sources</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">The SPARC tokamak will employ $^{238}$U-based fission chambers (FCs) to monitor high-performance deuterium-tritium (DT) plasma operations, spanning neutron yield rates from ${\sim}10^{15}$ to ${&amp;gt;}10^{19}$ n/s. This work validates the $^{238}$U FC design, which utilizes a parallel-plate detector geometry and borated polyethylene collimation to prioritize unscattered DD and DT fusion neutrons. Ex</div>
+    <div class="authors">👥 V. Hagenlocker, R. A. Tinguely, X. Wang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.07165v1" target="_blank" rel="noopener" class="title">Electron-Scale-Driven Turbulence by Negative-Density-Gradient in NSTX</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">Gyrokinetic simulations of an NSTX spherical-tokamak plasma reveal novel negative-density-gradient (NDG) drift waves at electron-gyroradius-scale that drive turbulent transport comparable to the experimental power flow. Linear simulations indicate that the dominant instability is a trapped-electron electron-scale tearing-parity mode driven mainly by negative electron density gradient, $a/L_{ne} \e</div>
+    <div class="authors">👥 C. Clauser, J. Candy, J. Parisi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.06764v1" target="_blank" rel="noopener" class="title">Linear and nonlinear benchmark of gyrokinetic simulation of energetic particle driven toroidal Alfven eigenmodes in ITPA TAE benchmark case</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">A new gyrokinetic code, TEK, was benchmarked in simulating energetic particle (EP) driven toroidal Alfven eigenmodes (TAEs) in the simple tokamak configuration chosen by the ITPA-EP group for code benchmarking purpose. Linear benchmark has been well established by other codes, whereas nonlinear benchmark for this case is lacking. This paper presents, besides the linear benchmark, nonlinear results</div>
+    <div class="authors">👥 Youjun Hu, Yang Chen, Lei Ye 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12285v1" target="_blank" rel="noopener" class="title">Wormhole Geometry from a Magnetic Vortex</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Strong coupling to a magnetic texture makes an electron propagate through an emergent curved space. We show that an elementary vortex realizes the exterior spatial geometry of an Ellis wormhole: an ultrastatic throat with radius fixed by the topological charge and Hund exchange, cut off at short distances by the microscopic core. Two separable signatures follow directly: the electron deflection co</div>
+    <div class="authors">👥 Dušan Đorđ ević, Fabián Molina, Vladimir Juričić</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12264v1" target="_blank" rel="noopener" class="title">Exact solution for stationary states of a closed memristor with mobile charged vacancies</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">A nonlinear model of a memristor based on charged mobile vacancies is considered taking into account the electrostatic interaction between them. This interaction significantly affects the stationary (limiting) vacancy distributions formed under the action of the electric current flowing through the memristor, for which analytical expressions are obtained in this work. Between the regions with redu</div>
+    <div class="authors">👥 Irina V. Boylo, Konstantin L. Metlov</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12221v1" target="_blank" rel="noopener" class="title">Second-Chern Bounds in Non-Abelian Quantum Geometry</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We study the quantum geometry of doubly degenerate energy levels in a four-dimensional parameter space. For degenerate pairs with $SU(2)$ gauge structures, the quantum geometry obeys $\big(\textrm{tr } g\big)^2/16\geq\sqrt{\det g}\geq |\textrm{Tr}(F\wedge F)|/12$. The first inequality characterizes the anisotropy in the metric. The second determinant inequality measures the self-duality of the cur</div>
+    <div class="authors">👥 Junwen Zhao, Zhiming Pan, Kang Yang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12214v1" target="_blank" rel="noopener" class="title">Electron transport in a 1.6~nm-thick double-gated (100) silicon nanosheet: A theoretical study accounting for phonon confinement and remote-phonon scattering</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We study theoretically electron transport in an top-and bottom-gated (100) 1.6 nm-thin silicon nanosheet with SiO2/HfO2 gate stacks, focusing on the intrinsic physical processes that affect transport: the confinement of phonons and the presence of interface hybrid plasmon-phonon excitations (IPPs or `remote phonons&#x27;). The band structure is calculated using local empirical pseudopotentials; an appr</div>
+    <div class="authors">👥 Shoaib Mansoori, Bimin Cai, Edward Chen 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12189v1" target="_blank" rel="noopener" class="title">Lectures on ultrathin film ferromagnetism</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">In these Lecture Notes we review some of the fundamental principles that have emerged from research on the ferromagnetism of ultrathin films consisting of 3d transition-metal overlayers. Their growth is often layer-by-layer. This growth mode produces quantum wells along the vertical direction that profoundly impact any physical property of the materials. In addition, the vertical confinement estab</div>
+    <div class="authors">👥 D. Pescia</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11058v1" target="_blank" rel="noopener" class="title">Machine-learning surrogate models for nonlinear energetic-particle transport predictions in ITER</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Fast and accurate prediction of energetic-particle transport driven by Alfvén eigenmode (AE) instabilities is essential for integrated modeling workflows used in the design and optimization of burning plasma fusion reactors. In this work, we develop machine-learning-based surrogate models for rapid prediction of energetic beam and alpha-particle transport fluxes, together with predictive uncertain</div>
+    <div class="authors">👥 Yashika Ghai, Donald A. Spong, Jacobo Varela 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.10988v1" target="_blank" rel="noopener" class="title">High-energy electron-positron beam collisions with large-angle disruptions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We show that the beam and field dynamics in high-energy electron-positron ($e^-e^+$) collisions are characterized by a new dimensionless parameter introduced as $\varepsilon$ in this study. The disruption effect deflects the particles transversely at angles equal to $\varepsilon$. The particles simultaneously undergo deceleration of longitudinal velocities (a ``braking effect&quot;). The deceleration s</div>
+    <div class="authors">👥 W. Zhang, T. Grismayer, L. O. Silva</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.10575v1" target="_blank" rel="noopener" class="title">Gas Flow Rate Influence on Gas Temperature Regulation in a Reinforced Radio-Frequency Cross-Field Atmospheric Plasma Jet</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">This study investigates the effect of gas flow rate on the gas temperature and discharge characteristics of a reinforced radio frequency cross-field atmospheric pressure plasma jet (APPJ) with an additional floating electrode. The plasma jet length, electron excitation temperature, electron density, and reactivity were enhanced by introducing copper floating electrodes of varying widths. However,</div>
+    <div class="authors">👥 Radhika T. P., Satyananda Kar</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.10565v1" target="_blank" rel="noopener" class="title">Potential of Atmospheric Pressure Thermal Plasma Technology towards Waste Processing: A Comprehensive Review</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">The enhancement of living standards has significantly contributed to the rapid growth of urban populations, resulting in a substantial increase in municipal solid waste (MSW) generation. This trend underscores the critical need for sustainable, environmentally friendly, cost-effective, and highly efficient waste management solutions. This study highlights the pressing necessity for effective MSW m</div>
+    <div class="authors">👥 Tejashwi Rana, Aishik Basu Mallick, Radhika T P 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.10548v1" target="_blank" rel="noopener" class="title">Development and Characterization of a Microwave Atmospheric Pressure Plasma Jet</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Over the past decade, atmospheric pressure discharges in the microwave frequency range have gained significant attention due to their promising applications in material processing, CO2 dissociation, waste management, hydrogen production, water treatment, and more. This study presents the development and characterization of a waveguide-based microwave atmospheric pressure plasma jet (MW-APPJs), foc</div>
+    <div class="authors">👥 Suryasunil Rath, Satyananda Kar</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11196v1" target="_blank" rel="noopener" class="title">Work distribution for strongly coupled many-body open quantum systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">The non-equilibrium quantum thermodynamics of many-body open systems is notoriously rich, especially in the strong-coupling regime where strong system-bath correlations develop and interactions produce non-perturbative effects. Such systems can be described by `quantum impurity models&#x27; where the system and bath are treated on an equal footing as a single composite. Paradigmatic examples are the sp</div>
+    <div class="authors">👥 H. T. M. Nghiem, T. A. Costi, S. Campbell 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11189v1" target="_blank" rel="noopener" class="title">Floquet Green&#x27;s functions for lattice electrons driven by Gaussian quantum light</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We formulate Floquet Green&#x27;s functions for noninteracting single-band lattice electrons driven by a reservoir-stabilized single-mode Gaussian quantum light source. The source is prescribed externally and is not updated by the many-electron polarization, while an active electronic probe still conditions the source evolution through the Peierls coupling. The two time arguments of a Green&#x27;s function</div>
+    <div class="authors">👥 Atsushi Ono</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11187v1" target="_blank" rel="noopener" class="title">Statistically-Secure Bit Commitment and Coin Flipping Protocols Based on Quantum Hardware Assumptions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Bit commitment is impossible to achieve with unconditional security, even in quantum cryptogra- phy. We show that statistically secure bit commitment, satisfying both hiding and binding, can be constructed from hybrid locked physical unclonable functions (HLPUFs), a hardware primitive that combines classical hardware tokens and quantum communication. Our protocol uses these hardware assumptions in</div>
+    <div class="authors">👥 Roo Dunnill, Mina Doosti</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#26</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11173v1" target="_blank" rel="noopener" class="title">A Quantum Roadmap for Softmax Attention: Exact Born-Rule Analogs for Softmax Attention on the Probability Simplex</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">The attention mechanism forms the foundation of many modern AI models such as the Transformer. In one subclass of problems where attention is used, inputs and outputs are bound to the probability simplex so that all outputs sum to one. In this setting, softmax attention admits an exact, component-by-component quantum realization. Attention scores are Hadamard-test statistics on block-encoded proje</div>
+    <div class="authors">👥 Eric A. F. Reinhardt, Adam J. Hauser</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#27</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11168v1" target="_blank" rel="noopener" class="title">Impact of strain and dark states on spectroscopic measurements of silicon-vacancy centers in diamond</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Negatively charged silicon-vacancy (SiV$^-$) centers in diamond offer an attractive platform for the development of many forms of quantum technology. However, questions remain in connection to how large ensembles of SiV$^-$ centers behave in concert. Here, we develop a computational model designed to simulate recent experiments where optical multidimensional coherent spectroscopy (MDCS) was used t</div>
+    <div class="authors">👥 Tommy Chin, Kesav V. Narayan, Imran Bashir 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#28</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11160v1" target="_blank" rel="noopener" class="title">Quantum Codes with Arbitrary Z-Rotation logical Gates and Applications to Fault-Tolerant Code Switching</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">A technique for realizing a universal set of fault-tolerant quantum operations is the code switching method, which leverages two quantum codes with complementary sets of transversal gates. To date, the application of this technique has been largely limited to families of color codes supporting a logical $T$ gate. No analogous code switching protocols exist for many other prominent families, such a</div>
+    <div class="authors">👥 Reza Dastbasteh, Ruben M. Otxoa, Pedro M. Crespo 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#29</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11151v1" target="_blank" rel="noopener" class="title">Breaking the Quadratic Barrier for von Neumann Entropy Estimation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We study the sample complexity of estimating the von Neumann entropy of an unknown $d$-dimensional quantum state. All previously known estimators require $Ω(d^2)$ samples, and plug-in estimators are known to face a quadratic barrier. We give the first subquadratic-sample estimator: for additive error $\varepsilon$, our estimator uses \[ O\!\left(\frac{d^2 \log^2(\log(d)) \log(1/\varepsilon)}{\vare</div>
+    <div class="authors">👥 Minbo Gao, Qisheng Wang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#30</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11139v1" target="_blank" rel="noopener" class="title">A Sharp Local-Question Threshold for GHZ-Equatorial Completeness in Four-Player XOR Games</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We determine the smallest number of active questions per player at which a four-player binary exclusive-or (XOR) game of commuting-operator value one need not admit a Greenberger--Horne--Zeilinger (GHZ) equatorial realization. Such a realization uses the four-qubit GHZ state and equatorial qubit observables, reducing perfect play to additive phase equations. We prove that every four-player XOR gam</div>
+    <div class="authors">👥 Ziao Tang, Chengkai Zhu, Ge Bai 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 7</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.08649v1" target="_blank" rel="noopener" class="title">Transitional evolution of the wave dispersion relation during helicon discharge ignition: an analytical theory from vacuum to steady operation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">The dispersion relations of the helicon and Trivelpiece--Gould (TG) waves in a steady, fully developed magnetised plasma column are well established, but the discharge does not begin in that state. During ignition the electron density rises through five to seven orders of magnitude and the electron--neutral collision frequency falls by two to three, so the dispersion relation is itself a time-depe</div>
+    <div class="authors">👥 Lei Chang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.07466v1" target="_blank" rel="noopener" class="title">Characterization of a prototype parallel-plate $^{238}$U fission chamber with DD and DT fusion neutron sources</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">The SPARC tokamak will employ $^{238}$U-based fission chambers (FCs) to monitor high-performance deuterium-tritium (DT) plasma operations, spanning neutron yield rates from ${\sim}10^{15}$ to ${&amp;gt;}10^{19}$ n/s. This work validates the $^{238}$U FC design, which utilizes a parallel-plate detector geometry and borated polyethylene collimation to prioritize unscattered DD and DT fusion neutrons. Ex</div>
+    <div class="authors">👥 V. Hagenlocker, R. A. Tinguely, X. Wang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.07165v1" target="_blank" rel="noopener" class="title">Electron-Scale-Driven Turbulence by Negative-Density-Gradient in NSTX</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">Gyrokinetic simulations of an NSTX spherical-tokamak plasma reveal novel negative-density-gradient (NDG) drift waves at electron-gyroradius-scale that drive turbulent transport comparable to the experimental power flow. Linear simulations indicate that the dominant instability is a trapped-electron electron-scale tearing-parity mode driven mainly by negative electron density gradient, $a/L_{ne} \e</div>
+    <div class="authors">👥 C. Clauser, J. Candy, J. Parisi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.06764v1" target="_blank" rel="noopener" class="title">Linear and nonlinear benchmark of gyrokinetic simulation of energetic particle driven toroidal Alfven eigenmodes in ITPA TAE benchmark case</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    <div class="abstract">A new gyrokinetic code, TEK, was benchmarked in simulating energetic particle (EP) driven toroidal Alfven eigenmodes (TAEs) in the simple tokamak configuration chosen by the ITPA-EP group for code benchmarking purpose. Linear benchmark has been well established by other codes, whereas nonlinear benchmark for this case is lacking. This paper presents, besides the linear benchmark, nonlinear results</div>
+    <div class="authors">👥 Youjun Hu, Yang Chen, Lei Ye 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11058v1" target="_blank" rel="noopener" class="title">Machine-learning surrogate models for nonlinear energetic-particle transport predictions in ITER</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Fast and accurate prediction of energetic-particle transport driven by Alfvén eigenmode (AE) instabilities is essential for integrated modeling workflows used in the design and optimization of burning plasma fusion reactors. In this work, we develop machine-learning-based surrogate models for rapid prediction of energetic beam and alpha-particle transport fluxes, together with predictive uncertain</div>
+    <div class="authors">👥 Yashika Ghai, Donald A. Spong, Jacobo Varela 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.10124v1" target="_blank" rel="noopener" class="title">Steady state, core, operational optimization of an ARC-like tokamak via plasma composition and shape</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Impurity composition, plasma shape, and pedestal density all provide strong levers on fusion power. Here, we explore the ways in which their variation changes fusion power and seek to find the optimum of these parameters. The key impacts of these variables are through changes in the core turbulent transport, the density of the fuel species, the pedestal pressure, and the plasma volume. ITG stabili</div>
+    <div class="authors">👥 A. Saltzman, P. Rodriguez-Fernandez, A. Ho 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://abc7news.com/post/inertia-worlds-1st-fusion-factory-lawrence-livermore-national-laboratory-aims-clean-energy-source-commercial-use/19482659/" target="_blank" rel="noopener" class="title">Nuclear Fusion Ready for Commercialization?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 17 · ★ 2 · 💬 3</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://quantego.org/" target="_blank" rel="noopener" class="title">Quantego: A Family of Lego Models of IBM Quantum Computers</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 209 · ★ 69 · 💬 28</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12221v1" target="_blank" rel="noopener" class="title">Second-Chern Bounds in Non-Abelian Quantum Geometry</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We study the quantum geometry of doubly degenerate energy levels in a four-dimensional parameter space. For degenerate pairs with $SU(2)$ gauge structures, the quantum geometry obeys $\big(\textrm{tr } g\big)^2/16\geq\sqrt{\det g}\geq |\textrm{Tr}(F\wedge F)|/12$. The first inequality characterizes the anisotropy in the metric. The second determinant inequality measures the self-duality of the cur</div>
+    <div class="authors">👥 Junwen Zhao, Zhiming Pan, Kang Yang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12189v1" target="_blank" rel="noopener" class="title">Lectures on ultrathin film ferromagnetism</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">In these Lecture Notes we review some of the fundamental principles that have emerged from research on the ferromagnetism of ultrathin films consisting of 3d transition-metal overlayers. Their growth is often layer-by-layer. This growth mode produces quantum wells along the vertical direction that profoundly impact any physical property of the materials. In addition, the vertical confinement estab</div>
+    <div class="authors">👥 D. Pescia</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11196v1" target="_blank" rel="noopener" class="title">Work distribution for strongly coupled many-body open quantum systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">The non-equilibrium quantum thermodynamics of many-body open systems is notoriously rich, especially in the strong-coupling regime where strong system-bath correlations develop and interactions produce non-perturbative effects. Such systems can be described by `quantum impurity models&#x27; where the system and bath are treated on an equal footing as a single composite. Paradigmatic examples are the sp</div>
+    <div class="authors">👥 H. T. M. Nghiem, T. A. Costi, S. Campbell 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11189v1" target="_blank" rel="noopener" class="title">Floquet Green&#x27;s functions for lattice electrons driven by Gaussian quantum light</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">We formulate Floquet Green&#x27;s functions for noninteracting single-band lattice electrons driven by a reservoir-stabilized single-mode Gaussian quantum light source. The source is prescribed externally and is not updated by the many-electron polarization, while an active electronic probe still conditions the source evolution through the Peierls coupling. The two time arguments of a Green&#x27;s function</div>
+    <div class="authors">👥 Atsushi Ono</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11187v1" target="_blank" rel="noopener" class="title">Statistically-Secure Bit Commitment and Coin Flipping Protocols Based on Quantum Hardware Assumptions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Bit commitment is impossible to achieve with unconditional security, even in quantum cryptogra- phy. We show that statistically secure bit commitment, satisfying both hiding and binding, can be constructed from hybrid locked physical unclonable functions (HLPUFs), a hardware primitive that combines classical hardware tokens and quantum communication. Our protocol uses these hardware assumptions in</div>
+    <div class="authors">👥 Roo Dunnill, Mina Doosti</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11173v1" target="_blank" rel="noopener" class="title">A Quantum Roadmap for Softmax Attention: Exact Born-Rule Analogs for Softmax Attention on the Probability Simplex</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">The attention mechanism forms the foundation of many modern AI models such as the Transformer. In one subclass of problems where attention is used, inputs and outputs are bound to the probability simplex so that all outputs sum to one. In this setting, softmax attention admits an exact, component-by-component quantum realization. Attention scores are Hadamard-test statistics on block-encoded proje</div>
+    <div class="authors">👥 Eric A. F. Reinhardt, Adam J. Hauser</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.11168v1" target="_blank" rel="noopener" class="title">Impact of strain and dark states on spectroscopic measurements of silicon-vacancy centers in diamond</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-13</span>
+    </div>
+    <div class="abstract">Negatively charged silicon-vacancy (SiV$^-$) centers in diamond offer an attractive platform for the development of many forms of quantum technology. However, questions remain in connection to how large ensembles of SiV$^-$ centers behave in concert. Here, we develop a computational model designed to simulate recent experiments where optical multidimensional coherent spectroscopy (MDCS) was used t</div>
+    <div class="authors">👥 Tommy Chin, Kesav V. Narayan, Imran Bashir 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 3</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.construction-physics.com/p/why-is-everyone-trying-to-build-a" target="_blank" rel="noopener" class="title">Why is everyone trying to build a solid-state battery?</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-14</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 1,803 · ★ 233 · 💬 314</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12963v1" target="_blank" rel="noopener" class="title">Scalable production of nuclear battery alpha emitters using fusion neutrons</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-14</span>
+    </div>
+    <div class="abstract">Nuclear batteries powered by alpha decay have been deployed successfully for over 60 years, on a worldwide $^{238}$Pu supply of kilograms per year. We show that the 14 MeV neutrons of a single deuterium-tritium fusion plant can produce alpha emitter battery fuels up to tons per year, in three classes: fuels with completely new production pathways ($^{236}$Pu, $^{227}$Ac, $^{210}$Pb), fuels previou</div>
+    <div class="authors">👥 J. F. Parisi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.12638v1" target="_blank" rel="noopener" class="title">Improving Fast Charging Safety With Core Temperature Estimation Via Kolmogorov-Arnold Network</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-14</span>
+    </div>
+    <div class="abstract">Fast charging of Lithium-ion batteries can lead to a significant temperature rise, which can cause serious risks to battery safety and lifetime. To ensure safe battery operation, thermal constraints must be enforced during the fast charging process. However, the core temperature of the battery cannot be directly measured in practice, which makes real-time safety enforcement challenging. This paper</div>
+    <div class="authors">👥 Faysal Ahamed, Tanushree Roy</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
