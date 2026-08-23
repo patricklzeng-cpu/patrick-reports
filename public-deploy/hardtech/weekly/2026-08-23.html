@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-08-17 ~ 2026-08-23</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-08-17 ~ 2026-08-23 · 聚合 4 天 · 总 25 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">21</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">4</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">1</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">10</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">3</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openrouter.ai/stealth/ox-alpha" target="_blank" rel="noopener" class="title">Ox Alpha</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">&lt;a href=&quot;https:&amp;#x2F;&amp;#x2F;twitter.com&amp;#x2F;OpenRouter&amp;#x2F;status&amp;#x2F;2090544970923184269&quot; rel=&quot;nofollow&quot;&gt;https:&amp;#x2F;&amp;#x2F;twitter.com&amp;#x2F;OpenRouter&amp;#x2F;status&amp;#x2F;2090544970923184269&lt;/a&gt;, &lt;a href=&quot;https:&amp;#x2F;&amp;#x2F;xcancel.com&amp;#x2F;OpenRouter&amp;#x2F;status&amp;#x2F;2090544970923184269&quot; rel=&quot;nofoll</div>
+    
+    
+    <div class="meta">impact: 777 · ★ 162 · 💬 123</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://quantego.org/" target="_blank" rel="noopener" class="title">Quantego: A Family of Lego Models of IBM Quantum Computers</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 209 · ★ 69 · 💬 28</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20299v1" target="_blank" rel="noopener" class="title">Excitation of the lower-hybrid drift instability in the outflow of electron-only magnetic reconnection</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">We report experimental evidence for the lower-hybrid drift instability in the current sheet normal direction of electron-only magnetic reconnection. In our laser-driven capacitor-coil experiment, the system size ($\sim$3 ion skin depths) places it in the electron-only regime. Yet, Thomson scattering reveals out-of-plane electron drift oscillations at the local lower-hybrid frequency, with kinetic</div>
+    <div class="authors">👥 B. K. Russell, K. Sakai, Y. Zhang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20142v1" target="_blank" rel="noopener" class="title">Wavefront shaping of terahertz radiation using two-color flying-focus pulses with time-dependent focal velocities</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Properly phased two-color laser pulses drive photoionization currents that emit broadband THz radiation. With a conventional two-color pulse, the ionization front travels at a nearly constant superluminal velocity, generating THz radiation with conical wavefronts at a Cherenkov-like angle. Here we show that the dynamic intensity peak of a two-color ultrashort flying-focus pulse can be used to cont</div>
+    <div class="authors">👥 A. L. Elliott, H. Markland, K. G. Miller 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20042v1" target="_blank" rel="noopener" class="title">Symmetry-agnostic stellarators for collisionless confinement</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Quasisymmetry, omnigenity and piecewise omnigenity confine trapped particles by making the bounce action independent of the field-line label. Recent optimizations produce mixed-symmetry stellarators that confine alpha particles well without them. We propose a general theory for them. From Whitham modulation theory we define iso-action, which requires only that the drift surface close and allows mi</div>
+    <div class="authors">👥 W. Sengupta, A. Bhattacharjee, S. Buller</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19926v1" target="_blank" rel="noopener" class="title">Effect of ion temperature on lunar photoelectron sheath</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Observations suggest that the solar wind ions impinging on the lunar surface possess a finite temperature. The effect of ion temperature on the plasma sheath over the lunar surface is investigated in this paper. To account for thermal effects, a thermal pressure term has been added to the ion-flow force equation. Quantitative estimation of sheath characteristics has been performed by solving the P</div>
+    <div class="authors">👥 Trinesh Sana, Sanjay K. Mishra</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19841v1" target="_blank" rel="noopener" class="title">Simulation of trapped non-neutral plasma dynamics with rotating wall compression</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">A spectral macroparticle simulation scheme is used to model non-neutral plasma dynamics in a Penning-Malmberg trap. This grid-free numerical scheme is well adapted to the specific geometry of trapped plasmas, with varying longitudinal and transverse profiles in a cylindrical conducting pipe. The cutoff spectral harmonics provide control over the trade-off between accuracy and noise smoothing, whic</div>
+    <div class="authors">👥 Luisa Riik, Oliver Boine-Frankenheim</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19645v1" target="_blank" rel="noopener" class="title">Revisiting the Growth Rate of the Relativistic Tearing Instability: The Role of the Non-ideal MHD Structure</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Magnetic reconnection in magnetically dominated pair plasmas is a key process in high-energy astrophysical systems. We revisit the relativistic tearing instability in a Harris current sheet and derive an improved analytical expression for its linear growth rate and the most unstable wavenumber. The key modification is the treatment of the vector potential perturbation in the non-ideal magnetohydro</div>
+    <div class="authors">👥 Kaoru Sugimoto, Kunihito Ioka, Masaru Shibata</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19624v1" target="_blank" rel="noopener" class="title">Collisionless Resonances Set the Size of a Weyl Exceptional Ring</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Eliminating continuum degrees of freedom converts conservative dynamics into a dispersive, non-Hermitian response whose topology need not represent the causally selected kinetic dynamics. In collisionless magnetized plasma, retarded Landau and cyclotron resonances damp two Weyl modes differently and replace a cold Weyl point by an exceptional ring. Axial roots and root-normalized polarization mixi</div>
+    <div class="authors">👥 Xianhao Rao, Hong Li, Xuan Sun</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19591v1" target="_blank" rel="noopener" class="title">Characterizing the temporal evolution of Biermann-battery-driven magnetic reconnection in laser-ablated plasmas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">This paper presents an experimental investigation of magnetic reconnection between two laser-produced expanding plasmas, focusing on the quantitative evaluation of the reconnection rate and energy conversion under varying initial conditions. By changing the separation distance between the drive laser focal spots (1 mm and 2 mm), we systematically controlled the inflow parameters. The reconnection</div>
+    <div class="authors">👥 T. Morita, Y. Muramoto, S. Isayama 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20340v1" target="_blank" rel="noopener" class="title">Group-theoretic treatment of strong light-matter coupling with an arbitrary number of excitations</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Strong light-matter interactions in optical microcavities give rise to hybrid light-matter states known as polaritons. While actively used in modern technologies, theoretical descriptions of such systems are often restricted to the single-excitation case, limiting their ability to capture many-excitation physics and hindering further technological advancements. Here, by exploiting the combinatoria</div>
+    <div class="authors">👥 Antti Peltola, Olli Siltanen, Kimmo Luoma 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20332v1" target="_blank" rel="noopener" class="title">A Protocol for Shielding-Enhanced Loading of Single Polar Molecules into Optical Tweezers</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">We propose the high-fidelity preparation of single bosonic molecules in optical tweezers starting from small tweezer-trapped molecular ensembles. Our scheme combines a static electric field and a microwave field to generate strong, tunable, anisotropic interactions that shield the molecules against two-body collisional loss. We show that this shielding eliminates all long-range bound states, preve</div>
+    <div class="authors">👥 Reuben R. W. Wang, Christian H. Nunez, Conner Williams 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20327v1" target="_blank" rel="noopener" class="title">Competing triangular and stripe supersolid orders in a dipolar quantum gas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Supersolids are exotic quantum states in which long-range phase coherence coexists, and may interplay, with emergent spatial orders. A particularly rich phase diagram featuring several competing spatial orders is predicted for dipolar supersolids with two-dimensional crystals, yet the experimental observation of this structural variety has remained limited. Here we experimentally form competing tr</div>
+    <div class="authors">👥 Karthik Chandrashekara, Christian Gölzhäuser, Lily Platt 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20311v1" target="_blank" rel="noopener" class="title">Imaging the vacuum fluctuations of a quantum field</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Heisenberg uncertainties lead to inevitable fluctuations in the measurement outcomes for quantum-mechanical observables. For quantum fields, these uncertainties result in random spatial structures in snapshots of a field, even when the field is in its ground (vacuum) state. Such `vacuum fluctuations&#x27; are at the heart of a wide range of phenomena, from spontaneous decay processes to the Casimir for</div>
+    <div class="authors">👥 Yansheng Zhang, Feiyang Wang, Yi Jiang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20302v1" target="_blank" rel="noopener" class="title">Coherent states in quantum billiards constructed in the basis of the continued eigenfunctions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">In the article a new approach to construction of generalized coherent states in quantum billiards is proposed. The coherent states are defined as the projections of a Gaussian wave function on the basis of the eigenstates of the quantum billiard, continued outside. The continuation is built as the solution of the equivalent Balian--Bloch equation, defined on the entire $\mathbb{R}^2$ and the proje</div>
+    <div class="authors">👥 I. D. Burkov, S. S. Seidov</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20297v1" target="_blank" rel="noopener" class="title">Parallel Quantum Advantage with Limited Adaptivity Requires Structure</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Aaronson and Ambainis (Theory of Computing, 2014) conjectured that quantum query algorithms admit efficient almost-everywhere classical simulation: for any $T$-query quantum algorithm, its acceptance probability can be approximated on a $(1-δ)$ fraction of inputs, up to $ε$ additive error, using $\mathrm{poly}(T, 1/ε, 1/δ)$ classical queries. At a high level, the conjecture suggests that exponenti</div>
+    <div class="authors">👥 Qipeng Liu, Saachi Mutreja</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20291v1" target="_blank" rel="noopener" class="title">Programmable cavity QED with a fiber-integrated atomic array</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Strong atom-photon interactions in optical cavities are a key resource for quantum information processing, quantum networking, and the exploration of quantum optical effects. Optical tweezer arrays offer scalable, site-resolved control of neutral atoms, but their integration with high-cooperativity cavity QED systems remains challenging. Here we combine a twelve-site $^{87}$Rb optical tweezer arra</div>
+    <div class="authors">👥 Stephan Roschinski, Johannes Schabbauer, Franz von Silva-Tarouca 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20282v1" target="_blank" rel="noopener" class="title">Quantum-mechanical wave functions in singular potentials: linear and nonlinear states</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">It is known that the attractive singular inverse-square potential gives rise to the critical quantum collapse in the framework of the three-dimensional (3D) linear Schroedinger equation. This article summarizes theoretical results which demonstrate suppression of the collapse, caused by this singular potential, and the creation of the otherwise missing ground state (GS) in a 3D gas of bosonic part</div>
+    <div class="authors">👥 Hidetsugu Sakaguchi, Boris A. Malomed</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20273v1" target="_blank" rel="noopener" class="title">Analytical Solutions of the Generalized Klein-Gordon Oscillator in Som-Raychaudhuri Space-Time via the Extended Nikiforov-Uvarov Method</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">In this study, we present an analytical approach based on the extended Nikiforov-Uvarov method to solve the generalized Klein-Gordon oscillator in the presence of a uniform magnetic field within the Som-Raychaudhuri space-time. Exact eigenstate solutions are obtained for two distinct potential models, namely the linear potential and the Cornell potential. The corresponding energy eigenvalues are d</div>
+    <div class="authors">👥 Hale Karayer, Tolga Celik, Dogan Demirhan</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20268v1" target="_blank" rel="noopener" class="title">Learning Potts Models and $Z_3$ Toric Codes: Higher and Ordinary Nishimori Criticality</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Motivated by a previous Ising study, we identify a ${\it higher}$ Nishimori line in the learning phase diagram of the $2D$ $q$-state Potts model $(2 &amp;lt; q\leq 4)$ under bond-energy measurements. This ${\it higher}$ Nishimori line meets the critical temperature line of the Potts model, in a ${\it higher}$ Nishimori critical point -- a tricritical point at finite inference strength that separates a</div>
+    <div class="authors">👥 Rushikesh A. Patil, Malte Pütz, Rohit Mukherjee 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19679v1" target="_blank" rel="noopener" class="title">Geometric phase of open paths and a geodesic-selection rule at a level degeneracy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">When the control field of a qubit, a polarization state, or a spin-$\tfrac12$ system is swept through a level degeneracy, its direction traces an open curve on the Bloch sphere whose endpoints are antipodal, and the geodesic rule for the open-path geometric phase becomes ambiguous: infinitely many geodesics close the path, and different closures enclose different solid angles. We resolve this ambi</div>
+    <div class="authors">👥 Hyeonseok Yang, Changsuk Noh</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20163v1" target="_blank" rel="noopener" class="title">Incorporating multiscale mechanics in lithium-ion battery models</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Lithiation-induced swelling in lithium-ion batteries generates stresses not only within active particles, but also across the surrounding non-active matrix, electrodes, and cell stack. These stresses can modify the chemical potential of lithium and therefore influence transport, reaction kinetics, and terminal voltage. We derive a reduced-order electro-chemo-mechanical model that captures this mul</div>
+    <div class="authors">👥 Andrea Giudici, Andres F. Galvis, Smita Sahu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19879v1" target="_blank" rel="noopener" class="title">A Repeated Measurements Approach to $SoH$ Battery Modelling of Cyclic Aged Data in a Laboratory Environment</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">This document describes the application of a first order linearised nonlinear repeated measurements approach to the analysis of battery cell ageing profiles generated under controlled conditions in a laboratory. The primary advantage of the model is it reflects the obvious structure in the data. Consequently, it is a two-component of variance model: variation within ageing profiles (measurement no</div>
+    <div class="authors">👥 Mark Cary, Charles Bokor</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://theconversation.com/the-global-race-to-make-a-practical-quantum-computer-just-took-a-big-leap-forward-286387" target="_blank" rel="noopener" class="title">The global race to make a practical quantum computer took a big leap forward</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 3 · ★ 3 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.quantamagazine.org/building-a-quantum-computer-one-fragile-qubit-at-a-time-20260819/" target="_blank" rel="noopener" class="title">Building a Quantum Computer, One Fragile Qubit at a Time</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-22</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 3 · ★ 3 · 💬 0</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 1</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20042v1" target="_blank" rel="noopener" class="title">Symmetry-agnostic stellarators for collisionless confinement</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Quasisymmetry, omnigenity and piecewise omnigenity confine trapped particles by making the bounce action independent of the field-line label. Recent optimizations produce mixed-symmetry stellarators that confine alpha particles well without them. We propose a general theory for them. From Whitham modulation theory we define iso-action, which requires only that the drift surface close and allows mi</div>
+    <div class="authors">👥 W. Sengupta, A. Bhattacharjee, S. Buller</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://quantego.org/" target="_blank" rel="noopener" class="title">Quantego: A Family of Lego Models of IBM Quantum Computers</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 209 · ★ 69 · 💬 28</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20327v1" target="_blank" rel="noopener" class="title">Competing triangular and stripe supersolid orders in a dipolar quantum gas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Supersolids are exotic quantum states in which long-range phase coherence coexists, and may interplay, with emergent spatial orders. A particularly rich phase diagram featuring several competing spatial orders is predicted for dipolar supersolids with two-dimensional crystals, yet the experimental observation of this structural variety has remained limited. Here we experimentally form competing tr</div>
+    <div class="authors">👥 Karthik Chandrashekara, Christian Gölzhäuser, Lily Platt 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20311v1" target="_blank" rel="noopener" class="title">Imaging the vacuum fluctuations of a quantum field</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Heisenberg uncertainties lead to inevitable fluctuations in the measurement outcomes for quantum-mechanical observables. For quantum fields, these uncertainties result in random spatial structures in snapshots of a field, even when the field is in its ground (vacuum) state. Such `vacuum fluctuations&#x27; are at the heart of a wide range of phenomena, from spontaneous decay processes to the Casimir for</div>
+    <div class="authors">👥 Yansheng Zhang, Feiyang Wang, Yi Jiang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20302v1" target="_blank" rel="noopener" class="title">Coherent states in quantum billiards constructed in the basis of the continued eigenfunctions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">In the article a new approach to construction of generalized coherent states in quantum billiards is proposed. The coherent states are defined as the projections of a Gaussian wave function on the basis of the eigenstates of the quantum billiard, continued outside. The continuation is built as the solution of the equivalent Balian--Bloch equation, defined on the entire $\mathbb{R}^2$ and the proje</div>
+    <div class="authors">👥 I. D. Burkov, S. S. Seidov</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20297v1" target="_blank" rel="noopener" class="title">Parallel Quantum Advantage with Limited Adaptivity Requires Structure</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Aaronson and Ambainis (Theory of Computing, 2014) conjectured that quantum query algorithms admit efficient almost-everywhere classical simulation: for any $T$-query quantum algorithm, its acceptance probability can be approximated on a $(1-δ)$ fraction of inputs, up to $ε$ additive error, using $\mathrm{poly}(T, 1/ε, 1/δ)$ classical queries. At a high level, the conjecture suggests that exponenti</div>
+    <div class="authors">👥 Qipeng Liu, Saachi Mutreja</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20291v1" target="_blank" rel="noopener" class="title">Programmable cavity QED with a fiber-integrated atomic array</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Strong atom-photon interactions in optical cavities are a key resource for quantum information processing, quantum networking, and the exploration of quantum optical effects. Optical tweezer arrays offer scalable, site-resolved control of neutral atoms, but their integration with high-cooperativity cavity QED systems remains challenging. Here we combine a twelve-site $^{87}$Rb optical tweezer arra</div>
+    <div class="authors">👥 Stephan Roschinski, Johannes Schabbauer, Franz von Silva-Tarouca 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20282v1" target="_blank" rel="noopener" class="title">Quantum-mechanical wave functions in singular potentials: linear and nonlinear states</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">It is known that the attractive singular inverse-square potential gives rise to the critical quantum collapse in the framework of the three-dimensional (3D) linear Schroedinger equation. This article summarizes theoretical results which demonstrate suppression of the collapse, caused by this singular potential, and the creation of the otherwise missing ground state (GS) in a 3D gas of bosonic part</div>
+    <div class="authors">👥 Hidetsugu Sakaguchi, Boris A. Malomed</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19679v1" target="_blank" rel="noopener" class="title">Geometric phase of open paths and a geodesic-selection rule at a level degeneracy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">When the control field of a qubit, a polarization state, or a spin-$\tfrac12$ system is swept through a level degeneracy, its direction traces an open curve on the Bloch sphere whose endpoints are antipodal, and the geodesic rule for the open-path geometric phase becomes ambiguous: infinitely many geodesics close the path, and different closures enclose different solid angles. We resolve this ambi</div>
+    <div class="authors">👥 Hyeonseok Yang, Changsuk Noh</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 3</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19591v1" target="_blank" rel="noopener" class="title">Characterizing the temporal evolution of Biermann-battery-driven magnetic reconnection in laser-ablated plasmas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">This paper presents an experimental investigation of magnetic reconnection between two laser-produced expanding plasmas, focusing on the quantitative evaluation of the reconnection rate and energy conversion under varying initial conditions. By changing the separation distance between the drive laser focal spots (1 mm and 2 mm), we systematically controlled the inflow parameters. The reconnection</div>
+    <div class="authors">👥 T. Morita, Y. Muramoto, S. Isayama 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.20163v1" target="_blank" rel="noopener" class="title">Incorporating multiscale mechanics in lithium-ion battery models</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">Lithiation-induced swelling in lithium-ion batteries generates stresses not only within active particles, but also across the surrounding non-active matrix, electrodes, and cell stack. These stresses can modify the chemical potential of lithium and therefore influence transport, reaction kinetics, and terminal voltage. We derive a reduced-order electro-chemo-mechanical model that captures this mul</div>
+    <div class="authors">👥 Andrea Giudici, Andres F. Galvis, Smita Sahu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.19879v1" target="_blank" rel="noopener" class="title">A Repeated Measurements Approach to $SoH$ Battery Modelling of Cyclic Aged Data in a Laboratory Environment</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-21</span>
+    </div>
+    <div class="abstract">This document describes the application of a first order linearised nonlinear repeated measurements approach to the analysis of battery cell ageing profiles generated under controlled conditions in a laboratory. The primary advantage of the model is it reflects the obvious structure in the data. Consequently, it is a two-component of variance model: variation within ageing profiles (measurement no</div>
+    <div class="authors">👥 Mark Cary, Charles Bokor</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
