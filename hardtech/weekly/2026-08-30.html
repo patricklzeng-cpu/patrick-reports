@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-08-24 ~ 2026-08-30</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-08-24 ~ 2026-08-30 · 聚合 2 天 · 总 25 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">22</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">4</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">14</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">2</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openrouter.ai/stealth/ox-alpha" target="_blank" rel="noopener" class="title">Ox Alpha</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">&lt;a href=&quot;https:&amp;#x2F;&amp;#x2F;twitter.com&amp;#x2F;OpenRouter&amp;#x2F;status&amp;#x2F;2090544970923184269&quot; rel=&quot;nofollow&quot;&gt;https:&amp;#x2F;&amp;#x2F;twitter.com&amp;#x2F;OpenRouter&amp;#x2F;status&amp;#x2F;2090544970923184269&lt;/a&gt;, &lt;a href=&quot;https:&amp;#x2F;&amp;#x2F;xcancel.com&amp;#x2F;OpenRouter&amp;#x2F;status&amp;#x2F;2090544970923184269&quot; rel=&quot;nofoll</div>
+    
+    
+    <div class="meta">impact: 1,283 · ★ 263 · 💬 204</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://quantego.org/" target="_blank" rel="noopener" class="title">Quantego: A Family of Lego Models of IBM Quantum Computers</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 209 · ★ 69 · 💬 28</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27457v1" target="_blank" rel="noopener" class="title">Spectral Fingerprints of Gauge Theories on a Quantum Computer</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Maximally mixed state spectral sampling is an unbiased quantum algorithm that allows for extraction of a finite-resolution spectral distribution from a Hamiltonian over potentially the entire allowed range of energies. We show how it may be focused on any desired area of the spectrum in order to learn about the full \textit{fingerprint} of the model of interest: from its ground state phenomena suc</div>
+    <div class="authors">👥 Graham Van Goffrier, Debasish Banerjee, Bipasha Chakraborty 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27446v1" target="_blank" rel="noopener" class="title">Exact Stiffness and Dynamical Responses from Fock-Space Fragmentation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Exactly solvable quantum many-body models are rare, and even when their spectra are algebraically organized, dynamical responses generally remain difficult to obtain because they probe an extensive number of excited states. Here we show that quantum geometric nesting (QGN) models admit an unusually strong form of solvability rooted in \emph{Fock-space fragmentation}: excitations on top of the exac</div>
+    <div class="authors">👥 Jonah Herzog-Arbeitman, Eslam Khalaf, Zhaoyu Han</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27440v1" target="_blank" rel="noopener" class="title">Dynamics of local quantum information in random unitary circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">The physics of information scrambling in quantum many-body systems is intimately related to thermalisation and emergence of chaos. However, its standard characterisation through bipartite entanglement or operator growth remains inherently coarse-grained, obscuring the spatiotemporal anatomy of how quantum information flows between different regions of the system and across various length scales. I</div>
+    <div class="authors">👥 Ratul Thakur, Sthitadhi Roy</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27430v1" target="_blank" rel="noopener" class="title">Factorized Boolean representations for efficient quantum synthesis</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Quantum algorithms promise advantages beyond classical reach, but running them on error-corrected hardware requires translating Boolean specifications into reversible circuits, and the resources that translation demands determine what is executable. Established methods minimize a Boolean expression and map it to a circuit, assuming the minimized form is best. Here we show that minimized expression</div>
+    <div class="authors">👥 Mehul Shah, Robert Fiszer, Marek Perkowski</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27426v1" target="_blank" rel="noopener" class="title">Detuning- and Stark-robust Rydberg gates</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Rydberg entangling gates driven by a two-photon transition in alkali atoms suffer from an adverse scaling of light-shift-induced errors. Robustness to such detuning errors is known to be impossible to achieve in the design of conventional Rydberg gate protocols, where only one of the qubit states is coupled to the Rydberg state. Here, we show that in a more general framework, in which both qubit s</div>
+    <div class="authors">👥 Elie Bataille, Gyohei Nomura, Manuel Endres</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27399v1" target="_blank" rel="noopener" class="title">Krylov Break Times from an Inhomogeneous Lieb--Robinson Light Cone</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Krylov and Lanczos approximations are used in quantum dynamics, quantum subspace methods, and Hamiltonian learning. A practical question is how long an $m$-dimensional Krylov truncation can be trusted. We argue that this time is fixed by causal propagation on the associated Jacobi chain. The relevant distance is not the Krylov index itself, but the inhomogeneous transport metric $ρ(m,n) = \sum_{j=</div>
+    <div class="authors">👥 Shunji Matsuura, Yoji Kawamura, Joseph Salfi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27387v1" target="_blank" rel="noopener" class="title">Stochastic transport of a Goldstone mode in a self-organized atomic crystal</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Spontaneous breaking of a continuous symmetry produces a massless Goldstone mode that can evolve across a degenerate manifold at zero energy cost. Goldstone modes have been identified primarily through excitation spectra, mode softening or collective oscillations. However, their time-domain transport under intrinsic fluctuations and dissipation has remained largely unexplored. Here we directly tra</div>
+    <div class="authors">👥 Zhanhai Yu, Di Xiang, Xiaotian Zhang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27363v1" target="_blank" rel="noopener" class="title">On supporting affine functionals for Entanglement of Formation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">In several articles, the authors assume that the convex roof structure of the EoF and finite-dimensionality of subsystems $A$ and $B$ guarantee the existence of the (global) supporting affine functional for the EoF at any state of the system $AB$. This means that for any state $ρ$ of $AB$ there is a Hermitian operator $Λ_ρ$ on $\mathcal{H}_{AB}=\mathcal{H}_A\otimes\mathcal{H}_B$ such that $E_F(ρ)=</div>
+    <div class="authors">👥 A. S. Holevo, M. E. Shirokov</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27357v1" target="_blank" rel="noopener" class="title">Randomness can be certified in energy-constrained semi-device-independent scenarios</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">The prepare-and-measure framework based on energy constraints offers a practical middle ground between fully device-dependent and device-independent quantum cryptography. The only assumption on an otherwise uncharacterized prepare-and-measure device is that the energy of the prepared states is bounded. Existing security analyses of this framework assume that the preparation and measurement devices</div>
+    <div class="authors">👥 Shashank Kumar Ranu, Lewis Wooltorton, Alastair A. Abbott 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27350v1" target="_blank" rel="noopener" class="title">Quantum Chaos and Quantum Optimal Transport</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Chaos in classical systems can be characterized by Lyapunov exponents that measure the exponential divergence of nearby trajectories, but directly extending this framework to quantum mechanics has been a persistent challenge. The wavelike nature of quantum states and the non-commutative geometry of quantum phase space obstruct a straightforward generalization of classical chaos theory. Here we dev</div>
+    <div class="authors">👥 Jordan Cotler, Felipe Hernández</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27452v1" target="_blank" rel="noopener" class="title">Distinguishing Quantum Capacitance Signatures of a Topological Majorana Wire from a Normal Wire Segment</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Majorana zero modes (MZMs) are spatially separated, near-zero-energy excitations expected at the ends of a topological superconducting (TS) wire. A quantum-dot interferometer can be used to probe the quantum capacitance of the TS wire, and the location and magnitude of the capacitance resonances provide information about the MZMs, while their magnetic flux dependence probes coherent coupling to th</div>
+    <div class="authors">👥 Binayyak Bhusan Roy, Jay Deep Sau, Sumanta Tewari</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27445v1" target="_blank" rel="noopener" class="title">Band&#x27;s Geometry Origin of Quantum Spin Transport Phenomena</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">We develop a geometric description of spin-dependent transport based on the local geometric structure of electronic bands and the Fermi surfaces. For quasi-two-dimensional systems, we show that hyperbolic regions of constant-energy surfaces generate a geometrical contribution to the Fermi velocity that couples naturally to electron spin and produces a spin-current response. We further show that, i</div>
+    <div class="authors">👥 Elena Derunova, Mazhar N. Ali</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27444v1" target="_blank" rel="noopener" class="title">Trapping $e/4$ quasiparticles in bilayer graphene</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Measuring the charge of the quasiparticles hosted by even-denominator fractional quantum Hall (FQH) states is essential to identify the topology of their ground state. Here, we use a gate-defined antidot in bilayer graphene, with an additional gate to control only the antidot potential, to measure the charge of the quasiparticles trapped around it in even-denominator FQH states. We observe a local</div>
+    <div class="authors">👥 Mario Di Luca, Emily Hajigeorgiou, Ning Ma 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27383v1" target="_blank" rel="noopener" class="title">Scalable, Simple, and Versatile Encapsulation of 2D Materials and Devices</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Air-sensitive 2D materials present a fundamental challenge for device integration. Encapsulation is often required to preserve intrinsic properties, yet conventional protection strategies often fail for thicker layers and complicate fabrication. Here, we demonstrate that electron-beam (e-beam) evaporated aluminum oxide ($\mathrm{AlO}_x$) serves as both an effective encapsulation layer and a platfo</div>
+    <div class="authors">👥 Gabriel Natale, Uma Chirkova, Flávio Henriques Feres 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27377v1" target="_blank" rel="noopener" class="title">Mobility Enhancement in Si/SiGe Quantum Well Enabled by a Buried Si Layer Trapping Oxygen Impurities</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Reducing disorder in undoped Si/SiGe field-effect heterostructures remains an important materials challenge for scalable quantum devices, particularly electron spin qubits. Background impurities such as oxygen have been identified as mobility-limiting, yet practical heterostructure-design strategies for suppressing their incorporation remain underexplored, and their influence across different tran</div>
+    <div class="authors">👥 Felix Reichmann, Alberto Mistroni, Fabian Fidorra 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26356v1" target="_blank" rel="noopener" class="title">Apokamp-type Gas Discharge Phenomenon: Experimental and Theoretical Backgrounds</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">The apokamp discharge is an atmospheric-pressure plasma jet generated at the bending point of the discharge channel between high-voltage and floating-potential electrodes. The jet propagates perpendicularly to the interelectrode discharge channel without convection. In ambient air, the apokamp length reaches several centimeters, and the temperature of its tip is 100-250 °C. The typical apokamp pro</div>
+    <div class="authors">👥 Vasily Yu. Kozhevnikov, Andrey V. Kozyrev, Aleksandr O. Kokovin 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26048v1" target="_blank" rel="noopener" class="title">Experimental Characterization of Additively Manufactured Metallic Alloys for Electric Propulsion Applications</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">This work explores the sputtering of additively manufactured (AM) materials for use in gridded ion source applications. The first part of the paper uses 316L stainless steel as an example to demonstrate that additively manufactured material does not exhibit adverse sputtering behavior, such as higher sputter yield, compared with conventionally manufactured material. To this end, three additively m</div>
+    <div class="authors">👥 J. Chamberlain, A. Shashurin</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26024v1" target="_blank" rel="noopener" class="title">First Plasma Commissioning and Operational Highlights from India&#x27;s First Spherical Tokamak at IPR</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">A compact Spherical Tokamak(ST) is commissioned at Institute for Plasma Research (IPR) to explore low aspect ratio tokamak physics and technologies that complement to the existing high aspect ratio tokamaks namely ADITYA-U and SST-1 by enabling studies on non-inductive startup, current drive in over dense plasmas, and shaped plasma physics on a low cost platform. The device, India&#x27;s first spherica</div>
+    <div class="authors">👥 Kishore Mishra, Aditya Verma, N. Mansoori 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.25945v1" target="_blank" rel="noopener" class="title">Machine learning methods for modelling local, linear gyrokinetic simulations of MAST-U pedestal turbulence</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Gyrokinetic (GK) stability strongly influences the performance of high-confinement-mode pedestals in spherical tokamak plasmas. High-fidelity gyrokinetic codes such as GENE can model microinstability-driven transport, but the computational cost limits their routine use in integrated pedestal modeling workflows. Instead, present workflows often rely on reduced transport assumptions, such as the bal</div>
+    <div class="authors">👥 Anna Niemelä, Daniel Jordan, Aaro Järvinen 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26216v1" target="_blank" rel="noopener" class="title">Real-time virtual circuits for plasma shape control via neural network emulators: integration and testing in the MAST-U PCS</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">The deployment of advanced, AI-enabled control algorithms in tokamak experiments requires robust integration with existing plasma control system (PCS) architectures and extensive pre-experimental validation. In this contribution, we describe the integration and testing of neural-network-emulated virtual circuits for plasma shape control within the MAST Upgrade (MAST-U) PCS environment. The neural</div>
+    <div class="authors">👥 Matthew J. Marshall, Edward Jones, Graham J. McArdle 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27162v1" target="_blank" rel="noopener" class="title">Data-efficient crack quantification in lithium-ion cathodes using foundation model transfer</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Battery lifetime is central to sustainable electrification, yet the particle cracking that drives lithium-ion cathode aging is hard to measure: quantitative microscopy of this degradation is bottlenecked by annotation, because each destructive electron-microscopy cross-section spans hundreds of megapixels and pixel-level expert labelling requires hours per image. We show that a frozen self-supervi</div>
+    <div class="authors">👥 Thorsten Tegetmeyer-Kleine, Thomas Schmitt, Phillip Aquino 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26862v1" target="_blank" rel="noopener" class="title">Bound-state-mediated remote charging of a quantum battery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Remote charging of a quantum battery (QB) is hindered by radiative leakage of the excitation into the photonic environment that acts as a mediator for energy transfer. We consider a charger-battery model consisting of two two-level systems (TLSs) that are locally coupled to two sites of a one-dimensional coupled cavity array. When their transition frequency lies outside the propagation band, the s</div>
+    <div class="authors">👥 Jian-Jian Cheng, Hai-Bo Qiu, Lin Zhang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.world-nuclear-news.org/articles/openstar-demonstrates-dipole-fusion-reactor-concept" target="_blank" rel="noopener" class="title">OpenStar demonstrates dipole fusion reactor concept</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 19 · ★ 14 · 💬 1</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 4</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26024v1" target="_blank" rel="noopener" class="title">First Plasma Commissioning and Operational Highlights from India&#x27;s First Spherical Tokamak at IPR</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">A compact Spherical Tokamak(ST) is commissioned at Institute for Plasma Research (IPR) to explore low aspect ratio tokamak physics and technologies that complement to the existing high aspect ratio tokamaks namely ADITYA-U and SST-1 by enabling studies on non-inductive startup, current drive in over dense plasmas, and shaped plasma physics on a low cost platform. The device, India&#x27;s first spherica</div>
+    <div class="authors">👥 Kishore Mishra, Aditya Verma, N. Mansoori 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.25945v1" target="_blank" rel="noopener" class="title">Machine learning methods for modelling local, linear gyrokinetic simulations of MAST-U pedestal turbulence</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Gyrokinetic (GK) stability strongly influences the performance of high-confinement-mode pedestals in spherical tokamak plasmas. High-fidelity gyrokinetic codes such as GENE can model microinstability-driven transport, but the computational cost limits their routine use in integrated pedestal modeling workflows. Instead, present workflows often rely on reduced transport assumptions, such as the bal</div>
+    <div class="authors">👥 Anna Niemelä, Daniel Jordan, Aaro Järvinen 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26216v1" target="_blank" rel="noopener" class="title">Real-time virtual circuits for plasma shape control via neural network emulators: integration and testing in the MAST-U PCS</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">The deployment of advanced, AI-enabled control algorithms in tokamak experiments requires robust integration with existing plasma control system (PCS) architectures and extensive pre-experimental validation. In this contribution, we describe the integration and testing of neural-network-emulated virtual circuits for plasma shape control within the MAST Upgrade (MAST-U) PCS environment. The neural</div>
+    <div class="authors">👥 Matthew J. Marshall, Edward Jones, Graham J. McArdle 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.world-nuclear-news.org/articles/openstar-demonstrates-dipole-fusion-reactor-concept" target="_blank" rel="noopener" class="title">OpenStar demonstrates dipole fusion reactor concept</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 19 · ★ 14 · 💬 1</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://quantego.org/" target="_blank" rel="noopener" class="title">Quantego: A Family of Lego Models of IBM Quantum Computers</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 209 · ★ 69 · 💬 28</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27457v1" target="_blank" rel="noopener" class="title">Spectral Fingerprints of Gauge Theories on a Quantum Computer</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Maximally mixed state spectral sampling is an unbiased quantum algorithm that allows for extraction of a finite-resolution spectral distribution from a Hamiltonian over potentially the entire allowed range of energies. We show how it may be focused on any desired area of the spectrum in order to learn about the full \textit{fingerprint} of the model of interest: from its ground state phenomena suc</div>
+    <div class="authors">👥 Graham Van Goffrier, Debasish Banerjee, Bipasha Chakraborty 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27446v1" target="_blank" rel="noopener" class="title">Exact Stiffness and Dynamical Responses from Fock-Space Fragmentation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Exactly solvable quantum many-body models are rare, and even when their spectra are algebraically organized, dynamical responses generally remain difficult to obtain because they probe an extensive number of excited states. Here we show that quantum geometric nesting (QGN) models admit an unusually strong form of solvability rooted in \emph{Fock-space fragmentation}: excitations on top of the exac</div>
+    <div class="authors">👥 Jonah Herzog-Arbeitman, Eslam Khalaf, Zhaoyu Han</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27440v1" target="_blank" rel="noopener" class="title">Dynamics of local quantum information in random unitary circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">The physics of information scrambling in quantum many-body systems is intimately related to thermalisation and emergence of chaos. However, its standard characterisation through bipartite entanglement or operator growth remains inherently coarse-grained, obscuring the spatiotemporal anatomy of how quantum information flows between different regions of the system and across various length scales. I</div>
+    <div class="authors">👥 Ratul Thakur, Sthitadhi Roy</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27430v1" target="_blank" rel="noopener" class="title">Factorized Boolean representations for efficient quantum synthesis</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Quantum algorithms promise advantages beyond classical reach, but running them on error-corrected hardware requires translating Boolean specifications into reversible circuits, and the resources that translation demands determine what is executable. Established methods minimize a Boolean expression and map it to a circuit, assuming the minimized form is best. Here we show that minimized expression</div>
+    <div class="authors">👥 Mehul Shah, Robert Fiszer, Marek Perkowski</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27426v1" target="_blank" rel="noopener" class="title">Detuning- and Stark-robust Rydberg gates</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Rydberg entangling gates driven by a two-photon transition in alkali atoms suffer from an adverse scaling of light-shift-induced errors. Robustness to such detuning errors is known to be impossible to achieve in the design of conventional Rydberg gate protocols, where only one of the qubit states is coupled to the Rydberg state. Here, we show that in a more general framework, in which both qubit s</div>
+    <div class="authors">👥 Elie Bataille, Gyohei Nomura, Manuel Endres</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27399v1" target="_blank" rel="noopener" class="title">Krylov Break Times from an Inhomogeneous Lieb--Robinson Light Cone</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Krylov and Lanczos approximations are used in quantum dynamics, quantum subspace methods, and Hamiltonian learning. A practical question is how long an $m$-dimensional Krylov truncation can be trusted. We argue that this time is fixed by causal propagation on the associated Jacobi chain. The relevant distance is not the Krylov index itself, but the inhomogeneous transport metric $ρ(m,n) = \sum_{j=</div>
+    <div class="authors">👥 Shunji Matsuura, Yoji Kawamura, Joseph Salfi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27357v1" target="_blank" rel="noopener" class="title">Randomness can be certified in energy-constrained semi-device-independent scenarios</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">The prepare-and-measure framework based on energy constraints offers a practical middle ground between fully device-dependent and device-independent quantum cryptography. The only assumption on an otherwise uncharacterized prepare-and-measure device is that the energy of the prepared states is bounded. Existing security analyses of this framework assume that the preparation and measurement devices</div>
+    <div class="authors">👥 Shashank Kumar Ranu, Lewis Wooltorton, Alastair A. Abbott 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 2</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.27162v1" target="_blank" rel="noopener" class="title">Data-efficient crack quantification in lithium-ion cathodes using foundation model transfer</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Battery lifetime is central to sustainable electrification, yet the particle cracking that drives lithium-ion cathode aging is hard to measure: quantitative microscopy of this degradation is bottlenecked by annotation, because each destructive electron-microscopy cross-section spans hundreds of megapixels and pixel-level expert labelling requires hours per image. We show that a frozen self-supervi</div>
+    <div class="authors">👥 Thorsten Tegetmeyer-Kleine, Thomas Schmitt, Phillip Aquino 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2608.26862v1" target="_blank" rel="noopener" class="title">Bound-state-mediated remote charging of a quantum battery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-08-29</span>
+    </div>
+    <div class="abstract">Remote charging of a quantum battery (QB) is hindered by radiative leakage of the excitation into the photonic environment that acts as a mediator for energy transfer. We consider a charger-battery model consisting of two two-level systems (TLSs) that are locally coupled to two sites of a one-dimensional coupled cavity array. When their transition frequency lies outside the propagation band, the s</div>
+    <div class="authors">👥 Jian-Jian Cheng, Hai-Bo Qiu, Lin Zhang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
