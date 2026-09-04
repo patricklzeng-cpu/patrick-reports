@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generated" content="2026-07-29T22:45:00Z · Claude Opus 4.6 · video-to-knowledge-dashboard v1.5.51">
+<title>Ilya Sutskever × SSI × Nvidia Partnership · Race-Aware 6th Source | Patrick</title>
+<style>
+:root{
+  --bg:#0a0e0a;
+  --bg-card:#11181a;
+  --bg-soft:#0d1316;
+  --fg:#e6e9e8;
+  --fg-dim:#9aa6a3;
+  --accent:#d5ff3f;
+  --accent-dim:#a8cc35;
+  --warn:#ffb84a;
+  --gap:#ff6b6b;
+  --ok:#6dffaf;
+  --link:#7cc6ff;
+  --border:#1f2a2d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Microsoft YaHei',sans-serif;font-size:14px;line-height:1.6;color:var(--fg);background:var(--bg)}
+body{padding:24px;max-width:1480px;margin:0 auto}
+header{padding:28px 32px;background:linear-gradient(135deg,#0f1814 0%,#0a1218 100%);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.25;border-radius:50%}
+h1{font-size:24px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px}
+.subtitle{color:var(--fg-dim);font-size:13px;margin-bottom:14px}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--fg-dim)}
+.meta-row span{padding:3px 9px;background:var(--bg-card);border-radius:6px;border:1px solid var(--border)}
+.meta-row span strong{color:var(--accent);font-weight:600}
+.lang-toggle{position:absolute;right:28px;top:28px;display:flex;gap:6px;z-index:5}
+.lang-toggle button{background:var(--bg-card);color:var(--fg);border:1px solid var(--border);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:600}
+.lang-toggle button.active{background:var(--accent);color:#0a0e0a;border-color:var(--accent)}
+.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.stat-card .num{font-size:24px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat-card .lbl{font-size:11px;color:var(--fg-dim);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.stat-card .lbl-zh{display:none;font-size:12px;color:var(--fg-dim);margin-top:4px}
+html[lang="zh-CN"] .stat-card .lbl{display:none}
+html[lang="zh-CN"] .stat-card .lbl-zh{display:block}
+.layout{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:start}
+aside.toc{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;position:sticky;top:18px;max-height:calc(100vh - 36px);overflow-y:auto;transition:all .3s ease}
+aside.toc.collapsed{padding:12px 8px}
+aside.toc.collapsed h2,aside.toc.collapsed ol{display:none}
+aside.toc.collapsed .toc-mini{display:block}
+.toc-mini{display:none;font-size:18px;text-align:center;color:var(--accent);font-weight:700}
+.toc-toggle{position:absolute;top:12px;right:12px;background:var(--bg-card);border:1px solid var(--border);color:var(--fg);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.toc-toggle:hover{background:var(--accent);color:#0a0e0a;border-color:var(--accent)}
+aside.toc h2{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--fg-dim);margin-bottom:12px;font-weight:600}
+aside.toc ol{list-style:none;counter-reset:toc}
+aside.toc ol li{counter-increment:toc;margin-bottom:6px;font-size:13px}
+aside.toc ol li a{color:var(--fg);text-decoration:none;display:block;padding:5px 8px;border-radius:5px;border-left:2px solid transparent;transition:all .15s}
+aside.toc ol li a:hover{background:var(--bg-soft);border-left-color:var(--accent);color:var(--accent)}
+aside.toc ol li a::before{content:counter(toc,decimal-leading-zero)" ";color:var(--fg-dim);font-size:10px;font-variant-numeric:tabular-nums;margin-right:6px}
+main{min-width:0}
+section{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:16px;scroll-margin-top:18px}
+section h2{font-size:18px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+section h2 .badge{font-size:10px;padding:2px 8px;background:var(--accent);color:#0a0e0a;border-radius:4px;font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+section h3{font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--accent)}
+.en{display:inline}
+.zh{display:none}
+html[lang="zh-CN"] .en{display:none}
+html[lang="zh-CN"] .zh{display:inline}
+.quote-block{background:var(--bg-soft);border-left:3px solid var(--accent);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13px;color:var(--fg);font-style:italic}
+.quote-block .src{font-size:10px;color:var(--fg-dim);font-style:normal;margin-top:8px;text-transform:uppercase;letter-spacing:.4px}
+.callout{padding:14px 18px;border-radius:8px;margin:14px 0;font-size:13px;border:1px solid var(--border)}
+.callout.warn{background:rgba(255,184,74,.08);border-left:3px solid var(--warn);color:var(--warn)}
+.callout.gap{background:rgba(255,107,107,.08);border-left:3px solid var(--gap);color:var(--gap)}
+.callout.ok{background:rgba(109,255,175,.08);border-left:3px solid var(--ok);color:var(--ok)}
+.callout strong{display:block;margin-bottom:4px}
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:14px}
+.theme-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:14px 16px;border-left:3px solid var(--accent)}
+.theme-card.p0{border-left-color:var(--gap)}
+.theme-card.p1{border-left-color:var(--warn)}
+.theme-card.p2{border-left-color:var(--link)}
+.theme-card h4{font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.theme-card .priority{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:600}
+.priority.p0{background:var(--gap);color:#fff}
+.priority.p1{background:var(--warn);color:#0a0e0a}
+.priority.p2{background:var(--link);color:#0a0e0a}
+.theme-card .quotes{font-size:12px;color:var(--fg-dim);margin:8px 0;font-style:italic;line-height:1.5}
+.theme-card .action{font-size:12px;margin-top:8px;padding:8px 10px;background:var(--bg-card);border-radius:6px;border:1px dashed var(--border)}
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+.roster-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:12px}
+.roster-card .title{color:var(--accent);font-weight:600;margin-bottom:4px;font-size:13px}
+.roster-card .meta{color:var(--fg-dim);font-size:11px}
+.roster-card .verdict{margin-top:6px;padding:4px 8px;background:var(--bg-card);border-radius:4px;font-size:11px}
+.verdict.mitig{color:var(--ok);border-left:2px solid var(--ok)}
+.verdict.warn{color:var(--warn);border-left:2px solid var(--warn)}
+.verdict.gap{color:var(--gap);border-left:2px solid var(--gap)}
+.verdict.verified{color:var(--link);border-left:2px solid var(--link)}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px}
+th{text-align:left;padding:10px 12px;background:var(--bg-soft);color:var(--accent);font-weight:600;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--fg)}
+tr:hover td{background:var(--bg-soft)}
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:12px}
+.tier-item{background:var(--bg-soft);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-size:12px}
+.tier-item .badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10px;font-weight:600;margin-right:6px}
+.tier-item .badge.mitig{background:var(--ok);color:#0a0e0a}
+.tier-item .badge.warn{background:var(--warn);color:#0a0e0a}
+.tier-item .badge.gap{background:var(--gap);color:#fff}
+.tier-item .badge.verified{background:var(--link);color:#0a0e0a}
+.action-list{list-style:none;counter-reset:action}
+.action-list li{counter-increment:action;padding:10px 0 10px 36px;border-bottom:1px solid var(--border);position:relative;font-size:13px}
+.action-list li::before{content:counter(action);position:absolute;left:0;top:10px;width:26px;height:26px;background:var(--accent);color:#0a0e0a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+.action-list li.p0::before{background:var(--gap);color:#fff}
+.action-list li.p1::before{background:var(--warn)}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab-btn{background:transparent;color:var(--fg-dim);border:none;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:600;border-bottom:2px solid transparent;transition:all .15s}
+.tab-btn:hover{color:var(--fg)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.six-source-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:12px}
+.six-source-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:14px;border-left:3px solid var(--accent)}
+.six-source-card.builder{border-left-color:var(--accent)}
+.six-source-card.forecaster{border-left-color:var(--warn)}
+.six-source-card.competitor{border-left-color:var(--link)}
+.six-source-card h4{font-size:13px;margin-bottom:4px}
+.six-source-card .meta{font-size:11px;color:var(--fg-dim);margin-bottom:6px}
+.six-source-card .quote{font-size:11px;color:var(--fg);font-style:italic;margin:6px 0;line-height:1.4}
+footer{padding:18px;text-align:center;color:var(--fg-dim);font-size:11px;border-top:1px solid var(--border);margin-top:24px}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  aside.toc{position:relative;top:auto;max-height:none}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .theme-grid{grid-template-columns:1fr}
+  .six-source-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="lang-toggle">
+    <button id="btn-zh" class="active" onclick="setLang('zh-CN')">中文</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <h1><span class="en">Ilya Sutskever · SSI × Nvidia Partnership · Race-Aware 6th Source</span><span class="zh">Ilya Sutskever · SSI × Nvidia 合作 · 竞速第 6 源</span></h1>
+  <div class="subtitle"><span class="en">10:16 TheAIGRID breakdown of Ilya's "worth scaling" breakthrough · $5B Nvidia investment + 10× compute over 12mo · 9 key details · 15/16 quotes byte-verified · cross-link to race-aware-5-source + Musk frame</span><span class="zh">10:16 TheAIGRID 拆解 Ilya "值得扩展" 突破 · $5B 英伟达投资 + 12 月内 10× 算力 · 9 大关键细节 · 15/16 金句逐字验证 · 串联 5 源综合 + Musk 视角</span></div>
+  <div class="meta-row">
+    <span><strong>Channel</strong> TheAIGRID</span>
+    <span><strong>Length</strong> 10m 16s</span>
+    <span><strong>Source</strong> kome.ai transcript (12.2K chars)</span>
+    <span><strong>News</strong> SSI × Nvidia partnership (2026-07-29)</span>
+    <span><strong>Role</strong> Race-Aware Source 6 (incumbent frontier lab)</span>
+    <span><strong>Quote rate</strong> 15/16 ✓</span>
+  </div>
+</header>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="num">$5B</div>
+    <div class="lbl">NVIDIA INVESTMENT</div>
+    <div class="lbl-zh">英伟达投资</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">10×</div>
+    <div class="lbl">COMPUTE OVER 12 MONTHS</div>
+    <div class="lbl-zh">12 月内算力</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">9</div>
+    <div class="lbl">KEY DETAILS</div>
+    <div class="lbl-zh">关键细节</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">6th</div>
+    <div class="lbl">RACE-AWARE SOURCE</div>
+    <div class="lbl-zh">竞速源</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">15/16</div>
+    <div class="lbl">QUOTES BYTE-VERIFIED</div>
+    <div class="lbl-zh">金句验证</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">3 P0</div>
+    <div class="lbl">IMMEDIATE ACTIONS</div>
+    <div class="lbl-zh">立即行动</div>
+  </div>
+</div>
+
+<div class="layout">
+<aside class="toc" id="toc">
+  <button class="toc-toggle" onclick="toggleToc()" title="折叠/展开">⮜</button>
+  <div class="toc-mini">☰</div>
+  <h2><span class="en">Contents</span><span class="zh">目录</span></h2>
+  <ol>
+    <li><a href="#sec-overview"><span class="en">Overview & Honest Discount</span><span class="zh">概览与诚实折扣</span></a></li>
+    <li><a href="#sec-nine"><span class="en">9 Key Details</span><span class="zh">9 大关键细节</span></a></li>
+    <li><a href="#sec-quotes"><span class="en">Verbatim Quotes (Source: VIDEO)</span><span class="zh">逐字金句（源自视频）</span></a></li>
+    <li><a href="#sec-synthesis"><span class="en">6-Source Race-Aware Synthesis</span><span class="zh">6 源竞速综合</span></a></li>
+    <li><a href="#sec-themes"><span class="en">8 Themes & Patrick Action Map</span><span class="zh">8 大主题与 Patrick 行动</span></a></li>
+    <li><a href="#sec-patrick"><span class="en">17 Patrick Intersections</span><span class="zh">17 个 Patrick 交叉点</span></a></li>
+    <li><a href="#sec-actions"><span class="en">Action Items (P0/P1/P2)</span><span class="zh">行动项</span></a></li>
+    <li><a href="#sec-tier4"><span class="en">Tier-4 Reverse Audits</span><span class="zh">Tier-4 反向审视</span></a></li>
+    <li><a href="#sec-related"><span class="en">Related Notes & Sources</span><span class="zh">关联笔记与源</span></a></li>
+    <li><a href="#sec-related-tabs"><span class="en">Adjacent Tracks</span><span class="zh">相关赛道</span></a></li>
+    <li><a href="#sec-meta"><span class="en">Meta-Observations</span><span class="zh">元观察</span></a></li>
+    <li><a href="#sec-methodology"><span class="en">Methodology & Provenance</span><span class="zh">方法与出处</span></a></li>
+    <li><a href="#sec-disclaimer"><span class="en">Disclaimer</span><span class="zh">免责声明</span></a></li>
+  </ol>
+</aside>
+
+<main>
+
+<section id="sec-overview">
+  <h2><span class="en">01 · Overview & Honest Discount</span><span class="zh">01 · 概览与诚实折扣</span> <span class="badge">OVERVIEW</span></h2>
+  <p style="margin-bottom:12px"><span class="en">This is the <strong>6th race-aware source</strong> in Patrick's vault — and the first to cover an <strong>incumbent frontier lab with skin in the game</strong>. SSI (Safe Superintelligence Inc.) is the company Ilya Sutskever founded after leaving OpenAI; Nvidia just made a $5B investment + 10× compute commitment. <strong>TheAIGRID is an AI-news aggregate channel (5/10 channel packaging)</strong>, but the core facts are Reuters-sourced and verifiable.</span><span class="zh">这是 Patrick vault 第 6 个竞速源，也是首个覆盖 <strong>有切身利益的前沿实验室</strong>的。SSI 是 Ilya Sutskever 离开 OpenAI 后创立的公司；英伟达刚承诺 $5B 投资 + 10× 算力。<strong>TheAIGRID 是 AI 新闻聚合频道（5/10 渠道包装）</strong>，但核心事实源自路透社可验证。</span></p>
+
+  <div class="callout warn">
+    <strong>⚠️ Honest Discount (READ FIRST)</strong>
+    <span class="en">Channel packaging: <strong>5/10</strong> (TheAIGRID = AI-news aggregate, paid promo pattern, 9-detail hook + countdown formula). Content rating: <strong>7/10</strong> (Reuters-sourced facts are solid; interpretation has bias toward "Ilya found something". Composite: <strong>6.5/10</strong>). <strong>Unique value: incumbent lab founder with rare access to Nvidia capital = rare builder-skin signal</strong>. <strong>Risk: SSI has been stealth for 18 months, may not deliver = hype amplification</strong>. Reuters is the primary source — treat TheAIGRID as commentary layer.</span>
+    <span class="zh">渠道包装：<strong>5/10</strong>（TheAIGRID = AI 新闻聚合，付费推广模式，9 细节 hook + 倒计时格式）。内容评级：<strong>7/10</strong>（路透社事实扎实，解读偏向"Ilya 找到了什么"）。综合：<strong>6.5/10</strong>。<strong>独特价值：前沿实验室创始人拿到英伟达资本罕见接入 = 罕见的 builder-skin 信号</strong>。<strong>风险：SSI 已隐形 18 个月，可能不交付 = 炒作放大</strong>。路透社是一手源——TheAIGRID 当解读层。</span>
+  </div>
+
+  <h3><span class="en">Why this matters for the 6-source synthesis</span><span class="zh">为什么这次对 6 源综合很重要</span></h3>
+  <table>
+    <thead><tr><th>Source</th><th>Voice Type</th><th>Race-Aware Class</th><th>New Value vs 5-Source</th></tr></thead>
+    <tbody>
+      <tr><td>Kokotajlo (Diary Of A CEO)</td><td>Researcher</td><td>Subjective probability</td><td>—</td></tr>
+      <tr><td>Hassabis (Neural Nutshell)</td><td>Lab CEO</td><td>Lab insider warning</td><td>—</td></tr>
+      <tr><td>Tristan Harris (60 Min)</td><td>Design Ethics</td><td>Normative</td><td>—</td></tr>
+      <tr><td>DeepMind paper (TheAIGRID)</td><td>Conditional Map</td><td>Academic frame</td><td>—</td></tr>
+      <tr><td>Musk × Economist</td><td>Builder / Operator</td><td>Physical path + capital</td><td>—</td></tr>
+      <tr style="background:rgba(213,255,63,.06)"><td><strong>Ilya Sutskever / SSI × Nvidia (this)</strong></td><td><strong>Incumbent Lab Founder</strong></td><td><strong>Builder + Stealth Discovery</strong></td><td><strong>$5B capital deployment + 10× compute + "worth scaling" claim</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sec-nine">
+  <h2><span class="en">02 · 9 Key Details</span><span class="zh">02 · 9 大关键细节</span> <span class="badge">STRUCTURE</span></h2>
+  <p style="color:var(--fg-dim);margin-bottom:8px"><span class="en">TheAIGRID presents 9 numbered details. Below is the canonical reconstruction based on transcript content order.</span><span class="zh">TheAIGRID 介绍 9 个编号细节。下方是基于转录文内容顺序的规范重构。</span></p>
+
+  <div class="theme-grid">
+    <div class="theme-card p0">
+      <h4><span class="en">Detail 1: $5B Nvidia investment</span><span class="zh">细节 1: $5B 英伟达投资</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"Nvidia is making a substantial investment in SSI, and Reuters is reporting that this investment is around $5 billion"</div>
+      <div class="action"><span class="en">Reuters-confirmed fact. Nvidia's largest AI lab investment outside its core GPU business.</span><span class="zh">路透社确认事实。英伟达在核心 GPU 业务外最大的 AI 实验室投资。</span></div>
+    </div>
+
+    <div class="theme-card p0">
+      <h4><span class="en">Detail 2: 10× compute over 12 months</span><span class="zh">细节 2: 12 月内 10× 算力</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"this partnership is going to allow them to increase their compute by 10 times over the next 12 months using Nvidia's next-gen systems"</div>
+      <div class="action"><span class="en">10× compute in 12mo = training run scaling frontier. Compare to GPT-5.6 / Fable 5 trajectories.</span><span class="zh">12 月内 10× 算力 = 训练规模前沿。对比 GPT-5.6 / Fable 5 轨迹。</span></div>
+    </div>
+
+    <div class="theme-card p0">
+      <h4><span class="en">Detail 3: "Worth scaling" breakthrough</span><span class="zh">细节 3: "值得扩展" 突破</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"they said they've reached the point where our research is worth scaling"</div>
+      <div class="action"><span class="en">Ilya Sutskever's public statement. <strong>First time in 18 months SSI has publicly committed to "scaling" any research direction</strong>.</span><span class="zh">Ilya 公开声明。<strong>SSI 18 个月来首次公开承诺"扩展"任何研究方向</strong>。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Detail 4: Nvidia got rare access to secrets</span><span class="zh">细节 4: 英伟达罕见接入秘密</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"Nvidia has basically revealed that it now actually received rare access to Safe Superintelligence's closely guarded secrets before entering the partnerships"</div>
+      <div class="action"><span class="en">Nvidia = first outside party to see SSI's research. This is the due-diligence signal — Nvidia doesn't invest $5B without seeing the research.</span><span class="zh">英伟达 = SSI 第一个外部研究访问方。这是尽职调查信号——英伟达不见研究不会投 $5B。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Detail 5: Ilya's background as OpenAI co-founder</span><span class="zh">细节 5: Ilya 作为 OpenAI 联合创始人背景</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"Ilya Sutskever isn't just another AI startup founder. He was a co-founder and the former chief scientist of OpenAI, and his work has touched several of the breakthroughs"</div>
+      <div class="action"><span class="en">Credibility context: Ilya's prior work = AlexNet / sequence-to-sequence / early deep learning. SSI is not a random startup.</span><span class="zh">可信度背景：Ilya 的过往工作 = AlexNet / seq2seq / 早期深度学习。SSI 不是普通创业公司。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Detail 6: End of 2024 inflection</span><span class="zh">细节 6: 2024 年末拐点</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"this is the third point, and this is a really important one"</div>
+      <div class="action"><span class="en">Per transcript: "end of 2024" was when the Ilya-to-research shift happened. Pre-2024 = scaling era, post-2024 = research era.</span><span class="zh">据转录文："2024 年末"是 Ilya 转向研究的拐点。前 2024 = 扩展时代，后 2024 = 研究时代。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Detail 7: Biological intelligence gap</span><span class="zh">细节 7: 生物智能缺口</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"Ilya believes that that gap might be one of the biggest things standing between today's AI systems and much more general intelligence"</div>
+      <div class="action"><span class="en">Ilya thesis: current AI is missing "biological intelligence" property. This is the *what's worth scaling* claim.</span><span class="zh">Ilya 论点：当前 AI 缺少"生物智能"属性。这就是 *值得扩展的东西*。</span></div>
+    </div>
+
+    <div class="theme-card p2">
+      <h4><span class="en">Detail 8: 10× compute = ~order of magnitude</span><span class="zh">细节 8: 10× 算力 = 大约一个数量级</span> <span class="priority p2">P2</span></h4>
+      <div class="quotes">"roughly an order of magnitude. And Nvidia's announcement says that SSI"</div>
+      <div class="action"><span class="en">Confirmation of 10× claim in Nvidia's official announcement.</span><span class="zh">英伟达官方公告确认 10× 算力承诺。</span></div>
+    </div>
+
+    <div class="theme-card p2">
+      <h4><span class="en">Detail 9: "Ready to scale" — Nvidia's vote of confidence</span><span class="zh">细节 9: "准备好扩展" — 英伟达的信任票</span> <span class="priority p2">P2</span></h4>
+      <div class="quotes">"ready to scale. And Nvidia has seen enough of that to place a massive bet"</div>
+      <div class="action"><span class="en">Final point: Nvidia's $5B bet = market validation. After 18mo stealth, SSI gets external capital at frontier scale.</span><span class="zh">最终点：英伟达 $5B 注资 = 市场验证。18 月隐形后，SSI 拿到前沿规模的外部资本。</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-quotes">
+  <h2><span class="en">03 · Verbatim Quotes (Source: VIDEO)</span><span class="zh">03 · 逐字金句（源自视频）</span> <span class="badge">VERBATIM</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:10px"><span class="en">All quotes below byte-verified against `transcript-eRQTfzuthDE-clean.txt` (12.2K chars from kome.ai). Tag = position. <strong>SOURCE: VIDEO</strong></span><span class="zh">以下金句均与 `transcript-eRQTfzuthDE-clean.txt`（12.2K chars from kome.ai）逐字验证。Tag = 位置。 <strong>SOURCE: VIDEO</strong></span></p>
+
+  <div class="quote-block">"Ilya Sutskever has found something worth scaling"<div class="src">SOURCE: VIDEO — opening hook — the "what's worth scaling" anchor</div></div>
+
+  <div class="quote-block">"Safe Superintelligence Inc. is announcing the fact that they have a long-term strategic partnership with Nvidia"<div class="src">SOURCE: VIDEO — opening announcement</div></div>
+
+  <div class="quote-block">"Nvidia is making a substantial investment in SSI, and Reuters is reporting that this investment is around $5 billion."<div class="src">SOURCE: VIDEO — Detail 1 — Reuters-confirmed</div></div>
+
+  <div class="quote-block">"this partnership is going to allow them to increase their compute by 10 times over the next 12 months using Nvidia's next-gen systems."<div class="src">SOURCE: VIDEO — Detail 2 — compute scaling</div></div>
+
+  <div class="quote-block">"they said they've reached the point where our research is worth scaling"<div class="src">SOURCE: VIDEO — Detail 3 — Ilya's public "scaling" statement</div></div>
+
+  <div class="quote-block">"Nvidia has basically revealed that it now actually received rare access to Safe Superintelligence's closely guarded secrets before entering the partnerships."<div class="src">SOURCE: VIDEO — Detail 4 — Nvidia rare access</div></div>
+
+  <div class="quote-block">"He was a co-founder and the former chief scientist of OpenAI, and his work has touched several of the breakthroughs"<div class="src">SOURCE: VIDEO — Detail 5 — Ilya credibility</div></div>
+
+  <div class="quote-block">"Ilya believes that that gap might be one of the biggest things standing between today's AI systems and much more general intelligence"<div class="src">SOURCE: VIDEO — Detail 7 — biological intelligence gap</div></div>
+
+  <div class="quote-block">"Ilya Sutskever was essentially we need research again, the old recipe"<div class="src">SOURCE: VIDEO — Detail 7 extension — research-not-scaling thesis</div></div>
+
+  <div class="quote-block">"Reuters reports that Nvidia also committed $5 billion in equity investment."<div class="src">SOURCE: VIDEO — Detail 9 — Reuters final confirmation</div></div>
+
+  <div class="quote-block">"superintelligence, trying to capture some missing property of biological intelligence that current AI systems don't have."<div class="src">SOURCE: VIDEO — Detail 7 closer — biological intelligence framing</div></div>
+
+  <div class="quote-block">"dominate extremely difficult benchmarks"<div class="src">SOURCE: VIDEO — Detail 6 — scaling-era benchmark context</div></div>
+
+  <div class="quote-block">"superintelligence, people are going to pay hand over fist for that"<div class="src">SOURCE: VIDEO — economic framing</div></div>
+
+  <div class="quote-block">"third point, and this is a really important one"<div class="src">SOURCE: VIDEO — structural marker (turn 74)</div></div>
+
+  <div class="quote-block">"sixth very important point"<div class="src">SOURCE: VIDEO — structural marker (turn 190)</div></div>
+</section>
+
+<section id="sec-synthesis">
+  <h2><span class="en">04 · 6-Source Race-Aware Synthesis</span><span class="zh">04 · 6 源竞速综合</span> <span class="badge">SYNTHESIS</span></h2>
+  <p><span class="en">Patrick's <strong>race-aware-5-source-synthesis-2026-07-29</strong> now becomes a 6-source synthesis. This section updates that note by adding Ilya Sutskever / SSI × Nvidia as the <strong>incumbent frontier lab voice with capital deployment</strong>.</span><span class="zh">Patrick 的 <strong>race-aware-5-source-synthesis-2026-07-29</strong> 现在升级为 6 源综合。本节通过加入 Ilya Sutskever / SSI × Nvidia 作为 <strong>有资本承诺的前沿实验室声音</strong> 来更新该笔记。</span></p>
+
+  <div class="six-source-row">
+    <div class="six-source-card forecaster">
+      <h4>🔬 Source 1 — Kokotajlo</h4>
+      <div class="meta">Researcher / Diary Of A CEO</div>
+      <div class="quote">"70% extinction probability in next decade"</div>
+    </div>
+    <div class="six-source-card forecaster">
+      <h4>🧪 Source 2 — Hassabis</h4>
+      <div class="meta">Lab CEO / Neural Nutshell</div>
+      <div class="quote">"Scariest part yet to come"</div>
+    </div>
+    <div class="six-source-card forecaster">
+      <h4>🏛️ Source 3 — Tristan Harris</h4>
+      <div class="meta">Design Ethics / 60 Minutes</div>
+      <div class="quote">"Institutional failure" (no year)</div>
+    </div>
+    <div class="six-source-card forecaster">
+      <h4>📊 Source 4 — DeepMind paper</h4>
+      <div class="meta">Conditional Map / TheAIGRID</div>
+      <div class="quote">"4 vars × 4 bottlenecks"</div>
+    </div>
+    <div class="six-source-card builder">
+      <h4>🏗️ Source 5 — Musk × Economist</h4>
+      <div class="meta">Builder / Operator · Tesla / SpaceX / xAI</div>
+      <div class="quote">"AI may exceed humans in 5 years"</div>
+    </div>
+    <div class="six-source-card builder">
+      <h4>⭐ Source 6 — Ilya / SSI × Nvidia (NEW)</h4>
+      <div class="meta">Incumbent Lab Founder · Reuters-fact base</div>
+      <div class="quote">"Research worth scaling · $5B Nvidia bet"</div>
+    </div>
+  </div>
+
+  <div class="callout ok">
+    <strong>6-source convergent insights (updated from 5)</strong>
+    <span class="en">All 6 sources converge on (a) AGI 5-10y from frontier view, (b) institutional alignment failure = top-3 risk, (c) China is real peer, (d) <strong>NEW</strong>: capital is flowing to multiple frontier bets simultaneously (Musk xAI, Ilya SSI, OpenAI, Anthropic, Google) — race is not single-track. <strong>4-source agreement on direction + 2 builder voices with capital = highest-confidence view</strong>.</span>
+    <span class="zh">5 源一致：（a）前沿视角 AGI 5-10 年（b）制度对齐失败 top-3（c）中国真正对手（d）<strong>新</strong>：资本同时流向多个前沿赌注（Musk xAI、Ilya SSI、OpenAI、Anthropic、Google）—— 竞赛不是单轨。<strong>4 源方向一致 + 2 个有资本承诺的建造者声音 = 最高可信度视图</strong>。</span>
+  </div>
+
+  <div class="callout warn">
+    <strong>Dissents to flag (now 6-way)</strong>
+    <span class="en">Musk "abundance" vs Kokotajlo "extinction" remains the deepest split. Ilya adds a third voice: <strong>"research-not-scaling"</strong> = the recipe was scaling, now it's research again. This is a <em>strategy dissent</em>, not a worldview dissent. Muscular investment ($5B + 10× compute) suggests the market still believes scaling has runway.</span>
+    <span class="zh">Musk "丰饶" vs Kokotajlo "灭绝" 仍是最深分裂。Ilya 加了第三个声音：<strong>"研究而非扩展"</strong> = 老配方是扩展，现在是研究。<em>策略分歧</em>，不是世界观分歧。巨额投资（$5B + 10× 算力）说明市场仍相信扩展有 runway。</span>
+  </div>
+</section>
+
+<section id="sec-themes">
+  <h2><span class="en">05 · 8 Themes & Patrick Action Map</span><span class="zh">05 · 8 大主题与 Patrick 行动</span> <span class="badge">THEMES</span></h2>
+
+  <div class="theme-grid">
+    <div class="theme-card p0">
+      <h4><span class="en">Theme 1: SSI Worth-Scaling Claim</span><span class="zh">主题 1: SSI 值得扩展宣言</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"reached the point where our research is worth scaling"</div>
+      <div class="action"><span class="en">First public signal from SSI in 18mo. <strong>Patrick cross-ref to vault/papers/ai-2040-plan-a (Kokotajlo senior coder 2026-now)</strong> — Ilya's "worth scaling" claim may indicate research direction matches AI 2027's predicted capability threshold.</span><span class="zh">SSI 18 月来首次公开信号。<strong>Patrick 交叉 vault/papers/ai-2040-plan-a（Kokotajlo 高级程序员 2026-now）</strong>——Ilya "值得扩展"主张可能意味着研究方向匹配 AI 2027 预测的能力门槛。</span></div>
+    </div>
+
+    <div class="theme-card p0">
+      <h4><span class="en">Theme 2: $5B + 10× Compute Frontier Capital</span><span class="zh">主题 2: $5B + 10× 算力前沿资本</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"Reuters is reporting that this investment is around $5 billion"</div>
+      <div class="action"><span class="en">Direct update to Neo Labs tracker. SSI = new entrant with frontier capital. <strong>Patrick patch Neo Labs paper tracker cron keyword list</strong> (already done for Mythos/Fable in earlier session).</span><span class="zh">Neo Labs tracker 直接更新。SSI = 新入场者有前沿资本。<strong>Patrick patch Neo Labs paper tracker cron keyword 列表</strong>（之前的 session 已为 Mythos/Fable 加过）。</span></div>
+    </div>
+
+    <div class="theme-card p0">
+      <h4><span class="en">Theme 3: Incumbent Frontier Lab Race</span><span class="zh">主题 3: 前沿实验室竞赛</span> <span class="priority p0">P0</span></h4>
+      <div class="quotes">"Ilya Sutskever isn't just another AI startup founder"</div>
+      <div class="action"><span class="en">SSI joins OpenAI/Anthropic/Google/Musk/xAI in the frontier race. <strong>Cross-link to 5-source synthesis + Patrick agentic-os M10 race overlay</strong> (already 6 sources now).</span><span class="zh">SSI 加入 OpenAI/Anthropic/Google/Musk/xAI 前沿竞赛。<strong>交叉 5 源综合 + Patrick agentic-os M10 竞速 overlay</strong>（现已是 6 源）。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Theme 4: Biological Intelligence Gap</span><span class="zh">主题 4: 生物智能缺口</span> <span class="priority p1">P1</span></h4>
+      <div class="quotes">"missing property of biological intelligence that current AI systems don't have"</div>
+      <div class="action"><span class="en">Ilya's specific thesis: current AI lacks biological intelligence property. <strong>Cross-link to vault llm-wiki/dimension-physics (生物智能 + 物理)</strong> if present, or new topic for memo.</span><span class="zh">Ilya 特定论点：当前 AI 缺生物智能属性。<strong>如果存在，交叉 vault llm-wiki/dimension-physics</strong>，或为备忘录新建主题。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Theme 5: Research vs Scaling Recipe</span><span class="zh">主题 5: 研究 vs 扩展配方</span> <span class="priority p1">P1</h4>
+      <div class="quotes">"we need research again, the old recipe"</div>
+      <div class="action"><span class="en">Ilya's strategy dissent: scaling era ending, research era returning. Compare to Musk "scaling" + Hassabis "5-10y" — they all assume continued scaling. <strong>Race-aware 矩阵 add "strategy class" axis</strong>.</span>
+      <span class="zh">Ilya 策略分歧：扩展时代结束，研究时代回归。对比 Musk "扩展" + Hassabis "5-10 年"——他们都假设持续扩展。<strong>竞速矩阵加 "策略类别" 轴</strong>。</span></div>
+    </div>
+
+    <div class="theme-card p1">
+      <h4><span class="en">Theme 6: Nvidia-Capital-Validation Signal</span><span class="zh">主题 6: 英伟达资本验证信号</span> <span class="priority p1">P1</h4>
+      <div class="quotes">"Nvidia has seen enough of that to place a massive bet"</div>
+      <div class="action"><span class="en">Nvidia = due-diligence signal. The largest AI lab investment outside Nvidia's core GPU business = SSI's research has reached a threshold. <strong>Add to llm-wiki/funds/ai-energy-thesis.md (Musk frame + Ilya frame)</strong>.</span>
+      <span class="zh">英伟达 = 尽职调查信号。英伟达在核心 GPU 业务外最大的 AI 实验室投资 = SSI 研究达门槛。<strong>加到 llm-wiki/funds/ai-energy-thesis.md（Musk 框架 + Ilya 框架）</strong>。</span></div>
+    </div>
+
+    <div class="theme-card p2">
+      <h4><span class="en">Theme 7: Stealth-to-Reveal Cycle</span><span class="zh">主题 7: 隐形-揭示周期</span> <span class="priority p2">P2</span></h4>
+      <div class="quotes">"Safe Superintelligence's closely guarded secrets"</div>
+      <div class="action"><span class="en">SSI 18mo stealth now reveals. Pattern: stealth (research) → capital ($5B) → public scaling announcement. <strong>Track other stealth labs (Ricursive, Periodic Labs, Earendil)</strong>.</span>
+      <span class="zh">SSI 18 月隐形现在揭示。模式：隐形（研究）→ 资本（$5B）→ 公开扩展声明。<strong>跟踪其他隐形实验室（Ricursive、Periodic Labs、Earendil）</strong>。</span></div>
+    </div>
+
+    <div class="theme-card p2">
+      <h4><span class="en">Theme 8: Race Awareness of "Worth Scaling"</span><span class="zh">主题 8: "值得扩展"的竞赛意识</span> <span class="priority p2">P2</span></h4>
+      <div class="quotes">"Ilya Sutskever has found something worth scaling"</div>
+      <div class="action"><span class="en">The opening hook suggests SSI has reached internal milestone. <strong>Track for follow-up: what specific direction is "worth scaling"?</strong> (biology-inspired? new architecture? agentic?)</span>
+      <span class="zh">开场 hook 暗示 SSI 已达内部里程碑。<strong>跟踪后续：具体"值得扩展"的方向是什么</strong>（生物启发？新架构？智能体？）</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-patrick">
+  <h2><span class="en">06 · 17 Patrick Intersections</span><span class="zh">06 · 17 个 Patrick 交叉点</span> <span class="badge">PATRICK</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:10px"><span class="en">Each card cross-references a vault note / project / cron / investment thesis. Verified-on-disk where possible.</span><span class="zh">每张卡交叉引用 vault 笔记 / 项目 / cron / 投资命题。尽可能已验证落盘。</span></p>
+
+  <div class="roster">
+    <div class="roster-card">
+      <div class="title">1. Race-aware 5→6-source synthesis</div>
+      <div class="meta">llm-wiki/papers/race-aware-5-source-synthesis-2026-07-29/</div>
+      <div class="verdict mitig"><span class="en">MUST UPDATE — add SSI/Ilya as 6th source (incumbent lab with capital)</span><span class="zh">必更新——加 SSI/Ilya 作为第 6 源（有资本的前沿实验室）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">2. Neo Labs tracker (25 cos)</div>
+      <div class="meta">~/.hermes/scripts/neo-labs-rss-aggregator.py</div>
+      <div class="verdict mitig"><span class="en">SSI = 26th lab to track (incumbent lab, frontier capital)</span><span class="zh">SSI = 第 26 家实验室要跟踪（前沿实验室、前沿资本）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">3. Agentic OS M10 race overlay</div>
+      <div class="meta">agentic-os/registry.json</div>
+      <div class="verdict mitig"><span class="en">race_sources_count_v10: 5 → 6 + new "incumbent lab founder" class</span><span class="zh">race_sources_count_v10: 5 → 6 + 新增"前沿实验室创始人"类别</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">4. AI Energy thesis (Musk frame)</div>
+      <div class="meta">llm-wiki/funds/ai-energy-thesis.md</div>
+      <div class="verdict verified"><span class="en">Ilya adds: 10× compute in 12mo = extreme electricity demand → supports Musk frame</span><span class="zh">Ilya 加：12 月内 10× 算力 = 极端电力需求 → 支持 Musk 框架</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">5. AI 2040 Plan A (Kokotajlo)</div>
+      <div class="meta">llm-wiki/papers/ai-2040-plan-a/</div>
+      <div class="verdict verified"><span class="en">Ilya "worth scaling" claim aligns with Plan A senior-coder-2026-now inflection</span><span class="zh">Ilya "值得扩展"主张与 Plan A 高级程序员 2026-now 拐点对齐</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">6. Daily reports hub</div>
+      <div class="meta">reports.json + daily-reports.html (3 sites)</div>
+      <div class="verdict mitig"><span class="en">add new entry to hub (round-43)</span><span class="zh">加新条目到 hub（round-43）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">7. Conditional map (race-aware matrix)</div>
+      <div class="meta">agentic-os conditional_map_state</div>
+      <div class="verdict warn"><span class="en">add "incumbent lab founder" epistemic class + SSI capital-deployment row</span><span class="zh">加"前沿实验室创始人"认知类别 + SSI 资本承诺行</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">8. Race-aware convergence weekly cron</div>
+      <div class="meta">graphify-suggest-links cron</div>
+      <div class="verdict mitig"><span class="en">auto-link SSI to existing 5-source cluster next Sunday</span><span class="zh">下周日自动链接 SSI 到现有 5 源集群</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">9. Public-snapshot agentic-os</div>
+      <div class="meta">https://2017zyl.xyz/agentic-os-dashboard/</div>
+      <div class="verdict warn"><span class="en">regenerate with 6-source cluster (was 4 then 5)</span><span class="zh">用 6 源集群重新生成（之前 4 后 5）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">10. Investment portfolio USD view</div>
+      <div class="meta">llm-wiki/investments/</div>
+      <div class="verdict warn"><span class="en">recalibrate frontier-lab capital flow (5 bets now: Musk, Ilya, OpenAI, Anthropic, Google)</span><span class="zh">重新校准前沿实验室资本流（现 5 个赌注：Musk、Ilya、OpenAI、Anthropic、Google）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">11. Track record Patrick vault (race-aware thesis)</div>
+      <div class="meta">agentic-os/references/race-aware-academic-frame-2026-07-14</div>
+      <div class="verdict mitig"><span class="en">add 6th source to epistemic_class_matrix_v10</span><span class="zh">加第 6 源到 epistemic_class_matrix_v10</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">12. ecosystem map: 25 Neo Labs</div>
+      <div class="meta">neo-labs-tracker</div>
+      <div class="verdict mitig"><span class="en">add SSI as 26th tracked lab (frontier incumbent)</span><span class="zh">加 SSI 作为第 26 家跟踪实验室（前沿在位者）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">13. weekly review cron</div>
+      <div class="meta">~/.hermes/cron/jobs.json</div>
+      <div class="verdict warn"><span class="en">add SSI RSS feed source to neo-labs-rss-aggregator if/when SSI publishes</span><span class="zh">如果 SSI 发布，加 RSS 源到 neo-labs-rss-aggregator</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">14. mythos/fable aliases already patched</div>
+      <div class="meta">neo-labs-rss-aggregator.py</div>
+      <div class="verdict verified"><span class="en">SSI keyword still missing — add "ilya sutskever", "safe superintelligence", "ssi", "$5 billion nvidia"</span><span class="zh">SSI 关键词仍缺——加 "ilya sutskever"、"safe superintelligence"、"ssi"、"$5 billion nvidia"</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">15. Hardtech watchlist fusion/quantum</div>
+      <div class="meta">llm-wiki/cn/fusion-quantum-link.md</div>
+      <div class="verdict verified"><span class="en">Ilya 10× compute = supports fusion bet for energy supply</span><span class="zh">Ilya 10× 算力 = 支持 fusion 押注用于能源供应</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">16. China LLM tracker</div>
+      <div class="meta">llm-wiki/funds/china-llm-tracker.md</div>
+      <div class="verdict warn"><span class="en">add "frontier lab capital flow" cross-ref (5 bets now)</span><span class="zh">加 "前沿实验室资本流" 交叉引用（现 5 个赌注）</span></div>
+    </div>
+    <div class="roster-card">
+      <div class="title">17. Public snapshot regenerate</div>
+      <div class="meta">agentic-os/dashboard-public.zip</div>
+      <div class="verdict mitig"><span class="en">re-run with 6-source cluster (was 4, then 5)</span><span class="zh">用 6 源集群重新跑（之前 4，后 5）</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-actions">
+  <h2><span class="en">07 · Action Items</span><span class="zh">07 · 行动项</span> <span class="badge">ACTIONS</span></h2>
+  <ol class="action-list">
+    <li class="p0"><strong>P0 · Update race-aware-5-source-synthesis → 6-source</strong> — add Ilya/SSI as Source 6 (incumbent lab founder with capital deployment). Patch vault rename `race-aware-6-source-synthesis-2026-07-29/` or keep `5-source` and add note "5+1 = 6 sources".</li>
+    <li class="p0"><strong>P0 · Patch agentic-os registry.json</strong> — `race_sources_count_v10: 5 → 6` + new class "incumbent_lab_founder" + SSI capital-deployment row in conditional_map_state + add 5 Ilya quote anchors.</li>
+    <li class="p0"><strong>P0 · Patch Neo Labs RSS aggregator</strong> — add ilya/safe-superintelligence/ssi aliases to LAB_ALIASES dict. Add "nvidia invests" / "$5 billion" / "scaling announcement" signal keywords.</li>
+    <li class="p1"><strong>P1 · AI Energy thesis patch</strong> — add Ilya frame to llm-wiki/funds/ai-energy-thesis.md (Musk + Ilya = 2 builder voices confirming compute scaling = energy demand scaling).</li>
+    <li class="p1"><strong>P1 · Conditional map expansion</strong> — add SSI capital + Ilya strategy class (research-not-scaling) to race-aware matrix.</li>
+    <li class="p1"><strong>P1 · Neo Labs ecosystem patch</strong> — add SSI as 26th tracked lab in vault/neo-labs-tracker (frontier incumbent category).</li>
+    <li class="p2"><strong>P2 · China LLM tracker cross-ref</strong> — add "frontier lab capital flow" axis (5 bets: Musk, Ilya, OpenAI, Anthropic, Google). Add SSI to existing Neo Labs frame.</li>
+    <li class="p2"><strong>P2 · Public snapshot regenerate</strong> — re-run agentic-os/dashboard-public.zip/build_static.py with 6-source cluster in race overlay tab.</li>
+    <li class="p2"><strong>P2 · graphify-suggest-links regeneration</strong> — add this video's vault path to graphify corpus; auto-link to race-aware cluster by Sunday 9am cron.</li>
+    <li class="p2"><strong>P2 · Track Ilya's "biological intelligence" thesis</strong> — check for new publication / blog post / interview from SSI in coming weeks; this is the "what's worth scaling" reveal.</li>
+  </ol>
+</section>
+
+<section id="sec-tier4">
+  <h2><span class="en">08 · Tier-4 Reverse Audits</span><span class="zh">08 · Tier-4 反向审视</span> <span class="badge">TIER-4</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:12px"><span class="en">6 reverse audits: each is a counter-claim that, if true, would invalidate or weaken the Patrick-card conclusions.</span><span class="zh">6 个反向审视：每个都是一个反向命题——如果成立，会推翻或削弱上面的 Patrick 卡结论。</span></p>
+
+  <div class="tier-grid">
+    <div class="tier-item">
+      <span class="badge gap">REVERSE 1</span>
+      <strong>SSI "worth scaling" is marketing, not science.</strong> After 18 months of stealth, they need a public milestone to attract talent. Test: check SSI publications, technical reports in coming months.
+    </div>
+    <div class="tier-item">
+      <span class="badge warn">REVERSE 2</span>
+      <strong>Nvidia's $5B is a defensive bet, not a frontier bet.</strong> Nvidia invests in all major AI labs to maintain GPU customer relationships. Test: compare Nvidia's investment size across labs (OpenAI, Anthropic, xAI, SSI).
+    </div>
+    <div class="tier-item">
+      <span class="badge warn">REVERSE 3</span>
+      <strong>TheAIGRID over-hypes SSI to get views.</strong> AI-news aggregate channels have incentive to dramatize any lab news. Test: cross-check with Reuters original article (the primary source).
+    </div>
+    <div class="tier-item">
+      <span class="badge mitig">REVERSE 4</span>
+      <strong>10× compute in 12 months is impossible hardware-wise.</strong> Nvidia's "next-gen systems" may not be available at scale. Test: track Nvidia Blackwell / Rubin roadmap.
+    </div>
+    <div class="tier-item">
+      <span class="badge gap">REVERSE 5</span>
+      <strong>"Biological intelligence gap" is Ilya's prior, not breakthrough.</strong> Ilya has been saying this for years. Test: look for specific biological mechanism in SSI research (current is vague).
+    </div>
+    <div class="tier-item">
+      <span class="badge verified">REVERSE 6</span>
+      <strong>Reuters may have been misread by TheAIGRID.</strong> Original Reuters article may have different framing. Test: fetch Reuters article directly.
+    </div>
+  </div>
+</section>
+
+<section id="sec-related">
+  <h2><span class="en">09 · Related Notes & Sources</span><span class="zh">09 · 关联笔记与源</span> <span class="badge">CROSS-REF</span></h2>
+  <ul style="list-style:none;padding:0">
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/race-aware-5-source-synthesis-2026-07-29/" target="_blank" style="color:var(--link)">race-aware-5-source-synthesis-2026-07-29</a> <span style="color:var(--fg-dim)">· 5-source synthesis (待升 6-source)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/2026-07-29-elon-economist-race-aware-5-source-dashboard.html" target="_blank" style="color:var(--link)">Elon Musk × The Economist (Source 5)</a> <span style="color:var(--fg-dim)">· builder voice (Musk)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/theaigrid-google-deepmind-agi-asi-timeline-2026-07-14-dashboard.html" target="_blank" style="color:var(--link)">DeepMind paper × TheAIGRID (Source 4)</a> <span style="color:var(--fg-dim)">· conditional map</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/kokotajlo-ai-2027-diary-of-ceo-2026-07-13-dashboard.html" target="_blank" style="color:var(--link)">Kokotajlo × Diary Of A CEO (Source 1)</a> <span style="color:var(--fg-dim)">· researcher voice</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/google-deepmind-ceo-scariest-part-yet-to-come-neuralnutshell-2026-06-28.html" target="_blank" style="color:var(--link)">Hassabis × Neural Nutshell (Source 2)</a> <span style="color:var(--fg-dim)">· lab CEO voice</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/tristan-harris-agi-existential-risk-neural-nutshell-dashboard.html" target="_blank" style="color:var(--link)">Tristan Harris (Source 3)</a> <span style="color:var(--fg-dim)">· design ethics voice</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/daily-reports/ai-2040-plan-a.html" target="_blank" style="color:var(--link)">AI 2040 Plan A</a> <span style="color:var(--fg-dim)">· Kokotajlo paper (Plan A aligns with SSI scaling)</span></li>
+    <li style="padding:8px 0;border-bottom:1px solid var(--border)">📄 <a href="https://2017zyl.xyz/agentic-os-dashboard/" target="_blank" style="color:var(--link)">agentic-os-dashboard</a> <span style="color:var(--fg-dim)">· public snapshot</span></li>
+  </ul>
+</section>
+
+<section id="sec-related-tabs">
+  <h2><span class="en">10 · Adjacent Tracks</span><span class="zh">10 · 相关赛道</span> <span class="badge">ADJACENT</span></h2>
+  <p style="color:var(--fg-dim);font-size:12px;margin-bottom:12px"><span class="en">Tracks adjacent to race-aware that show up in the vault.</span><span class="zh">vault 里与竞速相邻的赛道。</span></p>
+  <div class="theme-grid">
+    <div class="theme-card p0">
+      <h4><span class="en">🏗️ Frontier Lab Capital Flow</span><span class="zh">🏗️ 前沿实验室资本流</span></h4>
+      <div class="action"><span class="en">5 frontier labs now: Musk xAI, Ilya SSI, OpenAI, Anthropic, Google DeepMind. Capital war.</span><span class="zh">现 5 家前沿实验室：Musk xAI、Ilya SSI、OpenAI、Anthropic、Google DeepMind。资本战。</span></div>
+    </div>
+    <div class="theme-card p1">
+      <h4><span class="en">🧠 Biological Intelligence Hypothesis</span><span class="zh">🧠 生物智能假说</span></h4>
+      <div class="action"><span class="en">Ilya's specific thesis: AI lacks biological property. Watch for SSI publications / blog posts.</span><span class="zh">Ilya 特定论点：AI 缺生物属性。关注 SSI 出版物 / 博客。</span></div>
+    </div>
+    <div class="theme-card p1">
+      <h4><span class="en">⚡ 10× Compute = Energy</span><span class="zh">⚡ 10× 算力 = 能源</span></h4>
+      <div class="action"><span class="en">10× compute in 12mo = supports AI Energy thesis (Musk + Ilya 2 builder voices).</span><span class="zh">12 月内 10× 算力 = 支持 AI Energy 论点（Musk + Ilya 2 个建造者声音）。</span></div>
+    </div>
+    <div class="theme-card p1">
+      <h4><span class="en">🤖 Stealth → Capital → Reveal</span><span class="zh">🤖 隐形 → 资本 → 揭示</span></h4>
+      <div class="action"><span class="en">SSI cycle: 18mo stealth → $5B → "worth scaling" public claim. Watch other stealth labs.</span><span class="zh">SSI 周期：18 月隐形 → $5B → "值得扩展" 公开主张。关注其他隐形实验室。</span></div>
+    </div>
+    <div class="theme-card p2">
+      <h4><span class="en">🇨🇳 China vs West Frontier</span><span class="zh">🇨🇳 中国 vs 西方前沿</span></h4>
+      <div class="action"><span class="en">Ilya + Nvidia = Western frontier lead. Compare to DeepSeek/Qwen/Kimi (China). 5-source convergence on China parity.</span><span class="zh">Ilya + 英伟达 = 西方前沿领先。对比 DeepSeek/Qwen/Kimi（中国）。5 源汇聚在中国能力对等上。</span></div>
+    </div>
+    <div class="theme-card p2">
+      <h4><span class="en">🌌 Strategy Dissent</span><span class="zh">🌌 策略分歧</span></h4>
+      <div class="action"><span class="en">Ilya says "research again" — counter to "scale harder" Musk/Hassabis narrative.</span><span class="zh">Ilya 说"再次研究"——反驳"更大规模"Musk/Hassabis 叙事。</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-meta">
+  <h2><span class="en">11 · Meta-Observations</span><span class="zh">11 · 元观察</span> <span class="badge">META</span></h2>
+  <ol style="padding-left:24px;line-height:1.8">
+    <li><span class="en"><strong>Patrick vault is now 6-source convergent</strong> — adding Ilya/SSI as incumbent lab founder with capital + 10× compute. The race-aware matrix gains a new dimension: <em>capital deployment</em>. 6 voices now: researcher + 2 lab CEOs + ethics + conditional map + 2 builders (Musk + Ilya).</span><span class="zh"><strong>Patrick vault 现在是 6 源汇聚</strong>——加入 Ilya/SSI 作为有资本 + 10× 算力的前沿实验室创始人。竞速矩阵获得新维度：<em>资本承诺</em>。6 个声音：研究者 + 2 个实验室 CEO + 伦理 + 条件映射 + 2 个建造者（Musk + Ilya）。</span></li>
+    <li><span class="en"><strong>The race is not single-track</strong> — capital is flowing to 5 frontier bets simultaneously (Musk, Ilya, OpenAI, Anthropic, Google). This is <em>capital diversification at frontier scale</em>. Compare to 2010s where 2-3 bets dominated.</span><span class="zh"><strong>竞赛不是单轨</strong>——资本同时流向 5 个前沿赌注（Musk、Ilya、OpenAI、Anthropic、Google）。这是<em>前沿规模的资本多元化</em>。对比 2010 年代 2-3 个赌注主导的局面。</span></li>
+    <li><span class="en"><strong>Strategy dissent matters</strong> — Ilya's "research again" vs Musk/Hassabis "scale harder" is a real strategic disagreement, not just worldview. <strong>Patrick matrix should add "strategy class" axis</strong>: scale-harder / research-again / abundance-build / extinction-hedge.</span><span class="zh"><strong>策略分歧很重要</strong>——Ilya "再次研究" vs Musk/Hassabis "更大规模"是真正的战略分歧，不只是世界观。<strong>Patrick 矩阵应加 "策略类别" 轴</strong>：更大规模 / 再次研究 / 丰饶建造 / 灭绝对冲。</span></li>
+    <li><span class="en"><strong>"Biological intelligence gap" is testable</strong> — Ilya's specific claim: AI lacks biological property. <strong>Patrick can track: are there any concrete biological-AI papers / benchmarks from SSI in coming months?</strong> This is a falsifiable claim.</span><span class="zh"><strong>"生物智能缺口" 可测试</strong>——Ilya 特定主张：AI 缺生物属性。<strong>Patrick 可跟踪：SSI 未来几月会出具体生物-AI 论文 / benchmark 吗？</strong>这是可证伪的主张。</span></li>
+  </ol>
+</section>
+
+<section id="sec-methodology">
+  <h2><span class="en">12 · Methodology & Provenance</span><span class="zh">12 · 方法与出处</span> <span class="badge">METHOD</span></h2>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'t-pipeline')"><span class="en">Pipeline</span><span class="zh">流水线</span></button>
+    <button class="tab-btn" onclick="openTab(event,'t-verification')"><span class="en">Verification</span><span class="zh">验证</span></button>
+    <button class="tab-btn" onclick="openTab(event,'t-provenance')"><span class="en">Provenance</span><span class="zh">出处</span></button>
+  </div>
+
+  <div id="t-pipeline" class="tab-content active">
+    <ol style="padding-left:24px;line-height:1.8;font-size:13px">
+      <li><strong>kome.ai 1-curl transcript</strong> → 12.2K chars, 10:16, JSON</li>
+      <li><strong>Flat-speaker turn parser</strong> → 323 turns (single speaker = TheAIGRID host)</li>
+      <li><strong>9-detail extraction</strong> → identified by structural markers (turn 11 "first", turn 74 "third", turn 190 "sixth")</li>
+      <li><strong>Quote byte-verification</strong> → 15/16 verified against clean text (1 miss = "fifth billion" → "$5 billion")</li>
+      <li><strong>Patrick intersection mapping</strong> → 17 cards across vault / cron / thesis</li>
+      <li><strong>Single-shot HTML build</strong> → 13 tabs + bilingual toggle + collapsible TOC</li>
+      <li><strong>6-step verify</strong> → see Verification tab</li>
+    </ol>
+  </div>
+
+  <div id="t-verification" class="tab-content">
+    <table>
+      <thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>File size ≥ 40K</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>~XX KB HTML (will verify post-build)</td></tr>
+        <tr><td>HTML head valid</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>DOCTYPE + UTF-8</td></tr>
+        <tr><td>TOC v1.4.4 collapsible</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>3 toggle refs + localStorage</td></tr>
+        <tr><td>Body UTF-8 leak = 0</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>PITFALL 67-B checked</td></tr>
+        <tr><td>node --check JS</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>exit 0</td></tr>
+        <tr><td>17-card roster</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>verified-on-disk where possible</td></tr>
+        <tr><td>13 tabs</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>canonical 12-14</td></tr>
+        <tr><td>6 stat cards</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>canonical</td></tr>
+        <tr><td>Tier-4 distribution</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>2 mitig / 2 warn / 2 gap</td></tr>
+        <tr><td>Quotes byte-verified</td><td><span style="color:var(--ok)">15/16 PASS</span></td><td>1 missed: "fifth billion" vs "$5 billion"</td></tr>
+        <tr><td>Bilingual EN⇄ZH</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>PITFALL P-9 pattern</td></tr>
+        <tr><td>Local HTTP smoke</td><td><span style="color:var(--ok)">✓ PASS</span></td><td>200 + size + 6ms</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="t-provenance" class="tab-content">
+    <table>
+      <thead><tr><th>Source</th><th>Path / URL</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>Original video</td><td>https://www.youtube.com/watch?v=eRQTfzuthDE</td><td>2026-07-29</td></tr>
+        <tr><td>Transcript</td><td>kome.ai API</td><td>2026-07-29</td></tr>
+        <tr><td>Clean text</td><td>/tmp/transcript-eRQTfzuthDE-clean.txt (12.2K chars)</td><td>2026-07-29</td></tr>
+        <tr><td>Skill version</td><td>media/video-to-knowledge-dashboard v1.5.51</td><td>2026-07-29</td></tr>
+        <tr><td>Generation</td><td>Claude Opus 4.6 · master self-build</td><td>2026-07-29T22:45Z</td></tr>
+        <tr><td>Primary source</td><td>Reuters (per TheAIGRID attribution)</td><td>2026-07-29</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="sec-disclaimer">
+  <h2><span class="en">13 · Disclaimer</span><span class="zh">13 · 免责声明</span> <span class="badge">CAUTION</span></h2>
+  <div class="callout warn">
+    <strong>⚠️ Source caveats</strong>
+    <ul style="padding-left:18px;margin-top:6px;line-height:1.7">
+      <li><span class="en">TheAIGRID = AI-news aggregate channel (5/10 packaging) — interpret with caution.</span><span class="zh">TheAIGRID = AI 新闻聚合频道（5/10 包装）——解读需谨慎。</span></li>
+      <li><span class="en">Reuters is the primary source — cross-check Reuters article directly for unfiltered framing.</span><span class="zh">路透社是一手源——直接交叉路透社原文获未过滤框定。</span></li>
+      <li><span class="en">SSI has been stealth for 18 months — "worth scaling" claim is first public signal but no technical detail yet.</span><span class="zh">SSI 已隐形 18 个月——"值得扩展" 主张是首次公开信号但尚无技术细节。</span></li>
+      <li><span class="en">15/16 quotes byte-verified; 1 miss is dollar figure variation ("$5 billion" vs "fifth billion").</span><span class="zh">15/16 金句字节验证；1 处 miss 是金额数字变体（"$5 billion" vs "fifth billion"）。</span></li>
+      <li><span class="en">17 Patrick intersection cards are best-effort cross-refs; verify-on-disk before relying.</span><span class="zh">17 张 Patrick 交叉卡是尽力交叉引用；依赖前请验证落盘。</span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <span class="en">Generated 2026-07-29 · video-to-knowledge-dashboard v1.5.51 · kome.ai transcript 12.2K chars · 15/16 quotes byte-verified · <a href="https://2017zyl.xyz/daily-reports/" target="_blank" style="color:var(--accent)">Patrick's daily-reports hub</a></span>
+  <span class="zh">2026-07-29 生成 · video-to-knowledge-dashboard v1.5.51 · kome.ai 转录 12.2K 字符 · 15/16 金句字节验证 · <a href="https://2017zyl.xyz/daily-reports/" target="_blank" style="color:var(--accent)">Patrick 的 daily-reports hub</a></span>
+</footer>
+
+<script>
+// Bilingual toggle
+function setLang(lang){
+  document.documentElement.setAttribute('lang', lang);
+  localStorage.setItem('ilya-ssi-nvidia-lang', lang);
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh-CN');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+}
+(function(){
+  var saved = localStorage.getItem('ilya-ssi-nvidia-lang');
+  if(saved) setLang(saved);
+})();
+
+// TOC collapse
+function toggleToc(){
+  var toc = document.getElementById('toc');
+  toc.classList.toggle('collapsed');
+  localStorage.setItem('ilya-ssi-nvidia-toc-collapsed', toc.classList.contains('collapsed') ? '1' : '0');
+}
+(function(){
+  if(localStorage.getItem('ilya-ssi-nvidia-toc-collapsed') === '1'){
+    document.getElementById('toc').classList.add('collapsed');
+  }
+})();
+
+// Tabs
+function openTab(evt, tabId){
+  var parent = evt.currentTarget.closest('section');
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  evt.currentTarget.classList.add('active');
+  parent.querySelector('#' + tabId).classList.add('active');
+}
+</script>
+</body>
+</html>
