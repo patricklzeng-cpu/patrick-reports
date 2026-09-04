@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>把这段提示词贴进 Claude / Paste This Into Claude</title>
+<meta name="description" content="中英双语切换 + 可折叠 TOC：Austin Marchese 关于 Claude token / compute budget 优化的视频解读。">
+<style>
+:root{--bg:#080b12;--panel:#101722;--panel2:#151e2b;--ink:#edf3f8;--muted:#9aaabd;--faint:#627084;--line:#243447;--lime:#d8ff5f;--cyan:#71e6ff;--orange:#ffb86b;--pink:#ff83bb;--red:#ff7d8f;--shadow:0 20px 70px rgba(0,0,0,.32)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}body{margin:0;background:radial-gradient(circle at 76% -8%,#1c394d 0,transparent 32rem),var(--bg);color:var(--ink);font:15px/1.72 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--cyan)}button{font:inherit}.page{max-width:1240px;margin:0 auto;padding:0 36px 90px;transition:margin-left .3s ease,padding-left .3s ease}.topbar{position:sticky;top:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 36px;background:rgba(8,11,18,.84);border-bottom:1px solid rgba(216,255,95,.13);backdrop-filter:blur(18px)}.brand{font:700 12px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em;color:var(--lime);text-transform:uppercase}.top-actions{display:flex;gap:8px;align-items:center}.lang-toggle,.toc-toggle{cursor:pointer;color:var(--lime);background:#101923;border:1px solid rgba(216,255,95,.7);border-radius:999px;padding:8px 14px;font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;transition:.2s}.lang-toggle:hover,.toc-toggle:hover{background:var(--lime);color:#0b1114;box-shadow:0 0 24px rgba(216,255,95,.25)}.toc{position:fixed;left:0;top:78px;z-index:50;width:258px;max-height:calc(100vh - 98px);overflow:hidden;background:rgba(12,18,27,.94);border:1px solid var(--line);border-left:0;border-radius:0 16px 16px 0;box-shadow:var(--shadow);transition:width .3s cubic-bezier(.16,1,.3,1)}.toc.toc-collapsed{width:54px}.toc.toc-collapsed .toc-inner{opacity:0;pointer-events:none}.toc-inner{padding:15px 13px;transition:opacity .15s}.toc-title{display:flex;justify-content:space-between;align-items:center;color:var(--lime);font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}.toc ol{list-style:none;padding:10px 0 0;margin:0;max-height:calc(100vh - 155px);overflow:auto}.toc li{margin:2px 0}.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 7px;border-left:2px solid transparent;border-radius:5px;font-size:12px;line-height:1.3}.toc a:hover,.toc a.active{color:var(--lime);background:#1b2936;border-left-color:var(--lime)}.toc-handle{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--lime);pointer-events:none}.toc:not(.toc-collapsed) .toc-handle{opacity:0}.hero{padding:74px 0 38px;border-bottom:1px solid var(--line)}.eyebrow{display:inline-flex;gap:9px;align-items:center;color:var(--cyan);font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.09em;text-transform:uppercase}.eyebrow:before{content:"";width:28px;height:2px;background:var(--lime);box-shadow:0 0 14px var(--lime)}h1{max-width:1000px;margin:18px 0 20px;font-size:clamp(38px,7vw,82px);line-height:.98;letter-spacing:-.065em}h1 .en{display:block;margin-top:13px;color:var(--muted);font-size:.43em;letter-spacing:-.02em;line-height:1.1} .lede{max-width:820px;color:#c9d5e0;font-size:19px;line-height:1.55}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}.pill{border:1px solid var(--line);background:rgba(16,23,34,.75);border-radius:999px;padding:6px 11px;color:var(--muted);font-size:12px}.pill strong{color:var(--ink)}.notice{margin:26px 0 0;padding:15px 18px;border-left:3px solid var(--orange);background:rgba(255,184,107,.08);color:#f5d4ad;border-radius:0 10px 10px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:19px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,rgba(21,30,43,.95),rgba(12,17,25,.95));box-shadow:0 8px 30px rgba(0,0,0,.12)}.card:hover{border-color:rgba(216,255,95,.5);transform:translateY(-2px);transition:.2s}.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.card-num{color:var(--lime);font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace}.tag{padding:3px 7px;border-radius:999px;font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em}.tag.lime{color:var(--lime);background:rgba(216,255,95,.1)}.tag.cyan{color:var(--cyan);background:rgba(113,230,255,.1)}.tag.orange{color:var(--orange);background:rgba(255,184,107,.1)}.tag.pink{color:var(--pink);background:rgba(255,131,187,.1)}.tone-orange{border-top:2px solid var(--orange)}.tone-cyan{border-top:2px solid var(--cyan)}.tone-pink{border-top:2px solid var(--pink)}.tone-lime{border-top:2px solid var(--lime)}h2{position:relative;margin:76px 0 22px;padding-top:18px;border-top:1px solid var(--line);font-size:clamp(25px,4vw,42px);letter-spacing:-.045em;scroll-margin-top:88px}h2:before{content:attr(id);position:absolute;top:-11px;left:0;color:var(--lime);background:var(--bg);padding-right:10px;font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}h2 .en{display:block;margin-top:4px;color:var(--muted);font-size:.46em;letter-spacing:-.01em;line-height:1.15}h3{font-size:19px;line-height:1.25;margin:0 0 10px;letter-spacing:-.02em}h3 .en{display:block;color:var(--muted);font-size:.78em;margin-top:5px;font-weight:500;letter-spacing:0}.kicker{margin-bottom:7px;color:var(--cyan);font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.12em}.card-copy{color:#c7d2de}.card-copy .en{display:block;color:var(--muted);margin-top:9px}.callout{margin:22px 0;padding:20px;border-radius:14px;background:#111c29;border:1px solid var(--line)}.callout strong{color:var(--lime)}.formula{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;justify-content:center;gap:12px;margin:24px 0;padding:22px;overflow:auto;border:1px solid rgba(216,255,95,.25);background:rgba(216,255,95,.06);border-radius:14px;color:var(--lime);font:700 clamp(18px,3vw,30px) ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;text-align:center}.formula span:first-child{text-align:right}.formula span:nth-of-type(2){text-align:left}.formula b{justify-self:center}.formula small{grid-column:1/-1;display:block;width:100%;max-width:none;color:var(--muted);font:400 12px/1.4 Inter,system-ui,sans-serif;white-space:normal;text-align:center}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;margin:20px 0}table{width:100%;min-width:680px;border-collapse:collapse}th,td{text-align:left;vertical-align:top;padding:13px 15px;border-bottom:1px solid var(--line)}th{color:var(--lime);background:#131e2b;font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.06em}td{color:#c9d4df}tr:last-child td{border-bottom:0}td:first-child{color:var(--ink);font-weight:700}.code-card{margin:20px 0;border:1px solid #2c4052;border-radius:13px;overflow:hidden;background:#071018}.code-label{padding:10px 14px;background:#122230;color:var(--cyan);font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;letter-spacing:.07em}.code-card pre{margin:0;padding:16px;overflow:auto;color:#d9f4a5;font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}.quote-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.quote-card{margin:0;padding:18px;border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:0 13px 13px 0;background:#101925}.quote-en{color:#dff9ff;font-size:17px;line-height:1.5;font-style:italic}.quote-zh{color:var(--ink);font-size:16px;line-height:1.55;margin-top:11px}.quote-card footer{margin-top:13px;color:var(--faint);font:11px ui-monospace,SFMono-Regular,Menlo,monospace}.quote-note{margin-top:9px;color:var(--orange);font-size:12px}.action-list{counter-reset:action;display:grid;gap:10px}.action{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;padding:14px;border:1px solid var(--line);border-radius:12px;background:#101824}.action:before{counter-increment:action;content:counter(action,decimal-leading-zero);color:var(--lime);font:700 15px ui-monospace,SFMono-Regular,Menlo,monospace}.action strong{display:block;color:var(--ink);margin-bottom:3px}.action span{display:block;color:var(--muted)}.source-box{display:grid;grid-template-columns:1fr 1fr;gap:14px}.source-item{padding:15px;border:1px dashed #365064;border-radius:12px;color:var(--muted)}.source-item strong{display:block;color:var(--ink);margin-bottom:5px}.footer{margin-top:80px;padding-top:25px;border-top:1px solid var(--line);color:var(--faint);font-size:12px}.footer a{color:var(--cyan)}.zh{display:inline}.en{display:none}html[lang="zh-CN"] .en{display:none}html[lang="en"] .zh{display:none}html[lang="en"] .en{display:inline}html[lang="en"] .quote-en{display:block}html[lang="en"] .quote-zh{display:none}html[lang="zh-CN"] .quote-en{display:none}html[lang="zh-CN"] .quote-zh{display:block}.bilingual-label{display:block}.machine{color:var(--orange);font-size:12px}.mobile-only{display:none}@media (min-width:901px){body:not(.toc-collapsed) .page{margin-left:258px;max-width:calc(1240px + 258px)}body.toc-collapsed .page{margin-left:54px;max-width:calc(1240px + 54px)}}@media (max-width:900px){.toc{display:none}.page{padding:0 20px 60px}.topbar{padding:12px 20px}.grid,.grid.two,.quote-grid,.source-box{grid-template-columns:1fr}.hero{padding-top:50px}h1{font-size:44px}.lede{font-size:17px}.mobile-only{display:block}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand">FIELD NOTE / CLAUDE ECONOMICS</div><div class="top-actions"><button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN ⇄ 中</button><button class="toc-toggle" onclick="toggleToc()" aria-label="Toggle table of contents">TOC</button></div></header>
+<aside class="toc" id="tocShell" aria-label="Table of contents"><div class="toc-inner"><div class="toc-title"><span class="zh">目录</span><span class="en">Contents</span><span>⌘</span></div><ol>
+<li><a href="#h2-1" data-toc-target="h2-1">01 · <span class="zh">先看公式</span><span class="en">The equation</span></a></li>
+<li><a href="#h2-2" data-toc-target="h2-2">02 · <span class="zh">三个快速收益</span><span class="en">Quick wins</span></a></li>
+<li><a href="#h2-3" data-toc-target="h2-3">03 · <span class="zh">清理上下文</span><span class="en">Context cleanup</span></a></li>
+<li><a href="#h2-4" data-toc-target="h2-4">04 · <span class="zh">系统升级</span><span class="en">System upgrades</span></a></li>
+<li><a href="#h2-5" data-toc-target="h2-5">05 · <span class="zh">RTK 压缩</span><span class="en">RTK compression</span></a></li>
+<li><a href="#h2-6" data-toc-target="h2-6">06 · <span class="zh">最小可行模型</span><span class="en">Minimum viable model</span></a></li>
+<li><a href="#h2-7" data-toc-target="h2-7">07 · <span class="zh">核武级增强</span><span class="en">Nuclear enhancements</span></a></li>
+<li><a href="#h2-8" data-toc-target="h2-8">08 · <span class="zh">今日行动</span><span class="en">Do this today</span></a></li>
+<li><a href="#h2-9" data-toc-target="h2-9">09 · <span class="zh">原话与边界</span><span class="en">Quotes & caveats</span></a></li>
+<li><a href="#h2-10" data-toc-target="h2-10">10 · <span class="zh">来源与校正</span><span class="en">Source notes</span></a></li>
+</ol></div><span class="toc-handle">›</span></aside>
+<main class="page">
+<section class="hero" id="hero">
+<div class="eyebrow">VIDEO FIELD NOTE · 18:08 · AUSTIN MARCHESE</div>
+<h1><span class="zh">把这段提示词贴进 Claude：再也不撞 Token 上限</span><span class="en">Paste This Into Claude, Never Hit a Token Limit Again</span></h1>
+<div class="lede"><span class="zh">这不是“买更贵套餐”的建议，而是一套从 token 消耗、模型选择、工具编排三层降低 Claude compute budget 压力的操作框架。</span><span class="en">This is not a “buy a more expensive plan” pitch. It is an operating framework for reducing Claude compute pressure across token usage, model choice, and harness design.</span></div>
+<div class="meta"><span class="pill"><strong>18:08</strong> duration</span><span class="pill"><strong>Austin Marchese</strong> channel</span><span class="pill"><strong>3 layers + 4 enhancements</strong></span><span class="pill">transcript: Kome.ai</span></div>
+<div class="notice"><span class="zh">⚠️ 口径说明：视频中的 60–90%、92%、4×、90% 等数字是作者/工具的演示或主张，不是本页独立 benchmark。涉及数据压缩、图像输入、模型替换时，请先在自己的工作流做小样本验证。</span><span class="en">⚠️ Scope note: the 60–90%, 92%, 4×, and 90% figures are demonstrations or claims from the creator/tools, not independent benchmarks in this page. Test compression, image input, and model routing on a small sample first.</span></div>
+</section>
+
+<section>
+<h2 id="h2-1"><div class="kicker">THE MODEL</div><span class="zh">先看公式：Token 上限其实是 Compute Budget 问题</span><span class="en">Start with the equation: token limits are really a compute-budget problem</span></h2>
+<p><span class="zh">作者先拆开三个常被混淆的概念：tokens 是模型要处理的文本量；model 决定每个 token 需要多少计算；compute budget 是账户可用的总计算额度。撞上限制，不一定意味着你“写了太多字”，而可能是 token × 模型成本把预算用完了。</span><span class="en">The creator separates three ideas people often conflate: tokens are the amount of text processed; the model determines compute per token; and the compute budget is the account-level allowance. Hitting a limit does not necessarily mean “too many words”; it can mean token volume multiplied by model cost exhausted the budget.</span></p>
+<div class="formula"><span>compute budget used</span><b>=</b><span>tokens consumed</span><b>×</b><span>model used</span><small>两条杠杆：少喂一点，或让更便宜的模型做简单工作。<br>Two levers: send less context, or route simple work to a cheaper model.</small></div>
+<div class="grid"><article class="card tone-lime">
+      <div class="card-top"><span class="card-num">01</span><span class="tag lime">TOKENS</span></div>
+      <h3><span class="zh">优化输入量</span><span class="en">Optimize input volume</span></h3>
+      <div class="card-copy"><span class="zh">先处理上下文、命令输出和重复内容，再让模型判断。</span><span class="en">Compress context, command output, and repetition before asking the model to judge.</span></div>
+    </article><article class="card tone-cyan">
+      <div class="card-top"><span class="card-num">02</span><span class="tag cyan">MODEL</span></div>
+      <h3><span class="zh">优化模型成本</span><span class="en">Optimize model cost</span></h3>
+      <div class="card-copy"><span class="zh">只把需要深度判断的部分交给 frontier model。</span><span class="en">Reserve frontier models for work that genuinely needs deep judgment.</span></div>
+    </article><article class="card tone-pink">
+      <div class="card-top"><span class="card-num">03</span><span class="tag pink">SYSTEM</span></div>
+      <h3><span class="zh">优化 Harness</span><span class="en">Optimize the harness</span></h3>
+      <div class="card-copy"><span class="zh">编排工具、脚本、上下文分叉，会改变每次任务的隐性成本。</span><span class="en">The harness—tools, scripts, and context forks—changes the hidden cost of each task.</span></div>
+    </article></div>
+<div class="callout"><span class="zh"><strong>核心判断：</strong>先找“钱去哪儿了”，再决定删上下文、换模型，还是改工作流。视频建议从 Claude Code 的 <code>/usage</code> 看 usage breakdown 与 limits 来源；ASR 把它听成了 “SL usage”。</span><span class="en"><strong>Core judgment:</strong> find where the budget goes before deciding whether to cut context, switch models, or redesign the workflow. The video points to Claude Code <code>/usage</code> for usage breakdown and limit sources; the transcript misheard it as “SL usage.”</span></div>
+</section>
+
+<section>
+<h2 id="h2-2"><div class="kicker">QUICK WINS</div><span class="zh">Part 1：三个快速收益</span><span class="en">Part 1: three quick wins</span></h2>
+<p><span class="zh">快速收益的共同原则是：不用购买新套餐，先改变日常习惯和默认输入。</span><span class="en">The quick wins share one principle: change habits and default inputs before buying a new plan.</span></p>
+<div class="grid"><article class="card tone-lime">
+      <div class="card-top"><span class="card-num">01</span><span class="tag lime">HABIT</span></div>
+      <h3><span class="zh">切换任务就清上下文</span><span class="en">Clear context when switching tasks</span></h3>
+      <div class="card-copy"><span class="zh">换工作时运行 <code>/clear</code> 或直接开新 chat；连续专注工作则更容易保留缓存折扣。</span><span class="en">When changing tasks, run <code>/clear</code> or start a new chat. Focus blocks also help preserve caching benefits.</span></div>
+    </article><article class="card tone-cyan">
+      <div class="card-top"><span class="card-num">02</span><span class="tag cyan">CONTEXT</span></div>
+      <h3><span class="zh">60% 左右就压缩</span><span class="en">Compact around 60%</span></h3>
+      <div class="card-copy"><span class="zh">当 context window 接近 60%，运行 <code>/compact</code>；终端工作流可用 status line 观察上下文占用。</span><span class="en">When the context window approaches 60%, run <code>/compact</code>. In terminal workflows, use a status line to watch context usage.</span></div>
+    </article><article class="card tone-orange">
+      <div class="card-top"><span class="card-num">03</span><span class="tag orange">OUTPUT</span></div>
+      <h3><span class="zh">让输出更短</span><span class="en">Cut output tokens</span></h3>
+      <div class="card-copy"><span class="zh">在 Claude MD 中加入 “Be concise”，或使用让回复更短的插件/规则，减少每轮输出。</span><span class="en">Add “Be concise” to Claude MD or use a concision plugin/rule to reduce output on every turn.</span></div>
+    </article></div>
+<div class="code-card"><div class="code-label"><span class="zh">视频中的命令骨架（按语境校正）</span><span class="en">Command skeleton from the video (context-corrected)</span></div><pre><code>When you switch tasks:
+  /clear
+
+When context is getting full:
+  /compact
+
+When diagnosing a limit:
+  /usage
+  /context</code></pre></div>
+</section>
+
+<section>
+<h2 id="h2-3"><div class="kicker">QUICK WIN 02</div><span class="zh">Context Cleanup：别让每个新对话从 58.8K 起步</span><span class="en">Context cleanup: do not start every chat at 58.8K</span></h2>
+<p><span class="zh">视频展示了一个关键诊断：新开对话后立刻运行 <code>/context</code>，可以看到 skills、MCP 和 Claude MD 等自动预加载内容。如果每次还没输入第一句话就已经占掉大量上下文，所有后续任务都在缴“固定税”。</span><span class="en">The video demonstrates a key diagnostic: run <code>/context</code> in a fresh chat to inspect automatically loaded skills, MCPs, and Claude MD. If a large context is already occupied before the first message, every task pays a fixed tax.</span></p>
+<div class="grid two"><article class="card tone-orange">
+      <div class="card-top"><span class="card-num">A</span><span class="tag orange">PRELOAD</span></div>
+      <h3><span class="zh">断开不用的 MCP</span><span class="en">Disconnect unused MCPs</span></h3>
+      <div class="card-copy"><span class="zh">用 <code>/mcp</code> 查看当前配置，移除已经不再使用的 server。</span><span class="en">Use <code>/mcp</code> to inspect the current configuration and remove servers you no longer use.</span></div>
+    </article><article class="card tone-cyan">
+      <div class="card-top"><span class="card-num">B</span><span class="tag cyan">PRELOAD</span></div>
+      <h3><span class="zh">缩短或归档 Skills</span><span class="en">Shorten or archive skills</span></h3>
+      <div class="card-copy"><span class="zh">skills 的描述会进入每次会话；不用的归档，过长的描述压缩成触发条件和输出约定。</span><span class="en">Skill descriptions are loaded into sessions. Archive unused skills and compress long descriptions to triggers plus output contracts.</span></div>
+    </article><article class="card tone-lime">
+      <div class="card-top"><span class="card-num">C</span><span class="tag lime">BASELINE</span></div>
+      <h3><span class="zh">把 Claude MD 当运行规约</span><span class="en">Treat Claude MD as a runtime contract</span></h3>
+      <div class="card-copy"><span class="zh">作者建议它说明项目交互方式，而不是承载大篇文档；视频引用的经验线是控制在 200 行以内。</span><span class="en">Use it to specify how Claude should interact with the project, not to store a large manual. The video cites a rule of thumb of keeping it under 200 lines.</span></div>
+    </article><article class="card tone-pink">
+      <div class="card-top"><span class="card-num">D</span><span class="tag pink">LOOP</span></div>
+      <h3><span class="zh">建立定期审计</span><span class="en">Schedule a recurring audit</span></h3>
+      <div class="card-copy"><span class="zh">每隔一段时间复查 /context、/mcp 和 skill 列表，避免一次清理后又慢慢膨胀。</span><span class="en">Periodically recheck /context, /mcp, and the skill list so the baseline does not silently grow again.</span></div>
+    </article></div>
+<div class="notice"><span class="zh">注意：字幕结尾把 “less than 200 lines” 听成了 “less than 200 characters”。这里按前文与 Anthropic 文档语境保留为 200 行，而不是 200 字符。</span><span class="en">Note: the closing recap mishears “less than 200 lines” as “less than 200 characters.” This dashboard keeps the earlier context and Anthropic-docs framing: 200 lines, not 200 characters.</span></div>
+</section>
+
+<section>
+<h2 id="h2-4"><div class="kicker">SYSTEM UPGRADES</div><span class="zh">Part 2：系统升级的三个层次</span><span class="en">Part 2: three system upgrades</span></h2>
+<p><span class="zh">系统升级把“手动习惯”变成“默认管线”：先压缩输入，再按任务选模型，最后把可重复步骤交给脚本。</span><span class="en">System upgrades turn manual habits into defaults: compress input, select models by task, then move repeatable steps into scripts.</span></p>
+<div class="grid"><article class="card tone-lime">
+      <div class="card-top"><span class="card-num">01</span><span class="tag lime">INPUT</span></div>
+      <h3><span class="zh">压缩输入后再交给 AI</span><span class="en">Compress before the AI sees it</span></h3>
+      <div class="card-copy"><span class="zh">不需要让 Claude 读完整 10 页报告，只因为你改了第 1 页。用 hooks、skills 或 RTK 先过滤重复、格式噪声和无关内容。</span><span class="en">Claude does not need the full 10-page report just because page one changed. Use hooks, skills, or RTK to remove repetition, formatting noise, and irrelevant content first.</span></div>
+    </article><article class="card tone-cyan">
+      <div class="card-top"><span class="card-num">02</span><span class="tag cyan">ROUTING</span></div>
+      <h3><span class="zh">给重复工作降模型</span><span class="en">Use smaller models for grunt work</span></h3>
+      <div class="card-copy"><span class="zh">抓取、格式化、摘要等一年前就能做的任务，不一定值得使用 frontier model。</span><span class="en">Scraping, formatting, and summarizing may not need a frontier model if AI could solve the task a year ago.</span></div>
+    </article><article class="card tone-pink">
+      <div class="card-top"><span class="card-num">03</span><span class="tag pink">AUTOMATE</span></div>
+      <h3><span class="zh">把重复步骤脚本化</span><span class="en">Script repeatable steps</span></h3>
+      <div class="card-copy"><span class="zh">脚本每次按同样规则执行，零 token、可复现、不靠模型临场重新发明流程。</span><span class="en">A script runs the same way every time, uses zero model tokens, and does not reinvent the workflow on every run.</span></div>
+    </article></div>
+<div class="callout"><span class="zh"><strong>分工原则：</strong>AI 做判断；脚本做可重复的机械步骤。脚本不是“更聪明的 agent”，而是把不需要判断的部分从 agent loop 里拿掉。</span><span class="en"><strong>Division of labor:</strong> AI handles judgment; scripts handle repeatable mechanics. A script is not a “smarter agent”—it removes work that never needed judgment from the agent loop.</span></div>
+</section>
+
+<section>
+<h2 id="h2-5"><div class="kicker">SYSTEM UPGRADE 01</div><span class="zh">RTK：把命令输出变成更小的输入</span><span class="en">RTK: turn command output into smaller input</span></h2>
+<p><span class="zh">视频用一个报告审阅场景解释 RTK：Claude 原本读取报告、重读变更、再接收完整 raw output；RTK 用确定性逻辑去掉重复文本、boilerplate 和格式噪声，把结果压缩后再交给 Claude。</span><span class="en">The video uses a report-review scenario to explain RTK: Claude would read the report, reread the changes, then receive the full raw output. RTK applies deterministic logic to remove repetition, boilerplate, and formatting noise before the result reaches Claude.</span></p>
+<div class="table-wrap"><table><thead><tr><th>阶段 / Stage</th><th>原始管线 / Raw pipeline</th><th>压缩管线 / Compressed pipeline</th></tr></thead><tbody>
+<tr><td>输入 / Input</td><td>完整报告 + 完整命令输出</td><td>只保留与任务有关的片段</td></tr>
+<tr><td>机制 / Mechanism</td><td>模型自己反复阅读和筛选</td><td>确定性规则先去噪，再让模型判断</td></tr>
+<tr><td>视频示例 / Video example</td><td>约 15,000 tokens</td><td>约 1,800 tokens（作者个人 13-command test）</td></tr>
+<tr><td>边界 / Caveat</td><td colspan="2">60–90% 是 RTK 的 claim；视频作者另称自己的测试节省 92%，需按工作流复测。</td></tr>
+</tbody></table></div>
+<div class="code-card"><div class="code-label"><span class="zh">视频给出的安装意图（非逐字命令）</span><span class="en">Installation intent shown in the video (not a verbatim command)</span></div><pre><code>Install RTK in the project, then ask Claude to configure it
+so command output is compressed before Claude reads it.</code></pre></div>
+</section>
+
+<section>
+<h2 id="h2-6"><div class="kicker">SYSTEM UPGRADE 02</div><span class="zh">最小可行模型：让贵模型做判断，让便宜模型做苦工</span><span class="en">Minimum viable model: expensive judgment, cheap grunt work</span></h2>
+<p><span class="zh">作者用“律师事务所”类比：合伙人负责关键判断，初级律师做大量简单工作。对应到 agent system，就是为每个 skill 预先定义合适的 model，并决定它是否需要继承上下文，或者使用 context fork 开一条干净线程。</span><span class="en">The creator uses a law-firm analogy: the partner handles the key judgment while junior lawyers do the simple volume work. In an agent system, define an appropriate model per skill and decide whether it needs inherited context or a clean context fork.</span></p>
+<div class="grid two"><article class="card tone-lime">
+      <div class="card-top"><span class="card-num">01</span><span class="tag lime">RULE</span></div>
+      <h3><span class="zh">先问：一年前 AI 能做吗？</span><span class="en">Ask: could AI do this a year ago?</span></h3>
+      <div class="card-copy"><span class="zh">如果答案是能，抓取、摘要、格式化、搬运文件等通常不需要 frontier model。</span><span class="en">If yes, scraping, summarizing, formatting, and file movement usually do not need a frontier model.</span></div>
+    </article><article class="card tone-cyan">
+      <div class="card-top"><span class="card-num">02</span><span class="tag cyan">SKILL</span></div>
+      <h3><span class="zh">模型与上下文是两项开关</span><span class="en">Model and context are two switches</span></h3>
+      <div class="card-copy"><span class="zh">模型决定能力/成本；context fork 决定是否带入前序信息。两者都能单独调节。</span><span class="en">Model controls capability and cost; context fork controls inherited information. Tune them independently.</span></div>
+    </article><article class="card tone-pink">
+      <div class="card-top"><span class="card-num">03</span><span class="tag pink">DEFAULT</span></div>
+      <h3><span class="zh">把经验固化进 Skill</span><span class="en">Encode the choice in a skill</span></h3>
+      <div class="card-copy"><span class="zh">不要每次临时决定。将最小可行模型写入 skill，让未来运行默认走这条路。</span><span class="en">Do not make the decision from scratch every time. Encode the minimum viable model in the skill.</span></div>
+    </article><article class="card tone-orange">
+      <div class="card-top"><span class="card-num">04</span><span class="tag orange">ESCALATE</span></div>
+      <h3><span class="zh">保留升级通道</span><span class="en">Keep an escalation path</span></h3>
+      <div class="card-copy"><span class="zh">简单任务先走便宜模型；遇到判断不稳、上下文缺失或风险上升，再升级到更强模型。</span><span class="en">Start cheap; escalate when judgment becomes unreliable, context is missing, or the risk level rises.</span></div>
+    </article></div>
+</section>
+
+<section>
+<h2 id="h2-7"><div class="kicker">NUCLEAR ENHANCEMENTS</div><span class="zh">Part 3：四个“核武级”增强，以及作者的保留意见</span><span class="en">Part 3: four nuclear enhancements, with caveats</span></h2>
+<p><span class="zh">这四项不是要求全部立刻执行，而是按照“先路由，再换输入，再换引擎，最后本地化”的顺序展开。作者对本地模型的长期判断积极，但明确建议现在不要冲动购买昂贵硬件。</span><span class="en">These are not a command to do everything immediately. The sequence is: route work, change the input medium, change the engine, then consider local models. The creator is optimistic about local models long term, but explicitly says not to buy expensive hardware today.</span></p>
+<div class="grid"><article class="card tone-lime">
+      <div class="card-top"><span class="card-num">01</span><span class="tag lime">HARNESS</span></div>
+      <h3><span class="zh">把重执行路由给 Codex</span><span class="en">Route heavy execution to Codex</span></h3>
+      <div class="card-copy"><span class="zh">作者称某些任务上 Codex 的 token 消耗可低至 Claude 的约四分之一；建议用插件让 Claude 把 token-heavy execution 转过去。</span><span class="en">The creator says Codex can use roughly one quarter of Claude’s tokens on some tasks, and suggests routing token-heavy execution through a plugin.</span></div>
+    </article><article class="card tone-cyan">
+      <div class="card-top"><span class="card-num">02</span><span class="tag cyan">INPUT</span></div>
+      <h3><span class="zh">用图片替代长文本</span><span class="en">Use images instead of long text</span></h3>
+      <div class="card-copy"><span class="zh">视频引用 PXPipe 的思路：把长文本转成图片输入，可能降低 token 输入；代价是文字读取不完美，且未来模型策略可能变化。</span><span class="en">The video cites PXPipe’s approach of turning long text into image input. It may lower token input, but text reading is imperfect and future model policies may change.</span></div>
+    </article><article class="card tone-orange">
+      <div class="card-top"><span class="card-num">03</span><span class="tag orange">ENGINE</span></div>
+      <h3><span class="zh">替换 Claude Code 的引擎</span><span class="en">Swap the engine</span></h3>
+      <div class="card-copy"><span class="zh">Claude Code 是 harness，底层模型可通过环境变量切换到其他 provider；代价是质量、隐私、稳定性和配置复杂度。</span><span class="en">Claude Code is the harness, and the underlying model can be changed through environment variables; trade-offs include quality, privacy, reliability, and setup complexity.</span></div>
+    </article><article class="card tone-pink">
+      <div class="card-top"><span class="card-num">04</span><span class="tag pink">LOCAL</span></div>
+      <h3><span class="zh">运行本地模型</span><span class="en">Run a local model</span></h3>
+      <div class="card-copy"><span class="zh">优点是数据留在本地、token 受电力而非订阅限制；缺点是硬件、维护、模型质量和服务器管理成本。</span><span class="en">Pros: data stays local and usage is limited by power rather than a subscription. Cons: hardware, maintenance, model quality, and server-management costs.</span></div>
+    </article></div>
+<div class="table-wrap"><table><thead><tr><th>增强 / Enhancement</th><th>视频主张 / Upside</th><th>必须验证的风险 / Risk to test</th></tr></thead><tbody>
+<tr><td>Codex routing</td><td>更少 token；两套订阅形成更大的总预算</td><td>任务类型是否真的适合 surgical execution；插件是否稳定</td></tr>
+<tr><td>Text → image</td><td>作者引用 60–70% 输入降低的可能性</td><td>OCR/视觉理解错误；数据敏感性；供应商策略变化</td></tr>
+<tr><td>换 provider</td><td>每美元获得更多 capacity</td><td>隐私、质量、延迟、兼容性、价格会变化</td></tr>
+<tr><td>Local model</td><td>拥有数据与整个 AI stack</td><td>硬件成本、模型能力、运维；作者建议暂不 all-in</td></tr>
+</tbody></table></div>
+</section>
+
+<section>
+<h2 id="h2-8"><div class="kicker">ACTION PLAYBOOK</div><span class="zh">把视频压成今天能执行的顺序</span><span class="en">Turn the video into an order of operations</span></h2>
+<div class="action-list">
+<div class="action"><div><strong>先做一次诊断 / Run one diagnosis</strong><span><span class="zh">在新 chat 运行 <code>/context</code>，再运行 <code>/usage</code>；记录哪些内容真正吃掉预算。</span><span class="en">In a fresh chat, run <code>/context</code> and then <code>/usage</code>. Record what is actually consuming the budget.</span></span></div></div>
+<div class="action"><div><strong>清理基线 / Clean the baseline</strong><span><span class="zh">断开不用的 MCP，归档不用的 skill，压缩 skill 描述；把 Claude MD 保持为项目交互规约，而不是百科。</span><span class="en">Disconnect unused MCPs, archive unused skills, and shorten skill descriptions. Keep Claude MD as a project interaction contract, not an encyclopedia.</span></span></div></div>
+<div class="action"><div><strong>建立上下文习惯 / Install the context habit</strong><span><span class="zh">换任务时 <code>/clear</code>；约 60% 时 <code>/compact</code>；连续工作放进 focus block。</span><span class="en">Use <code>/clear</code> when switching tasks, <code>/compact</code> around 60%, and work in focus blocks.</span></span></div></div>
+<div class="action"><div><strong>先压输入 / Compress before reasoning</strong><span><span class="zh">在真实项目上试 RTK 或等价的确定性过滤；只对 1–2 个命令做前后 token 对比。</span><span class="en">Test RTK or an equivalent deterministic filter on a real project; compare token usage before and after on one or two commands.</span></span></div></div>
+<div class="action"><div><strong>给 skill 配模型 / Assign models to skills</strong><span><span class="zh">抓取、格式化、常规摘要优先走 minimum viable model；判断、架构和高风险任务才升级。</span><span class="en">Route scraping, formatting, and routine summaries to a minimum viable model; escalate judgment, architecture, and high-risk work.</span></span></div></div>
+<div class="action"><div><strong>最后才做核武增强 / Only then try nuclear enhancements</strong><span><span class="zh">先小样本验证 Codex routing、图像输入或 provider swap；本地模型先玩，不要先买服务器。</span><span class="en">Pilot Codex routing, image input, or provider swaps on a small sample. Explore local models before buying servers.</span></span></div></div>
+</div>
+</section>
+
+<section>
+<h2 id="h2-9"><div class="kicker">QUOTES</div><span class="zh">原话：视频最值得记住的几句</span><span class="en">Verbatim lines worth remembering</span></h2>
+<div class="quote-grid"><blockquote class="quote-card">
+      <div class="quote-en en">“Compute budget used equals tokens consumed times model used.”</div>
+      <div class="quote-zh zh">「你使用的计算预算 = 消耗的 tokens × 使用的模型。」</div>
+      <footer>Transcript, opening framework</footer>
+    </blockquote><blockquote class="quote-card">
+      <div class="quote-en en">“You can’t solve a problem if you’re not sure what’s causing it.”</div>
+      <div class="quote-zh zh">「你不确定问题是什么，就无法解决问题。」</div>
+      <footer>Transcript, usage audit</footer>
+    </blockquote><blockquote class="quote-card">
+      <div class="quote-en en">“A script will run the same way every time, cause zero tokens, and never hallucinates.”</div>
+      <div class="quote-zh zh">「脚本每次都会以同样的方式运行，消耗零 tokens，而且永远不会产生幻觉。」</div>
+      <footer>Transcript, script-driven skills</footer>
+    </blockquote><blockquote class="quote-card">
+      <div class="quote-en en">“Get in, make the edit, get out.”</div>
+      <div class="quote-zh zh">「进场，完成编辑，离场。」</div>
+      <footer>Transcript, Claude vs. Codex harness contrast</footer>
+    </blockquote><blockquote class="quote-card">
+      <div class="quote-en en">“If AI could solve this task a year ago, you don’t need a frontier model.”</div>
+      <div class="quote-zh zh">「如果 AI 一年前就能解决这个任务，你不需要 frontier model。」</div>
+      <footer>Transcript, minimum viable model rule</footer>
+    </blockquote><blockquote class="quote-card">
+      <div class="quote-en en">“Maybe one day, just not today.”</div>
+      <div class="quote-zh zh">「也许有一天，但不是今天。」</div>
+      <footer>Transcript, recommendation on expensive local hardware</footer>
+    </blockquote></div>
+<div class="notice"><span class="zh">引用保留了字幕中的英文原话；中文是本 dashboard 的翻译。字幕由 Kome.ai 平铺转录，个别产品名和命令存在 ASR 误听，详见下一节。</span><span class="en">The English lines are preserved from the transcript; the Chinese lines are translations for this dashboard. The transcript is a flat Kome.ai result, so product names and commands can be misheard; see the next section.</span></div>
+</section>
+
+<section>
+<h2 id="h2-10"><div class="kicker">PROVENANCE</div><span class="zh">来源、ASR 校正与证据边界</span><span class="en">Source, ASR corrections, and evidence boundaries</span></h2>
+<div class="source-box"><div class="source-item"><strong>视频 / Video</strong><a href="https://www.youtube.com/watch?v=SFh6MMe-XcM" target="_blank" rel="noopener">YouTube · SFh6MMe-XcM</a><br><span class="zh">标题：把这段提示词贴进 Claude：再也不撞 Token 上限</span><span class="en">Title: Paste This Into Claude, Never Hit a Token Limit Again</span><br>Austin Marchese · 18:08</div><div class="source-item"><strong>Transcript</strong><span class="zh">Kome.ai API，约 22K 字符；YouTube 页面显示 captions unavailable。</span><span class="en">Kome.ai API, about 22K characters; the YouTube page showed captions unavailable.</span><br><span class="machine">⚠️ ASR / subtitle machine transcription</span></div><div class="source-item"><strong>校正 / Corrections</strong><span class="zh">“SL usage” → <code>/usage</code>；“less than 200 characters” → 前文语境的 200 lines；“Codecs/Codeex” → Codex（按上下文判断）。</span><span class="en">“SL usage” → <code>/usage</code>; “less than 200 characters” → 200 lines from the earlier context; “Codecs/Codeex” → Codex by context.</span></div><div class="source-item"><strong>未独立验证 / Not independently verified</strong><span class="zh">RTK 60–90%、作者 92% test、Codex 4×、图片 60–70%、模型节省 90% 等数字。</span><span class="en">RTK 60–90%, the creator’s 92% test, Codex 4×, image-input 60–70%, and 90% model savings figures.</span></div></div>
+<p><span class="zh">这集真正的可迁移价值，不是某个今天有效的插件，而是“先测量 → 压缩输入 → 任务分级 → 脚本化 → 小样本验证”的闭环。工具和模型会变，但这条判断顺序不容易过时。</span><span class="en">The most transferable value is not one plugin that may change tomorrow. It is the loop: measure → compress input → classify tasks → script repeatable work → validate on a small sample. Tools and models change; the order of judgment is more durable.</span></p>
+</section>
+
+<footer class="footer"><div>Generated 2026-07-19 · source video: <a href="https://www.youtube.com/watch?v=SFh6MMe-XcM" target="_blank" rel="noopener">SFh6MMe-XcM</a> · transcript status: available</div><div class="zh">本页为中文优先的人工综合；英文为逐段对照翻译，不是原视频官方字幕。</div><div class="en">Chinese is the primary synthesis; English is a paragraph-level translation, not official subtitles.</div></footer>
+</main>
+<script>
+(function(){
+  var key='sfh6mme-xcm-toc-collapsed';
+  var shell=document.getElementById('tocShell');
+  try{if(localStorage.getItem(key)==='1'){shell.classList.add('toc-collapsed');document.body.classList.add('toc-collapsed');}}catch(e){}
+  window.toggleToc=function(){var collapsed=shell.classList.toggle('toc-collapsed');document.body.classList.toggle('toc-collapsed',collapsed);try{localStorage.setItem(key,collapsed?'1':'0');}catch(e){}};
+  var links=document.querySelectorAll('[data-toc-target]');
+  links.forEach(function(link){link.addEventListener('click',function(e){var id=this.getAttribute('data-toc-target');var target=document.getElementById(id);if(!target)return;e.preventDefault();links.forEach(function(x){x.classList.remove('active');});this.classList.add('active');setTimeout(function(){window.scrollTo({top:window.scrollY+target.getBoundingClientRect().top-86,behavior:'smooth'});history.replaceState(null,'','#'+id);},30);});});
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){links.forEach(function(x){x.classList.toggle('active',x.getAttribute('data-toc-target')===entry.target.id);});}});},{rootMargin:'-18% 0px -72% 0px'});
+  document.querySelectorAll('h2[id]').forEach(function(x){obs.observe(x);});
+})();
+function toggleLang(){var root=document.documentElement;var next=root.lang==='zh-CN'?'en':'zh-CN';root.lang=next;try{localStorage.setItem('sfh6mme-xcm-lang',next);}catch(e){}}
+(function(){try{var saved=localStorage.getItem('sfh6mme-xcm-lang');if(saved==='en'||saved==='zh-CN')document.documentElement.lang=saved;}catch(e){}})();
+</script>
+</body></html>
