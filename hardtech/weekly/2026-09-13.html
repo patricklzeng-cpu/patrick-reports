@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-09-07 ~ 2026-09-13</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-09-07 ~ 2026-09-13 · 聚合 3 天 · 总 36 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">20</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">16</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">4</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">18</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">3</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 682 · ★ 147 · 💬 107</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11628v1" target="_blank" rel="noopener" class="title">Physics-Informed Neural Networks to Infer the Perpendicular Energy Conductivity in the Scrape-Off Layer of Stellarator Devices</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">In this work, we develop an inverse Physics-Informed Neural Network (PINN) framework to infer the dependence of the scrape-off layer (SOL) perpendicular heat conductivity on plasma density and temperature, $κ_\perp(n,T)$. The method combines radial profile measurements of electron density and temperature with the residual of a reduced one-dimensional SOL transport equation, so that the inferred co</div>
+    
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11563v1" target="_blank" rel="noopener" class="title">kobra: a new Vlasov code intended for plasma-wall modeling</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">In a fusion device plasma-wall interactions \edit{on the sheath scale} can be modeled as a collisionless problem. When modeling these regions particle-in-cell codes suffer from statistical error originating from undersampling the velocity space. On the other hand, Vlasov codes do not have this issue as they evolve the full distribution function. Here, we present a new finite-volume Vlasov code, ko</div>
+    <div class="authors">👥 Sebastian Konewko, Nathan Maestracci, Sven Van Loo</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11389v1" target="_blank" rel="noopener" class="title">Modeling of plasma transport during edge-localized mode in tokamak using a kinetic Vlasov-Poisson code</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">A kinetic parallel transport code KOBRA based on a finite-volume method is developed to study edge localized mode (ELM) plasma transport from the mid-plane to divertor targets. The large scale separation between the Debye length (~cm) and the connection length (~10-20 m) leads to prohibitive computational cost in full 6D simulations. To alleviate this, an adaptive-mesh refinement (AMR) strategy is</div>
+    <div class="authors">👥 Ce Wang, Sven Van Loo, Geert Verdoolaege</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.10958v1" target="_blank" rel="noopener" class="title">Particle-resolved pathways to energetic-ion formation in a fluctuating low-current hollow-cathode plume</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Energetic-ion formation in a low-current hollow-cathode plume is investigated using experiments, self-consistent electrostatic particle-in-cell (PIC) simulation, and particle-resolved analysis. Retarding potential analyzer measurements show a substantial energetic-ion population over discharge currents of 0.8-3.5 A, while probe measurements reveal broadband plume fluctuations. Two-point phase-deri</div>
+    <div class="authors">👥 Baisheng Wang, Zilong Peng, Yinjian Zhao 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11637v1" target="_blank" rel="noopener" class="title">Certifying Adversarial Robustness of Quantum Classifiers under Known-Readout Query Access</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">A quantum classifier assigns labels by evolving an input quantum state and measuring the output, so repeated executions reveal only a distribution over labels. We study certified adversarial robustness for such classifiers under known-readout query access (KRQA), where an evaluator can prepare inputs, knows the quantum measurement, and observes finite-shot outcomes but cannot inspect the internal</div>
+    <div class="authors">👥 Ji Guan, Mingyu Huang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11635v1" target="_blank" rel="noopener" class="title">Quantum-hardware spectral co-design framework for multifrequency Rydberg electrometry</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Engineering electromagnetic hardware to satisfy discrete quantum-defined spectral constraints constitutes a general spectral co-design problem for quantum systems. Here we address this challenge in multifrequency Rydberg electrometry by directly coupling a fabrication-constrained simultaneous perturbation stochastic approximation (SPSA)--Adam optimizer to full-wave finite-element eigenmode simulat</div>
+    <div class="authors">👥 Song Huang, Guibin Tian, Fernando Quijandría 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11618v1" target="_blank" rel="noopener" class="title">Quantum models of interaction Hamiltonian and their paradoxes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">In quantum physics it is commonplace to model the interaction of remote systems with a many-body Hamiltonian. Taking such an action-at-a-distance description {\it à la lettre} leads to various paradoxes related to faster-than-light communication and apparent inconsistencies in local energy accounting. It also neglects residual effects, such as entanglement between the remote systems and the mediat</div>
+    <div class="authors">👥 Nicolas Gisin, Serge Massar, Jef Pauwels 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11595v1" target="_blank" rel="noopener" class="title">Dissipative Quantum Battery from Many-Body Scars</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">We propose an autonomous quantum-battery protocol based on dissipatively selected quantum many-body scars. Using an embedding-type spin chain with an exact scar tower and a generalized interacting $J_1$--$J_2$ chain, we show that engineered local bond dissipation can drive the system from a passive state into a high-energy scar-supported manifold with large extractable work. The resulting charged</div>
+    <div class="authors">👥 Jinglin Liu, Yiming Liu, Mingdi Xu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11585v1" target="_blank" rel="noopener" class="title">Heterogeneously Integrated Efficient and Widely Tunable Lasers at 795 nm for Rubidium-Based Quantum Technologies</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Scaling quantum processors and optical atomic clocks fundamentally requires orders-of-magnitude reductions in the size, weight, power, and cost of optical control systems. Photonic integration of lasers is critical to fulfill these requirements. At the near-infrared wavelengths required for atomic clocks and quantum computing through manipulation of rubidium atoms, laser integration is hindered by</div>
+    <div class="authors">👥 Max Kiewiet, Stijn Cuyvers, Tom Reep 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11568v1" target="_blank" rel="noopener" class="title">Finite-time effects in periodically kicked systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">In this work, we study finite-time effects in ultracold atomic systems by considering time-dependent modulations with variable waveforms and durations. These two characteristics can be controlled by adjusting only a single parameter. For arbitrarily short pulses, our model recovers the paradigmatic kicked rotor while maintaining the impulse transmitted per period and unit amplitude constant. Furth</div>
+    <div class="authors">👥 F. Revuelta, R. Chacón, F. Borondo</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11536v1" target="_blank" rel="noopener" class="title">Impossible to conjugate an unknown quantum state via a unitary evolution</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">The no-cloning theorem, the no-deleting theorem, the no-hiding theorem, the no-flip theorem, and the no-broadcasting play a crucial role in quantum mechanics and quantum information. In this paper, we propose the no-conjugating theorem which states that it is impossible to conjugate an unknown arbitrary quantum state via a universal physical device or linear/unitary operation.</div>
+    <div class="authors">👥 Dafa Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11522v1" target="_blank" rel="noopener" class="title">Birth and Death of Entanglement in Hamiltonian-Driven Quantum Games under Decoherence</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Quantum game theory investigates the influence of quantum resources on strategic decision-making. In this work, two-player quantum games based on the Transverse Field Ising Model(TFIM) are investigated under amplitude-damping decoherence. The TFIM Hamiltonian naturally produces a family of entangling gates, enabling a physically motivated implementation of quantum games. The effects of noise on Na</div>
+    <div class="authors">👥 Teena Thomas, S. Balakrishnan</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11513v1" target="_blank" rel="noopener" class="title">One-clean-qubit spectroscopy of simulated Kitaev chains</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Spin qubits in gate-defined quantum dots provide a highly programmable platform for simulating condensed-matter phenomena. In this work, we introduce a digital-analog quantum simulation protocol for extracting the single-particle spectrum of a Kitaev chain. The Kitaev chain is mapped onto qubits via the standard Jordan-Wigner transformation and implemented as a drive-engineered, $N$-site transvers</div>
+    <div class="authors">👥 Z. M. McIntyre, Daniel Loss</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11508v1" target="_blank" rel="noopener" class="title">Joint Mitigation of Algorithmic and Physical Errors in Noisy Hamiltonian Simulation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Product-formula Hamiltonian simulation is naturally suited to near-term quantum processors, but its accuracy is set by two competing errors: finite-step Trotter bias and physical hardware noise. We introduce a joint extrapolation strategy that ties the tunable per-layer noise strength to the Trotter step size, $λ(s)=c(sT)^{p+1}$ for a $p$-th order product formula. Along this one-dimensional path,</div>
+    <div class="authors">👥 Shuo Zhou, Xinzhao Wang, Ruiqi Zhang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11633v1" target="_blank" rel="noopener" class="title">Phase-Controlled Majorana Zero Modes in Altermagnetic Topological-Insulator Josephson Junctions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">We exploit facet-dependent Andreev phase shifts to control topological superconductivity with a phase bias in a three-dimensional altermagnetic topological-insulator Josephson junction. In the weak link between two conventional s-wave superconductors, the d-wave altermagnetic order produces facet-dependent momentum shifts of the surface Dirac cones. The resulting net momentum of the states involve</div>
+    <div class="authors">👥 Hao Dong, Xun-Jiang Luo, Xiao-Hong Pan 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11547v1" target="_blank" rel="noopener" class="title">Néel-Vector-Dependent Altermagnetic Spin Splitting in the One-Dimensional Limit</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Altermagnetism is normally identified by nonrelativistic spin-split bands in a compensated collinear magnet. Under one-dimensional confinement, however, this diagnostic can disappear: a boundary-compatible sublattice-exchange operation may leave the only Bloch momentum unchanged, forcing the nonrelativistic spin-up and spin-down spectra to coincide. We show that nonrelativistic spin degeneracy can</div>
+    <div class="authors">👥 Xin Chen, Duo Wang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11459v1" target="_blank" rel="noopener" class="title">Bottom-up Synthesis of Metastable 2D Hexagonal Copper(I) Iodide on Monolayer and within Bilayer Graphene</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Copper(I) iodide (CuI) is a wide-bandgap semiconductor crystallizing in the 3D $γ$-phase under ambient conditions; its layered van der Waals bulk phase $β$-CuI is stable only between 643 and 673 K. The two-dimensional (2D) h-CuI form has been obtained via liquid-phase exfoliation of mechanochemically prepared precursors and via encapsulation between graphene sheets, whereas bottom-up growth of 2D</div>
+    <div class="authors">👥 David Kaiser, Guobin Jia, Janis Köster 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11441v1" target="_blank" rel="noopener" class="title">Vacancy Order and Physical Properties of a Ternary Compound Fe0.68Pd0.80Te with an α-Fe1+xTe-Type Structure</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">We report the identification and characterization of a new compound Fe0.68Pd0.80Te with an α-Fe1+xTe prototype structure. Different from the Fe-square net and minor occupancy of interstitial Fe-sites in Fe1+xTe, Fe0.68Pd0.80Te is featured by a Pdsquare net and near 68% occupancy of the corresponding interstitial Fe-sites. Furthermore, noncontact atomic force microscopy and X-ray diffraction provid</div>
+    <div class="authors">👥 Bingxian Shi, Manyu Wang, Chenglin Shang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11397v1" target="_blank" rel="noopener" class="title">Influence of magnetic fields on the performance of spin-orbit torque magnetic random-access memory</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Spin-orbit torque magnetic random-access memory (SOT-MRAM) offers high speed, ultrahigh endurance, and compatibility with advanced semiconductor processes, making it a promising candidate for next-generation nonvolatile memory. However, intrinsic bias fields in magnetic tunnel junctions (MTJs), originating from reference-layer stray fields and interlayer coupling, cause asymmetric critical switchi</div>
+    <div class="authors">👥 Jiaxin Liu, Yuqing Zhou, Guoyi Shi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11455v1" target="_blank" rel="noopener" class="title">Efficient Algorithms for Energy-Aware Single-Machine Scheduling with Battery Storage</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Energy-aware scheduling has become a central challenge in modern manufacturing environments. As industries increasingly aim to reduce operational costs and carbon emissions, aligning production activities with electricity tariffs is increasingly important. The integration of battery energy storage system (BESS) further enhances the potential to reduce energy purchase costs; however, incorporating</div>
+    <div class="authors">👥 Luca Forte, Stijn De Vuyst, Pieter Leyman</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://news.ycombinator.com/item?id=49450183" target="_blank" rel="noopener" class="title">Requests for Startups: Energy</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    <div class="abstract">YC has published the Requests for Startups. https:&amp;#x2F;&amp;#x2F;www.ycombinator.com&amp;#x2F;rfs I like it. At the same time there are some things that I think are missing, one of them is energy. This is especially important in the AI era but it was also before for more general reasons. A cheap and reliab</div>
+    
+    
+    <div class="meta">impact: 32 · ★ 2 · 💬 6</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.world-nuclear-news.org/articles/openstar-demonstrates-dipole-fusion-reactor-concept" target="_blank" rel="noopener" class="title">OpenStar demonstrates dipole fusion reactor concept</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 19 · ★ 14 · 💬 1</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/radisvaliullin/art/blob/main/qc/math_principals_of_quantum_computer.pdf" target="_blank" rel="noopener" class="title">The Mathematical Principles of Quantum Computer [pdf]</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 18 · ★ 3 · 💬 3</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.quantamagazine.org/building-a-quantum-computer-one-fragile-qubit-at-a-time-20260819/" target="_blank" rel="noopener" class="title">Building a Quantum Computer, One Fragile Qubit at a Time</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 11 · ★ 6 · 💬 1</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#26</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.sciencedaily.com/releases/2026/08/260829035219.htm" target="_blank" rel="noopener" class="title">IBM quantum computer solves classically intractable problem in 15 minutes</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 9 · ★ 9 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#27</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://news.ycombinator.com/item?id=49572431" target="_blank" rel="noopener" class="title">A documentary about a scientist who thinks time loops are real</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    <div class="abstract">The current consensus driving the scale-up of AI data centers rests on two assumptions:&lt;p&gt;The human brain is a biological computer operating without quantum effects.&lt;p&gt;The human brain does not solve computationally &amp;quot;hard&amp;quot; problems (NP-hard &amp;#x2F; PSPACE); it merely runs efficient heuristic</div>
+    
+    
+    <div class="meta">impact: 8 · ★ 8 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#28</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://nautil.us/inside-ibms-new-quantum-computing-fridges-180-times-colder-than-deep-space-1284948" target="_blank" rel="noopener" class="title">Inside IBM&#x27;s New Quantum Computing Fridges, 180 Times Colder Than Deep Space</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 3 · ★ 3 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#29</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://quantumcomputingfortheconfused.com/" target="_blank" rel="noopener" class="title">Show HN: Intro-level book about quantum computing theory/hardware/applications</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    <div class="abstract">Hi HN - If you&amp;#x27;re anything like me, you&amp;#x27;ve seen the occasional quantum computing posts here and skimmed through them, hoping that the comments would explain the significance (or lack thereof) of the results in question. I got to the point where I just wanted to read a proper book about the</div>
+    
+    
+    <div class="meta">impact: 3 · ★ 3 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#30</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://physicsworld.com/a/nuclear-fusion-persists-at-ultralow-energies-inside-metal-foils/" target="_blank" rel="noopener" class="title">New physics: LBL/Davis showing fusion persists at ultra low energies</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-12</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 3 · ★ 3 · 💬 0</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 4</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11628v1" target="_blank" rel="noopener" class="title">Physics-Informed Neural Networks to Infer the Perpendicular Energy Conductivity in the Scrape-Off Layer of Stellarator Devices</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">In this work, we develop an inverse Physics-Informed Neural Network (PINN) framework to infer the dependence of the scrape-off layer (SOL) perpendicular heat conductivity on plasma density and temperature, $κ_\perp(n,T)$. The method combines radial profile measurements of electron density and temperature with the residual of a reduced one-dimensional SOL transport equation, so that the inferred co</div>
+    
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11389v1" target="_blank" rel="noopener" class="title">Modeling of plasma transport during edge-localized mode in tokamak using a kinetic Vlasov-Poisson code</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">A kinetic parallel transport code KOBRA based on a finite-volume method is developed to study edge localized mode (ELM) plasma transport from the mid-plane to divertor targets. The large scale separation between the Debye length (~cm) and the connection length (~10-20 m) leads to prohibitive computational cost in full 6D simulations. To alleviate this, an adaptive-mesh refinement (AMR) strategy is</div>
+    <div class="authors">👥 Ce Wang, Sven Van Loo, Geert Verdoolaege</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.world-nuclear-news.org/articles/openstar-demonstrates-dipole-fusion-reactor-concept" target="_blank" rel="noopener" class="title">OpenStar demonstrates dipole fusion reactor concept</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 19 · ★ 14 · 💬 1</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/PJHkorea/discrete-filament-router" target="_blank" rel="noopener" class="title">Show HN: If I had to design a nuclear fusion power plant(Idea Sketch)</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 2 · ★ 2 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 682 · ★ 147 · 💬 107</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11637v1" target="_blank" rel="noopener" class="title">Certifying Adversarial Robustness of Quantum Classifiers under Known-Readout Query Access</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">A quantum classifier assigns labels by evolving an input quantum state and measuring the output, so repeated executions reveal only a distribution over labels. We study certified adversarial robustness for such classifiers under known-readout query access (KRQA), where an evaluator can prepare inputs, knows the quantum measurement, and observes finite-shot outcomes but cannot inspect the internal</div>
+    <div class="authors">👥 Ji Guan, Mingyu Huang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11635v1" target="_blank" rel="noopener" class="title">Quantum-hardware spectral co-design framework for multifrequency Rydberg electrometry</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Engineering electromagnetic hardware to satisfy discrete quantum-defined spectral constraints constitutes a general spectral co-design problem for quantum systems. Here we address this challenge in multifrequency Rydberg electrometry by directly coupling a fabrication-constrained simultaneous perturbation stochastic approximation (SPSA)--Adam optimizer to full-wave finite-element eigenmode simulat</div>
+    <div class="authors">👥 Song Huang, Guibin Tian, Fernando Quijandría 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11618v1" target="_blank" rel="noopener" class="title">Quantum models of interaction Hamiltonian and their paradoxes</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">In quantum physics it is commonplace to model the interaction of remote systems with a many-body Hamiltonian. Taking such an action-at-a-distance description {\it à la lettre} leads to various paradoxes related to faster-than-light communication and apparent inconsistencies in local energy accounting. It also neglects residual effects, such as entanglement between the remote systems and the mediat</div>
+    <div class="authors">👥 Nicolas Gisin, Serge Massar, Jef Pauwels 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11595v1" target="_blank" rel="noopener" class="title">Dissipative Quantum Battery from Many-Body Scars</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">We propose an autonomous quantum-battery protocol based on dissipatively selected quantum many-body scars. Using an embedding-type spin chain with an exact scar tower and a generalized interacting $J_1$--$J_2$ chain, we show that engineered local bond dissipation can drive the system from a passive state into a high-energy scar-supported manifold with large extractable work. The resulting charged</div>
+    <div class="authors">👥 Jinglin Liu, Yiming Liu, Mingdi Xu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11585v1" target="_blank" rel="noopener" class="title">Heterogeneously Integrated Efficient and Widely Tunable Lasers at 795 nm for Rubidium-Based Quantum Technologies</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Scaling quantum processors and optical atomic clocks fundamentally requires orders-of-magnitude reductions in the size, weight, power, and cost of optical control systems. Photonic integration of lasers is critical to fulfill these requirements. At the near-infrared wavelengths required for atomic clocks and quantum computing through manipulation of rubidium atoms, laser integration is hindered by</div>
+    <div class="authors">👥 Max Kiewiet, Stijn Cuyvers, Tom Reep 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11536v1" target="_blank" rel="noopener" class="title">Impossible to conjugate an unknown quantum state via a unitary evolution</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">The no-cloning theorem, the no-deleting theorem, the no-hiding theorem, the no-flip theorem, and the no-broadcasting play a crucial role in quantum mechanics and quantum information. In this paper, we propose the no-conjugating theorem which states that it is impossible to conjugate an unknown arbitrary quantum state via a universal physical device or linear/unitary operation.</div>
+    <div class="authors">👥 Dafa Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11522v1" target="_blank" rel="noopener" class="title">Birth and Death of Entanglement in Hamiltonian-Driven Quantum Games under Decoherence</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Quantum game theory investigates the influence of quantum resources on strategic decision-making. In this work, two-player quantum games based on the Transverse Field Ising Model(TFIM) are investigated under amplitude-damping decoherence. The TFIM Hamiltonian naturally produces a family of entangling gates, enabling a physically motivated implementation of quantum games. The effects of noise on Na</div>
+    <div class="authors">👥 Teena Thomas, S. Balakrishnan</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 3</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11595v1" target="_blank" rel="noopener" class="title">Dissipative Quantum Battery from Many-Body Scars</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">We propose an autonomous quantum-battery protocol based on dissipatively selected quantum many-body scars. Using an embedding-type spin chain with an exact scar tower and a generalized interacting $J_1$--$J_2$ chain, we show that engineered local bond dissipation can drive the system from a passive state into a high-energy scar-supported manifold with large extractable work. The resulting charged</div>
+    <div class="authors">👥 Jinglin Liu, Yiming Liu, Mingdi Xu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.11455v1" target="_blank" rel="noopener" class="title">Efficient Algorithms for Energy-Aware Single-Machine Scheduling with Battery Storage</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-11</span>
+    </div>
+    <div class="abstract">Energy-aware scheduling has become a central challenge in modern manufacturing environments. As industries increasingly aim to reduce operational costs and carbon emissions, aligning production activities with electricity tariffs is increasingly important. The integration of battery energy storage system (BESS) further enhances the potential to reduce energy purchase costs; however, incorporating</div>
+    <div class="authors">👥 Luca Forte, Stijn De Vuyst, Pieter Leyman</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://finance.yahoo.com/energy/articles/prologium-begins-mass-production-high-070000793.html" target="_blank" rel="noopener" class="title">ProLogium begins mass production of solid-state battery at 381 Wh/kg</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-13</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 2 · ★ 2 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
