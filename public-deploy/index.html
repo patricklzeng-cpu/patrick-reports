@@ -63,6 +63,7 @@
     <a class="module" href="https://2017zyl.xyz/llm-salon/" target="_blank"><small>08 · COLLECTIVE REASONING</small><strong>LLM Salon</strong><span>5 MODELS</span></a>
     <a class="module" href="https://2017zyl.xyz/groundtruth-knowledge-ops/?ref=openswarm" target="_blank"><small>09 · KNOWLEDGE OPS</small><strong>Groundtruth</strong><span>ROI · PILOT</span></a>
     <a class="module" href="https://2017zyl.xyz/agentic-os" target="_blank"><small>10 · OPEN-SOURCE OS</small><strong>Agentic OS</strong><span>FREE · MIT</span></a>
+    <a class="module" href="https://2017zyl.xyz/daily-reports/2017zyl-site-atlas-2026-09-16.html" target="_blank"><small>11 · SITE ATLAS</small><strong>2017zyl.xyz 站点星图</strong><span>1118 PAGES · 25 CLUSTERS</span></a>
   </aside>
   <div class="toast" id="toast">Task routed to 9 agents</div>
 
@@ -82,7 +83,7 @@ fetch('/.rss-stats.json').then(r => r.json()).then(s => {
     if (elCb) {
       elCb.textContent = s.actionable_count + ' ACT · ' + (s.notable_count || 0) + ' NOTE';
       elCb.style.color = s.actionable_count > 0 ? '#67e8f9' : '#8b8d91';
-      elCb.style.display = '';  // reveal after data lands; default in CSS: .badge-hidden { display: none }
+      elCb.style.display = '';  // reveal only after data lands (default: hidden)
     }
     if (elRss) {
       elRss.textContent = s.total_events + ' EVT · ' + s.labs_covered + ' LABS';
