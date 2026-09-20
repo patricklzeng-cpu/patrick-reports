@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-09-14 ~ 2026-09-20</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-09-14 ~ 2026-09-20 · 聚合 4 天 · 总 48 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">45</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">5</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">23</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">6</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 689 · ★ 149 · 💬 108</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17425v1" target="_blank" rel="noopener" class="title">On energy conservation laws in the drift-reduced Braginskii model</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">A revision of the drift-reduced Braginskii model is presented, focusing on its practical implementation in numerical codes, and systematically analyzing the effect of several commonly-used approximations on energy conservation. As a practical example, the effect of the approximations is quantified in the GBS code. By dropping the most important approximations and related energy sinks, the simulati</div>
+    <div class="authors">👥 Sergio García Herreros, Brenno de Lucca, Davide Mancini 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17402v1" target="_blank" rel="noopener" class="title">Electrons quench ion tails during evaporative cooling in hot ion mode plasmas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">It is shown how evaporative cooling in hot plasma is essentially different from evaporative cooling in other media, such as neutral gases or Bose-Einstein condensates. The fundamental difference in plasmas arises both from the large mass ratio between electrons and ions in fully ionized plasma and the unusually sensitive dependence of plasma collisionality on speed. Thus, a hot ion mode plasma ($T</div>
+    <div class="authors">👥 Eric Palmerduca, Hong Qin, Nathaniel J. Fisch</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17345v1" target="_blank" rel="noopener" class="title">Spatially-resolved methane decomposition in a short glow discharge: insights into suprathermal hydrogen and radical chemistry</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">This work presents the spatially resolved mapping of methane decomposition chemistry in a short direct-current glow discharge, revealing segregated zones for dissociation and polymerization in an Ar-CH4 mixture at 400 mTorr. Laser-induced fluorescence (LIF), two-photon absorption LIF (TALIF), and optical emission spectroscopy (OES), are used to map the absolute number densities of atomic hydrogen</div>
+    <div class="authors">👥 Shurik Yatom</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17209v1" target="_blank" rel="noopener" class="title">Nonlinear kinetic closures for linear instabilities</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Landau fluid closures are linear in the evolved moments. We examine the consequences of relaxing linearity. As an example, we introduce the nonlinear exact kinetic response closure, exact on an eigenmode but not on superpositions. A counting argument shows that a closure on $N$ instantaneous moments and the field can represent at most $(N+1)/2$ superposed eigenmodes. Guided by this, we train an eq</div>
+    <div class="authors">👥 Elizabeth J. Paul, Archis Joglekar, Alexey Knyazev</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17162v1" target="_blank" rel="noopener" class="title">Strong Nonlinear Alfvén Wave Interactions in a Laboratory Plasma</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Alfvén waves and their nonlinear interactions are ubiquitous in space and astrophysical plasmas, and are thought to play important roles in the dynamics of these systems, yet their nature remains to be fully understood. We describe experiments performed on the Large Plasma Device to study the nature of counter- and co-propagating wave interactions relevant to strong Alfvénic turbulence. Both inter</div>
+    <div class="authors">👥 C. H. K. Chen, S. Dorfman, S. Boldyrev 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17151v1" target="_blank" rel="noopener" class="title">JC-PIC: kinetic (PIC-MCC) simulation of lowtemperature plasmas with a documented library of one hundred test cases</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Over the last twenty years, particle-in-cell simulations with Monte Carlo collisions (PIC-MCC) have given the low-temperature plasma community much of what it knows about electron heating in RF discharges, sheaths and secondary emission, striations, and the instabilities of magnetised plasmas. But these results remain in papers, and in codes that only their authors can run. JC-PIC is a free Window</div>
+    
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.16575v1" target="_blank" rel="noopener" class="title">KEMPIC-3D: A transparent and extensible electromagnetic Particle-in-Cell framework for kinetic plasma simulations</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">KEMPIC-3D, a fully electromagnetic three-dimensional particle-in-cell (PIC) code, has been developed in C/C++ and systematically verified for the self-consistent simulation of kinetic plasma phenomena. The numerical framework combines a staggered Yee finite-difference time-domain solver for Maxwell&#x27;s equations with a relativistic Boris particle pusher, trilinear field interpolation, and charge-con</div>
+    <div class="authors">👥 Jesús E. López, Keren C. Vanegas, Eduardo A. Orozco-Ospino</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17517v1" target="_blank" rel="noopener" class="title">Regularized barycentric Rényi divergences</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Barycentric Rényi divergences were introduced in [Mosonyi, Bunth, Vrana, Linear Algebra and its Applications, 2024] as an alternative to standard Kubo-Ando constructions to define multivariate quantum Rényi divergences. They are defined via a variational expression and depend on a finite collection of quantum relative entropies $D^{q_x}$. When all the relative entropies are monotone under CPTP map</div>
+    <div class="authors">👥 Milán Mosonyi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17501v1" target="_blank" rel="noopener" class="title">A Case Study on Noise Resilient Operator Selection in Adaptive Variational Quantum Algorithms</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Hardware noise has been shown to significantly impact the accuracy of ADAPT-VQE, a ground state preparation algorithm. While previous work has studied the impact of noise on its parameter optimization step, its impact on the critical operator selection step remains comparatively unexplored. In this work, we examine the impact of a variety of noise channels on this step, using a linear H$_3$ molecu</div>
+    <div class="authors">👥 Soorya Haravu, Mafalda Ramôa, Bharath Sambasivam</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17498v1" target="_blank" rel="noopener" class="title">Antidistinguishability of states in General Probabilistic Theories</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">We investigate antidistinguishability of states within the framework of general probabilistic theories (GPTs). We formulate antidistinguishability, strong and equal antidistinguishability as refined notions that imposed additional constraint on the measurement effects. We establish general results relating these notions of antidistinguishability and derive an upper bound on the cardinality of equa</div>
+    <div class="authors">👥 Satyaki Manna, Anandamay Das Bhowmik</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17497v1" target="_blank" rel="noopener" class="title">Beyond Hardware: Adaptive Algorithmic Control by State-Proxy Equalization</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Recent advances in quantum computing have been driven primarily by improvements in hardware. Here we show that substantial gains can instead arise from how finite computational resources are allocated throughout a quantum computation. We introduce Adaptive Algorithmic Control (A2C), a software paradigm founded on a State-Proxy Equalization theorem, which proves that the optimal allocation for a st</div>
+    <div class="authors">👥 Jianlong Lu, Hongrui Zhang, Vishal Sharathchandra Bajpe 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17490v1" target="_blank" rel="noopener" class="title">Query-optimal quantum simulation of Lindblad evolution</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">For the problem of simulating Lindblad evolution for time $t$ to precision $ε$, Hamiltonian simulation provides an additive query lower bound, informally, $Ω(t + \mathrm{polylog}(1/ε))$. However, the best previously known algorithms for general Lindblad simulation achieve a multiplicative upper bound, informally, $\mathcal{O}(t\,\mathrm{polylog}(1/ε))$, in gate complexity. It has remained open whe</div>
+    <div class="authors">👥 Chunhao Wang, Christopher Ye</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17482v1" target="_blank" rel="noopener" class="title">Predictive Structure Behind Rare Outcomes in Random Quantum Circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Rare outputs of random quantum circuits are usually treated as terminal statistics. We ask whether they reveal intermediate organization that remains useful beyond the selecting future. Comparing unconditioned random-normal (RN) and peak-selected random-peaked (RP) circuits from the same local generator, we find stronger pairwise correlations and probability redistribution but reduced bipartite an</div>
+    <div class="authors">👥 Myeongsu Kim, Travis Humble, Sabre Kais</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17465v1" target="_blank" rel="noopener" class="title">Quantum Compiler Design for Fault-Tolerant Quantum Computing</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Scalable quantum computation is expected to rely on fault-tolerant quantum computation (FTQC), in which quantum error correction (QEC) suppresses physical errors sufficiently to support reliable logical operations. This requires quantum compilation to move beyond general-purpose circuit optimization toward encoding-aware and protocol-structured compilation across the full stack of fault-tolerant q</div>
+    <div class="authors">👥 Chenghong Zhu, Jiahan Chen, Keming He 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17457v1" target="_blank" rel="noopener" class="title">One Gate at a Time: Complexity Growth in Random Quantum Circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">A random unitary quantum circuit is expected to be incompressible for exponentially long times. We show that the constant-error circuit complexity of a random unitary circuit grows almost linearly with time as $Ω(T/\log T)$. The bound holds for all $2\leq T\leq 4^n$ where $n$ is the system size, and involves no other $n$-dependence. This improves previous lower bounds derived from spectral gaps an</div>
+    <div class="authors">👥 Zhi Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17447v1" target="_blank" rel="noopener" class="title">On the relaxation dynamics of non-equilibrium quantum systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">We investigate the relaxation of an approximately conserved charge in interacting quantum systems close to local equilibrium. To this end, we provide a pedagogical review of Zubarev&#x27;s non-equilibrium statistical operator approach in the minimal setting of a single non-conserved charge and apply it to the problem at hand. We explicitly highlight the physical assumptions that lead to a local relaxat</div>
+    <div class="authors">👥 Matthias Carosi, Björn Garbrecht, Silvia Pla 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17439v1" target="_blank" rel="noopener" class="title">Evaluating Verified Autonomy in Quantum Engineering</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Reliable quantum engineering is essential for turning quantum phenomena into practical technologies. As quantum platforms grow in scale and complexity, their characterization and operation require increasing human effort and coordination. Scientific artificial intelligence agents, which can plan experiments, operate instruments, and analyze observations, offer a promising route towards autonomous</div>
+    <div class="authors">👥 Naixu Guo, Changhao Li, Siyu Cheng 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17500v1" target="_blank" rel="noopener" class="title">Visualizing Berry curvature in a Floquet-Chern insulator</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Circularly polarized light can open a topological gap in a gapless Dirac system, creating a Floquet-Chern insulator. However, its Berry curvature has not been directly resolved. Here we use circular-dichroism time- and angle-resolved photoemission spectroscopy (Tr-ARPES) to map the light-induced Berry curvature of Floquet-Bloch states on the surface of Bi$_2$Se$_3$. By comparing spectra for opposi</div>
+    <div class="authors">👥 Younsik Kim, Rishi Acharya, Hannah E. Aguirre 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17378v1" target="_blank" rel="noopener" class="title">Exact solutions of nonreciprocal Su-Schrieffer-Heeger model with domain walls</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">We investigate domain-wall physics in a non-Hermitian Su-Schrieffer-Heeger model featuring the non-Hermitian skin effect and its higher-dimensional extensions, focusing on analytical eigenstate solutions under open boundary conditions. By gluing two Su-Schrieffer-Heeger chains with inverted coupling ratios together, we identify two distinct interface geometries, and derive closed-form quantization</div>
+    <div class="authors">👥 Tong Wang, Mengjie Yang, Flore K. Kunst</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17367v1" target="_blank" rel="noopener" class="title">Bound-State Engineered Quantum Batteries Against Decoherence</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Quantum batteries promise revolutionary advantages for energy storage but are fundamentally crippled by environmental decoherence, which induces self-discharge and rapid &quot;aging.&quot; Here, we crack this critical bottleneck by exploiting the decoherence-suppression mechanism: the formation of system-environment bound states. We consider a charger-battery system embedded in a three-dimensional anisotrop</div>
+    <div class="authors">👥 J. L. Li, C. Cui, W. Y. Hu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.16899v1" target="_blank" rel="noopener" class="title">Optimal Control Strategies for a Network of Electric Vehicle Charging Energy Hubs with Smart Scheduling via Distributed Optimization</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">This paper studies the cost-optimal operation of a network of charging energy hubs for electric vehicles, which provide onsite renewable energy sources and stationary battery storage and are connected with each other via DC-lines as well as with the distribution grid. Specifically, we first formulate a dynamic optimal control problem for the entire network as a convex quadratic program, whereby th</div>
+    <div class="authors">👥 Diego Fernandez-Zapico, Finn Vehlhaber, Maedeh Izadi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.16828v1" target="_blank" rel="noopener" class="title">Impedance-Aware Optimized Pulse Patterns for Reconfigurable Battery Systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Reconfigurable battery systems (RBS) synthesize the converter output voltage by inserting and bypassing battery cell groups, so every switching state changes not only the source voltage but also the source impedance. This paper shows that this configuration-dependent impedance breaks a tacit assumption of optimized pulse patterns (OPP): patterns designed with the customary linear plant model overe</div>
+    <div class="authors">👥 Julian Estaller, Johannes Buberger, Andreas Wiedenmann 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.16793v1" target="_blank" rel="noopener" class="title">Available but Unclaimed: An Empirical Study of Human-AI Synergy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">People increasingly reason with large language models (LLMs), yet complementary capabilities do not guarantee outperforming both components. In a between-subjects study, participants (N=535) solved a 40-item battery of matrix reasoning, mental rotation, syllogisms, and letter-string analogies, unaided or with GPT-5.6-Luna, Claude Opus 4.8, Gemini 3.6 Flash, or Kimi K3. Each assisted trial required</div>
+    <div class="authors">👥 Robin Welsch, Michelle Rausch, Pascal Knierim 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.20328v1" target="_blank" rel="noopener" class="title">Experimental setup for testing nanocalorimeter sensors as a plasma diagnostics tool</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">The application of microfabricated nanocalorimeters for real-time, highly sensitive, and selective monitoring of the energy fluxes from low-pressure plasma discharges has been reported recently. Here, we describe the experimental setup for complementary characterization of nanocalorimeters performance using plasma diagnostics techniques. Langmuir probe, retarding field energy analyzer (RFEA), opti</div>
+    <div class="authors">👥 Carles Corbella, Feng Yi, Andrei Kolmakov</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#26</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.19953v1" target="_blank" rel="noopener" class="title">Gradient-Based Construction of Collisionless Steady-State Guiding-Center Distributions in Tokamaks and Stellarators</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">We present a matrix-free residual-minimization method for preparing guiding-center distribution functions on finite grids. The method minimizes a fixed conservative discrete residual in the physical Jacobian metric using Polak-Ribiere+ iterations with exact quadratic line searches. JAX/XLA evaluates the operator and its adjoint without assembling a four-dimensional matrix; independent magnetic-mom</div>
+    <div class="authors">👥 Jingyi Yu, Chang Liu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#27</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.19756v1" target="_blank" rel="noopener" class="title">Rapidity-Coupled Spin Dynamics in Pulsed Laser Fields from Physics-Informed Neural Networks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">Carrier-envelope-phase (CEP) stabilized few-cycle pulses make the sub-cycle field structure a control parameter for laser-driven polarized electron sources, yet spin solvers for such pulses are rarely tested against exact results. We show that for an electron initially at rest in a linearly polarized plane-wave pulse the rest-frame polarization angle follows the instantaneous vector potential, $Σ=</div>
+    <div class="authors">👥 N. S. Akintsov, A. P. Nevecheria, S. N. Andreev 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#28</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.19752v1" target="_blank" rel="noopener" class="title">Indirect-Drive Fusion Target Design for Commercial Fusion Energy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">This paper presents the physics basis for commercially relevant laser indirect-drive (LID) (radiation-driven) inertial fusion energy (IFE) using a 10 MJ laser driver. To date, this approach, proven at the National Ignition Facility (NIF), remains the first and only controlled fusion method to demonstrate the key physics required for fusion energy production, including a self-sustained burning plas</div>
+    <div class="authors">👥 Inertia Collaboration</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#29</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.19571v1" target="_blank" rel="noopener" class="title">Efficient laser ion acceleration in near-critical density plasmas in the picosecond pulse regime</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">Kilojoule-class short-pulse (&amp;lt; 10 ps) lasers are excellent tools for generating relativistic ion beams, but achieving high laser-to-ion conversion efficiency remains an open challenge. Recent experiments show a significant increase in conversion efficiency when leveraging targets with an average plasma density approaching the relativistic-critical limit. We present an analytical model that expl</div>
+    <div class="authors">👥 Joshua Luoma, Andreas Kemp, Andrew Longman 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#30</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.20823v1" target="_blank" rel="noopener" class="title">Environment Alignment and Redundant Record Formation in Imperfect-CNOT Quantum Darwinism</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">Quantum Darwinism explains objective information through redundant environmental records. Earlier work established that imperfect records can be amplified and that environment self-evolution can enhance or suppress their formation. We investigate how preparation, interaction angle, and field disorder combine in an imperfect-CNOT model with random Gaussian couplings and pure, noninteracting environ</div>
+    <div class="authors">👥 Aleksander Lasek, Paweł Horodecki</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 5</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.19953v1" target="_blank" rel="noopener" class="title">Gradient-Based Construction of Collisionless Steady-State Guiding-Center Distributions in Tokamaks and Stellarators</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">We present a matrix-free residual-minimization method for preparing guiding-center distribution functions on finite grids. The method minimizes a fixed conservative discrete residual in the physical Jacobian metric using Polak-Ribiere+ iterations with exact quadratic line searches. JAX/XLA evaluates the operator and its adjoint without assembling a four-dimensional matrix; independent magnetic-mom</div>
+    <div class="authors">👥 Jingyi Yu, Chang Liu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.19752v1" target="_blank" rel="noopener" class="title">Indirect-Drive Fusion Target Design for Commercial Fusion Energy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">This paper presents the physics basis for commercially relevant laser indirect-drive (LID) (radiation-driven) inertial fusion energy (IFE) using a 10 MJ laser driver. To date, this approach, proven at the National Ignition Facility (NIF), remains the first and only controlled fusion method to demonstrate the key physics required for fusion energy production, including a self-sustained burning plas</div>
+    <div class="authors">👥 Inertia Collaboration</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.18883v1" target="_blank" rel="noopener" class="title">Helicon wave propagation, plasma generation and interaction with low-frequency waves in toroidal magnetic configurations</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">Helicon waves are widely used for efficient plasma production in low-temperature devices and have recently attracted attention as a candidate for current drive in fusion plasmas. Yet experimental investigations of helicon waves in toroidal geometries, and of their interaction with plasma dynamics, remain extremely limited. In this work, we present, to our knowledge, the first detailed experimental</div>
+    <div class="authors">👥 Simon P. H. Vincent, Mounir Alfazzaa, Patrick Quigley 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.ft.com/content/ef511d46-a689-4868-9654-15b96a71586d" target="_blank" rel="noopener" class="title">Nuclear Fusion&#x27;s Moment of Truth</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 9 · ★ 4 · 💬 1</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/PJHkorea/discrete-filament-router" target="_blank" rel="noopener" class="title">Show HN: If I had to design a nuclear fusion power plant(Idea Sketch)</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 2 · ★ 2 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 689 · ★ 149 · 💬 108</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17517v1" target="_blank" rel="noopener" class="title">Regularized barycentric Rényi divergences</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Barycentric Rényi divergences were introduced in [Mosonyi, Bunth, Vrana, Linear Algebra and its Applications, 2024] as an alternative to standard Kubo-Ando constructions to define multivariate quantum Rényi divergences. They are defined via a variational expression and depend on a finite collection of quantum relative entropies $D^{q_x}$. When all the relative entropies are monotone under CPTP map</div>
+    <div class="authors">👥 Milán Mosonyi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17501v1" target="_blank" rel="noopener" class="title">A Case Study on Noise Resilient Operator Selection in Adaptive Variational Quantum Algorithms</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Hardware noise has been shown to significantly impact the accuracy of ADAPT-VQE, a ground state preparation algorithm. While previous work has studied the impact of noise on its parameter optimization step, its impact on the critical operator selection step remains comparatively unexplored. In this work, we examine the impact of a variety of noise channels on this step, using a linear H$_3$ molecu</div>
+    <div class="authors">👥 Soorya Haravu, Mafalda Ramôa, Bharath Sambasivam</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17497v1" target="_blank" rel="noopener" class="title">Beyond Hardware: Adaptive Algorithmic Control by State-Proxy Equalization</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Recent advances in quantum computing have been driven primarily by improvements in hardware. Here we show that substantial gains can instead arise from how finite computational resources are allocated throughout a quantum computation. We introduce Adaptive Algorithmic Control (A2C), a software paradigm founded on a State-Proxy Equalization theorem, which proves that the optimal allocation for a st</div>
+    <div class="authors">👥 Jianlong Lu, Hongrui Zhang, Vishal Sharathchandra Bajpe 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17490v1" target="_blank" rel="noopener" class="title">Query-optimal quantum simulation of Lindblad evolution</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">For the problem of simulating Lindblad evolution for time $t$ to precision $ε$, Hamiltonian simulation provides an additive query lower bound, informally, $Ω(t + \mathrm{polylog}(1/ε))$. However, the best previously known algorithms for general Lindblad simulation achieve a multiplicative upper bound, informally, $\mathcal{O}(t\,\mathrm{polylog}(1/ε))$, in gate complexity. It has remained open whe</div>
+    <div class="authors">👥 Chunhao Wang, Christopher Ye</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17482v1" target="_blank" rel="noopener" class="title">Predictive Structure Behind Rare Outcomes in Random Quantum Circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Rare outputs of random quantum circuits are usually treated as terminal statistics. We ask whether they reveal intermediate organization that remains useful beyond the selecting future. Comparing unconditioned random-normal (RN) and peak-selected random-peaked (RP) circuits from the same local generator, we find stronger pairwise correlations and probability redistribution but reduced bipartite an</div>
+    <div class="authors">👥 Myeongsu Kim, Travis Humble, Sabre Kais</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17465v1" target="_blank" rel="noopener" class="title">Quantum Compiler Design for Fault-Tolerant Quantum Computing</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Scalable quantum computation is expected to rely on fault-tolerant quantum computation (FTQC), in which quantum error correction (QEC) suppresses physical errors sufficiently to support reliable logical operations. This requires quantum compilation to move beyond general-purpose circuit optimization toward encoding-aware and protocol-structured compilation across the full stack of fault-tolerant q</div>
+    <div class="authors">👥 Chenghong Zhu, Jiahan Chen, Keming He 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17457v1" target="_blank" rel="noopener" class="title">One Gate at a Time: Complexity Growth in Random Quantum Circuits</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">A random unitary quantum circuit is expected to be incompressible for exponentially long times. We show that the constant-error circuit complexity of a random unitary circuit grows almost linearly with time as $Ω(T/\log T)$. The bound holds for all $2\leq T\leq 4^n$ where $n$ is the system size, and involves no other $n$-dependence. This improves previous lower bounds derived from spectral gaps an</div>
+    <div class="authors">👥 Zhi Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 6</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.17367v1" target="_blank" rel="noopener" class="title">Bound-State Engineered Quantum Batteries Against Decoherence</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Quantum batteries promise revolutionary advantages for energy storage but are fundamentally crippled by environmental decoherence, which induces self-discharge and rapid &quot;aging.&quot; Here, we crack this critical bottleneck by exploiting the decoherence-suppression mechanism: the formation of system-environment bound states. We consider a charger-battery system embedded in a three-dimensional anisotrop</div>
+    <div class="authors">👥 J. L. Li, C. Cui, W. Y. Hu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.16899v1" target="_blank" rel="noopener" class="title">Optimal Control Strategies for a Network of Electric Vehicle Charging Energy Hubs with Smart Scheduling via Distributed Optimization</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">This paper studies the cost-optimal operation of a network of charging energy hubs for electric vehicles, which provide onsite renewable energy sources and stationary battery storage and are connected with each other via DC-lines as well as with the distribution grid. Specifically, we first formulate a dynamic optimal control problem for the entire network as a convex quadratic program, whereby th</div>
+    <div class="authors">👥 Diego Fernandez-Zapico, Finn Vehlhaber, Maedeh Izadi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.16828v1" target="_blank" rel="noopener" class="title">Impedance-Aware Optimized Pulse Patterns for Reconfigurable Battery Systems</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">Reconfigurable battery systems (RBS) synthesize the converter output voltage by inserting and bypassing battery cell groups, so every switching state changes not only the source voltage but also the source impedance. This paper shows that this configuration-dependent impedance breaks a tacit assumption of optimized pulse patterns (OPP): patterns designed with the customary linear plant model overe</div>
+    <div class="authors">👥 Julian Estaller, Johannes Buberger, Andreas Wiedenmann 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.16793v1" target="_blank" rel="noopener" class="title">Available but Unclaimed: An Empirical Study of Human-AI Synergy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-17</span>
+    </div>
+    <div class="abstract">People increasingly reason with large language models (LLMs), yet complementary capabilities do not guarantee outperforming both components. In a between-subjects study, participants (N=535) solved a 40-item battery of matrix reasoning, mental rotation, syllogisms, and letter-string analogies, unaided or with GPT-5.6-Luna, Claude Opus 4.8, Gemini 3.6 Flash, or Kimi K3. Each assisted trial required</div>
+    <div class="authors">👥 Robin Welsch, Michelle Rausch, Pascal Knierim 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.20613v1" target="_blank" rel="noopener" class="title">Quantum Battery Enhancement via Degenerate Optical Parametric Amplifier and Common Reservoirs</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">We investigate a nonreciprocal quantum battery in which the charger and battery share one or two common reservoirs, with the charger driven by a degenerate optical parametric amplifier (DOPA). Reservoir-mediated dissipative interactions enable directional energy transfer, while the DOPA provides additional parametric am plification. We show that, in the stable below-threshold regime, the DOPA can</div>
+    <div class="authors">👥 Y. Y. Yang, H. N. Liu, Gangcheng Wang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.20157v1" target="_blank" rel="noopener" class="title">Energy Harvesting for Self-Powered Microsystems: A Critical Review of Materials, Power Management, and System Integration</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-19</span>
+    </div>
+    <div class="abstract">The relentless proliferation of the Internet of Things (IoT), wearable bioelectronics, and cyber-physical infrastructure has rendered the conventional electrochemical battery the single most prohibitive bottleneck to long-term, maintenance-free autonomous microsystems. Energy harvesting, i.e. the conversion of ambient mechanical, thermal, and radiative energy into usable electrical power, has cons</div>
+    <div class="authors">👥 Lyuye Lin, Feng Zhifu, Ermanno Miele 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
