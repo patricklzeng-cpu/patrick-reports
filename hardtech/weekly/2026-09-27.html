@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-09-21 ~ 2026-09-27</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-09-21 ~ 2026-09-27 · 聚合 4 天 · 总 69 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">66</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">10</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">32</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">7</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">0</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 689 · ★ 149 · 💬 108</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26742v1" target="_blank" rel="noopener" class="title">Analytic toroidal 3D MHD equilibria and steady Euler flows with invariant surfaces</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Families of explicit analytic solutions of the magnetohydrodynamic equilibrium equations are presented, equivalent to steady incompressible Euler flow. The solutions are non-axisymmetric and possess exact nested toroidal flux surfaces. No expansion is made in inverse aspect ratio or in the deviation from axisymmetry. The magnetic field and flux surfaces are given explicitly in Cartesian coordinate</div>
+    <div class="authors">👥 Matt Landreman</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26720v1" target="_blank" rel="noopener" class="title">First Observation of a Polar Coronal Hole-like Fast Solar Wind Stream in the Sub-Alfvénic Solar Corona: an Analysis of Turbulence Properties</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Parker Solar Probe, near its 23rd perihelion in March 2025, sampled an extended interval of sub-Alfvénic solar wind likely originating from a large equatorial coronal hole. At heliocentric distances of approximately 10 solar radii, with speed mostly above 400 km/s, this interval is a first example of ``polar coronal hole-like (PCH-l) fast&quot; solar wind observed in the sub-Alfvénic solar corona. We c</div>
+    <div class="authors">👥 Riddhi Bandyopadhyay, Sujan Prasad Gautam, William H. Matthaeus 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26390v1" target="_blank" rel="noopener" class="title">Stable 50 MeV Beams from a 100 Hz Laser-Wakefield Accelerator Driven by an OPCPA Laser</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We demonstrate a laser-wakefield accelerator driven by a high-repetition-rate optical parametric chirped-pulse amplification (OPCPA) laser, producing stable, quasi-monoenergetic electron beams at 100 Hz. Using 70 mJ, 8.1 fs laser pulses, we obtain 47 MeV electron beams with 15 pC charge and an intrinsic energy spread below 10%. Measurements over 10,000 consecutive shots show rms fluctuations of on</div>
+    <div class="authors">👥 S. Smartsev, J. Wheeler, O. Lundh 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.25554v1" target="_blank" rel="noopener" class="title">Scalable Terbium-149 Production from Highly Enriched Gadolinium-150 Targets</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We propose a two-stage production method to overcome existing supply-constraints for the alpha-emitter $^{149\mathrm{g}}$Tb, a promising candidate for Targeted Alpha Therapy (TAT) with no existing globally scalable production pathway. Although awaiting experimental measurement of the $^{150}$Gd(p,2n)$^{149\mathrm{g}}$Tb cross section, the proposed method could produce $^{149\mathrm{g}}$Tb at clini</div>
+    <div class="authors">👥 J. F. Parisi, A. Rutkowski</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26788v1" target="_blank" rel="noopener" class="title">Quantum Advantage for Distributed Symmetry Breaking</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We present a distributed quantum algorithm that $3$-colors cycles in $O(1)$ rounds, with high probability. It follows that all locally checkable labeling problems (LCLs) that have round complexity $O(\log^* n)$ in the classical LOCAL model can be solved in $O(1)$ rounds in the quantum-LOCAL model, with high probability; this includes problems such as maximal independent set and maximal matching in</div>
+    <div class="authors">👥 Maxime Flin, Longcheng Li, Jukka Suomela</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26784v1" target="_blank" rel="noopener" class="title">Error Suppression in Distributed Quantum Computing with Heterogeneous-Distance Lattice Surgery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Distributed quantum computing requires fault-tolerant operations across inter-QPU links that can be substantially noisier than local gates. Uniformly increasing code distance provides additional protection but also enlarges data patches used for local storage and computation. Here, we introduce distributed heterogeneous-distance lattice surgery using an eight-data-patch ancilla-mediated (8-DAM) ar</div>
+    <div class="authors">👥 Daniel Dilley, Anastashia Jebraeilli, Rayat Roy 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26775v1" target="_blank" rel="noopener" class="title">Optical Ion Clock with Engineered Immunity to Motion-Induced Frequency Shifts</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Spectroscopic frequency shifts due to residual motion of the probed atoms significantly contribute to the uncertainty budgets of state-of-the-art optical ion clocks. For clock transitions with second-order Doppler and quadratic Stark shifts of opposite signs, it is possible to configure electrodynamic ion confinement such that these two shift effects become anticorrelated causing zero net shift. H</div>
+    <div class="authors">👥 Mark Lide, Wesley Hardin, Christian Sanner</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26769v1" target="_blank" rel="noopener" class="title">On the Complexity of Finding Decoherence Free Subspaces</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Decoherence free subspaces are a steady-state structure of the open quantum system which preserves quantum coherence between the states lying with in it and thus has found a variety of applications throughout quantum information science and technology. In this paper we study the computational complexity of deciding whether an open quantum system admits a decoherence free subspace or not. More spec</div>
+    <div class="authors">👥 Evan Borras</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26750v1" target="_blank" rel="noopener" class="title">Quantum Broadcast Channels with Mutually Confidential Messages</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We study the transmission of two independent confidential classical messages over a quantum broadcast channel, one for each receiver. Each message must remain secret from the other receiver, including when that receiver knows its own message. For classical inputs and quantum outputs, we establish the classical Marton-type inner bound under average reliability and conditional strong secrecy. The en</div>
+    <div class="authors">👥 Paula Belzig, Sukanya Ghosal, Farzin Salek 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26743v1" target="_blank" rel="noopener" class="title">Explicit channels with unbounded gains in classical communication using entangled inputs</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We construct an explicit family of finite-dimensional quantum channels for which the optimal classical communication rate achievable with product-state codewords and collective decoding tends to zero, while rates achievable using entanglement only within pairs of channel inputs grow without bound. Our construction combines deterministic qudit Clifford unitaries with a binary measurement and classi</div>
+    <div class="authors">👥 Hao-Chung Cheng, Peixue Wu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26736v1" target="_blank" rel="noopener" class="title">A Syndrome-Extraction Framework for Distributed Lattice Surgery on Arbitrary Rotated Surface-Code Layouts</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Modular quantum computing is a leading candidate for scalable fault tolerant quantum computation. Performing lattice surgery using surface code patches in different modules requires the use of inter-module gates that are noisier than the local gates. Furthermore, the merged layouts during lattice surgery expose multiple directions in which hook errors can propagate to reduce the fault distance. Ex</div>
+    <div class="authors">👥 Pritesh Thakur, Daniel Dilley, Zain Saleem</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26735v1" target="_blank" rel="noopener" class="title">Good Quantum Locally Testable Codes from Product Expansion</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We construct quantum locally testable codes (LTCs) with constant rate, distance, soundness and locality under a variant of a product expansion conjecture of Bafna and Vyas about Reed-Solomon codes. In particular, we use the high-dimensional expansion framework of Dinur, Lin and Vidick for constructing quantum LTCs, instantiated with the non-Abelian cubical complexes of Rungtanapirom, Stix and Vdov</div>
+    <div class="authors">👥 Mitali Bafna, Anqi Li, Quynh T. Nguyen</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26714v1" target="_blank" rel="noopener" class="title">Evidence for a low-gap component in compressively stressed niobium thin films</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We investigate the microwave response of sputtered Nb films as a function of biaxial film stress. Although transport measurements show nearly identical superconducting transition temperatures ($9.0\pm 0.2$K) and residual resistance ratios across the stress series, microwave resonators fabricated from highly compressive films exhibit enhanced temperature-dependent loss and larger frequency shifts.</div>
+    <div class="authors">👥 J. T. Paustian, Maciej Olszewski, Kiichi Okubo 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26712v1" target="_blank" rel="noopener" class="title">A quantum lower bound for path finding in welded trees</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">In the welded tree problem, an algorithm is tasked with navigating a graph formed from two binary trees joined at the leaves through a ``weld&#x27;&#x27; of connecting edges. A quantum walk can navigate from root to root exponentially faster than any classical algorithm. However, known efficient quantum algorithms cannot find a path between the roots, as recording the path destroys constructive interference</div>
+    <div class="authors">👥 Joseph Carolan, Andrew M. Childs, Matthew Coudron 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26734v1" target="_blank" rel="noopener" class="title">Entropy-Driven Initiation and Cytoskeletal Viscoelasticity in Endocytosis: An Onsager Variational Framework</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Receptor-mediated endocytosis requires a particle to approach the cell membrane to within a few nanometers before ligand--receptor binding can occur. Existing continuum models often start from an already established contact and do not explicitly describe how crowding particles on the extracellular side influence the distribution of the particle near the membrane. We examine entropic depletion forc</div>
+    <div class="authors">👥 Jinjie Liu, Zhongcan Ouyang, Hao Wu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26722v1" target="_blank" rel="noopener" class="title">The Role of Electron Correlations in Chirality Induced Spin Selectivity of Molecular Junctions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">The Non-Equilibrium Green&#x27;s Function (NEGF) approach is applied to a chain of Hubbard atoms in a helical geometry sandwiched between two leads, one of which is magnetic, to assess what role the electronic correlation effects within the molecule may play in explaining the Chirality Induced Spin Selectivity (CISS) effect. The correlation effects are treated at the level of the self-consistent second</div>
+    <div class="authors">👥 A. Konidena, J. Fransson, L. Kantorovich</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26709v1" target="_blank" rel="noopener" class="title">Nonlinear Spin Polarization Enables Néel Order Switching in Centrosymmetric Altermagnets</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Deterministic electrical switching of the Néel order remains challenging in centrosymmetric altermagnets, where linear current-induced spin polarization is forbidden by inversion symmetry. Here, we establish a nonlinear route to Néel order control. Spin group symmetry shows that, in the nonrelativistic limit, the nonlinear spin polarization is constrained along the Néel vector, with a staggered re</div>
+    <div class="authors">👥 Sunit Das, Sayan Sarkar, Amit Agarwal</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26694v1" target="_blank" rel="noopener" class="title">Benchmarking the generalized Kadanoff-Baym ansatz and second-order adiabatic expansion using time-dependent spintronic effects: Spin pumping, torque, and inertia</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">The generalized Kadanoff-Baym ansatz (GKBA) [P. Lipavský {\em et al.}, Phys. Rev. B {\bf 34}, 6933 (1986)] has emerged as a popular and numerically efficient algorithm for simplification of nonequilibrium Green&#x27;s function (NEGF)-based calculations of time-dependent quantum transport. For systems that can be split into classical and quantum degrees of freedom, another popular simplifying strategy i</div>
+    <div class="authors">👥 Jalil Varela-Manjarres, Nicole Sofia Salazar-Delgado, Branislav K. Nikolic</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26676v1" target="_blank" rel="noopener" class="title">Direction-dependent magnetoelectric conductivity from dipolar topological semimetals</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We compute the linear magnetoelectric conductivity of a two-band vortex nodal-ring (VNR) semimetal and a three-band Hopf semimetal (HSM) within the semiclassical Boltzmann formalism in the relaxation-time approximation. We consider three inequivalent planar-Hall configurations, in which the electric ($\boldsymbol E$) and magnetic ($\boldsymbol B$) fields are oriented differently with respect to th</div>
+    <div class="authors">👥 Firdous Haidar, Ipsita Mandal</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.24443v1" target="_blank" rel="noopener" class="title">Horizon-Aware Early Event Prediction for Tokamak Disruption Alarms</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Reliable disruption prediction is essential for the safe operation of future tokamaks. Existing full-distribution survival methods model the complete residual time-to-disruption distribution, whereas operational decisions primarily depend on disruption risk within a finite prediction horizon. This mismatch motivates introducing Early Event Prediction (EEP) objectives into survival-based disruption</div>
+    <div class="authors">👥 Takeshi Koshizuka, Takaharu Yaguchi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.24256v1" target="_blank" rel="noopener" class="title">Geodesic Acoustic Modes in pair plasmas confined in tokamak magnetic fields</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">This paper is devoted to the derivation of the dispersion relation of the Geodesic Acoustic Mode in pair plasmas, i.e. assuming that ions and electrons have the same mass. Geodesic Acoustic Modes are plasma perturbations playing a crucial role in turbulence regulation, and therefore in the determination of the plasma confinement in tokamaks. Experiments with pair plasmas, like electron-positron pl</div>
+    <div class="authors">👥 Alessandro Biancalani</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26573v1" target="_blank" rel="noopener" class="title">Power-resolved ergotropy and correlation redistribution in a bosonic quantum battery driven by a coherent-state superposition</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Ergotropic-gap relations provide thermodynamic witnesses of quantum correlations, but a direct dynamical connection between extractable work and entanglement remains largely unexplored in multipartite non-Gaussian bosonic systems. Here, we establish such a connection for a bosonic quantum battery driven by a coherent-state superposition. Despite the infinite-dimensional Hilbert space, the dynamics</div>
+    <div class="authors">👥 João P. d&#x27;El-Rey, Tailan S. Sarubi, Ana C. S. Costa 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26364v1" target="_blank" rel="noopener" class="title">Online Learning-Based Adaptive Hybrid Benders Decomposition for Risk-Averse Optimal Sizing</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Optimal sizing problem (OSP) for battery energy storage system (BESS) under uncertain inputs is often formulated as a two-stage stochastic program (2SP), which typically introduces computational and RAM (memory) bottlenecks for large scenario sets. Benders Decomposition (BD) is a popular approach for tackling this problem, but it suffers from slow convergence to the exact solution. To address this</div>
+    <div class="authors">👥 Saif Ahmad, Seifeddine Benelghali, Hafiz Ahmed</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26341v1" target="_blank" rel="noopener" class="title">Non-Markovian Charging of a Micromaser Quantum Battery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We theoretically investigate the role played by non-Markovianity in the charging of a quantum battery. We focus on the case of a Micromaser, where the energy is stored in a resonant cavity mode and memory effects are introduced and controlled by coupling this mode to a memory ancilla, described as a two-level system, that in turn sequentially interacts with a stream of two-level chargers through p</div>
+    <div class="authors">👥 N. Massa, D. Ferraro, F. Cavaliere 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#26</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.25699v1" target="_blank" rel="noopener" class="title">Post-Selection-Based Stochastic Quantum Battery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Quantum batteries are quantum systems that store useful energy, which can subsequently be extracted to perform work. In this work, we investigate the charging dynamics under continuous measurements and post-selection-based non-Hermitian quantum battery realized by a three-level system. By post-selecting the trajectories with no quantum jump $|1\rangle \rightarrow |0\rangle$, the dynamics is effect</div>
+    <div class="authors">👥 Aman Verma, Roson Nongthombam, Amarendra K. Sarma</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#27</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.28422v1" target="_blank" rel="noopener" class="title">Performance-portable GPU acceleration of the hybrid particle-in-cell code dHybridR</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">Hybrid particle-in-cell simulations are widely used to study kinetic processes in collisionless astrophysical and space plasmas, yet the high computational cost of large-scale three-dimensional runs has largely confined production studies to two dimensions or restricted domains. To address this challenge, we present a performance-portable GPU implementation of the hybrid particle-in-cell code dHyb</div>
+    <div class="authors">👥 Bricker Ostler, Miha Cernetic, Damiano Caprioli</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#28</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.28398v1" target="_blank" rel="noopener" class="title">Retrospective on the Design and Implementation of the Milestone-Based Fusion Development Program of the U.S. Department of Energy</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">This paper provides a detailed account of the origins, objectives, design, and implementation of the Milestone-Based Fusion Development Program, a public-private-partnership (PPP) program launched by the U.S. Department of Energy&#x27;s Office of Science in September 2022. The purpose of this program is multi-faceted, with policy, scientific and technological (S&amp;amp;T), and commercialization objectives</div>
+    <div class="authors">👥 Scott C. Hsu, Samuel E. Wurzel, Narayan S. Subramanian</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#29</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.28379v1" target="_blank" rel="noopener" class="title">Linear Growth Rate of Compressible Tearing Instability in a Force-Free Current Sheet</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">We investigate the linear growth rate of tearing instability in a resistive force-free current sheet using the linearized fully-compressible magnetohydrodynamics (MHD) equations. Our results show that, as the plasma beta ($β$), which is proportional to the ratio of thermal pressure to magnetic pressure, increases, the dispersion relation approaches that of the incompressible tearing mode. As $β$ d</div>
+    <div class="authors">👥 Chen Shi, Marco Velli</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#30</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.28193v1" target="_blank" rel="noopener" class="title">Alfvénic high-frequency oscillations at the pedestal of JET plasmas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">Long-lived ($\sim 10$ s) high-frequency oscillations (HFOs, $50-450$ kHz) near the plasma edge have been reported and experimentally described in L-H transition studies at JET and AUG. In this work, we show that these HFOs are a general phenomenon observed in various plasma scenarios and compositions (H$^1$, D, D-He$^3$, D-T) under different heating schemes, including pure Ohmic, ICRH and NBI. We</div>
+    <div class="authors">👥 Leonor Roque, Paulo Rodrigues, Emilia R. Solano 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.24443v1" target="_blank" rel="noopener" class="title">Horizon-Aware Early Event Prediction for Tokamak Disruption Alarms</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Reliable disruption prediction is essential for the safe operation of future tokamaks. Existing full-distribution survival methods model the complete residual time-to-disruption distribution, whereas operational decisions primarily depend on disruption risk within a finite prediction horizon. This mismatch motivates introducing Early Event Prediction (EEP) objectives into survival-based disruption</div>
+    <div class="authors">👥 Takeshi Koshizuka, Takaharu Yaguchi</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.24256v1" target="_blank" rel="noopener" class="title">Geodesic Acoustic Modes in pair plasmas confined in tokamak magnetic fields</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">This paper is devoted to the derivation of the dispersion relation of the Geodesic Acoustic Mode in pair plasmas, i.e. assuming that ions and electrons have the same mass. Geodesic Acoustic Modes are plasma perturbations playing a crucial role in turbulence regulation, and therefore in the determination of the plasma confinement in tokamaks. Experiments with pair plasmas, like electron-positron pl</div>
+    <div class="authors">👥 Alessandro Biancalani</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.28116v1" target="_blank" rel="noopener" class="title">Probabilistic and Geometry Aware Neural Surrogate of Scrape Off Layer Plasma Simulations</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">Fast surrogates for tokamak boundary-plasma simulation are typically deterministic regressors mapping a global operating point to a flattened vector of cell values. Near the divertor detachment transition the steady state is not reliably single-valued. A point estimate must average over qualitatively different plasma states, and it arrives with no statement of confidence. Moreover, the flattened v</div>
+    <div class="authors">👥 Gabriele Gianuzzo, Stefan Dasbach, Fleur Hendriks 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.27164v1" target="_blank" rel="noopener" class="title">Effects of the Internal Transport Barrier in the plasma confinement with Resonant Magnetic Perturbations</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">In the pursuit of steady-state fusion energy, Advanced Tokamak regimes rely on Internal Transport Barriers (ITBs) with reversed magnetic shear. While Resonant Magnetic Perturbations (RMPs) are commonly applied to control Edge Localized Modes (ELMs) by intentionally making the plasma edge chaotic, the RMPs can also affect the reversed-shear cores. To address this compatibility, we propose a new, ad</div>
+    <div class="authors">👥 P. Haerter, L. C. Souza, R. L. Viana 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.29871v1" target="_blank" rel="noopener" class="title">Study of low-frequency core-edge coupling in a tokamak: III. Core-localized MHD continuum pulsations \&amp;amp; distant forced reconnection</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-26</span>
+    </div>
+    <div class="abstract">Slow magnetoacoustic pulsations (SMAPs) are found in MHD simulations of a tokamak plasma whose safety factor $q$ near the center is flat and slightly above unity ($q \gtrsim 1$). SMAPs are located on the central plateau of the slow magnetoacoustic continuum $ω_{\rm S} = k_\parallel c_{\rm S}$, where $c_{\rm S}$ is the speed of sound and $k_\parallel$ the wavenumber parallel to the magnetic field.</div>
+    <div class="authors">👥 Andreas Bierwage, Panith Adulsiriswad, Gyungjin Choi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.29849v1" target="_blank" rel="noopener" class="title">Quasi-symmetric error field correction and applications to ITER</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-26</span>
+    </div>
+    <div class="abstract">Reliable correction of nonaxisymmetric error fields (EFs) is essential to the safety and performance of tokamak operation. Although resonant error field correction (EFC) is well established, supported by an improved understanding of 3D plasma response, the residual fields left after resonant EFC remain an open question: they are expected to be predominantly nonresonant, yet can still degrade both</div>
+    <div class="authors">👥 Gwang-Geun Seo, Jong-Kyu Park, S. J. Han 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.29352v1" target="_blank" rel="noopener" class="title">Frequency-inference method for reduced modeling of energetic particle modes (EPM) utilizing resonant auto-optimization remnants of imperfect time-scale separation</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-26</span>
+    </div>
+    <div class="abstract">Integrated codes simulating interactions between Alfvén waves and fast ions in tokamak plasmas use perturbative models for the relatively slow processes of instability growth, saturation, chirping and bursting, and transport. Faster processes by which an Alfvén mode&#x27;s spatiotemporal structure forms are assumed to have been completed within the mode&#x27;s oscillation period, $τ_0 \equiv 2π/ω_0$. This s</div>
+    <div class="authors">👥 Andreas Bierwage, Vinícius N. Duarte, Pablo Oyola 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.29277v1" target="_blank" rel="noopener" class="title">Prediction of Re-Ignition Times in Dielectric Barrier Discharges</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-26</span>
+    </div>
+    <div class="abstract">Discharge ignition events in dielectric barrier discharges (DBDs) self-organise into spatio-temporal patterns with varying degrees of order. The complex dynamics of a DBD and intricate structure of occurring patterns complicate the formulation of predictive, mechanistic descriptions. We present the formulation of a reduced-order model that describes the re-ignition dynamics between consecutive dis</div>
+    <div class="authors">👥 Cristian Flores, Hans Höft, Tomáš Hoder 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 689 · ★ 149 · 💬 108</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26788v1" target="_blank" rel="noopener" class="title">Quantum Advantage for Distributed Symmetry Breaking</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We present a distributed quantum algorithm that $3$-colors cycles in $O(1)$ rounds, with high probability. It follows that all locally checkable labeling problems (LCLs) that have round complexity $O(\log^* n)$ in the classical LOCAL model can be solved in $O(1)$ rounds in the quantum-LOCAL model, with high probability; this includes problems such as maximal independent set and maximal matching in</div>
+    <div class="authors">👥 Maxime Flin, Longcheng Li, Jukka Suomela</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26784v1" target="_blank" rel="noopener" class="title">Error Suppression in Distributed Quantum Computing with Heterogeneous-Distance Lattice Surgery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Distributed quantum computing requires fault-tolerant operations across inter-QPU links that can be substantially noisier than local gates. Uniformly increasing code distance provides additional protection but also enlarges data patches used for local storage and computation. Here, we introduce distributed heterogeneous-distance lattice surgery using an eight-data-patch ancilla-mediated (8-DAM) ar</div>
+    <div class="authors">👥 Daniel Dilley, Anastashia Jebraeilli, Rayat Roy 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26769v1" target="_blank" rel="noopener" class="title">On the Complexity of Finding Decoherence Free Subspaces</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Decoherence free subspaces are a steady-state structure of the open quantum system which preserves quantum coherence between the states lying with in it and thus has found a variety of applications throughout quantum information science and technology. In this paper we study the computational complexity of deciding whether an open quantum system admits a decoherence free subspace or not. More spec</div>
+    <div class="authors">👥 Evan Borras</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26750v1" target="_blank" rel="noopener" class="title">Quantum Broadcast Channels with Mutually Confidential Messages</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We study the transmission of two independent confidential classical messages over a quantum broadcast channel, one for each receiver. Each message must remain secret from the other receiver, including when that receiver knows its own message. For classical inputs and quantum outputs, we establish the classical Marton-type inner bound under average reliability and conditional strong secrecy. The en</div>
+    <div class="authors">👥 Paula Belzig, Sukanya Ghosal, Farzin Salek 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26743v1" target="_blank" rel="noopener" class="title">Explicit channels with unbounded gains in classical communication using entangled inputs</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We construct an explicit family of finite-dimensional quantum channels for which the optimal classical communication rate achievable with product-state codewords and collective decoding tends to zero, while rates achievable using entanglement only within pairs of channel inputs grow without bound. Our construction combines deterministic qudit Clifford unitaries with a binary measurement and classi</div>
+    <div class="authors">👥 Hao-Chung Cheng, Peixue Wu</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26736v1" target="_blank" rel="noopener" class="title">A Syndrome-Extraction Framework for Distributed Lattice Surgery on Arbitrary Rotated Surface-Code Layouts</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Modular quantum computing is a leading candidate for scalable fault tolerant quantum computation. Performing lattice surgery using surface code patches in different modules requires the use of inter-module gates that are noisier than the local gates. Furthermore, the merged layouts during lattice surgery expose multiple directions in which hook errors can propagate to reduce the fault distance. Ex</div>
+    <div class="authors">👥 Pritesh Thakur, Daniel Dilley, Zain Saleem</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26735v1" target="_blank" rel="noopener" class="title">Good Quantum Locally Testable Codes from Product Expansion</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We construct quantum locally testable codes (LTCs) with constant rate, distance, soundness and locality under a variant of a product expansion conjecture of Bafna and Vyas about Reed-Solomon codes. In particular, we use the high-dimensional expansion framework of Dinur, Lin and Vidick for constructing quantum LTCs, instantiated with the non-Abelian cubical complexes of Rungtanapirom, Stix and Vdov</div>
+    <div class="authors">👥 Mitali Bafna, Anqi Li, Quynh T. Nguyen</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 7</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26573v1" target="_blank" rel="noopener" class="title">Power-resolved ergotropy and correlation redistribution in a bosonic quantum battery driven by a coherent-state superposition</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Ergotropic-gap relations provide thermodynamic witnesses of quantum correlations, but a direct dynamical connection between extractable work and entanglement remains largely unexplored in multipartite non-Gaussian bosonic systems. Here, we establish such a connection for a bosonic quantum battery driven by a coherent-state superposition. Despite the infinite-dimensional Hilbert space, the dynamics</div>
+    <div class="authors">👥 João P. d&#x27;El-Rey, Tailan S. Sarubi, Ana C. S. Costa 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26364v1" target="_blank" rel="noopener" class="title">Online Learning-Based Adaptive Hybrid Benders Decomposition for Risk-Averse Optimal Sizing</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Optimal sizing problem (OSP) for battery energy storage system (BESS) under uncertain inputs is often formulated as a two-stage stochastic program (2SP), which typically introduces computational and RAM (memory) bottlenecks for large scenario sets. Benders Decomposition (BD) is a popular approach for tackling this problem, but it suffers from slow convergence to the exact solution. To address this</div>
+    <div class="authors">👥 Saif Ahmad, Seifeddine Benelghali, Hafiz Ahmed</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.26341v1" target="_blank" rel="noopener" class="title">Non-Markovian Charging of a Micromaser Quantum Battery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">We theoretically investigate the role played by non-Markovianity in the charging of a quantum battery. We focus on the case of a Micromaser, where the energy is stored in a resonant cavity mode and memory effects are introduced and controlled by coupling this mode to a memory ancilla, described as a two-level system, that in turn sequentially interacts with a stream of two-level chargers through p</div>
+    <div class="authors">👥 N. Massa, D. Ferraro, F. Cavaliere 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.25699v1" target="_blank" rel="noopener" class="title">Post-Selection-Based Stochastic Quantum Battery</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-24</span>
+    </div>
+    <div class="abstract">Quantum batteries are quantum systems that store useful energy, which can subsequently be extracted to perform work. In this work, we investigate the charging dynamics under continuous measurements and post-selection-based non-Hermitian quantum battery realized by a three-level system. By post-selecting the trajectories with no quantum jump $|1\rangle \rightarrow |0\rangle$, the dynamics is effect</div>
+    <div class="authors">👥 Aman Verma, Roson Nongthombam, Amarendra K. Sarma</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.28369v1" target="_blank" rel="noopener" class="title">Simulation of a Battery Cell on Quantum Computers: Reactions &amp;amp; Transport</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">Simulations of electrochemical materials and systems accelerate technological progress, but are still limited by computational power. In particular, quantum computing offers prospects for higher resolutions, due to the exponential amount of data that can be stored in a quantum state. As current quantum computers are still noisy, we consider a hybrid quantum-classical algorithm, that divides the pr</div>
+    <div class="authors">👥 Albert J. Pool, Michael Schelling, Birger Horstmann</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.28121v1" target="_blank" rel="noopener" class="title">An efficient 0D-space conservative and positivity preserving battery model</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">Embedded software aims to provide the main characteristics of a cell in real time to manage and optimize battery usage. A complete multidimensional model is not tractable with the low computational resources available in-situ. A class of 0D-in-space models is derived from the P2D Doyle-Fuller-Newman system, with additional assumptions about the functions&#x27; shape in space, and strongly reduces the c</div>
+    <div class="authors">👥 S. Clain, M. C. Lucas, M. T. Malheiro 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.27986v1" target="_blank" rel="noopener" class="title">Relative Discharge Stage (RDS) Classification: A Practical Indicator of Battery Discharge Progress</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-25</span>
+    </div>
+    <div class="abstract">Accurate remaining discharge time (RDT) prediction is challenging in real-world battery applications because future load profiles are unknown and highly dynamic. To address the uncertainty of continuous RDT regression, this paper introduces Relative Discharge Stage (RDS), a battery-management indicator that represents the remaining discharge condition using five interpretable classes: Normal, Good</div>
+    <div class="authors">👥 Khoa Tran, Tri Le, Hung-Cuong Trinh 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
