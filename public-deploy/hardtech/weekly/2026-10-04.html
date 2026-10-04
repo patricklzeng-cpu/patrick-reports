@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>硬科技周报 · 2026-09-28 ~ 2026-10-04</title>
+<meta name="description" content="硬科技每周热门 — 核聚变 / 量子 / 电池 / 航天">
+<meta name="theme-color" content="#0a0e1a">
+<style>
+:root {
+  --bg: #0a0e1a; --card: rgba(20, 25, 40, 0.7); --card-border: rgba(120, 140, 200, 0.18);
+  --text: #e6ecff; --muted: #8a96b8; --accent: #5b8def; --ok: #5dd39e; --warn: #f0b048;
+  --fusion: #ff6b9d; --quantum: #b48cff; --battery: #5fc9a8; --space: #5bbedb;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #050810 0%, #0a0e1a 100%);
+  color: var(--text); line-height: 1.6; min-height: 100vh;
+}
+.wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 80px; }
+header { margin-bottom: 32px; }
+h1 {
+  font-size: 32px; margin: 0 0 8px; letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #5b8def, #b48cff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtitle { color: var(--muted); font-size: 14px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin: 24px 0; }
+.stat { background: var(--card); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px 16px; backdrop-filter: blur(8px); }
+.stat .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.stat.fusion .num { color: var(--fusion); }
+.stat.quantum .num { color: var(--quantum); }
+.stat.battery .num { color: var(--battery); }
+.stat.space .num { color: var(--space); }
+.topic-h2 {
+  font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--card-border);
+}
+.item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(120, 140, 200, 0.08); }
+.rank { flex: 0 0 36px; text-align: right; color: var(--muted); font-weight: 600; font-size: 14px; padding-top: 2px; }
+.content { flex: 1; min-width: 0; }
+.title-row { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.title { color: var(--text); text-decoration: none; font-weight: 500; font-size: 15px; flex: 1; min-width: 0; }
+.title:hover { color: var(--accent); }
+.first-seen { color: var(--muted); font-size: 10px; font-weight: normal; flex: 0 0 auto; margin-left: 4px; }
+.abstract {
+  color: var(--text); opacity: 0.85; font-size: 13px; margin-top: 8px; line-height: 1.5;
+  padding: 8px 12px; background: rgba(91,141,239,0.06); border-left: 2px solid var(--accent); border-radius: 0 6px 6px 0;
+}
+.authors { color: var(--muted); font-size: 11px; margin-top: 4px; font-style: italic; }
+.cats { color: var(--accent); font-size: 11px; margin-top: 2px; opacity: 0.8; }
+.meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; background: rgba(120, 140, 200, 0.15); color: var(--muted); flex: 0 0 auto; }
+.tag.accent { background: rgba(91, 141, 239, 0.18); color: var(--accent); }
+.tag.ok { background: rgba(93, 211, 158, 0.18); color: var(--ok); }
+.tag.warn { background: rgba(240, 176, 72, 0.18); color: var(--warn); }
+.tag.topic { background: rgba(180, 140, 255, 0.12); color: var(--text); margin-left: 2px; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-border); color: var(--muted); font-size: 12px; text-align: center; }
+@media (max-width: 600px) { .wrap { padding: 20px 14px 60px; } h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>⚛️ 硬科技周报</h1>
+    <div class="subtitle">2026-09-28 ~ 2026-10-04 · 聚合 5 天 · 总 84 个去重 item</div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">68</div><div class="label">arXiv</div></div>
+      <div class="stat"><div class="num">16</div><div class="label">Hacker News</div></div>
+      <div class="stat stat fusion"><div class="num">5</div><div class="label">⚛️ 核聚变</div></div>
+      <div class="stat stat quantum"><div class="num">42</div><div class="label">🔮 量子</div></div>
+      <div class="stat stat battery"><div class="num">8</div><div class="label">🔋 电池</div></div>
+      <div class="stat stat space"><div class="num">1</div><div class="label">🚀 航天</div></div>
+    </div>
+  </header>
+
+  <h2 class="topic-h2">🔥 本周 Top 30 (按 7 天累计 impact)</h2>
+  <div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 689 · ★ 149 · 💬 108</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://www.theguardian.com/technology/2026/oct/03/openai-safety-leader-quits-warning-ai-companys-culture-is-broken" target="_blank" rel="noopener" class="title">OpenAI safety leader quits, warning AI company&#x27;s culture is &#x27;broken&#x27;</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-10-04</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 677 · ★ 157 · 💬 104</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36912v1" target="_blank" rel="noopener" class="title">Universal Inductive Inference of Quantum States</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Solomonoff&#x27;s universal inductive inference [Inf. Control. 1964] is one of the most general frameworks for learning from sequential data and predicting future observations. It provides prediction guarantees for any computable stochastic source. We ask whether an analogous universal theory of induction can be developed for quantum systems. To this end, we introduce universal quantum inductive infere</div>
+    <div class="authors">👥 Taiga Hiroka, Min-Hsiu Hsieh, Yuki Shirakawa</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36908v1" target="_blank" rel="noopener" class="title">Exact quantum algorithm for searching of multiple sets intersection</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Grover&#x27;s algorithm achieves a quadratic speedup for unstructured search when a global oracle for the target set is available. However, its success probability is generally below $100\%$. To overcome this issue, Long presented a modified version of Grover&#x27;s search algorithm by introducing a phase-matching condition, which can search for the target set with zero theoretical failure rate. Nevertheles</div>
+    <div class="authors">👥 Sheng-Ao Mao, Lin Zhang, Bo Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36907v1" target="_blank" rel="noopener" class="title">Device-independent quantification of steerability in tripartite scenario</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Quantum steering captures the ability of one party, through local measurements on a shared entangled state, to affect the conditional states held by distant parties in a way that admits no local explanation. Its device-independent (DI) quantification -- requiring no characterization of any state or measurement -- has been developed in the bipartite setting, notably through the framework of assembl</div>
+    <div class="authors">👥 Xin-Hong Wang, Miao-Tzu Lin, Shin-Liang Chen</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36901v1" target="_blank" rel="noopener" class="title">Digital Twin Modeling of Quantum Dynamical Systems: Dissipative Quantum Reservoir Computing</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Modeling the response of driven many-body quantum systems from input--output data is difficult: the dynamics are nonlinear, history dependent, and expensive to simulate as system size grows. A paradigmatic case is High-Harmonic Generation~(HHG), where a strong field drives a medium to emit radiation that is highly sensitive to the drive and encodes long-range temporal correlations. We introduce a</div>
+    <div class="authors">👥 Abhijit Sen, Bikram Keshari Parida, Shital Chauhan 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36874v1" target="_blank" rel="noopener" class="title">Closing a single-copy gap to the Holevo bound with two-copy measurements</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">The Holevo Cramér-Rao bound sets the asymptotically attainable precision of quantum multiparameter estimation, but its attainability with finite quantum state copies remains unresolved in general. While a gap between the single-copy optimum and the Holevo bound persists at any finite copy number for two-parameter estimation models, the higher-parameter case has remained open. Here we disprove univ</div>
+    <div class="authors">👥 Changhao Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36861v1" target="_blank" rel="noopener" class="title">Exact Trotterization in the Degenerate Quantum Rabi Model</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Digital quantum simulation of the quantum Rabi model in the deep strong coupling regime motivates the need for an exact characterization of Trotterization errors, so far known only through qualitative bounds. Here we derive such a characterization in the exactly solvable degenerate limit, valid for arbitrary coupling strength. The first-order Trotter operator admits a closed expression, showing th</div>
+    <div class="authors">👥 I. Lizuain, A. Rodriguez-Prieto</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#09</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36836v1" target="_blank" rel="noopener" class="title">Ordering controlled by the measurement-feedback interval in quantum Boltzmann samplers</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">We show that the measurement--feedback interval alone can induce ordering in a quantum Boltzmann sampler with fixed programmed couplings and a fixed local dissipative rule. At zero environmental dephasing, repeated projective measurements remove transverse coherence regenerated during relaxation, thereby enhancing the local longitudinal response. We derive the exact finite-interval Markov kernel f</div>
+    <div class="authors">👥 Peng Wang, Yu-Xuan Zhang, Hai-Tao Ding 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#10</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36711v1" target="_blank" rel="noopener" class="title">Quantum States and Spectra of Small Cylindrical and Toroidal Lattices</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">We examine the spectrum and quantum states of small lattices with cylindrical and toroidal topology subject to a scalar gauge potential that introduces a position dependent phase in the inter-site coupling. Equivalency of gauges assumed in infinite lattices is generally lost due to the periodic boundary conditions, and conditions that restore it are identified. We trace the impact of various syste</div>
+    <div class="authors">👥 Caelan Brooks, Kunal K. Das</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#11</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36710v1" target="_blank" rel="noopener" class="title">Block-Wise Variational Quantum Algorithms for PDEs with Interface Penalty Constraints</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Global variational quantum algorithm (VQA) frameworks for solving partial differential equations (PDEs) often rely on a single expressive ansatz over a uniform grid, which becomes structurally inefficient when solutions exhibit spatially heterogeneous complexity such as localized singularities or thin boundary layers. A localized nonsmooth feature can degrade the convergence of the entire global q</div>
+    <div class="authors">👥 Hangran Jie, Yuntao Cui, Sunho Kim</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#12</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36708v1" target="_blank" rel="noopener" class="title">A Divide-and-Conquer Quantum-Selected Configuration Interaction for Evaluating $π$-$π$ Stacking Interaction Energies in the Benzene Dimer</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Accurate evaluation of $π$--$π$ stacking interactions requires a description of electron correlation on a small energy scale. Direct variational quantum calculations of the benzene dimer with CAS(28e,20o) require 40 qubits and deep circuits. Here, we propose Divide-and-Conquer Quantum-Selected Configuration Interaction (Deep QSCI), combining the divide-and-conquer idea of Deep VQE with QSCI, and a</div>
+    <div class="authors">👥 Ryotaro Tajima, Rei Sato, Yosuke Iyama 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#13</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36825v1" target="_blank" rel="noopener" class="title">Luxury resale volume and composition shifted during the COVID-19 tourism shock, but co-purchase network tests were inconclusive and construction-sensitive</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Japan&#x27;s 2020 tourism shock coincided with 27% fewer buyers and 35% lower gross merchandise value at one second-hand luxury resale intermediary. We compared 2019 and 2020 co-purchase projections of recorded brand labels with a Holm-corrected battery of five label-invariant metrics and Portrait Divergence against two permutation nulls rebuilding both graphs. Neither test separated the full years (sm</div>
+    <div class="authors">👥 Tengfei Shao</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#14</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36763v1" target="_blank" rel="noopener" class="title">SCORAS-MoE: Joint Compression and Resource-Adaptive Deployment of MoE-VLMs in LEO Satellite Networks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> <span class="tag topic">🚀 航天/太空</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Deploying large vision-language models (VLMs) onboard satellites enables onboard data processing and reduces raw data downlink. However, onboard inference faces two resource challenges. Limited onboard memory and energy require model compression and distributed deployment. Dynamic resource availability requires fast deployment decisions as illumination, battery levels, and communication conditions</div>
+    <div class="authors">👥 Tong Quan, Yuanlong Wan, Huasen He 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#15</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36758v1" target="_blank" rel="noopener" class="title">Synthesis and modification of thin NaSICON solid electrolytes using ion beams</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Solid electrolytes (SEs) for sodium-based superionic conductors (NaSICON) were first introduced in 1976 and quickly recognized for their excellent ionic conductivity. While considerable effort has been made to develop thin electrolytes for all-solid-state batteries (ASSBs), only a few sodium-based SEs have been successfully fabricated as thin films. These thin films are particularly desirable for</div>
+    <div class="authors">👥 Giovanni Ceccio, Jiri Vacik, Ivan Mastronardo 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#16</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36749v1" target="_blank" rel="noopener" class="title">Study of LAGP coating on polyethylene separator for polysulfide suppression in thin Li-S batteries</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">The use of a thin solid electrolyte layer on polyethylene (PE) separators has been explored as a potential strategy to mitigate the polysulfide shuttle effect in lithium-sulfur (Li-S) batteries, a phenomenon responsible for significantly reducing their lifespan. While some solid electrolytes, such as LAGP , have demonstrated the ability to effectively suppress the shuttle effect, their brittle cer</div>
+    <div class="authors">👥 Giovanni Ceccio, Jiri Vacik</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#17</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36732v1" target="_blank" rel="noopener" class="title">Deep Learning Latency Attacks and Defenses: A Cross-Domain Survey of Availability Threats</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Adversarial machine learning has focused mainly on integrity, but availability is an increasingly consequential complement. Latency attacks (also energy-latency attacks) increase inference-time work, energy, or response time, causing deadline misses, throughput collapse, or resource exhaustion in vehicle controllers, interactive services, or battery-powered sensors, sometimes while preserving the</div>
+    <div class="authors">👥 Zonghua Gu, Zeyu Gao, Amin Saremi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#18</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36719v1" target="_blank" rel="noopener" class="title">Structure-preserving upwind Lagrange multiplier schemes for solid-state dewetting with a logarithmic Flory--Huggins potential</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Phase-field simulations of solid-state dewetting based on polynomial potentials may exhibit spurious bulk-diffusion coarsening, inconsistent with the surface-diffusion-dominated physics. To address this issue, we formulate a degenerate Cahn--Hilliard model with the logarithmic Flory--Huggins potential and dynamic contact line boundary conditions for the film--substrate--vapor triple junction. The</div>
+    <div class="authors">👥 Qiong-Ao Huang, Ying-wei Wang, Cheng Yuan</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#19</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36550v1" target="_blank" rel="noopener" class="title">Grounded Revision vs. Prior Injection: Probing Retrieval-Augmented Patent Claim Amendment</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Retrieval-augmented generation is widely used in professional writing, yet whether retrieval grounds revision or merely injects templates is rarely tested where &quot;correct&quot; has a definable meaning. Patent claim amendment supplies that signal: the examiner names the attacked limitation and cites prior art, providing per-case ground truth. We release three artifacts: (i) a corpus of 7,385 USPTO prosec</div>
+    <div class="authors">👥 Josepha Michiko Leo, Hyun-seok Min, Yehoon Jang 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#20</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36468v1" target="_blank" rel="noopener" class="title">Massachusetts&#x27; 2026 Clean Peak Standard Recalibration: Adaptation and Storage Tradeoffs</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Massachusetts recalibrated its Clean Peak Standard (CPS) in 2026 by lowering the minimum standards and expanding the Near-Term Resource Multiplier for qualifying storage. This paper evaluates the change using a three-zone, hourly capacity expansion model for 2026--2030. Both scenarios achieve full CPS compliance, but the post-May scenario reduces new battery additions by 53.1% and modeled system c</div>
+    <div class="authors">👥 Yuhan Dai, Boyu Yao</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#21</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39192v1" target="_blank" rel="noopener" class="title">The twisted convolution identity and ghost $r$-SICs from finite quantum dilogarithms</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Radchenko and Wheeler (RW) recently proved a finite pentagon relation for real quadratic special values of the modular quantum dilogarithm and used it to establish the rank-$1$ twisted convolution identity conjectured by the current authors. RW gave an explicit argument in the principal case and remarked that their proof holds for all rank-$1$ admissible tuples. We extend their proof to all rank-$</div>
+    <div class="authors">👥 Marcus Appleby, Steven T. Flammia, Gene S. Kopp</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#22</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39176v1" target="_blank" rel="noopener" class="title">Computing electron overlap integrals for Gausslet orbitals on cubic lattices</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Gausslet orbitals on a cubic lattice, introduced in [Steven R. White, J. Chem. Phys. 147, 244102 (2017)], represent a localized, smooth, and systematically refineable basis set featuring a &quot;diagonal&quot; approximability of the electron repulsion integral tensor. The present work develops efficient algorithms for evaluating overlap integrals required for electronic-structure simulations using these Gau</div>
+    <div class="authors">👥 Xianrui Yin, Fereshteh Ghasempour, Christian B. Mendl</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#23</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39172v1" target="_blank" rel="noopener" class="title">A Width-Matched Comparison of Hybrid Quantum-Classical Self-Supervised Learning for Fingerprint Recognition</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Fingerprint recognition is a widely deployed biometric, but supervised training requires large labeled enrollment sets. Self-supervised learning (SSL) removes this requirement, and hybrid quantum-classical models have been proposed to enrich the learned representations. Prior quantum SSL studies consider a single contrastive objective, so it is unclear whether reported benefits depend on the objec</div>
+    <div class="authors">👥 Maria S. Edwards, Kidwell Dlamini, Pin-An Lin 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#24</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39170v1" target="_blank" rel="noopener" class="title">Quantum Frozen--Oseen homotopy analysis method with LCHS for solving nonlinear partial differential equations</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Nonlinear partial differential equations (PDEs) underpin computational fluid dynamics, yet resolving nonlinear transport on fine grids remains computationally demanding. Quantum linear-evolution algorithms offer a possible route to large-scale simulation but cannot directly propagate nonlinear coupling. Here we develop a Frozen--Oseen quantum homotopy method (FOQHAM) framework that links transport</div>
+    <div class="authors">👥 Jinhao Yuan, Leyu Chen, Tiegang Liu 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#25</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39141v1" target="_blank" rel="noopener" class="title">Geometric Characterization and Feasible Region Analysis of Bipartite Qutrit Bound Entanglement</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">We characterize bound entanglement in bipartite qutrit systems by combining the Positive Partial Transpose (PPT) criterion with a structural, non-completely positive map. Focusing on a comprehensive three-parameter bipartite qutrit family $ρ_{a,b,c}$, we present an exact analytical and geometric partitioning of the physical state space simplex. We derive the closed-form quadratic boundary governin</div>
+    <div class="authors">👥 Mazhar Ali</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#26</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39126v1" target="_blank" rel="noopener" class="title">An uncertainty principle for entanglement</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Consider two orthonormal bases of a bipartite Hilbert space such that states in one basis are weakly entangled and states in the other are strongly entangled. We establish a quantitative version of the following uncertainty principle: every state that is localized in one basis must be delocalized in the other. More specifically, we lower bound the sum of the Shannon entropies of any state&#x27;s coeffi</div>
+    <div class="authors">👥 Mitali Nanda, Daochen Wang</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#27</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39121v1" target="_blank" rel="noopener" class="title">Bivariate Bicycle Codes and Metachecks: Syndrome Repair, Measurement-Fault Ambiguity, and Logical Obstructions</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Faulty syndrome measurements can corrupt an otherwise correct quantum-error correction step. Bivariate bicycle (BB) codes contain dependent stabilizer checks, so their measured syndromes obey parity constraints that can be used as metachecks. We study when this built-in redundancy actually supports syndrome repair and how it interacts with the logical structure of the code. Annihilator quotients i</div>
+    <div class="authors">👥 Mohammad Rowshan</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#28</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39119v1" target="_blank" rel="noopener" class="title">Complete parameterization and parameter-space topology of discrete Wigner representations on $d \times d$ phase space</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">• hardtech</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Toroidal discrete Wigner functions (DWFs) for finite-dimensional systems are non-unique. We classify the labeled single-qudit ${d\times d}$ representations whose phase-point operators are Hermitian, unit-trace, Hilbert-Schmidt orthogonal, and Weyl-Heisenberg covariant. Our previously established stencil theorem expresses this family as descents of a doubled ${2d\times2d}$ parent. Here, we solve it</div>
+    <div class="authors">👥 Lucky K. Antonopoulos, Nicolas C. Menicucci</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#29</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39113v1" target="_blank" rel="noopener" class="title">Optimal testing of fermionic and bosonic Gaussian states</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">We study the problem of property testing quantum states: given a pure state $|ψ\rangle$ that either (A) belongs to some class $C$ of pure states, or (B) is $\varepsilon$-far in trace distance from all states in $C$, determine which is the case with high probability. It is known that there exists classes $C$ for which the sample complexity of property testing necessarily scales with the size of the</div>
+    <div class="authors">👥 Vishnu Iyer, Bryan O&#x27;Gorman, Ojas Parekh 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#30</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.39092v1" target="_blank" rel="noopener" class="title">Quantum circuit compilation with constant overhead</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">Compiling a continuous gate set to a discrete universal gate set generally incurs an overhead. A circuit composed of $G$ arbitrary one- and two-qubit gates can be $ε$-approximated by a sequence of gates from $\{H,T,\mathrm{CNOT}\}$ by replacing each original gate by a sequence of $O(\log(G/ε))$ elementary gates. We show that this overhead can be avoided using adaptivity for polynomial-sized circui</div>
+    <div class="authors">👥 Chenyi Zhang, Xinyu Tan, Robin Kothari 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <h2 class="topic-h2">⚛️ 可控核聚变 本周 Top 5</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2610.01131v1" target="_blank" rel="noopener" class="title">Theory of Equivalent Tokamaks for Characterizing Turbulent Transport in Quasi-symmetric Stellarators</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-10-03</span>
+    </div>
+    <div class="abstract">It is well known that quasi-symmetric (QS) stellarators are isomorphic to tokamaks in terms of their neoclassical-transport properties, and the corresponding transport coefficients can be calculated in the same manner as in tokamaks. However, less is known regarding the turbulent-transport properties of QS stellarators, e.g. the transport coefficients from the ion-temperature-gradient (ITG) mode.</div>
+    <div class="authors">👥 Hongxuan Zhu, R. Gaur, X. Wei 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2610.00919v1" target="_blank" rel="noopener" class="title">Transport Impacts of Resonant Island Chains in Fusion Plasmas</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-10-03</span>
+    </div>
+    <div class="abstract">Magnetic field-line transport in magnetically confined plasmas is commonly modeled as diffusion through stochastic magnetic layers generated by resonant perturbations. However, experimentally relevant magnetic configurations frequently exhibit transport rates that are substantially slower than predicted by fully stochastic models, indicating the presence of unresolved dynamical barriers. In this w</div>
+    <div class="authors">👥 Sidney D. V. Williams, Kevin Mitchell, Ethan Custodio 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2610.00845v1" target="_blank" rel="noopener" class="title">Is Your AI Fast Enough to Run a Fusion Reactor?</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-10-03</span>
+    </div>
+    <div class="abstract">Machine learning models are increasingly used in feedback control loops for nuclear fusion, where inference speed and predictable timing are critical. We summarize lessons from models deployed for control on the DIII-D tokamak and develop a benchmark to compare inference backends across ten neural networks and model components from fusion control and diagnostic pipelines. For models greater than f</div>
+    <div class="authors">👥 Nathaniel Chen, Andrew Rothstein, Ricardo Shousha 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://email.newsletters.ft.com/c/eJyMkslS40gQhp-mdCtH7ctBB29iRMxgzDIMcyGqKrOMsCy5JRkHPH1HE_Ry5JwZmf8f35fChLt-eCs7PI8tThMOBZQ5Kp9FgSW3zhtltBQFHkLT1lAakQWXntOYQFOlE6fOaE5dyFIGExNwVTyX0UlmMjKEmCKTTPkESYEVNoTsbCqaUjBhmOeWC8akmSkXFEYVmfUK0ABR7HeocZanWeoPRVs-T9NxJHJOREVEdT6fP0dEVKnvJuwmIirMmnNQhgbjPFXOOOqNVpTr6E2wXDsDRFYhJRzHu36PHZGr9_N8Pg9VLay828P16_0Nvzj2bR2uNg__Lh506KrHuF3P_lnfL-vtktmny5en8VpsN7j_v3beV6_zdtm9rC9Ofytr3h_bpl9fHrbP23oXfXfrlnx9fNdvi_1ypeN-tWn0YhPkX4tG35i2dm9XqvkvMSIMEVouRtwdsJtqIHL1pT7CfEIicvUVTESYP39YESBZJqg0HmlOEimPGmgKKWrgXoJjRduM0w8LeGTORGe8ZmiEFcJkYCYUx6GHU5rK8RiGfTGUO-xz5kSxttt3u_6D4YDfTvhxhscYIStGrZaSKp4lDaAltdw6LiEBsPBzHeEWO7hrDr-0VEIXU3k6NUDk_EteTkPoxpCmpu9qKBUwjCg4TeA9VUYy6pIKFH2KiJCMAF2cRhzuTw2UTHkfuQxUR6apYlnQGF2mwNBZr5I1yhevpfgeAAD__-Vf-7s" target="_blank" rel="noopener" class="title">Nuclear Fusion&#x27;s Moment of Truth</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 22 · ★ 2 · 💬 4</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://github.com/PJHkorea/discrete-filament-router" target="_blank" rel="noopener" class="title">Show HN: If I had to design a nuclear fusion power plant(Idea Sketch)</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">⚛️ 可控核聚变</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 2 · ★ 2 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔮 量子计算 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://openai.com/index/codex-quantum-computing-experiments/" target="_blank" rel="noopener" class="title">How GPT‑5.6 Sol helps run quantum computing experiments</a>
+      <span class="tag accent">HN</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    
+    
+    
+    <div class="meta">impact: 689 · ★ 149 · 💬 108</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36912v1" target="_blank" rel="noopener" class="title">Universal Inductive Inference of Quantum States</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Solomonoff&#x27;s universal inductive inference [Inf. Control. 1964] is one of the most general frameworks for learning from sequential data and predicting future observations. It provides prediction guarantees for any computable stochastic source. We ask whether an analogous universal theory of induction can be developed for quantum systems. To this end, we introduce universal quantum inductive infere</div>
+    <div class="authors">👥 Taiga Hiroka, Min-Hsiu Hsieh, Yuki Shirakawa</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36908v1" target="_blank" rel="noopener" class="title">Exact quantum algorithm for searching of multiple sets intersection</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Grover&#x27;s algorithm achieves a quadratic speedup for unstructured search when a global oracle for the target set is available. However, its success probability is generally below $100\%$. To overcome this issue, Long presented a modified version of Grover&#x27;s search algorithm by introducing a phase-matching condition, which can search for the target set with zero theoretical failure rate. Nevertheles</div>
+    <div class="authors">👥 Sheng-Ao Mao, Lin Zhang, Bo Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36907v1" target="_blank" rel="noopener" class="title">Device-independent quantification of steerability in tripartite scenario</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Quantum steering captures the ability of one party, through local measurements on a shared entangled state, to affect the conditional states held by distant parties in a way that admits no local explanation. Its device-independent (DI) quantification -- requiring no characterization of any state or measurement -- has been developed in the bipartite setting, notably through the framework of assembl</div>
+    <div class="authors">👥 Xin-Hong Wang, Miao-Tzu Lin, Shin-Liang Chen</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36901v1" target="_blank" rel="noopener" class="title">Digital Twin Modeling of Quantum Dynamical Systems: Dissipative Quantum Reservoir Computing</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Modeling the response of driven many-body quantum systems from input--output data is difficult: the dynamics are nonlinear, history dependent, and expensive to simulate as system size grows. A paradigmatic case is High-Harmonic Generation~(HHG), where a strong field drives a medium to emit radiation that is highly sensitive to the drive and encodes long-range temporal correlations. We introduce a</div>
+    <div class="authors">👥 Abhijit Sen, Bikram Keshari Parida, Shital Chauhan 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36874v1" target="_blank" rel="noopener" class="title">Closing a single-copy gap to the Holevo bound with two-copy measurements</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">The Holevo Cramér-Rao bound sets the asymptotically attainable precision of quantum multiparameter estimation, but its attainability with finite quantum state copies remains unresolved in general. While a gap between the single-copy optimum and the Holevo bound persists at any finite copy number for two-parameter estimation models, the higher-parameter case has remained open. Here we disprove univ</div>
+    <div class="authors">👥 Changhao Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36861v1" target="_blank" rel="noopener" class="title">Exact Trotterization in the Degenerate Quantum Rabi Model</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Digital quantum simulation of the quantum Rabi model in the deep strong coupling regime motivates the need for an exact characterization of Trotterization errors, so far known only through qualitative bounds. Here we derive such a characterization in the exactly solvable degenerate limit, valid for arbitrary coupling strength. The first-order Trotter operator admits a closed expression, showing th</div>
+    <div class="authors">👥 I. Lizuain, A. Rodriguez-Prieto</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36836v1" target="_blank" rel="noopener" class="title">Ordering controlled by the measurement-feedback interval in quantum Boltzmann samplers</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">We show that the measurement--feedback interval alone can induce ordering in a quantum Boltzmann sampler with fixed programmed couplings and a fixed local dissipative rule. At zero environmental dephasing, repeated projective measurements remove transverse coherence regenerated during relaxation, thereby enhancing the local longitudinal response. We derive the exact finite-interval Markov kernel f</div>
+    <div class="authors">👥 Peng Wang, Yu-Xuan Zhang, Hai-Tao Ding 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🔋 电池/材料 本周 Top 8</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36825v1" target="_blank" rel="noopener" class="title">Luxury resale volume and composition shifted during the COVID-19 tourism shock, but co-purchase network tests were inconclusive and construction-sensitive</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Japan&#x27;s 2020 tourism shock coincided with 27% fewer buyers and 35% lower gross merchandise value at one second-hand luxury resale intermediary. We compared 2019 and 2020 co-purchase projections of recorded brand labels with a Holm-corrected battery of five label-invariant metrics and Portrait Divergence against two permutation nulls rebuilding both graphs. Neither test separated the full years (sm</div>
+    <div class="authors">👥 Tengfei Shao</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#02</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36763v1" target="_blank" rel="noopener" class="title">SCORAS-MoE: Joint Compression and Resource-Adaptive Deployment of MoE-VLMs in LEO Satellite Networks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> <span class="tag topic">🚀 航天/太空</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Deploying large vision-language models (VLMs) onboard satellites enables onboard data processing and reduces raw data downlink. However, onboard inference faces two resource challenges. Limited onboard memory and energy require model compression and distributed deployment. Dynamic resource availability requires fast deployment decisions as illumination, battery levels, and communication conditions</div>
+    <div class="authors">👥 Tong Quan, Yuanlong Wan, Huasen He 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#03</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36749v1" target="_blank" rel="noopener" class="title">Study of LAGP coating on polyethylene separator for polysulfide suppression in thin Li-S batteries</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">The use of a thin solid electrolyte layer on polyethylene (PE) separators has been explored as a potential strategy to mitigate the polysulfide shuttle effect in lithium-sulfur (Li-S) batteries, a phenomenon responsible for significantly reducing their lifespan. While some solid electrolytes, such as LAGP , have demonstrated the ability to effectively suppress the shuttle effect, their brittle cer</div>
+    <div class="authors">👥 Giovanni Ceccio, Jiri Vacik</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#04</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36732v1" target="_blank" rel="noopener" class="title">Deep Learning Latency Attacks and Defenses: A Cross-Domain Survey of Availability Threats</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Adversarial machine learning has focused mainly on integrity, but availability is an increasingly consequential complement. Latency attacks (also energy-latency attacks) increase inference-time work, energy, or response time, causing deadline misses, throughput collapse, or resource exhaustion in vehicle controllers, interactive services, or battery-powered sensors, sometimes while preserving the</div>
+    <div class="authors">👥 Zonghua Gu, Zeyu Gao, Amin Saremi 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#05</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36468v1" target="_blank" rel="noopener" class="title">Massachusetts&#x27; 2026 Clean Peak Standard Recalibration: Adaptation and Storage Tradeoffs</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Massachusetts recalibrated its Clean Peak Standard (CPS) in 2026 by lowering the minimum standards and expanding the Near-Term Resource Multiplier for qualifying storage. This paper evaluates the change using a three-zone, hourly capacity expansion model for 2026--2030. Both scenarios achieve full CPS compliance, but the post-May scenario reduces new battery additions by 53.1% and modeled system c</div>
+    <div class="authors">👥 Yuhan Dai, Boyu Yao</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#06</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.38724v1" target="_blank" rel="noopener" class="title">Ergotropy from energetic coherence and the third law of thermodynamics</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-10-01</span>
+    </div>
+    <div class="abstract">We study the ergotropy and the thermodynamic potentials of a qubit battery charged by repeated interactions with clusters of thermal ancillas, qubits or oscillators, through a composite system-bath coupling that generates steady-state coherence in the energy basis. A single parameter encoding the bath quantum statistics yields the coherence and ergotropy in closed form for any cluster size. For la</div>
+    <div class="authors">👥 O. S. Yáñez-Soria, G. Guarnieri, B. Çakmak 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#07</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2610.01840v1" target="_blank" rel="noopener" class="title">RFBniCS: An open-source simulation framework for redox flow batteries</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-10-03</span>
+    </div>
+    <div class="abstract">We present RFBniCS, an open-source finite-element framework implemented in FEniCSx for simulating redox-flow-battery (RFB) half-cells. RFBniCS solves an established macro-homogeneous porous-electrode model accounting for strongly coupled electrolyte flow, multicomponent species transport, ionic and electronic charge conservation, and interfacial Faradaic charge transfer. Different from other open-</div>
+    <div class="authors">👥 Amirhossein Aghabarari, Jørgen S. Dokken, Martin T. Horsch 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+<div class="item">
+  <div class="rank">#08</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2610.01332v1" target="_blank" rel="noopener" class="title">Achieving Identical Stored Energy in Cascaded Collisional Quantum Battery Charging: Analytical Result</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔮 量子计算</span> <span class="tag topic">🔋 电池/材料</span> 
+      <span class="first-seen">📅 2026-10-03</span>
+    </div>
+    <div class="abstract">Charging uniformity across distinct trials is an essential requirement for reliable quantum batteries. Nevertheless, intrinsic quantum stochasticity poses a fundamental challenge to this goal. This work investigates a two-qubit quantum battery within the framework of cascaded collision models. We propose an adaptive measurement on the charger after each collision, yielding two conditional battery</div>
+    <div class="authors">👥 Longyan Gong, Jing Zhang, Yongtao Li</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div><h2 class="topic-h2">🚀 航天/太空 本周 Top 1</h2>
+<div class="item">
+  <div class="rank">#01</div>
+  <div class="content">
+    <div class="title-row">
+      <a href="https://arxiv.org/abs/2609.36763v1" target="_blank" rel="noopener" class="title">SCORAS-MoE: Joint Compression and Resource-Adaptive Deployment of MoE-VLMs in LEO Satellite Networks</a>
+      <span class="tag warn">arXiv</span>
+      <span class="tag topic">🔋 电池/材料</span> <span class="tag topic">🚀 航天/太空</span> 
+      <span class="first-seen">📅 2026-09-30</span>
+    </div>
+    <div class="abstract">Deploying large vision-language models (VLMs) onboard satellites enables onboard data processing and reduces raw data downlink. However, onboard inference faces two resource challenges. Limited onboard memory and energy require model compression and distributed deployment. Dynamic resource availability requires fast deployment decisions as illumination, battery levels, and communication conditions</div>
+    <div class="authors">👥 Tong Quan, Yuanlong Wan, Huasen He 等</div>
+    
+    <div class="meta">impact: 50 · ★ 0 · 💬 0</div>
+  </div>
+</div>
+
+  <footer>
+    <p>每周日 23:30 自动生成 · 聚合 7 天 daily hardtech 追踪数据</p>
+    <p>Source: arXiv (3 cats + battery full-text) + HN compound keyword</p>
+  </footer>
+</div>
+</body>
+</html>
