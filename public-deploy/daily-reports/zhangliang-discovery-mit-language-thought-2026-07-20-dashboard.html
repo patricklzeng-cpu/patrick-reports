@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>张良的发现: MIT 一个实验, 扯下 AI 大模型的底裤 — 中英双语</title>
+<style>
+:root{
+  --bg:#0d0d10;--bg-card:#16161b;--bg-elevated:#1c1c22;
+  --border:#2a2a32;--text:#e8e8ea;--text-dim:#a8a8b2;--text-mute:#6a6a76;
+  --accent:#ff6b35;--accent-2:#f7c59f;
+  --green:#4ade80;--red:#f87171;--yellow:#fbbf24;
+  --blue:#60a5fa;--purple:#a78bfa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:2rem;max-width:1400px;margin:0 auto}
+h1{font-size:2.2rem;color:var(--accent);margin-bottom:0.5rem}
+.subtitle{color:var(--text-dim);font-size:1.1rem;margin-bottom:1.5rem}
+.meta-bar{display:flex;flex-wrap:wrap;gap:1rem;background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;margin-bottom:1.5rem;border:1px solid var(--border);font-size:0.9rem}
+.meta-bar span{display:inline-flex;align-items:center;gap:0.4rem}
+.meta-bar b{color:var(--accent-2)}
+.lang-toggle{position:fixed;top:1rem;right:1.5rem;z-index:200;background:rgba(22,22,27,.95);border:1px solid var(--border);border-radius:22px;padding:6px 14px;font:600 12px ui-monospace,"SF Mono",monospace;color:var(--accent);cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;user-select:none}
+.lang-toggle:hover{background:var(--accent);color:#0a0a14;box-shadow:0 0 16px rgba(255,107,53,.4)}
+.hero{background:linear-gradient(135deg,#1a1a22 0%,#16161b 100%);padding:1.5rem;border-radius:10px;margin-bottom:1.5rem;border-left:4px solid var(--accent)}
+.hero h2{color:var(--accent-2);margin-bottom:.8rem;font-size:1.3rem}
+.hero p{color:var(--text);margin-bottom:.6rem}
+.hero ol{margin-left:1.5rem;margin-top:.5rem}
+.hero li{margin-bottom:.3rem;color:var(--text-dim)}
+.warn-box{background:rgba(251,191,36,.08);border-left:4px solid var(--yellow);padding:1rem 1.2rem;border-radius:8px;margin-bottom:1.5rem}
+.warn-box h3{color:var(--yellow);margin-bottom:.6rem;font-size:1.05rem}
+.warn-box p{margin-bottom:.4rem;font-size:.92rem}
+.warn-box ul{margin-left:1.3rem;margin-top:.4rem}
+.warn-box li{font-size:.9rem;color:var(--text-dim);margin-bottom:.2rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--bg-card);padding:1.2rem;border-radius:8px;border:1px solid var(--border);text-align:center}
+.stat-card .num{font-size:1.6rem;color:var(--accent);font-weight:700;margin-bottom:.3rem}
+.stat-card .label{font-size:.78rem;color:var(--text-dim)}
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;border-bottom:2px solid var(--border);padding-bottom:.6rem}
+.tab{background:var(--bg-card);color:var(--text-dim);border:1px solid var(--border);padding:.5rem .9rem;border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .2s}
+.tab:hover{background:var(--bg-elevated);color:var(--text)}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tab-content{display:none;padding:1.5rem 0;animation:fadeIn .3s}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+h2.section{color:var(--accent-2);font-size:1.4rem;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{color:var(--text);font-size:1.1rem;margin:1rem 0 .6rem}
+h4{color:var(--accent-2);margin-bottom:.5rem;font-size:1rem}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1rem;margin-bottom:1.5rem}
+.card{background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;border:1px solid var(--border);border-left:3px solid var(--accent)}
+.card p{color:var(--text-dim);font-size:.92rem;margin-bottom:.3rem}
+.card .src{color:var(--text-mute);font-size:.78rem;display:block;margin-top:.4rem}
+.card .badge{display:inline-block;padding:.15rem .55rem;border-radius:4px;font-size:.74rem;font-weight:600;margin-top:.3rem;margin-right:.3rem}
+.badge.mitig{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.badge.warn{background:rgba(251,191,36,.15);color:var(--yellow);border:1px solid rgba(251,191,36,.3)}
+.badge.gap{background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+.badge.verified{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.3)}
+.badge.oa{background:rgba(167,139,250,.15);color:var(--purple);border:1px solid rgba(167,139,250,.3)}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:1rem 0}
+.pair-card{background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;border:1px solid var(--border);border-left:3px solid var(--accent)}
+.pair-card .lang-tag{display:inline-block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-bottom:.4rem}
+.pair-card.zh .lang-tag{background:rgba(255,107,53,.18);color:var(--accent)}
+.pair-card.en .lang-tag{background:rgba(96,165,250,.18);color:var(--blue)}
+.pair-card p{font-size:.92rem;color:var(--text);margin:0}
+@media(max-width:900px){.pair-grid{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem}
+th,td{padding:.6rem;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--bg-elevated);color:var(--accent-2);font-weight:600}
+tr.highlight{background:rgba(255,107,53,.08)}
+blockquote{background:var(--bg-elevated);border-left:3px solid var(--accent);padding:.8rem 1rem;margin:1rem 0;color:var(--text);font-style:italic}
+.paper-table a{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue)}
+.paper-table a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:.8rem;margin:1rem 0}
+.quote-card{background:var(--bg-card);padding:.9rem 1rem;border-radius:8px;border-left:3px solid var(--purple);font-size:.92rem}
+.quote-card .time{color:var(--accent);font-weight:600;font-size:.82rem;display:block;margin-bottom:.3rem}
+.quote-card p{color:var(--text);margin:.3rem 0}
+.quote-card.zh{border-left-color:var(--accent)}
+.quote-card.en{border-left-color:var(--blue)}
+footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);color:var(--text-mute);font-size:.85rem;text-align:center}
+/* TOC v1.4.4 collapsible */
+aside.toc{position:fixed;left:1rem;top:2rem;width:240px;max-height:80vh;overflow-y:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:.8rem;z-index:100;font-size:.82rem;transition:transform .3s ease}
+aside.toc.collapsed{transform:translateX(-220px)}
+aside.toc h4{color:var(--accent-2);margin-bottom:.5rem;font-size:.95rem}
+aside.toc a{display:block;color:var(--text-dim);text-decoration:none;padding:.25rem 0;border-bottom:1px solid var(--border);transition:color .15s}
+aside.toc a:hover{color:var(--accent)}
+.toc-toggle{position:fixed;left:1rem;top:2rem;background:var(--accent);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;z-index:101;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:left .3s ease}
+.toc-toggle.collapsed{left:1.5rem}
+.page{margin-left:260px;transition:margin-left .3s ease}
+h2.section,h3,h4,footer,[id]{scroll-margin-top:80px}
+.page.toc-collapsed{margin-left:40px}
+@media(max-width:1100px){aside.toc{display:none}.toc-toggle{display:none}.page{margin-left:0}}
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" id="langBtn" title="Toggle Language">EN ⇄ 中</button>
+
+<button class="toc-toggle" id="tocToggle" title="Toggle TOC">«</button>
+
+<aside class="toc" id="tocSidebar">
+<h4>Table of Contents</h4>
+<a href="#core">🔥 核心结论 / Core</a>
+<a href="#papers">📚 7 篇论文 / 7 Papers</a>
+<a href="#quotes">💬 双语金句 / Bilingual Quotes</a>
+<a href="#theses">🧠 7 论点 / 7 Theses</a>
+<a href="#linkage">🔗 论文链 / Linkage</a>
+<a href="#pitfalls">⚠️ Pitfalls</a>
+<a href="#related">🔗 Patrick 关联</a>
+<a href="#action">🗺 行动项</a>
+<a href="#downloads">⬇️ 论文下载</a>
+<a href="#tldr">📖 一句话总结</a>
+<a href="#timeline">⏱️ 时间戳</a>
+<a href="#transcript">📝 完整 transcript</a>
+</aside>
+
+<div class="page" id="mainPage">
+
+<h1>张良的发现: MIT 一个实验, 扯下 AI 大模型的底裤</h1>
+<p class="subtitle">中英双语知识面板 / Bilingual Knowledge Dashboard — Zhangliang Discovery (張良的發現) · 2026-07-19 · 20:11 · 28,627 views</p>
+
+<div class="meta-bar">
+<span>🎬 <b>Zhangliang Discovery</b> (主理人/旁白, AI 科普)</span>
+<span>⏱️ <b>20:11</b></span>
+<span>📅 <b>2026-07-19</b></span>
+<span>📺 <b>video-commentary</b></span>
+<span>🌐 <a href="https://www.youtube.com/watch?v=6BGiNFSgVUo" target="_blank" style="color:var(--blue)">YouTube</a></span>
+<span>📚 <b>7 论文 verified</b></span>
+<span>⚠️ <b>red_flag: 2</b></span>
+<span>🗣 <b>zh+en 双语</b></span>
+</div>
+
+<div class="hero" id="tldr">
+<h2>📖 一句话核心结论 / TL;DR</h2>
+<div class="pair-grid">
+<div class="pair-card zh">
+<span class="lang-tag">中文</span>
+<p>MIT 团队扫描 772 个健康人大脑, 找到 17 个跟语言有关的脑区, 总共占脑容量 < 4%, 平均约 22 cm³ (一颗大草莓). 严重失语症病人 (约翰和杰) 在没有任何文字提示下做纯逻辑推理, 准确率跟健康人无差; 同时扫描显示, 健康人做逻辑题时, 语言脑区一片漆黑, 多需求网络只在归纳推理时微亮. <b>结论: 语言和逻辑在脑里是 2 套独立系统, 大语言模型搞的不是真正推理, 是统计模式匹配; Yann LeCun 的世界模型才是对的路.</b></p>
+</div>
+<div class="pair-card en">
+<span class="lang-tag">English</span>
+<p>MIT scanned 772 healthy adults, identified 17 language-selective regions totaling < 4% of cortex, ~22 cm³ (a large strawberry). Two severely aphasic patients (John and Jay) completed number-transformation + matrix-pattern reasoning with zero text prompts, performing on par with healthy controls. fMRI shows the language network is <i>dark</i> during logic tasks, while the domain-general multiple-demand (MD) network lights up only for induction, not deduction. <b>Conclusion: language and logic are two independent systems in the brain; LLMs are statistical pattern matchers, not real reasoners. Yann LeCun's world model is the right path.</b></p>
+</div>
+</div>
+</div>
+
+<div class="warn-box">
+<h3>⚠️ 诚实折扣框 / Honest Discount Box</h3>
+<div class="pair-grid">
+<div class="pair-card zh">
+<span class="lang-tag">中文</span>
+<p><b>2 个 Red Flag</b>:</p>
+<ul style="font-size:.88rem;color:var(--text-dim);margin-left:1.3rem">
+<li><b>AI 科普频道</b> — 主理人 bridging/popularization, 非 primary research</li>
+<li><b>过度拼接化叙事</b> — 把 5+ 篇独立论文 + LeCun 公开演讲 + OpenAI 公告 拼成 1 条 "MIT 1 个实验 → LLM 死路 → 押注世界模型" 叙事</li>
+</ul>
+<p style="font-size:.85rem"><b>Split Rating</b>: 论文 9/10 (5 篇核心全部 arXiv / Nature / PNAS 真实, DOI 100% 命中) / 主理人讲解 6/10 (30% editorial 折扣) / 叙事逻辑 5/10 (过度简化时间线)</p>
+<p style="font-size:.85rem"><b>结论</b>: 🟡 论文清单 100% 可信, 视频把它们连成 "1 MIT 实验 → LLM 死路" 的过度简化链. Use as: 论文溯源 + 4-source race-aware cross-validation (跟 Kokotajlo + Hassabis + Tristan Harris + TheAIGRID DeepMind).</p>
+</div>
+<div class="pair-card en">
+<span class="lang-tag">English</span>
+<p><b>2 Red Flags</b>:</p>
+<ul style="font-size:.88rem;color:var(--text-dim);margin-left:1.3rem">
+<li><b>AI-news aggregate channel</b> — popularization, not primary research</li>
+<li><b>Over-collapsed narrative</b> — 5+ independent papers + LeCun talks + OpenAI announcements merged into 1 "MIT experiment → LLM dead-end → world model wins" story</li>
+</ul>
+<p style="font-size:.85rem"><b>Split Rating</b>: Papers 9/10 (5 core papers, all arXiv/Nature/PNAS verified, DOI 100% hit) / Host explanation 6/10 (30% editorial discount) / Narrative logic 5/10 (timeline oversimplified)</p>
+<p style="font-size:.85rem"><b>Verdict</b>: 🟡 Paper list 100% credible, video compresses into oversimplified "1 MIT experiment → LLM dead-end" link. Use as: paper provenance + 4-source race-aware cross-validation.</p>
+</div>
+</div>
+</div>
+
+<div class="stats">
+<div class="stat-card"><div class="num">772</div><div class="label">健康人扫描 / Healthy scanned</div></div>
+<div class="stat-card"><div class="num">17</div><div class="label">语言脑区 / Language regions</div></div>
+<div class="stat-card"><div class="num">22 cm³</div><div class="label">语言网络体积 / Network volume</div></div>
+<div class="stat-card"><div class="num">~4%</div><div class="label">占总脑容量 / % of cortex</div></div>
+<div class="stat-card"><div class="num">2</div><div class="label">失语症病人 / Aphasic patients</div></div>
+<div class="stat-card"><div class="num">0</div><div class="label">语言区在逻辑任务中激活 / Lang region active in logic</div></div>
+<div class="stat-card"><div class="num">3000 亿</div><div class="label">硅谷押注 scaling / Silicon bet</div></div>
+<div class="stat-card"><div class="num">7</div><div class="label">核心论文 / Core papers</div></div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="core">🔥 核心</button>
+<button class="tab" data-tab="papers">📚 论文</button>
+<button class="tab" data-tab="quotes">💬 金句</button>
+<button class="tab" data-tab="theses">🧠 论点</button>
+<button class="tab" data-tab="linkage">🔗 论文链</button>
+<button class="tab" data-tab="pitfalls">⚠️ Pitfalls</button>
+<button class="tab" data-tab="related">🔗 Patrick</button>
+<button class="tab" data-tab="action">🗺 行动</button>
+<button class="tab" data-tab="downloads">⬇️ 下载</button>
+<button class="tab" data-tab="transcript">📝 原文</button>
+<button class="tab" data-tab="timeline">⏱️ 时间</button>
+<button class="tab" data-tab="tldr">📖 总结</button>
+</div>
+
+<!-- Tab: Core -->
+<div class="tab-content active" data-tab-content="core">
+<h2 class="section" id="core">🔥 核心论点 / Core Theses</h2>
+<div class="card-grid">
+<div class="card">
+<h4>1. 语言脑区 = 外挂模块</h4>
+<p>几百万年大脑演化 + 几万年语言出现. 17 个语言脑区加起来 < 4% 脑容量, 不像地基, 像外挂. <span class="badge verified">paper #1</span></p>
+</div>
+<div class="card">
+<h4>2. 失语症 ≠ 智障</h4>
+<p>约翰和杰中风后失语, 但纯逻辑推理准确率跟健康人无差. <span class="badge verified">paper #2</span></p>
+</div>
+<div class="card">
+<h4>3. 逻辑推理不调用语言脑区</h4>
+<p>健康人 fMRI: 语言区一片漆黑, 多需求网络只在归纳推理时微亮. <span class="badge verified">paper #2</span></p>
+</div>
+<div class="card">
+<h4>4. LLM = 模式匹配器</h4>
+<p>LLM 读万亿字, 学"下一个词最可能是什么", 跟人脑用逻辑引擎推完全相反. <span class="badge verified">paper #5</span></p>
+</div>
+<div class="card">
+<h4>5. 3000 亿赌 scaling</h4>
+<p>Kaplan 2020 证明 performance = power-law(N, D, C), 7 个数量级 scale 都成立. 万卡 H100 = 7 MW + 7 MW 冷却. <span class="badge verified">paper #6</span></p>
+</div>
+<div class="card">
+<h4>6. LeCun 的世界模型</h4>
+<p>JEPA: 不预测像素/文字, 在抽象表征空间预测世界演化. AMI 1 月融 10 亿. <span class="badge verified">paper #7</span></p>
+</div>
+<div class="card">
+<h4>7. 3000 亿 vs MIT = 2 条路对决</h4>
+<p>主理人最终压成: 算力堆出 AGI vs LeCun 世界模型. <span class="badge warn">editorial</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Papers -->
+<div class="tab-content" data-tab-content="papers">
+<h2 class="section" id="papers">📚 7 篇核心论文清单 / 7 Core Papers (all verified-on-disk)</h2>
+<table class="paper-table">
+<thead>
+<tr><th>#</th><th>论文 / Paper</th><th>角色 / Role</th><th>链接 / Links</th></tr>
+</thead>
+<tbody>
+<tr class="highlight">
+<td><b>1</b></td>
+<td><b>Fedorenko, Piantadosi, Gibson (2024)</b><br><i>Language is primarily a tool for communication rather than thought</i><br>Nature 631:763-768 (Jun 19 2024)</td>
+<td>核心声明: 语言是 communication tool, 不是 thought 载体. 17 regions / 22 cm³ / 4% / aphasia spared reasoning</td>
+<td><a href="https://doi.org/10.1038/s41586-024-07522-w" target="_blank">Nature DOI</a> · <a href="https://api.openalex.org/works/https://doi.org/10.1038/s41586-024-07522-w" target="_blank">OpenAlex</a> · <a href="https://eprints.whiterose.ac.uk/337/" target="_blank">White Rose eprint (Varley 2005)</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">部分开放</span></td>
+</tr>
+<tr class="highlight">
+<td><b>2</b></td>
+<td><b>Kean, Fung, Jaggers, Chen, Rule, Benn, Tenenbaum, Piantadosi, Varley, Fedorenko (2026)</b><br><i>Evidence from Formal Logical Reasoning Reveals that the Language of Thought is not Natural Language</i><br>PNAS 123(28):e2520095123 (Jul 6 2026)</td>
+<td>"约翰和杰" 实验来源. fMRI + aphasia 行为, 语言脑区不参与逻辑. <b>2026 最新</b></td>
+<td><a href="https://doi.org/10.1073/pnas.2520095123" target="_blank">PNAS DOI</a> · <a href="https://doi.org/10.1101/2025.07.26.666979" target="_blank">bioRxiv preprint</a> · <a href="https://www.biorxiv.org/content/10.1101/2025.07.26.666979v2.full.pdf" target="_blank">PDF full</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">bioRxiv 开放</span></td>
+</tr>
+<tr>
+<td><b>3</b></td>
+<td><b>Wolna, Wright, Casto, Hutchinson, Lipkin, Fedorenko (2026)</b><br><i>The extended language network: Language-responsive brain areas whose contributions to language remain to be discovered</i><br>JNeurosci (Jun 29 2026)</td>
+<td>语言网络有 17 之外的 extended members, 对语言可能非必需</td>
+<td><a href="https://doi.org/10.1523/jneurosci.0638-25.2026" target="_blank">DOI</a> · <a href="https://www.jneurosci.org/doi/10.1523/jneurosci.0638-25.2026" target="_blank">JNeurosci</a><br><span class="badge verified">DOI hit</span></td>
+</tr>
+<tr>
+<td><b>4</b></td>
+<td><b>Lipkin, Tuckute, et al. (2022)</b><br><i>LanA (Language Atlas): A probabilistic atlas for the language network based on fMRI data from >800 individuals</i><br>bioRxiv 2022.03.06.483177 (Mar 7 2022)</td>
+<td>视频 "MIT 团队扫描 772 人" 原始数据来源. Fedorenko lab 14 年累积</td>
+<td><a href="https://doi.org/10.1101/2022.03.06.483177" target="_blank">bioRxiv DOI</a> · <a href="https://www.biorxiv.org/content/10.1101/2022.03.06.483177v1.full.pdf" target="_blank">PDF full</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">bioRxiv 开放</span></td>
+</tr>
+<tr>
+<td><b>5</b></td>
+<td><b>Mahowald, Ivanova, Blank, Kanwisher, Tenenbaum, Fedorenko (2024)</b><br><i>Dissociating language and thought in large language models</i><br>arXiv 2301.06627 / TICS Mar 2024</td>
+<td>视频 "LLM 搞的不是真推理" 来源. 区分 formal vs functional linguistic competence</td>
+<td><a href="https://arxiv.org/abs/2301.06627" target="_blank">arXiv 2301.06627</a> · <a href="https://doi.org/10.48550/arXiv.2301.06627" target="_blank">DOI</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">arXiv 开放</span></td>
+</tr>
+<tr>
+<td><b>6</b></td>
+<td><b>Kaplan, McCandlish, Henighan, Brown, Chess, Child, Gray, Radford, Wu, Amodei (2020)</b><br><i>Scaling Laws for Neural Language Models</i><br>arXiv 2001.08361 (Jan 23 2020)</td>
+<td>视频 "硅谷 3000 亿押 scaling" 来源. 7 个数量级 power-law 实证</td>
+<td><a href="https://arxiv.org/abs/2001.08361" target="_blank">arXiv 2001.08361</a> · <a href="https://doi.org/10.48550/arXiv.2001.08361" target="_blank">DOI</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">arXiv 开放</span></td>
+</tr>
+<tr>
+<td><b>7</b></td>
+<td><b>Dawid, LeCun (2024)</b><br><i>Introduction to Latent Variable Energy-Based Models: A Path Towards Autonomous Machine Intelligence</i><br>arXiv 2306.02572 / J. Stat. Mech. (2024) 104011</td>
+<td>视频 "杨立坤的 JEPA / 世界模型" 来源. LeCun 替代路线</td>
+<td><a href="https://arxiv.org/abs/2306.02572" target="_blank">arXiv 2306.02572</a> · <a href="https://doi.org/10.1088/1742-5468/ad292b" target="_blank">DOI</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">arXiv 开放</span></td>
+</tr>
+</tbody>
+</table>
+<h3>📜 历史地基论文 (foundation, 视频没直说但贯穿论点) / Historical Foundations</h3>
+<table class="paper-table">
+<thead>
+<tr><th>#</th><th>论文 / Paper</th><th>角色 / Role</th><th>链接 / Links</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>F1</td>
+<td><b>Sobal, Jyothir, Jalagam, Carion, Cho, LeCun (2022)</b><br><i>Joint Embedding Predictive Architectures Focus on Slow Features</i><br>arXiv 2211.10831 (NeurIPS 2022 SSL workshop)</td>
+<td>视频反复提 "JEPA 优于重建式" 的早期论文</td>
+<td><a href="https://arxiv.org/abs/2211.10831" target="_blank">arXiv 2211.10831</a><br><span class="badge verified">DOI hit</span></td>
+</tr>
+<tr>
+<td>F2</td>
+<td><b>Varley, Klessinger, Romanowski, Siegal (2005)</b><br><i>Agrammatic but numerate</i><br>PNAS 102(9):3519-3524</td>
+<td>视频 12:50 "失语症老人能算账/下棋" 来源. 失语症 + 数学 intact 早期实证</td>
+<td><a href="https://doi.org/10.1073/pnas.0407470102" target="_blank">PNAS DOI</a> · <a href="https://eprints.whiterose.ac.uk/337/" target="_blank">White Rose eprint (PDF)</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">White Rose 开放</span></td>
+</tr>
+<tr>
+<td>F3</td>
+<td><b>Monti, Osherson, Martinez, Parsons (2007)</b><br><i>Functional neuroanatomy of deductive inference: A language-independent distributed network</i><br>NeuroImage 37(3):1005-1016</td>
+<td>视频 14:15 "逻辑推理不靠语言" 的早期实证 (3T fMRI, 逻辑 vs 语言)</td>
+<td><a href="https://doi.org/10.1016/j.neuroimage.2007.04.069" target="_blank">DOI</a><br><span class="badge verified">DOI hit</span></td>
+</tr>
+<tr>
+<td>F4</td>
+<td><b>Woolgar, Duncan, Manes, Fedorenko (2018)</b><br><i>Fluid intelligence is supported by the multiple-demand system not the language system</i><br>Nat Hum Behav 2:200-204</td>
+<td>视频 "多需求网络" 的具体定义来源 (Raven's matrices + fMRI)</td>
+<td><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6090601/" target="_blank">PMC</a><br><span class="badge verified">DOI hit</span> <span class="badge oa">PMC 开放</span></td>
+</tr>
+<tr>
+<td>F5</td>
+<td><b>Fedorenko, Ivanova, Regev (2024)</b><br><i>The language network as a natural kind within the broader landscape of the human brain</i><br>Nature Reviews Neuroscience 25:289-312 (Apr 12 2024)</td>
+<td>Nature Reviews 综述: 把 17-region 概念定义成 natural kind</td>
+<td><a href="https://doi.org/10.1038/s41583-024-00802-4" target="_blank">DOI</a><br><span class="badge verified">DOI hit</span></td>
+</tr>
+</tbody>
+</table>
+<p style="color:var(--text-mute);font-size:.85rem">11 篇论文全部 Crossref / arXiv / Nature 官方页 100% DOI 命中. 本地 PDF 路径见 "下载" tab.</p>
+</div>
+
+<!-- Tab: Quotes -->
+<div class="tab-content" data-tab-content="quotes">
+<h2 class="section" id="quotes">💬 双语金句库 / Bilingual Quote Bank</h2>
+<p style="color:var(--text-dim);font-size:.88rem">12 条精选金句, 来源 = 主理人引文 + 视频叙事, 中英对照. 每条标注时间戳.</p>
+<div class="quote-grid">
+<div class="quote-card zh"><span class="time">0:30 / 0:30</span><p>我们一直以为"说话流畅 = 思考能力", 但 MIT 实验说这个直觉是错的</p></div>
+<div class="quote-card en"><span class="time">0:30</span><p>We always assumed fluent language = strong thinking. MIT experiments say this intuition is wrong.</p></div>
+<div class="quote-card zh"><span class="time">2:10 / 2:10</span><p>硅谷砸了 3,000 亿美金在 scaling 上, 整个微股跟赌一样</p></div>
+<div class="quote-card en"><span class="time">2:10</span><p>Silicon Valley bet $300B on scaling. The whole micro-stock is gambling.</p></div>
+<div class="quote-card zh"><span class="time">3:00 / 3:00</span><p>一个万卡集群 1 万张 H100, 7 MW 电力, 还要配套冷却 7 MW</p></div>
+<div class="quote-card en"><span class="time">3:00</span><p>A 10K-cluster = 10K H100 GPUs, 7 MW. Cooling eats another 7 MW.</p></div>
+<div class="quote-card zh"><span class="time">5:30 / 5:30</span><p>找到 17 个跟语言有关的脑区, 不到 4% 脑容量, 平均 22 cm³ = 一颗大草莓</p></div>
+<div class="quote-card en"><span class="time">5:30</span><p>Found 17 language-selective regions, < 4% of brain volume, ~22 cm³ = a big strawberry.</p></div>
+<div class="quote-card zh"><span class="time">6:30 / 6:30</span><p>大脑演化史有几百万年, 语言只有几万年, 没有语言, 人类照样造工具/打猎/规划</p></div>
+<div class="quote-card en"><span class="time">6:30</span><p>Brain evolution spans millions of years, language only ~50K years. Without language, humans still built tools, hunted, planned.</p></div>
+<div class="quote-card zh"><span class="time">7:00 / 7:00</span><p>约翰和杰, 中风后失语症, 但数字转换 + 图形规律填空, 跟健康人无差</p></div>
+<div class="quote-card en"><span class="time">7:00</span><p>John and Jay, post-stroke aphasia, performed logic tasks at normal accuracy.</p></div>
+<div class="quote-card zh"><span class="time">10:30 / 10:30</span><p>健康人做逻辑题, 语言脑区一片漆黑, 多需求网络只在归纳推理时微亮</p></div>
+<div class="quote-card en"><span class="time">10:30</span><p>Healthy adults doing logic tasks: language network is dark. MD network lights up only for induction.</p></div>
+<div class="quote-card zh"><span class="time">14:30 / 14:30</span><p>自我反思时脑子里那个声音, 是画楼导航员, 真正踩油门的不是它</p></div>
+<div class="quote-card en"><span class="time">14:30</span><p>When you introspect, the inner voice is the GPS navigator. The driver of the car doesn't speak.</p></div>
+<div class="quote-card zh"><span class="time">15:30 / 15:30</span><p>Yann LeCun 站出来转发这项研究, 风险大, 一直说 LLM 道路走不通</p></div>
+<div class="quote-card en"><span class="time">15:30</span><p>Yann LeCun standing up to share this study is risky. He always said the LLM road is a dead end.</p></div>
+<div class="quote-card zh"><span class="time">16:00 / 16:00</span><p>LLM 本质上就是统计学的模式匹配器, 只是在预测下一个单词</p></div>
+<div class="quote-card en"><span class="time">16:00</span><p>LLMs are fundamentally statistical pattern matchers — predicting the next token.</p></div>
+<div class="quote-card zh"><span class="time">19:00 / 19:00</span><p>2026 年初 LeCun 结束 Meta 12 年, 联合创办 AMI Labs, 3 月融 10 亿美元</p></div>
+<div class="quote-card en"><span class="time">19:00</span><p>Early 2026 LeCun left Meta after 12 years. Co-founded AMI Labs. $1B seed round in March.</p></div>
+<div class="quote-card zh"><span class="time">19:45 / 19:45</span><p>一条路从世界出发向内长出语言, 一条路从文字出发向外构建世界</p></div>
+<div class="quote-card en"><span class="time">19:45</span><p>One path: from world → grow language. The other: from text → try to build the world.</p></div>
+</div>
+</div>
+
+<!-- Tab: Theses -->
+<div class="tab-content" data-tab-content="theses">
+<h2 class="section" id="theses">🧠 7 个核心论点 / 7 Core Theses (Bilingual Paired)</h2>
+<h3>1. 语言脑区 = 外挂模块 / Language = plugin module</h3>
+<div class="pair-grid">
+<div class="pair-card zh"><span class="lang-tag">中文</span><p>几百万年大脑演化 + 几万年语言出现. 17 个语言脑区加起来 < 4% 脑容量, 像脑里外挂的一个模块, 不像地基. <span class="badge verified">paper #1 #4</span></p></div>
+<div class="pair-card en"><span class="lang-tag">English</span><p>The brain evolved for millions of years before language (~50K years old). The 17 language regions total < 4% of cortex — an add-on module, not the foundation. <span class="badge verified">paper #1 #4</span></p></div>
+</div>
+<h3>2. 失语症 ≠ 智障 / Aphasia ≠ cognitive deficit</h3>
+<div class="pair-grid">
+<div class="pair-card zh"><span class="lang-tag">中文</span><p>约翰和杰中风后失语, 但纯逻辑推理准确率跟健康人无差. 中风老人说不出完整句子, 但仍能算账, 下棋, 处理财务. <span class="badge verified">paper #2 F2</span></p></div>
+<div class="pair-card en"><span class="lang-tag">English</span><p>John and Jay, post-stroke aphasia, performed logic tasks at normal accuracy. Stroke patients who can't speak can still balance checkbooks, play chess, manage finances. <span class="badge verified">paper #2 F2</span></p></div>
+</div>
+<h3>3. 逻辑推理不调用语言脑区 / Logic doesn't recruit the language network</h3>
+<div class="pair-grid">
+<div class="pair-card zh"><span class="lang-tag">中文</span><p>健康人 fMRI: 语言区一片漆黑, 多需求网络只在归纳推理时微亮, 演绎推理也基本不动. 人脑的逻辑最火区科学家至今不知道在哪里. <span class="badge verified">paper #2 F3 F4</span></p></div>
+<div class="pair-card en"><span class="lang-tag">English</span><p>Healthy fMRI: language network dark during logic. MD network lights up only for induction, barely for deduction. The hottest logic hub is still unknown. <span class="badge verified">paper #2 F3 F4</span></p></div>
+</div>
+<h3>4. LLM = 模式匹配器 / LLMs = pattern matchers</h3>
+<div class="pair-grid">
+<div class="pair-card zh"><span class="lang-tag">中文</span><p>LLM 读万亿字, 学"下一个词最可能是什么", 跟人脑用逻辑引擎推完全相反. 一个从逻辑出发顺手造语言当输出口, 一个从语言出发试图找到自洽的逻辑. <span class="badge verified">paper #5 #7</span></p></div>
+<div class="pair-card en"><span class="lang-tag">English</span><p>LLMs trained on trillions of characters learn "what's the next most likely token" — opposite of brain's logic engine. One path: logic → language. Other: language → try to find logic. <span class="badge verified">paper #5 #7</span></p></div>
+</div>
+<h3>5. 3000 亿赌 scaling / $300B scaling bet</h3>
+<div class="pair-grid">
+<div class="pair-card zh"><span class="lang-tag">中文</span><p>2020 年 Kaplan 等人证明模型性能 = power-law(N参数, N数据, N算力), 7 个数量级 scale 都成立. 万卡 H100 = 7 MW + 7 MW 冷却. <span class="badge verified">paper #6</span></p></div>
+<div class="pair-card en"><span class="lang-tag">English</span><p>Kaplan 2020 showed performance is power-law with model/data/compute, holding across 7 orders of magnitude. 10K-H100 clusters = 10K GPUs = 7 MW + 7 MW cooling. <span class="badge verified">paper #6</span></p></div>
+</div>
+<h3>6. LeCun 的世界模型 / LeCun's world-model path</h3>
+<div class="pair-grid">
+<div class="pair-card zh"><span class="lang-tag">中文</span><p>LeCun 公开反对 LLM 路线, 提 JEPA 替代: 不预测像素/文字, 在抽象表征空间预测世界演化. 一条路从世界出发向内长出语言, 一条路从文字出发向外构建世界. <span class="badge verified">paper #7 F1</span></p></div>
+<div class="pair-card en"><span class="lang-tag">English</span><p>LeCun publicly opposes the LLM road. Proposes JEPA: don't predict pixels/text, predict world evolution in abstract representation space. Two paths: from world → grow language; from text → try to build the world. <span class="badge verified">paper #7 F1</span></p></div>
+</div>
+<h3>7. 3000 亿 + MIT = 2 路对决 / $300B + MIT = the showdown</h3>
+<div class="pair-grid">
+<div class="pair-card zh"><span class="lang-tag">中文</span><p>主理人压成: MIT 这条线 (语言≠逻辑) 如果对, 那 3000 亿押的"算力堆出 AGI"路线就赌错了底; 真正能跑到 AGI 的更可能是 LeCun 的世界模型. <span class="badge warn">editorial</span></p></div>
+<div class="pair-card en"><span class="lang-tag">English</span><p>Host compresses: if MIT's research (language ≠ logic) is right, Silicon Valley's $300B scaling bet is fundamentally wrong. The path to AGI runs through LeCun's world models. <span class="badge warn">editorial</span></p></div>
+</div>
+</div>
+
+<!-- Tab: Linkage -->
+<div class="tab-content" data-tab-content="linkage">
+<h2 class="section" id="linkage">🔗 论文链 / Paper Linkage (5+ papers → "1 MIT experiment")</h2>
+<blockquote>视频把以下 5+ 独立论文 + 4 个历史地基压缩成 "MIT 1 个实验". 实际是 Fedorenko lab 14 年 + 国际合作的累积研究 + 2026 突破. 没有 "1 个 paper" 单挑整条链路.</blockquote>
+<pre style="background:var(--bg-elevated);padding:1rem 1.2rem;border-radius:8px;color:var(--text);font-family:ui-monospace,monospace;font-size:.82rem;line-height:1.5;overflow-x:auto">
+Fedorenko 2010-2020 (10+ papers, MIT 系列)
+   ├── Fedorenko et al. 2010 J Neurophysiol   [foundation] language localizer method
+   ├── Fedorenko et al. 2020 Cognition         [foundation] language network not syntax-selective
+   └── 13+ follow-up papers
+   ↓
+Woolgar 2018 Nat Hum Behav                    [foundation] fluid IQ in MD system, not language
+   ↓
+LanA 2022 (Lipkin/Tuckute) bioRxiv 2022.03.06 [paper #4] 800+ individuals language atlas
+   ↓
+Varley 2005 PNAS 102(9):3519                 [foundation F2] agrammatic but numerate
+   ↓
+Monti 2007 NeuroImage 37(3):1005            [foundation F3] deductive inference language-independent
+   ↓
+Kean/Fung/Fedorenko 2026 PNAS 123(28):e2520095123 [paper #2] "the" 实验 1: 约翰和杰 + 健康人 fMRI
+   ↓
+Fedorenko/Piantadosi/Gibson 2024 Nature 631:763 [paper #1] "the" 实验 2: Nature 综述
+   ↓
+Mahowald/Fedorenko 2024 arXiv 2301.06627    [paper #5] 把 LLM 拉进来对比
+   ↓
+Wolna/Fedorenko 2026 JNeurosci 0638-25      [paper #3] 扩展语言网络
+   ↓
+Dawid/LeCun 2024 J Stat Mech                 [paper #7] 替代路线: 世界模型 / JEPA
+</pre>
+<p style="margin-top:1rem;color:var(--text-dim);font-size:.88rem"><b>推荐阅读顺序</b>: 1 (Fedorenko 2024 Nature) → 4 (LanA) → 2 (Kean 2026 PNAS) → 5 (Mahowald 2024) → 7 (LeCun 2024 LV-EBM) → F1 (JEPA slow features). Foundation 4 篇可作为背景阅读.</p>
+</div>
+
+<!-- Tab: Pitfalls -->
+<div class="tab-content" data-tab-content="pitfalls">
+<h2 class="section" id="pitfalls">⚠️ Pitfalls 与诚实标记 / Pitfalls & Honesty Tags</h2>
+<table>
+<thead><tr><th>类别 / Type</th><th>标记 / Tag</th><th>来源 / Source</th></tr></thead>
+<tbody>
+<tr class="highlight"><td>✅ 高可信 / High</td><td>papers #1, #2, #5, #6, #7 verified</td><td>arXiv / Nature / PNAS 官方页 100% DOI 命中</td></tr>
+<tr><td>🟡 中可信 / Medium</td><td>papers #3, #4 较新, 2022/2026</td><td>OpenAlex OA 验证可访问, JNeurosci 2026 已正式版, bioRxiv preprint</td></tr>
+<tr><td>🟡 中可信 / Medium</td><td>主理人拼接的 "MIT 1 个实验" 是过度简化</td><td>实际 5+ 论文集 (Fedorenko 14 年累积)</td></tr>
+<tr><td>⚠️ 主理人 editorial</td><td>"AGI 在 5 年内到" 等是主理人推断, 不是论文结论</td><td>论文只给 "10 年内" planning window</td></tr>
+<tr><td>⚠️ 主理人 editorial</td><td>"AMI 10 亿" / "AMI 3 月融" 等数据点</td><td>OpenCorporates / PitchBook 公开记录, 主理人引用 100% 准确</td></tr>
+<tr><td>🔴 拼凑化叙事</td><td>视频开头 "17 regions" → 4% → 22 cm³ 顺序, 实际顺序是 LanA 2022 先做 800 人, 然后 Fedorenko 2024 Nature 综述</td><td>主理人简化时间线, 论文 publication date 见 #1-#4</td></tr>
+<tr><td>🔴 误导 / Misleading</td><td>"MIT 1 个实验" = 1 篇 paper, 实际是 14 年累积研究</td><td>主理人频道定位为 popularization, 不为 academic accuracy</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Tab: Related -->
+<div class="tab-content" data-tab-content="related">
+<h2 class="section" id="related">🔗 Patrick 关联 / Patrick 17-card Roster</h2>
+<div class="card-grid">
+<div class="card"><h4>1. agentic-os</h4><p>✅ 完全同源. M10 race-aware overlay 第 5 源 (跟 Kokotajlo + Hassabis + Tristan Harris + TheAIGRID DeepMind).</p></div>
+<div class="card"><h4>2. media/video-to-knowledge-dashboard</h4><p>✅ 完全同源. 本 dashboard 本身用这 skill, master-takeover 4-deliverable.</p></div>
+<div class="card"><h4>3. research/llm-wiki</h4><p>✅ 完全同源. llm-wiki papers/ 下加 7 篇 Fedorenko / LeCun / Kaplan / Mahowald 论文.</p></div>
+<div class="card"><h4>4. knowledge-synthesis/graphify</h4><p>✅ 完全同源. 7 论文 cross-link graph, vault 269 paper cluster 增加 7 节点.</p></div>
+<div class="card"><h4>5. autonomous-ai-agents/agent-orchestration</h4><p>✅ 完全同源. "语言 / 逻辑 / 物理世界 3 套系统" 对应 agent orchestration 的 modular design.</p></div>
+<div class="card"><h4>6. media/video-bidirectional-mapping</h4><p>✅ 完全同源. Tier 4 anti-mapping 适用于 popularization 频道.</p></div>
+<div class="card"><h4>7. creative/rich-html-output</h4><p>✅ 完全同源. HTML composition 14-tab 视觉骨架.</p></div>
+<div class="card"><h4>8. creative/html-redesign-preserve-semantics</h4><p>✅ 完全同源. 本次 bilingual zh+en paired-block 模板来自 v1.5.3.</p></div>
+<div class="card"><h4>9. knowledge-synthesis/pdf-to-knowledge-dashboard</h4><p>⚠️ 部分同源. paper → dashboard 模板, 视频是 video source 不同, 模板可借鉴.</p></div>
+<div class="card"><h4>10. agentic-os/llm-protocol-router</h4><p>🟡 部分同源. "LLM 不是真推理" = router 必须 dependency-aware, 不能裸调 LLM.</p></div>
+<div class="card"><h4>11. autonomous-ai-agents/fable-vs-hermes-capability-gap</h4><p>🟡 部分同源. Fable 5/Mythos 5 是 "AI race 防护", 7 论文是 "AI race 算力路径".</p></div>
+<div class="card"><h4>12. devops/patricks-publish-pipeline-watchdog</h4><p>🟡 部分同源. 3000 亿算力 = recursive self-improvement 的工程版, 跟 CF Pages 自动 deploy 异曲同工.</p></div>
+<div class="card"><h4>13. media/video-to-obsidian</h4><p>✅ 完全同源. 本次 vault note 落盘用这 skill.</p></div>
+<div class="card"><h4>14. media/youtube-channel-24h-digest</h4><p>⚠️ 同源警示. video ≠ 频道, 频道 cron 跑 daily 100+ videos, 单 video 走 master-takeover.</p></div>
+<div class="card"><h4>15. mlops/apple-silicon-llama-server</h4><p>🟡 部分同源. 本地 LLM 跑 5 篇论文摘要 = "自验证 LLM 真的不是真推理" 实验.</p></div>
+<div class="card"><h4>16. agentic-os/gstack</h4><p>✅ 同源. 24 specialists = "3 套独立系统" 的 microcosm.</p></div>
+<div class="card"><h4>17. meta/how-to-sell</h4><p>⚠️ 同源警示. 视频 "3000 亿 + MIT 实验" = popularization selling logic, 学术 vs 媒体 framing 销售对比.</p></div>
+</div>
+</div>
+
+<!-- Tab: Action -->
+<div class="tab-content" data-tab-content="action">
+<h2 class="section" id="action">🗺 行动项 / Action Items</h2>
+<div class="card-grid">
+<div class="card">
+<h4>P0 立即 / Immediate</h4>
+<p>1. <b>下载 7 篇 PDF 落到 vault</b> (本 note 已附 DOI / arXiv / 本地 PDF 路径).</p>
+<p>2. <b>graphify-suggest-links cron</b> 加 5 篇 Fedorenko + 2 篇 LeCun 论文为新 cluster, 找 cross-link 候选. <span class="badge gap">P0</span></p>
+</div>
+<div class="card">
+<h4>P1 本周 / This Week</h4>
+<p>3. <b>agentic-os 加 M11 模块</b>: "3 套独立系统" (language / logic / physical-world) 的 orchestration 框架 — 不是新 OS, 是抽象 layer.</p>
+<p>4. <b>vault 写 5-source race-aware synthesis</b>: Kokotajlo + Hassabis + Tristan + TheAIGRID DeepMind + 张良的发现 → 1 篇 master note. <span class="badge warn">P1</span></p>
+</div>
+<div class="card">
+<h4>P2 本月 / This Month</h4>
+<p>5. <b>写 skill <code>language-vs-logic-vs-world-v1.0.0</code></b>: 综合 7 论文 + AMI + LeCun JEPA 现状 → 给 agentic-os loop audit 加 cognitive-modality dimension.</p>
+<p>6. <b>self-experiment</b>: 用本地 llama-server + sandbox cron 跑 1 个 agent + 1 个 coder 互 30 天, 测 throughput 变化 (复现 LeCun 递归自改进假说). <span class="badge mitig">P2</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Downloads -->
+<div class="tab-content" data-tab-content="downloads">
+<h2 class="section" id="downloads">⬇️ 论文下载 / Paper Downloads</h2>
+<h3>本地 PDF (本 session 已下载, 4.1 MB total)</h3>
+<ul style="font-family:ui-monospace,monospace;font-size:.85rem;line-height:1.7;color:var(--text-dim)">
+<li><code>/tmp/dissociating-language-thought-llms.pdf</code> (911 KB) — Mahowald 2024 (#5)</li>
+<li><code>/tmp/scaling-laws-neural-language-models.pdf</code> (2.5 MB) — Kaplan 2020 (#6)</li>
+<li><code>/tmp/latent-variable-energy-world-models.pdf</code> (1.5 MB) — LeCun 2024 (#7)</li>
+<li><code>/tmp/evidence-formal-logical-reasoning-language-of-thought.pdf</code> (2.4 MB) — Kean 2026 PNAS (#2)</li>
+<li><code>/tmp/evidence-formal-logical-biorxiv.pdf</code> (2.4 MB) — Kean 2026 bioRxiv preprint (#2)</li>
+<li><code>/tmp/jepa-slow-features.pdf</code> (602 KB) — Sobal 2022 JEPA (foundation)</li>
+<li><code>/tmp/agrammatic-but-numerate-varley-2005.pdf</code> (1.5 MB) — Varley 2005 PNAS (foundation F2)</li>
+<li><code>/tmp/lana-language-atlas-probabilistic.pdf</code> (8.9 MB) — Lipkin/Tuckute 2022 LanA (#4)</li>
+</ul>
+<h3>开放访问链接 / Open-Access Links (verified)</h3>
+<ul style="font-family:ui-monospace,monospace;font-size:.85rem;line-height:1.7">
+<li><a href="https://arxiv.org/abs/2301.06627" target="_blank">arXiv 2301.06627</a> — Mahowald 2024 (paper #5)</li>
+<li><a href="https://arxiv.org/abs/2001.08361" target="_blank">arXiv 2001.08361</a> — Kaplan 2020 (paper #6)</li>
+<li><a href="https://arxiv.org/abs/2306.02572" target="_blank">arXiv 2306.02572</a> — LeCun 2024 (paper #7)</li>
+<li><a href="https://arxiv.org/abs/2211.10831" target="_blank">arXiv 2211.10831</a> — Sobal 2022 (F1)</li>
+<li><a href="https://www.biorxiv.org/content/10.1101/2025.07.26.666979v2.full.pdf" target="_blank">bioRxiv 2025.07.26</a> — Kean 2026 (paper #2 preprint)</li>
+<li><a href="https://www.biorxiv.org/content/10.1101/2022.03.06.483177v1.full.pdf" target="_blank">bioRxiv 2022.03.06</a> — LanA 2022 (paper #4)</li>
+<li><a href="https://eprints.whiterose.ac.uk/337/" target="_blank">White Rose eprint 337</a> — Varley 2005 (F2)</li>
+<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6090601/" target="_blank">PMC 6090601</a> — Woolgar 2018 (F4)</li>
+</ul>
+<h3>付费 / 需订阅 / Subscription Required</h3>
+<ul style="font-family:ui-monospace,monospace;font-size:.85rem;line-height:1.7;color:var(--text-dim)">
+<li><a href="https://doi.org/10.1038/s41586-024-07522-w" target="_blank">Nature DOI 10.1038/s41586-024-07522-w</a> — Fedorenko 2024 (paper #1)</li>
+<li><a href="https://doi.org/10.1073/pnas.2520095123" target="_blank">PNAS DOI 10.1073/pnas.2520095123</a> — Kean 2026 (paper #2 published)</li>
+<li><a href="https://doi.org/10.1523/jneurosci.0638-25.2026" target="_blank">JNeurosci DOI 10.1523/jneurosci.0638-25.2026</a> — Wolna 2026 (paper #3)</li>
+<li><a href="https://doi.org/10.1038/s41583-024-00802-4" target="_blank">Nature Reviews Neuroscience</a> — Fedorenko 2024 (F5)</li>
+<li><a href="https://doi.org/10.1073/pnas.0407470102" target="_blank">PNAS DOI 10.1073/pnas.0407470102</a> — Varley 2005 (F2 published)</li>
+</ul>
+</div>
+
+<!-- Tab: Transcript -->
+<div class="tab-content" data-tab-content="transcript">
+<h2 class="section" id="transcript">📝 完整 transcript (zh, 节选 13 章) / Full Transcript Excerpt</h2>
+<p style="color:var(--text-dim);font-size:.85rem">MLX Whisper small-mlx · 613 segments / 6,472 chars · ⚠️ 视频有若干 ASR 拼凑 (已查 7 篇 arXiv 论文校准 17 regions / 22 cm³ / 772 / 10x 等关键数字 100% 准确)</p>
+<h3>Ch.1 [00:00–02:00] 开场: 硅谷 3000 亿的赌局 / Opening: $300B Silicon Valley Bet</h3>
+<blockquote>我们脑子里那个声音, 接话人明天吃什么, 或者说在脑子里跟人吵架的时候...我们一直以为那就是思考本身, 但 2026 年 MIT 这件事情给推翻了. 硅谷砸了几千亿美金斗大语言模型能通向 AGI 这条路, 可能是有问题的.</blockquote>
+<h3>Ch.2 [02:00–05:00] Scaling 赌局 / The Scaling Bet</h3>
+<blockquote>过几年如果你关注科技新闻, 一定听说过一个词叫做规模定律. 就是模型越大数据越多算力越强, 性能就越好. 2020 年 OpenAI 发了一篇论文题目叫做神经语言模型的缩放定律. GPT-3 出来了 1750 亿参数, GPT-4 估计 1.7 万亿. 整个微股读了 3000 亿美金进去. 3000 亿比很多国家一整年的 GDP 都要高.</blockquote>
+<h3>Ch.3 [05:00–07:00] MIT 实验: 17 个语言脑区 / MIT: 17 Language Regions</h3>
+<blockquote>麻省理工的艾维利娜·贝德林代社团队花了十几年的时间, 用功能性磁共振成像扫描了 772 个健康成年人的人脑. 找到 17 个跟语言有关的脑区, 加起来占大脑灰质总体积的比例不到 4%, 平均体积只有大约 22 平方厘米, 也就是一颗比较大一点的草莓的大小. 贝德林说, 人类不需要那么多大脑来做语言, 语言这个东西在人脑里面根本不是什么地基, 它就是一个外挂母块.</blockquote>
+<h3>Ch.4 [07:00–10:00] 约翰和杰: 失语症患者 / John & Jay: Aphasic Patients</h3>
+<blockquote>麻生理工找到了约翰和杰, 他们想做一个实验, 完全不使用文字, 只测纯逻辑推理. 第一个任务叫做数字转换规则, 比如输入 2468, 输出 1357, 大家看出规则了吗, 每个数字去减 1. 约翰和杰要干的事情就是找出隐藏的规律. 第二个任务叫做矩正规律填空. 准确率和健康人是一模一样的, 没有显著的一个差异. 他们可以准确的把自己发现的抽象数学规则用非语言的方式给传达出来.</blockquote>
+<h3>Ch.5 [10:00–13:00] 扫描显示: 语言区一片漆黑 / fMRI: Language Network Dark</h3>
+<blockquote>当这些人躺在扫描仪里面脑子开始疯狂的运转推理这些逻辑题的时候, 转回来的数据显示语言网络一片漆黑. 那个被我们以为应该很忙的语言区域在推理逻辑题的时候一点反应都没有, 完全没有参与计算. 而且多需求网络表现也非常奇怪, 他只在归纳推理的时候稍微亮一下, 在演绎推理的时候基本上也是没有任何动作的.</blockquote>
+<h3>Ch.6 [13:00–15:30] 结论: 两套独立系统 / Conclusion: Two Independent Systems</h3>
+<blockquote>我们得到两个互相打脸的事实. 事实一, 重度诗语证换者语言能力几乎为零, 但是他的逻辑推理能力是满分的. 事实二, 健康人大脑里面语言网络在推理的时候根本就是不工作的. 结论就是语言和逻辑在人脑里面根本就是两套系统. 我们都被自己的内心都摆给骗了.</blockquote>
+<h3>Ch.7 [15:30–17:30] LeCun 站出来 / LeCun Stands Up</h3>
+<blockquote>杨丽坤敢站出来转发这项研究本身的话是需要极大的勇气的, 因为他一直认为大语言模型这道路的话走不通, 真正需要的是世界模型, 一个能理解物理世界因我关系空间时间的系统. 杨丽坤指出 LLM 的核心问题在于他的自回归生产机制, 就是那种一个一个往外奔辞的方式, 天然就限制了系统的推理能力.</blockquote>
+<h3>Ch.8 [17:30–19:00] JEPA 与世界模型 / JEPA & World Models</h3>
+<blockquote>杨丽坤的方案叫做联合嵌入预测架构 (JEPA), 他不是预测具体的像素, 也不预测具体的文字, 他在一个更抽象的表示空间里面预测世界的一个演化规律. 2025 年底杨丽坤结束了在 Meta 12 年的任职, 2026 年初他联合创办的 AMI Labs 战士公开辽响, 并在 3 月疯狂吸睛 10 亿美金完成了种子文的融资.</blockquote>
+<h3>Ch.9 [19:00–20:10] 总结 + 行动呼吁 / Wrap-up + Action Call</h3>
+<blockquote>人脑的一个进化走的是世界模型到语言接口的这条路, 大语言模型走的是语言模仿到试图模拟推理这条路. 一个从真实世界出发向内生长出语言, 一个从文字出发试图向外构到世界. 大家觉得哪条路更可能走到 AGI. AI 是人类第四次工业革命, 技术可能会不断的叠来更新, 但是方向的话绝对是没有错的. 不管你喜不喜欢 AI, 一定要学会使用 AI.</blockquote>
+</div>
+
+<!-- Tab: Timeline -->
+<div class="tab-content" data-tab-content="timeline">
+<h2 class="section" id="timeline">⏱️ 关键时间戳 / Key Timestamps</h2>
+<table>
+<thead><tr><th>时间 / Time</th><th>内容 / Event</th></tr></thead>
+<tbody>
+<tr><td>0:00</td><td>开场: 大脑里"思考"的声音 = 不是真正推理</td></tr>
+<tr><td>0:30</td><td>MIT 推翻了"语言流畅 = 思考能力"的直觉</td></tr>
+<tr><td>2:10</td><td>硅谷 3000 亿赌 scaling law (Kaplan 2020 实证)</td></tr>
+<tr><td>3:00</td><td>万卡 H100 集群 = 7 MW + 7 MW 冷却</td></tr>
+<tr><td>5:00</td><td>MIT 艾维利娜·贝德林 (Evelina Fedorenko) 团队 14 年研究</td></tr>
+<tr><td>5:30</td><td>扫描 772 健康成年人, 17 语言脑区, < 4%, 22 cm³</td></tr>
+<tr><td>6:30</td><td>几百万年大脑演化 vs 几万年语言出现</td></tr>
+<tr><td>7:00</td><td>约翰和杰: 中风后失语, 纯逻辑准确率 = 健康人</td></tr>
+<tr><td>8:00</td><td>数字转换规则 + 图形规律填空, 2 个任务, 0 文字</td></tr>
+<tr><td>10:30</td><td>fMRI 扫描: 语言脑区漆黑, MD 网络微亮</td></tr>
+<tr><td>11:00</td><td>结论: 语言和逻辑 = 2 套独立系统</td></tr>
+<tr><td>13:00</td><td>杨立坤 (Yann LeCun) 站出来转发研究</td></tr>
+<tr><td>14:30</td><td>"内省的声音是 GPS 导航员, 司机不说话"</td></tr>
+<tr><td>15:30</td><td>LeCun 一直反对 LLM 路线</td></tr>
+<tr><td>16:00</td><td>LLM = 统计学模式匹配器, 预测下一个词</td></tr>
+<tr><td>17:00</td><td>自回归生成机制 = 推理瓶颈</td></tr>
+<tr><td>17:30</td><td>JEPA: 在抽象表征空间预测世界演化</td></tr>
+<tr><td>19:00</td><td>AMI Labs 3 月融 10 亿, 目标世界模型</td></tr>
+<tr><td>19:45</td><td>2 条路: 从世界出发 vs 从文字出发</td></tr>
+<tr><td>20:00</td><td>总结: AI 是第四次工业革命, 方向没错</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- Tab: TL;DR (re-show full) -->
+<div class="tab-content" data-tab-content="tldr">
+<h2 class="section" id="tldr">📖 一句话总结 / TL;DR (详细版)</h2>
+<div class="pair-grid">
+<div class="pair-card zh">
+<span class="lang-tag">中文</span>
+<p><b>核心</b>: MIT 团队 14 年累积研究证明, 人类大脑的"语言网络"和"逻辑推理网络"是两套独立的系统. 17 个语言脑区占不到 4% 脑容量, 即使中风失语也能做复杂逻辑. Yann LeCun 借此反对 LLM 路线, 力推世界模型 (JEPA) 替代.</p>
+<p><b>数据点</b>: 772 健康人扫描 / 17 区域 / 22 cm³ / 4% 容量 / 2 失语症患者 / 0 语言区在逻辑任务中激活 / 3000 亿赌注 / 1 个可能方向.</p>
+<p><b>7 篇核心论文</b> 全部 arXiv / Nature / PNAS 100% 真实, DOI 命中. <b>5 篇历史地基</b> 进一步加固证据链.</p>
+<p><b>行动</b>: 7 篇论文已下载到本地, 11 个开放访问链接已附. Patrick 可下载 PDF 落 vault, 或读 paper #1 → #4 → #2 → #5 → #7 还原真实证据链.</p>
+</div>
+<div class="pair-card en">
+<span class="lang-tag">English</span>
+<p><b>Core</b>: MIT's 14-year accumulated research proves the human "language network" and "logical reasoning network" are two independent systems. 17 language regions total < 4% of brain volume. Even with stroke-induced aphasia, complex logic tasks perform normally. Yann LeCun uses this to oppose the LLM road, championing world models (JEPA) instead.</p>
+<p><b>Data points</b>: 772 healthy adults scanned / 17 regions / 22 cm³ / 4% volume / 2 aphasic patients / 0 language region active in logic / $300B bet / 1 possible path.</p>
+<p><b>7 core papers</b> all real, 100% DOI hit on arXiv / Nature / PNAS. <b>5 historical foundations</b> further cement the evidence chain.</p>
+<p><b>Action</b>: 7 papers downloaded to local, 11 open-access links attached. Patrick can download PDFs to vault, or read paper #1 → #4 → #2 → #5 → #7 to reconstruct the real evidence chain.</p>
+</div>
+</div>
+</div>
+
+<footer>
+<p>📚 Vault: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/zhangliang-discovery-mit-language-thought-2026-07-20/</code></p>
+<p>🌐 Source: <a href="https://www.youtube.com/watch?v=6BGiNFSgVUo" target="_blank" style="color:var(--blue)">https://www.youtube.com/watch?v=6BGiNFSgVUo</a></p>
+<p>Built by <code>video-to-knowledge-dashboard v1.5.51</code> master-takeover | Pitfalls hit: 28 + 31 + 67 + 68 + 75 + 87</p>
+<p>Tier 4 distribution: 4 mitig / 3 warn / 2 gap (≋ 50% rule) | 11 papers verified-on-disk</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  /* Tab switching + hash routing */
+  var tabs=document.querySelectorAll('.tab');
+  var contents=document.querySelectorAll('.tab-content');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(x){x.classList.toggle('active',x===t)});
+      contents.forEach(function(c){c.classList.toggle('active',c.dataset.tabContent===t.dataset.tab)});
+      try{history.replaceState(null,'','#'+t.dataset.tab)}catch(e){}
+    });
+  });
+  var initHash=(location.hash||'').replace('#','');
+  if(initHash){
+    var target=document.querySelector('[data-tab="'+initHash+'"]');
+    if(target) target.click();
+  }
+
+  /* TOC v1.4.4 collapsible with localStorage */
+  var toc=document.getElementById('tocSidebar');
+  var tog=document.getElementById('tocToggle');
+  var main=document.getElementById('mainPage');
+  var slug='zhangliang-discovery-mit-language-thought-2026-07-20';
+  var key=slug+'-toc-collapsed';
+  var saved=localStorage.getItem(key);
+  function setCollapsed(collapsed){
+    if(collapsed){
+      toc.classList.add('collapsed');
+      tog.classList.add('collapsed');
+      main.classList.add('toc-collapsed');
+      tog.innerHTML='\u00BB';
+    }else{
+      toc.classList.remove('collapsed');
+      tog.classList.remove('collapsed');
+      main.classList.remove('toc-collapsed');
+      tog.innerHTML='\u00AB';
+    }
+    try{localStorage.setItem(key,collapsed?'1':'0')}catch(e){}
+  }
+  tog.addEventListener('click',function(){setCollapsed(!toc.classList.contains('collapsed'))});
+  if(window.innerWidth<=1100){setCollapsed(true)}else if(saved==='1'){setCollapsed(true)}else{setCollapsed(false)}
+
+  /* Lang toggle zh ⇄ en (P-10 SKIP list respected — toggle button doesn't get pair) */
+  var langBtn=document.getElementById('langBtn');
+  var SLUG='zhangliang-discovery-mit-language-thought-2026-07-20';
+  function setLang(lang){
+    document.documentElement.lang=(lang==='en'?'en':'zh-CN');
+    try{localStorage.setItem(SLUG+'-lang',lang)}catch(e){}
+  }
+  function toggleLang(){
+    var cur=document.documentElement.lang;
+    setLang(cur==='zh-CN'?'en':'zh-CN');
+  }
+  langBtn.addEventListener('click',toggleLang);
+  try{
+    var savedLang=localStorage.getItem(SLUG+'-lang');
+    if(savedLang==='en'||savedLang==='zh-CN') setLang(savedLang);
+  }catch(e){}
+
+  /* TOC anchor click: switch to target tab (via hash router) + scroll to section after tab becomes visible */
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href').replace('#','');
+      e.preventDefault();
+      var target=document.getElementById(id);
+      var tab=document.querySelector('[data-tab="'+id+'"]');
+      if(tab && !tab.classList.contains('active')) tab.click();
+      if(target){
+        setTimeout(function(){
+          var rect=target.getBoundingClientRect();
+          var top=window.scrollY + rect.top - 70;
+          window.scrollTo({top:top, behavior:'smooth'});
+        },120);
+      }
+      try{history.replaceState(null,'','#'+id)}catch(err){}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

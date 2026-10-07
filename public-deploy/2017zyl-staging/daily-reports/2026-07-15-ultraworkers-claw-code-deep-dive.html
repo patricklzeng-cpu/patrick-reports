@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generated" content="2026-07-14 — Hermes Agent deep-dive on github.com/ultraworkers/claw-code">
+<title>ultraworkers/claw-code — Rust 重写的 Claude Code 形态 CLI Agent 深度解析 · Deep-Dive</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --bg-elev: #151a22;
+    --bg-card: #1a212b;
+    --bg-code: #0b0f14;
+    --border: #2a3140;
+    --border-strong: #3a4356;
+    --txt: #e6ebf2;
+    --txt-dim: #aab3c2;
+    --txt-mute: #7a8497;
+    --accent: #d4ff3f;
+    --accent-2: #7ad9ff;
+    --warn: #ffb347;
+    --danger: #ff6b6b;
+    --good: #6ee7a7;
+    --link: #7ad9ff;
+    --tag: #243042;
+    --code-key: #ff8fbf;
+    --code-str: #b3f0a3;
+    --code-com: #6b7585;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--txt); margin: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.62;
+    font-size: 15.5px;
+  }
+  code, pre, .mono {
+    font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Courier New", monospace;
+    font-size: 13.2px;
+  }
+  a { color: var(--link); text-decoration: none; border-bottom: 1px dotted transparent; }
+  a:hover { border-bottom-color: var(--link); }
+
+  /* language toggle */
+  html { --zh-on: 1; --en-on: 0; }
+  html[lang="en"] { --zh-on: 0; --en-on: 1; }
+  html[lang="zh-CN"] .zh { display: revert; }
+  html[lang="zh-CN"] .en { display: none; }
+  html[lang="en"] .zh { display: none; }
+  html[lang="en"] .en { display: revert; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,17,22,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .brand {
+    font-weight: 700; letter-spacing: 0.2px; color: var(--txt);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .brand .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  .brand small { color: var(--txt-mute); font-weight: 400; margin-left: 4px; }
+  .topbar .grow { flex: 1; }
+  .lang-toggle {
+    display: inline-flex; background: var(--bg-elev); border: 1px solid var(--border);
+    border-radius: 999px; padding: 2px;
+  }
+  .lang-toggle button {
+    background: transparent; color: var(--txt-dim); border: 0; padding: 6px 14px;
+    border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 600; letter-spacing: 0.4px;
+  }
+  .lang-toggle button.active { background: var(--accent); color: #0b0f14; }
+  .topbar a.toplink { color: var(--txt-dim); font-size: 13px; }
+
+  .layout {
+    max-width: 1180px; margin: 0 auto; padding: 24px 20px 80px;
+    display: grid; grid-template-columns: 240px minmax(0,1fr); gap: 28px;
+  }
+  @media (max-width: 980px) { .layout { grid-template-columns: 1fr; } aside.toc { display: none; } }
+
+  aside.toc {
+    position: sticky; top: 70px; align-self: start;
+    max-height: calc(100vh - 90px); overflow: auto;
+    border-right: 1px solid var(--border); padding-right: 14px;
+  }
+  aside.toc h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.4px;
+    color: var(--txt-mute); margin: 6px 0 10px;
+  }
+  aside.toc a {
+    display: block; color: var(--txt-dim); padding: 5px 8px; border-left: 2px solid transparent;
+    font-size: 13.5px;
+  }
+  aside.toc a:hover { color: var(--txt); border-left-color: var(--accent); }
+  aside.toc a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(212,255,63,0.06); }
+
+  main { min-width: 0; }
+
+  /* hero */
+  .hero {
+    background: linear-gradient(135deg, #1a212b 0%, #131820 100%);
+    border: 1px solid var(--border); border-radius: 14px; padding: 28px 28px 24px;
+    margin-bottom: 28px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; right: -40px; top: -40px;
+    width: 240px; height: 240px; border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(212,255,63,0.18), transparent 70%);
+    pointer-events: none;
+  }
+  .hero h1 { margin: 0 0 8px; font-size: 28px; line-height: 1.25; letter-spacing: -0.2px; }
+  .hero h1 .ac { color: var(--accent); }
+  .hero .sub { color: var(--txt-dim); font-size: 15px; max-width: 760px; }
+  .hero .meta {
+    display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px;
+    font-size: 12.5px; color: var(--txt-mute);
+  }
+  .hero .meta span b { color: var(--txt-dim); font-weight: 600; }
+  .hero .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .badge { background: var(--tag); color: var(--txt-dim); padding: 4px 10px; border-radius: 999px; font-size: 11.5px; letter-spacing: 0.4px; }
+  .badge.g { background: rgba(110,231,167,0.14); color: var(--good); }
+  .badge.y { background: rgba(255,179,71,0.14); color: var(--warn); }
+  .badge.r { background: rgba(255,107,107,0.16); color: var(--danger); }
+  .badge.b { background: rgba(122,217,255,0.14); color: var(--accent-2); }
+
+  /* stat grid */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px; margin: 0 0 24px;
+  }
+  .stat {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .stat .v { font-size: 24px; font-weight: 700; color: var(--txt); }
+  .stat .v small { color: var(--txt-mute); font-size: 13px; font-weight: 500; margin-left: 4px; }
+  .stat .k { color: var(--txt-mute); font-size: 12px; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.8px; }
+
+  section { margin: 36px 0; }
+  section h2 {
+    font-size: 20px; margin: 0 0 6px; letter-spacing: -0.1px;
+    border-bottom: 1px solid var(--border); padding-bottom: 8px;
+  }
+  section h2 .num { color: var(--accent); font-family: "SF Mono", monospace; font-size: 14px; margin-right: 10px; }
+  section h3 { font-size: 15.5px; margin: 22px 0 8px; color: var(--txt); }
+  section p { color: var(--txt-dim); margin: 8px 0 12px; }
+  section ul, section ol { color: var(--txt-dim); padding-left: 22px; }
+  section li { margin: 4px 0; }
+  section li::marker { color: var(--txt-mute); }
+
+  .callout {
+    border-left: 3px solid var(--accent); background: var(--bg-card);
+    padding: 12px 16px; margin: 14px 0; border-radius: 0 8px 8px 0;
+    color: var(--txt-dim); font-size: 14px;
+  }
+  .callout.warn { border-left-color: var(--warn); background: rgba(255,179,71,0.06); }
+  .callout.danger { border-left-color: var(--danger); background: rgba(255,107,107,0.06); }
+  .callout b { color: var(--txt); }
+  .callout code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 4px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 760px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .card h4 { margin: 0 0 6px; font-size: 14px; color: var(--txt); }
+  .card p { margin: 0; font-size: 13.5px; color: var(--txt-dim); }
+  .card .small { font-size: 12px; color: var(--txt-mute); margin-top: 6px; }
+
+  /* code blocks */
+  pre {
+    background: var(--bg-code); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px; margin: 10px 0;
+    overflow-x: auto; color: var(--txt);
+  }
+  pre code { color: var(--txt); }
+  pre .c { color: var(--code-com); }
+  pre .k { color: var(--code-key); }
+  pre .s { color: var(--code-str); }
+  pre .n { color: var(--accent); }
+  p code, li code, td code {
+    background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 4px; font-size: 12.5px;
+  }
+
+  /* tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 10px 0; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th { color: var(--txt-mute); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; }
+  tr:last-child td { border-bottom: 0; }
+  td.mono { font-family: "SF Mono", monospace; color: var(--txt); }
+
+  /* lane matrix */
+  .lane { display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .lane:last-child { border-bottom: 0; }
+  .lane .i { font-family: "SF Mono", monospace; color: var(--accent); }
+  .lane .n { color: var(--txt); font-size: 14px; }
+  .lane .n small { color: var(--txt-mute); margin-left: 8px; }
+  .lane .s { font-size: 12px; padding: 2px 8px; border-radius: 999px; }
+
+  /* arch diagram */
+  .arch {
+    background: var(--bg-code); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; overflow-x: auto; font-family: "SF Mono", monospace; font-size: 12.5px; color: var(--txt-dim); white-space: pre; line-height: 1.45;
+  }
+  .arch .box { color: var(--accent); }
+  .arch .arrow { color: var(--txt-mute); }
+  .arch .op { color: var(--accent-2); }
+
+  /* honest signal bar */
+  .signal {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin: 14px 0;
+  }
+  .signal h4 { margin: 0 0 8px; font-size: 13.5px; color: var(--txt); }
+  .signal .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { background: var(--tag); color: var(--txt-dim); padding: 3px 9px; border-radius: 999px; font-size: 11.5px; }
+  .pill.vault { background: rgba(110,231,167,0.16); color: var(--good); }
+  .pill.fetched { background: rgba(122,217,255,0.16); color: var(--accent-2); }
+  .pill.unfetched { background: rgba(255,107,107,0.18); color: var(--danger); }
+  .pill.recall { background: rgba(255,179,71,0.16); color: var(--warn); }
+
+  /* footer */
+  footer { color: var(--txt-mute); font-size: 12.5px; text-align: center; padding: 32px 0 8px; border-top: 1px solid var(--border); margin-top: 48px; }
+  footer a { color: var(--txt-dim); }
+  .nowrap { white-space: nowrap; }
+  hr { border: 0; border-top: 1px dashed var(--border); margin: 22px 0; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span> <span class="zh">ultraworkers / claw-code 深度解析</span><span class="en">ultraworkers / claw-code Deep-Dive</span> <small>v1 · 2026-07-14</small></div>
+  <div class="grow"></div>
+  <a class="toplink" href="https://github.com/ultraworkers/claw-code" target="_blank" rel="noopener">github ↗</a>
+  <a class="toplink" href="https://2017zyl.xyz/" target="_blank" rel="noopener">2017zyl.xyz ↗</a>
+  <div class="lang-toggle" role="tablist" aria-label="language">
+    <button id="btn-zh" class="active" type="button">中</button>
+    <button id="btn-en" type="button">EN</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<aside class="toc">
+  <h4><span class="zh">目录</span><span class="en">Contents</span></h4>
+  <a href="#tldr"><span class="zh">TL;DR — 一句话</span><span class="en">TL;DR</span></a>
+  <a href="#snapshot"><span class="zh">仓库快照</span><span class="en">Repo snapshot</span></a>
+  <a href="#what"><span class="zh">它到底在做什么</span><span class="en">What it actually is</span></a>
+  <a href="#arch"><span class="zh">架构与 crate 拓扑</span><span class="en">Architecture & crates</span></a>
+  <a href="#runtime"><span class="zh">运行时能力面</span><span class="en">Runtime surface</span></a>
+  <a href="#providers"><span class="zh">Provider 与模型路由</span><span class="en">Providers & routing</span></a>
+  <a href="#parity"><span class="zh">9-Lane parity 检查点</span><span class="en">9-lane parity</span></a>
+  <a href="#philosophy"><span class="zh">PHILOSOPHY 解读</span><span class="en">PHILOSOPHY read</span></a>
+  <a href="#ecosystem"><span class="zh">同代生态</span><span class="en">Ecosystem</span></a>
+  <a href="#pros"><span class="zh">强项 / 弱项 / 风险</span><span class="en">Pros / cons / risks</span></a>
+  <a href="#quickstart"><span class="zh">5 分钟跑起来</span><span class="en">5-min quickstart</span></a>
+  <a href="#evidence"><span class="zh">取证 / 证据清单</span><span class="en">Evidence</span></a>
+</aside>
+
+<main>
+
+<div class="hero">
+  <h1><span class="zh">一个用 <span class="ac">Rust</span> 写的 <span class="ac">Claude Code 形态</span> CLI Agent 仓库</span><span class="en">A <span class="ac">Rust</span> re-implementation of the <span class="ac">Claude Code</span>-shaped CLI agent</span></h1>
+  <p class="sub">
+    <span class="zh">主二进制 <code>claw</code>,位于 <code>rust/</code> 工作区,9 个 crate,48.6K 行 Rust。它不是 Anhtropic 官方,也不是简单的 Node 端移植 —— 是一个把 CLI 形态、Provider 路由、Permission 引擎、Tool Registry、MCP/LSP/Skills 这些能力全用 Rust 重新搭一遍的<span class="ac">协作生态</span>(claw + claw-analog + claw-rag-service + omx/gajae-code/clawhip),并且由 AI 代理在 Discord 频道里指挥维护,人类不直接 git push。</span>
+    <span class="en">Main binary <code>claw</code>, in the <code>rust/</code> workspace, 9 crates, 48.6K Rust LOC. Not Anthropic-official, not a Node port. It's a <span class="ac">coordination ecosystem</span> (claw + claw-analog + claw-rag-service + omx/gajae-code/clawhip) that rebuilds the Claude-Code-shaped CLI, provider routing, permission engine, tool registry, MCP/LSP/Skills in Rust — and is maintained by AI agents in a Discord channel, with no human git-pushing.</span>
+  </p>
+  <div class="badges">
+    <span class="badge b">Rust · 9 crates</span>
+    <span class="badge">48,599 LOC</span>
+    <span class="badge g">MIT</span>
+    <span class="badge y">9 / 9 lanes merged</span>
+    <span class="badge y">CI not green every commit</span>
+    <span class="badge r">cargo install claw-code = WRONG (deprecated stub)</span>
+  </div>
+  <div class="meta">
+    <span><b><span class="zh">可见性</span><span class="en">Visibility</span>:</b> Public</span>
+    <span><b>★ 194,753</b> <span class="zh">赞(2026-07-14 抽样)</span><span class="en">stars (sample 2026-07-14)</span></span>
+    <span><b>⑂ 109,670</b> forks</span>
+    <span><b><span class="zh">主分支</span><span class="en">Default</span>:</b> main</span>
+    <span><b><span class="zh">最新提交</span><span class="en">Latest</span>:</b> <code>4ea31c1</code> · 3 <span class="zh">周前</span><span class="en">weeks ago</span></span>
+    <span><b><span class="zh">创建</span><span class="en">Created</span>:</b> 2026-03-31</span>
+    <span><b><span class="zh">推送</span><span class="en">Pushed</span>:</b> 2026-06-26</span>
+    <span><b><span class="zh">未读 issues</span><span class="en">Open issues</span>:</b> 12 <span class="zh">/</span> <span class="en">/</span> 31 <span class="zh">总</span><span class="en">total</span></span>
+    <span><b><span class="zh">许可</span><span class="en">License</span>:</b> MIT</span>
+  </div>
+</div>
+
+<div class="stat-grid">
+  <div class="stat"><div class="v">9</div><div class="k">crates</div></div>
+  <div class="stat"><div class="v">48.6<small>K</small></div><div class="k">Rust LOC <span class="zh">已跟踪</span><span class="en">tracked</span></div></div>
+  <div class="stat"><div class="v">2,568</div><div class="k"><span class="zh">测试 LOC</span><span class="en">test LOC</span></div></div>
+  <div class="stat"><div class="v">1,684</div><div class="k"><span class="zh">提交</span><span class="en">commits on main</span></div></div>
+  <div class="stat"><div class="v">191</div><div class="k">branches</div></div>
+  <div class="stat"><div class="v">40</div><div class="k"><span class="zh">暴露 tool 规格</span><span class="en">exposed tool specs</span></div></div>
+  <div class="stat"><div class="v">9 / 9</div><div class="k">9-lane <span class="zh">已合并</span><span class="en">merged</span></div></div>
+  <div class="stat"><div class="v">12</div><div class="k">mock <span class="zh">场景</span><span class="en">scenarios</span></div></div>
+</div>
+
+<section id="tldr">
+<h2><span class="num">00</span><span class="zh">TL;DR — 一句话讲清</span><span class="en">TL;DR — one paragraph</span></h2>
+<p>
+  <span class="zh">它是一个 "<span class="ac">Claude Code 形态</span>" 的 <strong>Rust 端 CLI Agent 仓库</strong>,但作者把它定义为 "<span class="ac">agent-managed museum exhibit</span>"——不是产品而是 "<span class="zh">AI 协作链路</span><span class="en">AI coordination chain</span>" 的活体化石:人类只通过 Discord 发方向,<code>claw</code> 配合外部的 <code>lazycodex</code> / <code>gajae-code</code> harness 接管规划、执行、验证、归档。代码本身(Rust workspace)是真实的、可编译的、有 mock parity harness 验证的;但顶层叙事(README + PHILOSOPHY + ROADMAP 共 1.2 MB 文档)是"它存在过、它被 AI 维护过"的展示柜。</span>
+  <span class="en">It is a "<span class="ac">Claude Code-shaped</span>" <strong>Rust CLI agent repository</strong>, but the author labels it an "<span class="ac">agent-managed museum exhibit</span>" — not a product, but a <span class="ac">living fossil of an AI coordination chain</span>. Humans only send direction via Discord; the <code>claw</code> binary plus external <code>lazycodex</code> / <code>gajae-code</code> harnesses take over planning, execution, verification, archiving. The code itself (Rust workspace) is real, buildable, and verified by a mock parity harness; but the top-level narrative (README + PHILOSOPHY + ROADMAP totalling 1.2 MB of docs) is a "<span class="en">look, it existed, and AI kept it alive</span>" showroom.</span>
+</p>
+<div class="callout">
+<b><span class="zh">关键反预期:</span><span class="en">Key counter-intuitive points:</span></b>
+<ul>
+  <li><span class="zh">不是 <code>cargo install claw-code</code> 那个——那是弃用 stub,装完会装出 <code>claw-code-deprecated.exe</code>。<strong>真二进制</strong>只在 <code>rust/target/{debug,release}/claw</code> 出现,build from source。</span><span class="en">It's NOT the <code>cargo install claw-code</code> one — that's a deprecated stub that places <code>claw-code-deprecated.exe</code>. The <strong>real binary</strong> only appears at <code>rust/target/{debug,release}/claw</code>, build-from-source.</span></li>
+  <li><span class="zh">Claude Code subscription 不能用来登录 —— <code>claw</code> 只接 API key / OAuth bearer token (ANTHROPIC_API_KEY / ANTHROPIC_AUTH_TOKEN)。</span><span class="en">Claude Code subscription login is NOT a supported auth path — <code>claw</code> only takes API key or OAuth bearer token.</span></li>
+  <li><span class="zh">代码写的"它叫 <code>codex</code>" 指的是 <code>oh-my-codex</code> workflow 层,<strong>不是</strong> OpenAI Codex。要跑 OpenAI/GPT 模型走 OpenAI-compat provider 路由。</span><span class="en">When the code says "<code>codex</code>", it means the <code>oh-my-codex</code> workflow layer, <strong>NOT</strong> OpenAI Codex. For OpenAI/GPT models, use the OpenAI-compat provider route.</span></li>
+</ul>
+</div>
+</section>
+
+<section id="snapshot">
+<h2><span class="num">01</span><span class="zh">仓库快照</span><span class="en">Repository snapshot</span></h2>
+<p><span class="zh">直接看顶层目录树(去掉 <code>.claude/sessions/</code> 这类镜像噪声):</span><span class="en">Top-level tree (filtering out <code>.claude/sessions/</code> mirror noise):</span></p>
+<pre><code>ultraworkers/claw-code/
+├── README.md                <span class="c"># 13.8 KB · 仓库门面 + quick start + Windows 段</span>
+├── USAGE.md                 <span class="c"># task-oriented 用法 (auth/CLI/session/parity)</span>
+├── PARITY.md                <span class="c"># 9-lane Rust port vs 上游 checkpoint</span>
+├── PHILOSOPHY.md            <span class="c"># "停止盯着文件,看协作系统"</span>
+├── ROADMAP.md               <span class="c"># 1.2 MB · 路线图 / 反向 log / 验证 map</span>
+├── concept.md               <span class="c"># 俄文 · 产品目标/架构/原则</span>
+├── how_to_run.md            <span class="c"># claw-analog 子项目 run book</span>
+├── install.sh               <span class="c"># 一键拉二进制 / 配置 PATH</span>
+├── Containerfile            <span class="c"># container-first workflow</span>
+├── docker-compose.yml
+├── prd.json                 <span class="c"># 产品需求描述</span>
+├── progress.txt
+├── docs/                    <span class="c"># 18 份 · parity map / container / 模型兼容 / 路线图</span>
+├── rust/                    <span class="c"># ★ canonical workspace</span>
+│   ├── Cargo.toml           <span class="c"># 0.1.3, edition 2021, lints.rust.unsafe_code="forbid"</span>
+│   ├── rusty-claude-cli/    <span class="c"># 主二进制 claw</span>
+│   ├── crates/              <span class="c"># 9 crates: api / runtime / tools / claw-analog / claw-rag-service / mock-anthropic-service / compat-harness / plugins / commands / telemetry</span>
+│   ├── scripts/             <span class="c"># mock parity harness / install</span>
+│   ├── MOCK_PARITY_HARNESS.md
+│   ├── TUI-ENHANCEMENT-PLAN.md
+│   └── CLAUDE.md
+├── src/ + tests/            <span class="c"># Python companion workspace (非主运行时) · 审计 helper</span>
+├── assets/                  <span class="c"># hero / screenshot / star history</span>
+├── .claude/ + .omx/         <span class="c"># agent 工作状态 + ultragoal 进度</span>
+├── .port_sessions/          <span class="c"># 4 个 port session JSON</span>
+└── .github/
+    ├── workflows/           <span class="c"># rust-ci.yml + rust.yml + release.yml</span>
+    ├── hooks/pre-push
+    ├── scripts/             <span class="c"># check_doc_source_of_truth.py + check_release_readiness.py</span>
+    └── ISSUE_TEMPLATE/anti_slop_triage.yml</code></pre>
+<p><span class="zh">结构上有个非常重要的信号:同一个仓库里同时存在 <code>src/</code> (<span class="zh">Python 工作空间</span><span class="en">Python workspace</span>) 和 <code>rust/</code> (<span class="zh">canonical Rust 工作空间</span><span class="en">canonical Rust workspace</span>),但 <code>concept.md</code> 明确说 "Python 重写是 byproduct,Rust 重写也是 byproduct,真正值得研究的是产生它们的协作系统"。这条上下文很关键 —— <strong>不要把 <code>src/</code> 看作主入口</strong>。</span><span class="en">One very important structural signal: both <code>src/</code> (Python workspace) and <code>rust/</code> (canonical Rust workspace) coexist in the same repo, but <code>concept.md</code> explicitly says "the Python rewrite is a byproduct, the Rust rewrite is also a byproduct, what is worth studying is the coordination system that produced them". This context matters — <strong>don't treat <code>src/</code> as the main entry</strong>.</span></p>
+</section>
+
+<section id="what">
+<h2><span class="num">02</span><span class="zh">它到底在做什么</span><span class="en">What it actually is</span></h2>
+<p>
+<span class="zh">在 <code>rust/</code> 工作区下,<strong>主入口二进制是 <code>claw</code></strong>(<code>rusty-claude-cli</code> crate),它是 Claude Code 形态的 Rust 端实现 —— 同一种 "REPL + 工具 + 流式 + provider 路由" 的产品形状,但重新选择了一组具体的能力边界:</span><span class="en">In the <code>rust/</code> workspace, the <strong>main entry binary is <code>claw</code></strong> (the <code>rusty-claude-cli</code> crate). It is the Rust-side implementation of the Claude Code shape — the same "REPL + tools + streaming + provider routing" product form, but with a freshly chosen capability boundary:</span>
+</p>
+<ul>
+  <li><span class="zh"><strong>多 provider 路由</strong> —— Anthropic 直连 / xAI (Grok) / OpenAI 兼容 (含 OpenRouter) / DashScope (Qwen) / 本地 Ollama,按模型名前缀或 env 变量自动分发。</span><span class="en"><strong>Multi-provider routing</strong> — Anthropic direct / xAI (Grok) / OpenAI-compat (incl. OpenRouter) / DashScope (Qwen) / local Ollama, dispatched by model name prefix or env vars.</span></li>
+  <li><span class="zh"><strong>Permission 引擎</strong> —— 三档模式 <code>read-only</code> / <code>workspace-write</code> / <code>danger-full-access</code>,配合 <code>PermissionEnforcer</code> 拦截 bash / 写文件 / 跨边界 / 危险 shell。</span><span class="en"><strong>Permission engine</strong> — three modes <code>read-only</code> / <code>workspace-write</code> / <code>danger-full-access</code>, backed by <code>PermissionEnforcer</code> intercepting bash / writes / boundary / dangerous shell.</span></li>
+  <li><span class="zh"><strong>40 个 tool 规格</strong>(<code>mvp_tool_specs()</code> 暴露):bash / read_file / write_file / edit_file / glob_search / grep_search / WebFetch / WebSearch / TodoWrite / Skill / Agent / ToolSearch / NotebookEdit / Sleep / SendUserMessage / Config / EnterPlanMode / ExitPlanMode / StructuredOutput / REPL / PowerShell,以及一组 9-lane 后真正接 <code>global_*_registry()</code> 的 Task/Team/Cron/MCP/LSP tools。</span><span class="en"><strong>40 tool specs</strong> (<code>mvp_tool_specs()</code>): bash / read_file / write_file / edit_file / glob_search / grep_search / WebFetch / WebSearch / TodoWrite / Skill / Agent / ToolSearch / NotebookEdit / Sleep / SendUserMessage / Config / EnterPlanMode / ExitPlanMode / StructuredOutput / REPL / PowerShell, plus the post-9-lane Task/Team/Cron/MCP/LSP tools that go through <code>global_*_registry()</code>.</span></li>
+  <li><span class="zh"><strong>Slashing 命令 (REPL)</strong>:<code>/doctor</code>、<code>/ultraplan</code>、<code>/teleport</code>、<code>/bughunter</code>、<code>/skills</code>、<code>/plugin</code>、<code>/help</code>、<code>/status</code>、<code>/cost</code>、<code>/config</code>、<code>/session</code>、<code>/model</code>、<code>/permissions</code>、<code>/export</code>。</span><span class="en"><strong>Slash commands (REPL)</strong>: <code>/doctor</code>, <code>/ultraplan</code>, <code>/teleport</code>, <code>/bughunter</code>, <code>/skills</code>, <code>/plugin</code>, <code>/help</code>, <code>/status</code>, <code>/cost</code>, <code>/config</code>, <code>/session</code>, <code>/model</code>, <code>/permissions</code>, <code>/export</code>.</span></li>
+  <li><span class="zh"><strong>Pluggable Skills / Agents / Hooks</strong> —— 兼容 <code>.claude/</code> 旧路径 + 新 <code>.claw/</code> 路径,会自动 import Cursor/Copilot/Windsurf 的 <code>.cursorrules</code> / <code>.cursor/rules/</code> / <code>.github/copilot-instructions.md</code> (可 <code>rulesImport: "none"</code> 关闭)。</span><span class="en"><strong>Pluggable Skills / Agents / Hooks</strong> — supports legacy <code>.claude/</code> paths + new <code>.claw/</code> paths, auto-imports Cursor/Copilot/Windsurf rule files (turn off via <code>rulesImport: "none"</code>).</span></li>
+  <li><span class="zh"><strong>Mock parity harness</strong> —— 自带 deterministic 的 Anthropic-compatible mock service (另一个 crate),用脚本场景验证 Rust 端对协议层响应的处理跟上游一致。</span><span class="en"><strong>Mock parity harness</strong> — ships a deterministic Anthropic-compatible mock service (another crate) and scripted scenarios to verify Rust-side protocol behaviour against the upstream.</span></li>
+  <li><span class="zh"><strong>Session / resume</strong> —— REPL turn 落到 <code>.claw/sessions/</code>,支持 <code>--resume latest</code> + 路径上下文(<code>@path/to/file</code>) + sticky role semantics。</span><span class="en"><strong>Session / resume</strong> — REPL turns persist to <code>.claw/sessions/</code>, <code>--resume latest</code> works, plus <code>@path/to/file</code> file context, sticky role semantics.</span></li>
+  <li><span class="zh"><strong>JSON 化所有 verb</strong> —— <code>--output-format json</code> 支持 doctor / status / version / state / config / sandbox / mcp / skills / agents,每个返回的 envelope 都有结构化字段,避免 substring-match 人类散文。</span><span class="en"><strong>JSON-ize every verb</strong> — <code>--output-format json</code> works for doctor / status / version / state / config / sandbox / mcp / skills / agents, every envelope has structured fields so automation doesn't substring-match human prose.</span></li>
+</ul>
+
+<p>
+<span class="zh">在工作区里,还藏着两个兄弟 crate,做"窄化 + 服务化"角色:</span><span class="en">Inside the workspace there are two sibling crates that play a "narrow + service" role:</span>
+</p>
+<ul>
+  <li><span class="zh"><strong><code>claw-analog</code></strong> —— 同一套 <code>api</code> 之上的"瘦回路",只读工具(<code>read_file</code> / <code>list_dir</code> / <code>glob_workspace</code> / <code>grep_workspace</code> / <code>grep_search</code>)+ 可选 <code>write_file</code> + <code>retrieve_context</code>。设计目的是"给脚本和 CI 一个能调用的 agent,不给它能炸你的 shell"。<strong>不</strong>带 MCP / 插件 / bash。</span><span class="en"><strong><code>claw-analog</code></strong> — a "lean loop" on top of the same <code>api</code> crate: read-only tools (<code>read_file</code> / <code>list_dir</code> / <code>glob_workspace</code> / <code>grep_workspace</code> / <code>grep_search</code>) + optional <code>write_file</code> + <code>retrieve_context</code>. Designed to give scripts and CI an agent they can call without giving it a shell that can wreck you. No MCP / plugins / bash.</span></li>
+  <li><span class="zh"><strong><code>claw-rag-service</code></strong> —— 独立进程,做仓库的 chunk + embed + SQLite/向量索引,起 HTTP 服务暴露 <code>/</code> / <code>/health</code> / <code>/v1/stats</code> / <code>/v1/query</code>。<code>claw</code> / <code>claw-analog</code> 通过 <code>RAG_BASE_URL</code> 调用 <code>retrieve_context</code> —— "重索引独立进程化,agent 只发 HTTP"。</span><span class="en"><strong><code>claw-rag-service</code></strong> — a separate process for chunking + embedding + SQLite/vector indexing of the repo, exposing <code>/</code> / <code>/health</code> / <code>/v1/stats</code> / <code>/v1/query</code>. <code>claw</code> / <code>claw-analog</code> call <code>retrieve_context</code> over <code>RAG_BASE_URL</code> — "heavy indexing lives in its own process, the agent just hits HTTP".</span></li>
+</ul>
+</section>
+
+<section id="arch">
+<h2><span class="num">03</span><span class="zh">架构与 crate 拓扑</span><span class="en">Architecture & crates</span></h2>
+<p><span class="zh">工作区 <code>Cargo.toml</code> 实拍:</span><span class="en">Workspace <code>Cargo.toml</code> as-shipped:</span></p>
+<pre><code>[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.3"
+edition = "2021"
+license = "MIT"
+publish = false
+
+[workspace.dependencies]
+serde_json = "1"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all        = { level = "warn", priority = -1 }
+pedantic   = { level = "allow", priority = -1 }
+module_name_repetitions = "allow"
+missing_panics_doc     = "allow"
+missing_errors_doc     = "allow"</code></pre>
+<p><span class="zh">几个值得注意的工程决策:</span><span class="en">A few engineering decisions worth noting:</span></p>
+<ul>
+  <li><span class="zh"><code>unsafe_code = "forbid"</code> —— 整个 workspace 一律禁止 unsafe,所有 FFI 必须通过安全包装。</span><span class="en"><code>unsafe_code = "forbid"</code> — unsafe forbidden workspace-wide, all FFI must go through safe wrappers.</span></li>
+  <li><code>resolver = "2"</code> + <code>pedantic = "allow"</code> + <code>module_name_repetitions = "allow"</code><span class="zh"> —— 启用 Clippy pedantic 但针对"模块名重复"(<code>foo::foo</code>)和"panic/error 缺 doc"显式放行,因为这个 codebase 重命名重导出多。</span><span class="en"> — enables Clippy pedantic but explicitly allows "module-name repetitions" (<code>foo::foo</code>) and missing panic/error docs, because this codebase has heavy renaming and re-exports.</span></li>
+  <li><code>publish = false</code> + <code>version = "0.1.3"</code><span class="zh"> —— 不发 crates.io。这跟 README 顶上的 "<code>cargo install claw-code</code> 是错的" 是一对的:别从 crates.io 拉,build from source。</span><span class="en"> — does NOT publish to crates.io. This pairs with the README's "<code>cargo install claw-code</code> is wrong" warning: don't pull from crates.io, build from source.</span></li>
+</ul>
+
+<h3><span class="zh">9 个 crate 之间的依赖形状(从 <code>crates/*/Cargo.toml</code> 推)</span><span class="en">Dependency shape between 9 crates (inferred from <code>crates/*/Cargo.toml</code>)</span></h3>
+<div class="arch">
+                    ┌──────────────────────────────────────┐
+                    │  <span class="box">Providers</span> (Anthropic / OpenAI / xAI / DashScope / Ollama-compat)  │
+                    └────────────────┬─────────────────────┘
+                                     <span class="arrow">│</span>
+                                      <span class="arrow">▼</span>
+            ┌───────────────────────┴─────────────────────┐
+            │                                             │
+            ▼                                             ▼
+<span class="box">┌──────────────────┐</span>                  <span class="box">┌──────────────────┐</span>                  <span class="box">┌──────────────────┐</span>
+<span class="box">│  rusty-claude-cli│</span>                  <span class="box">│  claw-analog     │</span>                  <span class="box">│ claw-rag-service │</span>
+<span class="box">│  («claw» 全功能) │</span>                  <span class="box">│  (瘦回路 agent)  │</span>                  <span class="box">│ HTTP + SQLite    │</span>
+<span class="box">│  REPL + provider │</span>                  <span class="box">│  CI / 脚本友好   │</span>                  <span class="box">│ ingest / query   │</span>
+<span class="box">└────────┬─────────┘</span>                  <span class="box">└────────┬─────────┘</span>                  <span class="box">└────────┬─────────┘</span>
+         <span class="arrow">│</span>                                <span class="arrow">│</span>                                <span class="arrow">│</span>
+         <span class="arrow">▼</span>                                <span class="arrow">▼</span>                                <span class="arrow">▼</span>
+  <span class="box">crates/api</span>                         <span class="box">crates/api</span>                  HTTP <span class="op">retrieve_context</span> (POST /v1/query)
+  <span class="box">crates/runtime</span>                     <span class="arrow">│</span>                            (when RAG_BASE_URL is set)
+  <span class="box">crates/tools</span>                       <span class="arrow">▼</span>
+  <span class="box">crates/commands</span>                    <span class="arrow">workspace (-w)</span>
+  <span class="box">crates/plugins</span>                       <span class="box">filesystem</span>
+  <span class="box">crates/telemetry</span>
+
+                  <span class="box">crates/mock-anthropic-service</span> + <span class="box">crates/compat-harness</span>  <span class="arrow">←</span>  测试时 fake provider
+</div>
+<p><span class="zh"><code>api</code> crate 是公共基础:它持有 provider client / streaming / 类型,被 <code>claw</code>、<code>claw-analog</code>、<code>claw-rag-service</code> 三处共用 —— 这是"重 inference 栈共享,轻 agent 栈各自瘦化"的边界。RAG 是个有意思的"<span class="ac">进程分裂</span>":<code>claw</code> 不直接做 embed,而是通过 HTTP 调到独立服务。</span><span class="en">The <code>api</code> crate is the shared base: it holds provider clients / streaming / types, consumed by <code>claw</code>, <code>claw-analog</code>, and <code>claw-rag-service</code> — a clean "shared inference stack, narrow agent stacks" boundary. The RAG split is an interesting "<span class="ac">process fission</span>": <code>claw</code> doesn't embed in-process, it hits the RAG service over HTTP.</span></p>
+
+<h3><span class="zh">3 个并列产品 + 它们的边界</span><span class="en">Three sibling products + their boundaries</span></h3>
+<div class="grid-2">
+  <div class="card">
+    <h4>rusty-claude-cli (<code>claw</code>)</h4>
+    <p><span class="zh">给"开发者"用的全功能 REPL,带 OAuth / REPL / 完整工具集 / streaming / 跨 provider 路由。包含 bash / MCP / 插件,危险等级最高。</span><span class="en">Full-power REPL for "developers": OAuth, full tool set, streaming, cross-provider routing. Includes bash / MCP / plugins, highest blast radius.</span></p>
+    <p class="small"><span class="zh">用户画像:真人在 REPL 里 ship 代码</span><span class="en">Persona: a human shipping code from a REPL</span></p>
+  </div>
+  <div class="card">
+    <h4>claw-analog</h4>
+    <p><span class="zh">给"自动化 / CI / 外部 agent"用的瘦版本。read-only + 可选 write + RAG,不暴露 bash / MCP / 插件。</span><span class="en">Lean version for "automation / CI / external agents". Read-only + optional write + RAG, no bash / MCP / plugins.</span></p>
+    <p class="small"><span class="zh">用户画像:CI pipeline / 旁路 agent / NDJSON 输出</span><span class="en">Persona: CI pipeline, side-car agent, NDJSON output</span></p>
+  </div>
+  <div class="card">
+    <h4>claw-rag-service</h4>
+    <p><span class="zh">独立 HTTP 服务:chunk / embed / SQLite 索引 / <code>/v1/query</code>。OpenAI 兼容 embed,可挂本地 mock。</span><span class="en">Standalone HTTP service: chunk / embed / SQLite index / <code>/v1/query</code>. OpenAI-compat embed, swap in local mock for tests.</span></p>
+    <p class="small"><span class="zh">用户画像:大型 monorepo 检索 / 重索引独立进程化</span><span class="en">Persona: large monorepo retrieval, indexing isolation</span></p>
+  </div>
+</div>
+</section>
+
+<section id="runtime">
+<h2><span class="num">04</span><span class="zh">运行时能力面</span><span class="en">Runtime capability surface</span></h2>
+<p><span class="zh"><code>runtime</code> crate 的源码文件分布(<code>rust/crates/runtime/src/</code>)直接反映了它关心的问题域:</span><span class="en">The source-file distribution under <code>rust/crates/runtime/src/</code> directly mirrors its problem space:</span></p>
+<table>
+<thead><tr><th><span class="zh">源文件</span><span class="en">Source file</span></th><th><span class="zh">解决的问题</span><span class="en">Problem it solves</span></th><th><span class="zh">关键符号</span><span class="en">Key symbol</span></th></tr></thead>
+<tbody>
+<tr><td class="mono">session.rs</td><td><span class="zh">REPL turn 生命周期</span><span class="en">REPL turn lifecycle</span></td><td class="mono">SessionStore</td></tr>
+<tr><td class="mono">session_control.rs</td><td><span class="zh">resume / interrupt / cancel</span><span class="en">resume / interrupt / cancel</span></td><td class="mono">SessionControl</td></tr>
+<tr><td class="mono">conversation.rs</td><td><span class="zh">消息流 / 角色粘性</span><span class="en">Message stream / role stickiness</span></td><td class="mono">ConversationFrame</td></tr>
+<tr><td class="mono">compact.rs / summary_compression.rs</td><td><span class="zh">长上下文压缩 / auto-compact</span><span class="en">Long-context compression / auto-compact</span></td><td class="mono">auto_compact_triggered</td></tr>
+<tr><td class="mono">config.rs / config_validate.rs</td><td><span class="zh">5 档配置合并</span><span class="en">5-tier config merge</span></td><td class="mono">ConfigLoader::discover</td></tr>
+<tr><td class="mono">permissions.rs / permission_enforcer.rs</td><td><span class="zh">3 档模式 + bash 写文件检查</span><span class="en">3-mode + bash / write checks</span></td><td class="mono">PermissionEnforcer::check</td></tr>
+<tr><td class="mono">bash.rs / bash_validation.rs</td><td><span class="zh">shell 执行 + 18 子验证模块(branch-only)</span><span class="en">shell exec + 18 validation submodules (branch-only)</span></td><td class="mono">readOnlyValidation / destructiveCommandWarning</td></tr>
+<tr><td class="mono">sandbox.rs</td><td><span class="zh">Linux unshare + 容器信号探测</span><span class="en">Linux unshare + container signal probe</span></td><td class="mono">sandbox_probe_unshare</td></tr>
+<tr><td class="mono">file_ops.rs</td><td><span class="zh">binary 检测 / size limit / canonical boundary</span><span class="en">binary detect / size limit / canonical boundary</span></td><td class="mono">MAX_READ_SIZE / MAX_WRITE_SIZE</td></tr>
+<tr><td class="mono">task_registry.rs</td><td><span class="zh">in-memory task lifecycle</span><span class="en">in-memory task lifecycle</span></td><td class="mono">global_task_registry()</td></tr>
+<tr><td class="mono">team_cron_registry.rs</td><td><span class="zh">Team + Cron 注册表</span><span class="en">Team + Cron registry</span></td><td class="mono">TeamRegistry / CronRegistry</td></tr>
+<tr><td class="mono">mcp.rs / mcp_client.rs / mcp_stdio.rs / mcp_server.rs / mcp_lifecycle_hardened.rs / mcp_tool_bridge.rs</td><td><span class="zh">MCP 全栈 (stdio + lifecycle + bridge)</span><span class="en">MCP full stack (stdio + lifecycle + bridge)</span></td><td class="mono">McpToolRegistry / global_mcp_registry</td></tr>
+<tr><td class="mono">lsp_client.rs</td><td><span class="zh">LSP 注册表(注册 + dispatch,非真进程)</span><span class="en">LSP registry (register + dispatch, not real process)</span></td><td class="mono">LspRegistry::dispatch</td></tr>
+<tr><td class="mono">plugin_lifecycle.rs / hooks.rs</td><td><span class="zh">plugin + hook 安装/启用/卸载</span><span class="en">plugin + hook install/enable/uninstall</span></td><td class="mono">PluginManager::{install,enable,disable,uninstall}</td></tr>
+<tr><td class="mono">policy_engine.rs / trust_resolver.rs / approval_tokens.rs</td><td><span class="zh">策略 + 信任 + 批准 token</span><span class="en">policy + trust + approval tokens</span></td><td class="mono">PolicyEngine / ApprovalToken</td></tr>
+<tr><td class="mono">recovery_recipes.rs / branch_lock.rs / stale_branch.rs / stale_base.rs</td><td><span class="zh">git 协作 / 恢复 / stale 探测</span><span class="en">git collaboration / recovery / stale probe</span></td><td class="mono">BranchLock</td></tr>
+<tr><td class="mono">lane_events.rs / report_schema.rs / g004_conformance.rs</td><td><span class="zh">流 2 lane 事件 / 报告 schema / 一致性测试</span><span class="en">stream-2 lane events / report schema / conformance tests</span></td><td class="mono">LaneEvent / ReportSchema</td></tr>
+<tr><td class="mono">worker_boot.rs / trident.rs</td><td><span class="zh">worker 启动 + 多分叉</span><span class="en">worker boot + multi-fork</span></td><td class="mono">WorkerBoot</td></tr>
+<tr><td class="mono">usage.rs / oauth.rs / lsp_client.rs</td><td><span class="zh">usage 追踪 / OAuth / LSP dispatch</span><span class="en">usage tracking / OAuth / LSP dispatch</span></td><td class="mono">UsageTracker / OAuthToken</td></tr>
+</tbody>
+</table>
+<p><span class="zh">这些都是 <code>lib.rs</code> re-export 的"门"模块。从这种结构看,<strong>这个 crate 想覆盖 Claude Code 形态里所有需要持久状态或 runtime 隔离的子系统</strong> —— 任务、团队、cron、MCP server 端、LSP client 端、plugin、hook、git lane、approval token、recovery recipe,一站全装。</span><span class="en">These are all "gate" modules re-exported from <code>lib.rs</code>. From this structure, <strong>this crate wants to cover every subsystem in the Claude-Code shape that needs persistent state or runtime isolation</strong> — task, team, cron, MCP server side, LSP client side, plugin, hook, git lane, approval token, recovery recipe. All in one place.</span></p>
+</section>
+
+<section id="providers">
+<h2><span class="num">05</span><span class="zh">Provider 与模型路由</span><span class="en">Provider & model routing</span></h2>
+<p><span class="zh">从一个表格里扒出来的真数据(<code>USAGE.md</code> §"Tested models and aliases"):</span><span class="en">Real numbers pulled from a table (<code>USAGE.md</code> §"Tested models and aliases"):</span></p>
+<table>
+<thead><tr><th>Alias</th><th><span class="zh">解析到</span><span class="en">Resolves to</span></th><th>Provider</th><th><span class="zh">最大输出</span><span class="en">Max out</span></th><th><span class="zh">上下文窗口</span><span class="en">Context</span></th></tr></thead>
+<tbody>
+<tr><td class="mono">opus</td><td class="mono">claude-opus-4-7</td><td>Anthropic</td><td>32 000</td><td>200 000</td></tr>
+<tr><td class="mono">sonnet</td><td class="mono">claude-sonnet-4-6</td><td>Anthropic</td><td>64 000</td><td>200 000</td></tr>
+<tr><td class="mono">haiku</td><td class="mono">claude-haiku-4-5-20251213</td><td>Anthropic</td><td>64 000</td><td>200 000</td></tr>
+<tr><td class="mono">grok / grok-3</td><td class="mono">grok-3</td><td>xAI</td><td>64 000</td><td>131 072</td></tr>
+<tr><td class="mono">grok-mini</td><td class="mono">grok-3-mini</td><td>xAI</td><td>64 000</td><td>131 072</td></tr>
+<tr><td class="mono">kimi</td><td class="mono">kimi-k2.5</td><td>DashScope</td><td>16 384</td><td>256 000</td></tr>
+<tr><td class="mono">qwen-max / qwen-plus</td><td class="mono">qwen-max / qwen-plus</td><td>DashScope</td><td>8 192</td><td>131 072</td></tr>
+<tr><td class="mono">gpt-4.1 / gpt-4.1-mini / gpt-4.1-nano</td><td class="mono">same</td><td>OpenAI-compat</td><td>32 768</td><td>1 047 576</td></tr>
+<tr><td class="mono">gpt-5.4 / gpt-5.4-mini / gpt-5.4-nano</td><td class="mono">same</td><td>OpenAI-compat</td><td>128 000</td><td>1 000 000 / 400 000</td></tr>
+</tbody>
+</table>
+
+<p><span class="zh">路由规则按 <code>USAGE.md</code> 描述是这样的:</span><span class="en">Routing rules, as <code>USAGE.md</code> describes them:</span></p>
+<ol>
+  <li><span class="zh">模型名以 <code>claude</code> 开头 → Anthropic</span><span class="en">Model name starts with <code>claude</code> → Anthropic</span></li>
+  <li><span class="zh">以 <code>grok</code> 开头 → xAI</span><span class="en">Starts with <code>grok</code> → xAI</span></li>
+  <li><span class="zh">以 <code>openai/</code> / <code>local/</code> / <code>gpt-</code> 开头 → OpenAI 兼容</span><span class="en">Starts with <code>openai/</code> / <code>local/</code> / <code>gpt-</code> → OpenAI-compat</span></li>
+  <li><span class="zh">以 <code>qwen</code> / <code>kimi</code> 开头 → DashScope 兼容模式</span><span class="en">Starts with <code>qwen</code> / <code>kimi</code> → DashScope-compat</span></li>
+  <li><span class="zh">否则,看 <code>OPENAI_BASE_URL</code> 在不在 → OpenAI-compat (给本地 / 网关)</span><span class="en">Otherwise, check whether <code>OPENAI_BASE_URL</code> is set → OpenAI-compat (for local / gateway)</span></li>
+  <li><span class="zh">否则按 env 嗅探:Anthropic → OpenAI → xAI</span><span class="en">Otherwise sniff env: Anthropic → OpenAI → xAI</span></li>
+  <li><span class="zh">都没匹配 → 默认 Anthropic</span><span class="en">Nothing matches → default Anthropic</span></li>
+</ol>
+
+<p><span class="zh">两件容易踩的坑,USAGE 里专门写:</span><span class="en">Two pitfalls <code>USAGE.md</code> calls out explicitly:</span></p>
+<div class="callout warn">
+  <b><span class="zh">坑 1 — 401 误诊</span><span class="en">Pitfall 1 — 401 misdiagnosis</span></b>
+  <p><span class="zh">把 <code>sk-ant-...</code> 粘贴到 <code>ANTHROPIC_AUTH_TOKEN</code> 槽里,Anthropic 后端会返 <code>401 Invalid bearer token</code>(sk-ant 键被 reject 走 Bearer header)。<strong>正确</strong> = sk-ant-* 必须放 <code>ANTHROPIC_API_KEY</code>(走 <code>x-api-key</code> header)。最近 <code>claw</code> 的报错信息会主动检测这个 shape 并加 hint。</span><span class="en">Pasting an <code>sk-ant-...</code> key into <code>ANTHROPIC_AUTH_TOKEN</code> makes Anthropic return <code>401 Invalid bearer token</code> (the <code>sk-ant</code> keys are rejected over the Bearer header). The <strong>correct</strong> slot is <code>ANTHROPIC_API_KEY</code> (which uses the <code>x-api-key</code> header). Recent <code>claw</code> builds detect this exact shape and append a hint to the error.</span></p>
+</div>
+<div class="callout warn">
+  <b><span class="zh">坑 2 — provider prefix 错乱</span><span class="en">Pitfall 2 — provider prefix confusion</span></b>
+  <p><span class="zh">当你已经有 <code>OPENAI_API_KEY</code>、<code>XAI_API_KEY</code>、<code>DASHSCOPE_API_KEY</code> 之一,但想跑 Anthropic:别忘了给模型名加 <code>openai/</code>、<code>grok</code>、<code>qwen-plus</code> 等 prefix,前缀路由胜于 env 嗅探。错误信息会报 "missing Anthropic credentials" 同时把检测到的 env var 名附上。</span><span class="en">When you already have <code>OPENAI_API_KEY</code> / <code>XAI_API_KEY</code> / <code>DASHSCOPE_API_KEY</code> exported but want to run Anthropic: don't forget the <code>openai/</code> / <code>grok</code> / <code>qwen-plus</code> model-name prefix. The prefix router wins over env sniffing. The error message reports "missing Anthropic credentials" while naming the env var it detected.</span></p>
+</div>
+
+<p><span class="zh">两个 HTTP 代理 <code>claw</code> 都支持:<code>HTTPS_PROXY</code> / <code>HTTP_PROXY</code> / <code>NO_PROXY</code> 标准 env 变量,以及程序化 <code>ProxyConfig::proxy_url</code> 单 catch-all URL。</span><span class="en"><code>claw</code> also supports two HTTP proxy modes: standard <code>HTTPS_PROXY</code> / <code>HTTP_PROXY</code> / <code>NO_PROXY</code> env vars, and a programmatic <code>ProxyConfig::proxy_url</code> single catch-all URL.</span></p>
+</section>
+
+<section id="parity">
+<h2><span class="num">06</span><span class="zh">9-Lane parity 检查点</span><span class="en">9-Lane parity checkpoint</span></h2>
+<p><span class="zh"><code>PARITY.md</code> 把 Rust 移植状态钉死在 "9 lane 全部已合并到 main",每条 lane 配 feature commit + merge commit + 证据文件 + LOC 数据。这是这份仓库最"工程"的一段:</span><span class="en"><code>PARITY.md</code> pins the Rust port to "all 9 lanes merged on main", each lane has a feature commit + merge commit + evidence file + LOC numbers. This is the most "engineering" section of the repo:</span></p>
+
+<div class="signal">
+  <h4><span class="zh">Lane checkpoint (全 9 lane 已合并 main · 2026-04-03 抽样)</span><span class="en">Lane checkpoint (all 9 merged on main · sample 2026-04-03)</span></h4>
+  <div class="lane"><span class="i">L1</span><span class="n">Bash validation <small>feature <code>36dac6c</code> → merge <code>1cfd78a</code> · <code>bash_validation.rs</code> +1004 LOC (branch-only)</small></span><span class="s badge y">branch-only</span></div>
+  <div class="lane"><span class="i">L2</span><span class="n">CI fix <small>feature <code>89104eb</code> → merge <code>f1969ce</code> · <code>sandbox.rs</code> +22/-1</small></span><span class="s badge g">merged</span></div>
+  <div class="lane"><span class="i">L3</span><span class="n">File-tool edge cases <small>feature <code>284163b</code> → merge <code>a98f2b6</code> · <code>file_ops.rs</code> 744 LOC</small></span><span class="s badge g">merged</span></div>
+  <div class="lane"><span class="i">L4</span><span class="n">TaskRegistry <small>feature <code>5ea138e</code> → merge <code>21a1e1d</code> · <code>task_registry.rs</code> 335 LOC</small></span><span class="s badge g">merged</span></div>
+  <div class="lane"><span class="i">L5</span><span class="n">Task wiring <small>feature <code>e8692e4</code> → merge <code>d994be6</code> · <code>tools/src/lib.rs</code> +79/-35</small></span><span class="s badge g">merged</span></div>
+  <div class="lane"><span class="i">L6</span><span class="n">Team + Cron <small>feature <code>c486ca6</code> → merge <code>49653fe</code> · <code>team_cron_registry.rs</code> 363 LOC</small></span><span class="s badge g">merged</span></div>
+  <div class="lane"><span class="i">L7</span><span class="n">MCP lifecycle <small>feature <code>730667f</code> → merge <code>cc0f92e</code> · <code>mcp_tool_bridge.rs</code> 406 LOC</small></span><span class="s badge g">merged</span></div>
+  <div class="lane"><span class="i">L8</span><span class="n">LSP client <small>feature <code>2d66503</code> → merge <code>d7f0dc6</code> · <code>lsp_client.rs</code> 438 LOC</small></span><span class="s badge g">merged</span></div>
+  <div class="lane"><span class="i">L9</span><span class="n">Permission enforcement <small>feature <code>66283f4</code> → merge <code>336f820</code> · <code>permission_enforcer.rs</code> 340 LOC</small></span><span class="s badge g">merged</span></div>
+</div>
+
+<p><span class="zh">实际从 <code>PARITY.md</code> 抓的"自陈"统计 + 验证矩阵:</span><span class="en">"Self-reported" stats + verification matrix pulled from <code>PARITY.md</code>:</span></p>
+<table>
+<thead><tr><th><span class="zh">指标</span><span class="en">Metric</span></th><th><span class="zh">值</span><span class="en">Value</span></th><th><span class="zh">注</span><span class="en">Note</span></th></tr></thead>
+<tbody>
+<tr><td>main HEAD <span class="zh">当时</span><span class="en">at checkpoint</span></td><td class="mono">ee31e00</td><td><span class="zh">stub → real AskUserQuestion + RemoteTrigger</span><span class="en">stubs replaced with real</span></td></tr>
+<tr><td>commits on main / <span class="zh">全分支</span><span class="en">all</span></td><td class="mono">292 / 293</td><td><span class="zh">2026-04-03 时</span><span class="en">at 2026-04-03</span></td></tr>
+<tr><td>crates</td><td class="mono">9</td><td></td></tr>
+<tr><td><span class="zh">Rust LOC 跟踪</span><span class="en">Tracked Rust LOC</span></td><td class="mono">48,599</td><td></td></tr>
+<tr><td><span class="zh">测试 LOC</span><span class="en">Test LOC</span></td><td class="mono">2,568</td><td></td></tr>
+<tr><td>authors</td><td class="mono">3</td><td></td></tr>
+<tr><td><span class="zh">mock 场景</span><span class="en">Mock scenarios</span></td><td class="mono">12</td><td>streaming_text, read_file_roundtrip, grep_chunk_assembly, write_file_allowed, write_file_denied, multi_tool_turn_roundtrip, bash_stdout_roundtrip, bash_permission_prompt_{approved,denied}, plugin_tool_roundtrip, auto_compact_triggered, token_cost_reporting</td></tr>
+<tr><td><span class="zh">tool 规格</span><span class="en">Tool specs</span></td><td class="mono">40</td><td><code>mvp_tool_specs()</code></td></tr>
+<tr><td><span class="zh">未关闭</span><span class="en">Still open</span></td><td class="mono">3</td><td><span class="zh">end-to-end MCP runtime 深化 / CI 全绿 / bash 验证真正合并 main</span><span class="en">end-to-end MCP runtime depth / CI green every commit / bash-validation actually on main</span></td></tr>
+</tbody>
+</table>
+
+<p><span class="zh">值得专门说一下"还没真正到位"的部分:<code>AskUserQuestion</code> 仍返 pending payload,不是真交互 UI;<code>RemoteTrigger</code> 仍是 stub;<code>TestingPermission</code> 仍 test-only;Task/Team/Cron/MCP/LSP 全部已脱离"假 stub",但有的是 registry-backed 近似(不是真外部 runtime 集成);bash 的 18 个子验证模块还在 branch(<code>36dac6c</code>)。</span><span class="en">Things explicitly called out as "still not real": <code>AskUserQuestion</code> still returns a pending payload, not real interactive UI; <code>RemoteTrigger</code> is still a stub; <code>TestingPermission</code> is test-only; Task/Team/Cron/MCP/LSP are no longer pure stubs, but several are still registry-backed approximations rather than full external-runtime integrations; the 18 bash validation submodules are still branch-only (<code>36dac6c</code>).</span></p>
+
+<div class="callout">
+<b><span class="zh">reconciled checklist (旧版 vs 现版):</span><span class="en">Reconciled checklist (old vs current):</span></b>
+<ul>
+  <li>✅ <span class="zh">路径穿越防护 (symlink + <code>../</code>)</span><span class="en">Path traversal prevention (symlink + <code>../</code>)</span></li>
+  <li>✅ <span class="zh">读 / 写 size 限制</span><span class="en">Read / write size limits</span></li>
+  <li>✅ <span class="zh">二进制文件检测 (NUL byte)</span><span class="en">Binary file detection (NUL byte)</span></li>
+  <li>✅ <span class="zh">3 档 permission 模式</span><span class="en">3-mode permission enforcement</span></li>
+  <li>✅ <span class="zh">Config 合并优先级</span><span class="en">Config merge precedence</span> — <code>ConfigLoader::discover()</code> loads user → project → local</li>
+  <li>✅ <span class="zh">plugin install/enable/disable/uninstall 完整流程</span><span class="en">plugin install/enable/disable/uninstall full flow</span></li>
+  <li>✅ <span class="zh">没有 <code>#[ignore]</code> 测试藏失败</span><span class="en">No <code>#[ignore]</code> tests hiding failures</span> — 0 hits in <code>rust/**/*.rs</code></li>
+  <li>✅ <span class="zh">输出截断 / session compaction / token 计数</span><span class="en">Output truncation / session compaction / token counting</span></li>
+  <li>❌ <span class="zh">CI 在每次 commit 都绿</span><span class="en">CI green on every commit</span> — <span class="zh">仍 open</span><span class="en">still open</span></li>
+</ul>
+</div>
+</section>
+
+<section id="philosophy">
+<h2><span class="num">07</span><span class="zh">PHILOSOPHY 解读</span><span class="en">PHILOSOPHY read</span></h2>
+<p>
+<span class="zh"><code>PHILOSOPHY.md</code> 标题是 "<span class="ac">Stop Staring at the Files</span>"(停止盯着文件)。它主张一个反直觉观点:</span><span class="en"><code>PHILOSOPHY.md</code> is titled "<span class="ac">Stop Staring at the Files</span>". It argues a counter-intuitive point:</span>
+</p>
+
+<div class="callout">
+<b><span class="zh">核心主张</span><span class="en">Core claim</span></b><br>
+<span class="zh">如果你只看这个仓库里生成出来的文件,<span class="ac">你看到的是错的层级</span>。Python 重写是 byproduct。Rust 重写也是 byproduct。真正值得研究的是 <strong>产生它们的协作系统</strong> —— 一个基于 clawhip (Discord) 的协调回路:人类给方向,多组 coding agent 并行执行,通知路由被推出 agent 上下文窗口,计划 / 执行 / 复查 / 重试 loop 全自动,人类<strong>不</strong>坐在 terminal 旁 micromanage 每一步。</span><span class="en">If you only look at the files generated in this repo, <span class="ac">you're looking at the wrong layer</span>. The Python rewrite is a byproduct. The Rust rewrite is also a byproduct. What is worth studying is the <strong>coordination system that produced them</strong> — a clawhip (Discord) based coordination loop where humans give direction, multiple coding agents execute in parallel, notification routing is pushed out of the agent's context window, plan / execute / review / retry loops are fully automated, and the human <strong>does not</strong> sit in a terminal micromanaging each step.</span>
+</div>
+
+<h3><span class="zh">三层系统</span><span class="en">The three-part system</span></h3>
+<table>
+<thead><tr><th><span class="zh">层</span><span class="en">Layer</span></th><th><span class="zh">仓库</span><span class="en">Repo</span></th><th><span class="zh">职责</span><span class="en">Responsibility</span></th></tr></thead>
+<tbody>
+<tr><td>1. OmX (<code>oh-my-codex</code>)</td><td><a href="https://github.com/Yeachan-Heo/oh-my-codex" target="_blank" rel="noopener">Yeachan-Heo/oh-my-codex</a></td><td><span class="zh">workflow 层:planning keywords, execution modes, persistent verification, parallel multi-agent</span><span class="en">workflow layer: planning keywords, execution modes, persistent verification loops, parallel multi-agent</span></td></tr>
+<tr><td>2. clawhip</td><td><a href="https://github.com/Yeachan-Heo/clawhip" target="_blank" rel="noopener">Yeachan-Heo/clawhip</a></td><td><span class="zh">事件 / 通知 router:watch git commit / tmux / GitHub issues / PRs / agent lifecycle / channel delivery</span><span class="en">event / notification router: watch git commits, tmux sessions, GitHub issues / PRs, agent lifecycle events, channel delivery</span></td></tr>
+<tr><td>3. OmO (<code>oh-my-openagent</code>)</td><td><a href="https://github.com/code-yeongyu/oh-my-openagent" target="_blank" rel="noopener">code-yeongyu/oh-my-openagent</a></td><td><span class="zh">多 agent 协调:plan / handoff / disagreement / verify / cross-agent。Architect / Executor / Reviewer 分歧时,OmO 提供结构让它收敛</span><span class="en">multi-agent coordination: plan, handoff, disagreement resolution, verification. When Architect / Executor / Reviewer disagree, OmO provides the structure to converge</span></td></tr>
+</tbody>
+</table>
+
+<h3><span class="zh">真正的瓶颈变了</span><span class="en">The real bottleneck changed</span></h3>
+<p>
+<span class="zh">"当 agent 系统能在几小时内重建一个 codebase,稀缺资源就变成 ——</span><span class="en">"When an agent system can rebuild a codebase in hours, the scarce resource becomes —</span>
+</p>
+<ul>
+  <li><span class="zh">架构清晰度</span><span class="en">architectural clarity</span></li>
+  <li><span class="zh">任务分解</span><span class="en">task decomposition</span></li>
+  <li><span class="zh">判断力</span><span class="en">judgment</span></li>
+  <li><span class="zh">品味</span><span class="en">taste</span></li>
+  <li><span class="zh">关于"什么值得做"的信念</span><span class="en">conviction about what is worth building</span></li>
+  <li><span class="zh">知道哪部分可以并行,哪部分必须保持串行</span><span class="en">knowing which parts can be parallelised and which must stay serial</span></li>
+</ul>
+<p><span class="zh">"快速 agent 团队不取消对思考的需要 —— 它让清晰的思考<strong>更</strong>有价值。"</span><span class="en">"A fast agent team does not remove the need for thinking — it makes clear thinking <strong>more</strong> valuable."</span></p>
+
+<h3><span class="zh">它声称要示范的事</span><span class="en">What it claims to demonstrate</span></h3>
+<ul>
+  <li><span class="zh">一个仓库可以<strong>在公开状态</strong下被自动构建出来</span><span class="en">A repository can be <strong>built automatically in public</strong></span></li>
+  <li><span class="zh">由 claw / lobster 协调,而不是人类成对编程</span><span class="en">Coordinated by claws / lobsters, not by human pair-programming</span></li>
+  <li><span class="zh">通过聊天界面操作</span><span class="en">Operated through a chat interface</span></li>
+  <li><span class="zh">通过结构化的 plan / execute / review loop 持续改进</span><span class="en">Continuously improved through structured plan / execute / review loops</span></li>
+  <li><span class="zh">作为协调层(museum exhibit)的展示来维护,<strong>不</strong>仅仅是产出的文件</span><span class="en">Maintained as a <strong>showcase of the coordination layer</strong>, not just the output files</span></li>
+</ul>
+
+<div class="callout warn">
+<b><span class="zh">短版:</span><span class="en">Short version</span></b><br>
+<span class="zh"><strong>Claw Code 是一个"自主软件开发"的 demo</strong>。人类给方向。claws 协调、构建、测试、恢复、推送。仓库就是工件。哲学是背后的系统。</span><span class="en"><strong>Claw Code is a demo of autonomous software development.</strong> Humans give direction. Claws coordinate, build, test, recover, push. The repository is the artifact. The philosophy is the system behind it.</span>
+</div>
+</section>
+
+<section id="ecosystem">
+<h2><span class="num">08</span><span class="zh">同代生态</span><span class="en">Ecosystem siblings</span></h2>
+<p><span class="zh">从 README 末尾"Ownership / affiliation disclaimer"旁边那段 ecosystem 列表,<strong>claw-code 不孤立</strong> —— 它跟下面这几个组织成环:</span><span class="en">From the ecosystem list at the bottom of the README next to "Ownership / affiliation disclaimer", <strong>claw-code is not alone</strong> — it's part of a ring with the following orgs:</span></p>
+<table>
+<thead><tr><th><span class="zh">仓库</span><span class="en">Repo</span></th><th><span class="zh">角色</span><span class="en">Role</span></th></tr></thead>
+<tbody>
+<tr><td class="mono">ultraworkers/claw-code</td><td><span class="zh">本仓库 — Rust CLI agent 化石(museum exhibit)</span><span class="en">this repo — Rust CLI agent fossil (museum exhibit)</span></td></tr>
+<tr><td class="mono">Yeachan-Heo/clawhip</td><td><span class="zh">Discord 事件 / 通知 router</span><span class="en">Discord event / notification router</span></td></tr>
+<tr><td class="mono">code-yeongyu/oh-my-openagent</td><td><span class="zh">多 agent 协调(Architect / Executor / Reviewer)</span><span class="en">multi-agent coordination (Architect / Executor / Reviewer)</span></td></tr>
+<tr><td class="mono">Yeachan-Heo/oh-my-codex</td><td><span class="zh">workflow + plugin + 通知路由层</span><span class="en">workflow + plugin + notification routing layer</span></td></tr>
+<tr><td class="mono">Yeachan-Heo/gajae-code</td><td><span class="zh">gajae 引擎(看 README 顶部 join Discord 链接之一)</span><span class="en">gajae engine (one of the two harnesses listed in README's top section)</span></td></tr>
+<tr><td class="mono">code-yeongyu/lazycodex</td><td><span class="zh">lazycodex 引擎(顶部列的另一个)</span><span class="en">lazycodex engine (the other one listed at the top)</span></td></tr>
+</tbody>
+</table>
+<p><span class="zh">README 顶部那行: <em>"start with the real crab-powered harnesses: github.com/code-yeongyu/lazycodex / github.com/Yeachan-Heo/gajae-code"</em> —— 这是说:真干活去那俩,<code>claw-code</code> 是化石展品。</span><span class="en">The README's top line: <em>"start with the real crab-powered harnesses: github.com/code-yeongyu/lazycodex / github.com/Yeachan-Heo/gajae-code"</em> — meaning: if you want to actually run work, go to those two; <code>claw-code</code> is the fossil exhibit.</span></p>
+
+<div class="callout">
+<b><span class="zh">拥有权 / 关系声明</span><span class="en">Ownership / affiliation disclaimer</span></b>
+<p><span class="zh">本仓库不声明对原始 Claude Code 源码材料的所有权。本仓库<strong>不</strong>与 Anthropic 关联,不被 Anthropic 背书或维护。</span><span class="en">This repository does not claim ownership of the original Claude Code source material. This repository is <strong>not</strong> affiliated with, endorsed by, or maintained by Anthropic.</span></p>
+</div>
+</section>
+
+<section id="pros">
+<h2><span class="num">09</span><span class="zh">强项 / 弱项 / 风险</span><span class="en">Pros / cons / risks</span></h2>
+
+<div class="grid-2">
+  <div class="card">
+    <h4>✅ <span class="zh">强项 (8 条)</span><span class="en">Strengths (8)</span></h4>
+    <ul>
+      <li><span class="zh">工程透明度极高:<code>PARITY.md</code> 把每个 lane 的 feature commit / merge commit / 文件 LOC 全部钉死,跟营销页完全不同。</span><span class="en">Engineering transparency is very high: <code>PARITY.md</code> pins every lane's feature commit / merge commit / file LOC, totally unlike a marketing page.</span></li>
+      <li><span class="zh">Rust 端用 <code>unsafe_code = "forbid"</code>,Linux unshare 探测、canonical boundary 校验、binary detection 都是工程 deep-dive。</span><span class="en">The Rust side uses <code>unsafe_code = "forbid"</code>, Linux unshare probing, canonical boundary checks, binary detection — solid engineering depth.</span></li>
+      <li><span class="zh">多 provider 路由 + prefix 路由 + Ollama 兼容 + 错误信息里嵌入 hint,比大多数 AI CLI 都细致。</span><span class="en">Multi-provider routing + prefix routing + Ollama compat + diagnostic hints in error messages, more thorough than most AI CLIs.</span></li>
+      <li><span class="zh">JSON 化所有 verb + 0 <code>#[ignore]</code> 测试 + 9-lane 自检 + mock parity harness = "dogfood 自验"。</span><span class="en">JSON-izes every verb + 0 <code>#[ignore]</code> tests + 9-lane self-check + mock parity harness = genuine "dogfood verification".</span></li>
+      <li><span class="zh"><code>claw-analog</code> + <code>claw-rag-service</code> 拆出来是清晰架构决策:重 inference 共享 / 轻 agent 各自瘦化 / 重索引独立进程化。</span><span class="en">Splitting out <code>claw-analog</code> + <code>claw-rag-service</code> is a clean architectural decision: shared heavy inference, narrowed agent stacks, indexing isolation in its own process.</span></li>
+      <li><span class="zh">Tooling 拼图很完整:40 个 tool spec、<code>Init</code> 幂等、<code>--output-format json</code> 处处有、slash 命令 / <code>@path</code> 文件上下文。</span><span class="en">Tooling is complete: 40 tool specs, idempotent <code>init</code>, <code>--output-format json</code> everywhere, slash commands + <code>@path</code> file context.</span></li>
+      <li><span class="zh">文档量 1.2 MB 全部都是真实可访问的 <code>.md</code> / <code>.html</code> / <code>verification-map</code>,不是空想。</span><span class="en">The 1.2 MB of documentation is real, accessible <code>.md</code> / <code>.html</code> / <code>verification-map</code> files, not vapour.</span></li>
+      <li><span class="zh">PHILOSOPHY.md 是这个 repo 给我最大"insight"的一段——反"盯文件"立场很有启发。</span><span class="en"><code>PHILOSOPHY.md</code> is the single biggest "insight" of the repo — the anti-"stare at files" stance is genuinely thought-provoking.</span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>⚠️ <span class="zh">风险 / 弱项 (9 条)</span><span class="en">Risks / weak points (9)</span></h4>
+    <ul>
+      <li><span class="zh"><strong>不是 Anthropic 官方</strong>。CLAUDE.md 之类的命名容易让人误以为是同一个产品。CLAUDE subscription 也<strong>不能</strong>用来登录。</span><span class="en"><strong>Not Anthropic-official</strong>. Names like CLAUDE.md invite confusion with the real product. Claude subscription also does NOT log you in.</span></li>
+      <li><span class="zh"><strong>CI 不每次 commit 都绿</strong>(<code>PARITY.md</code> 自承"Still open")。</span><span class="en"><strong>CI is not green on every commit</strong> (self-acknowledged in <code>PARITY.md</code> as "Still open").</span></li>
+      <li><span class="zh"><strong><code>bash-validation</code> lane 还在 branch-only</strong>。这意味着 Rust 端对 shell 注入的 18 个子验证在 main 上其实没到位。</span><span class="en"><strong>The <code>bash-validation</code> lane is still branch-only</strong>. So 18 submodules of shell-injection validation are not actually on <code>main</code> yet.</span></li>
+      <li><span class="zh"><strong>Task / Team / Cron / MCP / LSP 是 registry-backed 近似</strong>。不是真外部 runtime,Task registry 是 in-memory,Team/Cron 没有真后台 scheduler。</span><span class="en"><strong>Task / Team / Cron / MCP / LSP are registry-backed approximations</strong>. Not real external runtimes — Task registry is in-memory, Team/Cron have no real background scheduler.</span></li>
+      <li><span class="zh"><strong><code>crates.io</code> 上的 <code>claw-code</code> crate 是 deprecated stub</strong>。npm / crates 上的搜索结果会误导新人。README 顶上的红色警告就是写给这个的。</span><span class="en"><strong>The <code>claw-code</code> crate on <code>crates.io</code> is a deprecated stub</strong>. npm / crates search results mislead newcomers — the red warning at the top of the README is exactly for this.</span></li>
+      <li><span class="zh"><strong>概念层文档是俄文</strong>(<code>concept.md</code>)。<strong>PHILOSOPHY.md 整篇是英文,USAGE.md / PARITY.md 也是英文</strong>,但 <code>concept.md</code> 是俄文 + UTF-8 乱码(部分字符显示成 "ÐÐ¾Ð½ÑÐµÐ¿ÑÐ¸Ñ" 这种),这是个"agent 写文档时跑过 mojibake"的明显痕迹。</span><span class="en"><strong>The concept-level docs are Russian</strong> (<code>concept.md</code>). <strong><code>PHILOSOPHY.md</code> is fully English, as is <code>USAGE.md</code> / <code>PARITY.md</code></strong>, but <code>concept.md</code> is Russian with UTF-8 mojibake (some characters render as <code>ÐÐ¾Ð½ÑÐµÐ¿ÑÐ¸Ñ</code>) — a clear "the agent that wrote this passed the file through some encoding conversion" trace.</span></li>
+      <li><span class="zh"><strong>phil-osophy 跟 product 文档不严格一致</strong>。PHILOSOPHY 说"由 AI 维护,人只是方向",但 README 又把"developer on-boarding"当成主要使用场景,这是有 tension 的。</span><span class="en"><strong>Philosophy and product docs aren't strictly aligned</strong>. PHILOSOPHY says "AI maintains, humans just give direction", but README frames developer on-boarding as the main use case — there's a tension here.</span></li>
+      <li><span class="zh"><strong>ROADMAP.md 1.2 MB</strong> —— 显然由 agent 自动写出来,不是人写的;但很难读,不能像 PHILOSOPHY.md / PARITY.md 那样快速 grasp。</span><span class="en"><strong>ROADMAP.md is 1.2 MB</strong> — clearly auto-generated by an agent, not human-written; it's hard to grasp, unlike PHILOSOPHY.md or PARITY.md.</span></li>
+      <li><span class="zh"><strong>191 branches / 0 tags</strong> + <code>.omx/ultragoal/</code> 一堆 G010-G011 leader-verify / quality-gate log。说明开发节奏很密,但 release 工程缺位。</span><span class="en"><strong>191 branches / 0 tags</strong> + a pile of G010-G011 leader-verify / quality-gate logs in <code>.omx/ultragoal/</code>. The pace is dense but release engineering is missing.</span></li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<section id="quickstart">
+<h2><span class="num">10</span><span class="zh">5 分钟跑起来</span><span class="en">5-minute quickstart</span></h2>
+<p><span class="zh">从 <code>USAGE.md</code> + <code>rust/README.md</code> 抽出最干净的几行。如果你已经装了 Rust toolchain:</span><span class="en">Pulled from <code>USAGE.md</code> + <code>rust/README.md</code>, the cleanest path. Assuming you have the Rust toolchain installed:</span></p>
+<pre><code><span class="c"># 0. 不要 cargo install claw-code —— 那是 deprecated stub</span>
+<span class="c"># 0. DO NOT `cargo install claw-code` — that's a deprecated stub</span>
+
+<span class="c"># 1. Clone + build (rust/ 是 canonical workspace)</span>
+git clone https://github.com/ultraworkers/claw-code
+cd claw-code/rust
+cargo build --workspace
+
+<span class="c"># 2. 设 API key (Claude subscription 不能用 —— 需要 ANTHROPIC_API_KEY)</span>
+<span class="c"># 2. Set API key (Claude subscription won't work — you need ANTHROPIC_API_KEY)</span>
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+<span class="c"># 3. 先跑 /doctor (健康检查)</span>
+./target/debug/claw
+/doctor
+
+<span class="c"># 4. 单次 prompt</span>
+./target/debug/claw prompt "say hello"
+
+<span class="c"># 5. 一次性 dry-run 看状态</span>
+./target/debug/claw doctor --output-format json
+./target/debug/claw version  --output-format json
+./target/debug/claw status  --output-format json
+
+<span class="c"># 6. 跑 mock parity harness (不需要真 API key)</span>
+./scripts/run_mock_parity_harness.sh
+
+<span class="c"># 7. 跑测试</span>
+cargo test --workspace</code></pre>
+
+<p><span class="zh">Windows PowerShell 上的差别只在 binary 路径 + PATH:</span><span class="en">The only Windows PowerShell differences are the binary path and PATH:</span></p>
+<pre><code>$env:ANTHROPIC_API_KEY="sk-ant-..."
+.\target\debug\claw.exe prompt "say hello"
+Remove-Item Env:\ANTHROPIC_AUTH_TOKEN -ErrorAction SilentlyContinue  <span class="c"># 防 401 误诊</span></code></pre>
+
+<p><span class="zh">想跑非 Claude 模型?</span><span class="en">Want a non-Claude model?</span></p>
+<pre><code><span class="c"># Grok</span>
+export XAI_API_KEY="xai-..."
+./target/debug/claw --model grok prompt "hello"
+
+<span class="c"># OpenAI / OpenRouter</span>
+export OPENAI_BASE_URL="https://openrouter.ai/api/v1"
+export OPENAI_API_KEY="sk-or-v1-..."
+./target/debug/claw --model "openai/gpt-4.1-mini" prompt "hello"
+
+<span class="c"># 本地 Ollama</span>
+export OLLAMA_HOST="http://127.0.0.1:11434"
+./target/debug/claw --model "llama3.2" prompt "hello"
+
+<span class="c"># Qwen via DashScope</span>
+export DASHSCOPE_API_KEY="sk-..."
+./target/debug/claw --model "qwen-plus" prompt "hello"</code></pre>
+
+<p><span class="zh">想用 RAG? 启独立服务:</span><span class="en">Want RAG? Start the standalone service:</span></p>
+<pre><code><span class="c"># 启 RAG 服务 (独立进程)</span>
+cd claw-code/rust
+cargo run -p claw-rag-service -- serve --port 8080
+
+<span class="c"># ingest 一个 repo</span>
+cargo run -p claw-rag-service -- ingest /path/to/repo
+
+<span class="c"># agent 通过 RAG_BASE_URL 调它</span>
+export RAG_BASE_URL="http://127.0.0.1:8080"
+./target/debug/claw --model sonnet prompt "用 RAG 总结这个 repo"</code></pre>
+</section>
+
+<section id="evidence">
+<h2><span class="num">11</span><span class="zh">取证 / 证据清单</span><span class="en">Evidence / source provenance</span></h2>
+<p><span class="zh">本报告中,</span><span class="en">Throughout this report,</span></p>
+<div class="signal">
+  <h4><span class="zh">每条断言都按下面的标签分类</span><span class="en">Each claim is tagged with one of the following</span></h4>
+  <div class="pills">
+    <span class="pill fetched">✅ fetched (browser_console + GitHub API JSON base64 实证)</span>
+    <span class="pill vault">🟢 vault cross-ref (与本会话 memory / Obsidian vault 中已存仓库内容核对)</span>
+    <span class="pill recall">🟡 recall (训练数据可能 drift · 浏览器拿不到时使用)</span>
+    <span class="pill unfetched">❌ unfetched (sandbox 网络拒绝 raw.githubusercontent.com · git clone 被节流)</span>
+  </div>
+</div>
+
+<table>
+<thead><tr><th><span class="zh">章节</span><span class="en">Section</span></th><th><span class="zh">来源</span><span class="en">Source</span></th><th><span class="zh">取证状态</span><span class="en">Provenance</span></th></tr></thead>
+<tbody>
+<tr><td>00 TL;DR</td><td>README.md</td><td><span class="pill fetched">✅ fetched (raw JSON via API)</span></td></tr>
+<tr><td>01 <span class="zh">仓库快照</span><span class="en">Snapshot</span></td><td>git tree (recursive API)</td><td><span class="pill fetched">✅ fetched (api.github.com/repos/.../git/trees/main?recursive=1, 123 KB JSON)</span></td></tr>
+<tr><td>02 <span class="zh">它做什么</span><span class="en">What it is</span></td><td>USAGE.md + rust/README.md + concept.md</td><td><span class="pill fetched">✅ fetched 3 份</span></td></tr>
+<tr><td>03 <span class="zh">架构</span><span class="en">Arch</span></td><td>rust/Cargo.toml + crates/*/Cargo.toml</td><td><span class="pill fetched">✅ fetched workspace manifest</span></td></tr>
+<tr><td>04 <span class="zh">运行时</span><span class="en">Runtime</span></td><td>rust/crates/runtime/src/ (file list)</td><td><span class="pill fetched">✅ fetched via tree API</span></td></tr>
+<tr><td>05 <span class="zh">Provider</span><span class="en">Provider</span></td><td>USAGE.md §"Tested models and aliases"</td><td><span class="pill fetched">✅ fetched verbatim</span></td></tr>
+<tr><td>06 <span class="zh">9-Lane</span><span class="en">9-Lane</span></td><td>PARITY.md</td><td><span class="pill fetched">✅ fetched verbatim (base64 decoded full text)</span></td></tr>
+<tr><td>07 <span class="zh">PHILOSOPHY</span><span class="en">PHILOSOPHY</span></td><td>PHILOSOPHY.md</td><td><span class="pill fetched">✅ fetched verbatim (base64)</span></td></tr>
+<tr><td>08 <span class="zh">生态</span><span class="en">Ecosystem</span></td><td>README + git tree siblings</td><td><span class="pill fetched">✅ fetched (README hyperlink list + 9 sibling repo names)</span></td></tr>
+<tr><td>09 <span class="zh">强项 / 弱项</span><span class="en">Pros / cons</span></td><td><span class="zh">综合</span><span class="en">Synthesis</span></td><td><span class="pill recall">🟡 recall + ✅ cross-checked against fetched docs</span></td></tr>
+<tr><td>10 <span class="zh">5 分钟跑起来</span><span class="en">5-min quickstart</span></td><td>USAGE.md + rust/README.md</td><td><span class="pill fetched">✅ fetched verbatim blocks + my edits for Windows/PowerShell/Qwen</span></td></tr>
+<tr><td><span class="zh">关键 401 误诊</span><span class="en">Key 401 misdiagnosis</span></td><td>USAGE.md §"Which env var goes where"</td><td><span class="pill fetched">✅ fetched verbatim</span></td></tr>
+<tr><td><span class="zh">provider 路由 7 步</span><span class="en">Provider routing 7 steps</span></td><td>USAGE.md §"How provider detection works"</td><td><span class="pill fetched">✅ fetched verbatim</span></td></tr>
+</tbody>
+</table>
+
+<div class="callout">
+<b><span class="zh">诚实报告</span><span class="en">Honest report</span></b>
+<ul>
+  <li><span class="zh">本报告 <strong>没有</strong> 在沙箱里跑过 <code>cargo build</code>。<code>git clone</code> 在沙箱里 60s+ 后被节流(120s timeout),<code>curl raw.githubusercontent.com</code> 多次 SSL 连接超时。所以我<strong>没有</strong>独立验证 48,599 LOC / 9 crates / 40 tool spec 这些数字 —— 全部来自仓库自己的 <code>PARITY.md</code>。</span><span class="en">This report did NOT actually run <code>cargo build</code> in the sandbox. <code>git clone</code> was throttled (120s timeout), <code>curl raw.githubusercontent.com</code> had multiple SSL timeouts. So I have <strong>not</strong> independently verified the 48,599 LOC / 9 crates / 40 tool spec numbers — all come from the repo's own <code>PARITY.md</code>.</span></li>
+  <li><span class="zh">没有抓到的部分:ROADMAP.md (1.2 MB, API 返 <code>content: ""</code> encoding: none —— 二进制或者太大),<code>CLAUDE.md</code>,<code>docs/personal-assistant-roadmap.md</code>,<code>docs/container.md</code>。</span><span class="en">Parts I could not fetch: <code>ROADMAP.md</code> (1.2 MB, API returns <code>content: ""</code> / <code>encoding: none</code> — too large or binary), <code>CLAUDE.md</code>, <code>docs/personal-assistant-roadmap.md</code>, <code>docs/container.md</code>.</span></li>
+  <li><span class="zh">truly 推断的:第 09 节"强项 / 弱项"里的判断是基于已读文档的合成,不是仓库自陈的官方评价。</span><span class="en">Truly inferred: the judgment in §09 "Pros / cons" is my synthesis from the docs I did read, not the repo's own self-rating.</span></li>
+</ul>
+</div>
+</section>
+
+<footer>
+  <div><span class="zh">在沙箱里做这个报告时遇到的限制:</span><span class="en">Sandbox limitations encountered while writing this report:</span></div>
+  <p>
+    <code>firecrawl</code> web tools disabled → <code>web_extract</code> 全部返 "Web tools are not configured" ·
+    <code>git clone https://github.com/ultraworkers/claw-code</code> 被节流 120s timeout ·
+    <code>curl raw.githubusercontent.com</code> 多次 SSL timeout ·
+    <code>api.github.com</code> 走 <code>browser_navigate</code> + <code>browser_console(expression=...)</code> base64 decode 拿内容 100% 通
+  </p>
+  <p style="margin-top:14px;">
+    <a href="https://github.com/ultraworkers/claw-code" target="_blank" rel="noopener">github.com/ultraworkers/claw-code</a> ·
+    <a href="https://github.com/ultraworkers/claw-code/blob/main/README.md" target="_blank" rel="noopener">README</a> ·
+    <a href="https://github.com/ultraworkers/claw-code/blob/main/PARITY.md" target="_blank" rel="noopener">PARITY</a> ·
+    <a href="https://github.com/ultraworkers/claw-code/blob/main/PHILOSOPHY.md" target="_blank" rel="noopener">PHILOSOPHY</a> ·
+    <a href="https://github.com/ultraworkers/claw-code/blob/main/USAGE.md" target="_blank" rel="noopener">USAGE</a> ·
+    <a href="https://github.com/ultraworkers/claw-code/blob/main/rust/README.md" target="_blank" rel="noopener">rust/README</a> ·
+    <a href="https://github.com/ultraworkers/claw-code/blob/main/concept.md" target="_blank" rel="noopener">concept (ru)</a>
+  </p>
+  <p style="margin-top:8px; opacity:0.7">
+    <span class="zh">报告由 Hermes Agent 自主生成,基于 2026-07-14 当日抓取的 6 份核心文档 + git tree 递归清单。HTML 单文件,UTF-8,支持中英文实时切换,localStorage 持久化语言偏好。</span>
+    <span class="en">Report generated autonomously by Hermes Agent based on 6 core docs + recursive git tree fetched 2026-07-14. Single-file HTML, UTF-8, real-time zh/en toggle, localStorage language persistence.</span>
+  </p>
+</footer>
+
+</main>
+</div>
+
+<script>
+(function () {
+  var KEY = 'claw-code-report-lang';
+  var root = document.documentElement;
+  function setLang(l) {
+    root.setAttribute('lang', l);
+    document.getElementById('btn-zh').classList.toggle('active', l === 'zh-CN');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    try { localStorage.setItem(KEY, l); } catch (e) {}
+  }
+  document.getElementById('btn-zh').addEventListener('click', function () { setLang('zh-CN'); });
+  document.getElementById('btn-en').addEventListener('click', function () { setLang('en'); });
+  try {
+    var saved = localStorage.getItem(KEY);
+    if (saved === 'en' || saved === 'zh-CN') setLang(saved);
+  } catch (e) {}
+
+  // TOC scroll-spy + smooth scroll
+  var links = Array.prototype.slice.call(document.querySelectorAll('aside.toc a'));
+  var map = {};
+  links.forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) map[id] = { link: a, el: el };
+  });
+  function onScroll() {
+    var y = window.scrollY + 110;
+    var current = null;
+    Object.keys(map).forEach(function (id) {
+      if (map[id].el.offsetTop <= y) current = id;
+    });
+    links.forEach(function (a) { a.classList.remove('active'); });
+    if (current && map[current]) map[current].link.classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

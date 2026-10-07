@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🪦 Kimi K3 自托管 = 经济空集 · 死路认知存档</title>
+<style>
+:root{--bg:#0a0a0d;--bg-card:#16161b;--bg-elevated:#1c1c22;--border:#2a2a32;--text:#e8e8ea;--text-dim:#a8a8b2;--text-mute:#6a6a76;--accent:#d5ff3f;--accent-2:#f7e9a0;--green:#4ade80;--red:#f87171}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:2rem;max-width:880px;margin:0 auto}
+h1{font-size:1.8rem;color:var(--accent);margin-bottom:1rem}
+h2{font-size:1.4rem;color:var(--accent);margin:1.5rem 0 0.8rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+h3{font-size:1.15rem;color:var(--accent-2);margin:1.2rem 0 0.6rem}
+p{margin-bottom:0.8rem;color:var(--text-dim)}
+ul{margin:0.5rem 0 1rem 1.5rem;color:var(--text-dim)}
+li{margin-bottom:0.3rem}
+blockquote{border-left:3px solid var(--accent);padding:0.8rem 1rem;margin:1rem 0;background:var(--bg-card);font-style:italic;color:var(--text)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.88rem}
+td,th{padding:0.5rem 0.7rem;border-bottom:1px solid var(--border);text-align:left}
+code{background:var(--bg-elevated);padding:2px 6px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:0.85em;color:var(--accent)}
+strong{color:var(--text)}
+.nav{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:0.8rem;margin-bottom:1.5rem;font-size:0.88rem;color:var(--text-dim)}
+.nav a{color:var(--accent);text-decoration:none}
+hr{border:0;border-top:1px solid var(--border);margin:1.5rem 0}
+</style>
+</head>
+<body>
+<div class="nav"><a href="https://2017zyl.xyz/daily-reports/kimi-k3-moonshot-2-8tb-moe-2026-07-29/dashboard.html">← Back to Kimi K3 Dashboard</a> · <a href="/llm-wiki/papers/kimi-k3-moonshot-2-8tb-moe-2026-07-29/dead-end-note-self-host.md">Vault md version</a></div>
+
+<h1>🪦 Kimi K3 自托管 = 经济空集 · 死路认知存档</h1>
+
+<blockquote>**One-line**: 任何"本地跑 Kimi K3"的提议，都不必再算账 — 经济性空集 + 工具栈 0 支持。引用这条 note 即可终结讨论。</blockquote>
+
+<h2>为什么是死路（3 个独立理由）</h2>
+
+<h3>理由 1 · 工具栈不支持 KDA</h3>
+
+<p>截至 2026-07-27，<strong>llama.cpp / Ollama / LM Studio 全不支持 KDA 架构</strong>。</p>
+
+<ul>
+<li>Ollama 上的所谓 "K3" = <strong>API 转发器</strong>，不是真本地推理</li>
+<li>llama.cpp 缺 KDA 的 CUDA kernel</li>
+<li>LM Studio 走 GGUF 转换路径 = KDA 进不来</li>
+</ul>
+
+<p><strong>等 Ollama / LM Studio / llama.cpp 适配 KDA</strong> — 3-12 月不确定。在此期间没有自托管路线。</p>
+
+<h3>理由 2 · 显存门槛对个人不可达</h3>
+
+<tr><td>场景</td><td>硬件门槛</td></tr>
+<tr><td>权重驻留 (粗算)</td><td>**19 张 H100**</td></tr>
+<tr><td>vLLM 官方 recipe</td><td>**8 张 GB300**</td></tr>
+<tr><td>生产环境建议</td><td>多节点</td></tr>
+
+<p>个人开发者按权重驻留 = 19 张 H100 = ~$300K-$500K 一次性硬件投入 + 机房 + 散热 + 电源。<strong>远超 ROI</strong>。</p>
+
+<h3>理由 3 · CPU 方案 = 9 小时生成 32K token</h3>
+
+<p>根据 Why QQ 估算：CPU + 大内存方案速度约 <strong>0.05-1 tok/s</strong>。</p>
+
+<ul>
+<li>生成 32K token = <strong>9 小时干等</strong></li>
+<li>单次推理能耗 = 数度电</li>
+<li>时延完全不可接受（任何 agent / interactive 场景都废）</li>
+</ul>
+
+<h2>谁真能自托管（不适用 Patrick）</h2>
+
+<p>✅ 主权场景企业（8 卡 B200 / GB300，绕过 API 封锁）</p>
+<p>✅ 推理厂商 + 云服务商（3T 模型第三方部署，逼出真实底价）</p>
+<p>❌ 个人开发者（= 经济空集）</p>
+<p>❌ 中小公司（= ROI 不及 API 调用）</p>
+<p>❌ 研究机构 demo（= 用 API 跑同 benchmark，省硬件）</p>
+
+<h2>Patrick 的实操路线</h2>
+
+<p>✅ <strong>直接走 API 调用</strong> — Claude API / minimax / 各种 routed LLM 都支持 K2.6/K2.7</p>
+<p>✅ <strong>本地跑 baseline 模型</strong> — Qwen3 / Llama 4 / GLM 等"架构已适配"的模型</p>
+<p>✅ <strong>等 3-12 月观察 Ollama 等适配</strong> — 等 KDA 进 GGUF 路径再重新评估</p>
+<p>❌ <strong>不要投资硬件</strong> — 任何"为了跑 K3 买 H100"的提议都拒绝</p>
+<p>❌ <strong>不要写 benchmark 假设本地可跑</strong> — 写之前先 grep 工具栈支持</p>
+
+<h2>关联引用</h2>
+
+<ul>
+<li>完整 dashboard: <code>llm-wiki/papers/kimi-k3-moonshot-2-8tb-moe-2026-07-29/</code></li>
+<li>源视频: https://www.youtube.com/watch?v=yryTXpvCamE (Why QQ · 14:30)</li>
+<li>transcript verbatim 来源: kome.ai flat transcript 5697 chars</li>
+</ul>
+
+<h2>⚠️ 注意时间戳</h2>
+
+<ul>
+<li>写于 2026-07-30</li>
+<li>当 Ollama / llama.cpp 正式 release KDA 支持时，请 archive 这条 note 并起新 note "Kimi K3 自托管路线复活评估"</li>
+<li>评估触发条件：Ollama >= 0.20 OR llama.cpp >= b5800 OR LM Studio 公开 KDA roadmap</li>
+</ul>
+
+<p>---</p>
+
+<p><strong>字数</strong>: ~350 字 · <strong>生成</strong>: 2026-07-30 · <strong>目的</strong>: future-proof 死路认知存档，任何"本地跑 K3"提议直接引用本 note 终结讨论</p>
+<hr>
+<p style="color:var(--text-mute);font-size:0.8rem;text-align:center">Generated 2026-07-30 · round-44 P3 #8 · hermes-agent</p>
+</body>
+</html>

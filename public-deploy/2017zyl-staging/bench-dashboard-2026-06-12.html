@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>Router Bench 健康仪表板 — 2026-06-12</title>
+<style>
+:root { --bg: #0a0a0a; --bg-card: #131316; --fg: #e8e8e8; --muted: #888; --accent: #4fc3f7; --ok: #81c784; --warn: #ffb74d; --err: #ff5252; --border: #2a2a2a; }
+body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--fg); padding: 24px 16px; max-width: 980px; margin: 0 auto; line-height: 1.6; }
+h1 { color: var(--accent); margin: 0 0 4px 0; font-size: 1.8em; }
+h2 { color: var(--accent); margin-top: 32px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-size: 1.3em; }
+.meta { color: var(--muted); font-size: 0.88em; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 16px 0; }
+.stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.stat .num { font-size: 1.4em; font-weight: 700; color: var(--accent); font-family: "SF Mono", monospace; }
+.stat .label { font-size: 0.78em; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.93em; background: var(--bg-card); border-radius: 8px; overflow: hidden; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--bg-elevated); color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.78em; letter-spacing: 0.05em; }
+tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78em; font-weight: 600; }
+.tag.alive { color: var(--ok); border: 1px solid rgba(129, 199, 132, 0.3); background: rgba(129, 199, 132, 0.1); }
+.tag.stuck { color: var(--err); border: 1px solid rgba(255, 82, 82, 0.3); background: rgba(255, 82, 82, 0.1); }
+.tag.no_run { color: var(--muted); border: 1px solid var(--border); }
+.tag.overdue { color: var(--warn); border: 1px solid rgba(255, 183, 77, 0.3); background: rgba(255, 183, 77, 0.1); }
+.tag.error { color: var(--err); border: 1px solid rgba(255, 82, 82, 0.3); background: rgba(255, 82, 82, 0.1); }
+.alert-list { list-style: none; padding: 0; }
+.alert-list li { background: var(--bg-card); border-left: 3px solid var(--err); padding: 10px 14px; margin: 6px 0; border-radius: 4px; font-size: 0.9em; }
+.summary-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin: 16px 0; }
+.latest { font-size: 1.05em; }
+.latest .age { color: var(--muted); margin-left: 8px; }
+</style>
+<script async defer data-website-id="test-id-12345" src="http://192.168.31.66:3000/script.js"></script>
+</head>
+<body>
+<header>
+  <h1>🔬 Router Bench 健康仪表板 <span style="display: inline-block; background: var(--muted); color: #000; padding: 2px 10px; border-radius: 12px; font-size: 0.55em; font-weight: 600; margin-left: 8px; vertical-align: middle;">v1 · ARCHIVED 2026-07-15</span></h1>
+  <div class="meta">2026-06-12 16:32:00 · 静态 HTML snapshot · 内容冻结</div>
+</header>
+
+<div style="background: #2a1f00; border-left: 4px solid var(--warn); border-radius: 6px; padding: 14px 18px; margin: 8px 0 24px 0; font-size: 0.92em;">
+  <strong style="color: var(--warn);">📦 已被 v2 取代 (2026-07-15)</strong>：本页面 2026-06-12 ship 时只有静态 HTML 壳，2026-06-13 → 2026-07-14 这 33 天 weekly cron 从未真正触发过（脚本路径缺、cron job 未创建、gateway/scripts/ 空）。
+  <br><br>
+  → <strong>现役 dashboard</strong>: <a href="/bench-dashboard-2026-07-15.html" style="color: var(--accent); text-decoration: none;"><code>/bench-dashboard-2026-07-15.html</code></a> (v2 live)
+  <br>
+  → <strong>新 cron</strong>: <code>router-bench-weekly</code> (周日 22:00, no_agent, detached fork)
+  <br>
+  → <strong>下一次数据刷新</strong>: 2026-07-19 22:00 (周日)
+  <br><br>
+  本页面保留作为 historical snapshot — 不再更新，<em>请以 v2 为准</em>。
+</div>
+
+<section>
+<h2>📊 总览 (累计 0 次检查)</h2>
+<div class="stat-grid">
+  <div class='stat'><div class='num'>🟢 0</div><div class='label'>ALIVE</div></div>
+<div class='stat'><div class='num'>🔴 0</div><div class='label'>STUCK</div></div>
+<div class='stat'><div class='num'>⚪ 0</div><div class='label'>NO_RUN</div></div>
+<div class='stat'><div class='num'>🟡 0</div><div class='label'>OVERDUE</div></div>
+<div class='stat'><div class='num'>🔴 0</div><div class='label'>ERROR</div></div>
+</div>
+</section>
+
+<section>
+<h2>📦 最新 Bench</h2>
+<div class="summary-card latest">
+  🟢 最近一次 bench: <strong>latest.md</strong>
+  <span class="age">(61 min ago)</span>
+</div>
+</section>
+
+<section>
+<h2>📋 最近 24h (0 条, 含 0 条非 ALIVE)</h2>
+<table>
+<tr><th>时间</th><th>状态</th><th>详情</th></tr>
+<tr><td colspan="3" style="text-align: center; color: var(--muted);">无记录</td></tr>
+</table>
+</section>
+
+<section>
+<h2>📅 最近 7 天 (含 0 条非 ALIVE)</h2>
+<p>本周期 7d 报警: <strong>0</strong> 次</p>
+
+</section>
+
+<section>
+<h2>🚨 Desktop 报警历史 (~/Desktop/router-bench-alerts.txt)</h2>
+<ul class="alert-list">
+<li style="border-left-color: var(--ok); color: var(--muted);">无报警</li>
+</ul>
+</section>
+
+<footer style="margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85em;">
+<p>🤖 自动生成 by <code>bench_dashboard.py</code></p>
+<p>📡 公网 URL: <a href="https://patrick-reports.patrick-l-zeng.workers.dev/bench-dashboard-2026-06-12.html" style="color: var(--accent);">patrick-reports.patrick-l-zeng.workers.dev/bench-dashboard-2026-06-12.html</a></p>
+<p>🔗 cron: <code>43b5d7e08701</code> (5min 健康检查) · 数据源: <code>~/.hermes/router-bench/healthcheck.log</code></p>
+</footer>
+</body>
+</html>

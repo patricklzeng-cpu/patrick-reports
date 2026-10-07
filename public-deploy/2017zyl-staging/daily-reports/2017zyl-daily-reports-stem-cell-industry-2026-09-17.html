@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>干细胞注射产业全景报告 · 2025-2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#050810; --bg2:#0a1020; --ink:#e8eefc; --dim:#8fa0c0;
+  --cyan:#2de2c5; --violet:#8b7bff; --amber:#ffb454; --rose:#ff6b8b;
+  --card:rgba(255,255,255,.045); --line:rgba(140,170,255,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans SC',sans-serif;line-height:1.75;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:'Noto Serif SC',serif}
+.mono{font-family:'Space Grotesk',monospace}
+::selection{background:var(--cyan);color:#03110e}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1c2a4a;border-radius:6px}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(18px);background:rgba(5,8,16,.72);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:14px 28px;flex-wrap:wrap}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.12em;font-size:14px;color:var(--cyan);white-space:nowrap}
+.cell-dot{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#7dfff0,var(--cyan) 45%,#0a5f52);box-shadow:0 0 18px rgba(45,226,197,.7);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 14px rgba(45,226,197,.55)}50%{transform:scale(1.14);box-shadow:0 0 26px rgba(45,226,197,.9)}}
+nav a{color:var(--dim);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:8px;transition:.25s}
+nav a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap;margin-left:auto}
+
+/* ---------- HERO ---------- */
+header{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(139,123,255,.22),transparent 60%),
+             radial-gradient(ellipse 60% 50% at 85% 110%,rgba(45,226,197,.14),transparent 60%),var(--bg)}
+#cellCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-content{position:relative;z-index:2;text-align:center;padding:120px 24px 80px;max-width:1080px}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.35em;color:var(--cyan);border:1px solid rgba(45,226,197,.35);border-radius:999px;padding:8px 22px;margin-bottom:34px;background:rgba(45,226,197,.06)}
+.hero-tag i{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 1.8s infinite}
+h1{font-size:clamp(40px,7vw,86px);font-weight:900;line-height:1.18;letter-spacing:.02em;
+  background:linear-gradient(115deg,#fff 20%,var(--cyan) 55%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{margin:26px auto 0;max-width:720px;color:var(--dim);font-size:clamp(15px,1.6vw,18px);font-weight:300}
+.hero-sub b{color:var(--ink);font-weight:500}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;margin-top:60px}
+.hstat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 18px;backdrop-filter:blur(8px);transition:.35s}
+.hstat:hover{transform:translateY(-6px);border-color:rgba(45,226,197,.45);box-shadow:0 18px 44px rgba(0,0,0,.45)}
+.hstat .num{font-family:'Space Grotesk',monospace;font-size:clamp(26px,3vw,38px);font-weight:700;color:var(--cyan)}
+.hstat .num em{font-style:normal;font-size:.5em;color:var(--dim);margin-left:2px}
+.hstat .lbl{font-size:13px;color:var(--dim);margin-top:8px}
+.scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--dim);font-size:11px;letter-spacing:.3em;animation:bob 2s ease-in-out infinite;z-index:2}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+/* ---------- SECTIONS ---------- */
+section{max-width:1240px;margin:0 auto;padding:110px 28px 30px}
+.sec-kicker{font-size:12px;letter-spacing:.4em;color:var(--violet);text-transform:uppercase;margin-bottom:14px;font-family:'Space Grotesk',monospace}
+.sec-title{font-size:clamp(30px,4.4vw,52px);font-weight:900;line-height:1.25;margin-bottom:16px}
+.sec-lede{color:var(--dim);max-width:760px;font-weight:300;font-size:16px}
+.sec-lede b{color:var(--ink);font-weight:500}
+/* reveal initial state is set by JS only when GSAP is available, so content stays visible without CDN */
+
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(420px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+@media(max-width:520px){.g2{grid-template-columns:1fr}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px;backdrop-filter:blur(6px);transition:.35s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-5px);border-color:rgba(139,123,255,.5);box-shadow:0 22px 50px rgba(0,0,0,.5)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:.4s}
+.card:hover::before{opacity:1}
+.card h3{font-size:19px;margin-bottom:10px;font-weight:600}
+.card p{font-size:14px;color:var(--dim);font-weight:300}
+.card .big{font-family:'Space Grotesk',monospace;font-size:32px;font-weight:700;color:var(--cyan);margin-bottom:6px}
+.badge{display:inline-block;font-size:11px;padding:3px 12px;border-radius:999px;letter-spacing:.1em;margin-bottom:12px}
+.b-cyan{background:rgba(45,226,197,.12);color:var(--cyan);border:1px solid rgba(45,226,197,.3)}
+.b-violet{background:rgba(139,123,255,.12);color:var(--violet);border:1px solid rgba(139,123,255,.3)}
+.b-amber{background:rgba(255,180,84,.12);color:var(--amber);border:1px solid rgba(255,180,84,.3)}
+.b-rose{background:rgba(255,107,139,.12);color:var(--rose);border:1px solid rgba(255,107,139,.3)}
+
+.chart-wrap{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px;margin-top:44px}
+.chart-wrap h3{font-size:18px;margin-bottom:4px}
+.chart-wrap .src{font-size:12px;color:var(--dim);margin-bottom:22px;font-weight:300}
+.chart-box{position:relative;height:380px}
+@media(max-width:640px){.chart-box{height:300px}}
+.duo{display:grid;grid-template-columns:1.25fr 1fr;gap:22px}
+@media(max-width:900px){.duo{grid-template-columns:1fr}}
+
+/* ---------- TIMELINE ---------- */
+.timeline{position:relative;margin-top:56px;padding-left:34px}
+.timeline::before{content:'';position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--cyan),var(--violet),var(--rose))}
+.tl-item{position:relative;padding:0 0 40px 24px}
+.tl-item::before{content:'';position:absolute;left:-31px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--cyan);box-shadow:0 0 14px rgba(45,226,197,.6)}
+.tl-item.v::before{border-color:var(--violet);box-shadow:0 0 14px rgba(139,123,255,.6)}
+.tl-item.r::before{border-color:var(--rose);box-shadow:0 0 14px rgba(255,107,139,.6)}
+.tl-item.a::before{border-color:var(--amber);box-shadow:0 0 14px rgba(255,180,84,.6)}
+.tl-date{font-family:'Space Grotesk',monospace;font-size:13px;color:var(--cyan);letter-spacing:.12em;margin-bottom:6px}
+.tl-item h3{font-size:18px;margin-bottom:6px}
+.tl-item p{font-size:14px;color:var(--dim);max-width:720px;font-weight:300}
+.tl-item p b{color:var(--ink);font-weight:500}
+
+/* ---------- PRODUCT TABLE ---------- */
+.ptable{width:100%;border-collapse:collapse;margin-top:40px;font-size:14px}
+.ptable th{font-family:'Space Grotesk',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+.ptable td{padding:16px;border-bottom:1px solid rgba(140,170,255,.07);vertical-align:top;font-weight:300}
+.ptable tr{transition:.25s}
+.ptable tbody tr:hover{background:rgba(45,226,197,.05)}
+.ptable .pname{font-weight:600;color:var(--ink)}
+.ptable .flag{font-size:11px;padding:2px 10px;border-radius:6px;white-space:nowrap}
+.f-kr{background:rgba(255,107,139,.14);color:var(--rose)}
+.f-jp{background:rgba(139,123,255,.16);color:var(--violet)}
+.f-eu{background:rgba(70,130,255,.16);color:#7ea6ff}
+.f-in{background:rgba(255,180,84,.14);color:var(--amber)}
+.f-cn{background:rgba(45,226,197,.14);color:var(--cyan)}
+.f-us{background:rgba(120,220,120,.14);color:#8fe08f}
+.price{font-family:'Space Grotesk',monospace;color:var(--amber)}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+
+/* ---------- MILESTONE ---------- */
+.milestone{margin-top:56px;border-radius:26px;padding:clamp(30px,5vw,60px);position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(45,226,197,.12),rgba(139,123,255,.1) 60%,rgba(5,8,16,.4));border:1px solid rgba(45,226,197,.3)}
+.milestone h3{font-size:clamp(24px,3vw,36px);font-weight:900;margin-bottom:14px}
+.milestone h3 span{color:var(--cyan)}
+.milestone p{color:var(--dim);max-width:780px;font-weight:300}
+.milestone p b{color:var(--ink);font-weight:500}
+.quote{margin-top:26px;padding-left:22px;border-left:3px solid var(--cyan);font-family:'Noto Serif SC',serif;font-style:italic;color:var(--ink);font-size:17px}
+.quote small{display:block;margin-top:8px;font-style:normal;font-size:12px;color:var(--dim);font-family:'Noto Sans SC',sans-serif}
+
+/* ---------- DARK SIDE ---------- */
+.risk{border-left:3px solid var(--rose)}
+.risk::before{background:linear-gradient(90deg,transparent,var(--rose),transparent)}
+.risk h3{color:#ffc2d0}
+.risk .big{color:var(--rose)}
+.redline{background:linear-gradient(135deg,rgba(255,107,139,.1),rgba(255,180,84,.06));border:1px solid rgba(255,107,139,.3);border-radius:20px;padding:28px 32px;margin-top:40px}
+.redline h3{color:var(--rose);margin-bottom:14px;font-size:18px}
+.redline li{font-size:14px;color:var(--dim);margin:8px 0 8px 18px;font-weight:300}
+.redline li b{color:var(--ink);font-weight:500}
+
+/* ---------- FOOTER ---------- */
+footer{max-width:1240px;margin:80px auto 0;padding:50px 28px 70px;border-top:1px solid var(--line)}
+footer h4{font-size:13px;letter-spacing:.3em;color:var(--dim);margin-bottom:18px;font-family:'Space Grotesk',monospace}
+.src-list{columns:2;column-gap:40px;font-size:12.5px;color:var(--dim);font-weight:300}
+@media(max-width:700px){.src-list{columns:1}}
+.src-list a{color:#6f86b8;text-decoration:none;border-bottom:1px dotted #3a4c78}
+.src-list a:hover{color:var(--cyan)}
+.src-list li{margin-bottom:9px;break-inside:avoid}
+.disclaimer{margin-top:34px;font-size:12px;color:#5a6b90;font-weight:300}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo"><span class="cell-dot"></span>STEM CELL · 产业全景 2025–2026</div>
+    <div class="nav-links">
+      <a href="#global">全球市场</a>
+      <a href="#pipeline">获批药物</a>
+      <a href="#china">中国产业</a>
+      <a href="#milestone">中国里程碑</a>
+      <a href="#cases">真实案例</a>
+      <a href="#darkside">乱象与红线</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header>
+  <canvas id="cellCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-tag"><i></i>GLOBAL STEM CELL INJECTION INDUSTRY REPORT</div>
+    <h1>一针细胞，<br>一个正在重构的医疗产业</h1>
+    <p class="hero-sub">从实验室到药房，从 <b>185 亿美元</b>的全球市场到 <b>265 亿元</b>的中国赛道——干细胞注射疗法正站在<b>产业化元年</b>的门槛上。本报告覆盖全球产业格局、中国政策与商业化突破、真实临床案例，以及你需要知道的乱象与红线。</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num" data-count="193.4" data-suffix="亿">0<em>USD</em></div><div class="lbl">2025 全球干细胞市场规模（美元）</div></div>
+      <div class="hstat"><div class="num" data-count="17.45" data-suffix="%">0</div><div class="lbl">2026–2034 全球复合年增长率（CAGR）</div></div>
+      <div class="hstat"><div class="num" data-count="265" data-suffix="亿元">0</div><div class="lbl">2024 中国干细胞市场规模（人民币）</div></div>
+      <div class="hstat"><div class="num" data-count="223" data-suffix="+">0</div><div class="lbl">中国 CDE 累计受理干细胞药物 IND（截至 2026.4）</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL ▾</div>
+</header>
+
+<!-- ============ GLOBAL ============ -->
+<section id="global">
+  <div class="reveal">
+    <div class="sec-kicker">01 / GLOBAL LANDSCAPE</div>
+    <h2 class="sec-title">全球市场：再生医学的下一个十年</h2>
+    <p class="sec-lede">多家机构对全球干细胞市场的测算口径不一，但方向惊人一致：<b>两位数高增长</b>。Fortune Business Insights 测算 2025 年市场约 <b>193.4 亿美元</b>，预计 2034 年达 <b>799.5 亿美元</b>；Straits Research 的口径为 2025 年 184.5 亿 → 2034 年 495.4 亿美元。若采用更宽的"细胞治疗"口径（含免疫细胞疗法），2024 年市场已达约 <b>857 亿美元</b>。</p>
+  </div>
+
+  <div class="grid g4 reveal" style="margin-top:44px">
+    <div class="card"><div class="big">53.1%</div><h3>北美主导地位</h3><p>2025 年北美占全球市场一半以上（102.7 亿美元），研发管线与监管加速机制（RMAT、突破性疗法认定）构成护城河。</p></div>
+    <div class="card"><span class="badge b-cyan">增长最快</span><h3>亚太地区</h3><p>2025 年亚太市场 44.7 亿美元，其中中国市场预计 2026 年达 18.6 亿美元，是全球临床试验增长最快的区域。</p></div>
+    <div class="card"><div class="big">1,400+</div><h3>全球临床试验</h3><p>自 1995 年以来超 6.8 万名受试者参与成体干细胞研究；美国约占 36% 的试验，中美日三国合计占人类多能干细胞试验的 78%。</p></div>
+    <div class="card"><div class="big">25.1%</div><h3>MSC + 外泌体赛道</h3><p>间充质干细胞与外泌体诊断治疗是增速最快的细分：2025 年 1.71 亿美元 → 2032 年 8.22 亿美元，CAGR 高达 25.14%。</p></div>
+  </div>
+
+  <div class="duo reveal">
+    <div class="chart-wrap">
+      <h3>全球干细胞市场规模走势（亿美元）</h3>
+      <div class="src">口径：Fortune Business Insights（干细胞整体市场，含历史估算与预测）</div>
+      <div class="chart-box"><canvas id="chartGlobal"></canvas></div>
+    </div>
+    <div class="chart-wrap">
+      <h3>2025 年区域市场份额</h3>
+      <div class="src">口径：Fortune Business Insights 区域拆分</div>
+      <div class="chart-box"><canvas id="chartRegion"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid g3 reveal" style="margin-top:22px">
+    <div class="card"><span class="badge b-violet">MSC · 间充质干细胞</span><h3>产业化绝对主力</h3><p>伦理友好、免疫原性低、易于规模化，是全球获批产品中数量最多的一类，覆盖 GVHD、骨关节炎、克罗恩病、脊髓损伤等适应症。</p></div>
+    <div class="card"><span class="badge b-cyan">iPSC · 诱导多能干细胞</span><h3>下一个爆发点</h3><p>2026 年 3 月，全球首批 iPSC 衍生细胞疗法获附条件批准（心肌细胞贴片 ReHeart、帕金森细胞疗法 Amchepry），标志"通用型细胞药"时代开启。</p></div>
+    <div class="card"><span class="badge b-amber">HSC · 造血干细胞</span><h3>最成熟的现金牛</h3><p>脐带血造血干细胞移植是唯一广泛进入常规临床的干细胞技术，也是美国 FDA 唯一长期批准的干细胞类产品类别，支撑起全球细胞存储产业。</p></div>
+  </div>
+</section>
+
+<!-- ============ APPROVED DRUGS ============ -->
+<section id="pipeline">
+  <div class="reveal">
+    <div class="sec-kicker">02 / APPROVED PRODUCTS</div>
+    <h2 class="sec-title">全球获批药物：20 年，20 款</h2>
+    <p class="sec-lede">全球约 <b>20 款</b>干细胞药物获批上市，审批跨度超过 20 年，韩国（5 款）、日本（4 款）是获批最多的国家。关键事实：<b>没有任何一款获批产品的适应症是美容或抗衰老</b>。</p>
+  </div>
+
+  <div class="tscroll reveal">
+    <table class="ptable">
+      <thead><tr><th>产品</th><th>国家/地区</th><th>获批年份</th><th>细胞来源</th><th>适应症</th><th>单次治疗费用</th></tr></thead>
+      <tbody>
+        <tr><td class="pname">Queencell</td><td><span class="flag f-kr">韩国</span></td><td>2010</td><td>自体脂肪</td><td>皮下组织缺损</td><td class="price">—</td></tr>
+        <tr><td class="pname">Cellgram-AMI</td><td><span class="flag f-kr">韩国</span></td><td>2011</td><td>自体骨髓</td><td>急性心肌梗死</td><td class="price">≈ $15,000</td></tr>
+        <tr><td class="pname">Cartistem</td><td><span class="flag f-kr">韩国</span></td><td>2012</td><td>异体脐血</td><td>退行性关节炎 / 软骨损伤</td><td class="price">≈ $21,000</td></tr>
+        <tr><td class="pname">Cupistem</td><td><span class="flag f-kr">韩国</span></td><td>2012</td><td>自体脂肪</td><td>克罗恩病复杂肛瘘</td><td class="price">≈ $5,000</td></tr>
+        <tr><td class="pname">Prochymal / Temcell</td><td><span class="flag f-us">加/新</span> <span class="flag f-jp">日本</span></td><td>2012 / 2015</td><td>异体骨髓</td><td>急性移植物抗宿主病（aGVHD）</td><td class="price">$7,600 / 袋</td></tr>
+        <tr><td class="pname">NeuroNata-R</td><td><span class="flag f-kr">韩国</span></td><td>2014</td><td>自体骨髓</td><td>肌萎缩侧索硬化（ALS）</td><td class="price">≈ $55,000</td></tr>
+        <tr><td class="pname">Holoclar</td><td><span class="flag f-eu">欧盟</span></td><td>2015</td><td>自体角膜缘干细胞</td><td>角膜干细胞缺乏</td><td class="price">≈ $80,000 / 眼</td></tr>
+        <tr><td class="pname">Stempeucel</td><td><span class="flag f-in">印度</span></td><td>2017</td><td>异体骨髓</td><td>严重肢体缺血 / 骨关节炎</td><td class="price">≈ $2,200</td></tr>
+        <tr><td class="pname">Alofisel</td><td><span class="flag f-eu">欧盟</span> <span class="flag f-jp">日本</span></td><td>2018</td><td>异体脂肪</td><td>克罗恩病复杂肛周瘘</td><td class="price">≈ $47,485</td></tr>
+        <tr><td class="pname">Stemirac</td><td><span class="flag f-jp">日本</span></td><td>2018</td><td>自体骨髓</td><td>脊髓损伤</td><td class="price">≈ $135,000</td></tr>
+        <tr><td class="pname">MesestroCell</td><td><span class="flag f-in">伊朗</span></td><td>2018</td><td>异体骨髓</td><td>骨关节炎（膝）</td><td class="price">—</td></tr>
+        <tr><td class="pname">Ryoncil</td><td><span class="flag f-us">美国</span></td><td>2024.12</td><td>异体骨髓 MSC</td><td>儿童类固醇难治性 aGVHD（美国首款 MSC 药物）</td><td class="price">—</td></tr>
+        <tr style="background:rgba(45,226,197,.07)"><td class="pname" style="color:var(--cyan)">艾米迈托赛注射液（睿铂生）★</td><td><span class="flag f-cn">中国</span></td><td>2025.1</td><td>脐带 MSC</td><td>14 岁以上激素治疗失败的 aGVHD（消化道受累）</td><td class="price">附条件获批</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="reveal" style="margin-top:14px;font-size:12px;color:var(--dim)">★ 详见「中国里程碑」章节。另有 2026 年 3 月全球首批 iPSC 衍生疗法（ReHeart 心衰心肌贴片、Amchepry 帕金森病）获附条件批准。资料来源：NIH PMC、民生证券研究院、智慧芽、小牛行研等公开资料整理。</p>
+</section>
+
+<!-- ============ CHINA ============ -->
+<section id="china">
+  <div class="reveal">
+    <div class="sec-kicker">03 / CHINA DEEP DIVE</div>
+    <h2 class="sec-title">中国：从"跟跑整顿"到"产业化元年"</h2>
+    <p class="sec-lede">中国干细胞产业经历了<b>起步探索 → 规范整顿 → 商业化破晓</b>三个阶段。2024 年市场规模约 <b>265 亿元</b>（其中采集存储环节近 160 亿元），预计 2026 年突破 <b>400 亿元</b>；更宽的"细胞行业"口径下 2025 年已突破 <b>1,200 亿元</b>。中国以 1,219 项临床研究项目位居全球第二，形成京津冀、长三角、粤港澳三大产业集群。</p>
+  </div>
+
+  <div class="duo reveal">
+    <div class="chart-wrap">
+      <h3>中国干细胞市场规模（亿元人民币）</h3>
+      <div class="src">口径：前瞻产业研究院 / 中国报告大厅等公开预测综合</div>
+      <div class="chart-box"><canvas id="chartChina"></canvas></div>
+    </div>
+    <div class="chart-wrap">
+      <h3>产业链结构：钱在哪里？</h3>
+      <div class="src">2024 年 265 亿元市场的环节拆分（估算）</div>
+      <div class="chart-box"><canvas id="chartChain"></canvas></div>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:60px">
+    <div class="sec-kicker" style="color:var(--cyan)">POLICY TIMELINE</div>
+    <h3 class="serif" style="font-size:26px;font-weight:900">中国政策与产业大事记</h3>
+  </div>
+  <div class="timeline">
+    <div class="tl-item reveal"><div class="tl-date">2015</div><h3>"双轨制"确立</h3><p>《干细胞临床研究管理办法（试行）》发布，确立<b>卫健委临床研究备案 + 药监局药品注册</b>并行的双轨监管框架，同时开始全行业规范整顿。</p></div>
+    <div class="tl-item v reveal"><div class="tl-date">2021</div><h3>美容乱象第一次亮剑</h3><p>市场监管总局发布工作提示：除造血干细胞移植等极少数成熟技术外，<b>所有干细胞治疗均处于临床研究阶段</b>，无抗衰、美容方向的备案研究。</p></div>
+    <div class="tl-item reveal"><div class="tl-date">2023</div><h3>国家标准落地</h3><p>《人源干细胞国家标准》发布，规范细胞制备、存储与质量控制；全年干细胞药物 IND 受理 31 例。</p></div>
+    <div class="tl-item a reveal"><div class="tl-date">2024</div><h3>政策密集加码</h3><p>1 月七部委《关于推动未来产业创新发展的实施意见》将细胞与基因技术列入前沿产业化方向；细胞治疗药物进入《产业结构调整指导目录》鼓励类；<b>9 月四大自贸区 + 海南自贸港允许外商投资干细胞、基因诊断与治疗技术</b>，首次对外资开放。</p></div>
+    <div class="tl-item reveal"><div class="tl-date">2025.1</div><h3>历史性时刻：首款国产干细胞药物获批</h3><p>NMPA 通过优先审评附条件批准<b>艾米迈托赛注射液</b>，中国干细胞治疗正式进入药品化、商业化时代。</p></div>
+    <div class="tl-item a reveal"><div class="tl-date">2025.9–10</div><h3>818 号令：行业根本大法</h3><p>国务院公布《生物医学新技术临床研究和临床转化应用管理条例》（第 818 号令），自 2026 年 5 月 1 日施行，首次打通"临床研究 → 转化应用"的收费路径，并建立<b>四级处罚体系</b>。IND 审评时限压缩至 30 个工作日。</p></div>
+    <div class="tl-item v reveal"><div class="tl-date">2025.12</div><h3>从四地试点到全国开放</h3><p>《鼓励外商投资产业目录（2025 年版）》发布，细胞治疗产业实现<b>全链条开放</b>，自 2026 年 2 月施行。</p></div>
+    <div class="tl-item reveal"><div class="tl-date">2026.4</div><h3>管线爆发</h3><p>CDE 累计受理干细胞药物临床试验申请<b>超 223 项</b>；截至 2025 年底国内干细胞新药 IND 近 200 个，覆盖代谢、神经、免疫等多个领域。</p></div>
+  </div>
+
+  <div class="grid g3 reveal">
+    <div class="card"><span class="badge b-cyan">产业集群 · 京津冀</span><h3>北京：创新引擎</h3><p>以北医三院、北京大学人民医院、中国医学科学院为临床核心，首个国产干细胞新药上市点燃创新链条。</p></div>
+    <div class="card"><span class="badge b-violet">产业集群 · 长三角</span><h3>上海：百亿野心</h3><p>目标培育百亿产业规模、5 家上市公司；张江细胞产业园集聚上中下游企业，江苏将细胞治疗列入生物医药产业链卓越提升方向。</p></div>
+    <div class="card"><span class="badge b-amber">产业集群 · 粤港澳</span><h3>广深：先行先试</h3><p>广州南沙"完成 10 例临床即可进入收费"、深圳全国首部细胞和基因产业立法，华南干细胞药物 IND 受理数量跃居全国前列。</p></div>
+  </div>
+</section>
+
+<!-- ============ MILESTONE ============ -->
+<section id="milestone">
+  <div class="reveal">
+    <div class="sec-kicker">04 / CHINA MILESTONE CASE</div>
+    <div class="milestone">
+      <span class="badge b-cyan">CASE STUDY · 中国第一张干细胞处方</span>
+      <h3>艾米迈托赛注射液：<span>等待多年的历史性起点</span></h3>
+      <p>急性移植物抗宿主病（aGVHD）是造血干细胞移植后最致命的并发症之一，激素治疗失败的患者此前几乎无药可用。<b>2025 年 1 月</b>，NMPA 通过优先审评程序附条件批准艾米迈托赛注射液（商品名：睿铂生，铂生生物研发），用于治疗 <b>14 岁以上、消化道受累为主的激素治疗失败 aGVHD</b>——这是中国第一张干细胞药物"准生证"。</p>
+      <p style="margin-top:14px"><b>2025 年 6 月</b>，北京大学人民医院<b>黄晓军院士</b>团队开出该药首张处方，正式开启商业化临床应用。从首张 IND 受理到获批，这条管线跑通了"备案 IIT 研究 → 新药申报 → 优先审评 → 附条件批准"的完整路径，为后续 200 余个在研管线提供了模板。</p>
+      <div class="quote">"这是我国干细胞治疗产业化的历史性起点，我等了多年，终于等到了。"<small>—— 韩忠朝（国家干细胞工程技术研究中心主任）</small></div>
+    </div>
+  </div>
+
+  <div class="grid g2 reveal" style="margin-top:22px">
+    <div class="card"><span class="badge b-violet">案例 · 海南博鳌乐城</span><h3>医疗特区里的"收费破冰"</h3><p>乐城先行区允许干细胞新技术备案后开展临床应用并<b>首次明确政府定价机制</b>，截至 2025 年末已批准四批共 15 个收费项目，支持真实世界数据用于药品注册，成为全球细胞治疗技术的"展示窗口"。</p></div>
+    <div class="card"><span class="badge b-cyan">案例 · 研究活跃度</span><h3>1,219 项临床研究</h3><p>中国以 1,219 项干细胞临床研究项目位列全球第二；全国备案干细胞临床研究项目 133 项、覆盖 50 余种适应症，148 家三甲医院深度参与，备案机构超 160 家。</p></div>
+  </div>
+</section>
+
+<!-- ============ CASES / DARK SIDE ============ -->
+<section id="cases">
+  <div class="reveal">
+    <div class="sec-kicker">05 / REAL CASES · 产业的另一面</div>
+    <h2 class="sec-title">乱象与红线：野蛮生长的代价</h2>
+    <p class="sec-lede">与产业爆发并行的，是长期存在的灰色地带。理发店推销"干细胞抗衰针"、美容院静脉回输"年轻细胞"——<b>任何宣称抗衰老、美容功效的干细胞注射在中国均属违规</b>。以下是公开可查的真实查处案例：</p>
+  </div>
+
+  <div class="grid g2 reveal">
+    <div class="card risk"><div class="big">¥122.4万</div><h3>上海某生物科技公司 · 非法行医</h3><p>2019 年底被上海市卫健委监督所查获：以"生物科创"为幌子自建实验室，从人体血液、脂肪中提取干细胞直接用于医疗美容。最终没收违法所得并罚款 122.4 万元，涉案门诊部被<b>吊销执业许可证</b>。</p></div>
+    <div class="card risk"><div class="big">¥200万</div><h3>江苏某干细胞机构 · 48 小时查封</h3><p>2024 年江苏监管部门在接到举报后 48 小时内查封涉事机构并罚款 200 万元——与一些地方"需 2–3 个月确认违规"的拖延形成鲜明对比，成为监管执法的样本案例。</p></div>
+    <div class="card risk"><div class="big">¥10万 + 警告</div><h3>海南博鳌未来医院 · 明知故犯</h3><p>2025 年 10 月 31 日，该院未经审查批准擅自为患者输注间充质干细胞。监管部门此前已于 3 月印发规范通知、6 月下达《卫生监督意见书》，仍被认定<b>主观故意</b>，顶格处罚。</p></div>
+    <div class="card risk"><div class="big">315 晚会曝光</div><h3>灏麟（天津）生物 · 2026 年央视 3·15</h3><p>因干细胞虚假宣传被央视"3·15"晚会点名，处以 200 万元罚款并<b>吊销营业执照</b>，成为新一年度打击虚假医疗宣传的标志性案件。</p></div>
+  </div>
+
+  <div class="redline reveal" id="darkside">
+    <h3>⚠ 818 号令划出的四条红线（2026.5.1 施行）</h3>
+    <ul>
+      <li><b>资质红线</b>：开展干细胞临床研究的机构必须是<b>三级甲等医院</b>并设学术与伦理委员会——普通医美机构、美容院、生物公司一律不具备法定资质。</li>
+      <li><b>收费红线</b>：临床研究机构<b>不得向受试者收取任何费用</b>，违规者处违法所得 5 倍以下罚款。一切"付费打干细胞"的研究项目本身就是违法信号。</li>
+      <li><b>转化红线</b>：可标准化生产的细胞药品必须走 NMPA 新药审批；个性化技术走卫健委转化应用审批。"挂靠医院收费治疗" = 未经批准的临床应用。</li>
+      <li><b>禁区红线</b>：法律法规明令禁止或存在重大伦理问题的技术，罚款 100 万元起、最高违法所得 20 倍，个人<b>终身行业禁入</b>；情节严重的可构成非法行医罪、妨害药品管理罪、生产销售假药罪。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ OUTLOOK ============ -->
+<section>
+  <div class="reveal">
+    <div class="sec-kicker">06 / OUTLOOK</div>
+    <h2 class="sec-title">未来三年：窗口与变量</h2>
+  </div>
+  <div class="grid g3 reveal">
+    <div class="card"><span class="badge b-cyan">趋势 ①</span><h3>药品化提速</h3><p>IND 受理从 2023 年全年 31 例到 2025 年前三个月 7 例，再到累计 223+ 项——第二款、第三款国产干细胞药物上市只是时间问题。</p></div>
+    <div class="card"><span class="badge b-violet">趋势 ②</span><h3>支付端破局</h3><p>海南政府定价、商保切入、"沪惠保"类普惠险探索细胞疗法理赔——价格（动辄数万至数十万元/疗程）是下一个必须攻克的堡垒。</p></div>
+    <div class="card"><span class="badge b-amber">趋势 ③</span><h3>技术与产能竞赛</h3><p>iPSC 通用型细胞药、外泌体偶联药物、自动化封闭式生产（降本关键）、CDMO 平台——中国企业在全球 CGT 版图中的话语权持续上升。</p></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <h4>SOURCES · 主要资料来源</h4>
+  <ul class="src-list">
+    <li>Fortune Business Insights — Stem Cells Market Report 2025–2034（193.4 亿美元 / CAGR 17.45% / 区域拆分）</li>
+    <li>Straits Research — Stem Cells Market（2025：184.5 亿美元 → 2034：495.4 亿美元）</li>
+    <li>前瞻产业研究院《2024/2025 年中国干细胞行业市场研究报告》《2025 年中国干细胞产业发展白皮书》（265 亿元市场、产业链结构）</li>
+    <li>澎湃新闻《中国干细胞 2025 年重大进展盘点》（艾米迈托赛获批、首张处方、政策时间线）</li>
+    <li>中国改革论坛 / 经济日报《干细胞治疗产业链加速实现技术与成本突围》（818 号令、开放试点）</li>
+    <li>NIH PMC — Mesenchymal Stem Cell Therapies Approved by Regulatory Agencies around the World（获批 MSC 产品表）</li>
+    <li>民生证券研究院 / 小牛行研 — 全球干细胞创新药获批情况（产品价格）</li>
+    <li>智慧芽新药情报库（全球上市干细胞药物合计约 20 款、iPSC 首批获批）</li>
+    <li>法治日报《理发店都在卖的干细胞注射靠谱吗？》、云南网干细胞抗衰整治报道（乱象与监管）</li>
+    <li>炜衡律师事务所《818 号令下的法律红线与合规实务指引》（处罚案例与四级责任体系）</li>
+    <li>海润天睿律师事务所《干细胞治疗的"红与黑"》（刑事风险分析）</li>
+  </ul>
+  <p class="disclaimer">免责声明：本报告基于截至 2026 年 4 月的公开资料整理，不同机构市场统计口径存在差异，数据仅供研究参考，不构成任何医疗或投资建议。干细胞治疗应仅在具备法定资质的医疗机构内、经正规审批流程后开展；请警惕一切宣称抗衰、美容功效的干细胞注射服务。</p>
+</footer>
+
+<script>
+/* ---------- Particle cell canvas ---------- */
+(function(){
+  const cv=document.getElementById('cellCanvas'),ctx=cv.getContext('2d');
+  let W,H,cells=[],mouse={x:-999,y:-999};
+  function resize(){W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;}
+  resize();addEventListener('resize',resize);
+  const N=Math.min(90,Math.floor(innerWidth/14));
+  for(let i=0;i<N;i++)cells.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    r:2+Math.random()*5,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,
+    hue:Math.random()<.5?'45,226,197':'139,123,255',a:.25+Math.random()*.5});
+  addEventListener('mousemove',e=>{const b=cv.getBoundingClientRect();mouse.x=e.clientX-b.left;mouse.y=e.clientY-b.top;});
+  (function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(const c of cells){
+      c.x+=c.vx;c.y+=c.vy;
+      if(c.x<0)c.x=W;if(c.x>W)c.x=0;if(c.y<0)c.y=H;if(c.y>H)c.y=0;
+      const dx=c.x-mouse.x,dy=c.y-mouse.y,d=Math.hypot(dx,dy);
+      if(d<130){c.x+=dx/d*1.4;c.y+=dy/d*1.4;}
+      ctx.beginPath();ctx.arc(c.x,c.y,c.r,0,7);
+      ctx.fillStyle=`rgba(${c.hue},${c.a*.7})`;ctx.fill();
+    }
+    for(let i=0;i<cells.length;i++)for(let j=i+1;j<cells.length;j++){
+      const a=cells[i],b=cells[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<110){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(120,160,255,${(1-d/110)*.16})`;ctx.lineWidth=.7;ctx.stroke();}
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
+
+/* ---------- Scroll reveal & counters (graceful fallback if CDN fails) ---------- */
+(function(){
+  const nums=document.querySelectorAll('.num[data-count]');
+  if(!window.gsap){
+    nums.forEach(el=>{const t=parseFloat(el.dataset.count);
+      el.childNodes[0].nodeValue=t%1?t.toFixed(1):t;
+      if(el.dataset.suffix){const em=el.querySelector('em');
+        el.insertBefore(document.createTextNode(' '+el.dataset.suffix),em);}});
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+  document.querySelectorAll('.reveal').forEach(el=>{
+    gsap.fromTo(el,{opacity:0,y:36},{opacity:1,y:0,duration:.9,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+  nums.forEach(el=>{
+    const target=parseFloat(el.dataset.count),suf=el.dataset.suffix||'';
+    const em=el.querySelector('em');
+    el.insertBefore(document.createTextNode(' '+suf),em);
+    const obj={v:0};
+    gsap.to(obj,{v:target,duration:2.2,ease:'power2.out',delay:.4,
+      onUpdate(){el.childNodes[0].nodeValue=target%1?obj.v.toFixed(1):Math.round(obj.v);},
+      onComplete(){el.childNodes[0].nodeValue=target%1?target.toFixed(1):target;}});
+  });
+})();
+</script>
+
+<script>
+/* ---------- Charts ---------- */
+if(window.Chart){
+Chart.defaults.color='#8fa0c0';
+Chart.defaults.borderColor='rgba(140,170,255,.1)';
+Chart.defaults.font.family="'Noto Sans SC',sans-serif";
+
+// Global market line/bar combo
+const gYears=['2025','2026','2028','2030','2032','2034'];
+const gVals=[193.4,220.9,304,415,566,799.5];
+new Chart(document.getElementById('chartGlobal'),{
+  data:{labels:gYears,datasets:[
+    {type:'line',label:'市场规模（亿美元）',data:gVals,borderColor:'#2de2c5',borderWidth:3,
+     pointBackgroundColor:'#2de2c5',pointRadius:5,tension:.4,fill:true,
+     backgroundColor:(ctx)=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,380);
+       g.addColorStop(0,'rgba(45,226,197,.30)');g.addColorStop(1,'rgba(45,226,197,0)');return g;}},
+    {type:'bar',label:'（柱形同为市场规模）',data:gVals,backgroundColor:'rgba(139,123,255,.28)',
+     borderRadius:8,barPercentage:.55}
+  ]},
+  options:{maintainAspectRatio:false,plugins:{legend:{labels:{boxWidth:14}}},
+    scales:{y:{title:{display:true,text:'亿美元'},grid:{color:'rgba(140,170,255,.08)'}},
+            x:{grid:{display:false}}}}
+});
+
+// Region doughnut
+new Chart(document.getElementById('chartRegion'),{
+  type:'doughnut',
+  data:{labels:['北美 53.1%','亚太 23.1%','欧洲 17.95%','拉美 3.8%','中东非 2.02%'],
+    datasets:[{data:[53.1,23.1,17.95,3.8,2.02],
+      backgroundColor:['#2de2c5','#8b7bff','#ffb454','#ff6b8b','#4a6bff'],
+      borderColor:'#0a1020',borderWidth:3,hoverOffset:14}]},
+  options:{maintainAspectRatio:false,cutout:'62%',
+    plugins:{legend:{position:'right',labels:{boxWidth:14,padding:14}}}}
+});
+
+// China market bars
+new Chart(document.getElementById('chartChina'),{
+  type:'bar',
+  data:{labels:['2024（实际）','2025（预计）','2026（预测）'],
+    datasets:[{label:'中国干细胞市场规模（亿元人民币）',
+      data:[265,300,400],
+      backgroundColor:['rgba(45,226,197,.55)','rgba(139,123,255,.55)','rgba(255,180,84,.6)'],
+      borderRadius:12,barPercentage:.5}]},
+  options:{maintainAspectRatio:false,indexAxis:'y',
+    plugins:{legend:{labels:{boxWidth:14}}},
+    scales:{x:{title:{display:true,text:'亿元人民币'},grid:{color:'rgba(140,170,255,.08)'}},
+            y:{grid:{display:false}}}}
+});
+
+// Chain doughnut
+new Chart(document.getElementById('chartChain'),{
+  type:'doughnut',
+  data:{labels:['上游 · 采集与存储 ≈160亿','中游 · 研发制备（IND管线）','下游 · 临床应用与消费'],
+    datasets:[{data:[160,65,40],
+      backgroundColor:['#2de2c5','#8b7bff','#ffb454'],
+      borderColor:'#0a1020',borderWidth:3,hoverOffset:14}]},
+  options:{maintainAspectRatio:false,cutout:'60%',
+    plugins:{legend:{position:'bottom',labels:{boxWidth:14,padding:12}}}}
+});
+}
+</script>
+</body>
+</html>

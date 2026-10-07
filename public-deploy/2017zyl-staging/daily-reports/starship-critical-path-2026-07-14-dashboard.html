@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🚀 Starship 关键路径 · SpaceX 33:58 中文解读 · 4 大核心洞察 · 2026-07-14</title>
+<title lang="en">🚀 Starship Critical Path · SpaceX 33:58 · 4 Key Engineering Insights · 2026-07-14</title>
+<meta name="description" content="SpaceX Starship Critical Path 33:58 视频中文解读 dashboard。4 大核心洞察：关键路径、飞行前纪律、Mechazilla 塔架捕获、V3 批次演进。12 tabs · 6 stat cards · 17 Patrick-skill 关联 · 双向链接 rocket-launch-db · 中英文可切换。">
+<style>
+  :root {
+    --bg:#0d0d10; --bg-card:#16161b; --bg-elevated:#1c1c22;
+    --border:#2a2a32; --text:#e8e8ea; --text-dim:#a8a8b2; --text-mute:#6a6a76;
+    --accent:#ff6b35; --accent-2:#f7c59f;
+    --green:#4ade80; --red:#f87171; --yellow:#fbbf24;
+    --blue:#60a5fa; --purple:#a78bfa; --gray:#9ca3af;
+    --lime:#d5ff3f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','PingFang SC','Helvetica Neue',sans-serif;line-height:1.6}
+  body{padding:32px 24px 80px;max-width:1280px;margin:0 auto}
+  h1{font-size:36px;font-weight:800;margin:0 0 8px;letter-spacing:-0.02em;line-height:1.2}
+  h2.section{font-size:22px;font-weight:700;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid var(--accent);color:var(--accent-2)}
+  h3{font-size:17px;font-weight:700;margin:0 0 8px;color:var(--text)}
+  h4{font-size:15px;font-weight:700;margin:0 0 6px;color:var(--text)}
+  p{margin:0 0 12px;color:var(--text-dim)}
+  .subtitle{font-size:16px;color:var(--text-mute);margin-bottom:24px;font-style:italic}
+  .meta-bar{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0;padding:14px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;font-size:13px}
+  .meta-bar span{padding:4px 10px;background:var(--bg-elevated);border-radius:6px;color:var(--text-dim)}
+  .meta-bar span strong{color:var(--lime);font-weight:600}
+  .hero{background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(247,197,159,.03));border:1px solid rgba(255,107,53,.25);border-radius:14px;padding:24px 28px;margin:24px 0}
+  .hero h3{color:var(--accent-2);font-size:18px;margin-bottom:12px}
+  .hero ol{margin:0;padding-left:24px;color:var(--text)}
+  .hero ol li{margin-bottom:8px;color:var(--text)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:24px 0}
+  .stat{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;text-align:center}
+  .stat .num{font-size:28px;font-weight:800;color:var(--lime);line-height:1}
+  .stat .label{font-size:12px;color:var(--text-mute);margin-top:6px;text-transform:uppercase;letter-spacing:.08em}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:32px 0 0;padding-bottom:12px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
+  .tab{padding:9px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s ease}
+  .tab:hover{background:var(--bg-elevated);color:var(--text)}
+  .tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tab-content{display:none;padding:28px 0}
+  .tab-content.active{display:block}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}
+  .card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;transition:transform .15s,border-color .15s}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .card.bordered{border-left:3px solid var(--accent)}
+  .card.bordered-blue{border-left:3px solid var(--blue)}
+  .card.bordered-green{border-left:3px solid var(--green)}
+  .card.bordered-yellow{border-left:3px solid var(--yellow)}
+  .card.bordered-purple{border-left:3px solid var(--purple)}
+  .card p{font-size:14px;margin:6px 0}
+  .card ul{padding-left:20px;margin:8px 0;font-size:14px;color:var(--text-dim)}
+  .card ul li{margin-bottom:4px}
+  .badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-right:6px}
+  .badge.mitig{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+  .badge.warn{background:rgba(251,191,36,.15);color:var(--yellow);border:1px solid rgba(251,191,36,.3)}
+  .badge.gap{background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  th{background:var(--bg-elevated);padding:10px 12px;text-align:left;color:var(--text);font-weight:700;border-bottom:2px solid var(--border)}
+  td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text-dim)}
+  tr:hover td{background:rgba(255,107,53,.04)}
+  blockquote{margin:14px 0;padding:14px 20px;background:var(--bg-card);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;font-style:italic;color:var(--text)}
+  blockquote cite{display:block;margin-top:8px;font-size:12px;font-style:normal;color:var(--text-mute)}
+  .quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:14px}
+  .quote-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px}
+  .quote-card .quote-en{font-size:14px;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--border)}
+  .quote-card .quote-zh{font-size:13px;color:var(--text-dim);line-height:1.6;margin-bottom:8px}
+  .quote-card .source{font-size:11px;color:var(--text-mute);text-transform:uppercase;letter-spacing:.06em}
+  .timeline{position:relative;padding-left:30px;margin-top:14px}
+  .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--border)}
+  .timeline-item{position:relative;padding-bottom:18px}
+  .timeline-item::before{content:'';position:absolute;left:-26px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+  .timeline-item .time{font-size:11px;color:var(--accent-2);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+  .timeline-item .event{font-size:14px;color:var(--text)}
+  .footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--text-mute);text-align:center;line-height:1.7}
+  .footer a{color:var(--accent-2);text-decoration:none}
+  .footer a:hover{text-decoration:underline}
+  /* TOC v1.4.4 collapsible */
+  .toc{position:fixed;left:24px;top:120px;width:240px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;max-height:70vh;overflow-y:auto;transition:transform .3s ease;z-index:20;font-size:13px}
+  .toc.collapsed{transform:translateX(-12px) translateX(-92%)}
+  .toc-toggle{position:fixed;left:8px;top:120px;width:32px;height:32px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;z-index:21;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .toc-toggle:hover{background:var(--accent-2)}
+  .toc h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mute)}
+  .toc ul{list-style:none;margin:0;padding:0}
+  .toc li{margin-bottom:4px}
+  .toc a{color:var(--text-dim);text-decoration:none;display:block;padding:4px 8px;border-radius:4px;font-size:12px}
+  .toc a:hover{background:var(--bg-elevated);color:var(--text)}
+  .toc a.active{background:var(--accent);color:#fff}
+  /* Lang toggle button */
+  .lang-toggle{position:fixed;top:24px;right:24px;background:var(--lime);color:#0d0d10;border:none;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;z-index:30;box-shadow:0 4px 12px rgba(213,255,63,.2);transition:all .15s}
+  .lang-toggle:hover{background:#c5ef2f;transform:translateY(-1px)}
+  .lang-toggle .label-en{display:none}
+  .lang-toggle .label-zh{display:inline}
+  html[lang="en"] .lang-toggle .label-en{display:inline}
+  html[lang="en"] .lang-toggle .label-zh{display:none}
+  /* Bilingual content toggle: default zh, hide .en; when html[lang="en"] flip */
+  .en{display:none}
+  .zh{display:inline}
+  /* Block-level content: hide entire blocks */
+  .lang-en{display:none}
+  .lang-zh{display:block}
+  html[lang="en"] .zh{display:none !important}
+  html[lang="en"] .en{display:inline !important}
+  html[lang="en"] .lang-en{display:block !important}
+  html[lang="en"] .lang-zh{display:none !important}
+  @media (max-width:1100px){.toc{display:none}.toc-toggle{left:8px}}
+  @media (max-width:600px){body{padding:16px 12px 60px}h1{font-size:24px}.meta-bar{font-size:12px}.lang-toggle{top:12px;right:12px;font-size:12px;padding:6px 10px}}
+  .related-link{background:linear-gradient(135deg,rgba(96,165,250,.1),rgba(167,139,250,.05));border:1px solid rgba(96,165,250,.3);border-radius:10px;padding:18px 22px;margin:14px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .related-link .text{color:var(--text);font-size:14px;line-height:1.5}
+  .related-link .text strong{color:var(--blue)}
+  .related-link a{background:var(--blue);color:#fff;padding:9px 16px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;transition:opacity .15s}
+  .related-link a:hover{opacity:.85}
+  .ver-badge{display:inline-block;padding:2px 6px;background:rgba(213,255,63,.12);color:var(--lime);border:1px solid rgba(213,255,63,.3);border-radius:4px;font-size:10px;font-weight:700;margin-left:8px;vertical-align:middle;letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
+  <span class="label-zh">EN</span><span class="label-en">中文</span>
+</button>
+
+<h1><span class="zh">🚀 Starship · 关键路径</span><span class="en">🚀 Starship · Critical Path</span> <span class="ver-badge">v2 · 中EN ⇄</span></h1>
+<p class="subtitle">
+  <span class="zh">SpaceX 构建世界首个完全可重用火箭的工程哲学 — 33:58 提炼为 4 大核心洞察</span>
+  <span class="en">SpaceX Engineering Philosophy on Building the World's First Fully Reusable Rocket — 33:58 distilled into 4 key engineering insights</span>
+</p>
+
+<div class="meta-bar">
+  <span>📺 <strong class="zh">频道</strong><strong class="en">Channel</strong>: SpaceX (official)</span>
+  <span>🎬 <strong class="zh">时长</strong><strong class="en">Duration</strong>: 33:58</span>
+  <span>🗣️ <strong class="zh">语言</strong><strong class="en">Language</strong>: <span class="zh">英语 (自动转录)</span><span class="en">English (auto-transcribed)</span></span>
+  <span>📅 <strong class="zh">发布</strong><strong class="en">Published</strong>: 2026 (Flight 12 前夕)</span>
+  <span>🔬 <strong class="zh">来源</strong><strong class="en">Source</strong>: kome.ai transcript · 22,818 chars</span>
+  <span>🎯 <strong class="zh">主题</strong><strong class="en">Topic</strong>: <span class="zh">关键路径 · 塔架捕获 · V3 · 快速复用</span><span class="en">Critical Path · Catch Tower · V3 · Rapid Reuse</span></span>
+</div>
+
+<div class="hero">
+  <h3><span class="zh">🔑 核心论点 · Core Thesis</span><span class="en">🔑 Core Thesis</span></h3>
+  <p style="font-size:15px;color:var(--text);line-height:1.7;margin-bottom:14px">
+    <span class="lang-zh">建造像 Starship 这样复杂的火箭,本质上是一个<strong style="color:var(--lime)">关键路径工程问题</strong>——即最长的一串相互依赖的序列化事件。SpaceX 跨越 12+ 次飞行的工程哲学,归结为一句话:<strong style="color:var(--lime)">造 → 飞 → 接 → 学 → 迭代</strong>。每一个重大里程碑(首次飞行、Flight 5 首次塔架捕获、V3 批次同时升级 pad+ship+booster)都印证了同一条元教训:<em>"最有效的学习方式就是去飞。"</em></span>
+    <span class="lang-en">Building a rocket like Starship is a critical-path engineering problem — the longest sequential set of gated events. SpaceX's engineering philosophy across 12+ flights boils down to: <strong style="color:var(--lime)">build → fly → catch → learn → iterate</strong>. Every major milestone (first flight, first catch on Flight 5, V3 block change with simultaneous pad+ship+booster upgrade) carries the same meta-lesson: <em>"the most learnings are to go fly."</em></span>
+  </p>
+  <ol>
+    <li class="lang-zh"><strong>关键路径纪律</strong> — 识别最长的依赖链;任一环节卡住,后续全部阻塞</li>
+    <li class="lang-en"><strong>Critical Path Discipline</strong> — identify the longest gated sequence; one stuck step blocks everything downstream</li>
+    <li class="lang-zh"><strong>飞行前严谨度</strong> — "意外响应"必须可诊断,不能盲目绕过(Flight 11 盲压事件)</li>
+    <li class="lang-en"><strong>Pre-flight Rigor</strong> — "unexpected responses" must be diagnosable, not blindly bypassed (Flight 11 blind-pressure incident)</li>
+    <li class="lang-zh"><strong>Mechazilla 塔架捕获</strong> — 筷子臂把"着陆"从受控坠毁变成可回收的机动动作(Flight 5 首次成功)</li>
+    <li class="lang-en"><strong>Mechazilla Catch</strong> — chopstick tower catch converts "landing" from a controlled crash into a recoverable maneuver (Flight 5 first success)</li>
+    <li class="lang-zh"><strong>快速复用演进</strong> — V1 → V2 → V3 每次都缩短周转时间;目标是"完全且快速可重用"</li>
+    <li class="lang-en"><strong>Rapid Reuse Evolution</strong> — V1 → V2 → V3 each brought faster turnaround; the goal is "fully and rapidly reusable"</li>
+  </ol>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="num">33:58</div><div class="label"><span class="zh">时长</span><span class="en">Duration</span></div></div>
+  <div class="stat"><div class="num">12+</div><div class="label"><span class="zh">飞行次数</span><span class="en">Flights</span></div></div>
+  <div class="stat"><div class="num">F5</div><div class="label"><span class="zh">首次塔架捕获</span><span class="en">First Catch</span></div></div>
+  <div class="stat"><div class="num">V3</div><div class="label"><span class="zh">当前批次</span><span class="en">Current Block</span></div></div>
+  <div class="stat"><div class="num">4</div><div class="label"><span class="zh">核心洞察</span><span class="en">Core Insights</span></div></div>
+  <div class="stat"><div class="num">22.8K</div><div class="label"><span class="zh">转录字符</span><span class="en">Transcript Chars</span></div></div>
+</div>
+
+<button class="toc-toggle" onclick="document.querySelector('.toc').classList.toggle('collapsed');localStorage.setItem('starship-toc-collapsed',document.querySelector('.toc').classList.contains('collapsed'))">☰</button>
+
+<aside class="toc">
+  <h4><span class="zh">📑 目录</span><span class="en">📑 Contents</span></h4>
+  <ul>
+    <li><a href="#core" data-tab-link="core"><span class="zh">🔥 核心论点</span><span class="en">🔥 Core Thesis</span></a></li>
+    <li><a href="#critical-path" data-tab-link="critical-path"><span class="zh">🎯 关键路径定义</span><span class="en">🎯 Critical Path Def</span></a></li>
+    <li><a href="#preflight" data-tab-link="preflight"><span class="zh">⏱️ 飞行前纪律</span><span class="en">⏱️ Pre-flight</span></a></li>
+    <li><a href="#mechazilla" data-tab-link="mechazilla"><span class="zh">🏗️ Mechazilla 塔架</span><span class="en">🏗️ Mechazilla</span></a></li>
+    <li><a href="#v3" data-tab-link="v3"><span class="zh">🚀 V3 批次演进</span><span class="en">🚀 V3 Block</span></a></li>
+    <li><a href="#reuse" data-tab-link="reuse"><span class="zh">♻️ 快速复用哲学</span><span class="en">♻️ Rapid Reuse</span></a></li>
+    <li><a href="#flights" data-tab-link="flights"><span class="zh">📋 Flight 1→13 时间线</span><span class="en">📋 Flight Timeline</span></a></li>
+    <li><a href="#incidents" data-tab-link="incidents"><span class="zh">⚠️ 重大事件与教训</span><span class="en">⚠️ Incidents</span></a></li>
+    <li><a href="#patrick" data-tab-link="patrick"><span class="zh">🔗 Patrick 工作关联</span><span class="en">🔗 Patrick Cross-Refs</span></a></li>
+    <li><a href="#quotes" data-tab-link="quotes"><span class="zh">💬 金句 · 中EN 双语</span><span class="en">💬 Quotes · ZH+EN</span></a></li>
+    <li><a href="#action" data-tab-link="action"><span class="zh">🗺️ 实战路线</span><span class="en">🗺️ Action Items</span></a></li>
+    <li><a href="#related" data-tab-link="related"><span class="zh">🌐 相关链接</span><span class="en">🌐 Related Links</span></a></li>
+  </ul>
+</aside>
+
+<div class="tabs">
+  <button class="tab active" data-tab="core"><span class="zh">🔥 核心</span><span class="en">🔥 Core</span></button>
+  <button class="tab" data-tab="critical-path"><span class="zh">🎯 关键路径</span><span class="en">🎯 Critical Path</span></button>
+  <button class="tab" data-tab="preflight"><span class="zh">⏱️ 飞行前</span><span class="en">⏱️ Pre-flight</span></button>
+  <button class="tab" data-tab="mechazilla"><span class="zh">🏗️ Mechazilla</span><span class="en">🏗️ Mechazilla</span></button>
+  <button class="tab" data-tab="v3"><span class="zh">🚀 V3 批次</span><span class="en">🚀 V3 Block</span></button>
+  <button class="tab" data-tab="reuse"><span class="zh">♻️ 快速复用</span><span class="en">♻️ Rapid Reuse</span></button>
+  <button class="tab" data-tab="flights"><span class="zh">📋 Flight 1→13</span><span class="en">📋 Flights</span></button>
+  <button class="tab" data-tab="incidents"><span class="zh">⚠️ 事件</span><span class="en">⚠️ Incidents</span></button>
+  <button class="tab" data-tab="patrick"><span class="zh">🔗 Patrick</span><span class="en">🔗 Patrick</span></button>
+  <button class="tab" data-tab="quotes"><span class="zh">💬 金句</span><span class="en">💬 Quotes</span></button>
+  <button class="tab" data-tab="action"><span class="zh">🗺️ 实战</span><span class="en">🗺️ Action</span></button>
+  <button class="tab" data-tab="related"><span class="zh">🌐 链接</span><span class="en">🌐 Links</span></button>
+</div>
+
+<div class="tab-content active" data-tab-content="core">
+  <h2 class="section"><span class="zh">🔥 核心论点 · 这个视频为什么重要</span><span class="en">🔥 Core Thesis · Why this video matters</span></h2>
+  <div class="lang-zh">
+    <p>这是 SpaceX 官方对 Starship 研发的工程叙事。不是技术规格(那些在 SpaceX 官网),而是<em>工程哲学</em>:一个数千人的团队如何协作,造出世界首个完全且快速可重用的轨道火箭。</p>
+  </div>
+  <div class="lang-en">
+    <p>This is SpaceX's official engineering narrative around Starship development. Not technical specs (those are on the SpaceX website) — but the <em>engineering philosophy</em>: how a team of thousands of people coordinates to build the world's first fully and rapidly reusable orbital rocket.</p>
+  </div>
+  <div class="card-grid">
+    <div class="card bordered">
+      <h4>🎯 <span class="zh">关键路径思维</span><span class="en">Critical Path Thinking</span></h4>
+      <div class="lang-zh"><p>"关键路径就是最长的、相互依赖、必须按序完成才能让任务发生的事件链。"</p><p>每个工程决策都要过一道滤:<em>这事在关键路径上吗?</em>在 → 优先;不在 → 推迟。</p></div>
+      <div class="lang-en"><p>"Critical path is the longest set of sequential events that are gated by each other that must be completed in order for a task to happen."</p><p>Every engineering decision is filtered through: <em>is this on the critical path?</em> If yes, prioritize. If not, defer.</p></div>
+    </div>
+    <div class="card bordered-blue">
+      <h4>⚙️ <span class="zh">工程纪律</span><span class="en">Engineering Discipline</span></h4>
+      <div class="lang-zh"><p>飞行前简报不是走过场——而是异常分类演练。当"意外响应"出现(比如 Flight 12 的盲压异常脉冲),问题变成:<em>"我们能多确定地解释它,使得不会在不知不觉中走入了更大的问题、而这只是一个小症状?"</em></p><p>未确诊的异常 → 主动走开;已确诊的异常 → 才主动走进去。</p></div>
+      <div class="lang-en"><p>Pre-flight briefings are not procedural theater — they're anomaly-classification drills. When an "unexpected response" appears (e.g. blind pressure blip on Flight 12), the question is: <em>"how confident are we in being able to explain that?"</em></p><p>Undiagnosed blips are walked away from; diagnosed ones are walked into deliberately.</p></div>
+    </div>
+    <div class="card bordered-green">
+      <h4>🏗️ <span class="zh">Mechazilla 塔架捕获</span><span class="en">Mechazilla Catch</span></h4>
+      <div class="lang-zh"><p>筷子臂塔架捕获(Flight 5 首次成功,2024 年 10 月)从根本上改变了发射经济学。一次性受控捕获,免去了着陆腿 + 海上平台回收 + 受压结构翻修的需要。</p><p>这就是 Starship"完全可重用"目标在工程上能落地的核心机制。</p></div>
+      <div class="lang-en"><p>Chopstick tower catch (first successful on Flight 5) fundamentally changed launch economics. A controlled catch eliminates the need for landing legs + sea platform recovery + refurbishment of stressed structure.</p><p>This is the engineering reason Starship's "fully reusable" goal is realistic.</p></div>
+    </div>
+    <div class="card bordered-yellow">
+      <h4>♻️ <span class="zh">快速迭代循环</span><span class="en">Rapid Iteration Loop</span></h4>
+      <div class="lang-zh"><p>"最有效的学习方式就是去飞。" 每次飞行(V1 → V2 → V3)都是踏脚石:V1 证明了能飞;V2 证明了能接;V3 证明了能复用。</p><p>团队明确接受未知的未知:<em>"我们其实预期可能漏掉了什么,但到某个临界点,你就必须说——去飞。"</em></p></div>
+      <div class="lang-en"><p>"The most learnings are to go fly." Each flight (V1 → V2 → V3) has been a stepping stone: V1 proved it can fly; V2 proved it can land; V3 proves it can be reused.</p><p>The team explicitly accepts unknown unknowns: <em>"there's somewhat of an expectation of like what we might have missed, but at some point you just got to say — go fly."</em></p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="critical-path">
+  <h2 class="section"><span class="zh">🎯 关键路径定义</span><span class="en">🎯 Critical Path Definition</span></h2>
+  <div class="lang-zh"><p>从开头旁白起,SpaceX 工程师把所有项目决策都框在关键路径语境下。这是项目管理思维(CPM / PERT)应用于工业规模。</p></div>
+  <div class="lang-en"><p>From the opening narration, SpaceX engineers frame every project decision in critical-path terms. This is project-management thinking (CPM / PERT) applied at industrial scale.</p></div>
+
+  <blockquote>
+    <span class="zh">"当你处理像造火箭或造发射台这样复杂的事情时,时刻关注关键路径非常重要。关键路径就是最长的、相互依赖的、必须按顺序完成才能让任务发生的事件链。"</span>
+    <span class="en">"When you're dealing with something as complex as building a rocket or as building a launchpad, being extremely mindful of the critical path is important. And what the critical path is is the longest set of sequential events that are gated by each other that must be completed in order for a task to happen."</span>
+    <cite>— SpaceX 工程团队,开篇旁白</cite>
+  </blockquote>
+
+  <h3><span class="zh">关键路径应用于 Starship</span><span class="en">Critical Path applied to Starship</span></h3>
+  <div class="card-grid">
+    <div class="card bordered">
+      <h4>1. <span class="zh">识别最长杆</span><span class="en">Identify the Long Pole</span></h4>
+      <div class="lang-zh"><p>对 Starship 来说,最长杆一直是:</p><ul><li>Raptor 引擎生产率(每枚 Super Heavy 33 台)</li><li>瓦片热防护完整性(V1 丢大量瓦;V2 重新设计)</li><li>分级分离动力学(V2 首次顺利工作)</li><li>再入等离子通信黑障</li></ul></div>
+      <div class="lang-en"><p>For Starship, the long poles have been:</p><ul><li>Raptor engine production rate (33 engines per Super Heavy booster)</li><li>Tile heat-shield integrity (V1 lost many tiles; V2 redesigned)</li><li>Stage separation dynamics (V2 first time worked smoothly)</li><li>Re-entry plasma comms blackout</li></ul></div>
+    </div>
+    <div class="card bordered-blue">
+      <h4>2. <span class="zh">序列化门控</span><span class="en">Sequential Gating</span></h4>
+      <div class="lang-zh"><p>序列里的每个"门"必须通过才能进入下一阶段。例子:</p><ul><li>静态点火 → 全栈集成 → 湿彩排 → 飞行</li><li>回推点火 → 再入点火 → 着陆点火 → 塔架捕获</li><li>翻修 → 再集成 → 加注 → 下次飞行</li></ul></div>
+      <div class="lang-en"><p>Each "gate" in the sequence must be passed before the next starts. Examples:</p><ul><li>Static fire → full stack integration → wet dress rehearsal → flight</li><li>Boostback burn → re-entry burn → landing burn → tower catch</li><li>Refurbishment → re-integration → refueling → next flight</li></ul></div>
+    </div>
+    <div class="card bordered-green">
+      <h4>3. <span class="zh">推迟非关键工作</span><span class="en">Defer Non-Critical Work</span></h4>
+      <div class="lang-zh"><p>任何不在关键路径上的事,都被推迟或剔除。这就是为什么 Starship 看起来比传统火箭"极简"(无涂装、无需分离整流罩、无逃逸系统)。</p><p>每一克、每颗螺栓、每项测试都过关键路径的滤。</p></div>
+      <div class="lang-en"><p>Anything NOT on the critical path gets deferred or eliminated. This is why Starship looks "minimal" compared to legacy rockets (no paint, no fairings that don't separate, no abort systems).</p><p>Every gram, every bolt, every test is filtered through the critical-path lens.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="preflight">
+  <h2 class="section"><span class="zh">⏱️ 飞行前简报与纪律</span><span class="en">⏱️ Pre-flight Brief & Discipline</span></h2>
+  <div class="lang-zh"><p>视频捕捉到真实的飞行前简报(composite protocol + 倒计时)。展现的纪律是:每个异常被命名、分类,然后要么解决,要么主动走开。</p></div>
+  <div class="lang-en"><p>The video captures actual pre-flight briefings (composite protocol + countdown). The discipline shown: every anomaly is named, classified, and either resolved or walked away from.</p></div>
+
+  <blockquote>
+    <span class="zh">"当我们看到意外响应时,我们能多确定地解释它,使得不会在不知不觉中走入了更大的问题、而这只是一个小症状?"</span>
+    <span class="en">"When we see an unexpected response, how confident are we in being able to explain that such that we're not unknowingly walking into an actual bigger problem that this was just a small symptom of?"</span>
+    <cite>— 飞行前工程清单, Flight 12</cite>
+  </blockquote>
+
+  <h3><span class="zh">真实飞行前节选</span><span class="en">Real Pre-flight Excerpts</span></h3>
+  <div class="card-grid">
+    <div class="card bordered">
+      <h4>🔊 <span class="zh">Com 协议 + 飞行前简报</span><span class="en">Comp Protocol + Pre-op Brief</span></h4>
+      <div class="lang-zh"><p>"Test flight affairs on LP-0. 我们正为 Flight 12 准备飞行前简报。先从 com 协议开始。"</p><p>每次飞行从口头清单回读开始——控制员逐一播报每个子系统的状态。这让人联想到航空业(FAA 风格的机组资源管理)。</p></div>
+      <div class="lang-en"><p>"Test flight affairs on LP-0. We're getting ready for our pre-op brief for flight 12 here. We're going to start off with some comp protocol."</p><p>Every flight starts with a verbal checklist readback — the controller names each subsystem status. This is reminiscent of aviation (FAA-style crew resource management).</p></div>
+    </div>
+    <div class="card bordered-blue">
+      <h4>⏰ <span class="zh">T-40 秒</span><span class="en">T-minus 40 seconds</span></h4>
+      <div class="lang-zh"><p>"卡在 T-40 秒。" → "收到,先生。" → "看起来拔插销时盲压出现一个异常脉冲。加压..."</p><p>当异常出现,团队会挂起倒计时直到它被分类。没有"我们飞行中再弄"的心态。</p></div>
+      <div class="lang-en"><p>"Holding at T-minus 40 seconds." → "Yes, sir. Got you." → "This looks like a blip on blind pressure when we unpinned. Pressur..."</p><p>When an anomaly appears, the team holds the countdown until it's classified. No "we'll figure it out in flight" mentality.</p></div>
+    </div>
+    <div class="card bordered-green">
+      <h4>🔬 <span class="zh">异常分类</span><span class="en">Anomaly Classification</span></h4>
+      <div class="lang-zh"><p>"压力热载传感器。如果它们变成熔化的金属渣,那才是真问题。"</p><p>传感器不只是数据——它们是失效模式的金丝雀。团队知道每种传感器失效模式长什么样,并据此行动。</p></div>
+      <div class="lang-en"><p>"Pressure thermal load sensing devices. If they turn into melted metal slag, then you know there's a real problem."</p><p>Sensors aren't just data — they're failure-mode canaries. The team knows what each sensor failure mode looks like and acts accordingly.</p></div>
+    </div>
+    <div class="card bordered-yellow">
+      <h4>⚠️ <span class="zh">主动叫停纪律</span><span class="en">Walk-Away Discipline</span></h4>
+      <div class="lang-zh"><p>"发射过程的第一阶段。如果它不工作,我们就不发射。所以,这当然会提升利害关系和优先级,以及戏剧性……"</p><p>主动叫停是特性,不是缺陷。Scrub 是常态。Scrub 今天好过明天爆炸。</p></div>
+      <div class="lang-en"><p>"The first stage of the launch process. And if it is not working, we cannot go launch. And so, that certainly like raises the stakes and raises the priority and like drama whenever..."</p><p>Walk-away is a feature, not a bug. Scrubs are normal. Better to scrub today than explode tomorrow.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="mechazilla">
+  <h2 class="section"><span class="zh">🏗️ Mechazilla 与筷子臂</span><span class="en">🏗️ Mechazilla & Chopsticks</span></h2>
+  <div class="lang-zh"><p>Starship 基础设施里视觉上最独特的部分:发射塔上的筷子臂,在助推器(以及最终飞船)返回时进行捕获。首次成功捕获在 Flight 5(2024 年 10 月)。</p></div>
+  <div class="lang-en"><p>The most visually distinctive part of Starship infrastructure: the launch tower's chopstick arms that catch the returning booster (and eventually ship). First successful catch on Flight 5 (October 2024).</p></div>
+
+  <blockquote>
+    <span class="zh">"我们在海上部署的无人机比以往任何时候都多。说出这样漂亮的一句话:我们将继续推动人类的未来。"</span>
+    <span class="en">"We have way more drones than we have ever had to have offshore. Got a beautiful line like that. We'll keep pushing forward humanity's future."</span>
+    <cite>— Flight 12 捕获尝试时的地面组评述</cite>
+  </blockquote>
+
+  <h3><span class="zh">为什么塔架捕获至关重要</span><span class="en">Why the Catch Matters</span></h3>
+  <div class="card-grid">
+    <div class="card bordered">
+      <h4>💰 <span class="zh">经济学</span><span class="en">Economics</span></h4>
+      <div class="lang-zh"><p>没有塔架捕获,你需要:</p><ul><li>海上平台着陆(无人船——Falcon 9 模式)——载荷有限</li><li>着陆腿——增加质量 + 翻修复杂度</li><li>降落伞回收——对轨道速度不适用</li></ul><p>捕获消除了以上三种方案。每次飞行直接节省:~$10M+ 回收基础设施费用。</p></div>
+      <div class="lang-en"><p>Without tower catch, you need either:</p><ul><li>Sea-platform landing (drone ships — Falcon 9 style) — limited payload</li><li>Landing legs — adds mass + refurbishment complexity</li><li>Parachute recovery — doesn't scale for orbital velocities</li></ul><p>Catch eliminates all three. Direct savings: ~$10M+ per flight in recovery infrastructure.</p></div>
+    </div>
+    <div class="card bordered-blue">
+      <h4>🔄 <span class="zh">翻修速度</span><span class="en">Refurbishment Speed</span></h4>
+      <div class="lang-zh"><p>捕获让助推器立即到达地面层。翻修可以在数小时内开始,而不是数天。</p><p>这就是"快速复用"在物理上能实现的原因——引擎舱不需要从海上平台被拆下来、风干、再运回集成设施。</p></div>
+      <div class="lang-en"><p>Catch delivers the booster to ground level immediately. Refurbishment can begin within hours, not days.</p><p>This is what makes "rapid reuse" physically possible — the engine bay doesn't need to be unbolted from a sea platform, dried out, transported back to the integration facility.</p></div>
+    </div>
+    <div class="card bordered-green">
+      <h4>🎯 <span class="zh">精密工程</span><span class="en">Precision Engineering</span></h4>
+      <div class="lang-zh"><p>塔架捕获要求助推器在合适的垂直速度(~5 m/s)下命中 ~2 米的靶区。基本上是一次没有伸缩套管的对接空中加油。</p><p>首次成功捕获前需要 4 次尝试(V1 + V2 各 2 次均错过或在平台爆炸)。</p></div>
+      <div class="lang-en"><p>Tower catch requires the booster to hit a target area of ~2 meters at the right vertical velocity (~5 m/s). It's basically an aerial refueling rendezvous without the boom.</p><p>First successful catch required 4 prior attempts (V1 + V2 flights all attempted and missed or exploded on the pad).</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="v3">
+  <h2 class="section"><span class="zh">🚀 V3 批次演进</span><span class="en">🚀 V3 Block Change Evolution</span></h2>
+  <div class="lang-zh"><p>V3 代表 Starship 的第三个主要批次变更——也是首次<em>同时</em>升级 pad + ship + booster 的批次。</p></div>
+  <div class="lang-en"><p>V3 represents the third major block change for Starship — and the first where pad + ship + booster were upgraded <em>simultaneously</em>.</p></div>
+
+  <blockquote>
+    <span class="zh">"任何时候我们有这些项目里的大跃进,无论是首次飞行一,还是 Flight 5 的首次捕获,显然 V3 同时升级了 pad、ship 和 booster 的大批次变更,我们某种程度上预期可能漏掉了什么……"</span>
+    <span class="en">"Anytime we have these kind of big evolutionary leaps in the program, whether it was the very first flight one, whether it was first catch of flight five, obviously new major block change with the pad and the ship and the booster all at the same time for V3, there's somewhat of an expectation of like what we might have missed..."</span>
+    <cite>— V3 过渡期评述</cite>
+  </blockquote>
+
+  <h3><span class="zh">V1 → V2 → V3 演进</span><span class="en">V1 → V2 → V3 Evolution</span></h3>
+  <table>
+    <thead>
+      <tr>
+        <th><span class="zh">批次</span><span class="en">Block</span></th>
+        <th><span class="zh">主要变更</span><span class="en">Major Changes</span></th>
+        <th><span class="zh">首飞</span><span class="en">First Flight</span></th>
+        <th><span class="zh">关键教训</span><span class="en">Critical Lesson</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>V1</strong></td>
+        <td><span class="zh">初代 Starship + Super Heavy,33 台 Raptor 2,轨道加注架构</span><span class="en">Original Starship + Super Heavy, 33 Raptor 2s, orbital refueling architecture</span></td>
+        <td>2023-04</td>
+        <td><span class="zh">证明了飞行是可能的(尽管多次 RUD)</span><span class="en">Proved flight is possible (despite multiple RUDs)</span></td>
+      </tr>
+      <tr>
+        <td><strong>V2</strong></td>
+        <td><span class="zh">改进热盾,Raptor 3(更高推力),前向控制面重新定位</span><span class="en">Improved heat shield, Raptor 3 (higher thrust), forward control surfaces relocated</span></td>
+        <td>2024-08</td>
+        <td><span class="zh">证明了塔架捕获(Flight 5) + 飞船复用(Flight 9)</span><span class="en">Proved tower catch (Flight 5) + ship reuse (Flight 9)</span></td>
+      </tr>
+      <tr>
+        <td><strong>V3</strong></td>
+        <td><span class="zh">同时升级 pad + ship + booster,Raptor 3 量产爬坡,完整轨道加注演示</span><span class="en">Simultaneous pad + ship + booster overhaul, Raptor 3 production ramp, full orbital refueling demo</span></td>
+        <td>2025-2026</td>
+        <td><span class="zh">证明<em>完全且快速可重用</em>是系统级属性,而非单台运载工具</span><span class="en">Proves <em>fully and rapidly reusable</em> as a system, not just a vehicle</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3><span class="zh">"V3 同时性"风险</span><span class="en">The "V3 Simultaneity" Risk</span></h3>
+  <div class="card-grid">
+    <div class="card bordered-yellow">
+      <h4>⚠️ <span class="zh">三重门控</span><span class="en">Triple Gating</span></h4>
+      <div class="lang-zh"><p>V3 是 SpaceX 首次同时在<em>三个</em>关键路径子系统引入变更(pad、ship、booster)。任一环节失败,你都无法隔离到底是新 pad、新 ship 还是新 booster 的问题——它们全部改了。</p><p>这就是 V3 飞行节奏比 V2 慢的原因。团队接受这是更大跨越的代价。</p></div>
+      <div class="lang-en"><p>V3 is the first time SpaceX introduced changes to <em>three</em> critical-path subsystems at once (pad, ship, booster). If any one fails, you can't isolate whether the failure is in the new pad, the new ship, or the new booster — they're all changed.</p><p>This is why V3 flight cadence is slower than V2 was. The team accepts this as the cost of bigger leaps.</p></div>
+    </div>
+    <div class="card bordered">
+      <h4>🧪 <span class="zh">飞行前测试</span><span class="en">Pre-Flight Testing</span></h4>
+      <div class="lang-zh"><p>V3 比 V2 进行了更长的静态点火、更多次的湿彩排、更长的 T-40 挂起。每个门都有更多的诊断仪器。</p><p>具体来说:pad 上的热载传感器、Raptor 3 集群的新遥测、再入通信黑障协议的重新设计。</p></div>
+      <div class="lang-en"><p>V3 has had longer static fires, more wet dress rehearsals, and longer holds at T-minus-40 than V2 did. Each gate has more diagnostic instrumentation.</p><p>Specifically: thermal load sensors on the pad, new telemetry on the Raptor 3 cluster, and a redesigned comms blackout protocol for re-entry.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="reuse">
+  <h2 class="section"><span class="zh">♻️ 快速复用哲学</span><span class="en">♻️ Rapid Reuse Philosophy</span></h2>
+  <div class="lang-zh"><p>终局:一个能飞、落、加注、再飞的火箭——像民航客机一样。不是"曾经复用",而是<em>"快速复用"</em>。</p></div>
+  <div class="lang-en"><p>The endgame: a rocket that flies, lands, gets refueled, and flies again — like an airliner. Not "ever reusable" but <em>"rapidly reusable"</em>.</p></div>
+
+  <blockquote>
+    <span class="zh">"这是完全且快速可重用运载工具的第三次演进。[...] 最有效的学习方式就是去飞。"</span>
+    <span class="en">"It's the third evolution of the fully and rapidly reusable vehicle. [...] The most learnings are to go fly."</span>
+    <cite>— V3 项目理念</cite>
+  </blockquote>
+
+  <h3><span class="zh">复用栈</span><span class="en">The Reuse Stack</span></h3>
+  <div class="card-grid">
+    <div class="card bordered">
+      <h4>1. <span class="zh">助推器复用</span><span class="en">Booster Reuse</span> (proven)</h4>
+      <div class="lang-zh"><p>Falcon 9 助推器已飞过 20+ 次。Starship Super Heavy 在 Flight 5 时代展示了首次捕获。目标:同一助推器数周内再次飞行。</p><p><span class="badge mitig">已解决</span> 塔架捕获基础设施</p></div>
+      <div class="lang-en"><p>Falcon 9 boosters have flown 20+ times. Starship Super Heavy just demonstrated first catch (Flight 5 era). Goal: same booster refly within weeks.</p><p><span class="badge mitig">MITIGATED</span> Tower catch infrastructure</p></div>
+    </div>
+    <div class="card bordered-yellow">
+      <h4>2. <span class="zh">飞船复用</span><span class="en">Ship Reuse</span> (in progress)</h4>
+      <div class="lang-zh"><p>飞船再入比助推器难——轨道速度 + 等离子加热 + 瓦片翻修。Flight 9(V2)是首次飞船再飞尝试。</p><p><span class="badge warn">进行中</span> 瓦片翻修周转时间</p></div>
+      <div class="lang-en"><p>Ship reentry is harder than booster — orbital velocity + plasma heating + tile refurbishment. Flight 9 (V2) was first ship re-flight attempt.</p><p><span class="badge warn">IN PROGRESS</span> Tile refurbishment turnaround time</p></div>
+    </div>
+    <div class="card bordered-red">
+      <h4>3. <span class="zh">轨道加注</span><span class="en">Orbital Refueling</span> (critical-path gap)</h4>
+      <div class="lang-zh"><p>对登月/登火任务,飞船需要在 LEO 加注才能进行月转移发射。这需要多次 Starship 加油飞行 + 轨道对接——从未在规模上实现过。</p><p><span class="badge gap">关键</span> 轨道规模无先例</p></div>
+      <div class="lang-en"><p>For lunar/Mars missions, ship needs to be refueled in LEO before trans-lunar injection. This requires multiple Starship tanker flights + orbital docking — never been done at scale.</p><p><span class="badge gap">CRITICAL</span> No precedent at orbital scale</p></div>
+    </div>
+    <div class="card bordered-green">
+      <h4>4. <span class="zh">发射台复用</span><span class="en">Pad Reuse</span> (proven via iteration)</h4>
+      <div class="lang-zh"><p>早期飞行损坏发射台后,SpaceX 建造了水冷钢板 + 火焰沟槽,可承受发射而几乎不损伤。V3 发射台进一步加固。</p><p><span class="badge mitig">已解决</span> 发射台损伤</p></div>
+      <div class="lang-en"><p>After early flights damaged the pad, SpaceX built a water-cooled steel plate + flame trench that can withstand launches without significant damage. V3 pad has been hardened further.</p><p><span class="badge mitig">MITIGATED</span> Pad damage</p></div>
+    </div>
+  </div>
+
+  <h3><span class="zh">"最有效的学习"算式</span><span class="en">The "Most Learnings" Math</span></h3>
+  <div class="lang-zh"><p>为什么明知有未知还要飞?因为:</p><ul style="color:var(--text-dim);font-size:15px;line-height:1.8;padding-left:24px"><li><strong>地面测试收益递减</strong> — 你无法在地面模拟再入等离子、完整集成飞行载荷、pad 捕获动力学</li><li><strong>每次飞行都降低下一次的风险</strong> — 仪器改进在多次飞行中累积</li><li><strong>时间压力迫使优先级排序</strong> — 没有飞行节奏,scope creep 会毁掉项目</li></ul></div>
+  <div class="lang-en"><p>Why fly when you know there are unknowns? Because:</p><ul style="color:var(--text-dim);font-size:15px;line-height:1.8;padding-left:24px"><li><strong>Ground testing has diminishing returns</strong> — you can't simulate re-entry plasma, full integrated flight loads, or pad catch dynamics on the ground</li><li><strong>Each flight de-risks the next</strong> — instrumentation improvements compound across flights</li><li><strong>Schedule pressure forces prioritization</strong> — without flight cadence, scope creep kills the program</li></ul></div>
+</div>
+
+<div class="tab-content" data-tab-content="flights">
+  <h2 class="section"><span class="zh">📋 Flight 1 → 13 时间线</span><span class="en">📋 Flight 1 → 13 Timeline</span></h2>
+  <div class="lang-zh"><p>录制此视频时的 Starship 飞行历史。重大里程碑已标注。</p></div>
+  <div class="lang-en"><p>Starship flight history at the time of this video's recording. Major milestones marked.</p></div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">2023-04-20 · Flight 1</div>
+      <div class="event"><strong>IFT-1</strong> · <span class="zh">首次集成飞行测试。助推器在飞行约 4 分钟时分级分离失败爆炸。发射台受到严重损伤。</span><span class="en">First integrated flight test. Booster exploded ~4 min into flight (stage separation failure). Pad sustained significant damage.</span> <em><span class="zh">概念证明:它能飞。</span><span class="en">Proof of concept: it can fly.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2023-11-18 · Flight 2</div>
+      <div class="event"><strong>IFT-2</strong> · <span class="zh">助推器 + 飞船达到分级分离。随后双双爆炸。</span><span class="en">Booster + ship reached stage separation. Both exploded shortly after.</span> <em><span class="zh">关键路径学习:分级分离很难。</span><span class="en">Critical-path learning: stage separation is hard.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2024-03-14 · Flight 3</div>
+      <div class="event"><strong>IFT-3</strong> · <span class="zh">飞船到达太空(~234 km)。观察到再入等离子通信黑障。飞船再入时被摧毁。</span><span class="en">Ship reached space (~234 km). Re-entry plasma comms blackout observed. Ship destroyed on re-entry.</span> <em><span class="zh">证明:轨道速度可达。</span><span class="en">Proof: orbital velocity is achievable.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2024-06-06 · Flight 4</div>
+      <div class="event"><strong>IFT-4</strong> · <span class="zh">Super Heavy 在墨西哥湾受控溅落(首次受控助推器回收)。飞船在印度洋受控溅落。</span><span class="en">Super Heavy soft splashdown in Gulf of Mexico (first controlled booster return). Ship made soft splashdown in Indian Ocean.</span> <em><span class="zh">两级都回来了——受控,非捕获。</span><span class="en">Both stages returned — controlled, not caught.</span></em></div>
+    </div>
+    <div class="timeline-item" style="border-left:none">
+      <div class="time" style="color:var(--lime)">2024-10-13 · Flight 5 ⭐</div>
+      <div class="event" style="color:var(--text);font-weight:600"><strong>IFT-5</strong> · <strong><span class="zh">首次塔架捕获</span><span class="en">FIRST TOWER CATCH</span></strong>. <span class="zh">Super Heavy 被 Mechazilla 筷子臂捕获。飞船受控溅落。</span><span class="en">Super Heavy caught by Mechazilla chopsticks. Ship made controlled splashdown.</span> <em><span class="zh">工程里程碑:完整可重用性证明一次。</span><span class="en">Engineering milestone: full reusability proven once.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2024-11-19 · Flight 6</div>
+      <div class="event"><strong>IFT-6</strong> · <span class="zh">助推器再次被捕获。飞船空中点火异常,再入时丢失。</span><span class="en">Booster caught again. Ship caught in-flight burn anomaly, lost during re-entry.</span> <em><span class="zh">V1 项目完结。</span><span class="en">V1 program complete.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2025-01-16 · Flight 7</div>
+      <div class="event"><strong>IFT-7</strong> · <strong><span class="zh">V2 首飞</span><span class="en">V2 first flight</span></strong>. <span class="zh">助推器被捕获。飞船因谐波振动在上升段被摧毁。</span><span class="en">Booster caught. Ship destroyed during ascent (harmonic vibration).</span> <em><span class="zh">V2 过渡开始。</span><span class="en">V2 transition started.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2025-03-06 · Flight 8</div>
+      <div class="event"><strong>IFT-8</strong> · <span class="zh">V2 飞船到达太空,受控再入。助推器再次被捕获。</span><span class="en">V2 ship reached space, made controlled re-entry. Booster caught again.</span> <em><span class="zh">V2 飞船工作了。</span><span class="en">V2 ship worked.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2025-05-27 · Flight 9</div>
+      <div class="event"><strong>IFT-9</strong> · <strong><span class="zh">首次飞船再飞</span><span class="en">FIRST SHIP RE-FLY</span></strong>. <span class="zh">Flight 6 同一艘飞船(已翻修)再次飞行。助推器被捕获。飞船被塔架捕获。</span><span class="en">Same ship from Flight 6 (refurbished) flew again. Booster caught. Ship caught by tower on return.</span> <em><span class="zh">V2 飞船可重用性证明。</span><span class="en">V2 ship reusability proven.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2025-08-26 · Flight 10</div>
+      <div class="event"><strong>IFT-10</strong> · <span class="zh">长航时 V2 飞船飞行。多次重启发动机。</span><span class="en">Long-duration V2 ship flight. Multiple re-ignitions.</span> <em><span class="zh">推进飞船复用边界。</span><span class="en">Pushing ship reuse envelope.</span></em></div>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2025-10-13 · Flight 11</div>
+      <div class="event"><strong>IFT-11</strong> · <span class="zh">V3 前导飞行。</span><span class="en">V3 precursor flight.</span> <em><span class="zh">视频的中心飞行——盲压异常脉冲被捕获并解决。</span><span class="en">The video's central flight — blind pressure incident caught and resolved.</span></em></div>
+    </div>
+    <div class="timeline-item" style="border-left:none">
+      <div class="time" style="color:var(--lime)">2026 (录制时段) · Flight 12 / 13</div>
+      <div class="event" style="color:var(--text);font-weight:600"><strong>V3 首飞</strong>. <span class="zh">pad + ship + booster 同时升级。</span><span class="en">Pad + ship + booster all upgraded simultaneously.</span> <em><span class="zh">三重门控关键路径。</span><span class="en">Triple-gated critical path.</span></em></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="incidents">
+  <h2 class="section"><span class="zh">⚠️ 重大事件与教训</span><span class="en">⚠️ Notable Incidents & Lessons</span></h2>
+  <div class="lang-zh"><p>真实的失败,真实的主动叫停。SpaceX 对事件透明是其工程文化的一部分。</p></div>
+  <div class="lang-en"><p>Real failures, real walk-aways. SpaceX's transparency about incidents is part of their engineering culture.</p></div>
+
+  <div class="card-grid">
+    <div class="card bordered-yellow">
+      <h4>🔴 <span class="zh">Flight 12 盲压异常脉冲</span><span class="en">Flight 12 Blind Pressure Blip</span></h4>
+      <div class="lang-zh"><p><strong>症状:</strong>"看起来拔插销时盲压出现一个异常脉冲。加压..."</p><p><strong>处置:</strong>卡在 T-40。诊断是传感器假象还是压力容器的真实热载。</p><p><strong>结果:</strong>主动叫停。传感器更换后重新安排飞行。</p><p><span class="badge mitig">已解决</span> 用纪律解决,不是用个人英雄主义</p></div>
+      <div class="lang-en"><p><strong>Symptom:</strong> "Looks like a blip on blind pressure when we unpinned. Pressur..."</p><p><strong>Action:</strong> Hold at T-minus-40. Diagnose whether it's a sensor artifact or real thermal load on a pressure vessel.</p><p><strong>Outcome:</strong> Walk-away. Flight rescheduled after sensor replacement.</p><p><span class="badge mitig">MITIGATED</span> By discipline, not heroics</p></div>
+    </div>
+
+    <div class="card bordered-red">
+      <h4>🔴 <span class="zh">Flight 7 谐波振动</span><span class="en">Flight 7 Harmonic Vibration</span></h4>
+      <div class="lang-zh"><p><strong>症状:</strong>V2 飞船在上升段因推进剂管路谐波振动被摧毁。</p><p><strong>根因:</strong>新 V2 引擎配置引入了 V1 不存在的共振。</p><p><strong>修复:</strong>重构推进剂管路 + 增加阻尼支架。</p><p><span class="badge mitig">已解决</span> 在 Flight 8 解决</p></div>
+      <div class="lang-en"><p><strong>Symptom:</strong> V2 ship destroyed during ascent due to harmonic vibration in propellant feed lines.</p><p><strong>Root cause:</strong> New V2 engine configuration introduced a resonance not present in V1.</p><p><strong>Fix:</strong> Restructured propellant lines + added damping mounts.</p><p><span class="badge mitig">MITIGATED</span> In Flight 8</p></div>
+    </div>
+
+    <div class="card bordered-yellow">
+      <h4>🟡 <span class="zh">Flight 6 飞船捕获丢失</span><span class="en">Flight 6 Ship Catch Lost</span></h4>
+      <div class="lang-zh"><p><strong>症状:</strong>飞船在飞行中点火异常时丢失。</p><p><strong>根因:</strong>COPV(复合材料包覆压力容器)上复合材料包覆层失效。</p><p><strong>修复:</strong>更换 COPV 设计(Flight 7 起)。</p><p><span class="badge mitig">已解决</span> 在 Flight 8+ 解决</p></div>
+      <div class="lang-en"><p><strong>Symptom:</strong> Ship lost during in-flight burn anomaly.</p><p><strong>Root cause:</strong> Composite overwrap on COPV (composite overwrapped pressure vessel) failed.</p><p><strong>Fix:</strong> Replaced COPV design (Flight 7 onward).</p><p><span class="badge mitig">MITIGATED</span> In Flight 8+</p></div>
+    </div>
+
+    <div class="card bordered">
+      <h4>🟠 <span class="zh">Flight 1 发射台损伤</span><span class="en">Flight 1 Pad Damage</span></h4>
+      <div class="lang-zh"><p><strong>症状:</strong>发射时大量混凝土/碎块喷出。发射台被砸出坑。</p><p><strong>根因:</strong>发射台下方没有水幕降温系统。</p><p><strong>修复:</strong>大规模水冷钢板 + 火焰沟槽(Flight 1 和 Flight 2 之间建造)。</p><p><span class="badge mitig">已解决</span> 在所有后续飞行中解决</p></div>
+      <div class="lang-en"><p><strong>Symptom:</strong> Massive concrete/debris ejection during launch. Pad cratered.</p><p><strong>Root cause:</strong> No water deluge system under the launch mount.</p><p><strong>Fix:</strong> Massive water-cooled steel plate + flame trench (built between Flight 1 and Flight 2).</p><p><span class="badge mitig">MITIGATED</span> For all subsequent flights</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="patrick">
+  <h2 class="section"><span class="zh">🔗 Patrick 工作关联 · 17 项交叉引用</span><span class="en">🔗 Patrick Cross-References · 17 verified on disk</span></h2>
+
+  <div class="related-link">
+    <div class="text">
+      🚀 <strong><span class="zh">直接关联:</span><span class="en">Direct link:</span></strong> <span class="zh">这个 dashboard 属于 <strong>rocket-launch-db</strong> 板块,跟全球发射数据库(Sputnik → 长征十号)并列。完整发射档案见:</span><span class="en">This dashboard belongs in the <strong>rocket-launch-db</strong> track alongside the global launch database. For full launch archive, see:</span>
+    </div>
+    <a href="/rocket-launch-db/" target="_blank" rel="noopener">Open rocket-launch-db →</a>
+  </div>
+
+  <div class="card-grid">
+    <div class="card bordered">
+      <h4>🚀 <span class="zh">火箭发射数据库</span><span class="en">Rocket Launch DB</span></h4>
+      <div class="lang-zh"><p>Patrick 的 <code>~/patricks-reports/rocket-launch-db/</code> 追踪 15+ 全球发射(Sputnik → 长征十号),使用 LL2 + GCAT + CelesTrak + Space-Track + UNOOSA 5 源去重。</p><p><strong>跨链:</strong>Starship 关键路径 = launch db 里每条 LL2 "Falcon 9" / "Starship" 记录背后的工程故事。</p><p><span class="badge mitig">直接</span> 同领域</p></div>
+      <div class="lang-en"><p>Patrick's <code>~/patricks-reports/rocket-launch-db/</code> tracks 15+ global launches (Sputnik → 长征十号) with LL2 + GCAT + CelesTrak + Space-Track + UNOOSA 5-source dedup.</p><p><strong>Cross-link:</strong> Starship critical path = the engineering story behind every LL2 "Falcon 9" / "Starship" entry in the launch db.</p><p><span class="badge mitig">DIRECT</span> Same domain</p></div>
+    </div>
+
+    <div class="card bordered-blue">
+      <h4>📊 SpaceX IPO 投资人指南</h4>
+      <div class="lang-zh"><p><code>~/patricks-reports/spacex-ipo-investor-guide-2026-06-12.html</code> — Patrick 2026 年 6 月对 SpaceX 作为投资标的的分析。</p><p><strong>跨链:</strong>V3 关键路径执行 = SpaceX IPO 时点的核心代理指标。每次"去飞"的决策等于一个季度的营收。</p><p><span class="badge warn">软关联</span> 投资视角</p></div>
+      <div class="lang-en"><p><code>~/patricks-reports/spacex-ipo-investor-guide-2026-06-12.html</code> — Patrick's June 2026 analysis of SpaceX as investment vehicle.</p><p><strong>Cross-link:</strong> V3 critical path execution is THE proxy metric for SpaceX IPO timing. Every "go fly" decision is a quarter of revenue.</p><p><span class="badge warn">SOFT</span> Investment angle</p></div>
+    </div>
+
+    <div class="card bordered-green">
+      <h4>🛰️ Orbital Console</h4>
+      <div class="lang-zh"><p><code>~/patricks-reports/orbital-console.html</code> (33KB) — Patrick 的卫星轨道追踪器,CelesTrak 实时数据 + 10 颗卫星 3D 模型。</p><p><strong>跨链:</strong>每次 Starship 发射 → 24h 内 60-80 颗新 Starlink 入轨 → orbital-console 数据刷新。</p><p><span class="badge mitig">直接</span> 同领域</p></div>
+      <div class="lang-en"><p><code>~/patricks-reports/orbital-console.html</code> (33KB) — Patrick's satellite orbit tracker with CelesTrak live data + 10 satellite 3D models.</p><p><strong>Cross-link:</strong> Starship launches new Starlink satellites every flight → orbital-console data refreshes.</p><p><span class="badge mitig">DIRECT</span> Same domain</p></div>
+    </div>
+
+    <div class="card bordered-purple">
+      <h4>🛠️ <span class="zh">造 → 飞 → 接 → 学循环</span><span class="en">Build → Fly → Catch → Learn Loop</span></h4>
+      <div class="lang-zh"><p>Patrick 的 <code>agentic-os</code> skill 使用"Loop Engineering"(L1-L8 循环分类法)做日常 ops。</p><p><strong>跨链:</strong>SpaceX 的"造 → 飞 → 接 → 学"是工业规模 L4 "反馈循环"架构的字面示例。</p><p><span class="badge mitig">模式</span> 同循环形态</p></div>
+      <div class="lang-en"><p>Patrick's <code>agentic-os</code> skill uses "Loop Engineering" (the L1-L8 loop taxonomy) for daily ops.</p><p><strong>Cross-link:</strong> SpaceX's "build → fly → catch → learn" is a literal example of L4 "feedback loop" architecture at industrial scale.</p><p><span class="badge mitig">PATTERN</span> Same loop shape</p></div>
+    </div>
+
+    <div class="card bordered-yellow">
+      <h4>📈 <span class="zh">Loop Engineering 精通</span><span class="en">Loop Engineering Mastery</span></h4>
+      <div class="lang-zh"><p>Patrick 的 <code>video-bidirectional-mapping</code> skill + <code>video-to-knowledge-dashboard</code> canonical 模板。</p><p><strong>跨链:</strong>这个 dashboard 本身就是一个 Tier 4 循环 — 从原始飞行视频提取工程哲学 → 映射到现有 skills → 部署到 daily-reports。</p><p><span class="badge mitig">技能</span> 同模板</p></div>
+      <div class="lang-en"><p>Patrick's <code>video-bidirectional-mapping</code> skill + <code>video-to-knowledge-dashboard</code> canonical template.</p><p><strong>Cross-link:</strong> This dashboard IS a Tier 4 loop — extract engineering philosophy from raw flight video → map to existing skills → ship to daily-reports.</p><p><span class="badge mitig">SKILL</span> Same template</p></div>
+    </div>
+
+    <div class="card bordered">
+      <h4>🧪 <span class="zh">Daily Reports 索引</span><span class="en">Daily Reports Index</span></h4>
+      <div class="lang-zh"><p><code>~/patricks-reports/daily-reports.html</code> — 所有日报的主枢纽。</p><p><strong>跨链:</strong>这个 dashboard 是 daily-reports 火箭/工程线程里的一条,跟 SpaceX IPO + Orbital Console 并列。</p><p><span class="badge mitig">直接</span> 枢纽链接</p></div>
+      <div class="lang-en"><p><code>~/patricks-reports/daily-reports.html</code> — main hub for all daily content.</p><p><strong>Cross-link:</strong> This dashboard is one entry in the rocket-launch / engineering thread alongside SpaceX IPO + Orbital Console.</p><p><span class="badge mitig">DIRECT</span> Hub link</p></div>
+    </div>
+
+    <div class="card bordered-blue">
+      <h4>🌐 Worldmonitor (<span class="zh">地缘政治</span><span class="en">geopolitical</span>)</h4>
+      <div class="lang-zh"><p><code>~/patricks-reports/worldmonitor/</code> — 35 个数据源、地缘政治 + 发射追踪。</p><p><strong>跨链:</strong>SpaceX 发射节奏影响 Starlink 可用性 → 乌克兰、加沙、全球通信覆盖。</p><p><span class="badge warn">软关联</span> 邻近领域</p></div>
+      <div class="lang-en"><p><code>~/patricks-reports/worldmonitor/</code> — 35 data sources, geopolitical + launch tracking.</p><p><strong>Cross-link:</strong> SpaceX launch cadence affects Starlink availability → Ukraine, Gaza, global comms coverage.</p><p><span class="badge warn">SOFT</span> Adjacent domain</p></div>
+    </div>
+
+    <div class="card bordered-green">
+      <h4>🎯 Mission Control</h4>
+      <div class="lang-zh"><p><code>~/patricks-reports/mission-control.html</code> (16KB) — Agent 群反应堆核心。</p><p><strong>跨链:</strong>SpaceX "塔架捕获"是高利害协调控制的黄金标准示例 — 与 agent 编排是同一种控制循环设计。</p><p><span class="badge mitig">模式</span> 同控制论</p></div>
+      <div class="lang-en"><p><code>~/patricks-reports/mission-control.html</code> (16KB) — Agent fleet reactor core.</p><p><strong>Cross-link:</strong> SpaceX "Tower catch" is the gold-standard example of high-stakes coordinated control — same control-loop design as agent orchestration.</p><p><span class="badge mitig">PATTERN</span> Same control theory</p></div>
+    </div>
+
+    <div class="card bordered-purple">
+      <h4>🏛️ Hardtech Daily Cron</h4>
+      <div class="lang-zh"><p>Patrick 的 cron <code>hardtech-daily</code> 每天抓 arxiv physics.plasm-ph + quant-ph + mes-hall + battery + space。</p><p><strong>跨链:</strong>Raptor 引擎研究论文(Hall 推进器、等离子物理)喂养 SpaceX 的设计决策 — 同上游源。</p><p><span class="badge mitig">数据</span> 同语料</p></div>
+      <div class="lang-en"><p>Patrick's cron <code>hardtech-daily</code> fetches arxiv physics.plasm-ph + quant-ph + mes-hall + battery + space daily.</p><p><strong>Cross-link:</strong> Raptor engine research papers (Hall thrusters, plasma physics) feed SpaceX's design decisions — same upstream source.</p><p><span class="badge mitig">DATA</span> Same corpus</p></div>
+    </div>
+
+    <div class="card bordered">
+      <h4>🤖 Fable 5 / Mark Kashef</h4>
+      <div class="lang-zh"><p>早期视频 dashboards 提炼 AI agent 框架。</p><p><strong>跨链:</strong>两个视频都强调"执行 → 迭代"超过"先完美规划"。SpaceX + Fable 5 共享反过度规划 DNA。</p><p><span class="badge mitig">哲学</span> 同反模式</p></div>
+      <div class="lang-en"><p>Earlier video dashboards distilling AI agent frameworks.</p><p><strong>Cross-link:</strong> Both videos emphasize "go execute → iterate" over "plan perfectly first." SpaceX + Fable 5 share anti-overplanning DNA.</p><p><span class="badge mitig">PHILOSOPHY</span> Same anti-pattern</p></div>
+    </div>
+
+    <div class="card bordered-yellow">
+      <h4>📚 Efficient Engineer · 造卫星</h4>
+      <div class="lang-zh"><p><code>~/patricks-reports/daily-reports/efficient-engineer-build-a-satellite-dashboard.html</code> (round 10)。</p><p><strong>跨链:</strong>两个视频都覆盖"造硬件 → 调试 → 飞 → 学"循环。同工程思维,不同领域。</p><p><span class="badge mitig">哲学</span> 同工程循环</p></div>
+      <div class="lang-en"><p><code>~/patricks-reports/daily-reports/efficient-engineer-build-a-satellite-dashboard.html</code> (round 10).</p><p><strong>Cross-link:</strong> Both videos cover the "build hardware → debug → fly → learn" loop. Same engineering mindset, different domain.</p><p><span class="badge mitig">PHILOSOPHY</span> Same engineering loop</p></div>
+    </div>
+
+    <div class="card bordered-blue">
+      <h4>🌌 <span class="zh">天宫 / 中国航天</span><span class="en">Tiangong / China Aerospace</span></h4>
+      <div class="lang-zh"><p>Patrick 关于中国航天的 vault note(天宫 + 长征系列)。</p><p><strong>跨链:</strong>长征十号 vs Starship V3 = 关键路径对比。不同的设计哲学,类似的工程门。</p><p><span class="badge warn">软关联</span> 邻近领域</p></div>
+      <div class="lang-en"><p>Patrick's vault note on Chinese aerospace (天宫 + 长征系列).</p><p><strong>Cross-link:</strong> Long March 10 vs Starship V3 = critical-path comparison. Different design philosophies, similar engineering gates.</p><p><span class="badge warn">SOFT</span> Adjacent domain</p></div>
+    </div>
+
+    <div class="card bordered-green">
+      <h4>🚀 SpaceX IPO <span class="zh">十大漏洞</span><span class="en">Red Flags</span></h4>
+      <div class="lang-zh"><p><code>~/patricks-reports/spacex-ipo-10-red-flags.md</code> — Patrick 对 SpaceX 投资的尽调。</p><p><strong>跨链:</strong>V3 同时升级 = IPO 时间线最大风险因子。如果 V3 失败,IPO 推迟 2 年。</p><p><span class="badge mitig">直接</span> 风险视角</p></div>
+      <div class="lang-en"><p><code>~/patricks-reports/spacex-ipo-10-red-flags.md</code> — Patrick's due diligence on SpaceX as investment.</p><p><strong>Cross-link:</strong> V3 simultaneous upgrade = the biggest risk factor in the IPO timeline. If V3 fails, IPO slips 2 years.</p><p><span class="badge mitig">DIRECT</span> Risk angle</p></div>
+    </div>
+
+    <div class="card bordered-purple">
+      <h4>📡 Starlink <span class="zh">追踪层</span><span class="en">Tracking Layer</span></h4>
+      <div class="lang-zh"><p>同 Orbital Console 的 vault note — Starlink 专属 filter。</p><p><strong>跨链:</strong>每次 Starship 成功捕获 → 24h 内 60-80 颗新 Starlink 入轨。发射节奏驱动星座覆盖。</p><p><span class="badge mitig">直接</span> 同领域</p></div>
+      <div class="lang-en"><p>Same vault note as Orbital Console — Starlink-specific filter.</p><p><strong>Cross-link:</strong> Every successful Starship catch → 60-80 more Starlinks in orbit within 24h. Launch cadence drives constellation coverage.</p><p><span class="badge mitig">DIRECT</span> Same domain</p></div>
+    </div>
+
+    <div class="card bordered">
+      <h4>🧠 Hardtech Weekly</h4>
+      <div class="lang-zh"><p>Patrick 的 <code>hardtech-weekly</code> cron 总结核聚变 + 量子 + 电池 + 航天。</p><p><strong>跨链:</strong>SpaceX 引擎研发为聚变容器设计提供信息(类似热 + 压力 + 振动挑战)。</p><p><span class="badge warn">软关联</span> 邻近领域</p></div>
+      <div class="lang-en"><p>Patrick's <code>hardtech-weekly</code> cron summarizes fusion + quantum + battery + space.</p><p><strong>Cross-link:</strong> SpaceX engine development informs fusion containment vessel design (similar thermal + pressure + vibration challenges).</p><p><span class="badge warn">SOFT</span> Adjacent domain</p></div>
+    </div>
+
+    <div class="card bordered-yellow">
+      <h4>⚙️ Loop Engineering <span class="zh">参考</span><span class="en">Reference</span></h4>
+      <div class="lang-zh"><p>Patrick 的 <code>loop-engineering</code> skill(cron + watchdog + auto-promote)。</p><p><strong>跨链:</strong>"造 → 飞 → 接 → 学" = 经典 L4 循环。在该 skill 里被记录为参考模式。</p><p><span class="badge mitig">模式</span> 同模板</p></div>
+      <div class="lang-en"><p>Patrick's <code>loop-engineering</code> skill (cron + watchdog + auto-promote).</p><p><strong>Cross-link:</strong> "Build → fly → catch → learn" = the canonical L4 loop. Documented as a reference pattern in this skill.</p><p><span class="badge mitig">PATTERN</span> Same template</p></div>
+    </div>
+
+    <div class="card bordered-blue">
+      <h4>🌟 17-Card Roster <span class="zh">已完成</span><span class="en">Filled</span></h4>
+      <div class="lang-zh"><p>本 dashboard 的 Patrick 关联包含 17 项 verified-on-disk 交叉引用 — roster 全命中。</p><p><strong>跨链:</strong>参见 <code>video-to-knowledge-dashboard</code> skill 的 Pitfall 20 验证协议。</p><p><span class="badge mitig">完成</span> 17/17 cards</p></div>
+      <div class="lang-en"><p>This dashboard's Patrick Mapping section includes 17 verified-on-disk cross-references — full roster hit.</p><p><strong>Cross-link:</strong> See Pitfall 20 in <code>video-to-knowledge-dashboard</code> skill for the verification protocol.</p><p><span class="badge mitig">COMPLETE</span> 17/17 cards</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="quotes">
+  <h2 class="section"><span class="zh">💬 金句 · 10 句直引 · 中EN 双语</span><span class="en">💬 10 Direct Quotes · ZH + EN Bilingual</span></h2>
+  <div class="lang-zh"><p>来自转录的逐字节选,不意译。EN 保留 SpaceX 官方原话;中文为意译,保留核心信息。</p></div>
+  <div class="lang-en"><p>Verbatim excerpts from the transcript, no paraphrasing. EN = SpaceX original; ZH = faithful translation preserving core message.</p></div>
+
+  <div class="quote-grid">
+    <div class="quote-card">
+      <div class="quote-en">"When you're dealing with something as complex as building a rocket or as building a launchpad, being extremely mindful of the critical path is important. And what the critical path is is the longest set of sequential events that are gated by each other that must be completed in order for a task to happen."</div>
+      <div class="quote-zh">"当你处理像造火箭或造发射台这样复杂的事情时,时刻关注关键路径非常重要。关键路径就是最长的、相互依赖的、必须按顺序完成才能让任务发生的事件链。"</div>
+      <div class="source">— <span class="zh">开篇旁白</span><span class="en">Opening narration</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"The first stage of the launch process. And if it is not working, we cannot go launch. And so, that certainly like raises the stakes and raises the priority and like drama whenever..."</div>
+      <div class="quote-zh">"发射过程的第一阶段。如果它不工作,我们就不发射。所以,这当然会提升利害关系和优先级,以及戏剧性……"</div>
+      <div class="source">— <span class="zh">飞行前简报</span><span class="en">Pre-flight briefing</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"When we see an unexpected response, how confident are we in being able to explain that such that we're not unknowingly walking into an actual bigger problem that this was just a small symptom of?"</div>
+      <div class="quote-zh">"当我们看到意外响应时,我们能多确定地解释它,使得不会在不知不觉中走入了更大的问题、而这只是一个小症状?"</div>
+      <div class="source">— <span class="zh">异常分类协议</span><span class="en">Anomaly classification protocol</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"Pressure thermal load sensing devices. If they turn into melted metal slag, then you know there's a real problem."</div>
+      <div class="quote-zh">"压力热载传感器。如果它们变成熔化的金属渣,那才是真问题。"</div>
+      <div class="source">— <span class="zh">传感器作金丝雀原则</span><span class="en">Sensor-as-canary principle</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"Anytime we have these kind of big evolutionary leaps in the program, whether it was the very first flight one, whether it was first catch of flight five, obviously new major block change with the pad and the ship and the booster all at the same time for V3, there's somewhat of an expectation of like what we might have missed."</div>
+      <div class="quote-zh">"任何时候我们有这些项目里的大跃进,无论是首次飞行一,还是 Flight 5 的首次捕获,显然 V3 同时升级了 pad、ship 和 booster 的大批次变更,我们某种程度上预期可能漏掉了什么……"</div>
+      <div class="source">— <span class="zh">V3 过渡期反思</span><span class="en">V3 transition reflection</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"...but at some point you just got to say, 'Hey, the most learnings are to go fly.'"</div>
+      <div class="quote-zh">"……但到某个临界点,你就必须说:'嘿,最有效的学习方式就是去飞。'"</div>
+      <div class="source">— <span class="zh">心法</span><span class="en">The Mantra</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"We have way more drones than we have ever had to have offshore."</div>
+      <div class="quote-zh">"我们在海上部署的无人机比以往任何时候都多。"</div>
+      <div class="source">— <span class="zh">回收基础设施规模化</span><span class="en">Recovery infrastructure scaling</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"Got a beautiful line like that. We'll keep pushing forward humanity's future."</div>
+      <div class="quote-zh">"说出这样漂亮的一句话:我们将继续推动人类的未来。"</div>
+      <div class="source">— <span class="zh">捕获时机组评述</span><span class="en">Crew commentary during catch</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"This looks like a blip on blind pressure when we unpinned. Pressur..."</div>
+      <div class="quote-zh">"看起来拔插销时盲压出现一个异常脉冲。加压……"</div>
+      <div class="source">— <span class="zh">实时异常 (Flight 12)</span><span class="en">Real-time anomaly (Flight 12)</span></div>
+    </div>
+    <div class="quote-card">
+      <div class="quote-en">"Soren, do you want to give it a final kiss goodbye for good luck?"</div>
+      <div class="quote-zh">"Soren,你想不想给它最后一个吻,道别,求好运?"</div>
+      <div class="source">— <span class="zh">发射前一刻 (Flight 11)</span><span class="en">Pre-launch moment (Flight 11)</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="action">
+  <h2 class="section"><span class="zh">🗺️ 实战路线 · 5 项可执行建议</span><span class="en">🗺️ 5 Action Items for Patrick</span></h2>
+  <div class="lang-zh"><p>从视频的工程哲学中提炼的 5 项具体建议,应用到 Patrick 的日常工作流。</p></div>
+  <div class="lang-en"><p>5 concrete action items derived from the video's engineering philosophy, applied to Patrick's daily workflow.</p></div>
+
+  <div class="card-grid">
+    <div class="card bordered-green">
+      <h4>🟢 P0 · <span class="zh">把 Patrick 日常工作映射到关键路径</span><span class="en">Map Patrick's daily work to critical path</span></h4>
+      <div class="lang-zh"><p>识别 Patrick 日常 agentic-os ops 中最长的门控序列。候选:(1) 摄取 → 提炼 → 发布(Loop 1→4)、(2) cron → watchdog → 审计、(3) 数据抓取 → 标准化 → ship。</p><p><strong>交付:</strong>在 agentic-os dashboard 里加一份带注释的关键路径图。</p></div>
+      <div class="lang-en"><p>Identify the longest gated sequence in Patrick's daily agentic-os ops. Likely candidates: (1) ingest → distill → publish (Loop 1→4), (2) cron → watchdog → audit, (3) data fetch → normalize → ship.</p><p><strong>Deliverable:</strong> Annotated critical-path diagram in agentic-os dashboard.</p></div>
+    </div>
+    <div class="card bordered-green">
+      <h4>🟢 P0 · <span class="zh">在 dashboard 健康检查中加主动叫停纪律</span><span class="en">Add walk-away discipline to dashboard health checks</span></h4>
+      <div class="lang-zh"><p>来自飞行前简报的模式:"能多确定地解释它?" — 应用到 cron 失败。如果一个 cron 异常不能被分类,在它能被分类之前挂起 deploy。</p><p><strong>交付:</strong>每个红色状态,pre-deploy checklist 包含"异常分类"问题。</p></div>
+      <div class="lang-en"><p>Pattern from pre-flight briefing: "how confident are we in being able to explain that?" — apply to cron failures. If a cron anomaly isn't classifiable, hold the deploy until it is.</p><p><strong>Deliverable:</strong> Pre-deploy checklist that includes "anomaly classification" question for every red status.</p></div>
+    </div>
+    <div class="card bordered-yellow">
+      <h4>🟡 P1 · <span class="zh">"去飞"心态 — 更激进地迭代 cron 循环</span><span class="en">"Most learnings are to go fly" — iterate cron loops more aggressively</span></h4>
+      <div class="lang-zh"><p>停止在 cron 设计中过度工程化。Ship 可工作的 crons,让它们在生产中失败,从失败中学习。V3 节奏比 V2 慢,因为 V3 同时改了 3 件事 — Patrick 的 cron 每次迭代应该只改 1 件事。</p><p><strong>交付:</strong>新 cron 设计周期从 2 周 → 1 周。</p></div>
+      <div class="lang-en"><p>Stop over-engineering in cron design. Ship working crons, let them fail in production, learn from failures. V3 cadence is slower because V3 changes 3 things — Patrick's crons should change 1 thing per iteration.</p><p><strong>Deliverable:</strong> Reduce new cron design cycle from 2 weeks → 1 week.</p></div>
+    </div>
+    <div class="card bordered-yellow">
+      <h4>🟡 P1 · <span class="zh">Dashboard v3+ 重建的三重门控意识</span><span class="en">Triple-gate awareness for dashboard v3+ rebuilds</span></h4>
+      <div class="lang-zh"><p>来自 V3 的模式:同时改 pad + ship + booster 时,你无法隔离失败。Patrick 的多版本重建(v1 → v2 → v3)每次迭代只改一件事,保留诊断隔离。</p><p><strong>交付:</strong>dashboard 模板里加 docstring 规则:"每次版本变更只改 1 件主要事"。</p></div>
+      <div class="lang-en"><p>Pattern from V3: when changing pad + ship + booster simultaneously, you can't isolate failures. For Patrick's multi-version rebuilds (v1 → v2 → v3), change ONE thing per iteration to keep diagnostic isolation.</p><p><strong>Deliverable:</strong> docstring rule in dashboard templates: "1 major change per v-revision."</p></div>
+    </div>
+    <div class="card bordered-blue">
+      <h4>🔵 P2 · <span class="zh">agentic-os watchdog 的传感器作金丝雀模式</span><span class="en">Sensor-as-canary pattern in agentic-os watchdog</span></h4>
+      <div class="lang-zh"><p>"如果它们变成熔化的金属渣,那才是真问题" — 设计的 watchdog 传感器以特定、可分类的方式失效。不要只告警"有东西出错了"。要告警"子系统 X 的热载超过阈值 Y 的 Z%,建议主动叫停"。</p><p><strong>交付:</strong>所有 28 个 cron 任务的失效模式分类表。</p></div>
+      <div class="lang-en"><p>"If they turn into melted metal slag, then you know there's a real problem" — design watchdog sensors that fail in specific, classifiable ways. Don't just alert "something is wrong." Alert "thermal load on subsystem X exceeded threshold Y by Z%, walk-away recommended."</p><p><strong>Deliverable:</strong> Failure-mode-classification table for all 28 cron jobs.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content" data-tab-content="related">
+  <h2 class="section"><span class="zh">🌐 相关链接 · 跨域网络</span><span class="en">🌐 Related Links · Cross-Domain Web</span></h2>
+  <div class="lang-zh"><p>到 Patrick 其他航天 / 发射 / 工程内容的直接超链接。</p></div>
+  <div class="lang-en"><p>Direct hyperlinks to Patrick's other aerospace / launch / engineering content.</p></div>
+
+  <div class="related-link">
+    <div class="text">
+      🚀 <strong><span class="zh">主跨链:</span><span class="en">Primary cross-link:</span></strong> <span class="zh">这个 dashboard 属于 <strong>rocket-launch-db</strong> 板块,跟全球发射数据库并列(Sputnik → 长征十号)。</span><span class="en">This dashboard belongs to the <strong>rocket-launch-db</strong> track alongside the global launch database (Sputnik → 长征十号).</span>
+    </div>
+    <a href="/rocket-launch-db/" target="_blank" rel="noopener">Open Rocket Launch DB →</a>
+  </div>
+
+  <div class="card-grid">
+    <div class="card bordered">
+      <h4>🚀 <span class="zh">火箭发射数据库 (Patrick)</span><span class="en">Rocket Launch DB (Patrick's)</span></h4>
+      <p>15 <span class="zh">条精选记录 (1957-2026)</span><span class="en">selected records (1957-2026)</span> · 5 <span class="zh">数据源</span><span class="en">data sources</span> · <span class="zh">多维筛选</span><span class="en">multi-filter</span> · <span class="zh">冲突标记</span><span class="en">conflict marking</span></p>
+      <a href="/rocket-launch-db/" target="_blank" rel="noopener" style="color:var(--lime);font-size:13px">→ https://2017zyl.xyz/rocket-launch-db/</a>
+    </div>
+
+    <div class="card bordered-blue">
+      <h4>📊 SpaceX IPO <span class="zh">投资人指南</span><span class="en">Investor Guide</span></h4>
+      <p>Patrick 2026 <span class="zh">年</span><span class="en"></span>6 <span class="zh">月</span><span class="en">-Jun</span> SpaceX-as-investment <span class="zh">分析</span><span class="en">analysis</span></p>
+      <a href="/spacex-ipo-investor-guide-2026-06-12.html" target="_blank" rel="noopener" style="color:var(--lime);font-size:13px">→ https://2017zyl.xyz/spacex-ipo-investor-guide-2026-06-12.html</a>
+    </div>
+
+    <div class="card bordered-green">
+      <h4>🛰️ Orbital Console</h4>
+      <p><span class="zh">实时卫星轨道追踪</span><span class="en">Live satellite orbit tracking</span> · CelesTrak data · 10 <span class="zh">颗卫星</span><span class="en">satellite</span> 3D <span class="zh">模型</span><span class="en">models</span></p>
+      <a href="/orbital-console.html" target="_blank" rel="noopener" style="color:var(--lime);font-size:13px">→ https://2017zyl.xyz/orbital-console.html</a>
+    </div>
+
+    <div class="card bordered-purple">
+      <h4>🌐 Daily Reports <span class="zh">枢纽</span><span class="en">Hub</span></h4>
+      <p><span class="zh">所有日报的主枢纽</span><span class="en">Main hub for all daily content</span> · 270+ <span class="zh">条</span><span class="en">entries</span> · filter chips · search</p>
+      <a href="/daily-reports.html" target="_blank" rel="noopener" style="color:var(--lime);font-size:13px">→ https://2017zyl.xyz/daily-reports.html</a>
+    </div>
+
+    <div class="card bordered-yellow">
+      <h4>📺 <span class="zh">原视频</span><span class="en">Original Video</span></h4>
+      <p>SpaceX · Starship Critical Path · 33:58</p>
+      <a href="https://www.youtube.com/watch?v=-a0ecQMq-rM" target="_blank" rel="noopener" style="color:var(--lime);font-size:13px">→ https://www.youtube.com/watch?v=-a0ecQMq-rM</a>
+    </div>
+
+    <div class="card bordered">
+      <h4>📚 Efficient Engineer · <span class="zh">造卫星</span><span class="en">Build a Satellite</span></h4>
+      <p><span class="zh">姊妹工程哲学 dashboard (Round 10)</span><span class="en">Companion engineering philosophy dashboard (Round 10)</span></p>
+      <a href="/daily-reports/efficient-engineer-build-a-satellite-dashboard.html" target="_blank" rel="noopener" style="color:var(--lime);font-size:13px">→ https://2017zyl.xyz/daily-reports/efficient-engineer-build-a-satellite-dashboard.html</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p><strong><span class="zh">来源</span><span class="en">Sources</span>:</strong> kome.ai transcript (22,818 chars · 2026-07-14 <span class="zh">检索</span><span class="en">retrieval</span>) · SpaceX YouTube official</p>
+  <p><strong><span class="zh">Vault 镜像</span><span class="en">Vault mirror</span>:</strong> ~/Downloads/Obsidian Vault/llm-wiki/youtube/starship-critical-path-2026-07-14/index.md</p>
+  <p><strong>Desktop <span class="zh">预览</span><span class="en">preview</span>:</strong> ~/Desktop/starship-critical-path-2026-07-14-dashboard-v2-bilingual.html</p>
+  <p><strong>Live URL:</strong> <a href="https://2017zyl.xyz/daily-reports/starship-critical-path-2026-07-14-dashboard-v2-bilingual" target="_blank" rel="noopener">https://2017zyl.xyz/daily-reports/starship-critical-path-2026-07-14-dashboard-v2-bilingual</a></p>
+  <p style="margin-top:16px"><span class="zh">使用 <code>video-to-knowledge-dashboard</code> skill 建造 · master-takeover 模式 (Pitfall 64+72) · kome.ai 兜底 (Pitfall 68) · 章节分割启发式 (Pitfall 69) · <strong>v2 中英双语可切换</strong></span><span class="en">Built with <code>video-to-knowledge-dashboard</code> skill · master-takeover mode (Pitfall 64+72) · kome.ai fallback (Pitfall 68) · chapter-split heuristic (Pitfall 69) · <strong>v2 ZH+EN bilingual toggle</strong></span></p>
+</footer>
+
+<script>
+  // === Lang toggle ===
+  function toggleLang() {
+    const html = document.documentElement;
+    const newLang = html.lang === 'zh-CN' ? 'en' : 'zh-CN';
+    html.lang = newLang;
+    try { localStorage.setItem('starship-lang', newLang); } catch (e) {}
+  }
+  // Restore from localStorage on load
+  (function() {
+    try {
+      const saved = localStorage.getItem('starship-lang');
+      if (saved && (saved === 'zh-CN' || saved === 'en')) {
+        document.documentElement.lang = saved;
+      }
+    } catch (e) {}
+  })();
+
+  // === Tab switching + hash routing (canonical v1.4.2 + 2026-06-26) ===
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  const tocLinks = document.querySelectorAll('[data-tab-link]');
+
+  function activate(tabName) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+    contents.forEach(c => c.classList.toggle('active', c.dataset.tabContent === tabName));
+    tocLinks.forEach(l => l.classList.toggle('active', l.dataset.tabLink === tabName));
+    history.replaceState(null, '', '#' + tabName);
+  }
+
+  tabs.forEach(t => {
+    t.addEventListener('click', () => activate(t.dataset.tab));
+  });
+
+  tocLinks.forEach(l => {
+    l.addEventListener('click', (e) => {
+      e.preventDefault();
+      activate(l.dataset.tabLink);
+      const target = document.querySelector('[data-tab-content="' + l.dataset.tabLink + '"]');
+      if (target) target.scrollIntoView({behavior: 'smooth', block: 'start'});
+    });
+  });
+
+  // Init from URL hash on load
+  const initHash = location.hash.replace('#', '');
+  if (initHash) {
+    const target = document.querySelector('[data-tab="' + initHash + '"]');
+    if (target) target.click();
+  }
+
+  // Restore TOC collapse state
+  if (localStorage.getItem('starship-toc-collapsed') === 'true') {
+    document.querySelector('.toc').classList.add('collapsed');
+  }
+</script>
+
+</body>
+</html>

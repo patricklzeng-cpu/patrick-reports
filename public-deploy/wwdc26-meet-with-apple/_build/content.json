@@ -1,0 +1,292 @@
+{
+  "video": {
+    "title_en": "Discover what's next: The biggest updates from WWDC26 | Meet with Apple",
+    "title_zh": "发现未来:WWDC26 最重要的更新 | 与 Apple 面对面",
+    "url": "https://www.youtube.com/watch?v=V2i8f_NeKDI",
+    "video_id": "V2i8f_NeKDI",
+    "channel": "Apple Developer",
+    "duration": "1:14:00",
+    "upload_date": "2026-07-23",
+    "presenters": ["Josh Tidsbury (Technology Evangelism)", "Shashank (Core AI)", "Alan (Widgets/App Intents)", "Maho (Live demo)"],
+    "description_en": "Join us online as we highlight the latest updates across Apple platforms — and explore the benefits for your apps. We'll focus on the why over the how, mapping new technologies to real-world use cases. This session is for designers, product managers, and engineering leads who drive roadmap decisions.",
+    "description_zh": "在线加入我们,聚焦 Apple 全平台最重要的更新 — 并探索它们为你的应用带来的价值。我们关注「为什么」而非「怎么做」,把新技术映射到真实使用场景。本场面向设计师、产品经理和工程负责人,他们主导产品路线图的决策。"
+  },
+  "stats": [
+    { "value": "25", "label_en": "Topic windows", "label_zh": "主题分段" },
+    { "value": "12", "label_en": "Tabs", "label_zh": "面板" },
+    { "value": "1:14", "label_en": "Duration", "label_zh": "时长" },
+    { "value": "WWDC26", "label_en": "Release", "label_zh": "发布版本" }
+  ],
+  "themes": [
+    {
+      "emoji": "🧠",
+      "title_en": "Apple Intelligence 2.0 — Foundation Models Framework",
+      "title_zh": "Apple Intelligence 2.0 — 基础模型框架",
+      "desc_en": "On-device 3B-param LLM as a single front door. Privacy-first inference. Same Swift API for on-device + cloud. Open-source. Tool calling, structured output, streaming.",
+      "desc_zh": "端侧 30 亿参数大模型,统一入口。隐私优先的推理。同一个 Swift API 同时支持端侧和云端。开源。支持工具调用、结构化输出、流式响应。"
+    },
+    {
+      "emoji": "💎",
+      "title_en": "Liquid Glass Material — Major design language refresh",
+      "title_zh": "Liquid Glass 材质 — 重大设计语言革新",
+      "desc_en": "Refraction, depth, dynamic tinting. iPhone resizability. iPad resizable via Mac mirroring. Universal layout. Adopts iOS 27 → iPadOS 27 → macOS 27.",
+      "desc_zh": "折射、深度、动态着色。iPhone 可调整尺寸。iPad 通过 Mac 镜像支持可调尺寸。通用布局。适配 iOS 27 / iPadOS 27 / macOS 27。"
+    },
+    {
+      "emoji": "🤖",
+      "title_en": "Xcode 27 — Agentic Coding Partner",
+      "title_zh": "Xcode 27 — Agentic 编程伙伴",
+      "desc_en": "Whole-project context. Inline diffs. Multi-step editing. Live previews. Powered by Anthropic Claude, OpenAI GPT, Codex. Documentation-aware.",
+      "desc_zh": "全项目上下文感知。内联 diff。多步编辑。实时预览。接入 Anthropic Claude、OpenAI GPT、Codex。文档感知。"
+    },
+    {
+      "emoji": "🥽",
+      "title_en": "Reality Composer Pro 3 + WebKit immersive",
+      "title_zh": "Reality Composer Pro 3 + WebKit 沉浸式",
+      "desc_en": "Visual editor for 3D scenes, materials, animations. Node-based authoring. Particle effects. Cyberpunk 2077 ported via Game Porting Toolkit. WebKit grid lanes for immersive HTML.",
+      "desc_zh": "3D 场景、材质、动画的可视化编辑器。基于节点的创作。粒子特效。Cyberpunk 2077 通过游戏移植工具包移植。WebKit 网格通道支持沉浸式 HTML。"
+    },
+    {
+      "emoji": "🎯",
+      "title_en": "Core AI + Widgets + App Intents — Agentic UX",
+      "title_zh": "Core AI + Widgets + App Intents — Agentic 用户体验",
+      "desc_en": "Dynamic profiles for continuous conversation. Schemas/entities/schemas semantics. Smart Reply, Translation, Priority Notifications. Step-by-step guided experiences.",
+      "desc_zh": "动态档案支持持续对话。Schema / 实体 / 语义。智能回复、翻译、优先通知。分步引导式体验。"
+    },
+    {
+      "emoji": "🏪",
+      "title_en": "App Store 27 — Discovery, Subscriptions, Bundles",
+      "title_zh": "App Store 27 — 发现、订阅、合购",
+      "desc_en": "175 storefronts / 50 languages. Auto-generated preview assets. 900-point pricing tiers. 200 payment methods. Bundle TV/Arcade/iCloud. School Manager + enterprise volume.",
+      "desc_zh": "175 个店面 / 50 种语言。自动生成的预览素材。900 档定价层级。200 种支付方式。TV / Arcade / iCloud 合购。学校管理员 + 企业批量采购。"
+    }
+  ],
+  "windows": [
+    { "id": "W01", "start_min": 0.0, "end_min": 2.9, "title_en": "Welcome + recap of WWDC26",
+      "title_zh": "欢迎 + 回顾 WWDC26",
+      "summary_en": "Josh Tidsbury opens. WWDC26 was a big year — recap sessions, key announcements, AI throughout the platforms. Goal of this session: give you a clear vision of what's new and how to use it.",
+      "summary_zh": "Josh Tidsbury 开场。WWDC26 是大年 — 回顾各场 session、关键发布、AI 贯穿全平台。本场目标:让你清晰看到新特性,以及怎么用起来。"
+    },
+    { "id": "W02", "start_min": 2.9, "end_min": 5.9, "title_en": "Apple Intelligence — single front door",
+      "title_zh": "Apple Intelligence — 统一入口",
+      "summary_en": "Headline: there's now a model. Single front door to on-device, private, offline-capable inference. Fast because purpose-built silicon. Cloud compute for heavier lifts without giving up privacy. Common API: same Swift code points to on-device or cloud.",
+      "summary_zh": "头条:现在有一个模型。统一入口,支持端侧、私密、可离线推理。因 Apple 自研芯片而极快。更重的负载走云端算力,却不牺牲隐私。统一的 Swift API:同一段代码可指向端侧或云端。"
+    },
+    { "id": "W03", "start_min": 5.9, "end_min": 8.8, "title_en": "Siri, Spotlight, App Intents + Liquid Glass",
+      "title_zh": "Siri、Spotlight、App Intents + Liquid Glass",
+      "summary_en": "App Intents escape the launch screen. Siri / Spotlight surface them where users already are. Liquid Glass design language evolves: depth, readability, tinted. iPhone resizability. iPad resizable via Mac mirroring.",
+      "summary_zh": "App Intents 突破启动屏限制。Siri / Spotlight 在用户当前场景直接调用。Liquid Glass 设计语言进化:层次、可读性、动态着色。iPhone 可调尺寸。iPad 通过 Mac 镜像支持可调尺寸。"
+    },
+    { "id": "W04", "start_min": 8.8, "end_min": 11.7, "title_en": "Reality Composer Pro + Cyberpunk 2077 + WebKit",
+      "title_zh": "Reality Composer Pro + Cyberpunk 2077 + WebKit",
+      "summary_en": "Spatial computing — Reality Composer Pro gets node-based animations + particle effects. CD Projekt Red ported Cyberpunk 2077 in months via Game Porting Toolkit. WebKit adds grid lanes for customizable immersive HTML.",
+      "summary_zh": "空间计算 — Reality Composer Pro 加入基于节点的动画 + 粒子特效。CD Projekt Red 通过游戏移植工具包,几个月内移植 Cyberpunk 2077。WebKit 加入网格通道,支持可定制的沉浸式 HTML。"
+    },
+    { "id": "W05", "start_min": 11.7, "end_min": 14.6, "title_en": "Foundation Models — Guided Generation + Tool Calling",
+      "title_zh": "基础模型 — 受控生成 + 工具调用",
+      "summary_en": "Beyond basic text: a 3-day Paris itinerary comes back structured. Guided Generation guarantees output structure (e.g. JSON types). Tool calling connects weather, calendar, personal context. Streaming enables real-time UI updates.",
+      "summary_zh": "不只是文本生成:一个 3 天巴黎行程能直接以结构化形式返回。受控生成(Guided Generation)保证输出结构(JSON 类型等)。工具调用连接天气、日历、个人上下文。流式响应实现实时 UI 更新。"
+    },
+    { "id": "W06", "start_min": 14.6, "end_min": 17.6, "title_en": "Third-party providers + Vision Pro generative",
+      "title_zh": "第三方模型 + Vision Pro 生成式 AI",
+      "summary_en": "Provider protocol lets Anthropic / OpenAI / etc. packages plug in. Same task abstraction. Vision Pro now recognizes gestures, removes backgrounds, isolates voices — generative AI runs locally with smooth performance.",
+      "summary_zh": "统一的 Provider 协议,Anthropic / OpenAI 等可插入。同一套任务抽象。Vision Pro 现在能识别手势、移除背景、分离人声 — 生成式 AI 本地运行,流畅体验。"
+    },
+    { "id": "W07", "start_min": 17.6, "end_min": 20.5, "title_en": "Core AI + MLX + open-weight models",
+      "title_zh": "Core AI + MLX + 开源权重模型",
+      "summary_en": "MLX: complete stack for ML deployment lifecycle. Open-weight, purpose-built. Unified memory accelerates M5. Hugging Face presence: 10,000+ supported models. Ollama, LM Studio, VLM integration.",
+      "summary_zh": "MLX:端到端机器学习部署生命周期栈。开源权重,专为 Apple Silicon 打造。统一内存加速 M5。Hugging Face 接入:支持 10,000+ 模型。Ollama、LM Studio、VLM 集成。"
+    },
+    { "id": "W08", "start_min": 20.5, "end_min": 23.4, "title_en": "Dynamic Profiles — continuous agent conversations",
+      "title_zh": "动态档案 — 持续 Agent 对话",
+      "summary_en": "Travel planner demo: book flight → rebook hotel after delay → dynamic profile keeps the transcript + outputs active, maintains context. Enables multi-step agents across sessions without losing continuity.",
+      "summary_zh": "旅行规划 demo:订机票 → 航班延误后改签酒店 → 动态档案保持对话记录 + 输出,维护上下文。实现跨 session 的多步 Agent,不丢失连续性。"
+    },
+    { "id": "W09", "start_min": 23.4, "end_min": 26.3, "title_en": "Evaluations — repeatable quality measurement",
+      "title_zh": "评测 — 可复现的质量衡量",
+      "summary_en": "Agents are unpredictable. Traditional unit tests insufficient. Grade evaluators: statistical analysis across diverse samples, including synthetically generated ones. Scales coverage without hand-writing every case.",
+      "summary_zh": "Agent 输出不确定。传统单元测试不够。评分评测器:跨多样样本的统计分析,包括合成生成样本。扩大覆盖范围而无需手工写每个测试用例。"
+    },
+    { "id": "W10", "start_min": 26.3, "end_min": 29.3, "title_en": "Widgets + glanceable integrations",
+      "title_zh": "Widget + 一眼即得集成",
+      "summary_en": "Widgets as step-by-step interfaces (coffee shop order tracker). ActivityKit for live progress. Siri voice actions. Widgets become conversation surfaces, not just dashboards.",
+      "summary_zh": "Widget 演化为分步界面(咖啡店订单追踪)。ActivityKit 支持实时进度。Siri 语音动作。Widget 不再是仪表盘,而是会话界面。"
+    },
+    { "id": "W11", "start_min": 29.3, "end_min": 32.2, "title_en": "App Intents demo — calendar + events",
+      "title_zh": "App Intents demo — 日历 + 事件",
+      "summary_en": "\"Who's coming to stargazing?\" — Siri finds event, attendees, drafts invite. Reschedule to noon → 11:30 a.m., Siri asks confirm. Heavy lifting done by App Intents — schema-aware.",
+      "summary_zh": "\"谁会来观星?\" — Siri 找到事件、参与者、起草邀请。改时间 noon → 11:30 a.m.,Siri 询问确认。重度工作由 App Intents 完成 — schema 感知。"
+    },
+    { "id": "W12", "start_min": 32.2, "end_min": 35.1, "title_en": "App Entities — on-screen awareness",
+      "title_zh": "App Entities — 屏幕感知",
+      "summary_en": "App Intents now understands entities currently on-screen. Identifies detail, refers to them conversationally. Photo album entities referenced in messages — `[[album name]]` becomes first-class.",
+      "summary_zh": "App Intents 现在理解屏幕上当前的实体。能识别细节,以对话方式引用它们。照片专辑实体在消息中被引用 — `[[专辑名]]` 变为一等公民。"
+    },
+    { "id": "W13", "start_min": 35.1, "end_min": 38.0, "title_en": "Schemas + Verbs + predefined actions",
+      "title_zh": "Schema + 动作 + 预定义动作",
+      "summary_en": "Apple trained schemas on common domains: calendar, maps, media, camera, phone, clock. Dozens of predefined mappings from verbs to actions. You describe; the system knows.",
+      "summary_zh": "Apple 训练了常见领域的 schema:日历、地图、媒体、相机、电话、时钟。从动作到行为的几十个预定义映射。你描述,系统就懂。"
+    },
+    { "id": "W14", "start_min": 38.0, "end_min": 41.0, "title_en": "Annotation → request flow",
+      "title_zh": "标注 → 请求流转",
+      "summary_en": "Tag views correspond to Siri's pixels on screen. Backing request continues to pull another. Walls between apps become fluid — Siri mediates across them. Contacts, calendar, notes all interop.",
+      "summary_zh": "标签视图对应屏幕上的 Siri 像素。支撑请求持续拉取下一个。App 之间的墙变流动 — Siri 在它们之间调度。联系人、日历、备忘录全互通。"
+    },
+    { "id": "W15", "start_min": 41.0, "end_min": 43.9, "title_en": "Live demos — Cosmo Tunes, Unicorn Chat",
+      "title_zh": "现场 demo — Cosmo Tunes、Unicorn Chat",
+      "summary_en": "Maho takes stage. Live demos of new App Intents + Core AI features in shipping apps. Identifying fastest-path interactions, building trust through real apps.",
+      "summary_zh": "Maho 上场。在已上架 App 中实时演示新的 App Intents + Core AI 特性。识别最快路径的交互,通过真实 App 建立信任。"
+    },
+    { "id": "W16", "start_min": 43.9, "end_min": 46.8, "title_en": "iPad resizability — modern adaptive",
+      "title_zh": "iPad 可调尺寸 — 现代自适应",
+      "summary_en": "iOS resizes. Dedicated iPad version goes away. App adapts gracefully — anyone can resize window, layout reflows. Toolbar / sidebars reposition automatically. Modern adaptive design.",
+      "summary_zh": "iOS 支持可调尺寸。专用 iPad 版本不再需要。App 自适应 — 任何人都能调窗口,布局自动回流。工具栏 / 边栏自动重定位。现代自适应设计。"
+    },
+    { "id": "W17", "start_min": 46.8, "end_min": 49.7, "title_en": "Adaptive layouts — compact stacking",
+      "title_zh": "自适应布局 — 紧凑堆叠",
+      "summary_en": "Aspect ratio classes — horizontal / vertical / compact / regular. Repositioning expands to fill, adjusts wider automatically. Figma design kit available. Persistent transitions between sizes.",
+      "summary_zh": "长宽比类 — 水平 / 垂直 / 紧凑 / 标准。重定位自动扩展填充,自动调整宽度。Figma 设计套件可用。尺寸间过渡持续流畅。"
+    },
+    { "id": "W18", "start_min": 49.7, "end_min": 52.7, "title_en": "Liquid Glass visual details — refraction + depth",
+      "title_zh": "Liquid Glass 视觉细节 — 折射 + 深度",
+      "summary_en": "Separation between darken + brighter specular highlights. Slider for fine-tuning. Sidebar with beautiful refractions — scrolls and regains sharpness. Icon layers dial refraction, shadows, translucency.",
+      "summary_zh": "暗化 + 高光之间的分离度。微调滑块。具有美丽折射的边栏 — 滚动后重新清晰。图标层调节折射、阴影、半透明。"
+    },
+    { "id": "W19", "start_min": 52.7, "end_min": 55.6, "title_en": "Cursor + Agentic Coding (Xcode 27 deep dive)",
+      "title_zh": "Cursor + Agentic 编程(Xcode 27 深入)",
+      "summary_en": "Cursor works alongside you. Validates solutions, edits files, explains reasoning. Inline diffs. Approve / refine with fine-grain feedback. Documentation archive aware. Multi-step editing.",
+      "summary_zh": "Cursor 与你协作。验证方案、编辑文件、解释推理。内联 diff。批准 / 细化反馈粒度细。文档档案感知。多步编辑。"
+    },
+    { "id": "W20", "start_min": 55.6, "end_min": 58.5, "title_en": "Xcode 27 — visual prototyping + debugging",
+      "title_zh": "Xcode 27 — 可视化原型 + 调试",
+      "summary_en": "Visual directions. Prototyping — render incrementally, snapshots as you go. Localization prep — singular / plural aware. LLDB console logging. Simulators with security + approval.",
+      "summary_zh": "可视化方向。原型设计 — 增量渲染,快照随做随存。本地化准备 — 单复数感知。LLDB 控制台日志。带安全 + 审批的模拟器。"
+    },
+    { "id": "W21", "start_min": 58.5, "end_min": 61.4, "title_en": "App Store 27 — Discovery + creative assets",
+      "title_zh": "App Store 27 — 发现 + 创意素材",
+      "summary_en": "175 storefronts / 50 languages / 850M weekly visitors. Auto-generates page from creative assets. Showcases lifestyle imagery (yoga mat, dumbbells, hiker). Tells richer story, uplifts value.",
+      "summary_zh": "175 个店面 / 50 种语言 / 8.5 亿周访客。从创意素材自动生成页面。展示生活方式图像(瑜伽垫、哑铃、徒步者)。讲述更丰富故事,提升价值。"
+    },
+    { "id": "W22", "start_min": 61.4, "end_min": 64.4, "title_en": "App Store 27 — Pricing + Subscriptions",
+      "title_zh": "App Store 27 — 定价 + 订阅",
+      "summary_en": "900-point pricing tiers. 200 payment methods. Auto currency conversion. Paywall templates. Robust analytics. StoreKit 2 entitlements. Subscription reminders — free month to retain.",
+      "summary_zh": "900 档定价层级。200 种支付方式。自动货币转换。付费墙模板。强大分析。StoreKit 2 entitlement。订阅提醒 — 赠送一个月以保留用户。"
+    },
+    { "id": "W23", "start_min": 64.4, "end_min": 67.3, "title_en": "Bundles + School Manager + Enterprise",
+      "title_zh": "合购 + 学校管理员 + 企业",
+      "summary_en": "Bundles — TV / Arcade / iCloud configurable. Volume purchasing. School Manager for education. Auto-renewable monthly. 12-month commitment for orgs. Renewal reminders + secure payments.",
+      "summary_zh": "合购 — TV / Arcade / iCloud 可配置。批量采购。学校管理员用于教育。自动续订月度。组织 12 个月承诺。续订提醒 + 安全支付。"
+    },
+    { "id": "W24", "start_min": 67.3, "end_min": 70.2, "title_en": "Submission + distribution + campaigns",
+      "title_zh": "提交 + 分发 + 营销活动",
+      "summary_en": "Streamlined submission. Batching submissions. Fall campaigns. Combat churn, acquire, drive engagement. WWDC26 snapshot — grow, simplify, hopefully inspire.",
+      "summary_zh": "简化的提交流程。批量提交。秋季营销活动。对抗流失、获取用户、提升参与。WWDC26 全景 — 增长、简化、希望激发灵感。"
+    },
+    { "id": "W25", "start_min": 70.2, "end_min": 73.1, "title_en": "Wrap-up + WWDC26 events worldwide",
+      "title_zh": "收尾 + WWDC26 全球活动",
+      "summary_en": "WWDC YouTube channel. Apple Developer forums. Labs. Apple Developer Centers. Berlin center recently opened. 10 p.m. approaching — snacks, beverages in the lobby. Q&A.",
+      "summary_zh": "WWDC YouTube 频道。Apple Developer 论坛。Lab 答疑。Apple Developer 中心。柏林中心新近开业。晚上 10 点将近 — 大堂有茶点。Q&A。"
+    }
+  ],
+  "quotes": [
+    {
+      "ts": "00:02:55",
+      "en": "The headline is: there's a model now. You access it through a single front door — on-device, private, works offline.",
+      "zh": "头条是:现在有一个模型。你通过统一入口访问它 — 端侧、私密、可离线。"
+    },
+    {
+      "ts": "00:04:30",
+      "en": "Inference is fast because it's running on purpose-built silicon. Cloud compute reaches for heavier loads without giving up privacy.",
+      "zh": "推理极快,因为跑在 Apple 自研芯片上。云端算力承接更重的负载,却不牺牲隐私。"
+    },
+    {
+      "ts": "00:05:45",
+      "en": "A common API foundation framework allows you to point basically the same code at whichever you choose. Swift APIs, end-to-end.",
+      "zh": "统一的 API 基础框架让你能用基本相同的代码指向任何你选的。Swift API,端到端。"
+    },
+    {
+      "ts": "00:08:46",
+      "en": "App Intents become something where, as the user discovers exactly what they need, it just appears and behaves across devices.",
+      "zh": "App Intents 变得 — 当用户发现他们真正需要的东西时,它就出现并跨设备工作。"
+    },
+    {
+      "ts": "00:11:42",
+      "en": "Returns a detailed plan in a natural way — beyond basic text generation. Guided Generation gives precise control over output structure.",
+      "zh": "以自然方式返回详细方案 — 远超基础文本生成。受控生成对输出结构提供精确控制。"
+    },
+    {
+      "ts": "00:14:37",
+      "en": "Provider accessible via creating a package that conforms to a protocol. Anthropic packages extend this — making state-of-the-art run on-device.",
+      "zh": "第三方模型通过符合协议的 package 接入。Anthropic 的包扩展了这一点 — 让最先进模型在端侧运行。"
+    },
+    {
+      "ts": "00:17:33",
+      "en": "MLX is a complete runtime — spanning the deployment life cycle. Open-weight, purpose-built, takes unified memory, accelerates with M5.",
+      "zh": "MLX 是完整的运行时 — 覆盖部署全生命周期。开源权重、专为 Apple Silicon 打造、利用统一内存、由 M5 加速。"
+    },
+    {
+      "ts": "00:23:24",
+      "en": "Dynamic Profiles handle what happens in session, preserving continuity through handoffs. Maintains a transcript of responses, outputs.",
+      "zh": "动态档案处理 session 内发生的事,跨交接保持连续性。维护响应和输出的对话记录。"
+    },
+    {
+      "ts": "00:26:18",
+      "en": "You cannot rely on functional consistency — simple unit tests are insufficient. You need evaluators that grade with statistical trends.",
+      "zh": "你不能依赖功能一致性 — 简单单元测试不够。你需要评分评测器,以统计趋势打分。"
+    },
+    {
+      "ts": "00:29:18",
+      "en": "Widgets become step-by-step — like tracking a coffee shop order. Integrate with action buttons. Stay useful, appearing in moments of friction.",
+      "zh": "Widget 演化为分步界面 — 比如追踪咖啡店订单。与操作按钮集成。在摩擦时刻保持有用。"
+    },
+    {
+      "ts": "00:35:06",
+      "en": "App Intents now understands entities currently on-screen — identifies and opens detail. Tries to refer rather than email.",
+      "zh": "App Intents 现在理解屏幕上当前的实体 — 识别并打开细节。尝试引用而非发邮件。"
+    },
+    {
+      "ts": "00:38:00",
+      "en": "Earlier showing said phrase — tag views correspond to what Siri sees on the pixels. Backing request continues to pull another.",
+      "zh": "之前展示的短语 — 标签视图对应 Siri 在屏幕上看到的像素。支撑请求持续拉取下一个。"
+    },
+    {
+      "ts": "00:43:54",
+      "en": "iPad resizability — iOS resizes. The dedicated iPad version can go away. App resizes gracefully.",
+      "zh": "iPad 可调尺寸 — iOS 可调尺寸。专用 iPad 版本可以消失。App 优雅地调整尺寸。"
+    },
+    {
+      "ts": "00:49:42",
+      "en": "Liquid Glass — separation between darken and brighter specular highlights. Slider for fine-tune taste. Sidebars with beautiful refractions.",
+      "zh": "Liquid Glass — 暗化与高光的分离。微调滑块。具有美丽折射的边栏。"
+    },
+    {
+      "ts": "00:52:42",
+      "en": "Cursor works well-known partners — OpenAI, Claude, Codex. High-level drafts, written. Correct, expand, refine.",
+      "zh": "Cursor 与知名伙伴协作 — OpenAI、Claude、Codex。高层草案、写就、修正、扩展、细化。"
+    },
+    {
+      "ts": "00:58:30",
+      "en": "175 storefronts, half a billion weekly visitors across 50 languages. Safe and trusted.",
+      "zh": "175 个店面、50 种语言、每周 5 亿访客。安全、可信。"
+    },
+    {
+      "ts": "00:61:24",
+      "en": "900-point pricing tiers updated for taxes and currencies. 200 payment options. Robust analytics and sales reporting.",
+      "zh": "900 档定价层级,自动适配税费与货币。200 种支付方式。强大分析与销售报告。"
+    }
+  ],
+  "tabs": [
+    { "id": "overview", "label_en": "Overview", "label_zh": "总览", "icon": "🎯" },
+    { "id": "themes", "label_en": "5 Big Themes", "label_zh": "5 大主题", "icon": "🧠" },
+    { "id": "timeline", "label_en": "Timeline", "label_zh": "时间线", "icon": "⏱️" },
+    { "id": "quotes", "label_en": "Quotes", "label_zh": "金句", "icon": "💬" },
+    { "id": "ai", "label_en": "AI + Foundation Models", "label_zh": "AI + 基础模型", "icon": "🤖" },
+    { "id": "design", "label_en": "Liquid Glass", "label_zh": "Liquid Glass", "icon": "💎" },
+    { "id": "xcode", "label_en": "Xcode 27", "label_zh": "Xcode 27", "icon": "🛠️" },
+    { "id": "intents", "label_en": "App Intents + Widgets", "label_zh": "App Intents + Widgets", "icon": "🎯" },
+    { "id": "spatial", "label_en": "Spatial Computing", "label_zh": "空间计算", "icon": "🥽" },
+    { "id": "store", "label_en": "App Store 27", "label_zh": "App Store 27", "icon": "🏪" },
+    { "id": "roster", "label_en": "Related", "label_zh": "相关", "icon": "🔗" },
+    { "id": "meta", "label_en": "⚠️ Provenance", "label_zh": "⚠️ 元数据", "icon": "ℹ️" }
+  ]
+}

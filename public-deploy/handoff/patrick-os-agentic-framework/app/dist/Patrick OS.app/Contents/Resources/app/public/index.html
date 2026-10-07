@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+  <title>Artifact Room — Patrick OS</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script defer src="/vendor/lucide.min.js"></script>
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <span class="brand-icon"><i data-lucide="bar-chart-3"></i></span>
+        <span>
+          <strong>Patrick OS</strong>
+          <small>Agentic OS</small>
+        </span>
+      </div>
+
+      <nav class="nav-list">
+        <a class="nav-link" href="#today" data-nav="today"><i data-lucide="sun"></i><span>Today</span></a>
+        <a class="nav-link active" href="#missions" data-nav="missions"><i data-lucide="circle-dot"></i><span>Missions</span></a>
+        <a class="nav-link" href="#projects" data-nav="projects"><i data-lucide="folder"></i><span>Projects</span></a>
+        <a class="nav-link" href="#memory" data-nav="memory"><i data-lucide="database"></i><span>Memory</span></a>
+        <a class="nav-link" href="#approvals" data-nav="approvals">
+          <i data-lucide="shield-check"></i><span>Approvals</span><span class="nav-count" id="nav-approval-count">1</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <button class="privacy-status" id="privacy-status" type="button">
+          <i data-lucide="shield-check"></i>
+          <span><strong>Local-first</strong><small>No data leaves this Mac</small></span>
+        </button>
+        <div class="system-status"><span class="status-light"></span><span id="health-pill">All systems nominal</span></div>
+        <button class="version-button" type="button"><span>PatrickOS v0.1.0</span><i data-lucide="chevron-up"></i></button>
+      </div>
+    </aside>
+
+    <main class="artifact-room">
+      <header class="topbar">
+        <h1 id="room-title">Artifact Room</h1>
+        <div class="topbar-actions">
+          <time id="now">—</time>
+          <button class="quiet-button" id="pause-btn" type="button"><i data-lucide="pause-circle"></i><span>Pause mission</span></button>
+        </div>
+      </header>
+
+      <div class="workspace-view active" id="view-missions">
+
+      <section class="mission-summary" aria-labelledby="mission-title">
+        <span class="mission-orbit"><i data-lucide="circle-dot"></i></span>
+        <div class="mission-copy">
+          <p class="eyebrow">Active mission</p>
+          <h2 id="mission-title">Launch the multilingual education demo</h2>
+          <p id="mission-objective">Deliver a classroom-ready demo with bilingual lessons, validated content, and reproducible sources.</p>
+          <div class="mission-meta">
+            <span><i data-lucide="calendar-days"></i>Started <b id="mission-started">—</b></span>
+            <span><i data-lucide="clock-3"></i>Elapsed <b id="mission-elapsed">—</b></span>
+            <span class="healthy" id="mission-crash"><span class="status-light"></span>No crash in <b id="mission-crash-min">0</b>m</span>
+          </div>
+        </div>
+        <div class="acceptance-block">
+          <div class="acceptance-count"><strong id="passed-count">0</strong> of <strong id="total-count">6</strong> checks passed</div>
+          <div class="acceptance-progress" id="acceptance-progress" aria-label="Acceptance progress"></div>
+          <span>Acceptance progress</span>
+        </div>
+      </section>
+
+      <form class="mission-composer" id="mission-composer">
+        <i data-lucide="sparkles"></i>
+        <input id="composer-input" autocomplete="off" placeholder='Refine the artifact… e.g. “clarify translation of orbit in Chinese”' />
+        <kbd>⌘ K</kbd>
+        <button id="composer-send" type="submit" aria-label="Send refinement"><i data-lucide="send"></i></button>
+      </form>
+
+      <div class="content-tabs" role="tablist" aria-label="Artifact views">
+        <button class="tab active" data-tab="preview" role="tab">Preview</button>
+        <button class="tab" data-tab="changes" role="tab">Changes <span id="changes-badge">0</span></button>
+        <button class="tab" data-tab="tests" role="tab">Tests <span id="tests-badge">0</span></button>
+        <button class="tab" data-tab="sources" role="tab">Sources <span id="sources-badge">3</span></button>
+        <button class="tab" data-tab="trace" role="tab">System trace <span id="trace-badge">0</span></button>
+      </div>
+
+      <section class="tab-panel" id="tab-preview" role="tabpanel">
+        <div class="preview-frame" id="preview-frame">
+          <div class="preview-toolbar">
+            <div class="device-switcher" aria-label="Preview device">
+              <button class="tool-button active" data-device="desktop" type="button" aria-label="Desktop"><i data-lucide="monitor"></i></button>
+              <button class="tool-button" data-device="tablet" type="button" aria-label="Tablet"><i data-lucide="tablet"></i></button>
+              <button class="tool-button" data-device="code" type="button" aria-label="Code"><i data-lucide="code-2"></i></button>
+            </div>
+            <div class="preview-address"><i data-lucide="globe-2"></i><span>preview://education-demo.local</span><i data-lucide="external-link"></i></div>
+            <div class="preview-build"><code>v0.3.2</code><span></span><code>feature/edu-demo</code><i data-lucide="chevron-down"></i><button type="button" aria-label="More"><i data-lucide="more-vertical"></i></button></div>
+          </div>
+
+          <div class="lesson-preview" id="preview-body">
+            <img class="lesson-visual" src="/assets/solar-system-lesson.png" alt="Museum-style 3D solar system lesson illustration" />
+            <div class="lesson-topline">
+              <div class="lesson-brand"><i data-lucide="atom"></i><span>Vision Pro Education</span></div>
+              <div class="lesson-controls">
+                <button class="lang active" data-lang="en" type="button">EN</button>
+                <button class="lang" data-lang="zh" type="button">中文</button>
+                <button id="lesson-theme" type="button" aria-label="Toggle lesson theme"><i data-lucide="moon"></i></button>
+              </div>
+            </div>
+            <div class="lesson-copy">
+              <p class="lesson-number">LESSON 3</p>
+              <h3 class="lesson-h2 en">Our Solar System</h3>
+              <h3 class="lesson-h2 zh">我们的太阳系</h3>
+              <p class="lesson-desc en">Explore the eight planets, their orbits, and how our solar system works.</p>
+              <p class="lesson-desc zh">探索八大行星、它们的轨道，以及太阳系如何运转。</p>
+              <div class="lesson-actions">
+                <button class="lesson-primary" id="start-lesson" type="button"><i data-lucide="play-circle"></i><span>Start Lesson 开始学习</span></button>
+                <button class="lesson-secondary" type="button">Explore 探索</button>
+              </div>
+              <div class="lesson-facts">
+                <span><i data-lucide="orbit"></i><b>8 Planets</b><small>八大行星</small></span>
+                <span><i data-lucide="box"></i><b>Interactive</b><small>3D &amp; AR</small></span>
+                <span><i data-lucide="languages"></i><b>Bilingual</b><small>EN / 中文</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tab-panel hidden" id="tab-changes" role="tabpanel"><div class="evidence-panel"><div class="panel-heading"><span><i data-lucide="git-compare"></i><strong>Artifact changes</strong></span><small>Every version is traceable</small></div><div id="changes-list" class="evidence-list"></div></div></section>
+      <section class="tab-panel hidden" id="tab-tests" role="tabpanel"><div class="evidence-panel"><div class="panel-heading"><span><i data-lucide="flask-conical"></i><strong>Acceptance tests</strong></span><small>Hard gates, not agent self-report</small></div><div id="tests-list" class="evidence-list"></div></div></section>
+      <section class="tab-panel hidden" id="tab-sources" role="tabpanel"><div class="evidence-panel"><div class="panel-heading"><span><i data-lucide="library"></i><strong>Reproducible sources</strong></span><small>Claims and assets</small></div><div id="sources-list" class="evidence-list"></div></div></section>
+      <section class="tab-panel hidden" id="tab-trace" role="tabpanel">
+        <div class="trace-panel">
+          <div class="panel-heading"><span><i data-lucide="activity"></i><strong>System execution trace</strong></span><small><span class="status-light"></span>Live from the Event Store</small></div>
+          <div class="system-route" aria-label="Agent execution route">
+            <div class="route-agent openai" data-trace-agent="openai"><span><i data-lucide="sparkles"></i></span><strong>ChatGPT</strong><small>SIM · plan</small></div>
+            <i data-lucide="arrow-right"></i>
+            <div class="route-agent hermes" data-trace-agent="hermes"><span><i data-lucide="database"></i></span><strong>Hermes</strong><small>SIM · context</small></div>
+            <i data-lucide="arrow-right"></i>
+            <div class="route-agent swarm" data-trace-agent="open-swarm"><span><i data-lucide="workflow"></i></span><strong>Open Swarm</strong><small>SIM · DAG</small></div>
+            <i data-lucide="arrow-right"></i>
+            <div class="route-agent pi" data-trace-agent="pi"><span><i data-lucide="box"></i></span><strong>Pi</strong><small>REAL · execute</small></div>
+            <i data-lucide="arrow-right"></i>
+            <div class="route-agent patrick" data-trace-agent="patrick"><span><i data-lucide="shield-check"></i></span><strong>Patrick</strong><small>gate · record</small></div>
+          </div>
+          <div class="trace-list" id="trace-list"></div>
+        </div>
+      </section>
+
+      <section class="mission-timeline" aria-labelledby="timeline-title">
+        <div class="timeline-title-row"><h3 id="timeline-title">Mission timeline</h3><i data-lucide="info"></i></div>
+        <div class="timeline-control">
+          <button class="timeline-arrow" id="rail-prev" type="button" aria-label="Previous checkpoint"><i data-lucide="chevron-left"></i></button>
+          <div class="timeline-points" id="timeline-points"></div>
+          <button class="timeline-arrow" id="rail-next" type="button" aria-label="Next checkpoint"><i data-lucide="chevron-right"></i></button>
+        </div>
+        <div class="checkpoint-footer">
+          <span>Viewing checkpoint: <strong id="cp-name">Plan</strong><span id="cp-meta">—</span></span>
+          <span class="changed-by">Changed by: <b>Hermes, Open Swarm, Pi</b></span>
+          <button id="view-changes" type="button"><i data-lucide="file-diff"></i>View changes</button>
+        </div>
+      </section>
+      </div>
+
+      <section class="workspace-view section-view" id="view-today" hidden>
+        <div class="section-hero"><p class="eyebrow">Daily control surface</p><h2>What happened today</h2><p>One evidence-backed digest across missions, agents, approvals, and artifacts.</p></div>
+        <div class="metric-grid">
+          <article><span class="metric-icon blue"><i data-lucide="radio"></i></span><strong id="today-event-count">0</strong><small>Events recorded</small></article>
+          <article><span class="metric-icon green"><i data-lucide="package-check"></i></span><strong id="today-artifact-count">0</strong><small>Artifacts produced</small></article>
+          <article><span class="metric-icon purple"><i data-lucide="terminal-square"></i></span><strong id="today-command-count">0</strong><small>Commands relayed</small></article>
+          <article><span class="metric-icon amber"><i data-lucide="shield-check"></i></span><strong id="today-approval-count">0</strong><small>Human decisions</small></article>
+        </div>
+        <div class="section-card"><div class="panel-heading"><span><i data-lucide="list-tree"></i><strong>Latest activity</strong></span><small>Newest first</small></div><div class="activity-list" id="today-activity"></div></div>
+      </section>
+
+      <section class="workspace-view section-view" id="view-projects" hidden>
+        <div class="section-hero"><p class="eyebrow">Project portfolio</p><h2>One project, every execution surface</h2><p>Projects collect missions, workspaces, artifacts, tests, and the system trace that produced them.</p></div>
+        <article class="project-card">
+          <header><span class="project-mark"><i data-lucide="orbit"></i></span><div><strong>Multilingual Education Demo</strong><small>Web · iPad · visionOS</small></div><span class="project-state" id="project-state">Running</span></header>
+          <p>Classroom-ready bilingual solar-system lesson coordinated across the complete Patrick OS relay.</p>
+          <div class="project-stats"><span><b id="project-artifacts">0</b> artifacts</span><span><b id="project-tests">0</b> checks</span><span><b id="project-commands">0</b> refinements</span><span><b id="project-agents">4</b> systems</span></div>
+          <div class="project-path"><i data-lucide="folder-code"></i><code>workspace/mission-education-demo-001/</code></div>
+          <footer><span id="project-last-activity">Waiting for activity</span><button id="open-project-mission" type="button">Open mission <i data-lucide="arrow-right"></i></button></footer>
+        </article>
+        <div class="section-card"><div class="panel-heading"><span><i data-lucide="messages-square"></i><strong>Command history</strong></span><small>Click any command to inspect its trace</small></div><div class="command-history" id="project-command-history"></div></div>
+      </section>
+
+      <section class="workspace-view section-view" id="view-memory" hidden>
+        <div class="section-hero"><p class="eyebrow">Evidence-backed memory</p><h2>What the system remembers—and why</h2><p>Memory entries link back to commands, decisions, artifacts, and immutable events. No invisible agent folklore.</p></div>
+        <div class="memory-layout">
+          <div class="section-card"><div class="panel-heading"><span><i data-lucide="brain-circuit"></i><strong>Working memory</strong></span><small>Written by Hermes after execution</small></div><div id="memory-list" class="memory-list"></div></div>
+          <div class="section-card"><div class="panel-heading"><span><i data-lucide="milestone"></i><strong>Durable checkpoints</strong></span><small>Mission evidence</small></div><div id="memory-checkpoints" class="memory-list"></div></div>
+        </div>
+      </section>
+
+      <section class="workspace-view section-view" id="view-approvals" hidden>
+        <div class="section-hero"><p class="eyebrow">Human authority</p><h2>Every consequential decision, inspectable</h2><p>See the requested action, destination, data shared, risk, scope, rollback, and final decision.</p></div>
+        <div class="approval-history" id="approval-history"></div>
+      </section>
+    </main>
+
+    <aside class="crew-rail" aria-label="Crew and decisions">
+      <div class="crew-heading"><h2>Crew &amp; Decisions</h2><button id="adapter-health" type="button" aria-label="Adapter health"><span class="status-light"></span><i data-lucide="settings-2"></i></button></div>
+      <div class="crew-list" id="crew-list"></div>
+
+      <article class="decision-card" id="decision-card">
+        <header><span><i data-lucide="triangle-alert"></i><strong class="decision-title">Your decision required</strong></span><small>High priority</small></header>
+        <div class="decision-body"><strong id="decision-action">Resolve meaning-changing translations</strong><p id="decision-sub">Two translations may change lesson meaning.</p></div>
+        <div class="decision-details">
+          <span><i data-lucide="shield-alert"></i>Local translation diff only</span>
+          <span><i data-lucide="undo-2"></i>Reversible at this checkpoint</span>
+        </div>
+        <div class="decision-actions">
+          <button class="decision-button" data-choice="compare" type="button">Compare</button>
+          <button class="decision-button primary" data-choice="accept-safer-wording" type="button">Accept safer wording</button>
+          <button class="decision-button" data-choice="ask-agent" type="button">Ask agent</button>
+        </div>
+        <footer><span id="decision-footer-status"><i data-lucide="clock-3"></i>Waiting for your decision</span><span id="decision-footer-due">Due in <b id="due-min">18</b>m</span></footer>
+      </article>
+    </aside>
+  </div>
+
+  <dialog class="translation-dialog" id="translation-dialog">
+    <form method="dialog">
+      <header><span><i data-lucide="languages"></i><strong>Translation comparison</strong></span><button value="close" aria-label="Close"><i data-lucide="x"></i></button></header>
+      <div class="translation-grid">
+        <article><small>CURRENT</small><strong>围绕太阳运行的路径</strong><p>Literal wording. Accurate, but heavier for a young learner.</p></article>
+        <article class="recommended"><small>SAFER WORDING</small><strong>行星绕太阳运行的轨道</strong><p>Preserves the scientific meaning and names the subject clearly.</p></article>
+      </div>
+      <footer><button value="close">Keep reviewing</button><button id="dialog-accept" value="accept">Accept safer wording</button></footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><i data-lucide="check-circle-2"></i><span>Mission updated</span></div>
+</body>
+</html>

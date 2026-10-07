@@ -5,21 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Patrick · Daily Reports · 5+5+5 策展</title>
   <meta name="description" content="AI 时代的策展人 · Patrick · 281 reports · 5+5+5 each · ✓ Patrick 担保 · 免费 + 公网 + git push">
-  <link rel="canonical" href="https://2017zyl.xyz/daily-reports">
-  <meta property="og:title" content="Patrick · Daily Reports">
-  <meta property="og:description" content="AI 时代的策展人 · Patrick · 281 reports · 5+5+5 each · ✓ Patrick 担保 · 免费 + 公网 + git push">
-  <meta property="og:url" content="https://2017zyl.xyz/daily-reports">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Patrick · Daily Reports",
-    "url": "https://2017zyl.xyz/daily-reports",
-    "description": "AI 时代的策展人 · Patrick · 281 reports · 5+5+5 each · ✓ Patrick 担保 · 免费 + 公网 + git push"
-  }
-  </script>
   <style>
     :root{
       --bg:#0b0c0d;--panel:#121315;--ink:#f2f2ef;--muted:#8b8d91;
@@ -387,8 +372,8 @@
 <footer>
       <span id="footerTagline">Patrick · 人工策展，机器规模。</span>
       <span class="insight"><span class="live-dot"></span><span id="liveInsight">偏向“实用”，获得可落地的洞见</span></span>
-      <div class="quick-feedback" id="quickFeedback"><span id="quickQuestion" title="反馈发送已暂停 — 点击保存到本机">对味吗？</span><button data-score="off" title="反馈已暂停 — 保存到本机 (偏了)" aria-label="发邮件给 Patrick · 偏了">偏了</button><button data-score="okay" title="反馈已暂停 — 保存到本机 (还行)" aria-label="发邮件给 Patrick · 还行">还行</button><button data-score="great" title="反馈已暂停 — 保存到本机 (很对味)" aria-label="发邮件给 Patrick · 很对味">很对味</button></div>
-      <button class="feedback-pill" id="feedbackOpen" title="弹窗写一段话 — 反馈已暂停，保存到本机" aria-label="写一段发邮件给 Patrick">多说一句</button>
+      <div class="quick-feedback" id="quickFeedback"><span id="quickQuestion" title="点 chip 自动发邮件到 patrick.l.zeng@outlook.com">对味吗？</span><button data-score="off" title="发送反馈邮件给 Patrick 提醒 (偏了)" aria-label="发邮件给 Patrick · 偏了">偏了</button><button data-score="okay" title="发送反馈邮件给 Patrick 提醒 (还行)" aria-label="发邮件给 Patrick · 还行">还行</button><button data-score="great" title="发送反馈邮件给 Patrick 提醒 (很对味)" aria-label="发邮件给 Patrick · 很对味">很对味</button></div>
+      <button class="feedback-pill" id="feedbackOpen" title="弹窗写一段话，连同 chip 一并发邮件给 Patrick 提醒" aria-label="写一段发邮件给 Patrick">多说一句</button>
     </footer>
   </div>
 
@@ -415,7 +400,7 @@
         <textarea id="feedbackText" rows="4" placeholder="如果愿意，多说一句：你还想在这里探索什么？"></textarea>
         <button class="primary" id="submitFeedback" style="margin-top:12px">发送这个信号</button>
       </div>
-      <div class="success" id="feedbackSuccess"><h2>反馈发送已暂停，尚未发送。</h2><p>你的反馈已保存在此设备。清理浏览器数据会丢失。谢谢你帮 Patrick 把下一条路线调得更准。</p><button class="secondary" data-close="feedbackOverlay">完成</button></div>
+      <div class="success" id="feedbackSuccess"><h2>信号已收到。</h2><p>谢谢你帮 Patrick 把下一条路线调得更准。</p><button class="secondary" data-close="feedbackOverlay">完成</button></div>
     </section>
   </div>
 
@@ -1086,27 +1071,10 @@
       setTimeout(()=>el.classList.remove('show'),1900);
     };
 
-    // Feedback state machine per THU-3 contract
-    const FeedbackState = {
-      PAUSED: 'paused',
-      DRAFT_LOCAL: 'draft_local',
-      NOT_SENT: 'not_sent',
-      SENDING: 'sending',
-      RECEIPT_UNKNOWN: 'receipt_unknown',
-      SERVER_RECEIVED: 'server_received'
-    };
-
-    // Current state - starts as paused since backend is paused
-    let feedbackState = FeedbackState.PAUSED;
-
-    // THU-5: Feedback state machine — backend is paused, so we never send POST.
-    // PAUSED (default): Don't send POST. Show paused message. Allow editing/copying text.
-    //   Try to save to localStorage → DRAFT_LOCAL on success, NOT_SENT on failure.
-    // DRAFT_LOCAL: localStorage succeeded. Show saved-locally message + delete draft button.
-    // NOT_SENT: localStorage failed. Show not-sent message, keep input visible.
-    // SENDING: Only if backend is restored (not currently reachable).
-    // RECEIPT_UNKNOWN: Timeout/disconnect after attempt. Show unknown-receipt message.
-    // SERVER_RECEIVED: Only when server returns receiptId + acceptedAt.
+    // sendFeedback — POST /api/feedback → Worker → CF Email Service → Outlook (07-14 NEW)
+    // Persists locally too so user keeps history on this device.
+    // onPending=true  = chip click (instant toast, no spinner)
+    // onPending=false = modal submit (wait for response)
     async function sendFeedback({score,text,onPending=true}){
       const payload={
         score,
@@ -1117,40 +1085,22 @@
         from: 'daily-reports-widget',
         ts:   new Date().toISOString(),
       };
-
-      // Backend is paused — do not send POST
-      if (feedbackState === FeedbackState.PAUSED) {
-        // Try to save to localStorage
-        try {
-          localStorage.setItem('patrick-feedback-draft-v1', JSON.stringify({...payload, kind:onPending?'chip':'modal'}));
-          feedbackState = FeedbackState.DRAFT_LOCAL;
-          showToast('反馈发送已暂停，尚未发送');
-          console.info('[feedback] paused → draft_local', payload.score);
-        } catch(e) {
-          feedbackState = FeedbackState.NOT_SENT;
-          showToast('未发送，且未能在此设备保存，请复制内容');
-          console.warn('[feedback] paused → not_sent', e?.message);
+      // Always keep a local copy (offline-friendly fallback)
+      try{localStorage.setItem('patrick-feedback',JSON.stringify({...payload,kind:onPending?'chip':'modal'}));}catch(e){}
+      try{
+        const r=await fetch('/api/feedback',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
+        const j=await r.json().catch(()=>({}));
+        if(r.ok&&j.ok){
+          showToast('已发到 Outlook');
+          console.info('[feedback] delivered',payload.score,j);
+        }else{
+          showToast('反馈已保存 (邮件延迟)');
+          console.warn('[feedback] saved-locally',r.status,j);
         }
-        return;
+      }catch(e){
+        showToast('反馈已保存 (网络延迟)');
+        console.warn('[feedback] network-error',e?.message);
       }
-
-      // DRAFT_LOCAL: already saved locally, still paused
-      if (feedbackState === FeedbackState.DRAFT_LOCAL) {
-        showToast('仅保存在此设备，未发送；清理浏览器数据会丢失');
-        console.info('[feedback] draft_local (already saved)');
-        return;
-      }
-
-      // NOT_SENT: localStorage failed, still paused
-      if (feedbackState === FeedbackState.NOT_SENT) {
-        showToast('未发送，且未能在此设备保存，请复制内容');
-        console.info('[feedback] not_sent (still paused)');
-        return;
-      }
-
-      // SENDING / RECEIPT_UNKNOWN / SERVER_RECEIVED: backend not restored, treat as paused
-      // These states are only reachable when the backend is un-paused.
-      showToast('反馈发送已暂停，尚未发送');
     }
 
     const trackName=id=>tracks.find(x=>x.id===id)?.[state.lang]||tr().all;
@@ -1343,7 +1293,7 @@ $$('.filter-chip').forEach(chip=>{
     $('#feedbackOpen').onclick=()=>$('#feedbackOverlay').classList.add('open');
     $('#quickFeedback').onclick=e=>{if(!e.target.dataset.score)return;state.feedback=e.target.dataset.score;$$('#quickFeedback button').forEach(b=>b.classList.toggle('selected',b===e.target));sendFeedback({score:state.feedback,text:''})};
     $('#feedbackOptions').onclick=e=>{if(!e.target.dataset.score)return;state.feedback=e.target.dataset.score;$$('#feedbackOptions button').forEach(b=>b.classList.toggle('selected',b===e.target))};
-    $('#submitFeedback').onclick=async()=>{if(!state.feedback){showToast('chooseFeedback');return}const txt=$('#feedbackText').value;const btn=$('#submitFeedback');btn.disabled=true;btn.textContent='保存中…';await sendFeedback({score:state.feedback,text:txt,onPending:false});btn.disabled=false;btn.textContent='发送这个信号';$('#feedbackForm').style.display='none';$('#feedbackSuccess').classList.add('show')};
+    $('#submitFeedback').onclick=async()=>{if(!state.feedback){showToast('chooseFeedback');return}const txt=$('#feedbackText').value;const btn=$('#submitFeedback');btn.disabled=true;btn.textContent='发送中…';await sendFeedback({score:state.feedback,text:txt,onPending:false});btn.disabled=false;btn.textContent='发送这个信号';$('#feedbackForm').style.display='none';$('#feedbackSuccess').classList.add('show')};
     $('#archiveOpen').onclick=()=>{_activeTrack='all';_activeSort='date-desc';_selectedReport=null;$('#archiveSort').value='date-desc';$$('.filter-chip').forEach(c=>c.classList.toggle('active',c.dataset.track==='all'));renderArchive();$('#archiveOverlay').classList.add('open');setTimeout(()=>$('#archiveSearch').focus(),80)};
 // Filter chips
 $$('.filter-chip').forEach(chip=>chip.onclick=()=>{_activeTrack=chip.dataset.track;$$('.filter-chip').forEach(c=>c.classList.toggle('active',c===chip));renderArchiveList()});

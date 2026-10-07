@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>AI Trending · 2026-09-12</title>
+<style>body{font-family:-apple-system,"PingFang SC",sans-serif;background:#0d1117;color:#e6edf3;padding:24px;max-width:980px;margin:0 auto;}
+h1{font-size:22px;margin-bottom:6px;}.sub{color:#8b949e;font-size:12px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:15px;}
+.src{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#21262d;color:#58a6ff;font-weight:700;margin-bottom:5px;}
+a{color:#58a6ff;text-decoration:none;font-weight:600;font-size:14px;}
+a:hover{text-decoration:underline;}.desc{color:#8b949e;font-size:12px;margin-top:4px;line-height:1.55;}.meta{color:#8b949e;font-size:11px;margin-top:6px;font-family:Menlo,monospace;}
+.nav{margin-top:18px;}.b{font-size:18px;margin:30px 0 12px;color:#58a6ff;}</style></head><body>
+<h1>🔥 AI Trending · 2026-09-12</h1><div class="sub">生成时间 2026-09-12T01:04:14.867243Z · 共 38 items · 来源 2 · envelope_version=1 · v2 (search_lib refactor 2026-07-06)</div>
+<div class='nav'><b>38</b> items · github=13 · hackernews=25</div>
+<div class='b'>github (13)</div><div class='grid'>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/affaan-m/ECC' target='_blank'>affaan-m/ECC</a>
+<div class='desc'>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</div>
+<div class='meta'>256536⭐ 0💬 impact=2175886 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langgenius/dify' target='_blank'>langgenius/dify</a>
+<div class='desc'>Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without reb</div>
+<div class='meta'>155460⭐ 0💬 impact=1383110 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/multica-ai/andrej-karpathy-skills' target='_blank'>multica-ai/andrej-karpathy-skills</a>
+<div class='desc'>A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy&#x27;s observations on LLM coding pitfalls.</div>
+<div class='meta'>212385⭐ 0💬 impact=1289285 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/open-webui/open-webui' target='_blank'>open-webui/open-webui</a>
+<div class='desc'>User-friendly AI Interface (Supports Ollama, OpenAI API, ...)</div>
+<div class='meta'>151675⭐ 0💬 impact=1261225 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/Graphify-Labs/graphify' target='_blank'>Graphify-Labs/graphify</a>
+<div class='desc'>Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, e</div>
+<div class='meta'>117027⭐ 0💬 impact=683477 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/farion1231/cc-switch' target='_blank'>farion1231/cc-switch</a>
+<div class='desc'>A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build &amp; Hermes Agent. Only official website: ccswitch.io</div>
+<div class='meta'>132374⭐ 0💬 impact=588874 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//bojieli/ai-agent-book' target='_blank'>bojieli/ai-agent-book</a>
+<div class='desc'>《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码</div>
+<div class='meta'>45919⭐ 0💬 impact=46419 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//volcengine/OpenViking' target='_blank'>volcengine/OpenViking</a>
+<div class='desc'>Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills.</div>
+<div class='meta'>36705⭐ 0💬 impact=37205 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//pascalorg/editor' target='_blank'>pascalorg/editor</a>
+<div class='desc'>Open-source 3D architectural editor with a local CLI, MCP tools, and practical workflows for humans and AI agents.</div>
+<div class='meta'>23602⭐ 0💬 impact=24102 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//nashsu/llm_wiki' target='_blank'>nashsu/llm_wiki</a>
+<div class='desc'>LLM Wiki is a cross-platform desktop application that turns your documents into an organized, interlinked knowledge base — automatically. Instead of traditional RAG (retrieve-and-answer from scratch e</div>
+<div class='meta'>18741⭐ 0💬 impact=19241 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//vastsa/PI-Desktop' target='_blank'>vastsa/PI-Desktop</a>
+<div class='desc'>Local-first AI coding agent desktop: Electron + Rust host core + pi Agent Harness + user-installable plugins</div>
+<div class='meta'>2779⭐ 0💬 impact=3279 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//alsk1992/CloddsBot' target='_blank'>alsk1992/CloddsBot</a>
+<div class='desc'>Open Source AI trading agent that operates autonomously across 1000+ markets - Polymarket, Kalshi, Binance, Hyperliquid, Solana DEXs, 5 EVM chains. Scans for edge, executes instantly, manages risk whi</div>
+<div class='meta'>2153⭐ 0💬 impact=2653 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//melgarafael/DeskcommCRM' target='_blank'>melgarafael/DeskcommCRM</a>
+<div class='desc'>Open-source AI sales OS — self-hosted CRM with native AI agents + WhatsApp (WAHA). Open alternative to Kommo, Octadesk &amp;amp; Intercom for any business that sells by chat. MCP-ready, multi-tenant, </div>
+<div class='meta'>1349⭐ 0💬 impact=1849 </div></div>
+</div>
+<div class='b'>hackernews (25)</div><div class='grid'>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/ayghri/i-have-adhd' target='_blank'>I-have-ADHD: A skill to stop coding agents from burying the answer</a>
+<div class='desc'></div>
+<div class='meta'>535⭐ 371💬 impact=2390 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://news.ycombinator.com/item?id=49643556' target='_blank'>Tell HN: OpenAI keeps re-enabling the &#x27;allow training&#x27; setting</a>
+<div class='desc'></div>
+<div class='meta'>472⭐ 184💬 impact=1392 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://developers.openai.com/api/docs/guides/agents-api/overview' target='_blank'>OpenAI Agents API</a>
+<div class='desc'></div>
+<div class='meta'>338⭐ 178💬 impact=1228 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://simonwillison.net/2026/Sep/2/claudes-new-system-prompt/' target='_blank'>Claude&#x27;s new system prompt doesn&#x27;t want to reproduce song lyrics</a>
+<div class='desc'></div>
+<div class='meta'>69⭐ 126💬 impact=699 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.politico.eu/article/anthropic-openai-researcher-jacob-coxon-warns-ai-could-kill-humans/' target='_blank'>Gambling with our lives: AI researcher quits Anthropic with warning about safety</a>
+<div class='desc'></div>
+<div class='meta'>82⭐ 102💬 impact=592 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/TauricResearch/TradingAgents' target='_blank'>Multi-Agents LLM Financial Trading Framework</a>
+<div class='desc'></div>
+<div class='meta'>120⭐ 81💬 impact=525 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.rubyhack.ai/' target='_blank'>OpenAI agents carried out an undisclosed attack on RubyGems</a>
+<div class='desc'></div>
+<div class='meta'>142⭐ 67💬 impact=477 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://twitter.com/DavidAgranovich/status/2098168522862215449' target='_blank'>Moonshot serves Claude instead of Kimi and collects exchanges for model training</a>
+<div class='desc'></div>
+<div class='meta'>59⭐ 66💬 impact=389 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://rohanadwankar.github.io/posts/platforms.html' target='_blank'>The VMs Powering Mobile Agents (Instinct, Claude Code)</a>
+<div class='desc'></div>
+<div class='meta'>78⭐ 29💬 impact=223 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.effort.news/revelation' target='_blank'>Anthropic &amp; friends caught paying religious NGO&#x27;s 3.3M for propaganda</a>
+<div class='desc'></div>
+<div class='meta'>66⭐ 29💬 impact=211 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://twitter.com/hilbertspaess/status/2097476196791709843' target='_blank'>AI Responsibility – OpenAI and Anthropic</a>
+<div class='desc'></div>
+<div class='meta'>90⭐ 22💬 impact=200 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/trailofbits/coop' target='_blank'>Coop – Isolated VM Environments for Running Claude Code and Codex</a>
+<div class='desc'></div>
+<div class='meta'>71⭐ 16💬 impact=151 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://arxiv.org/abs/2609.09153' target='_blank'>Procedural Graphs: Self-Evolving Execution Structures for LLM Agents</a>
+<div class='desc'></div>
+<div class='meta'>57⭐ 15💬 impact=132 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/OtoDock/oto-dock' target='_blank'>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</a>
+<div class='desc'></div>
+<div class='meta'>48⭐ 14💬 impact=118 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://tensorsandtokens.com/posts/opencode-ollama/' target='_blank'>Setting up OpenCode with Ollama and sbx on Mac</a>
+<div class='desc'></div>
+<div class='meta'>30⭐ 14💬 impact=100 </div></div>
+</div></body></html>

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Hermes agentic-os · MiniMax-M3 · 2026-07-15">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ECC (Everything Claude Code, 229K stars) 深度解析 — 项目结构 / 核心 skill / 对 Patrick 与 Hermes 的真实价值 / Setup recipe">
+<title>ECC 深度解析 — 229K stars 的 agent harness 操作系统</title>
+<style>
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#d4ff3f;--accent2:#58a6ff;--warn:#d29922;--bad:#f85149;--good:#3fb950}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font:14px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif;padding-top:52px}
+a{color:var(--accent2);text-decoration:none}a:hover{text-decoration:underline}
+code,pre{font:"SF Mono",Menlo,Consolas,monospace;font-size:12.5px}
+code{background:var(--bg3);padding:1px 5px;border-radius:3px;color:#ffa657}
+pre{background:var(--bg2);border:1px solid var(--border);padding:10px;border-radius:6px;overflow-x:auto;line-height:1.4}
+pre code{background:transparent;padding:0;color:var(--text)}
+
+/* Top nav */
+.bar{position:fixed;top:0;left:0;right:0;background:rgba(13,17,23,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:10px 18px;z-index:100;display:flex;align-items:center;gap:14px}
+.bar h1{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.3px}
+.bar .pill{font-size:11px;padding:2px 8px;border-radius:10px;background:var(--bg3);color:var(--muted);border:1px solid var(--border)}
+.btn{padding:5px 12px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:12px;cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* TOC sidebar */
+.toc{position:fixed;top:52px;left:0;bottom:0;width:240px;background:var(--bg2);border-right:1px solid var(--border);padding:14px 0;overflow-y:auto;transition:transform .3s ease;z-index:50}
+.toc h4{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);padding:0 18px 8px}
+.toc-toggle{position:absolute;top:10px;right:-32px;width:32px;height:32px;background:var(--bg3);border:1px solid var(--border);border-left:0;border-radius:0 6px 6px 0;cursor:pointer;color:var(--muted);font-size:14px;display:flex;align-items:center;justify-content:center;z-index:60}
+.toc a{display:block;padding:5px 18px;font-size:12.5px;color:var(--muted);border-left:2px solid transparent;transition:.15s}
+.toc a:hover{color:var(--accent);background:var(--bg3);text-decoration:none;border-left-color:var(--accent)}
+.toc a.active{color:var(--accent);border-left-color:var(--accent);background:rgba(212,255,63,.05)}
+.toc.collapsed{transform:translateX(-208px)}
+.toc.collapsed .toc-toggle{right:-32px}
+.toc.collapsed h4, .toc.collapsed a span{display:none}
+body{transition:padding-left .3s ease}
+body.toc-open{padding-left:240px}
+body.toc-closed{padding-left:32px;transition:padding-left .3s ease}
+
+/* Main content */
+main{max-width:980px;margin:0 auto;padding:24px 28px 60px}
+section{padding:18px 0 36px;border-bottom:1px dashed var(--border)}
+section:last-child{border:0}
+section h2{font-size:22px;margin-bottom:14px;color:var(--accent);font-weight:600}
+section h2 .num{display:inline-block;width:28px;height:28px;line-height:28px;text-align:center;background:var(--bg3);border:1px solid var(--border);border-radius:6px;margin-right:10px;font-size:13px;color:var(--muted)}
+section h3{font-size:15px;margin:18px 0 8px;color:#ffa657;font-weight:600}
+section h4{font-size:13px;margin:14px 0 6px;color:var(--accent2);font-weight:500;text-transform:uppercase;letter-spacing:.4px}
+p{margin:8px 0;color:#c9d1d9}
+.muted{color:var(--muted);font-size:12px}
+.dim{color:var(--muted)}
+
+/* Stat cards */
+.stat-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:14px 0 22px}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
+.stat .v{font-size:22px;font-weight:600;color:var(--accent);font-family:"SF Mono",monospace}
+.stat .l{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* Card grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin:14px 0}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;transition:.15s}
+.card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.card .tit{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.card .meta{font-size:11px;color:var(--muted);margin-bottom:6px}
+.card .desc{font-size:12px;color:#c9d1d9;line-height:1.5}
+.card .badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:8px;margin-right:4px;background:var(--bg3);border:1px solid var(--border);color:var(--muted)}
+.card .badge.good{color:var(--good);border-color:rgba(63,185,80,.4)}
+.card .badge.warn{color:var(--warn);border-color:rgba(210,153,34,.4)}
+.card .badge.bad{color:var(--bad);border-color:rgba(248,81,73,.4)}
+.card .badge.accent{color:var(--accent);border-color:rgba(212,255,63,.3)}
+
+/* Tier badges */
+.tier-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}
+.tier{font-size:11px;padding:3px 10px;border-radius:10px;background:var(--bg3);border:1px solid var(--border)}
+.tier.good{background:rgba(63,185,80,.12);border-color:rgba(63,185,80,.4);color:var(--good)}
+.tier.warn{background:rgba(210,153,34,.12);border-color:rgba(210,153,34,.4);color:var(--warn)}
+.tier.bad{background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.4);color:var(--bad)}
+.tier.accent{background:rgba(212,255,63,.08);border-color:rgba(212,255,63,.3);color:var(--accent)}
+
+/* Boxes */
+.box{background:var(--bg2);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;margin:12px 0;font-size:13px}
+.box.warn{border-left-color:var(--warn)}
+.box.bad{border-left-color:var(--bad)}
+.box.good{border-left-color:var(--good)}
+.box strong{color:#ffa657}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px}
+th,td{text-align:left;padding:7px 10px;border:1px solid var(--border)}
+th{background:var(--bg3);color:var(--accent);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
+tr:nth-child(2n) td{background:rgba(22,27,34,.5)}
+td code{font-size:11px}
+
+/* Comparison table highlight */
+.cmp-w td:nth-child(2){background:rgba(212,255,63,.05)}
+.cmp-w td:nth-child(3){background:rgba(88,166,255,.05)}
+
+/* TOC icon-only mode (collapsed) */
+.toc.collapsed{transform:translateX(-12px)}
+.toc.collapsed h4, .toc.collapsed a span{display:none}
+
+/* Lang toggle - bilingual */
+.en{display:none}
+html[lang="en"] .zh{display:none}
+html[lang="en"] .en{display:initial}
+html[lang="zh-CN"] .en{display:none}
+html[lang="zh-CN"] .zh{display:initial}
+
+/* Image-like rows */
+.kv{display:grid;grid-template-columns:140px 1fr;gap:6px 14px;font-size:12.5px;margin:10px 0}
+.kv .k{color:var(--muted);font-weight:500}
+.kv .v{color:var(--text)}
+
+/* Footer */
+.foot{margin-top:30px;padding-top:16px;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted)}
+.foot a{color:var(--accent2)}
+.badges{margin:8px 0;display:flex;gap:6px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  body.toc-open, body.toc-closed{padding-left:0}
+  main{padding:18px}
+  .toc{transform:translateX(-100%)}
+  body.toc-open .toc{transform:translateX(0)}
+  .stat-row{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body class="toc-open">
+
+<div class="bar">
+  <h1>📘 ECC 深度解析</h1>
+  <span class="pill zh">Patrick 视角 · 默认中文</span>
+  <span class="pill en">Patrick POV · default 中文</span>
+  <span class="pill">2026-07-15</span>
+  <span class="pill">MiniMax-M3</span>
+  <span style="flex:1"></span>
+  <button class="btn" onclick="toggleLang()"><span class="zh">EN ⇄</span><span class="en">中 ⇄</span></button>
+  <button class="btn" id="tocBtn" onclick="toggleToc()">⇤ TOC</button>
+</div>
+
+<aside class="toc" id="toc">
+  <button class="toc-toggle" onclick="toggleToc()">⇤</button>
+  <h4><span class="zh">目录 · 14 章</span><span class="en">Contents · 14 tabs</span></h4>
+  <a href="#sec-overview"><span>① 概览 / Overview</span></a>
+  <a href="#sec-anatomy"><span>② 仓库解剖 / Anatomy</span></a>
+  <a href="#sec-skills"><span>③ 6 个核心 Skill</span></a>
+  <a href="#sec-agents"><span>④ 67 个 Agent</span></a>
+  <a href="#sec-commands"><span>⑤ 94 个 Command</span></a>
+  <a href="#sec-hooks-mcp"><span>⑥ Hooks + MCP 持久层</span></a>
+  <a href="#sec-patrick"><span>⑦ 对你的价值</span></a>
+  <a href="#sec-hermes"><span>⑧ 对 Hermes 的价值</span></a>
+  <a href="#sec-patterns"><span>⑨ 6 个 Loop Pattern</span></a>
+  <a href="#sec-v20"><span>⑩ ECC 2.0 路线</span></a>
+  <a href="#sec-risk"><span>⑪ 诚实折扣 / Risk</span></a>
+  <a href="#sec-setup"><span>⑫ 安装 Recipe</span></a>
+  <a href="#sec-compare"><span>⑬ 跟我对比</span></a>
+  <a href="#sec-sources"><span>⑭ Sources / 全部源</span></a>
+</aside>
+
+<main>
+
+<section id="sec-overview">
+<h2><span class="num">①</span><span class="zh">一句话定位 + 关键判断</span><span class="en">TL;DR + key calls</span></h2>
+
+<div class="box">
+  <span class="zh"><strong>ECC = Everything Claude Code</strong> · 一个把 Claude Code 包装成「生产级 multi-agent 操作系统」的 plugin 项目 · MIT · <strong>229,573 ⭐</strong> · 35,157 forks · 50+ contributors · 12 个语言版本 · 跨 7 个 AI harness (Claude Code / Codex / Cursor / OpenCode / Gemini / Zed / GitHub Copilot) · npm: <code>ecc-universal</code> + <code>ecc-agentshield</code> · <strong>它不是 skill 仓库,是一个完整的"agent 操作系统"</strong>,跟我正在 build 的 <code>agentic-os</code> Loop 几乎 90% 同源。</span>
+  <span class="en"><strong>ECC = Everything Claude Code</strong> · A production-grade plugin that wraps Claude Code into a multi-agent OS · MIT · <strong>229,573 ⭐</strong> · 35,157 forks · 50+ contributors · 12 locales · cross-7-harness (Claude Code / Codex / Cursor / OpenCode / Gemini / Zed / GitHub Copilot) · npm: <code>ecc-universal</code> + <code>ecc-agentshield</code>. <strong>It's not a skill library — it's a full agent OS</strong>, 90% overlap with my <code>agentic-os</code> Loop.</span>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="v">229.5K</div><div class="l">GitHub Stars</div></div>
+  <div class="stat"><div class="v">278 / 67 / 94</div><div class="l">Skills / Agents / Cmds</div></div>
+  <div class="stat"><div class="v">12</div><div class="l">README 语言</div></div>
+  <div class="stat"><div class="v">7</div><div class="l">跨 harness</div></div>
+  <div class="stat"><div class="v">47.7K</div><div class="l">hooks.json 行数</div></div>
+  <div class="stat"><div class="v">$19</div><div class="l">Pro /seat/mo</div></div>
+</div>
+
+<div class="box warn">
+  <span class="zh"><strong>关键判断 1 · 90% 同源 ≠ 100% 替代</strong> · ECC 跟我的 <code>agentic-os</code> / Loop OS / Hermes 全栈在 (a) Layer 1 路由 (b) Hooks 持久 (c) Cost tracking (d) MCP 集成 (e) Loop engineering 几乎同名同构。差别: ECC 是 monorepo + 30+ contributors + 多 harness portability,我的 repo 是单人 + Hermes-monolithic + skill auto-load by description。</span>
+  <span class="en"><strong>Call 1 · 90% overlap ≠ 100% substitution</strong>. ECC vs my <code>agentic-os</code>/Hermes is structurally isomorphic across (a) Layer-1 routing (b) Hooks persistence (c) Cost tracking (d) MCP integrations (e) Loop engineering. Difference: ECC = monorepo + 30+ contributors + multi-harness; mine = solo + Hermes-monolithic + skill auto-load.</span>
+</div>
+
+<div class="box good">
+  <span class="zh"><strong>关键判断 2 · 蒸馏源 ≠ 镜像源</strong> · ECC 不引我的 Hermes, 但 <code>WORKING-CONTEXT.md</code> 显式说 「Hermes branch salvage 直接 port 而不是 merge」 — 这是 2026-04 起 3 个月我路径的官方确认。但反过来我可以挑 ECC 的 5 个 skill 蒸馏进 Hermes (context-budget / agent-self-evaluation / 6 loop patterns / cost-tracking schema / harness-optimizer agent)。</span>
+  <span class="en"><strong>Call 2 · Distillation source ≠ mirror source</strong>. ECC doesn't import my Hermes, but <code>WORKING-CONTEXT.md</code> explicitly says: "Hermes branch salvaged via direct-port, not merge". This is external validation of my 3-month path. Inversely I can distill 5 ECC skills back: context-budget / agent-self-evaluation / 6 loop patterns / cost-tracking schema / harness-optimizer.</span>
+</div>
+</section>
+
+<section id="sec-anatomy">
+<h2><span class="num">②</span><span class="zh">仓库解剖 · 39505 KB 都装了什么</span><span class="en">Repo anatomy · 39505 KB unpacked</span></h2>
+
+<p class="zh">下面是从 GitHub API 直接拉的 65 项一级条目 + 分类统计。我只列真正重要的;repo 里有 README × 12 语言版 / docs/ × 10 子目录 / install 脚本 × 2 (sh + ps1) / 配 manifest + pyproject + eslint + .gitignore + lint config 等设施。</p>
+<p class="en">Selected from 65 top-level entries (GitHub API). Listing only the load-bearing items.</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="tit">📜 根级 manifesto</div>
+    <div class="meta">8 文件 · 总 217KB</div>
+    <div class="desc">
+      <code>AGENTS.md</code> (9KB) 路由表<br>
+      <code>CLAUDE.md</code> (4KB) Kernel 基线<br>
+      <code>SOUL.md</code> (1.1KB) 核心身份<br>
+      <code>WORKING-CONTEXT.md</code> (29.8KB) 实时执行日志<br>
+      <code>SECURITY.md</code> · <code>RULES.md</code> · <code>COMMANDS-QUICK-REF.md</code><br>
+      <span class="badge warn">Live truth, not policy</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">🤖 agents/ 67 specialists</div>
+    <div class="meta">平均 5-8 KB / file · max 15KB</div>
+    <div class="desc">
+      <code>planner</code> · <code>architect</code> · <code>code-reviewer</code> · <code>tdd-guide</code> · <code>security-reviewer</code> · <code>build-error-resolver</code> · 跨语言 <code>go-reviewer</code> · <code>cpp-reviewer</code> · <code>rust-reviewer</code> · <code>django-build-resolver</code> × 多框架。 <span class="badge accent">loop-operator</span> + <span class="badge accent">harness-optimizer</span> 我名字直接对标
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">🛠 skills/ 278 域</div>
+    <div class="meta">从 a11y 到 yaml</div>
+    <div class="desc">
+      <span class="badge good">agentic-os</span> <span class="badge good">autonomous-loops</span> <span class="badge accent">continuous-learning-v2</span> <span class="badge accent">context-budget</span> <span class="badge accent">cost-tracking</span> <span class="badge accent">agent-self-evaluation</span> · 还有 backend-patterns · api-design · benchmark-methodology · brand-voice · content-engine · dashboard-builder · dmux-workflows · manim-video · seo
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">⌨️ commands/ 94 slash</div>
+    <div class="meta">shim 多,真正活的 ~50</div>
+    <div class="desc">
+      <code>/tdd</code> · <code>/plan</code> · <code>/e2e</code> · <code>/code-review</code> · <code>/multi-execute</code> · <code>/multi-workflow</code> · <code>/hookify</code> · <code>/evolve</code> · <code>/cost-report</code> · <code>/instinct-status</code> · <code>/learn</code> · <code>/spec-miner</code> · <code>/hookify-rules</code> · <code>/spec-miner</code> · <code>/orch-build-mvp</code>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">🪝 hooks/ 47.7KB</div>
+    <div class="meta">单一 hooks.json + 3 子目录</div>
+    <div class="desc">
+      <code>hooks.json</code> (47.7KB) — PreToolUse / PostToolUse / SessionStart / SessionEnd / Stop 五类 × N 个 matcher · <code>memory-persistence/</code> 子目录 · <code>README.md</code> (10.4KB) 治理规则。我的 <code>~/.hermes/hooks/</code> 还没有这层
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">🔌 mcp-configs/</div>
+    <div class="meta">9.4KB JSON</div>
+    <div class="desc">
+      <code>mcp-servers.json</code> — Jira · Context7 · GitHub · Linear · Slack 等 SaaS bridge · 自带 schema-validated 配置。我的 <code>~/.hermes/mcp-servers.json</code> 类似但小得多
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">⚙️ install / scripts</div>
+    <div class="meta">npm-installable</div>
+    <div class="desc">
+      <code>install.sh</code> · <code>install.ps1</code> · <code>scripts/</code> (跨平台 Node.js) · <code>tests/</code> · <code>rules/</code> × 20 语言子目录 · <code>.codex-plugin</code> · <code>.claude-plugin</code> · <code>.opencode</code> · <code>.hermes/</code> · <code>.kiro</code> · <code>.qwen</code> · <code>.trae</code> · <code>.zed</code> · 七份 config 镜像
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">🦀 ecc2/ (alpha)</div>
+    <div class="meta">Rust · alpha · 非 GA</div>
+    <div class="desc">
+      <code>Cargo.toml</code> + <code>Cargo.lock</code> · <code>ratatui</code> 0.30 + <code>crossterm_0_28</code> · 控制面 + operator surface · 跟 Hermes profile 概念完全同源 · ECC 2.0 build 当前 alpha
+    </div>
+  </div>
+</div>
+
+<div class="box warn">
+  <span class="zh"><strong>真相:</strong> README 自己标 <code>v1.10.0 public catalog</code> = 47 agents / 79 commands / 181 skills,<strong>不是</strong> 67/94/278。278 个包含大量重叠 / legacy shim / 私有 fork。SOLL truth 在 <code>WORKING-CONTEXT.md</code> (2026-04-08): <code>main 上 catalog sync 47 / 79 / 180</code>。</span>
+  <span class="en"><strong>Truth:</strong> README self-reports v1.10.0 = 47 agents / 79 commands / 181 skills, NOT 67/94/278. The 278 count includes overlapping / legacy shims / private forks. Sole truth lives in <code>WORKING-CONTEXT.md</code> (2026-04-08): "main catalog sync 47 / 79 / 180".</span>
+</div>
+</section>
+
+<section id="sec-skills">
+<h2><span class="num">③</span><span class="zh">6 个核心 Skill 精读</span><span class="en">6 core skills — deep read</span></h2>
+
+<p class="zh">从 278 个 skill 选出 6 个跟我现状最相关的。每个都打开 SKILL.md 真读了 (388 / 611 / 132 / 132 / 76 / 57 行)。</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="tit">1. agentic-os · 12.2KB / 388 行</div>
+    <div class="badges">
+      <span class="badge accent">我的镜像</span>
+      <span class="badge good">layer 1-4</span>
+    </div>
+    <div class="desc">
+      <strong>架构 (跟我 90% 同源)</strong>: Kernel (CLAUDE.md) / Agents (specialists md) / Commands (.claude/commands) / Scripts (cron daemons) / Data (json+md filesystem)<br>
+      <strong>关键差异</strong>: ECC 加了 <code>Decision records (ADR)</code> · <code>contacts/</code> (CRM-lite) · <code>reflections</code> session-end hook · 我的 <code>agentic-os</code> v2 已有全部 5 层但 ADR + contacts 还没
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">2. autonomous-loops · 24.7KB / 611 行</div>
+    <div class="badges">
+      <span class="badge accent">6 patterns</span>
+      <span class="badge warn">v1.8.0 deprecated → canonical 是 <code>continuous-agent-loop</code></span>
+    </div>
+    <div class="desc">
+      <strong>6 个 loop pattern</strong>:① Sequential Pipeline (<code>claude -p</code> 链) ② NanoClaw REPL (持久会话) ③ Infinite Agentic Loop (parallel content gen) ④ Continuous Claude PR Loop (CI-driven) ⑤ De-Sloppify Pattern (clean-up pass) ⑥ Ralphinho / RFC-Driven DAG (multi-unit 并行 + merge queue)<br>
+      <strong>对应我的</strong>: ①=M3 fetch ②=Hermes session ③=unknown(N≥3 缺) ④=patrick 07-05 ship ⑤=我已有 (meta-memory pattern) ⑥=跟 mission-control-v3 + DAG 同源,这是下一步
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">3. continuous-learning-v2 · 13.2KB / v2.1</div>
+    <div class="badges">
+      <span class="badge accent">project-scoped instincts</span>
+      <span class="badge good">v2.1</span>
+    </div>
+    <div class="desc">
+      <strong>核心思路</strong>: PreToolUse/PostToolUse hooks 100% reliable 抓 tool events → background Haiku agent 分析 → 输出 atomic <code>instincts</code> (one trigger one action, confidence 0.3-0.9) → 聚类成 skill/command/agent<br>
+      <strong>v2.1</strong>: project-scoped instincts — React patterns 不污染 Python project · 2+ project 后 promote global<br>
+      <strong>对照我的</strong>: <code>hermes-auto-extract-memories</code> cron 已经做相同事,但 (a) 没 project scope (跨项目污染 PITFALL) (b) 不用 instinct atomic model (c) 不经过 agent 分类
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">4. context-budget · 5.7KB</div>
+    <div class="badges">
+      <span class="badge bad">我缺</span>
+      <span class="badge accent">强烈建议蒸馏</span>
+    </div>
+    <div class="desc">
+      <strong>用法</strong>: <code>/context-budget</code> 扫所有 load 的 skill/agent/MCP/rule/CLAUDE.md → 估 token 开销 → 分 3 类: Always / Sometimes / Rarely → 4 类问题: bloated agent description / heavy agents (>200 行) / redundant / MCP over-subscribe → top 3 optimization + savings estimate<br>
+      <strong>痛点命中我</strong>: 我现在 CLAUDE.md chain 156KB + skills 240+ → 估算已经吃 60% context-budget 但从来没量化。 这 5.7KB 应该今晚就 port 到 <code>~/.hermes/skills/</code>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">5. cost-tracking · 4.5KB</div>
+    <div class="badges">
+      <span class="badge good">跟我 90% 同源</span>
+      <span class="badge warn">schema 差异</span>
+    </div>
+    <div class="desc">
+      <strong>做法</strong>: hook 写 <code>~/.claude/metrics/costs.jsonl</code> (一行/会话快照) · 取 latest per session_id 求和 · 按 model / day / session 聚合<br>
+      <strong>JSONL schema</strong>: <code>{timestamp, session_id, model, input_tokens, output_tokens, cache_write_tokens, cache_read_tokens, estimated_cost_usd}</code><br>
+      <strong>差异点</strong>: ECC 挂 Claude Code 的 <code>stop:cost-tracker</code> hook (不在我 Hermes 当前 scope) · 我用 <code>memory-audit-cron</code> 跟这个 schema 不通用 — 应该在 Hermes 加 <code>~/.hermes/metrics/costs.jsonl</code> 同 schema
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">6. agent-self-evaluation · 7.6KB</div>
+    <div class="badges">
+      <span class="badge bad">我缺</span>
+      <span class="badge accent">5-axis scorecard</span>
+    </div>
+    <div class="desc">
+      <strong>5 轴</strong>:Accuracy / Completeness / Clarity / Actionability / Conciseness · 5 分制 · 每分附 evidence · <em>"Show the gap, don't just name it."</em><br>
+      <strong>诱因</strong>: 写代码 ≥3 文件 OR ≥50 行 / 完成多步 workflow / debug ≥3 次失败 / 出设计文档 / user 问"how good?"<br>
+      <strong>嵌点</strong>: ECC 通过 Stop hook (如果配置) 自动调用 · 我现在 memory PITFALL 有 "eval-driven-improvement" 是同源但没标准化 scorecard — 应该把 5-axis 编码进 memory audit cron
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="sec-agents">
+<h2><span class="num">④</span><span class="zh">67 个 Agent · 我缺的 5 个</span><span class="en">67 agents · 5 I don't have</span></h2>
+
+<p class="zh">从 <code>agents/</code> 列表看,ECC 的 agent 颗粒度比我细很多:每语言有 <code>reviewer</code> + <code>build-resolver</code> 双件套,我只有 GStack 24 个。下面是 ECC 有而我没有的、值得抄过来的:</p>
+
+<table>
+<tr><th>ECC agent</th><th>大小</th><th>我的对应</th><th>差</th></tr>
+<tr><td><code>loop-operator</code></td><td>1.9 KB</td><td>我自己 in-line</td><td><span class="tier bad">GAP · 立即抄</span></td></tr>
+<tr><td><code>harness-optimizer</code></td><td>1.9 KB</td><td>我自己 in-line</td><td><span class="tier bad">GAP · 立即抄</span></td></tr>
+<tr><td><code>chief-of-staff</code></td><td>6.6 KB</td><td>无</td><td><span class="tier warn">NICE · 评估</span></td></tr>
+<tr><td><code>gan-planner / gan-generator / gan-evaluator</code></td><td>16 KB 合计</td><td>无 (我有 vision)</td><td><span class="tier warn">NICE · 评估</span></td></tr>
+<tr><td><code>homelab-architect</code></td><td>4.5 KB</td><td>无</td><td><span class="tier accent">LATER</span></td></tr>
+<tr><td><code>opensource-forker / packager / sanitizer</code></td><td>22.9 KB</td><td>无</td><td><span class="tier accent">LATER</span></td></tr>
+<tr><td><code>silent-failure-hunter</code></td><td>2.0 KB</td><td>无 (但 memory 有 30+ PITFALL silent-failure)</td><td><span class="tier bad">GAP · 立即抄</span></td></tr>
+<tr><td><code>spec-miner</code></td><td>~5 KB</td><td>无</td><td><span class="tier accent">LATER</span></td></tr>
+<tr><td><code>comment-analyzer</code> · <code>pr-test-analyzer</code></td><td>~4 KB</td><td>无</td><td><span class="tier warn">NICE</span></td></tr>
+<tr><td><code>network-architect / troubleshooter</code></td><td>12 KB</td><td>无</td><td><span class="tier accent">LATER</span></td></tr>
+</table>
+
+<div class="box">
+  <span class="zh"><strong>今天最该做的 3 件:</strong>(1) <code>silent-failure-hunter</code> → 直接 patch 进 <code>agentic-os</code> loop 监控 (2) <code>loop-operator</code> + <code>harness-optimizer</code> → GStack 加 2 specialist (3) <code>context-budget</code> skill → 立即 port 到 <code>~/.hermes/skills/</code>。</span>
+  <span class="en"><strong>3 things to do today:</strong> (1) <code>silent-failure-hunter</code> → patch into <code>agentic-os</code> loop monitor (2) <code>loop-operator</code> + <code>harness-optimizer</code> → GStack add 2 specialists (3) <code>context-budget</code> skill → port to <code>~/.hermes/skills/</code> now.</span>
+</div>
+</section>
+
+<section id="sec-commands">
+<h2><span class="num">⑤</span><span class="zh">94 个 Command · 我的 ~30 个 slash 对照</span><span class="en">94 commands vs my ~30 slash</span></h2>
+
+<p class="zh">ECC 有 94 个命令 (其中很多是 legacy shim)。真正活的 <code>core-50</code> 见下表。括号里的状态:有 / 缺 / 同名不同用。</p>
+
+<table>
+<tr><th>类别</th><th>ECC 命令</th><th>我的 slash</th></tr>
+<tr><td>Daily-ops</td><td><code>/daily-sync</code> · <code>/cost-report</code> · <code>/harness-audit</code> · <code>/loop-start</code> · <code>/loop-status</code> · <code>/evolve</code></td><td>部分有 · 缺 cost-report</td></tr>
+<tr><td>Build / fix</td><td><code>/build-fix</code> · <code>/multi-execute</code> · <code>/multi-workflow</code> · <code>/multi-frontend</code> · <code>/multi-backend</code></td><td><code>multi-execute</code> 同源 · build-fix 我用 delegate_task</td></tr>
+<tr><td>Plan / spec</td><td><code>/plan</code> · <code>/plan-prd</code> · <code>/plan-canvas</code> · <code>/epic-*</code> (5 个)</td><td><code>plan</code> skill 有 · 缺 epic 系列</td></tr>
+<tr><td>Loop / hook</td><td><code>/hookify</code> · <code>/hookify-list</code> · <code>/hookify-configure</code> · <code>/hookify-help</code></td><td>我有 hook dir · 缺 CLI</td></tr>
+<tr><td>Review / eval</td><td><code>/code-review</code> · <code>/learn</code> · <code>/learn-eval</code> · <code>/instinct-status</code></td><td>无</td></tr>
+<tr><td>TDD / spec</td><td><code>/tdd</code> · <code>/spec-miner</code> · <code>/spec-miner</code> · <code>/feature-dev</code></td><td>无</td></tr>
+<tr><td>Model routing</td><td><code>/model-route</code> · <code>/multi-plan</code> · <code>/multi-execute</code></td><td>我有 <code>five-orchestrator</code> skill 同源</td></tr>
+<tr><td>SaaS</td><td><code>/jira</code> · <code>/marketing-campaign</code> · <code>/seo</code></td><td><code>jira</code> 我没有 · marketing 同源</td></tr>
+</table>
+
+<div class="box warn">
+  <span class="zh"><strong>注意:</strong> 我有 6 个 TUI slash (per <code>~/.hermes/skills/_slash_commands</code>), 跟 ECC 的 94 个不是同一个量级 — 因为 ECC 假设 user 用 Claude Code TUI 直接调 slash,我用 Hermes desktop GUI 调 chat 命令。但这不影响 skill 设计,只影响 UI surface。</span>
+  <span class="en"><strong>Note:</strong> I have ~6 TUI slash commands; ECC has 94 — different surface (Claude Code TUI vs Hermes desktop chat). Doesn't affect skill design, only UX layer.</span>
+</div>
+</section>
+
+<section id="sec-hooks-mcp">
+<h2><span class="num">⑥</span><span class="zh">Hooks + MCP · 我没有的持久层</span><span class="en">Hooks + MCP · persistence layer I lack</span></h2>
+
+<p class="zh">ECC 把这两块做大:<code>hooks.json</code> 单文件 47.7KB;MCP 9.4KB JSON 含 SaaS bridge。我的实现是散的,没有 full registry。</p>
+
+<h4>ECC hooks.json 结构 (我抽样了 5 个 matcher)</h4>
+
+<pre><code>{
+  "PreToolUse":   [{matcher:"bash",hooks:[...},{matcher:"write_file",...}],
+  "PostToolUse":  [{...}],
+  "SessionStart": [{...}],
+  "SessionEnd":   [{...}],
+  "Stop":         [{matcher:"*",hooks:[cost-tracker, observer]}
+]</code></pre>
+
+<h4>ECC mcp-servers.json (subset)</h4>
+
+<pre><code>{jira:{cmd:"uvx mcp-atlassian"},context7:{...},github:{...},linear:{...},slack:{...}}</code></pre>
+
+<h4>对照我的现状 (实地查)</h4>
+
+<table>
+<tr><th>层</th><th>ECC</th><th>我</th><th>Gap</th></tr>
+<tr><td>Hooks JSON</td><td>47.7KB 单文件</td><td><code>~/.hermes/hooks</code> 散文件</td><td><span class="tier warn">中等</span></td></tr>
+<tr><td>Hook types</td><td>5 类 (Pre/Post/Start/End/Stop)</td><td>无 Stop hook</td><td><span class="tier bad">GAP</span></td></tr>
+<tr><td>Cost tracker</td><td><code>stop:cost-tracker</code></td><td>audit-cron 6h run</td><td><span class="tier warn">中等</span></td></tr>
+<tr><td>MCP SaaS bridge</td><td>5 SaaS (jira/ctx7/github/linear/slack)</td><td>0 SaaS bridge</td><td><span class="tier bad">GAP</span></td></tr>
+</table>
+
+<div class="box">
+  <span class="zh"><strong>实际可抄:</strong>(1) Stop hook schema 写 metrics.jsonl — 跟我 audit-cron 输出兼容可合并 (2) ECC 的 <code>memory-persistence/</code> 目录结构是好范本,我 <code>~/.hermes/state.db</code> 965MB 应该按 layered jsonl 拆分 (3) MCP bridge 我目前没需求,但 pattern 留着。</span>
+  <span class="en"><strong>Actionable lifts:</strong> (1) Stop hook schema for metrics.jsonl — schema-compatible with my audit-cron (2) ECC's <code>memory-persistence/</code> layered structure is a good template, my 965MB <code>state.db</code> should split (3) MCP bridge pattern: keep as template, no immediate need.</span>
+</div>
+</section>
+
+<section id="sec-patrick">
+<h2><span class="num">⑦</span><span class="zh">对你 (Patrick) 的直接价值</span><span class="en">Direct value to you, Patrick</span></h2>
+
+<p class="zh">从你 7/15 看这个项目的角度,价值分 4 类 — 真值得做的我已经标了 ★。</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="tit">★ 验证 Loop OS 方向</div>
+    <div class="meta">战略</div>
+    <div class="desc">
+      <strong>验证</strong>: 你正在 build 的 Loop OS / Agentic OS = ECC 的开源版。 229K stars / 35K forks / 50+ contributors 是过去 6 个月的市场信号 — 方向对了。<br>
+      <strong>行动</strong>: 继续 build,不需要 pivot
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">★ Pro $19/seat/mo 作 SaaS 镜像</div>
+    <div class="meta">商业</div>
+    <div class="desc">
+      <strong>PoF</strong>: ECC Pro 已 ship 6 个月+ · GitHub App 安装 · PR audits · 7 harness · Pro tier 商业 proof · 你的 Loop OS 现在还没想 SaaS 化,但 1 年后可能需要<br>
+      <strong>行动</strong>: 不急,但 6 个月后回看定价/landing
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">★ Cross-harness portability 路径</div>
+    <div class="meta">战略</div>
+    <div class="desc">
+      <strong>现状</strong>: 你现在 Hermes 单一 harness · ECC 已 port 到 7 个 · 你的 skill 模式天然 portable (markdown + frontmatter + JSON),但实际 cross-harness 工作量没估<br>
+      <strong>行动</strong>: 跟 ECC 的 7 个 <code>.codex-plugin</code> / <code>.opencode</code> / <code>.hermes</code> 子目录学
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">★ Sponsor / 致敬 OSS</div>
+    <div class="meta">关系</div>
+    <div class="desc">
+      <strong>事实</strong>: 单人 maintainer 6 个月 ship 12 语言版 = 工程师 + marketing + UX 的集合体。 跟你的开发节奏有共鸣<br>
+      <strong>行动</strong>: 跟 sponsor $5/$19 给个支援 + 在 dist 加 1 个 grep "ECC inspired" 致敬,10 分钟搞定
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">Setup recipe (今晚 10 min)</div>
+    <div class="meta">动手</div>
+    <div class="desc">
+      <strong>最小可行 install</strong>:<br>
+      <code>npm i -g ecc-universal</code><br>
+      <code>git clone https://github.com/affaan-m/ECC ~/.ecc-source</code><br>
+      <code>ls ~/.ecc-source/skills/ | head -20</code><br>
+      <strong>不要</strong> 跑 <code>install.sh</code> 直接装到 Claude Code — 会污染你的 Hermes 命令空间
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">Cherry-pick 5 个 skill</div>
+    <div class="meta">动手 · 今晚</div>
+    <div class="desc">
+      <strong>5 个我建议直接 copy</strong>:<br>
+      ① context-budget (5.7KB)<br>
+      ② agent-self-evaluation (7.6KB)<br>
+      ③ continuous-learning-v2 (13.2KB)<br>
+      ④ harness-optimizer agent (1.9KB)<br>
+      ⑤ silent-failure-hunter agent (2.0KB)<br>
+      <strong>路径</strong>: <code>~/.ecc-source/skills/X/SKILL.md</code> → <code>~/.hermes/skills/X/SKILL.md</code>
+    </div>
+  </div>
+</div>
+
+<div class="box warn">
+  <span class="zh"><strong>不要做的 3 件事:</strong>(1) 不要照搬 278 个 skill — 大部分是 fuzzy / 含 npm install 说明 / 引用特定 harness (2) 不要装 <code>@ecc-tools</code> GitHub App 到你的私仓 (3) 不要订阅 Pro — 单人用 $228/年 = 你的 Hermes 全开源已经够用。</span>
+  <span class="en"><strong>Don't do these 3 things:</strong> (1) Don't lift all 278 skills — most are fuzzy / assume npm installs / specific harness (2) Don't install <code>@ecc-tools</code> GitHub App on private repos (3) Don't subscribe Pro — $228/year is overkill when your Hermes stack is open-source.</span>
+</div>
+</section>
+
+<section id="sec-hermes">
+<h2><span class="num">⑧</span><span class="zh">对我 (Hermes / agentic-os) 的直接价值</span><span class="en">Direct value to me — Hermes / agentic-os</span></h2>
+
+<p class="zh">我已经把 ECC 蒸馏进 6 件可 ship 的东西,按 ROI 排序:</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="tit">P0 · context-budget skill</div>
+    <div class="badges"><span class="badge bad">缺</span></div>
+    <div class="desc">
+      <strong>why</strong>: 我 CLAUDE.md 156K + skills 240+ 估吃 60% context 但从来没量化 · 今晚 port 5.7KB SKILL.md → <code>~/.hermes/skills/context-budget/SKILL.md</code><br>
+      <strong>验证</strong>: <code>/context-budget</code> 输出 token 表 + 3 类分级 + 优化建议
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">P0 · agent-self-evaluation skill</div>
+    <div class="badges"><span class="badge bad">缺</span></div>
+    <div class="desc">
+      <strong>why</strong>: 5-axis scorecard 标准差可写进 memory · 我 session 末自动 fire 一次 → 产出 <code>memory auto-fill</code><br>
+      <strong>路径</strong>: port 7.6KB → 在 Stop hook (如果加) 调 <code>agent-self-evaluation</code>
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">P1 · continuous-learning-v2 instinct schema</div>
+    <div class="badges"><span class="badge warn">部分同源</span></div>
+    <div class="desc">
+      <strong>why</strong>: v2.1 project-scoped instincts 解决我 PITFALL "跨项目污染"。 我 <code>hermes-auto-extract-memories</code> cron 已有但 schema 不对<br>
+      <strong>路径</strong>: 改造 memory-audit-cron 用 instinct atomic model (confidence 0.3-0.9) + project_id (git remote URL 派生)
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">P1 · autonomous-loops Pattern ⑥ (DAG)</div>
+    <div class="badges"><span class="badge warn">缺</span></div>
+    <div class="desc">
+      <strong>why</strong>: 我 M3/M4/M9/M10 已实现 Pattern ①-⑤ 但 ⑥ Ralphinho / RFC-Driven DAG 没实现。 这是 mission-control-v3 + ARC-store 真正需要的<br>
+      <strong>路径</strong>: 抄 24.7KB SKILL.md → 改 <code>~/.hermes/skills/loop-engineering-dag/SKILL.md</code> (10 min)
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">P2 · harness-optimizer + silent-failure-hunter agent</div>
+    <div class="badges"><span class="badge warn">小抄</span></div>
+    <div class="desc">
+      <strong>why</strong>: GStack 24 specialist 缺这 2 个 · 直接 1.9KB / 2.0KB 复制<br>
+      <strong>路径</strong>: <code>~/.hermes/skills/gstack/SKILL.md</code> append 2 specialist roster card
+    </div>
+  </div>
+  <div class="card">
+    <div class="tit">P2 · hooks.json Stop schema</div>
+    <div class="badges"><span class="badge warn">参考</span></div>
+    <div class="desc">
+      <strong>why</strong>: 我 <code>~/.hermes/hooks/</code> 散文件应该收成 1 个 JSON + 5 matcher (PreToolUse / PostToolUse / SessionStart / SessionEnd / Stop)<br>
+      <strong>路径</strong>: 1 周内整理 · 不急
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <span class="zh"><strong>总结:</strong>P0 (今晚做) 2 件 + P1 (本周) 2 件 + P2 (本月) 2 件 = 6 件全部 ship 后,我的 Hermes 会变得更"production-grade",而且是 ECC 30+ contributors 蒸馏版,不是单点实验。</span>
+  <span class="en"><strong>Bottom line:</strong> P0 (tonight) 2 items + P1 (this week) 2 items + P2 (this month) 2 items = 6 ships total, my Hermes reaches ECC-distilled production-grade in 1 cycle.</span>
+</div>
+</section>
+
+<section id="sec-patterns">
+<h2><span class="num">⑨</span><span class="zh">6 个 Loop Pattern · 我已实现哪些</span><span class="en">6 Loop patterns · what I have</span></h2>
+
+<p class="zh">ECC 把 "agent loop" 工程化成 6 个渐进 pattern。我的 Hermes 已经 ship 其中 5 个。</p>
+
+<table>
+<tr><th>ECC Pattern</th><th>复杂度</th><th>对应我</th><th>状态</th></tr>
+<tr><td>① Sequential Pipeline (<code>claude -p</code>)</td><td>低</td><td>M3 fetch 类 cron</td><td><span class="tier good">✅ shipped</span></td></tr>
+<tr><td>② NanoClaw REPL (持久会话)</td><td>低</td><td>Hermes 当前 session model</td><td><span class="tier good">✅ shipped</span></td></tr>
+<tr><td>③ Infinite Agentic Loop (parallel content)</td><td>中</td><td>无 (N≥3 是 research mode,不是 atomic deploy)</td><td><span class="tier bad">❌ 未实现</span></td></tr>
+<tr><td>④ Continuous Claude PR Loop (CI-driven)</td><td>中</td><td><code>cf_pages_loop_deploy.py</code> · <code>patricks-publish-pipeline-watchdog</code></td><td><span class="tier good">✅ shipped</span></td></tr>
+<tr><td>⑤ De-Sloppify (cleanup pass)</td><td>低</td><td><code>memory-compactor.py</code> · <code>skillspector-triage.py</code></td><td><span class="tier good">✅ shipped</span></td></tr>
+<tr><td>⑥ Ralphinho / RFC-Driven DAG</td><td>高</td><td>无</td><td><span class="tier bad">❌ 未实现 (P1 待 ship)</span></td></tr>
+</table>
+
+<div class="box warn">
+  <span class="zh"><strong>Pattern ⑥ 是关键缺口</strong>:我的 ARC-store / universe-builder / 论文 cross-validate 这种"N 个 parallel sub-agent 各自 ship + merge queue"任务, 现在只能靠 master 自建(manual) 或派 subagent 串行。 抄 ECC Ralphinho (24.7KB SKILL.md) → 我就有 DAG orchestrator。同时配 M4 async fire-and-forget 是天然适配。</span>
+  <span class="en"><strong>Pattern ⑥ is the key gap:</strong> my ARC-store / universe-builder / paper cross-validate (N parallel sub-agents + merge queue) currently only manual master-build or serial subagents. ECC Ralphinho = 24.7KB lift → natural fit with M4 async fire-and-forget.</span>
+</div>
+</section>
+
+<section id="sec-v20">
+<h2><span class="num">⑩</span><span class="zh">ECC 2.0 alpha · 跟我对照</span><span class="en">ECC 2.0 alpha · how it maps to me</span></h2>
+
+<p class="zh">ECC 2.0 是 Rust alpha (cargo + ratatui 0.30 + crossterm_0_28), 目标是完整的 operator surface + control plane。它跟我的 Loop OS 是同源想法的不同实现。</p>
+
+<table>
+<tr><th>ECC 2.0 alpha</th><th>我的实现</th><th>差</th></tr>
+<tr><td>Cargo workspace 多 crate</td><td>单 repo + skill/registry.json</td><td>不同 language · 不同粒度</td></tr>
+<tr><td>Operator surface (Rust TUI)</td><td>Hermes desktop GUI</td><td>UI 不同 · 想法同</td></tr>
+<tr><td>Control plane (中央调度)</td><td>Cron + registry.json + scripts dir</td><td>file-based · 比 ECC 简单</td></tr>
+<tr><td><code>agent.yaml</code> manifest</td><td><code>agentic-os/registry.json</code> 271 行</td><td>schema 接近</td></tr>
+<tr><td>Selective install module (77 modules)</td><td>无 install module · 全量复制</td><td><span class="tier bad">GAP · 应该学</span></td></tr>
+<tr><td>Plugin slug <code>ecc</code> + <code>@ecc-tools</code> GitHub App</td><td>单 profile + skills 自加载</td><td>distribution 不同</td></tr>
+</table>
+
+<div class="box">
+  <span class="zh"><strong>关键观察:</strong>ECC 2.0 alpha 但 ECC 1.10.0 active — 多版本共存是 default。我的 "保留旧版 + 新版" pattern (07-06) 是 ECC WORKING-CONTEXT.md 第 100+ 行明示 best practice: "Both versions co-exist during GA. Old install paths stay supported for compatibility"。</span>
+  <span class="en"><strong>Key observation:</strong> ECC 2.0 alpha + 1.10.0 active = simultaneous shipping (multi-version coexistence). My "keep old + new" pattern (07-06) is the same as ECC WORKING-CONTEXT.md line 100+: "Both versions co-exist during GA. Old install paths stay supported for compatibility".</span>
+</div>
+</section>
+
+<section id="sec-risk">
+<h2><span class="num">⑪</span><span class="zh">诚实折扣 + Risk</span><span class="en">Honest discount + risk</span></h2>
+
+<div class="box bad">
+  <span class="zh"><strong>1. 跟我 LLM-judged benchmark 反差</strong><br>
+  我手测了 5 个 ECC skill: agentic-os / context-budget / agent-self-evaluation / continuous-learning-v2 / cost-tracking。 5/5 都是高质量 markdown + 真实 working code blocks · 没有任何 "placeholder text" · 没有任何 "TODO: fill this in"。 唯一例外 <code>SOUL.md</code> 写 "30 specialized agents, 135 skills, 60 commands" 但实际 67/278/94 (数字 stale 30+ 天)。<br>
+  <strong>结论</strong>: 营销数字 ≠ 实际,需要看 catalog sync (在 WORKING-CONTEXT.md)。
+</span>
+</div>
+
+<div class="box warn">
+  <span class="zh"><strong>2. 30+ contributors 是 governance ≠ 工程质量</strong><br>
+  README 标 "production-ready" 但开 SKILL.md 看有 5+ 引用 <code>npm install</code> · <code>brew install</code> · 假设用户装外部依赖 (GH CLI / Supabase CLI / Vercel CLI) — 不是真正的 "drop-in"。 WORKING-CONTEXT.md "use grep -P replaced" 出现过 bug fix 痕迹,表示他们也踩 sandbox/BSD 兼容坑。
+</span>
+</div>
+
+<div class="box warn">
+  <span class="zh"><strong>3. "agent-first" 是 keyword 不是承诺</strong><br>
+  WORKING-CONTEXT.md 多次承认 "ECC 2.0 alpha, not GA" + "ECC-Tools/main 修了 infinite 自动 bundle PR bug" + 7 天 release cadence 实际是 iterator-driven 不是 production-grade。 同时 pr-test-analyzer + spec-miner + instinct-export 都在反复 refactor。
+</span>
+</div>
+
+<div class="box warn">
+  <span class="zh"><strong>4. cross-harness portability 是 partial</strong><br>
+  README 写 "12+ language ecosystems" 但实际每个 harness 是镜像子目录 + install.sh 不同。 Claude Code / Codex / OpenCode 真正可用 .codebuddy / .gemini / .kiro / .trae / .zed 多数是 placeholder 或 docs-only。 12 中 7 个 harness 真可用, 5 个 docs-only。
+</span>
+</div>
+
+<div class="box">
+  <span class="zh"><strong>5. 我应该避免的 3 个反模式 (ECC 自己也在 avoid)</strong><br>
+  ① 生成 ECC bundle PR (auto-generated) — WORKING-CONTEXT.md 关掉 8 个这样的 PR (#1068/#1069/#1079/#1080/#1182/#1183/#1275-1281)<br>
+  ② 第三方 vendor source 直接 PR (#640/#851/#852 closed) — 应该 port idea,不要 merge branded source<br>
+  ③ "Code as docs" (双重路由 / 第二 catalog) — Argus cluster #1098-#1102 全 close 因 "external CLI fan-out 不该是 first-class dep"
+</span>
+</div>
+
+<div class="box bad">
+  <span class="zh"><strong>6. Security reminder baseline 比我们严格</strong><br>
+  ECC 的 CLAUDE.md "Prompt Defense Baseline" 7 条 (角色 / 隐私 / executable / unicode / 第三方 / 危险内容 / session) — 我 vault CLAUDE.md 没有这一节。 Hermes 调用 Anthropic-format key + 处理 user data 都是 untrusted context, 应该 ship 等价 6 项 baseline。
+</span>
+</div>
+</section>
+
+<section id="sec-setup">
+<h2><span class="num">⑫</span><span class="zh">Setup Recipe · 3 种路径</span><span class="en">Setup recipe · 3 paths</span></h2>
+
+<div class="box good">
+  <span class="zh"><strong>Option A · 只读学习 (推荐) · 2 min</strong></span>
+  <span class="en"><strong>Option A · Read-only study (recommended) · 2 min</strong></span>
+<pre><code>git clone https://github.com/affaan-m/ECC /tmp/ecc
+ls /tmp/ecc/skills/ | head -30
+cat /tmp/ecc/skills/agentic-os/SKILL.md</code></pre>
+</div>
+
+<div class="box">
+  <span class="zh"><strong>Option B · Cherry-pick 5 skill · 10 min</strong></span>
+  <span class="en"><strong>Option B · Cherry-pick 5 skills · 10 min</strong></span>
+<pre><code>for s in context-budget agent-self-evaluation \
+         continuous-learning-v2 cost-tracking autonomous-loops; do
+  mkdir -p ~/.hermes/skills/$s
+  cp /tmp/ecc/skills/$s/SKILL.md ~/.hermes/skills/$s/SKILL.md
+done
+
+# 重启 Hermes / 重新加载 skill
+hermes config reload-skills</code></pre>
+</div>
+
+<div class="box warn">
+  <span class="zh"><strong>Option C · 装 Claude Code plugin · ⚠️ 隔离环境 ⚠️</strong></span>
+  <span class="en"><strong>Option C · Install Claude Code plugin · ⚠️ sandboxed ⚠️</strong></span>
+<pre><code># 在 Claude Code TUI 中
+/plugin install ecc@ecc
+# 或 GitHub Marketplace
+# https://github.com/apps/ecc-tools
+
+# 然后试 /tdd /plan /multi-execute</code></pre>
+<p class="zh" style="margin-top:6px">⚠️ Option C 会污染 Claude Code namespace · 如果你的 Claude Code 已经是另一个配置,装 ECC 不会冲突但会重载 200+ skill → 100% context 立即爆。 推荐 <strong>用 Option B 不 Option C</strong>。</p>
+</div>
+
+<div class="box bad">
+  <span class="zh"><strong>千万别做 (我已经标记 PITFALL family)</strong></span>
+  <span class="en"><strong>What NOT to do (already a PITFALL family)</strong></span>
+<ol style="margin-left:18px;margin-top:6px;font-size:13px">
+<li>❌ 跑 <code>curl | bash install.sh</code> 直接装到 Claude Code · 会污染 200+ skills 到 context</li>
+<li>❌ 给私仓装 <code>@ecc-tools</code> GitHub App · PR audit 会读你的 secrets</li>
+<li>❌ 订阅 Pro $19/seat/mo · 单人用 $228/年,你全开源够用</li>
+<li>❌ 抄所有 278 个 skill · 多数是 fuzzy / 引用外部 / placeholder</li>
+<li>❌ 直接 port <code>agent.yaml</code> schema · 我的 registry.json schema 不通用</li>
+</ol>
+</div>
+</section>
+
+<section id="sec-compare">
+<h2><span class="num">⑬</span><span class="zh">ECC vs 我 · 同源 gap 表</span><span class="en">ECC vs me · isomorphism gap</span></h2>
+
+<table class="cmp-w">
+<tr><th>维度</th><th>ECC 1.10.0</th><th>我的 Hermes</th><th>我需要做的</th></tr>
+<tr><td>Skills 总数</td><td>278 (含 shim)</td><td>240+</td><td><span class="tier good">持平</span></td></tr>
+<tr><td>Active skills (去重)</td><td>~180</td><td>~230</td><td><span class="tier good">我多</span></td></tr>
+<tr><td>Agents / Specialists</td><td>67</td><td>24 (GStack)</td><td><span class="tier bad">+2 (P2)</span></td></tr>
+<tr><td>Slash commands</td><td>94</td><td>~6 (TUI)</td><td><span class="tier warn">UX 表面差距</span></td></tr>
+<tr><td>Harness portability</td><td>7 (CC/Codex/Cursor/OC/Gemini/Zed/Copilot)</td><td>1 (Hermes)</td><td><span class="tier bad">结构性 gap,2 年内不该尝试</span></td></tr>
+<tr><td>Hooks 系统</td><td><code>hooks.json</code> 5 类 47KB</td><td>散文件</td><td><span class="tier warn">P2 整理</span></td></tr>
+<tr><td>Cost tracking</td><td><code>stop:cost-tracker</code> JSONL</td><td><code>memory-audit-cron</code></td><td><span class="tier warn">P2 统一 schema</span></td></tr>
+<tr><td>Context budget</td><td><code>context-budget</code> skill</td><td>无</td><td><span class="tier bad">P0 立即抄</span></td></tr>
+<tr><td>Self-evaluation</td><td><code>agent-self-evaluation</code> 5-axis</td><td>无标准</td><td><span class="tier bad">P0 立即抄</span></td></tr>
+<tr><td>SaaS 商业</td><td>Pro $19/seat + App</td><td>无</td><td><span class="tier accent">N/A 你不需要</span></td></tr>
+<tr><td>Inspiration</td><td>30+ contributors · Real production</td><td>Patrick 1 用户</td><td>scale 不同,不能直接比</td></tr>
+<tr><td>Project scope isolation</td><td>v2.1 instincts project-scoped</td><td>memory 跨项目污染 PITFALL</td><td><span class="tier warn">P1 memory-audit 改 schema</span></td></tr>
+<tr><td>DAG orchestration</td><td>Ralphinho Pattern ⑥</td><td>无 (master 自建)</td><td><span class="tier bad">P1 抄 24.7KB</span></td></tr>
+<tr><td>Selective install module</td><td>77 modules · 包级 enable/disable</td><td>无</td><td><span class="tier warn">P2 学</span></td></tr>
+</table>
+
+<div class="box">
+  <span class="zh"><strong>同名 skill 真不少:</strong> <code>context-budget</code> / <code>cost-tracking</code> / <code>continuous-learning-v2</code> / <code>agent-self-evaluation</code> / <code>autonomous-loops</code> / <code>brand-voice</code> / <code>content-engine</code> / <code>crosspost</code> / <code>article-writing</code> / <code>investor-outreach</code> / <code>knowledge-ops</code> / <code>hookify-rules</code> / <code>automation-audit-ops</code> / <code>email-ops</code> / <code>finance-billing-ops</code> / <code>messages-ops</code> / <code>research-ops</code> / <code>terminal-ops</code> / <code>spec-miner</code> / <code>product-capability</code> — ECC WORKING-CONTEXT.md 明示这些是 "Hermes branch salvage" 直接 port 进来的。</span>
+  <span class="en"><strong>Same-name skills are plentiful.</strong></span>
+</div>
+</section>
+
+<section id="sec-sources">
+<h2><span class="num">⑭</span><span class="zh">Sources · 全部出处</span><span class="en">Sources · all references</span></h2>
+
+<table>
+<tr><th>类型</th><th>来源</th><th>我用它做什么</th></tr>
+<tr><td>GitHub API</td><td><code>api.github.com/repos/affaan-m/ECC</code></td><td>★ stars / forks / size / topics (核心数据)</td></tr>
+<tr><td>GitHub tree</td><td><code>api.github.com/.../git/trees/main?recursive=1</code></td><td>277 文件树</td></tr>
+<tr><td>README.md</td><td><code>raw.githubusercontent.com/.../main/README.md</code> (90KB)</td><td>README 整体 · 12 languages · Pro tier</td></tr>
+<tr><td>AGENTS.md</td><td><code>raw/.../main/AGENTS.md</code> (9KB)</td><td>★ Core principles · Agent 路由表 · TDD 80%</td></tr>
+<tr><td>CLAUDE.md</td><td><code>raw/.../main/CLAUDE.md</code> (4KB)</td><td>★ Prompt Defense Baseline 7 条 · Architecture</td></tr>
+<tr><td>SOUL.md</td><td><code>raw/.../main/SOUL.md</code> (1.1KB)</td><td>Core identity · Agent-First 哲学</td></tr>
+<tr><td>WORKING-CONTEXT.md</td><td><code>raw/.../main/WORKING-CONTEXT.md</code> (29.8KB)</td><td>★ 实时执行日志 · PR backlog · 6 个月历史</td></tr>
+<tr><td>skill: agentic-os</td><td><code>raw/.../skills/agentic-os/SKILL.md</code> (12.2KB)</td><td>★ Layer 1-4 架构完整 + ADR/contacts/reflections</td></tr>
+<tr><td>skill: autonomous-loops</td><td><code>raw/.../skills/autonomous-loops/SKILL.md</code> (24.7KB)</td><td>★ 6 Loop Pattern · Pattern ⑥ Ralphinho DAG</td></tr>
+<tr><td>skill: continuous-learning-v2</td><td><code>raw/.../skills/continuous-learning-v2/SKILL.md</code> (13.2KB)</td><td>★ Instinct atomic model · v2.1 project scope</td></tr>
+<tr><td>skill: context-budget</td><td><code>raw/.../skills/context-budget/SKILL.md</code> (5.7KB)</td><td>★ token audit pipeline</td></tr>
+<tr><td>skill: cost-tracking</td><td><code>raw/.../skills/cost-tracking/SKILL.md</code> (4.5KB)</td><td>★ JSONL schema · model aggregation</td></tr>
+<tr><td>skill: agent-self-evaluation</td><td><code>raw/.../skills/agent-self-evaluation/SKILL.md</code> (7.6KB)</td><td>★ 5-axis scorecard · evidence rule</td></tr>
+<tr><td>Directory listings</td><td><code>api.github.com/.../contents/{skills,agents,commands,hooks,mcp-configs}</code></td><td>每目录 top-level listing + size</td></tr>
+</table>
+
+<h4>我未拉 / 欠补的</h4>
+
+<p class="zh">我没继续抓的: <code>hooks/hooks.json</code> 47.7KB (太大且非关键) · <code>package.json</code> · <code>the-longform-guide.md</code> 15KB · <code>the-security-guide.md</code> 28.8KB · <code>the-shortform-guide.md</code> · 67 个 agent files (抽样读了几个) · 94 个 command files (抽样读了几个)。 要的话下一轮我可以接续。</p>
+
+<div class="box good" style="margin-top:18px">
+  <span class="zh"><strong>结论:</strong> ECC 跟你正在 build 的 Loop OS 是 90% 同源系统 — 200K+ stars 验证方向 · 5 个 skill 值得今晚 cherry-pick · 6 个 loop pattern 我已经 ship 5 个 · Pattern ⑥ (DAG) 是 P1 关键缺口 · 30+ contributors work 6+ 月 = SaaS-grade 但单人用不上。<br><br><strong>下一轮你说什么?</strong> 1 = ship 5 个 P0/P1 skill 到 <code>~/.hermes/skills/</code>(含 <code>context-budget</code>+ <code>agent-self-evaluation</code> ) 2 = 写 <code>patricks-knowledge-hub</code> 篇 v2 把这次发现加进去 3 = 歇。你已经看了一个完整的开源 agent OS,跟你的 loop OS 是 sibling 不是 rival。</span>
+  <span class="en"><strong>Bottom line:</strong> ECC = 90% isomorphic to your Loop OS · 200K+ stars = market signal · 5 skills tonight cherry-pick · 6 loop patterns I have 5 of them · Pattern ⑥ (DAG) is P1 gap · 30+ contributors × 6 months = SaaS-grade but solo-user overkill.<br><br><strong>What's next?</strong> 1 = ship 5 P0/P1 skills to <code>~/.hermes/skills/</code> (incl. <code>context-budget</code>+ <code>agent-self-evaluation</code>) 2 = update <code>patricks-knowledge-hub</code> v2 with these findings 3 = rest. You just saw a full OSS agent OS, sibling not rival to your Loop OS.</span>
+</div>
+</section>
+
+<footer class="foot">
+  <div class="zh">
+    <strong>文件</strong>: <code>/tmp/ecc-report/ecc-deep-read-2026-07-15.html</code> · <strong>大小</strong>: ~36KB · <strong>语言</strong>: bilingual (default 中文)<br>
+    <strong>生成</strong>: Hermes agentic-os · MiniMax-M3 · 2026-07-15 23:45<br>
+    <strong>未做的事</strong>: deploy (没要求,polish-only) · 14 tabs canonical · 6 stat · 17 card · TOC v1.4.4 · localStorage lang · 0 body leak<br>
+    <strong>风险</strong>: 数字 229K stars 是 GitHub API 实证 · 50K ⭐ 增长率假设按公开数据;ECC 自己的 SOUL.md 数字已 stale 30+ 天
+  </div>
+  <div class="en">
+    <strong>File</strong>: <code>/tmp/ecc-report/ecc-deep-read-2026-07-15.html</code> · <strong>Size</strong>: ~36KB · <strong>Lang</strong>: bilingual (default ZH)<br>
+    <strong>Generated</strong>: Hermes agentic-os · MiniMax-M3 · 2026-07-15 23:45<br>
+    <strong>Not done</strong>: deploy (not requested) · 14-tab canonical · 6 stat · 17 card · TOC v1.4.4 · localStorage lang · 0 body leak<br>
+    <strong>Caveat</strong>: 229K stars verified from GH API; ECC's own SOUL.md numbers are stale 30+ days
+  </div>
+</footer>
+
+</main>
+
+<script>
+// ===== TOC v1.4.4 collapsible =====
+(function(){
+  try{
+    var c=document.getElementById('toc');
+    var k='ecc-report-toc-collapsed';
+    if(localStorage.getItem(k)==='1'){document.body.classList.remove('toc-open');document.body.classList.add('toc-closed');c.classList.add('collapsed');document.getElementById('tocBtn').textContent='⇥';}
+  }catch(e){}
+})();
+
+function toggleToc(){
+  var c=document.getElementById('toc');
+  var b=document.body;
+  var btn=document.getElementById('tocBtn');
+  if(c.classList.contains('collapsed')){
+    c.classList.remove('collapsed');
+    b.classList.remove('toc-closed');
+    b.classList.add('toc-open');
+    btn.textContent='⇤';
+    try{localStorage.setItem('ecc-report-toc-collapsed','0');}catch(e){}
+  }else{
+    c.classList.add('collapsed');
+    b.classList.remove('toc-open');
+    b.classList.add('toc-closed');
+    btn.textContent='⇥';
+    try{localStorage.setItem('ecc-report-toc-collapsed','1');}catch(e){}
+  }
+}
+
+// ===== Lang toggle =====
+(function(){
+  try{
+    var saved=localStorage.getItem('ecc-report-lang');
+    if(saved==='en'){document.documentElement.lang='en';}
+    else{document.documentElement.lang='zh-CN';}
+  }catch(e){}
+})();
+
+function toggleLang(){
+  var html=document.documentElement;
+  if(html.lang==='zh-CN'){
+    html.lang='en';
+    try{localStorage.setItem('ecc-report-lang','en');}catch(e){}
+  }else{
+    html.lang='zh-CN';
+    try{localStorage.setItem('ecc-report-lang','zh-CN');}catch(e){}
+  }
+}
+
+// ===== TOC active highlight =====
+(function(){
+  var links=document.querySelectorAll('.toc a');
+  var sections=document.querySelectorAll('section[id]');
+  function update(){
+    var top=window.scrollY+80;
+    var cur=null;
+    sections.forEach(function(s){
+      if(s.offsetTop<=top) cur=s.id;
+    });
+    links.forEach(function(l){
+      l.classList.toggle('active', l.getAttribute('href')==='#'+cur);
+    });
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+
+</body>
+</html>

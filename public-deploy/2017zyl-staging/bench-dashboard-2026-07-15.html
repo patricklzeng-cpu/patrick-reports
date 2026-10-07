@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>Router Bench 健康仪表板 v2 — 2026-07-15</title>
+<meta name="generated" content="2026-07-15 11:35:00 +0800">
+<style>
+:root { --bg: #0a0a0a; --bg-card: #131316; --fg: #e8e8e8; --muted: #888; --accent: #4fc3f7; --ok: #81c784; --warn: #ffb74d; --err: #ff5252; --border: #2a2a2a; --banner: #2a1f00; --banner-border: #ffb74d; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, sans-serif; background: var(--bg); color: var(--fg); padding: 24px 16px; max-width: 1080px; margin: 0 auto; line-height: 1.6; }
+h1 { color: var(--accent); margin: 0 0 4px 0; font-size: 1.8em; }
+h2 { color: var(--accent); margin-top: 32px; border-bottom: 1px solid var(--border); padding-bottom: 8px; font-size: 1.3em; }
+.meta { color: var(--muted); font-size: 0.88em; }
+.meta a { color: var(--accent); text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
+.archive-banner { background: var(--banner); border-left: 4px solid var(--banner-border); border-radius: 6px; padding: 14px 18px; margin: 12px 0 28px 0; font-size: 0.92em; }
+.archive-banner strong { color: var(--warn); }
+.archive-banner code { background: #1a1a1a; padding: 2px 6px; border-radius: 3px; font-size: 0.86em; }
+.version-pill { display: inline-block; background: var(--accent); color: #000; padding: 2px 10px; border-radius: 12px; font-size: 0.78em; font-weight: 600; margin-left: 8px; }
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
+.stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.stat .num { font-size: 1.5em; font-weight: 700; color: var(--accent); font-family: "SF Mono", monospace; }
+.stat .label { font-size: 0.78em; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+.stat.warn .num { color: var(--warn); }
+.stat.err .num { color: var(--err); }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.93em; background: var(--bg-card); border-radius: 8px; overflow: hidden; }
+th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--bg-elevated); color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.78em; letter-spacing: 0.05em; }
+tr:last-child td { border-bottom: none; }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.78em; font-weight: 600; white-space: nowrap; }
+.tag.ok { color: var(--ok); border: 1px solid rgba(129, 199, 132, 0.3); background: rgba(129, 199, 132, 0.1); }
+.tag.warn { color: var(--warn); border: 1px solid rgba(255, 183, 77, 0.3); background: rgba(255, 183, 77, 0.1); }
+.tag.err { color: var(--err); border: 1px solid rgba(255, 82, 82, 0.3); background: rgba(255, 82, 82, 0.1); }
+.tag.muted { color: var(--muted); border: 1px solid var(--border); }
+.tag.accent { color: var(--accent); border: 1px solid rgba(79, 195, 247, 0.3); background: rgba(79, 195, 247, 0.1); }
+.cold-start-card { background: var(--bg-card); border: 1px dashed var(--warn); border-radius: 10px; padding: 18px 20px; margin: 16px 0; }
+.cold-start-card h3 { color: var(--warn); margin: 0 0 10px 0; font-size: 1.05em; }
+.cold-start-card ol { margin: 8px 0 8px 20px; padding: 0; }
+.cold-start-card li { margin: 6px 0; font-size: 0.95em; }
+.cold-start-card code { background: #1a1a1a; padding: 2px 6px; border-radius: 3px; font-size: 0.86em; }
+.cold-start-card a { color: var(--accent); text-decoration: none; }
+.cold-start-card a:hover { text-decoration: underline; }
+.alert-list { list-style: none; padding: 0; }
+.alert-list li { background: var(--bg-card); border-left: 3px solid var(--err); padding: 10px 14px; margin: 6px 0; border-radius: 4px; font-size: 0.9em; }
+.summary-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin: 16px 0; }
+.latest { font-size: 1.05em; }
+.latest .age { color: var(--muted); margin-left: 8px; }
+a.next-link { display: inline-block; margin-top: 12px; padding: 8px 16px; background: var(--accent); color: #000; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; }
+a.next-link:hover { opacity: 0.85; }
+footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85em; }
+footer code { background: #1a1a1a; padding: 2px 6px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔬 Router Bench 健康仪表板 <span class="version-pill">v2 · live</span></h1>
+  <div class="meta">2026-07-15 11:35:00 · 重建版（v1 archive 见下方） · 周日 22:00 自动更新 · cron job <code>router-bench-weekly</code></div>
+</header>
+
+<div class="archive-banner">
+  <strong>📜 旧版 archive</strong>：2026-06-12 那份静态 HTML 已被取代为 v2，原文件保留：<a href="/bench-dashboard-2026-06-12.html"><code>/bench-dashboard-2026-06-12.html</code></a>（仅留作历史参照）。本周起 cron 周日 22:00 触发 <code>router-bench-weekly.sh</code>，新报告覆盖本页。
+</div>
+
+<section>
+<h2>📊 总览 (累计 0 次检查)</h2>
+<div class="stat-grid">
+  <div class="stat"><div class="num">— —</div><div class="label">ALIVE</div></div>
+  <div class="stat"><div class="num">— —</div><div class="label">STUCK</div></div>
+  <div class="stat"><div class="num">— —</div><div class="label">NO_RUN</div></div>
+  <div class="stat warn"><div class="num">⚠ 1</div><div class="label">OVERDUE</div></div>
+  <div class="stat"><div class="num">— —</div><div class="label">ERROR</div></div>
+  <div class="stat"><div class="num">0</div><div class="label">总检查</div></div>
+</div>
+<p class="meta">v2 上线以来首次刷新 = 等待 2026-07-19 (周日) 22:00 cron 触发。届时本页会自动注入 真实 stats。</p>
+</section>
+
+<section>
+<h2>📦 最新 Bench</h2>
+<div class="summary-card latest">
+  🔴 <strong>从未成功运行过 weekly benchmark</strong>
+  <span class="age">(≥ 33 天)</span>
+  <p style="margin: 10px 0 0 0; font-size: 0.92em;">
+    最后一份 <code>router-bench-2026-06-14.html</code>（手写/手动触发）于 2026-06-16 03:07 ship 到公网，之后 weekly cron 未建立。
+  </p>
+</div>
+</section>
+
+<section>
+<h2>📋 最近 24h (0 条)</h2>
+<table>
+<tr><th>时间</th><th>状态</th><th>详情</th></tr>
+<tr><td colspan="3" style="text-align: center; color: var(--muted);">无记录 — 等待 7/19 22:00 cron 首次触发</td></tr>
+</table>
+</section>
+
+<section>
+<h2>📅 最近 7 天</h2>
+<p>本周期 7d 报警: <strong>1 次</strong>（system-level：weekly bench 调度链路本身 broken）</p>
+<table>
+<tr><th>时间</th><th>事件</th><th>状态</th></tr>
+<tr><td>2026-06-13 23:33</td><td>v1 ship（手动）</td><td><span class="tag ok">OK</span></td></tr>
+<tr><td>2026-06-16 03:07</td><td>router-bench-weekly.html v2（手动）</td><td><span class="tag ok">OK</span></td></tr>
+<tr><td>2026-06-21 → 2026-07-13</td><td>weekly bench 22 周日未触发 / 公网 v2 静默</td><td><span class="tag warn">OVERDUE</span></td></tr>
+<tr><td>2026-07-15 11:35</td><td>v2 dashboard 上线（manual rebuild）</td><td><span class="tag accent">RESTORED</span></td></tr>
+</table>
+</section>
+
+<section class="cold-start-card">
+<h3>🛠️ 周日 22:00 首次触发前 — Patrick 自检清单</h3>
+<p>v2 dashboard 已 ship + 新 cron <code>router-bench-weekly</code> 已创建（schedule: <code>0 22 * * 0</code>，no_agent=true，deliver=local）。但每次触发需以下前置条件，<strong>缺一就静默失败</strong>：</p>
+<ol>
+  <li><code>ollama</code> 跑着（已被 6/12 等历史 bench 用过）→ <code>brew services list | grep ollama</code> 或 <code>curl http://localhost:11434/api/tags</code></li>
+  <li><code>MINIMAX_API_KEY</code> 或 <code>~/.hermes/auth.json</code> providers.minimax-oauth.access_token 有效（<strong>已用 minimax-oauth bearer 替代旧 env var</strong>）</li>
+  <li><code>~/.hermes/gateway/scripts/bench_router.py</code> + <code>model_router.py</code> 在路径（当前 gateway/scripts/ 空，需从 <code>~/.hermes/skills/autonomous-ai-agents/hermes-model-router/scripts/bench_router.py</code> 拷过）</li>
+  <li>上次已知坑（v1 留下的）：<strong>minimax API 偶发 SSL → fallback 链生效</strong>，不影响 weekly 报告但 JSON 字段会标 warn</li>
+</ol>
+<p style="margin-top: 14px;">📂 数据源路径：<code>~/.hermes/router-bench/healthcheck.log</code>（cron 启动后由 <code>bench_dashboard.py</code> 重读）</p>
+<p>🔗 cron job ID：<code>router-bench-weekly</code>（周日 22:00，<code>HERMES_FOREGROUND=1</code> dry-run 手动验证）</p>
+</section>
+
+<section>
+<h2>🚨 System-level 报警历史</h2>
+<ul class="alert-list">
+<li>无活跃报警（cold start，等待首次 cron 触发）</li>
+</ul>
+</section>
+
+<section>
+<h2>📜 与旧 v1 的差异</h2>
+<table>
+<tr><th>维度</th><th>v1 (2026-06-12 静态)</th><th>v2 (2026-07-15 live)</th></tr>
+<tr><td>数据源</td><td>hardcode HTML 写死（mock 0 检查）</td><td><code>bench_dashboard.py</code> 每次重读 <code>~/.hermes/router-bench/</code></td></tr>
+<tr><td>频率</td><td>— （只 ship 过 1 次）</td><td>周日 22:00 cron + 手动随时 trigger</td></tr>
+<tr><td>顶部 banner</td><td>无</td><td>archive notice 指向 v1</td></tr>
+<tr><td>诚实度</td><td>假装"0 报警"看起来绿色</td><td>明确标 ⚠ cold start（黄牌）</td></tr>
+<tr><td>tracking</td><td>foot 写假的 cron id <code>43b5d7e08701</code></td><td>foot 写真实 cron <code>router-bench-weekly</code></td></tr>
+</table>
+</section>
+
+<footer>
+<p>🤖 自动生成 by <code>bench_dashboard.py</code> v2 skeleton（cold start）</p>
+<p>📡 公网 URL: <a href="https://2017zyl.xyz/bench-dashboard-2026-07-15.html" style="color: var(--accent);">2017zyl.xyz/bench-dashboard-2026-07-15.html</a></p>
+<p>🔗 cron: <code>router-bench-weekly</code> (周日 22:00, detached) · 数据源: <code>~/.hermes/router-bench/</code> · fallback: cron <code>logs in /Users/zl/.hermes/router-bench/run.log</code></p>
+<p>📂 v1 archive 保留: <a href="https://2017zyl.xyz/bench-dashboard-2026-06-12.html" style="color: var(--accent);">2017zyl.xyz/bench-dashboard-2026-06-12.html</a> (历史 snapshot, 内容冻结)</p>
+</footer>
+
+</body>
+</html>

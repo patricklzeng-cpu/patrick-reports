@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://patrick-os.local/schema/agentic-protocol-v1.json",
+  "title": "Patrick OS Agentic Protocol",
+  "type": "object",
+  "required": ["schemaVersion", "missions", "events"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "missions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/mission" }
+    },
+    "events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/event" }
+    }
+  },
+  "$defs": {
+    "missionStatus": {
+      "enum": [
+        "draft",
+        "planning",
+        "awaiting_approval",
+        "queued",
+        "running",
+        "blocked",
+        "reviewing",
+        "completed",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "mission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "objective",
+        "acceptanceCriteria",
+        "status",
+        "createdAt",
+        "updatedAt",
+        "policyProfile"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "objective": { "type": "string", "minLength": 1 },
+        "acceptanceCriteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/acceptanceCriterion" }
+        },
+        "status": { "$ref": "#/$defs/missionStatus" },
+        "priority": { "enum": ["low", "normal", "high", "urgent"] },
+        "projectId": { "type": "string" },
+        "workspaceId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "currentCheckpointId": { "type": "string" },
+        "policyProfile": { "type": "string", "minLength": 1 }
+      }
+    },
+    "acceptanceCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "statement", "required", "status"],
+      "properties": {
+        "id": { "type": "string" },
+        "statement": { "type": "string" },
+        "required": { "type": "boolean" },
+        "status": { "enum": ["pending", "passed", "failed", "waived"] },
+        "evidenceArtifactIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "schemaVersion",
+        "sequence",
+        "timestamp",
+        "missionId",
+        "traceId",
+        "type",
+        "source",
+        "severity",
+        "payload"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "schemaVersion": { "type": "string" },
+        "sequence": { "type": "integer", "minimum": 0 },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "missionId": { "type": "string" },
+        "taskId": { "type": "string" },
+        "runId": { "type": "string" },
+        "traceId": { "type": "string" },
+        "type": {
+          "enum": [
+            "mission.created",
+            "plan.proposed",
+            "plan.approved",
+            "task.queued",
+            "task.started",
+            "task.progress",
+            "task.log",
+            "artifact.created",
+            "artifact.updated",
+            "approval.requested",
+            "approval.resolved",
+            "task.blocked",
+            "task.failed",
+            "task.completed",
+            "handoff.started",
+            "handoff.completed",
+            "checkpoint.created",
+            "review.started",
+            "acceptance.passed",
+            "acceptance.failed",
+            "mission.completed",
+            "mission.cancelled"
+          ]
+        },
+        "source": { "type": "string" },
+        "severity": { "enum": ["debug", "info", "warning", "error"] },
+        "payload": { "type": "object" }
+      }
+    }
+  }
+}
+

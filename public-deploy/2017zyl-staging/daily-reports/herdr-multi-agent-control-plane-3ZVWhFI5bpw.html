@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="AI随风 Herdr 教程的证据化知识仪表盘：论点、事实核验、知识图谱、17项配套skills与多Agent A/B实验台。">
+  <title>Herdr · 多 Agent 控制面知识仪表盘</title>
+  <style>
+    :root {
+      --bg: #080806;
+      --bg-2: #0d0d0a;
+      --panel: #12120f;
+      --panel-2: #181813;
+      --panel-3: #202019;
+      --ink: #f4f0e6;
+      --muted: #9d998e;
+      --faint: #68655e;
+      --line: #2d2c25;
+      --line-hi: #464439;
+      --amber: #ffad32;
+      --orange: #ff6b2c;
+      --lime: #b9f36b;
+      --cyan: #73d9d1;
+      --blue: #7aa7ff;
+      --red: #ff746c;
+      --violet: #c79bff;
+      --toc: 286px;
+      --radius: 18px;
+      --shadow: 0 18px 60px rgba(0,0,0,.34);
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 76% 0%, rgba(255,107,44,.10), transparent 30rem),
+        radial-gradient(circle at 40% 100%, rgba(115,217,209,.055), transparent 34rem),
+        var(--bg);
+      font-family: var(--sans);
+      line-height: 1.58;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .13;
+      background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+      z-index: -1;
+    }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { color: #ffd48f; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    code, pre, .mono { font-family: var(--mono); }
+    ::selection { background: rgba(255,173,50,.28); }
+
+    .toc {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--toc);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--line);
+      background: rgba(10,10,8,.94);
+      backdrop-filter: blur(18px);
+      transition: transform .28s ease;
+    }
+    .toc-brand {
+      padding: 24px 22px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand-mark { display: flex; align-items: center; gap: 12px; }
+    .brand-sigil {
+      width: 38px; height: 38px; border: 1px solid #73572a; border-radius: 12px;
+      display: grid; place-items: center; color: var(--amber); font: 800 16px var(--mono);
+      background: linear-gradient(145deg, rgba(255,173,50,.13), transparent);
+      box-shadow: inset 0 0 18px rgba(255,173,50,.06);
+    }
+    .brand-title { font-weight: 760; letter-spacing: -.02em; }
+    .brand-sub { color: var(--faint); font: 10px var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .source-lock {
+      display: flex; gap: 7px; align-items: center; margin-top: 16px; color: var(--muted); font: 11px var(--mono);
+    }
+    .source-lock i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 12px var(--lime); }
+
+    .toc-nav { flex: 1; overflow-y: auto; padding: 14px 10px 24px; scrollbar-width: thin; }
+    .toc-group { color: var(--faint); font: 10px var(--mono); letter-spacing: .13em; margin: 15px 12px 7px; text-transform: uppercase; }
+    .nav-btn {
+      width: 100%; display: grid; grid-template-columns: 29px 1fr auto; align-items: center; gap: 7px;
+      border: 0; background: transparent; border-radius: 11px; padding: 9px 10px; cursor: pointer;
+      color: var(--muted); text-align: left; transition: .18s ease;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,.035); color: var(--ink); }
+    .nav-btn.active { color: var(--ink); background: linear-gradient(90deg, rgba(255,173,50,.14), rgba(255,173,50,.035)); }
+    .nav-btn.active::after { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); }
+    .nav-index { color: var(--faint); font: 10px var(--mono); }
+    .nav-btn.active .nav-index { color: var(--amber); }
+    .nav-label { font-size: 13px; font-weight: 630; }
+    .toc-footer { padding: 14px 18px 18px; border-top: 1px solid var(--line); color: var(--faint); font: 10px/1.6 var(--mono); }
+
+    .toc-toggle {
+      position: fixed; left: calc(var(--toc) - 15px); top: 23px; z-index: 30;
+      width: 31px; height: 31px; border: 1px solid var(--line-hi); border-radius: 50%;
+      background: #161611; cursor: pointer; display: grid; place-items: center; color: var(--amber);
+      transition: left .28s ease, transform .2s ease;
+    }
+    .toc-toggle:hover { transform: scale(1.07); }
+    body.toc-collapsed .toc { transform: translateX(-100%); }
+    body.toc-collapsed .toc-toggle { left: 13px; }
+    body.toc-collapsed .app { margin-left: 0; }
+
+    .app { margin-left: var(--toc); min-height: 100vh; transition: margin .28s ease; }
+    .topbar {
+      min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      padding: 0 34px; border-bottom: 1px solid var(--line); background: rgba(8,8,6,.72); backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .crumb { color: var(--muted); font: 11px var(--mono); letter-spacing: .04em; }
+    .crumb b { color: var(--amber); font-weight: 650; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .search-trigger, .ghost-btn, .solid-btn {
+      border: 1px solid var(--line-hi); background: rgba(255,255,255,.025); border-radius: 10px;
+      padding: 8px 11px; cursor: pointer; color: var(--muted); font-size: 12px;
+    }
+    .search-trigger { min-width: 174px; display: flex; justify-content: space-between; gap: 18px; }
+    .search-trigger kbd { color: var(--faint); font: 10px var(--mono); }
+    .ghost-btn:hover, .search-trigger:hover { color: var(--ink); border-color: #666253; }
+    .solid-btn { color: #1a1204; background: var(--amber); border-color: var(--amber); font-weight: 750; }
+
+    .content { max-width: 1460px; margin: 0 auto; padding: 38px clamp(22px,4vw,62px) 86px; }
+    .panel { display: none; animation: panelIn .28s ease both; }
+    .panel.active { display: block; }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+
+    .eyebrow { color: var(--amber); font: 11px var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin: 0 0 27px; }
+    .section-head h2 { margin: 6px 0 0; font-size: clamp(29px,4vw,52px); line-height: 1.06; letter-spacing: -.045em; }
+    .section-head p { max-width: 620px; margin: 0; color: var(--muted); font-size: 14px; }
+
+    .hero { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(390px,.95fr); gap: clamp(28px,5vw,78px); align-items: center; min-height: 560px; padding: 30px 0 54px; }
+    .hero h1 { margin: 13px 0 18px; max-width: 790px; font-size: clamp(46px,6.4vw,88px); line-height: .94; letter-spacing: -.062em; }
+    .hero h1 span { color: var(--amber); }
+    .hero-lead { max-width: 710px; color: #c4c0b6; font-size: clamp(16px,1.55vw,21px); line-height: 1.65; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .hero-note { margin-top: 20px; color: var(--faint); font: 11px var(--mono); }
+
+    .terminal-scene { position: relative; min-height: 430px; display: grid; place-items: center; }
+    .terminal-scene::before { content:""; position:absolute; width:330px; height:330px; border:1px solid rgba(255,173,50,.18); border-radius:50%; box-shadow:0 0 80px rgba(255,107,44,.1); }
+    .orbit { position:absolute; width: 390px; height:390px; border:1px dashed rgba(255,255,255,.1); border-radius:50%; animation: orbit 32s linear infinite; }
+    .orbit::after { content:""; position:absolute; top:42px; right:28px; width:9px; height:9px; border-radius:50%; background:var(--cyan); box-shadow:0 0 18px var(--cyan); }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    .terminal {
+      position: relative; z-index:2; width:min(100%, 500px); border:1px solid #39372f; border-radius:17px; overflow:hidden;
+      background:rgba(15,15,12,.96); box-shadow:0 34px 90px rgba(0,0,0,.6); transform:rotate(1deg);
+    }
+    .terminal-bar { height:42px; display:flex; align-items:center; gap:7px; padding:0 15px; background:#1a1a15; border-bottom:1px solid var(--line); }
+    .dot { width:8px; height:8px; border-radius:50%; background:#49473e; }
+    .dot:nth-child(1){background:#ff6b59}.dot:nth-child(2){background:#f7bf4f}.dot:nth-child(3){background:#65c967}
+    .term-title { margin-left:8px; color:var(--faint); font:10px var(--mono); }
+    .terminal-body { padding:19px; font:12px/1.8 var(--mono); }
+    .term-line { display:grid; grid-template-columns:54px 1fr auto; gap:9px; align-items:center; padding:6px 0; border-bottom:1px solid rgba(255,255,255,.035); }
+    .term-line:last-child { border:0; }
+    .term-id { color:var(--faint); }.term-role { color:#ded8ca; }.term-state { font-size:9px; text-transform:uppercase; letter-spacing:.08em; }
+    .state-work { color:var(--amber); }.state-done { color:var(--lime); }.state-wait { color:var(--cyan); }
+    .cursor { display:inline-block; width:7px; height:13px; vertical-align:-2px; background:var(--amber); animation:blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity:0; } }
+    .signal-chip { position:absolute; z-index:4; padding:8px 11px; border:1px solid var(--line-hi); border-radius:999px; background:#12120f; font:10px var(--mono); box-shadow:var(--shadow); }
+    .signal-chip.one { top:35px; left:4%; color:var(--cyan); }.signal-chip.two { right:-2%; bottom:66px; color:var(--lime); }.signal-chip.three { left:0; bottom:12px; color:var(--violet); }
+
+    .stat-grid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; margin:0 0 18px; }
+    .stat { border:1px solid var(--line); border-radius:14px; padding:16px; background:rgba(255,255,255,.018); min-height:105px; }
+    .stat strong { display:block; font-size:25px; line-height:1; letter-spacing:-.04em; color:var(--ink); }
+    .stat span { display:block; color:var(--faint); font:10px/1.35 var(--mono); margin-top:12px; text-transform:uppercase; letter-spacing:.07em; }
+    .stat em { font-style:normal; color:var(--amber); }
+
+    .card, .verdict, .callout, .table-wrap {
+      border:1px solid var(--line); border-radius:var(--radius); background:linear-gradient(155deg,rgba(255,255,255,.027),rgba(255,255,255,.009)); box-shadow:0 1px 0 rgba(255,255,255,.025) inset;
+    }
+    .card { padding:22px; }
+    .card h3 { margin:0 0 8px; font-size:18px; letter-spacing:-.025em; }
+    .card p { margin:0; color:var(--muted); font-size:13px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+    .stack { display:grid; gap:14px; }
+    .mt { margin-top:18px; }.mt-lg { margin-top:30px; }
+    .verdict { display:grid; grid-template-columns:175px 1fr; overflow:hidden; }
+    .verdict-label { padding:23px; background:linear-gradient(145deg,rgba(255,173,50,.14),rgba(255,107,44,.05)); color:var(--amber); font:11px var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+    .verdict-body { padding:20px 24px; color:#d1cdc3; }
+    .verdict-body b { color:var(--ink); }
+
+    .badge { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line-hi); border-radius:999px; padding:4px 8px; font:9px var(--mono); letter-spacing:.07em; text-transform:uppercase; color:var(--muted); }
+    .badge::before { content:""; width:5px; height:5px; border-radius:50%; background:currentColor; }
+    .b-official { color:var(--lime); border-color:rgba(185,243,107,.28); }.b-video { color:var(--amber); border-color:rgba(255,173,50,.28); }
+    .b-research { color:var(--cyan); border-color:rgba(115,217,209,.28); }.b-infer { color:var(--violet); border-color:rgba(199,155,255,.28); }
+    .b-risk { color:var(--red); border-color:rgba(255,116,108,.28); }
+
+    .chapter-list { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+    .chapter { display:block; min-height:126px; border:1px solid var(--line); border-radius:14px; padding:15px; background:var(--panel); transition:.18s ease; }
+    .chapter:hover { transform:translateY(-3px); border-color:#665739; background:#17150f; }
+    .chapter time { display:block; color:var(--amber); font:12px var(--mono); }
+    .chapter b { display:block; color:var(--ink); margin-top:13px; font-size:13px; }
+    .chapter small { color:var(--faint); font-size:10px; }
+
+    .thesis-card { position:relative; overflow:hidden; min-height:220px; }
+    .thesis-card::after { content:attr(data-no); position:absolute; right:12px; bottom:-25px; color:rgba(255,255,255,.035); font:900 100px var(--mono); }
+    .thesis-card .badge { margin-bottom:20px; }
+    .thesis-card h3 { font-size:22px; }
+    .thesis-card .test { margin-top:18px; color:var(--amber); font:10px/1.5 var(--mono); }
+    .decision-table { width:100%; border-collapse:collapse; min-width:720px; }
+    .decision-table th, .decision-table td { padding:13px 15px; border-bottom:1px solid var(--line); text-align:left; font-size:12px; }
+    .decision-table th { color:var(--faint); font:10px var(--mono); text-transform:uppercase; letter-spacing:.08em; background:rgba(255,255,255,.018); }
+    .decision-table tr:last-child td { border-bottom:0; }
+    .table-wrap { overflow:auto; }
+    .yes { color:var(--lime); }.maybe { color:var(--amber); }.no { color:var(--red); }
+
+    .anatomy { display:grid; grid-template-columns:1.1fr .9fr; gap:20px; }
+    .nest { padding:22px; border:1px solid #655330; border-radius:18px; background:rgba(255,173,50,.035); }
+    .nest .nest { margin-top:13px; border-color:#3f5e59; background:rgba(115,217,209,.035); }
+    .nest .nest .nest { border-color:#55436a; background:rgba(199,155,255,.035); }
+    .nest .nest .nest .nest { border-color:#5b403c; background:rgba(255,116,108,.035); }
+    .nest-label { display:flex; justify-content:space-between; align-items:center; font:11px var(--mono); color:var(--muted); }
+    .nest-label b { color:var(--ink); }
+    .primitive { display:grid; grid-template-columns:76px 1fr; gap:14px; align-items:start; padding:17px 0; border-bottom:1px solid var(--line); }
+    .primitive:last-child { border:0; }
+    .primitive code { color:var(--amber); font-size:11px; }
+    .primitive p { margin:0; color:var(--muted); font-size:12px; }
+
+    .step { display:grid; grid-template-columns:54px 1fr; gap:18px; }
+    .step-num { width:42px; height:42px; display:grid; place-items:center; border:1px solid #64512e; border-radius:13px; color:var(--amber); font:12px var(--mono); background:rgba(255,173,50,.06); }
+    .step h3 { margin:0 0 5px; }.step p { color:var(--muted); margin:0; font-size:13px; }
+    .codebox { position:relative; margin-top:13px; padding:16px 50px 16px 16px; border:1px solid var(--line); border-radius:12px; background:#090907; color:#e8d8b7; font:11px/1.7 var(--mono); overflow:auto; }
+    .copy { position:absolute; right:8px; top:8px; border:1px solid var(--line-hi); border-radius:7px; background:#171712; color:var(--muted); font:9px var(--mono); padding:5px 7px; cursor:pointer; }
+
+    .workflow { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:9px; align-items:stretch; }
+    .flow-card { position:relative; padding:18px; border:1px solid var(--line); border-radius:15px; background:var(--panel); }
+    .flow-card:not(:last-child)::after { content:"→"; position:absolute; right:-13px; top:50%; transform:translateY(-50%); z-index:2; color:var(--faint); }
+    .flow-card small { color:var(--amber); font:9px var(--mono); text-transform:uppercase; letter-spacing:.1em; }
+    .flow-card b { display:block; margin:12px 0 7px; }.flow-card p { color:var(--muted); font-size:11px; margin:0; }
+    .loop { border-color:#594b2e; box-shadow:inset 0 -3px 0 rgba(255,173,50,.12); }
+
+    .contract-box { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .contract-field { padding:18px; border:1px solid var(--line); border-radius:15px; background:rgba(255,255,255,.015); }
+    .contract-field label { display:block; color:var(--amber); font:10px var(--mono); text-transform:uppercase; letter-spacing:.08em; }
+    .contract-field textarea { width:100%; min-height:92px; resize:vertical; margin-top:10px; padding:10px; color:var(--ink); border:1px solid var(--line); border-radius:9px; background:#0c0c09; font-size:12px; outline:none; }
+    .contract-field textarea:focus { border-color:#685431; }
+    .readiness { display:flex; align-items:center; gap:14px; margin-top:14px; padding:15px 18px; border:1px solid var(--line); border-radius:14px; }
+    .meter { flex:1; height:7px; border-radius:99px; background:#27261f; overflow:hidden; }.meter i { display:block; width:0; height:100%; background:linear-gradient(90deg,var(--red),var(--amber),var(--lime)); transition:width .3s ease; }
+    .readiness strong { min-width:44px; color:var(--amber); font:13px var(--mono); }
+
+    .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px; }
+    .filter-btn { border:1px solid var(--line); background:transparent; color:var(--muted); border-radius:999px; padding:7px 10px; cursor:pointer; font:10px var(--mono); }
+    .filter-btn.active, .filter-btn:hover { color:var(--ink); border-color:#675638; background:rgba(255,173,50,.07); }
+    .audit-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .audit-card { padding:19px; border:1px solid var(--line); border-radius:15px; background:rgba(255,255,255,.015); }
+    .audit-card.hidden, .skill-card.hidden { display:none; }
+    .audit-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .audit-card h3 { margin:16px 0 8px; font-size:16px; }.audit-card p { margin:0; color:var(--muted); font-size:12px; }
+    .correction { margin-top:13px; padding-top:12px; border-top:1px solid var(--line); color:#d7d0bf; font-size:12px; }
+
+    .graph-layout { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:14px; }
+    .graph-canvas { border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:radial-gradient(circle at center,rgba(255,173,50,.06),transparent 42%),#0c0c09; min-height:690px; }
+    .graph-canvas svg { width:100%; height:690px; display:block; }
+    .edge { stroke:#38362f; stroke-width:1.2; }.edge.risk { stroke:#5c3532; stroke-dasharray:5 5; }.edge.good { stroke:#3b594b; }
+    .gnode { cursor:pointer; transition:.18s ease; }.gnode:hover { transform:scale(1.04); transform-box:fill-box; transform-origin:center; }.gnode circle { fill:#141410; stroke:#585449; stroke-width:1.5; }.gnode text { fill:#d9d3c7; font:11px var(--sans); text-anchor:middle; pointer-events:none; }.gnode .sub { fill:#77736a; font:8px var(--mono); }
+    .gnode.product circle,.gnode.concept circle { stroke:var(--amber); }.gnode.agent circle,.gnode.role circle { stroke:var(--cyan); }.gnode.risk circle,.gnode.warning circle { stroke:var(--red); }.gnode.method circle { stroke:var(--violet); }.gnode.source circle { stroke:var(--lime); }.gnode.gap circle,.gnode.hypothesis circle { stroke-dasharray:4 3; }.gnode.gap circle { stroke:var(--red); }.gnode.hypothesis circle { stroke:var(--violet); }.gnode.selected circle { fill:rgba(255,173,50,.12); stroke-width:3; filter:drop-shadow(0 0 8px rgba(255,173,50,.35)); }
+    .inspector { padding:21px; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); min-height:580px; }
+    .inspector .node-type { color:var(--amber); font:10px var(--mono); text-transform:uppercase; }.inspector h3 { font-size:24px; line-height:1.1; margin:14px 0; }.inspector p { color:var(--muted); font-size:13px; }.inspector ul { padding-left:18px; color:#c5c0b5; font-size:12px; }
+
+    .skills-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:11px; }
+    .skill-card { padding:17px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.014); min-height:155px; }
+    .skill-top { display:flex; justify-content:space-between; gap:9px; align-items:start; }.skill-tier { color:var(--faint); font:9px var(--mono); text-transform:uppercase; }
+    .skill-card h3 { margin:14px 0 7px; font:700 14px var(--mono); color:#e9e2d2; }.skill-card p { margin:0; color:var(--muted); font-size:11px; }
+    .skill-card.scaffold { border-color:#70453e; background:rgba(255,116,108,.025); }.skill-card.scaffold h3 { color:#ffb2ab; }
+
+    .tier4-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+    .tier4 { padding:18px; border:1px solid var(--line); border-radius:15px; background:var(--panel); min-height:255px; display:flex; flex-direction:column; }
+    .tier4 .status { font:9px var(--mono); text-transform:uppercase; letter-spacing:.09em; }
+    .tier4 h3 { margin:18px 0 9px; font-size:16px; }.tier4 p { margin:0; color:var(--muted); font-size:11px; }
+    .tier4 a { margin-top:auto; padding-top:16px; font:10px var(--mono); }
+    .s-mechanism { color:var(--lime); }.s-partial { color:var(--amber); }.s-gap { color:var(--red); }
+
+    .lab { display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:16px; }
+    .slider-row { display:grid; grid-template-columns:190px 1fr 42px; gap:14px; align-items:center; padding:14px 0; border-bottom:1px solid var(--line); }
+    .slider-row:last-child { border:0; }.slider-row label { font-size:12px; }.slider-row output { color:var(--amber); font:12px var(--mono); text-align:right; }
+    input[type=range] { width:100%; accent-color:var(--amber); }
+    .toggle-row { display:flex; gap:22px; flex-wrap:wrap; padding-top:17px; }.toggle-row label { color:var(--muted); font-size:12px; }.toggle-row input { accent-color:var(--amber); }
+    .lab-result { padding:24px; border:1px solid #5d4d30; border-radius:var(--radius); background:linear-gradient(145deg,rgba(255,173,50,.095),rgba(255,107,44,.025)); }
+    .score-ring { width:126px; height:126px; margin:8px auto 20px; border-radius:50%; display:grid; place-items:center; background:conic-gradient(var(--amber) 0deg,#29271f 0deg); position:relative; }
+    .score-ring::after { content:""; position:absolute; inset:9px; border-radius:50%; background:#11110d; }.score-ring strong { position:relative; z-index:1; font:800 31px var(--mono); }.score-ring span { display:block; font-size:9px; color:var(--faint); }
+    .lab-result h3 { margin:0 0 8px; }.lab-result p { color:var(--muted); font-size:12px; }
+    .formula { margin-top:14px; padding:13px; border:1px solid var(--line); border-radius:10px; background:#0a0a08; color:#bcb5a5; font:10px/1.7 var(--mono); }
+    .experiment { display:flex; gap:13px; align-items:flex-start; }.experiment i { flex:0 0 29px; height:29px; border-radius:9px; display:grid; place-items:center; background:rgba(115,217,209,.08); color:var(--cyan); font:10px var(--mono); font-style:normal; }.experiment b { display:block; font-size:13px; }.experiment span { color:var(--muted); font-size:11px; }
+
+    details.quote { border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.012); overflow:hidden; }
+    details.quote + details.quote { margin-top:9px; }
+    details.quote summary { cursor:pointer; padding:16px 18px; list-style:none; display:flex; justify-content:space-between; gap:14px; align-items:center; }
+    details.quote summary::-webkit-details-marker { display:none; }.quote-time { color:var(--amber); font:10px var(--mono); }.quote-body { padding:0 18px 17px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .quote-col { padding:14px; border:1px solid var(--line); border-radius:10px; color:var(--muted); font-size:11px; }.quote-col b { display:block; color:var(--faint); font:9px var(--mono); text-transform:uppercase; margin-bottom:9px; }.quote-col.normalized { color:#ddd5c5; border-color:#594c31; }
+    .source-list { display:grid; gap:8px; }.source-item { display:grid; grid-template-columns:34px 1fr auto; gap:12px; align-items:center; padding:12px 14px; border:1px solid var(--line); border-radius:12px; }.source-num { color:var(--faint); font:10px var(--mono); }.source-item b { display:block; font-size:12px; }.source-item small { color:var(--faint); }
+
+    .command-layer { position:fixed; inset:0; z-index:100; display:none; place-items:start center; padding-top:11vh; background:rgba(0,0,0,.68); backdrop-filter:blur(7px); }
+    .command-layer.open { display:grid; }.command-box { width:min(620px,calc(100vw - 30px)); border:1px solid #504b3e; border-radius:17px; background:#11110e; box-shadow:0 35px 100px rgba(0,0,0,.72); overflow:hidden; }
+    .command-box input { width:100%; border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--ink); padding:18px; outline:none; }.command-results { max-height:380px; overflow:auto; padding:8px; }
+    .command-item { width:100%; border:0; background:transparent; border-radius:10px; display:flex; justify-content:space-between; padding:11px; cursor:pointer; text-align:left; }.command-item:hover { background:rgba(255,173,50,.08); }.command-item span { color:var(--muted); font-size:12px; }.command-item code { color:var(--faint); font-size:9px; }
+
+    .callout { padding:18px 20px; color:#cbc5b8; font-size:13px; }.callout strong { color:var(--ink); }.callout.warn { border-color:#62433b; background:rgba(255,116,108,.035); }.callout.good { border-color:#43563b; background:rgba(185,243,107,.025); }
+    .footer-note { margin-top:42px; color:var(--faint); font:10px/1.7 var(--mono); text-align:center; }
+
+    @media (max-width: 1180px) {
+      .stat-grid { grid-template-columns:repeat(3,1fr); }.chapter-list { grid-template-columns:repeat(3,1fr); }.skills-grid { grid-template-columns:repeat(2,1fr); }.tier4-grid { grid-template-columns:repeat(3,1fr); }
+      .hero { grid-template-columns:1fr; }.terminal-scene { min-height:430px; }.hero h1 { max-width:960px; }
+      .workflow { grid-template-columns:repeat(3,1fr); }.flow-card:not(:last-child)::after { display:none; }
+    }
+    @media (max-width: 900px) {
+      :root { --toc: 278px; }.toc { transform:translateX(-100%); box-shadow:30px 0 70px rgba(0,0,0,.5); }.toc-toggle { left:13px; }.app { margin-left:0; } body.mobile-toc-open .toc { transform:none; } body.mobile-toc-open .toc-toggle { left:calc(var(--toc) - 15px); }
+      .topbar { padding-left:60px; }.anatomy,.graph-layout,.lab { grid-template-columns:1fr; }.inspector { min-height:auto; }.contract-box { grid-template-columns:1fr; }.tier4-grid { grid-template-columns:repeat(2,1fr); }
+      .section-head { align-items:start; flex-direction:column; }.verdict { grid-template-columns:1fr; }.verdict-label { padding:13px 20px; }
+    }
+    @media (max-width: 650px) {
+      .content { padding:24px 16px 64px; }.topbar { padding-right:14px; }.search-trigger { min-width:auto; }.search-trigger span { display:none; }.crumb { display:none; }
+      .hero { min-height:auto; padding-top:10px; }.hero h1 { font-size:38px; line-height:1.01; }.terminal-scene { min-height:340px; }.terminal-scene::before { width:250px;height:250px }.orbit{width:300px;height:300px}.signal-chip{display:none}.terminal{transform:none}.terminal-body{padding:12px;font-size:10px}.term-line{grid-template-columns:42px 1fr auto}
+      .stat-grid,.grid-2,.grid-3,.grid-4,.audit-grid,.skills-grid,.tier4-grid { grid-template-columns:1fr; }.chapter-list { display:flex; overflow:auto; padding-bottom:8px; }.chapter { min-width:180px; }
+      .workflow { grid-template-columns:1fr; }.quote-body { grid-template-columns:1fr; }.slider-row { grid-template-columns:1fr 42px; }.slider-row label { grid-column:1/-1; }.graph-canvas,.graph-canvas svg { min-height:610px; height:610px; }.source-item { grid-template-columns:26px 1fr; }.source-item .badge { display:none; }
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <aside class="toc" aria-label="仪表盘目录">
+    <div class="toc-brand">
+      <div class="brand-mark"><div class="brand-sigil">H:</div><div><div class="brand-title">Herdr Fieldbook</div><div class="brand-sub">Video knowledge ops</div></div></div>
+      <div class="source-lock"><i></i> SOURCE LOCKED · 319 CUES</div>
+    </div>
+    <nav class="toc-nav">
+      <div class="toc-group">Signal</div>
+      <button class="nav-btn active" data-target="core"><span class="nav-index">01</span><span class="nav-label">结论驾驶舱</span></button>
+      <button class="nav-btn" data-target="problem"><span class="nav-index">02</span><span class="nav-label">为什么多 Agent</span></button>
+      <button class="nav-btn" data-target="anatomy"><span class="nav-index">03</span><span class="nav-label">Herdr 解剖</span></button>
+      <div class="toc-group">Operate</div>
+      <button class="nav-btn" data-target="install"><span class="nav-index">04</span><span class="nav-label">安装与启动</span></button>
+      <button class="nav-btn" data-target="demo"><span class="nav-index">05</span><span class="nav-label">视频实战复盘</span></button>
+      <button class="nav-btn" data-target="handoff"><span class="nav-index">06</span><span class="nav-label">3C 交接契约</span></button>
+      <div class="toc-group">Interrogate</div>
+      <button class="nav-btn" data-target="audit"><span class="nav-index">07</span><span class="nav-label">事实核验台</span></button>
+      <button class="nav-btn" data-target="graph"><span class="nav-index">08</span><span class="nav-label">可点击知识图谱</span></button>
+      <button class="nav-btn" data-target="skills"><span class="nav-index">09</span><span class="nav-label">17 项配套 Skills</span></button>
+      <button class="nav-btn" data-target="blindspots"><span class="nav-index">10</span><span class="nav-label">反向映射 / 盲区</span></button>
+      <div class="toc-group">Decide</div>
+      <button class="nav-btn" data-target="lab"><span class="nav-index">11</span><span class="nav-label">A/B 实验台</span></button>
+      <button class="nav-btn" data-target="sources"><span class="nav-index">12</span><span class="nav-label">摘录与来源</span></button>
+    </nav>
+    <div class="toc-footer">VIDEO 3ZVWhFI5bpw<br>SNAPSHOT 2026-08-11 +08:00<br>PUBLIC · 2017ZYL.XYZ</div>
+  </aside>
+  <button class="toc-toggle" aria-label="折叠或展开目录" title="折叠目录">‹</button>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="crumb">KNOWLEDGE OPS / <b id="crumb-current">结论驾驶舱</b></div>
+      <div class="top-actions">
+        <button class="search-trigger" id="search-trigger"><span>跳转到…</span><kbd>⌘ K</kbd></button>
+        <a class="ghost-btn" href="https://2017zyl.xyz/daily-reports.html" target="_blank" rel="noreferrer">全部档案 ↗</a>
+        <a class="ghost-btn" href="https://www.youtube.com/watch?v=3ZVWhFI5bpw" target="_blank" rel="noreferrer">原视频 ↗</a>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="panel active" id="core" data-title="结论驾驶舱">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">VIDEO → OPERATING SYSTEM / 证据化知识仪表盘</div>
+            <h1>多 Agent 的价值，<br>不在数量，在<span>控制面</span>。</h1>
+            <p class="hero-lead">Herdr 把多个 coding agent 放进可持久化、可寻址、可读写的真实终端。视频展示了“计划 → 审核 → 执行”的可行性；本仪表盘继续追问：它何时真能省钱、何时只是把复杂度搬进 handoff？</p>
+            <div class="hero-actions"><button class="solid-btn jump" data-target="demo">进入实战复盘</button><button class="ghost-btn jump" data-target="lab">打开 A/B 实验台</button><button class="ghost-btn jump" data-target="audit">先看事实核验</button></div>
+            <div class="hero-note">LOCAL ASR · 319 TIMESTAMPED CUES · RAW / NORMALIZED QUOTES KEPT SEPARATE</div>
+          </div>
+          <div class="terminal-scene" aria-label="多Agent终端控制面示意图">
+            <div class="orbit"></div><div class="signal-chip one">prompt → reviewer</div><div class="signal-chip two">tests: passed</div><div class="signal-chip three">handoff: evidence-linked</div>
+            <div class="terminal">
+              <div class="terminal-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="term-title">herdr / workspace: auth-flow</span></div>
+              <div class="terminal-body">
+                <div class="term-line"><span class="term-id">w1:p1</span><span class="term-role">planner · Claude Code</span><span class="term-state state-done">done</span></div>
+                <div class="term-line"><span class="term-id">w1:p2</span><span class="term-role">reviewer · Codex</span><span class="term-state state-work">working</span></div>
+                <div class="term-line"><span class="term-id">w1:p3</span><span class="term-role">executor · external harness</span><span class="term-state state-wait">idle</span></div>
+                <div class="term-line"><span class="term-id">w1:p4</span><span class="term-role">verifier · tests + diff</span><span class="term-state state-wait">waiting</span></div>
+                <div style="padding-top:16px;color:#77736a">$ herdr agent prompt reviewer "Review plan" --wait <i class="cursor"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat"><strong>11:24</strong><span>视频时长</span></div>
+          <div class="stat"><strong>5</strong><span>上传者章节</span></div>
+          <div class="stat"><strong><em>≈</em>27.2K</strong><span>GitHub stars · 快照</span></div>
+          <div class="stat"><strong>1.9K</strong><span>Forks · 快照</span></div>
+          <div class="stat"><strong>319</strong><span>本地 ASR cues</span></div>
+          <div class="stat"><strong>17/17</strong><span>配套 skills 已核路径</span></div>
+        </div>
+
+        <div class="verdict">
+          <div class="verdict-label">Executive verdict</div>
+          <div class="verdict-body"><b>值得试，但要把 Herdr 当“控制与观察层”，不要当“自动协作智慧”。</b> 它解决会话、终端 I/O、寻址与状态聚合；共享语义、冲突消解、验收标准、成本归因仍由你的编排协议负责。</div>
+        </div>
+
+        <div class="mt-lg">
+          <div class="eyebrow" style="margin-bottom:12px">Uploader chapters · 点击回到原视频</div>
+          <div class="chapter-list">
+            <a class="chapter" href="https://www.youtube.com/watch?v=3ZVWhFI5bpw&t=0s" target="_blank"><time>00:00</time><b>开场</b><small>产品、热度、YC 主张</small></a>
+            <a class="chapter" href="https://www.youtube.com/watch?v=3ZVWhFI5bpw&t=17s" target="_blank"><time>00:17</time><b>为什么多 Agent</b><small>成本 / 能力 / 工具适配</small></a>
+            <a class="chapter" href="https://www.youtube.com/watch?v=3ZVWhFI5bpw&t=210s" target="_blank"><time>03:30</time><b>安装与使用</b><small>Workspace / Tab / Pane</small></a>
+            <a class="chapter" href="https://www.youtube.com/watch?v=3ZVWhFI5bpw&t=395s" target="_blank"><time>06:35</time><b>完整协作流程</b><small>计划 / 审核 / 执行</small></a>
+            <a class="chapter" href="https://www.youtube.com/watch?v=3ZVWhFI5bpw&t=661s" target="_blank"><time>11:01</time><b>总结与推荐</b><small>从推荐转成 adoption gate</small></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="problem" data-title="为什么多 Agent">
+        <div class="section-head"><div><div class="eyebrow">02 / Problem frame</div><h2>三个动机，三个待证假设</h2></div><p>视频的直觉很强：模型各有长短、原生 harness 有专门适配、昂贵模型不该包办所有阶段。问题是，直觉要变成收益，必须跨过交接损耗与验证成本。</p></div>
+        <div class="grid-3">
+          <article class="card thesis-card" data-no="1"><span class="badge b-video">视频主张</span><h3>按能力分工</h3><p>强模型做计划或把关，执行交给更合适的模型，理论上能发挥互补优势。</p><div class="test">TEST → 同题一次通过率 + reviewer 真阳性</div></article>
+          <article class="card thesis-card" data-no="2"><span class="badge b-infer">待验证</span><h3>按价格分层</h3><p>把大量执行 token 交给便宜模型，可能降低模型费用；但复核、重试和上下文复制也会涨价。</p><div class="test">TEST → 被验收任务的总成本</div></article>
+          <article class="card thesis-card" data-no="3"><span class="badge b-official">产品能力</span><h3>保留原生 harness</h3><p>Claude Code、Codex 等继续运行在真实终端中，由 Herdr 负责寻址、I/O、状态与持久化。</p><div class="test">BOUNDARY → 控制面，不是共享记忆</div></article>
+        </div>
+        <div class="table-wrap mt-lg">
+          <table class="decision-table">
+            <thead><tr><th>任务形状</th><th>单强 Agent</th><th>多 Agent</th><th>判定依据</th></tr></thead>
+            <tbody>
+              <tr><td>强顺序依赖、小改动</td><td class="yes">优先</td><td class="no">协作税偏高</td><td>handoff 多于可并行工作</td></tr>
+              <tr><td>可独立探索的多方案</td><td class="maybe">可做基线</td><td class="yes">适合试点</td><td>并行收益可测、聚合规则明确</td></tr>
+              <tr><td>高风险变更 + 独立审核</td><td class="maybe">可行</td><td class="yes">角色分离有价值</td><td>reviewer 有清晰 gate 与证据</td></tr>
+              <tr><td>上下文高度隐性</td><td class="yes">更安全</td><td class="no">容易丢语义</td><td>除非先冻结共享契约</td></tr>
+              <tr><td>重复批处理、接口固定</td><td class="maybe">视规模</td><td class="yes">并行度高</td><td>共享 schema + 幂等写入</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn mt"><strong>关键反转：</strong>“更多 Agent”不是架构目标。目标是让最少数量的独立认知路径，在可追踪交接与明确验收下，改善一个事先选定的主指标。</div>
+      </section>
+
+      <section class="panel" id="anatomy" data-title="Herdr 解剖">
+        <div class="section-head"><div><div class="eyebrow">03 / Product anatomy</div><h2>Herdr 到底解决哪一层？</h2></div><p>把界面结构和自动化原语分开看，就不会把“能发送 prompt”误读成“自动理解上下文”。</p></div>
+        <div class="anatomy">
+          <div class="nest"><div class="nest-label"><b>SESSION</b><span>后台 server · detach 后继续运行</span></div>
+            <div class="nest"><div class="nest-label"><b>WORKSPACE</b><span>一个项目级容器</span></div>
+              <div class="nest"><div class="nest-label"><b>TAB</b><span>一个工作视角</span></div>
+                <div class="nest"><div class="nest-label"><b>PANE</b><span>真实终端 + 进程</span></div></div>
+                <div class="nest"><div class="nest-label"><b>AGENT</b><span>被识别的 coding agent</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="primitive"><code>layout</code><p>创建 workspace、tab 和 pane 拓扑。它只负责“在哪里运行”。</p></div>
+            <div class="primitive"><code>pane</code><p>对原始终端运行命令、发键、读输出、等待文字。普通进程也能用。</p></div>
+            <div class="primitive"><code>agent</code><p>按名称或 pane 控制已识别 agent，并读取 working / blocked / done / idle / unknown。</p></div>
+            <div class="primitive"><code>socket</code><p>本地 API 暴露读、写、prompt、wait 与事件订阅，供脚本或另一个 agent 调用。</p></div>
+          </div>
+        </div>
+        <div class="grid-3 mt-lg">
+          <div class="card"><span class="badge b-official">提供</span><h3 style="margin-top:16px">会话持久化</h3><p>Detach 不结束 agent；重新 attach 后继续看真实终端与状态。</p></div>
+          <div class="card"><span class="badge b-official">提供</span><h3 style="margin-top:16px">可寻址控制</h3><p>按 agent 名或 pane ID 发送任务、读输出、等待状态，并组织布局。</p></div>
+          <div class="card"><span class="badge b-risk">不提供</span><h3 style="margin-top:16px">正确性证明</h3><p>done / idle / unknown 不是验收；测试、diff、artifact 与独立 reviewer 才是。</p></div>
+        </div>
+      </section>
+
+      <section class="panel" id="install" data-title="安装与启动">
+        <div class="section-head"><div><div class="eyebrow">04 / Quick start</div><h2>十分钟建立可信控制面</h2></div><p>命令取自 2026-08-11 官方文档快照。先验证单 agent 会话，再装集成，最后才上编排。</p></div>
+        <div class="stack">
+          <article class="card step"><div class="step-num">01</div><div><h3>安装与启动</h3><p>macOS / Linux 可用官方安装器；Homebrew 用户可直接安装。启动后 Herdr 会创建或连接默认后台 session。</p><div class="codebox"><button class="copy">COPY</button><code>brew install herdr<br>herdr</code></div></div></article>
+          <article class="card step"><div class="step-num">02</div><div><h3>确认心智模型</h3><p>为项目建 workspace；tab 是工作视角，pane 是真实终端。先 detach / attach 一次，确认进程持久化符合预期。</p><div class="codebox"><button class="copy">COPY</button><code># 在任意项目目录启动<br>herdr<br># detach 后 agent 仍继续运行</code></div></div></article>
+          <article class="card step"><div class="step-num">03</div><div><h3>安装目标 agent 集成</h3><p>Claude Code 与 Codex 的 hook 提供原生 session identity；其 lifecycle 状态仍主要来自 screen manifest。</p><div class="codebox"><button class="copy">COPY</button><code>herdr integration install claude<br>herdr integration install codex<br>herdr integration status</code></div></div></article>
+          <article class="card step"><div class="step-num">04</div><div><h3>用最小 reviewer 配方验收</h3><p>先在已有 shell pane 启动 reviewer，再 prompt、wait、read。把输出写入文件作为 alternate-screen 丢历史时的回退。</p><div class="codebox"><button class="copy">COPY</button><code>herdr agent start reviewer --kind codex --pane w1:p2<br>herdr agent prompt reviewer "Review the current diff" --wait --timeout 120000<br>herdr agent read reviewer --source recent-unwrapped --lines 120</code></div></div></article>
+        </div>
+        <div class="callout warn mt"><strong>不要跳过：</strong>在目标 CLI 版本、主题、语言和权限弹窗下测试 blocked / idle / done / unknown。状态检测是可用性信号，不是任务正确性证据。</div>
+      </section>
+
+      <section class="panel" id="demo" data-title="视频实战复盘">
+        <div class="section-head"><div><div class="eyebrow">05 / Demo reconstruction</div><h2>手机号验证登录：从演示变成流程</h2></div><p>视频在 07:17 起建立一个典型链：Claude Code 计划、Codex 审核、多轮修订，再交给承载 DeepSeek 的执行 agent。下图补上视频没有显式完成的独立验收门。</p></div>
+        <div class="workflow">
+          <div class="flow-card"><small>Brief</small><b>手机号验证登录</b><p>范围、约束、现有项目状态</p></div>
+          <div class="flow-card"><small>Planner</small><b>Claude Code</b><p>产出实现计划与风险清单</p></div>
+          <div class="flow-card loop"><small>Review loop</small><b>Codex</b><p>列问题 → 修订 → 再审，直到 gate 通过</p></div>
+          <div class="flow-card"><small>Executor</small><b>外部 harness</b><p>视频把 DeepSeek 作为执行模型</p></div>
+          <div class="flow-card"><small>Verifier</small><b>测试 + Diff</b><p>独立验证，不接受状态灯代替结果</p></div>
+        </div>
+        <div class="grid-2 mt-lg">
+          <div class="card"><span class="badge b-video">视频观察</span><h3 style="margin-top:16px">审核不是一次性动作</h3><p>ASR 记录中 reviewer 提出多个问题，planner 修订后继续回传；视频称经过多轮交互才通过。这说明真正的成本单位是“整个闭环”，不是单次调用。</p></div>
+          <div class="card"><span class="badge b-infer">仪表盘补强</span><h3 style="margin-top:16px">把 reviewer 与 verifier 分开</h3><p>计划审核判断“方案是否足够好”；验收门判断“产物是否实际满足标准”。两者合并会让同一认知路径既出题又判卷。</p></div>
+        </div>
+        <div class="callout good mt"><strong>可复用的最小编排：</strong>Planner 只写计划；Reviewer 只给带证据的 blocking / non-blocking 反馈；Executor 只按冻结计划改动；Verifier 只读产物和测试结果。每一步都返回下一步可消费的结构化对象。</div>
+      </section>
+
+      <section class="panel" id="handoff" data-title="3C 交接契约">
+        <div class="section-head"><div><div class="eyebrow">06 / Contract before agents</div><h2>先写交接，再启动 Agent</h2></div><p>试着填入三项。准备度不是“质量分”，而是检查任务有没有可消费的输入、明确输出和可验证成功条件。</p></div>
+        <div class="contract-box">
+          <div class="contract-field"><label>Context / Input</label><textarea class="contract-input" placeholder="源文件、事实、约束、禁止事项…"></textarea></div>
+          <div class="contract-field"><label>Contract / Output</label><textarea class="contract-input" placeholder="输出路径、格式、schema、接口…"></textarea></div>
+          <div class="contract-field"><label>Criteria / Success</label><textarea class="contract-input" placeholder="测试、验收门、终止和升级条件…"></textarea></div>
+        </div>
+        <div class="readiness"><span class="mono" style="font-size:10px;color:var(--faint)">HANDOFF READINESS</span><div class="meter"><i id="ready-meter"></i></div><strong id="ready-score">0%</strong></div>
+        <div class="grid-3 mt-lg">
+          <div class="card"><h3>输入不可隐式</h3><p>不说“看一下项目”；给确切路径、当前状态、可信来源和禁止触碰的边界。</p></div>
+          <div class="card"><h3>输出必须可消费</h3><p>不说“给个方案”；约定 JSON / Markdown / diff / 文件路径以及下一角色如何读取。</p></div>
+          <div class="card"><h3>成功必须可判定</h3><p>不说“做完告诉我”；指定测试、阈值、证据、失败升级与最大循环次数。</p></div>
+        </div>
+        <div class="callout warn mt"><strong>循环保险丝：</strong>Planner ↔ Reviewer 最多 N 轮；仍不通过就升级给人或改写任务。无限 self-refinement 不是严谨，是失控的预算。</div>
+      </section>
+
+      <section class="panel" id="audit" data-title="事实核验台">
+        <div class="section-head"><div><div class="eyebrow">07 / Claim audit</div><h2>哪些是事实，哪些只是好故事？</h2></div><p>过滤证据类型。每张卡先写流行表述，再给可发布的校正版本。</p></div>
+        <div class="filters" id="audit-filters"><button class="filter-btn active" data-filter="all">全部</button><button class="filter-btn" data-filter="confirmed">已确认</button><button class="filter-btn" data-filter="qualified">有限成立</button><button class="filter-btn" data-filter="hypothesis">待验证</button><button class="filter-btn" data-filter="counter">反证</button></div>
+        <div class="audit-grid">
+          <article class="audit-card" data-level="qualified"><div class="audit-top"><span class="badge b-video">视频 + 快照</span><span class="mono" style="color:var(--faint);font-size:9px">F01</span></div><h3>“30K+ stars”</h3><p>方向接近，但取证时尚未越过 30K。</p><div class="correction">发布表述：<b>约 27.2K（2026-08-11 快照），接近 30K。</b></div></article>
+          <article class="audit-card" data-level="qualified"><div class="audit-top"><span class="badge b-infer">事实 + 推断</span><span class="mono" style="color:var(--faint);font-size:9px">F02</span></div><h3>“获得 YC 资金支持”</h3><p>加入 YC F26 有第一方公告；具体到账不是本次独立核实事实。</p><div class="correction">发布表述：<b>创始人宣布加入 YC F26；资金条款按 YC 标准政策推断。</b></div></article>
+          <article class="audit-card" data-level="confirmed"><div class="audit-top"><span class="badge b-official">官方文档</span><span class="mono" style="color:var(--faint);font-size:9px">F03</span></div><h3>“Agent 互相通信”</h3><p>prompt / read / wait / send-keys / socket 等控制原语存在。</p><div class="correction">精确边界：<b>终端 I/O 与控制面通信，不是自动共享语义记忆。</b></div></article>
+          <article class="audit-card" data-level="confirmed"><div class="audit-top"><span class="badge b-official">支持矩阵</span><span class="mono" style="color:var(--faint);font-size:9px">F04</span></div><h3>Claude Code + Codex</h3><p>两者均在 supported agents / kind 列表中。</p><div class="correction">限定：<b>状态主要依赖 screen manifest；session hook 不等于完整 lifecycle hook。</b></div></article>
+          <article class="audit-card" data-level="qualified"><div class="audit-top"><span class="badge b-risk">能力限定</span><span class="mono" style="color:var(--faint);font-size:9px">F05</span></div><h3>“原生支持 DeepSeek”</h3><p>DeepSeek 不在当前 agent kind 列表。</p><div class="correction">发布表述：<b>可由外部 CLI/harness 承载，或作为普通终端进程运行。</b></div></article>
+          <article class="audit-card" data-level="hypothesis"><div class="audit-top"><span class="badge b-infer">未证收益</span><span class="mono" style="color:var(--faint);font-size:9px">F06</span></div><h3>“多 Agent 更省钱”</h3><p>便宜 executor 可能省 token，也可能被 review、retry、handoff 抵消。</p><div class="correction">验证口径：<b>模型费用 + 重试复核 + 人工监督时间。</b></div></article>
+          <article class="audit-card" data-level="counter"><div class="audit-top"><span class="badge b-research">独立研究</span><span class="mono" style="color:var(--faint);font-size:9px">F07</span></div><h3>“更多 Agent 更可靠”</h3><p>跨框架研究发现信息碎片、同步开销、错位和错误传播。</p><div class="correction">发布表述：<b>收益取决于任务结构、基础模型与工作流设计。</b></div></article>
+          <article class="audit-card" data-level="counter"><div class="audit-top"><span class="badge b-official">官方限制</span><span class="mono" style="color:var(--faint);font-size:9px">F08</span></div><h3>“done 代表正确完成”</h3><p>done / idle 表示 lifecycle 观察，不追踪单个 turn 的语义正确性。</p><div class="correction">验收规则：<b>读取产物、跑测试、检查 diff、独立 reviewer。</b></div></article>
+        </div>
+      </section>
+
+      <section class="panel" id="graph" data-title="可点击知识图谱">
+        <div class="section-head"><div><div class="eyebrow">08 / Knowledge graph</div><h2>20 个节点，点击查看关系边界</h2></div><p>图谱严格展开 source、产品、角色、方法、假设与风险。中心关系：控制面让协作可操作，但不会自动消除协作税。</p></div>
+        <div class="graph-layout">
+          <div class="graph-canvas">
+            <svg viewBox="0 0 1000 700" role="img" aria-label="Herdr 多 Agent 20 节点知识图谱">
+              <g opacity=".9">
+                <line class="edge good" x1="500" y1="45" x2="500" y2="115"/><line class="edge good" x1="500" y1="115" x2="500" y2="195"/><line class="edge good" x1="500" y1="195" x2="500" y2="285"/>
+                <line class="edge risk" x1="500" y1="285" x2="835" y2="295"/><line class="edge good" x1="500" y1="115" x2="160" y2="195"/><line class="edge good" x1="500" y1="115" x2="280" y2="195"/><line class="edge" x1="500" y1="115" x2="840" y2="195"/>
+                <line class="edge" x1="160" y1="195" x2="160" y2="300"/><line class="edge" x1="280" y1="195" x2="280" y2="300"/><line class="edge" x1="840" y1="195" x2="720" y2="300"/><line class="edge" x1="160" y1="300" x2="280" y2="300"/><line class="edge" x1="280" y1="300" x2="720" y2="300"/>
+                <line class="edge" x1="720" y1="300" x2="650" y2="415"/><line class="edge" x1="170" y1="415" x2="160" y2="300"/><line class="edge" x1="170" y1="415" x2="280" y2="300"/><line class="edge" x1="170" y1="415" x2="720" y2="300"/>
+                <line class="edge" x1="370" y1="415" x2="500" y2="285"/><line class="edge risk" x1="370" y1="415" x2="820" y2="530"/><line class="edge risk" x1="500" y1="285" x2="630" y2="530"/><line class="edge risk" x1="835" y1="415" x2="650" y2="415"/>
+                <line class="edge" x1="190" y1="530" x2="500" y2="640"/><line class="edge" x1="365" y1="530" x2="500" y2="640"/><line class="edge risk" x1="630" y1="530" x2="500" y2="640"/><line class="edge risk" x1="820" y1="530" x2="370" y2="415"/>
+              </g>
+              <g class="gnode source" data-node="video" transform="translate(500 45)"><circle r="30"/><text y="-3">视频源</text><text class="sub" y="15">AI随风</text></g>
+              <g class="gnode product selected" data-node="herdr" transform="translate(500 115)"><circle r="44"/><text y="-3">Herdr</text><text class="sub" y="16">product</text></g>
+              <g class="gnode concept" data-node="runtime" transform="translate(500 195)"><circle r="38"/><text y="-3">Runtime</text><text class="sub" y="16">agent-aware</text></g>
+              <g class="gnode concept" data-node="control" transform="translate(500 285)"><circle r="42"/><text y="-3">控制面</text><text class="sub" y="16">prompt/read/wait</text></g>
+              <g class="gnode gap" data-node="memory" transform="translate(835 295)"><circle r="38"/><text y="-3">共享记忆</text><text class="sub" y="16">not provided</text></g>
+              <g class="gnode agent" data-node="claude" transform="translate(160 195)"><circle r="36"/><text y="-3">Claude</text><text class="sub" y="16">official</text></g>
+              <g class="gnode agent" data-node="codex" transform="translate(280 195)"><circle r="36"/><text y="-3">Codex</text><text class="sub" y="16">official</text></g>
+              <g class="gnode agent" data-node="deepseek" transform="translate(840 195)"><circle r="38"/><text y="-3">DeepSeek</text><text class="sub" y="16">via harness</text></g>
+              <g class="gnode role" data-node="planner" transform="translate(160 300)"><circle r="36"/><text y="-3">Planner</text><text class="sub" y="16">video role</text></g>
+              <g class="gnode role" data-node="reviewer" transform="translate(280 300)"><circle r="36"/><text y="-3">Reviewer</text><text class="sub" y="16">video role</text></g>
+              <g class="gnode role" data-node="executor" transform="translate(720 300)"><circle r="36"/><text y="-3">Executor</text><text class="sub" y="16">video role</text></g>
+              <g class="gnode role" data-node="verifier" transform="translate(650 415)"><circle r="38"/><text y="-3">验收门</text><text class="sub" y="16">synthesis</text></g>
+              <g class="gnode method" data-node="contract" transform="translate(170 415)"><circle r="38"/><text y="-3">3C 契约</text><text class="sub" y="16">local skill</text></g>
+              <g class="gnode method" data-node="observability" transform="translate(370 415)"><circle r="38"/><text y="-3">可观测性</text><text class="sub" y="16">trace + evidence</text></g>
+              <g class="gnode hypothesis" data-node="cost" transform="translate(190 530)"><circle r="37"/><text y="-3">成本假设</text><text class="sub" y="16">unproven</text></g>
+              <g class="gnode hypothesis" data-node="quality" transform="translate(365 530)"><circle r="37"/><text y="-3">质量假设</text><text class="sub" y="16">unproven</text></g>
+              <g class="gnode risk" data-node="coordination-tax" transform="translate(630 530)"><circle r="39"/><text y="-3">协作税</text><text class="sub" y="16">research</text></g>
+              <g class="gnode risk" data-node="failure" transform="translate(820 530)"><circle r="37"/><text y="-3">归因困难</text><text class="sub" y="16">research</text></g>
+              <g class="gnode method" data-node="ab" transform="translate(500 640)"><circle r="43"/><text y="-3">同题 A/B</text><text class="sub" y="16">measure claims</text></g>
+              <g class="gnode warning" data-node="done" transform="translate(835 415)"><circle r="38"/><text y="-3">Done ≠ 对</text><text class="sub" y="16">verify output</text></g>
+            </svg>
+          </div>
+          <aside class="inspector" id="inspector"><div class="node-type">PRODUCT · OFFICIAL</div><h3>Herdr</h3><p>终端原生的 coding-agent runtime / multiplexer。真实进程留在 pane 中，后台 session 负责持久化。</p><ul><li>提供：布局、终端 I/O、agent 状态、CLI/socket</li><li>不提供：共享语义记忆、正确性证明</li><li>决策：用它降低操作摩擦，再用契约与验收补语义层</li></ul></aside>
+        </div>
+      </section>
+
+      <section class="panel" id="skills" data-title="17 项配套 Skills">
+        <div class="section-head"><div><div class="eyebrow">09 / Local capability map</div><h2>17 项配套 skills，按作用分层</h2></div><p>所有 SKILL.md 路径均在本机核验存在。注意：存在不等于成熟；hybrid-llm-router 明确是 scaffold-only。</p></div>
+        <div class="filters" id="skill-filters"><button class="filter-btn active" data-filter="all">全部 17</button><button class="filter-btn" data-filter="pipeline">知识管线</button><button class="filter-btn" data-filter="runtime">编排运行时</button><button class="filter-btn" data-filter="routing">路由</button><button class="filter-btn" data-filter="harness">Harness</button></div>
+        <div class="skills-grid">
+          <article class="skill-card" data-tier="pipeline"><div class="skill-top"><span class="skill-tier">Pipeline</span><span class="badge b-official">found</span></div><h3>video-to-knowledge-dashboard</h3><p>总控：从源材料、证据矩阵到交互仪表盘与验收。</p></article>
+          <article class="skill-card" data-tier="pipeline"><div class="skill-top"><span class="skill-tier">Pipeline</span><span class="badge b-official">found</span></div><h3>youtube-content</h3><p>元数据、字幕优先级、降级链与来源审计。</p></article>
+          <article class="skill-card" data-tier="pipeline"><div class="skill-top"><span class="skill-tier">Pipeline</span><span class="badge b-official">found</span></div><h3>video-to-obsidian</h3><p>Vault-ready 笔记、frontmatter、相关笔记与 dashboard 链接。</p></article>
+          <article class="skill-card" data-tier="pipeline"><div class="skill-top"><span class="skill-tier">Pipeline</span><span class="badge b-official">found</span></div><h3>graphify</h3><p>把论点、方法、风险与本地笔记变成可遍历知识图谱。</p></article>
+          <article class="skill-card" data-tier="pipeline"><div class="skill-top"><span class="skill-tier">Pipeline</span><span class="badge b-official">found</span></div><h3>video-bidirectional-mapping</h3><p>强制做反向映射：相似处、部分缓解、未覆盖缺口。</p></article>
+          <article class="skill-card" data-tier="pipeline"><div class="skill-top"><span class="skill-tier">Pipeline</span><span class="badge b-official">found</span></div><h3>rich-html-output</h3><p>把知识压成单文件、可交互、可审计的本地 HTML。</p></article>
+          <article class="skill-card" data-tier="pipeline"><div class="skill-top"><span class="skill-tier">Pipeline</span><span class="badge b-official">found</span></div><h3>public-html-deploy-cloudflare-pages</h3><p>后续公开发布与 live verification；本次未获授权，未部署。</p></article>
+          <article class="skill-card" data-tier="runtime"><div class="skill-top"><span class="skill-tier">Runtime</span><span class="badge b-official">found</span></div><h3>task-decomposition</h3><p>先写 3C：Input、Output、Success Criteria，再派工。</p></article>
+          <article class="skill-card" data-tier="runtime"><div class="skill-top"><span class="skill-tier">Runtime</span><span class="badge b-official">found</span></div><h3>agent-orchestration</h3><p>并行派发、聚合、格式约束与失败回收。</p></article>
+          <article class="skill-card" data-tier="runtime"><div class="skill-top"><span class="skill-tier">Runtime</span><span class="badge b-official">found</span></div><h3>coordinator</h3><p>Coordinator / architect / executor / reviewer 的职责分离。</p></article>
+          <article class="skill-card" data-tier="runtime"><div class="skill-top"><span class="skill-tier">Runtime</span><span class="badge b-official">found</span></div><h3>five-orchestrator</h3><p>跨 Hermes、Codex、Claude Code、Pi 等 harness 的路由与链式协作。</p></article>
+          <article class="skill-card" data-tier="runtime"><div class="skill-top"><span class="skill-tier">Runtime</span><span class="badge b-official">found</span></div><h3>parallel-subagent-shared-contract</h3><p>并行开始前冻结共享 schema，防止接口漂移。</p></article>
+          <article class="skill-card" data-tier="runtime"><div class="skill-top"><span class="skill-tier">Runtime</span><span class="badge b-official">found</span></div><h3>cross-agent-observability</h3><p>状态、依赖、成本、parent/child、handoff 与证据记录。</p></article>
+          <article class="skill-card" data-tier="routing"><div class="skill-top"><span class="skill-tier">Routing</span><span class="badge b-official">found</span></div><h3>llm-protocol-router</h3><p>按任务形状与协议能力路由，不按品牌印象路由。</p></article>
+          <article class="skill-card scaffold" data-tier="routing"><div class="skill-top"><span class="skill-tier">Routing gap</span><span class="badge b-risk">scaffold</span></div><h3>hybrid-llm-router</h3><p>只有成本/延迟/质量分层骨架；不可宣称为生产路由能力。</p></article>
+          <article class="skill-card" data-tier="harness"><div class="skill-top"><span class="skill-tier">Harness</span><span class="badge b-official">found</span></div><h3>claude-code</h3><p>Claude Code 派工与操作边界；可承载 planner 角色。</p></article>
+          <article class="skill-card" data-tier="harness"><div class="skill-top"><span class="skill-tier">Harness</span><span class="badge b-official">found</span></div><h3>codex</h3><p>Codex 派工与 review surface；可承载独立 reviewer。</p></article>
+        </div>
+      </section>
+
+      <section class="panel" id="blindspots" data-title="反向映射 / 盲区">
+        <div class="section-head"><div><div class="eyebrow">10 / Tier-4 anti-mapping</div><h2>本地能力没有自动解决什么？</h2></div><p>五张卡使用严格四态：机制级缓解、类比、部分缓解、未覆盖缺口。本页 3/5 为非完全缓解，避免“有个 skill 就算问题解决”。</p></div>
+        <div class="tier4-grid">
+          <article class="tier4"><span class="status s-mechanism">机制级缓解</span><h3>交接 schema 漂移</h3><p>`parallel-subagent-shared-contract` 与 `task-decomposition` 在派工前冻结输入、输出和成功条件，直接作用于接口错位。</p><a href="#handoff" class="jump" data-target="handoff">看 3C 检查器 →</a></article>
+          <article class="tier4"><span class="status s-mechanism">机制级缓解</span><h3>过程不可见</h3><p>`cross-agent-observability` 记录依赖、状态、成本与 handoff，使失败至少有 trace 可回放。</p><a href="#graph" class="jump" data-target="graph">看图谱关系 →</a></article>
+          <article class="tier4"><span class="status s-partial">部分缓解</span><h3>失败责任归因</h3><p>有 trace 仍不等于能找出决定性错误步骤。ICML 基准显示自动归因远未解决，需要证据指针和人工审计。</p><a href="https://proceedings.mlr.press/v267/zhang25cq.html" target="_blank">外部反证 ↗</a></article>
+          <article class="tier4"><span class="status s-partial">部分缓解</span><h3>模型—任务最优路由</h3><p>`llm-protocol-router` 可按规则路由；但 `hybrid-llm-router` 仅 scaffold，没有真实成本/质量回归数据。</p><a href="#lab" class="jump" data-target="lab">用 A/B 建证据 →</a></article>
+          <article class="tier4"><span class="status s-gap">未覆盖缺口</span><h3>共享语义与冲突消解</h3><p>Herdr 传 prompt 和终端输出，不提供共享世界模型、自动事实合并、冲突仲裁或全局正确性证明。</p><a href="https://www.nature.com/articles/s42256-026-01268-y" target="_blank">协作税研究 ↗</a></article>
+        </div>
+        <div class="callout warn mt-lg"><strong>采用门槛：</strong>如果团队不能写出“哪类任务可并行、交接对象是什么、失败怎么升级、最终由什么验收”，那就先不要增加 Agent。Herdr 会把混乱运行得更持久，但不会替你定义秩序。</div>
+      </section>
+
+      <section class="panel" id="lab" data-title="A/B 实验台">
+        <div class="section-head"><div><div class="eyebrow">11 / Decision lab</div><h2>这个任务值得多 Agent 吗？</h2></div><p>调节任务形状。输出是规划启发式，不是 Herdr benchmark；它强迫你同时看并行机会与协调压力。</p></div>
+        <div class="lab">
+          <div class="card">
+            <div class="slider-row"><label for="parallel">可独立并行分支</label><input id="parallel" type="range" min="1" max="8" value="3"><output>3</output></div>
+            <div class="slider-row"><label for="deps">跨分支依赖强度</label><input id="deps" type="range" min="0" max="10" value="5"><output>5</output></div>
+            <div class="slider-row"><label for="handoffs">预计 handoff 次数</label><input id="handoffs" type="range" min="1" max="14" value="5"><output>5</output></div>
+            <div class="slider-row"><label for="loops">审核 / 返工循环</label><input id="loops" type="range" min="0" max="7" value="2"><output>2</output></div>
+            <div class="toggle-row"><label><input id="shared" type="checkbox" checked> 共享 schema 已冻结</label><label><input id="tests" type="checkbox" checked> 有确定性测试 / gate</label><label><input id="ledger" type="checkbox"> 有 handoff ledger</label></div>
+          </div>
+          <div class="lab-result">
+            <div class="eyebrow">Coordination pressure</div>
+            <div class="score-ring" id="score-ring"><strong id="pressure-score">34<span>/ 100</span></strong></div>
+            <h3 id="lab-title">可做 2–3 Agent 小规模试点</h3>
+            <p id="lab-copy">并行机会能覆盖部分协调压力；保留单强 Agent 基线，再测一次通过率、总成本与墙钟时间。</p>
+            <div class="formula">pressure = handoffs×4 + loops×6 + deps×3 − contract gates<br>opportunity = parallel branches×12 − dependencies×4<br><b>仅作规划启发，不代表实测收益。</b></div>
+          </div>
+        </div>
+        <div class="grid-3 mt-lg">
+          <div class="card experiment"><i>01</i><div><b>同题基线</b><span>同一任务、同一工具权限、同一验收；单强 Agent vs 角色链。</span></div></div>
+          <div class="card experiment"><i>02</i><div><b>Reviewer 增量</b><span>记录真阳性问题、误报、修复收益与新增 token。</span></div></div>
+          <div class="card experiment"><i>03</i><div><b>Handoff 损失</b><span>记录返问、上下文遗漏、重复劳动与压缩长度。</span></div></div>
+          <div class="card experiment"><i>04</i><div><b>状态可靠性</b><span>测 blocked 误报/漏报、unknown 比例与超时恢复。</span></div></div>
+          <div class="card experiment"><i>05</i><div><b>故障恢复</b><span>中断后 session 恢复、幂等性与重复副作用。</span></div></div>
+          <div class="card experiment"><i>06</i><div><b>归因审计</b><span>能否从 ledger 定位责任 agent、决定步骤和证据。</span></div></div>
+        </div>
+      </section>
+
+      <section class="panel" id="sources" data-title="摘录与来源">
+        <div class="section-head"><div><div class="eyebrow">12 / Evidence ledger</div><h2>原始 ASR 与可读化复述并列</h2></div><p>视频没有发布者字幕。Raw ASR 不修字；规范化文本只用于可读展示，不能冒充逐字引语。点击展开。</p></div>
+        <div class="grid-2">
+          <div>
+            <details class="quote" open><summary><span>Q1 · 产品识别</span><span class="quote-time">00:00:00–00:00:03</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 1</b>大家最近有一款非常热门的 AI 中央工具叫黑的</div><div class="quote-col normalized"><b>ASR纠正（标题与官方产品名） · 非逐字</b>【“AI 中央工具”→“AI 终端工具”；“黑的”→“Herdr”】大家最近有一款非常热门的 AI 终端工具，叫 Herdr。</div></div></details>
+            <details class="quote"><summary><span>Q2 · Agent 协作</span><span class="quote-time">00:01:33–00:01:36</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 42</b>不同的Agent 能够写作去发挥最大的优势呢</div><div class="quote-col normalized"><b>ASR纠正（语境纠音） · 非逐字</b>【“写作”→“协作”】不同的 Agent 能够协作，发挥各自最大的优势。</div></div></details>
+            <details class="quote"><summary><span>Q3 · 控制面通信</span><span class="quote-time">00:02:50–00:02:53</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 78</b>也就是Agent 和Agent 的一件进行通信</div><div class="quote-col normalized"><b>ASR纠正（语境纠音） · 非逐字</b>【“一件”→“之间”】也就是 Agent 和 Agent 之间进行通信。这里的“通信”不扩写成自动共享记忆。</div></div></details>
+            <details class="quote"><summary><span>Q4 · Space 空间</span><span class="quote-time">00:03:58–00:04:01</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 110</b>首先在左上叫Space 叫空间</div><div class="quote-col normalized"><b>轻度整理（空格与标点） · 非逐字</b>首先左上角叫 Space，也就是空间；未改变专有名词含义。</div></div></details>
+            <details class="quote"><summary><span>Q5 · Agent 操作</span><span class="quote-time">00:05:09–00:05:12</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 146</b>一句话就是用A型的来操作</div><div class="quote-col normalized"><b>ASR纠正（英文术语） · 非逐字</b>【“A 型的”→“Agent”】一句话，就是用 Agent 来操作；不擅自补入相邻 cue 才出现的宾语。</div></div></details>
+            <details class="quote"><summary><span>Q6 · Claude Code 计划</span><span class="quote-time">00:06:36–00:06:38</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 193</b>在CodeCode里面做计划</div><div class="quote-col normalized"><b>ASR纠正（官方 agent 名） · 非逐字</b>【“CodeCode”→“Claude Code”】在 Claude Code 里面做计划；只纠正产品名，不扩写为固定内置角色。</div></div></details>
+            <details class="quote"><summary><span>Q7 · Codex 审核</span><span class="quote-time">00:09:50–00:09:53</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 278</b>OK这边CodeS已经对计划进行审核</div><div class="quote-col normalized"><b>ASR纠正（官方 agent 名） · 非逐字</b>【“CodeS”→“Codex”】OK，这边 Codex 已经对计划进行审核；审核发生不等于审核正确。</div></div></details>
+            <details class="quote"><summary><span>Q8 · 终端 AI 编程</span><span class="quote-time">00:11:14–00:11:17</span></summary><div class="quote-body"><div class="quote-col"><b>Raw ASR · cue 316</b>如果你特别喜欢使用中端来进行AI变成的话</div><div class="quote-col normalized"><b>ASR纠正（同音误识别） · 非逐字</b>【“中端”→“终端”；“AI 变成”→“AI 编程”】如果你特别喜欢使用终端来进行 AI 编程的话；这是条件从句，不剪成效果背书。</div></div></details>
+          </div>
+          <div class="stack">
+            <div class="card"><div class="eyebrow">Primary / official</div><div class="source-list mt">
+              <a class="source-item" href="https://github.com/herdrdev/herdr" target="_blank"><span class="source-num">01</span><span><b>Herdr 官方仓库</b><small>定位、功能、stars 快照</small></span><span class="badge b-official">official</span></a>
+              <a class="source-item" href="https://herdr.dev/docs/quick-start/" target="_blank"><span class="source-num">02</span><span><b>Quick start</b><small>session / workspace / detach</small></span><span class="badge b-official">official</span></a>
+              <a class="source-item" href="https://herdr.dev/docs/agent-automation/" target="_blank"><span class="source-num">03</span><span><b>Agent automation</b><small>prompt / read / wait 与状态边界</small></span><span class="badge b-official">official</span></a>
+              <a class="source-item" href="https://herdr.dev/docs/agents/" target="_blank"><span class="source-num">04</span><span><b>Agents</b><small>支持矩阵与状态权威</small></span><span class="badge b-official">official</span></a>
+              <a class="source-item" href="https://herdr.dev/docs/socket-api/" target="_blank"><span class="source-num">05</span><span><b>Socket API</b><small>本地控制原语</small></span><span class="badge b-official">official</span></a>
+              <a class="source-item" href="https://herdr.dev/blog/herdr-is-joining-y-combinator/" target="_blank"><span class="source-num">06</span><span><b>加入 YC F26 公告</b><small>创始人第一方声明</small></span><span class="badge b-official">official</span></a>
+            </div></div>
+            <div class="card"><div class="eyebrow">Independent counter-evidence</div><div class="source-list mt">
+              <a class="source-item" href="https://www.nature.com/articles/s42256-026-01268-y" target="_blank"><span class="source-num">07</span><span><b>Nature Machine Intelligence</b><small>协作收益边界与 coordination tax</small></span><span class="badge b-research">research</span></a>
+              <a class="source-item" href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/b1041e52d3be19f0a9bc491657488e4a-Abstract-Datasets_and_Benchmarks_Track.html" target="_blank"><span class="source-num">08</span><span><b>NeurIPS 2025</b><small>1,600+ traces 的失败分类</small></span><span class="badge b-research">research</span></a>
+              <a class="source-item" href="https://proceedings.mlr.press/v267/zhang25cq.html" target="_blank"><span class="source-num">09</span><span><b>ICML 2025</b><small>失败责任 agent / step 归因</small></span><span class="badge b-research">research</span></a>
+            </div></div>
+          </div>
+        </div>
+        <div class="callout mt-lg"><strong>来源链：</strong>YouTube 元数据无人工/自动字幕 → Kome 返回发布者限制 → 下载原音频 → faster-whisper-base CPU int8，本地中文转录，319 cues、带 segment/word timestamps。Prompted 比较版出现重复，已拒绝使用。</div>
+        <div class="footer-note">BUILT FROM SOURCE_REPORT · EVIDENCE_MATRIX · LOCAL_AUDIT · CANONICAL ASR<br>NO EXTERNAL ANALYTICS · PUBLIC EDITION · 2017ZYL.XYZ</div>
+      </section>
+    </main>
+  </div>
+
+  <div class="command-layer" id="command-layer" role="dialog" aria-modal="true" aria-label="快速跳转">
+    <div class="command-box"><input id="command-input" autocomplete="off" placeholder="输入：事实、图谱、skills、A/B…"><div class="command-results" id="command-results"></div></div>
+  </div>
+
+  <script>
+    (() => {
+      const KEY = 'herdr-kd-3ZVWhFI5bpw';
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      document.querySelectorAll('a[target="_blank"]').forEach(a => a.rel = 'noopener noreferrer');
+      const body = document.body;
+      const navButtons = [...document.querySelectorAll('.nav-btn')];
+      const panels = [...document.querySelectorAll('.panel')];
+      const crumb = document.getElementById('crumb-current');
+      const isMobile = () => window.matchMedia('(max-width: 900px)').matches;
+
+      function activate(id, push = true) {
+        if (!document.getElementById(id)) id = 'core';
+        panels.forEach(p => p.classList.toggle('active', p.id === id));
+        navButtons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+        const panel = document.getElementById(id);
+        crumb.textContent = panel.dataset.title || id;
+        localStorage.setItem(KEY + ':tab', id);
+        if (push && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+        window.scrollTo({top: 0, behavior: push ? 'smooth' : 'auto'});
+        if (isMobile()) body.classList.remove('mobile-toc-open');
+      }
+
+      navButtons.forEach(b => b.addEventListener('click', () => activate(b.dataset.target)));
+      document.querySelectorAll('.jump').forEach(b => b.addEventListener('click', e => { e.preventDefault(); activate(b.dataset.target); }));
+      const initial = location.hash.slice(1) || localStorage.getItem(KEY + ':tab') || 'core';
+      activate(initial, false);
+      addEventListener('hashchange', () => activate(location.hash.slice(1), false));
+
+      const tocToggle = document.querySelector('.toc-toggle');
+      const storedCollapsed = localStorage.getItem(KEY + ':toc') === '1';
+      if (storedCollapsed && !isMobile()) body.classList.add('toc-collapsed');
+      tocToggle.addEventListener('click', () => {
+        if (isMobile()) body.classList.toggle('mobile-toc-open');
+        else {
+          body.classList.toggle('toc-collapsed');
+          localStorage.setItem(KEY + ':toc', body.classList.contains('toc-collapsed') ? '1' : '0');
+        }
+      });
+
+      document.querySelectorAll('.copy').forEach(btn => btn.addEventListener('click', async () => {
+        const text = btn.parentElement.querySelector('code').innerText;
+        try { await navigator.clipboard.writeText(text); btn.textContent = 'COPIED'; }
+        catch { btn.textContent = 'SELECT'; }
+        setTimeout(() => btn.textContent = 'COPY', 1300);
+      }));
+
+      function wireFilter(containerId, cardSelector, attr) {
+        const box = document.getElementById(containerId);
+        if (!box) return;
+        box.addEventListener('click', e => {
+          const btn = e.target.closest('.filter-btn'); if (!btn) return;
+          box.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+          const value = btn.dataset.filter;
+          document.querySelectorAll(cardSelector).forEach(card => card.classList.toggle('hidden', value !== 'all' && card.dataset[attr] !== value));
+        });
+      }
+      wireFilter('audit-filters', '.audit-card', 'level');
+      wireFilter('skill-filters', '.skill-card', 'tier');
+
+      const contractInputs = [...document.querySelectorAll('.contract-input')];
+      const readyMeter = document.getElementById('ready-meter');
+      const readyScore = document.getElementById('ready-score');
+      function updateReady() {
+        const scores = contractInputs.map(el => Math.min(1, el.value.trim().length / 45));
+        const score = Math.round(scores.reduce((a,b) => a+b, 0) / 3 * 100);
+        readyMeter.style.width = score + '%'; readyScore.textContent = score + '%';
+      }
+      contractInputs.forEach(el => el.addEventListener('input', updateReady));
+
+      const nodeInfo = {
+        video:['SOURCE · ASR-BACKED','AI随风 · Herdr 教程','本仪表盘的源视频；上传者时间锚点与 canonical ASR cue 分开保存。',['原始视频 11:24','319 个本地 ASR cues','纠正文案绝不冒充逐字稿']],
+        herdr:['PRODUCT · OFFICIAL','Herdr','终端原生的 coding-agent runtime / multiplexer。真实进程留在 pane 中，后台 session 负责持久化。',['提供：布局、终端 I/O、agent 状态、CLI/socket','不提供：共享语义记忆、正确性证明','决策：降低操作摩擦，再补契约与验收']],
+        runtime:['CONCEPT · OFFICIAL','Agent-aware terminal runtime','Herdr 的精确产品边界：理解 coding-agent 进程与 session，但不替代模型或共享事实库。',['pane 中是真实进程','session 支持 detach / attach','runtime 不是自动化语义层']],
+        control:['CONCEPT · OFFICIAL','控制面通信','Agent 或脚本可以启动、prompt、read、wait、send-keys，并通过本地 socket 订阅事件。',['通信对象是终端与 lifecycle 状态','语义由 prompt、文件和上层协议承载','状态观察不等于语义正确']],
+        memory:['GAP · NOT PROVIDED','共享语义记忆','Herdr 不自动维护跨 agent 的共享事实库、世界状态或冲突消解。',['用文件/schema 显式传递','给事实标来源与版本','冲突需要 reviewer 或人仲裁']],
+        claude:['AGENT · OFFICIAL','Claude Code','Herdr 当前支持矩阵中的原生 agent kind；视频把它放在计划阶段。',['官方支持不等于角色固定','输出应形成可审核计划','权限与模型版本需记录']],
+        codex:['AGENT · OFFICIAL','Codex','Herdr 当前支持矩阵中的原生 agent kind；视频把它放在计划审核阶段。',['反馈要指向 rubric','区分 blocking / non-blocking','审核发生不等于审核正确']],
+        deepseek:['AGENT · QUALIFIED','DeepSeek via harness','视频用 DeepSeek 执行，但它不在当前 Herdr 原生 kind 列表，需要外部 CLI/harness 或普通终端进程。',['明确外部承载方式','只按冻结计划执行','失败返回结构化原因']],
+        planner:['ROLE · VIDEO','计划者','视频把计划阶段交给 Claude Code；角色价值是把方案生成与执行解耦。',['输出必须可审查','包含风险、约束与验证步骤','不能自己宣布最终通过']],
+        reviewer:['ROLE · VIDEO','审核者','视频把 Codex 用作计划 reviewer，并展示问题—修订循环。',['反馈绑定证据或标准','设置最大循环次数','通过理由要可回放']],
+        executor:['ROLE · VIDEO','执行者','视频把经审核的计划交给承载 DeepSeek 的执行 agent。',['只消费冻结输入','产出 diff、测试与证据','越界变更回报而非猜测']],
+        verifier:['ROLE · SYNTHESIS','独立验收门','把 lifecycle done 与交付成功分开：读取产物、运行测试、检查 diff。',['最好使用不同认知路径','验收标准事先固定','失败回到 executor 修订']],
+        contract:['METHOD · LOCAL SKILL','3C 交接契约','Input、Output、Success Criteria 是减少 Agent 间语义错位的最小接口。',['派工前冻结','下一角色可直接消费','变更契约要版本化']],
+        observability:['METHOD · LOCAL SKILL','跨 Agent 可观测性','保留 parent/child、状态、依赖、成本、handoff 与 evidence pointer。',['帮助复盘，不保证自动归因','记录 wall time 与重试','最终结果链接原始证据']],
+        cost:['HYPOTHESIS · UNPROVEN','总成本假设','廉价 executor 可能省模型费用，也可能被复核、重试、等待和人工监督抵消。',['计算全链路费用','计入人工时间','与单强 Agent 同题对照']],
+        quality:['HYPOTHESIS · UNPROVEN','质量增益假设','多角色分工可能提高覆盖率，也可能通过交接传播错误。',['主指标：一次通过率','记录回归与返工','不要用角色数量代替质量']],
+        'coordination-tax':['RISK · RESEARCH','协作税','多 Agent 会增加同步、上下文复制、复核、等待和错误传播。',['依赖越强，税越高','并行分支越独立，机会越大','用总成本而非 token 单价衡量']],
+        failure:['RISK · RESEARCH','归因困难','失败后自动定位责任 agent 与决定性步骤仍很困难。',['每次 handoff 可重放','保留输入、输出、测试与决策','关键路径设人工升级点']],
+        ab:['EXPERIMENT · RECOMMENDED','同题 A/B','用相同任务、工具权限和验收，对比单强 Agent 与多 Agent 链。',['主指标：一次通过率 / 总成本 / 墙钟','Guardrail：人工介入 / 回归 / 返工','记录版本、模型与提示模板']],
+        done:['WARNING · OFFICIAL','状态灯 ≠ 正确完成','done / idle 是 lifecycle 观察，不是语义正确性证明。',['读取真实产物','运行测试并检查 diff','由独立验收门作最终判断']]
+      };
+      const inspector = document.getElementById('inspector');
+      document.querySelectorAll('.gnode').forEach(n => n.addEventListener('click', () => {
+        document.querySelectorAll('.gnode').forEach(x => x.classList.remove('selected')); n.classList.add('selected');
+        const d = nodeInfo[n.dataset.node]; if (!d) return;
+        inspector.innerHTML = '<div class="node-type">'+d[0]+'</div><h3>'+d[1]+'</h3><p>'+d[2]+'</p><ul>'+d[3].map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+      }));
+
+      const ranges = [...document.querySelectorAll('.slider-row input')];
+      const toggles = ['shared','tests','ledger'].map(id => document.getElementById(id));
+      function updateLab() {
+        ranges.forEach(r => r.parentElement.querySelector('output').value = r.value);
+        const parallel = +document.getElementById('parallel').value, deps = +document.getElementById('deps').value, handoffs = +document.getElementById('handoffs').value, loops = +document.getElementById('loops').value;
+        let pressure = handoffs*4 + loops*6 + deps*3 - (toggles[0].checked?12:0) - (toggles[1].checked?10:0) - (toggles[2].checked?8:0);
+        pressure = Math.max(0, Math.min(100, pressure));
+        const opportunity = Math.max(0, parallel*12 - deps*4);
+        document.getElementById('pressure-score').innerHTML = pressure + '<span>/ 100</span>';
+        document.getElementById('score-ring').style.background = 'conic-gradient(var(--amber) '+(pressure*3.6)+'deg,#29271f 0deg)';
+        let title, copy;
+        if (opportunity < 18) { title='先跑单强 Agent 基线'; copy='可独立并行空间不足，多角色大概率只会增加 handoff。先证明任务真的需要分工。'; }
+        else if (pressure > opportunity + 12) { title='先补契约与可观测性'; copy='协调压力高于并行机会。减少依赖、冻结 schema、加确定性 gate 后再试点。'; }
+        else if (parallel >= 6 && pressure < 40) { title='适合受控并行试验'; copy='并行机会明显且控制门较完整；从独立分支开始，仍保留单 Agent 对照组。'; }
+        else { title='可做 2–3 Agent 小规模试点'; copy='并行机会能覆盖部分协调压力；保留单强 Agent 基线，再测一次通过率、总成本与墙钟时间。'; }
+        document.getElementById('lab-title').textContent = title; document.getElementById('lab-copy').textContent = copy;
+      }
+      ranges.forEach(r => r.addEventListener('input', updateLab)); toggles.forEach(t => t.addEventListener('change', updateLab)); updateLab();
+
+      const commandLayer = document.getElementById('command-layer'), commandInput = document.getElementById('command-input'), commandResults = document.getElementById('command-results');
+      const commands = navButtons.map(b => ({id:b.dataset.target,label:b.querySelector('.nav-label').textContent,index:b.querySelector('.nav-index').textContent}));
+      function renderCommands(q='') {
+        const query=q.trim().toLowerCase(); const hits=commands.filter(x=>(x.label+' '+x.id).toLowerCase().includes(query));
+        commandResults.innerHTML=hits.map(x=>'<button class="command-item" data-target="'+x.id+'"><span>'+x.label+'</span><code>'+x.index+' / '+x.id+'</code></button>').join('') || '<div style="padding:18px;color:var(--faint);font-size:12px">没有匹配项</div>';
+      }
+      function openCommand(){ commandLayer.classList.add('open'); renderCommands(); setTimeout(()=>commandInput.focus(),30); }
+      function closeCommand(){ commandLayer.classList.remove('open'); commandInput.value=''; }
+      document.getElementById('search-trigger').addEventListener('click',openCommand); commandInput.addEventListener('input',()=>renderCommands(commandInput.value));
+      commandResults.addEventListener('click',e=>{const b=e.target.closest('.command-item');if(b){activate(b.dataset.target);closeCommand();}});
+      commandLayer.addEventListener('click',e=>{if(e.target===commandLayer)closeCommand();});
+      addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommand();}if(e.key==='Escape')closeCommand();});
+    })();
+  </script>
+</body>
+</html>

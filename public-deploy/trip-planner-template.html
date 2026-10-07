@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2f6193">
+<meta name="description" content="可复制、可分享、零后端的全球自驾旅行规划模板">
+<title>自驾行程加载中…</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root{
+    --cream:#f6f1e7; --paper:#fcf9f1; --ink:#33414f; --soft:#5f6f7c;
+    --blue:#2f6193; --blued:#234c74; --bluel:#e3edf6;
+    --green:#5b8a52; --greenl:#e6efdd; --terra:#c8714e; --terral:#f3e2d7;
+    --gold:#d9a441; --line:#e2d8c2;
+    --sh:0 6px 20px rgba(80,64,40,.13); --shs:0 3px 10px rgba(80,64,40,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:66px}
+  body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+    background:var(--cream);color:var(--ink);line-height:1.6;
+    background-image:radial-gradient(circle at 12% 6%,#fff7e8 0,transparent 38%),radial-gradient(circle at 92% 90%,#eef3e6 0,transparent 42%)}
+  button,summary{font:inherit}
+  button:focus-visible,a:focus-visible,summary:focus-visible,[role="button"]:focus-visible{outline:3px solid rgba(217,164,65,.55);outline-offset:2px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:1500;background:rgba(252,249,241,.93);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);box-shadow:var(--shs)}
+  .navin{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:4px;padding:8px 14px;overflow-x:auto;scrollbar-width:none}
+  .navin::-webkit-scrollbar{display:none}
+  .brand{font-weight:800;color:var(--blued);font-size:15px;margin-right:10px;white-space:nowrap}
+  nav a{color:var(--soft);text-decoration:none;font-size:13.5px;padding:6px 11px;border-radius:999px;white-space:nowrap}
+  nav a.on,nav a:hover{background:var(--blue);color:#fff}
+  .navbtn{border:1px solid var(--line);background:#fff;color:var(--blued);height:31px;min-width:31px;border-radius:999px;
+    padding:0 9px;cursor:pointer;font-weight:800;white-space:nowrap;margin-left:3px}
+  .navbtn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+  section{padding:30px 0 6px;scroll-margin-top:62px}
+  h2.sec{font-size:22px;margin:6px 0 16px;display:flex;align-items:center;gap:10px;color:var(--blued)}
+  h2.sec .tg{background:var(--gold);color:#fff;font-size:12.5px;padding:3px 12px;border-radius:999px;font-weight:700;white-space:nowrap}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#2f6193,#3a76ad 58%,#4e8b9a);color:#fff;border-radius:0 0 26px 26px;
+    padding:32px 26px 27px;position:relative;overflow:hidden;box-shadow:var(--sh)}
+  .hero::before{content:"";position:absolute;width:310px;height:310px;right:-100px;top:-170px;border-radius:50%;border:46px solid rgba(255,255,255,.07)}
+  .hero::after{content:"🏔️";position:absolute;right:18px;top:-10px;font-size:132px;opacity:.15;filter:saturate(.6)}
+  .hero .in{max-width:1144px;margin:0 auto;position:relative;z-index:1}
+  .eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);
+    padding:4px 10px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.04em;margin-bottom:8px}
+  .hero h1{font-size:clamp(25px,4vw,31px);letter-spacing:.5px;margin-bottom:6px;max-width:840px}
+  .hero .sub{font-size:14.5px;opacity:.93;max-width:850px}
+  .hero .pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+  .pill{background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.34);padding:6px 13px;border-radius:999px;font-size:12.8px}
+  .pill b{font-weight:700}
+  .cd{margin-top:14px;display:inline-block;background:#ffd75e;color:#5a4300;font-weight:800;padding:7px 16px;border-radius:999px;font-size:14px}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;justify-content:center;background:var(--paper);
+    border:1.5px dashed var(--line);border-radius:16px;padding:14px;margin-top:18px;box-shadow:var(--shs);color:var(--ink)}
+  .flow .nd{background:#fff;border-radius:11px;padding:7px 13px;font-size:13px;font-weight:600;box-shadow:var(--shs);white-space:nowrap}
+  .flow .nd.a{background:var(--bluel);color:var(--blued)}
+  .flow .nd.d{background:var(--greenl);color:#3f6a37}
+  .flow .ar{color:var(--blue);font-weight:800}
+
+  /* HOW TO USE */
+  .howto{margin:20px 0 2px;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shs);overflow:hidden;scroll-margin-top:70px}
+  .howto summary{list-style:none;cursor:pointer;padding:15px 18px;display:flex;align-items:center;gap:10px;color:var(--blued);font-weight:800}
+  .howto summary::-webkit-details-marker{display:none}
+  .howto summary::before{content:"?";display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff}
+  .howto summary::after{content:"＋";margin-left:auto;font-size:18px;color:var(--soft)}
+  .howto[open] summary::after{content:"−"}
+  .howbody{border-top:1px solid var(--line);padding:15px 18px 18px}
+  .howintro{font-size:13px;color:var(--soft);margin-bottom:12px}
+  .howgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .howitem{background:#fff;border:1px solid #eee4d0;border-radius:12px;padding:11px 12px;font-size:12.3px;color:var(--soft)}
+  .howitem code{display:block;color:var(--blued);font-size:11.5px;font-weight:800;margin-bottom:3px;word-break:break-word}
+  .config-ok,.config-warn{margin-top:12px;border-radius:10px;padding:8px 11px;font-size:12px}
+  .config-ok{background:var(--greenl);color:#3f6a37}.config-warn{background:var(--terral);color:#884a30}
+
+  /* MAP */
+  .maprow{display:flex;gap:16px;align-items:stretch}
+  #map{flex:1;min-height:520px;border-radius:18px;box-shadow:var(--sh);background:#cdd9c8;z-index:1;overflow:hidden}
+  .mapfallback{height:100%;min-height:520px;display:grid;place-items:center;padding:30px;text-align:center;color:var(--soft);background:linear-gradient(135deg,#dfe8d9,#e8efe4)}
+  .tl{width:330px;flex:0 0 330px;background:var(--paper);border-radius:18px;box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column}
+  .tlbar{padding:10px 13px;display:flex;gap:7px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+  .b{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 11px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+  .b.go{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:700}.b:active{transform:scale(.96)}
+  .b[disabled]{opacity:.48;cursor:not-allowed}
+  .tllist{overflow-y:auto;flex:1;max-height:470px}
+  .di{display:flex;gap:9px;padding:9px 13px;border-bottom:1px solid #ece3d0;cursor:pointer;transition:background .15s}
+  .di:hover{background:#f2ead7}.di.cur{background:#fff5dc;border-left:4px solid var(--gold)}.di.done .dn{background:#9bbb8f}
+  .dn{flex:0 0 28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12.5px}
+  .di.s1 .dn{background:var(--green)}.di.s2 .dn{background:var(--blue)}
+  .dx{flex:1;min-width:0}.dx .a{font-size:11px;color:#8a7f6a}.dx .b2{font-size:13px;font-weight:600;line-height:1.32}
+  .dx .h{font-size:11px;color:var(--green);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dx .v{font-size:11px;color:var(--terra);text-decoration:none;font-weight:600;display:inline-block;margin-top:2px}
+  .ck{align-self:center;border:0;background:transparent;font-size:18px;color:#c3b89e;cursor:pointer;padding:4px}.di.done .ck{color:var(--green)}
+  .legend{background:rgba(255,255,255,.94);border-radius:10px;padding:7px 10px;font-size:11px;box-shadow:var(--shs);line-height:1.7}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+  .leaflet-popup-content{margin:9px 12px;font-size:13px}.pt{font-weight:700;color:var(--blued);font-size:14px}.pd{font-size:11px;color:#8a7f6a;margin:2px 0 3px}
+  .pn{display:inline-block;margin-top:5px;background:var(--blue);color:#fff;padding:3px 9px;border-radius:6px;font-size:11.5px;text-decoration:none}
+  .mk{display:flex;align-items:center;justify-content:center;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);font-size:13px;width:25px;height:25px;font-weight:700;color:#fff}
+  .mk.h{background:var(--gold)}.mk.s1{background:var(--green)}.mk.s2{background:var(--blue)}.mk.air{background:var(--terra)}.mk.opt{background:#9aa0a6;border-style:dashed}
+  .me{background:#1a73e8;width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px rgba(26,115,232,.35)}
+
+  /* DAY CARDS */
+  .day{display:flex;gap:15px;background:var(--paper);border-radius:15px;padding:13px 17px;margin-bottom:11px;box-shadow:var(--shs);border-left:6px solid var(--green);cursor:pointer;transition:transform .15s,box-shadow .15s}
+  .day:hover{transform:translateY(-1px);box-shadow:var(--sh)}.day.s2{border-left-color:var(--blue)}.day.fly{border-left-color:var(--gold)}
+  .day .nn{flex:0 0 58px;text-align:center}.day .nn .a{font-size:11px;color:var(--soft)}.day .nn .n{font-size:25px;font-weight:800;color:var(--blued);line-height:1}
+  .day .bd{flex:1}.day .bd .route{font-weight:700;font-size:15px;margin-bottom:2px}.day .bd .route .km{font-size:12px;color:var(--terra);font-weight:600;margin-left:5px}
+  .day .bd .desc{font-size:13px;color:var(--soft)}.day .bd .stay{font-size:12.3px;color:var(--green);margin-top:3px}.day .bd .stay b{color:#3f6a37}
+  .day .bd .vl{font-size:12px;color:var(--terra);text-decoration:none;font-weight:600;margin-left:8px}
+
+  /* BOOKED / CARD GRIDS */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+  .card{background:#fff;border-radius:15px;padding:15px;box-shadow:var(--shs);border:1px solid #efe7d6;position:relative}
+  .card .num{position:absolute;top:-11px;left:14px;min-width:30px;height:30px;padding:0 6px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;box-shadow:var(--shs)}
+  .card h3{font-size:15.5px;margin:8px 0 6px;color:var(--blued)}.card ul{list-style:none;font-size:12.7px;color:var(--soft)}
+  .card ul li{padding-left:13px;position:relative;margin:3px 0}.card ul li::before{content:"●";position:absolute;left:0;color:var(--green);font-size:8px;top:5px}
+  .subhead{margin:24px 0 12px;color:var(--blued);font-size:16px}
+  .callout{border-radius:14px;padding:14px 18px;margin-top:14px;font-size:13px}.callout.t{background:#fdf0e6;border:1.5px solid var(--terra);color:#8a4a2c}.callout.b{background:#eef3f8;border:1.5px solid var(--blue);color:var(--blued)}
+  .empty{background:var(--paper);border:1px dashed var(--line);border-radius:14px;padding:18px;color:var(--soft);font-size:13px}
+
+  /* VIDEOS */
+  .panel{background:var(--paper);border-radius:18px;padding:20px;box-shadow:var(--sh)}
+  .video-intro{font-size:12.5px;color:var(--soft);margin-bottom:12px}
+  .vcat{grid-column:1/-1;margin:6px 0 0;font-weight:700;color:var(--terra);font-size:15px;display:flex;align-items:center;gap:8px}.vcat::before{content:"";width:5px;height:18px;background:var(--terra);border-radius:3px}
+  .vcard{background:#fff;border:1px solid #efe7d6;border-radius:13px;overflow:hidden;box-shadow:var(--shs)}
+  .vthumb{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#2f6193,#5b8a52);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .vthumb .play{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.93);display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--terra);box-shadow:0 3px 10px rgba(0,0,0,.3);transition:transform .15s;position:relative;z-index:2}.vthumb:hover .play{transform:scale(1.12)}
+  .vthumb .vtg{position:absolute;top:7px;left:7px;background:rgba(0,0,0,.58);color:#fff;font-size:10.5px;padding:2px 8px;border-radius:999px;z-index:2}
+  .vthumb iframe{width:100%;height:100%;border:0;display:block}.vthumb .ico{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:62px;opacity:.32;pointer-events:none}
+  .vthumb.c0{background:linear-gradient(135deg,#2f6193,#5b8a52)}.vthumb.c1{background:linear-gradient(135deg,#c8714e,#234c74)}.vthumb.c2{background:linear-gradient(135deg,#2f88a8,#2f6193)}.vthumb.c3{background:linear-gradient(135deg,#5b8a52,#2f7a6a)}
+  .vm{padding:8px 11px;font-size:12.5px}.vm a{color:var(--blued);font-weight:600;text-decoration:none}.vm a:hover{text-decoration:underline}
+
+  /* TIPS / FOOTER */
+  .tips{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.tip{background:#fff;border-radius:13px;padding:13px 16px;box-shadow:var(--shs);border:1px solid #efe7d6;font-size:13px;color:var(--soft)}
+  .tip b{color:var(--terra);display:block;margin-bottom:3px;font-size:13.5px}.foot{text-align:center;color:var(--soft);font-size:12px;margin:30px 0 40px;line-height:1.9}.foot strong{color:var(--blued)}
+  #toast{position:fixed;top:66px;left:50%;transform:translateX(-50%);background:rgba(40,40,40,.92);color:#fff;padding:7px 15px;border-radius:999px;font-size:12.5px;z-index:2000;display:none;max-width:calc(100vw - 28px);text-align:center}
+
+  @media (max-width:960px){.howgrid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:820px){
+    .maprow{flex-direction:column}.tl{width:100%;flex:0 0 auto}#map{min-height:360px}.mapfallback{min-height:360px}.tllist{max-height:300px}
+    .grid{grid-template-columns:1fr}.tips{grid-template-columns:1fr}.legend{display:none}.hero{padding:26px 18px 22px}.hero::after{font-size:96px;right:-3px}.flow{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}.flow .ar{flex:0 0 auto}
+  }
+  @media (max-width:540px){.howgrid{grid-template-columns:1fr}.wrap{padding:0 12px}.day{padding:12px}.day .nn{flex-basis:46px}.hero .pills{gap:6px}.pill{font-size:11.8px;padding:5px 9px}h2.sec{font-size:19px}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.day,.vthumb .play{transition:none}}
+</style>
+</head>
+<body>
+<nav aria-label="Trip navigation"><div class="navin" id="nav-inner"></div></nav>
+
+<header class="hero" id="top"><div class="in">
+  <div class="eyebrow" id="hero-eyebrow"></div>
+  <h1 id="hero-title"></h1>
+  <div class="sub" id="hero-subtitle"></div>
+  <div class="pills" id="hero-pills"></div>
+  <div class="cd" id="countdown" aria-live="polite"></div>
+  <div class="flow" id="trip-flow"></div>
+</div></header>
+
+<main class="wrap">
+  <details class="howto" id="howto" open>
+    <summary id="how-summary"></summary>
+    <div class="howbody"><p class="howintro" id="how-intro"></p><div class="howgrid" id="how-grid"></div><div id="config-status"></div></div>
+  </details>
+
+  <section id="map-section">
+    <h2 class="sec" id="map-heading"></h2>
+    <div class="maprow">
+      <div id="map" role="application" aria-label="Interactive trip map"></div>
+      <aside class="tl" aria-label="Trip timeline">
+        <div class="tlbar" id="map-controls"></div>
+        <div class="tllist" id="tllist"></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="plan">
+    <h2 class="sec" id="plan-heading"></h2>
+    <div id="plancards"></div>
+  </section>
+
+  <section id="booked">
+    <h2 class="sec" id="booked-heading"></h2>
+    <div id="booked-content"></div>
+  </section>
+
+  <section id="videos-section">
+    <h2 class="sec" id="videos-heading"></h2>
+    <div class="panel" id="videos"></div>
+  </section>
+
+  <section id="tips">
+    <h2 class="sec" id="tips-heading"></h2>
+    <div class="tips" id="tips-list"></div>
+  </section>
+
+  <footer class="foot" id="footer"></footer>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const TRIP_CONFIG = {
+  meta: {
+    title: "云南大理丽江 6 日自驾",
+    subtitle: "上海 ✈ 丽江取车 · 两人 · 2026/10/01–10/06 · 示例行程",
+    startDate: "2026-10-01",
+    endDate: "2026-10-06",
+    totalDays: 6,
+    hotelNights: 5,
+    partySize: 2,
+    author: "Trip Planner User",
+    locale: "zh-CN",
+    budgetStatus: "示例行程 · 数据为演示",
+    i18n: {
+      document_title: "{title} · 自驾行程",
+      brand: "🚙 我的自驾路书",
+      nav_overview: "概览", nav_map: "实时地图", nav_plan: "每日行程", nav_booked: "已订清单", nav_videos: "视频库", nav_tips: "贴士", nav_how: "使用说明",
+      demo_badge: "可复制模板 · 云南 6 日 DEMO",
+      hero_pill_days: "🗓️ {n}天 · {start}–{end}", hero_pill_party: "👥 {n}人", hero_pill_flights: "✈️ 机票 {n}程",
+      hero_pill_car: "🚙 {brand} {n}段", hero_pill_hotel: "🏨 住宿全{n}晚已订", hero_pill_budget: "💰 {status}",
+      countdown_loading: "⏳ 计算中…", countdown_before: "⏳ 距出发还有 {n} 天", countdown_during: "🚙 进行中 · 今天是 Day {n}", countdown_after: "✅ 行程已结束 · 旅途愉快回顾",
+      section_map: "🗺️ 动态地图追踪（出发后可定位、打卡）", section_plan: "🗓️ 逐日行程（{n}天）", section_booked: "✈️ 机票 · 🚙 租车 · 🏨 住宿",
+      section_videos: "📺 行前 & 路上视频库（点击▶播放）", section_tips: "🧭 自驾小贴士",
+      tag_live: "实时", tag_guide: "指引", tag_booked: "已订", tag_playlist: "片单", tag_tips: "贴士",
+      btn_locate: "📍 定位", btn_today: "🎯 今天", btn_overview: "🗺️ 全程", btn_satellite: "🛰️ 卫星", btn_street: "🗺️ 街道", btn_language: "EN", language_changed: "已切换中文界面",
+      how_title: "How to use · 只改 TRIP_CONFIG，就能出发", how_intro: "这份页面没有数据库、没有构建步骤。复制 HTML，编辑脚本最上方的 TRIP_CONFIG；下方云南数据就是完整格式示例。",
+      how_meta: "改标题、日期、人数、作者与默认语言", how_flow: "改顶部机场 → 取车 → 环线流程条", how_days: "核心：改每天路线、住宿、视频与坐标", how_booked: "改机票、租车、住宿与提醒卡片",
+      how_videos: "按分类加 B 站或 YouTube；清空数组即隐藏", how_tips: "改底部经验提示；支持按语言覆写", how_locale: "设为 en-US，整套 UI 自动切英文", how_readme: "更多示例见 README_TRIP_PLANNER.md",
+      config_ok: "✅ 配置检查通过：{days} 天 · {points} 个地图点 · localStorage 已隔离", config_warn: "⚠️ 配置提醒：meta.totalDays（{declared}）与 days.length（{actual}）不一致",
+      legend_s1: "第 1 段", legend_s2: "第 2 段", legend_hotel: "住宿", legend_airport: "机场", legend_optional: "可选",
+      map_unavailable: "地图组件未能加载。请检查网络后刷新；行程卡片仍可正常使用。", map_osm_only: "海外行程使用 OpenStreetMap 街道图",
+      map_satellite_on: "已切换卫星图", map_street_on: "已切换街道图", map_overview: "已显示全程",
+      locate_unsupported: "当前浏览器不支持定位", locating: "定位中…", locate_permission: "请允许定位权限", locate_failed: "定位失败，请重试", my_location: "📍 我的位置", nearest: "最近：Day {day} {place} · 约 {km} km",
+      today_day: "今天是 Day {n}", before_short: "距出发 {n} 天", trip_finished_short: "行程已结束，已回到全程视图",
+      hotel_prefix: "🛏", related_video: "📺 {title}", video_default: "相关视频", nav_amap: "高德导航 ›", nav_maps: "地图导航 ›",
+      check_done: "标记 Day {n} 已完成", check_undo: "取消 Day {n} 完成状态", day_open_map: "在地图查看 Day {n}",
+      booked_flights: "✈️ 航班（{n} 程）", booked_cars: "🚙 租车（{n} 段）", booked_hotels: "🏨 住宿（{n} 处）", empty_booked: "尚未填写这一类预订。",
+      label_flight: "航班", label_note: "备注", label_pickup: "取", label_dropoff: "还", label_days: "{n} 天", label_stay: "入住",
+      video_intro: "攻略、装备与风景片按分类整理；点击封面后才加载播放器，减少首屏流量。B 站与 YouTube 均可用。", video_open: "打开原视频 ↗", video_player: "{title} 播放器",
+      tip_1: "🛣️ 山区天气｜玉龙雪山昼夜温差大，提前查索道与景区开放情况，车里常备薄羽绒和雨具。",
+      tip_2: "🚙 取还车验车｜拍完整环车视频，确认油量、轮胎、备胎与保险；古城周边优先停正规停车场。",
+      tip_3: "🌊 洱海节奏｜环湖路村镇多、限速变化频繁，不追求一日全环；西岸骑行、东岸自驾更舒服。",
+      tip_4: "🏔️ 高海拔｜雪山行程前一晚少饮酒、早休息；出现明显不适及时下撤，不硬扛。",
+      tip_5: "📶 离线准备｜山路偶有弱信号，提前下载离线地图、保存酒店电话与关键预订截图。",
+      tip_6: "🎒 轻装漫游｜古城石板路不适合大箱子，主行李留车里，随身小包装水、防晒与充电宝。",
+      footer_public: "公开分享版 · 实时地图 + 每日指引 + 视频库（已隐去预订号与价格）",
+      footer_credit: "由 trip-planner-template 生成 · 基于 xjb-public 设计 · {year}", footer_author: "行程整理：{author}",
+      flow_1: "✈ 上海", flow_2: "丽江取车", flow_3: "🚙 大理环线", flow_4: "丽江休整", flow_5: "🚙 玉龙雪山", flow_6: "丽江✈上海",
+      budget_status: "示例行程 · 数据为演示",
+      "en-US": {
+        document_title: "{title} · Road Trip", meta_title: "6-Day Dali & Lijiang Road Trip", meta_subtitle: "Shanghai ✈ Lijiang pickup · 2 travelers · Oct 1–6, 2026 · Demo itinerary",
+        brand: "🚙 My Road Book", nav_overview: "Overview", nav_map: "Live map", nav_plan: "Daily plan", nav_booked: "Bookings", nav_videos: "Videos", nav_tips: "Tips", nav_how: "How to use",
+        demo_badge: "Forkable template · 6-DAY YUNNAN DEMO",
+        hero_pill_days: "🗓️ {n} days · {start}–{end}", hero_pill_party: "👥 {n} travelers", hero_pill_flights: "✈️ {n} flights", hero_pill_car: "🚙 {brand} · {n} rental", hero_pill_hotel: "🏨 All {n} nights booked", hero_pill_budget: "💰 {status}",
+        countdown_loading: "⏳ Calculating…", countdown_before: "⏳ {n} days until departure", countdown_during: "🚙 In progress · Today is Day {n}", countdown_after: "✅ Trip complete · Relive the good moments",
+        section_map: "🗺️ Live trip map (location + check-ins)", section_plan: "🗓️ Day-by-day plan ({n} days)", section_booked: "✈️ Flights · 🚙 Car · 🏨 Stays", section_videos: "📺 Pre-trip & on-the-road videos (click ▶ to play)", section_tips: "🧭 Road trip tips",
+        tag_live: "LIVE", tag_guide: "PLAN", tag_booked: "BOOKED", tag_playlist: "WATCH", tag_tips: "TIPS",
+        btn_locate: "📍 Locate", btn_today: "🎯 Today", btn_overview: "🗺️ Full trip", btn_satellite: "🛰️ Satellite", btn_street: "🗺️ Streets", btn_language: "中文", language_changed: "English UI enabled",
+        how_title: "How to use · Edit TRIP_CONFIG and go", how_intro: "No database and no build step. Copy this HTML and edit TRIP_CONFIG at the top of the script; the Yunnan demo below is the complete data format.",
+        how_meta: "Change title, dates, party, author and default language", how_flow: "Change the airport → pickup → road-loop flow", how_days: "Core data: routes, stays, videos and coordinates", how_booked: "Change flights, rental cars, stays and callouts", how_videos: "Add Bilibili or YouTube by category; [] hides it", how_tips: "Edit practical tips, with optional locale overrides", how_locale: "Set en-US for a fully English interface", how_readme: "See README_TRIP_PLANNER.md for more examples",
+        config_ok: "✅ Config valid: {days} days · {points} map points · isolated localStorage", config_warn: "⚠️ Config warning: meta.totalDays ({declared}) differs from days.length ({actual})",
+        legend_s1: "Segment 1", legend_s2: "Segment 2", legend_hotel: "Stay", legend_airport: "Airport", legend_optional: "Optional",
+        map_unavailable: "The map library did not load. Check your connection and refresh; the itinerary cards still work.", map_osm_only: "International trips use OpenStreetMap street tiles", map_satellite_on: "Satellite view on", map_street_on: "Street view on", map_overview: "Showing the full trip",
+        locate_unsupported: "Location is not supported in this browser", locating: "Locating…", locate_permission: "Please allow location access", locate_failed: "Could not locate you. Try again.", my_location: "📍 My location", nearest: "Nearest: Day {day} {place} · about {km} km",
+        today_day: "Today is Day {n}", before_short: "{n} days to departure", trip_finished_short: "Trip complete — showing the full route",
+        hotel_prefix: "🛏", related_video: "📺 {title}", video_default: "Related video", nav_amap: "Open in Amap ›", nav_maps: "Open in Maps ›",
+        check_done: "Mark Day {n} complete", check_undo: "Undo Day {n} completion", day_open_map: "Show Day {n} on map",
+        booked_flights: "✈️ Flights ({n})", booked_cars: "🚙 Rental cars ({n})", booked_hotels: "🏨 Stays ({n})", empty_booked: "No bookings in this category yet.",
+        label_flight: "Flight", label_note: "Note", label_pickup: "Pickup", label_dropoff: "Drop-off", label_days: "{n} days", label_stay: "Stay",
+        video_intro: "Guides, gear and scenic videos grouped by theme. Players load only after a click to keep the first view light. Bilibili and YouTube are supported.", video_open: "Open source video ↗", video_player: "{title} player",
+        tip_1: "🛣️ Mountain weather | Jade Dragon Snow Mountain changes fast. Check cableway status and keep a light down jacket and rain shell in the car.",
+        tip_2: "🚙 Vehicle handover | Film the full car, then check fuel, tires, spare and insurance. Use official parking around old towns.",
+        tip_3: "🌊 Erhai pace | Villages and speed limits change often. Do not rush a full loop: cycle the west shore and drive the east shore.",
+        tip_4: "🏔️ Altitude | Skip alcohol and rest well the night before. Descend promptly if symptoms become significant.",
+        tip_5: "📶 Offline prep | Download offline maps and save hotel numbers plus key booking screenshots before mountain roads.",
+        tip_6: "🎒 Travel light | Old-town stone lanes dislike big suitcases. Leave the main bag in the car and carry water, sunscreen and a power bank.",
+        footer_public: "Public sharing edition · Live map + daily guide + video library (booking IDs and prices removed)", footer_credit: "Generated with trip-planner-template · Based on xjb-public design · {year}", footer_author: "Planned by {author}",
+        flow_1: "✈ Shanghai", flow_2: "Lijiang pickup", flow_3: "🚙 Dali loop", flow_4: "Lijiang reset", flow_5: "🚙 Jade Dragon", flow_6: "Lijiang ✈ Shanghai", budget_status: "Demo itinerary · sample data",
+        callout_1_title: "⚠️ Leave buffer before the return flight:", callout_1_text: "Return the car at Lijiang Airport by 14:00 on Day 6 for the 16:30 flight. The booking end time is a billing cutoff, so you may return early.",
+        callout_2_title: "ℹ️ Demo data:", callout_2_text: "Hotels, flights and videos demonstrate the template structure only. Replace them with your confirmed bookings before sharing."
+      }
+    }
+  },
+  flow: [
+    {label:"✈ 上海",type:"airport"},{label:"丽江取车",type:"airport"},{label:"🚙 大理环线",type:"drive"},
+    {label:"丽江休整",type:"airport"},{label:"🚙 玉龙雪山",type:"drive"},{label:"丽江✈上海",type:"airport"}
+  ],
+  days: [
+    {d:1,date:"10/01 周四",s:1,fly:1,r:"上海 ✈ 丽江（MU5823）· 取车",km:"飞行 + 32km",det:"13:40 抵达丽江，14:30 机场提车；下午慢逛大研古城，适应海拔与节奏。",ho:"丽江古城英迪格 · 示例已预订",vid:"BV1nCqoYhEzB",vidt:"坦克300 一周实测",pts:[
+      {n:"丽江三义机场（取车）",la:26.68,ln:100.25,t:"air",dc:"MU5823 13:40 抵 · 14:30 提车"},
+      {n:"丽江古城",la:26.86,ln:100.22,t:"s1",dc:"大研古城 · 午后慢行"},
+      {n:"丽江古城英迪格",la:26.865,ln:100.221,t:"h",dc:"示例住宿 · 已预订"}
+    ]},
+    {d:2,date:"10/02 周五",s:1,fly:0,r:"丽江 → 大理古城 · 三塔日落",km:"约 185km",det:"上午沿高速前往大理，下午逛古城与崇圣寺三塔；傍晚在苍山脚下看日落。",ho:"大理古城智选假日 · 示例已预订",pts:[
+      {n:"大理古城",la:25.69,ln:100.16,t:"s1",dc:"人民路 · 洋人街 · 慢逛"},
+      {n:"崇圣寺三塔",la:25.69,ln:100.14,t:"s1",dc:"苍山洱海经典地标"},
+      {n:"大理古城智选假日",la:25.692,ln:100.165,t:"h",dc:"示例住宿 · 已预订"}
+    ]},
+    {d:3,date:"10/03 周六",s:1,fly:0,r:"洱海西岸 → 双廊 · 环湖精华",km:"约 92km",det:"上午在洱海西岸骑行，午后自驾东岸到双廊；不追求全环，把时间留给湖边。",ho:"双廊湖景客栈 · 示例已预订",vid:"BV12s4y1J73r",vidt:"自驾旅行装备清单",pts:[
+      {n:"洱海西岸生态廊道",la:25.75,ln:100.10,t:"s1",dc:"骑行 · 田野 · 亲水步道"},
+      {n:"双廊古镇",la:25.78,ln:100.20,t:"s1",dc:"洱海东岸 · 看苍山日落"},
+      {n:"双廊湖景客栈",la:25.789,ln:100.196,t:"h",dc:"示例住宿 · 已预订"}
+    ]},
+    {d:4,date:"10/04 周日",s:1,fly:0,r:"双廊 → 喜洲 → 蝴蝶泉 → 丽江",km:"约 210km",det:"早看双廊晨光，经喜洲吃午饭、蝴蝶泉短停，傍晚回到丽江，为雪山日留足体力。",ho:"丽江古城英迪格 · 示例已预订",pts:[
+      {n:"喜洲古镇",la:25.78,ln:100.13,t:"s1",dc:"白族民居 · 喜洲粑粑"},
+      {n:"蝴蝶泉",la:25.85,ln:100.05,t:"s1",dc:"苍山脚下短停"},
+      {n:"丽江古城英迪格",la:26.865,ln:100.221,t:"h",dc:"连住 · 示例已预订"}
+    ]},
+    {d:5,date:"10/05 周一",s:2,fly:0,r:"玉龙雪山 → 蓝月谷",km:"往返约 75km",det:"按预约时段上雪山，下午到蓝月谷；索道受天气影响，保留古城机动备选。",ho:"丽江古城英迪格 · 示例已预订",pts:[
+      {n:"玉龙雪山",la:27.10,ln:100.22,t:"s2",dc:"提前预约索道 · 注意高海拔"},
+      {n:"蓝月谷",la:27.12,ln:100.25,t:"s2",dc:"雪山融水 · 下午光线佳"},
+      {n:"丽江古城英迪格",la:26.865,ln:100.221,t:"h",dc:"连住 · 示例已预订"}
+    ]},
+    {d:6,date:"10/06 周二",s:2,fly:1,r:"束河古镇 → 丽江机场还车 → 上海",km:"约 38km + 飞行",det:"上午去束河喝咖啡，午后加油、还车；14:00 前抵机场，预留安检与突发路况时间。",ho:"—",pts:[
+      {n:"束河古镇",la:26.91,ln:100.21,t:"s2",dc:"返程日前的轻松半日"},
+      {n:"丽江三义机场（还车返程）",la:26.68,ln:100.25,t:"air",dc:"14:00 前还车 · 16:30 起飞"}
+    ]}
+  ],
+  booked: {
+    flights: [
+      {from:"上海",to:"丽江",date:"10/01",time:"09:55–13:40",flight:"MU5823",note:"示例航班 · 请替换"},
+      {from:"丽江",to:"上海",date:"10/06",time:"16:30–20:05",flight:"MU9717",note:"示例航班 · 请替换"}
+    ],
+    cars: [{brand:"坦克300",segment:"云南环线",pickup:"10/01 14:30 丽江机场",dropoff:"10/06 14:00 丽江机场",days:6}],
+    hotels: [
+      {name:"丽江古城英迪格",days:"10/01–02 · Day 1",tag:"示例 · 已预订",icon:"IN"},
+      {name:"大理古城智选假日",days:"10/02–03 · Day 2",tag:"示例 · 已预订",icon:"HX"},
+      {name:"双廊湖景客栈",days:"10/03–04 · Day 3",tag:"示例 · 已预订",icon:"双"},
+      {name:"丽江古城英迪格",days:"10/04–06 · Day 4–5",tag:"示例 · 连住 2 晚",icon:"IN"}
+    ],
+    callouts: [
+      {type:"t",title:"⚠️ 还车—航班要留缓冲：",text:"Day 6 建议 14:00 前抵丽江机场还车，衔接 16:30 航班。预订还车时间只是计费截止，可提前还。"},
+      {type:"b",title:"ℹ️ 关于示例数据：",text:"酒店、航班与视频仅用于演示模板结构；分享前请替换成自己的已确认信息。"}
+    ]
+  },
+  videos: [
+    {category:"🎒 自驾装备 · 车型",items:[
+      {bv:"BV1nCqoYhEzB",title:"坦克300 一周自驾实测",tag:"车型"},
+      {bv:"BV12s4y1J73r",title:"长途自驾应该准备哪些物品",tag:"装备"}
+    ]},
+    {category:"▶️ 播放器兼容示例",items:[
+      {youtube:"M7lc1UVf-VE",title:"YouTube 嵌入示例 · 换成你的旅行视频",tag:"YouTube"}
+    ]}
+  ],
+  tips: [
+    "🛣️ 山区天气｜玉龙雪山昼夜温差大，提前查索道与景区开放情况，车里常备薄羽绒和雨具。",
+    "🚙 取还车验车｜拍完整环车视频，确认油量、轮胎、备胎与保险；古城周边优先停正规停车场。",
+    "🌊 洱海节奏｜环湖路村镇多、限速变化频繁，不追求一日全环；西岸骑行、东岸自驾更舒服。",
+    "🏔️ 高海拔｜雪山行程前一晚少饮酒、早休息；出现明显不适及时下撤，不硬扛。",
+    "📶 离线准备｜山路偶有弱信号，提前下载离线地图、保存酒店电话与关键预订截图。",
+    "🎒 轻装漫游｜古城石板路不适合大箱子，主行李留车里，随身小包装水、防晒与充电宝。"
+  ]
+};
+
+const META = TRIP_CONFIG.meta || {};
+const DAYS = Array.isArray(TRIP_CONFIG.days) ? TRIP_CONFIG.days : [];
+const START = META.startDate;
+const STORE = `trip_done_${(META.author||'default').replace(/\s+/g,'_')}_${META.startDate}`;
+const LOCALE_STORE = STORE.replace('trip_done_','trip_locale_');
+const MAP_STORE = STORE.replace('trip_done_','trip_map_');
+const supportedLocales = ['zh-CN','en-US'];
+let locale = readStore(LOCALE_STORE, META.locale || 'zh-CN');
+if (!supportedLocales.includes(locale)) locale = META.locale || 'zh-CN';
+let done = readJSON(STORE, {});
+let map = null, street = null, satellite = null, satOn = false, chinaMode = true;
+let dayMarkers = {}, allPoints = [], meMarker = null, meLine = null, navObserver = null, toastTimer = null;
+
+function readStore(key,fallback){try{return localStorage.getItem(key)||fallback}catch(_){return fallback}}
+function writeStore(key,value){try{localStorage.setItem(key,value)}catch(_){}}
+function readJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch(_){return fallback}}
+function esc(value){return String(value ?? '').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]))}
+function t(key,vars={}){
+  const all = META.i18n || {};
+  const pack = all[locale] || all;
+  let s = pack && typeof pack[key] === 'string' ? pack[key] : (typeof all[key] === 'string' ? all[key] : undefined);
+  if (s == null) s = vars.fallback != null ? String(vars.fallback) : key;
+  Object.entries(vars).forEach(([k,v])=>{if(k !== 'fallback') s = s.split(`{${k}}`).join(String(v));});
+  return s;
+}
+function localized(key,fallback){return t(key,{fallback});}
+function localeDate(iso){
+  if(!iso)return '';
+  const d=new Date(iso+'T00:00:00');
+  return new Intl.DateTimeFormat(locale,{month:'short',day:'numeric'}).format(d);
+}
+function sectionHeading(tagKey,textKey,vars={}){return `<span class="tg">${esc(t(tagKey))}</span>${esc(t(textKey,vars))}`;}
+function unique(values){return [...new Set(values.filter(Boolean))];}
+function pointCount(){return DAYS.reduce((n,d)=>n+(Array.isArray(d.pts)?d.pts.length:0),0);}
+function firstPoint(){for(const day of DAYS){if(day.pts&&day.pts.length)return day.pts[0]}return null;}
+
+/* copy from xjb-public GCJ02 transform */
+function outChina(lng,lat){return(lng<72||lng>137.9||lat<0.8||lat>55.9)}
+function tl(x,y){let r=-100+2*x+3*y+.2*y*y+.1*x*y+.2*Math.sqrt(Math.abs(x));r+=(20*Math.sin(6*x*Math.PI)+20*Math.sin(2*x*Math.PI))*2/3;r+=(20*Math.sin(y*Math.PI)+40*Math.sin(y/3*Math.PI))*2/3;r+=(160*Math.sin(y/12*Math.PI)+320*Math.sin(y*Math.PI/30))*2/3;return r}
+function tg(x,y){let r=300+x+2*y+.1*x*x+.1*x*y+.1*Math.sqrt(Math.abs(x));r+=(20*Math.sin(6*x*Math.PI)+20*Math.sin(2*x*Math.PI))*2/3;r+=(20*Math.sin(x*Math.PI)+40*Math.sin(x/3*Math.PI))*2/3;r+=(150*Math.sin(x/12*Math.PI)+300*Math.sin(x/30*Math.PI))*2/3;return r}
+function G(lat,lng){if(outChina(lng,lat))return[lat,lng];const a=6378245,ee=.00669342162296594323;let dla=tl(lng-105,lat-35),dln=tg(lng-105,lat-35);const rl=lat/180*Math.PI;let m=Math.sin(rl);m=1-ee*m*m;const sm=Math.sqrt(m);dla=dla*180/((a*(1-ee))/(m*sm)*Math.PI);dln=dln*180/(a/sm*Math.cos(rl)*Math.PI);return[lat+dla,lng+dln];}
+
+function curIdx(){
+  const today=new Date(),start=new Date(START+'T00:00:00');
+  const x=Math.floor((today-start)/864e5)+1;
+  return x<1?0:(x>DAYS.length?DAYS.length+1:x);
+}
+function renderCountdown(){
+  const c=curIdx(), el=document.getElementById('countdown');
+  if(!el)return;
+  if(c<1){const n=Math.max(0,Math.ceil((new Date(START+'T00:00:00')-new Date())/864e5));el.textContent=t('countdown_before',{n});}
+  else if(c>DAYS.length)el.textContent=t('countdown_after');
+  else el.textContent=t('countdown_during',{n:c});
+}
+
+function renderNav(){
+  const hasVideos=Array.isArray(TRIP_CONFIG.videos)&&TRIP_CONFIG.videos.length>0;
+  const links=[['#top','nav_overview'],['#map-section','nav_map'],['#plan','nav_plan'],['#booked','nav_booked']];
+  if(hasVideos)links.push(['#videos-section','nav_videos']);
+  links.push(['#tips','nav_tips']);
+  document.getElementById('nav-inner').innerHTML=`<span class="brand">${esc(t('brand'))}</span>${links.map(([href,key],i)=>`<a href="${href}"${i===0?' class="on"':''}>${esc(t(key))}</a>`).join('')}<button class="navbtn" id="how-button" title="${esc(t('nav_how'))}" aria-label="${esc(t('nav_how'))}">?</button><button class="navbtn" id="locale-button" aria-label="Language">${esc(t('btn_language'))}</button>`;
+  document.getElementById('how-button').addEventListener('click',()=>{const box=document.getElementById('howto');box.open=true;box.scrollIntoView({behavior:'smooth'});});
+  document.getElementById('locale-button').addEventListener('click',toggleLocale);
+}
+function renderHero(){
+  const booked=TRIP_CONFIG.booked||{}, flights=booked.flights||[], cars=booked.cars||[];
+  const carBrand=unique(cars.map(c=>c.brand)).join('/')||'—';
+  const displayTitle=localized('meta_title',META.title), displaySubtitle=localized('meta_subtitle',META.subtitle);
+  document.title=t('document_title',{title:displayTitle});
+  document.getElementById('hero-eyebrow').textContent=t('demo_badge');
+  document.getElementById('hero-title').textContent=displayTitle;
+  document.getElementById('hero-subtitle').textContent=displaySubtitle;
+  const pills=[
+    t('hero_pill_days',{n:META.totalDays,start:localeDate(META.startDate),end:localeDate(META.endDate||META.startDate)}),
+    t('hero_pill_party',{n:META.partySize||'—'}),t('hero_pill_flights',{n:flights.length}),t('hero_pill_car',{brand:carBrand,n:cars.length}),
+    t('hero_pill_hotel',{n:META.hotelNights ?? Math.max(0,DAYS.length-1)}),t('hero_pill_budget',{status:t('budget_status',{fallback:META.budgetStatus||'—'})})
+  ];
+  document.getElementById('hero-pills').innerHTML=pills.map(x=>`<span class="pill"><b>${esc(x)}</b></span>`).join('');
+  document.getElementById('trip-flow').innerHTML=(TRIP_CONFIG.flow||[]).map((item,i)=>`${i?'<span class="ar" aria-hidden="true">→</span>':''}<span class="nd ${item.type==='drive'?'d':'a'}">${esc(localized('flow_'+(i+1),item.label))}</span>`).join('');
+  renderCountdown();
+}
+function renderHowTo(){
+  document.getElementById('how-summary').textContent=t('how_title');
+  document.getElementById('how-intro').textContent=t('how_intro');
+  const items=[['meta.title / startDate / totalDays / author','how_meta'],['flow[]','how_flow'],['days[]','how_days'],['booked.{flights,cars,hotels}','how_booked'],['videos[]','how_videos'],['tips[]','how_tips'],['meta.locale = "en-US"','how_locale'],['README_TRIP_PLANNER.md','how_readme']];
+  document.getElementById('how-grid').innerHTML=items.map(([code,key])=>`<div class="howitem"><code>${esc(code)}</code>${esc(t(key))}</div>`).join('');
+  const valid=Number(META.totalDays)===DAYS.length;
+  document.getElementById('config-status').innerHTML=`<div class="${valid?'config-ok':'config-warn'}">${esc(valid?t('config_ok',{days:DAYS.length,points:pointCount()}):t('config_warn',{declared:META.totalDays,actual:DAYS.length}))}</div>`;
+}
+function renderSectionChrome(){
+  document.getElementById('map-heading').innerHTML=sectionHeading('tag_live','section_map');
+  document.getElementById('plan-heading').innerHTML=sectionHeading('tag_guide','section_plan',{n:DAYS.length});
+  document.getElementById('booked-heading').innerHTML=sectionHeading('tag_booked','section_booked');
+  const videosHeading=document.getElementById('videos-heading');if(videosHeading)videosHeading.innerHTML=sectionHeading('tag_playlist','section_videos');
+  document.getElementById('tips-heading').innerHTML=sectionHeading('tag_tips','section_tips');
+  const p=firstPoint();chinaMode=p?!outChina(p.ln,p.la):META.locale==='zh-CN';
+  document.getElementById('map-controls').innerHTML=`<button class="b go" id="locate-btn">${esc(t('btn_locate'))}</button><button class="b" id="today-btn">${esc(t('btn_today'))}</button><button class="b" id="overview-btn">${esc(t('btn_overview'))}</button><button class="b" id="satellite-btn"${chinaMode?'':` disabled title="${esc(t('map_osm_only'))}"`}>${esc(t('btn_satellite'))}</button>`;
+  document.getElementById('locate-btn').addEventListener('click',locateMe);document.getElementById('today-btn').addEventListener('click',focusToday);document.getElementById('overview-btn').addEventListener('click',overview);document.getElementById('satellite-btn').addEventListener('click',toggleSat);
+}
+
+function buildTimeline(){
+  const box=document.getElementById('tllist');box.innerHTML='';const current=curIdx();
+  DAYS.forEach(day=>{
+    const el=document.createElement('div');el.className=`di s${day.s||1}${day.d===current?' cur':''}${done[day.d]?' done':''}`;el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',t('day_open_map',{n:day.d}));
+    const video=day.vid?`<a class="v" target="_blank" rel="noopener" href="https://www.bilibili.com/video/${encodeURIComponent(day.vid)}/">${esc(t('related_video',{title:day.vidt||t('video_default')}))}</a>`:'';
+    el.innerHTML=`<div class="dn">${esc(day.d)}</div><div class="dx"><div class="a">${esc(day.date)}</div><div class="b2">${esc(day.r)}</div><div class="h">${esc(t('hotel_prefix'))} ${esc(day.ho||'—')}</div>${video}</div><button class="ck" aria-label="${esc(done[day.d]?t('check_undo',{n:day.d}):t('check_done',{n:day.d}))}">${done[day.d]?'✓':'○'}</button>`;
+    el.querySelector('.ck').addEventListener('click',e=>{e.stopPropagation();done[day.d]=!done[day.d];writeStore(STORE,JSON.stringify(done));buildTimeline();});
+    const videoLink=el.querySelector('.v');if(videoLink)videoLink.addEventListener('click',e=>e.stopPropagation());
+    el.addEventListener('click',()=>flyDay(day.d));el.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target===el){e.preventDefault();flyDay(day.d);}});box.appendChild(el);
+  });
+}
+function buildCards(){
+  const box=document.getElementById('plancards');box.innerHTML='';
+  DAYS.forEach(day=>{
+    const el=document.createElement('article');el.className=`day s${day.s||1}${day.fly?' fly':''}`;el.tabIndex=0;el.setAttribute('role','button');el.setAttribute('aria-label',t('day_open_map',{n:day.d}));
+    const dateShort=String(day.date||'').split(' ')[0];const video=day.vid?`<a class="vl" target="_blank" rel="noopener" href="https://www.bilibili.com/video/${encodeURIComponent(day.vid)}/">${esc(t('related_video',{title:day.vidt||t('video_default')}))}</a>`:'';
+    el.innerHTML=`<div class="nn"><div class="a">${esc(dateShort)}</div><div class="n">${esc(day.d)}</div></div><div class="bd"><div class="route">${esc(day.r)} <span class="km">${esc(day.km||'')}</span>${video}</div><div class="desc">${esc(day.det||'')}</div><div class="stay">${esc(t('hotel_prefix'))} <b>${esc(day.ho||'—')}</b></div></div>`;
+    const open=()=>{document.getElementById('map-section').scrollIntoView({behavior:'smooth'});setTimeout(()=>flyDay(day.d),450);};
+    el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});const link=el.querySelector('.vl');if(link)link.addEventListener('click',e=>e.stopPropagation());box.appendChild(el);
+  });
+}
+
+function card(icon,color,title,lines){return `<article class="card"><span class="num" style="background:${color}">${esc(icon)}</span><h3>${esc(title)}</h3><ul>${lines.map(line=>`<li>${esc(line)}</li>`).join('')}</ul></article>`;}
+function renderBooked(){
+  const booked=TRIP_CONFIG.booked||{},flights=booked.flights||[],cars=booked.cars||[],hotels=booked.hotels||[];
+  const flightCards=flights.map(f=>card('✈','#2f6193',`${f.from} → ${f.to}`,[`${f.date} · ${f.time}`,`${t('label_flight')} ${f.flight}`,f.note]));
+  const carCards=cars.map(c=>card('🚙','#5b8a52',`${c.brand} · ${c.segment}`,[`${t('label_pickup')} ${c.pickup}`,`${t('label_dropoff')} ${c.dropoff}`,t('label_days',{n:c.days})]));
+  const hotelCards=hotels.map(h=>card(h.icon||'H','#8a5a2c',h.name,[`${t('label_stay')} ${h.days}`,h.tag]));
+  const group=(heading,cards)=>`<h3 class="subhead">${esc(heading)}</h3>${cards.length?`<div class="grid">${cards.join('')}</div>`:`<div class="empty">${esc(t('empty_booked'))}</div>`}`;
+  let html=group(t('booked_flights',{n:flights.length}),flightCards)+group(t('booked_cars',{n:cars.length}),carCards);
+  (booked.callouts||[]).forEach((c,i)=>{const n=i+1,title=localized(`callout_${n}_title`,c.title),text=localized(`callout_${n}_text`,c.text);html+=`<div class="callout ${c.type==='b'?'b':'t'}"><b>${esc(title)}</b> ${esc(text)}</div>`;});
+  html+=group(t('booked_hotels',{n:hotels.length}),hotelCards);document.getElementById('booked-content').innerHTML=html;
+}
+
+function videoMeta(item){if(item.youtube)return{platform:'youtube',id:item.youtube,url:`https://www.youtube.com/watch?v=${encodeURIComponent(item.youtube)}`};return{platform:'bilibili',id:item.bv,url:`https://www.bilibili.com/video/${encodeURIComponent(item.bv||'')}/`};}
+function renderVideos(){
+  const section=document.getElementById('videos-section'),groups=Array.isArray(TRIP_CONFIG.videos)?TRIP_CONFIG.videos:[];
+  if(!section)return;if(!groups.length){section.remove();return;}
+  const icons=['🎒','🛣️','🏞️','🌲'];let html=`<p class="video-intro">${esc(t('video_intro'))}</p><div class="grid">`;
+  groups.forEach((group,gi)=>{html+=`<div class="vcat">${esc(group.category)}</div>`;(group.items||[]).forEach(item=>{const vm=videoMeta(item);html+=`<article class="vcard"><div class="vthumb c${gi%4}" role="button" tabindex="0" data-platform="${vm.platform}" data-id="${esc(vm.id)}" data-title="${esc(item.title)}"><span class="ico">${icons[gi%4]}</span><span class="vtg">${esc(item.tag||vm.platform)}</span><span class="play">▶</span></div><div class="vm"><a target="_blank" rel="noopener" href="${vm.url}">${esc(item.title)} · ${esc(t('video_open'))}</a></div></article>`;});});
+  html+='</div>';document.getElementById('videos').innerHTML=html;
+  document.querySelectorAll('.vthumb').forEach(el=>{const play=()=>pv(el,el.dataset.id,el.dataset.platform,el.dataset.title);el.addEventListener('click',play);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});});
+}
+function pv(el,id,platform='bilibili',title=''){
+  if(!id)return;
+  const src=platform==='youtube'?`https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1`:`https://player.bilibili.com/player.html?bvid=${encodeURIComponent(id)}&autoplay=1&high_quality=1&danmaku=0&as_wide=1&page=1`;
+  el.innerHTML=`<iframe src="${src}" title="${esc(t('video_player',{title:title||t('video_default')}))}" scrolling="no" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;el.style.cursor='default';el.removeAttribute('role');el.removeAttribute('tabindex');
+}
+function renderTips(){
+  document.getElementById('tips-list').innerHTML=(TRIP_CONFIG.tips||[]).map((tip,i)=>{const text=localized(`tip_${i+1}`,tip);const split=text.split('｜');return `<article class="tip">${split.length>1?`<b>${esc(split.shift())}</b>${esc(split.join('｜'))}`:esc(text)}</article>`;}).join('');
+}
+function renderFooter(){document.getElementById('footer').innerHTML=`${esc(t('footer_public'))}<br><strong>${esc(t('footer_credit',{year:new Date().getFullYear()}))}</strong><br>${esc(t('footer_author',{author:META.author||'Traveler'}))}`;}
+
+function segmentColor(s){if(Number(s)===1)return'#5b8a52';if(Number(s)===2)return'#2f6193';return`hsl(${(Number(s)*120)%360},50%,45%)`;}
+function markerIcon(type,label){let c='mk ',x=label||'';if(type==='h'){c+='h';x='🛏';}else if(type==='air'){c+='air';x='✈';}else if(type==='opt'){c+='opt';x='?';}else if(type==='s2'){c+='s2';}else{c+='s1';}return L.divIcon({className:'',html:`<div class="${c}">${esc(x)}</div>`,iconSize:[25,25],iconAnchor:[12,12]});}
+function navUrl(point){if(outChina(point.ln,point.la))return`https://www.google.com/maps/search/?api=1&query=${point.la},${point.ln}`;const g=G(point.la,point.ln);return`https://uri.amap.com/marker?position=${g[1]},${g[0]}&name=${encodeURIComponent(point.n)}&coordinate=gaode&src=trip-planner-template`;}
+function addLegend(){
+  const control=L.control({position:'bottomleft'});control.onAdd=()=>{const div=L.DomUtil.create('div','legend');div.innerHTML=`<span><i style="background:#5b8a52"></i>${esc(t('legend_s1'))}</span> <span><i style="background:#2f6193"></i>${esc(t('legend_s2'))}</span><br><span><i style="background:#d9a441"></i>${esc(t('legend_hotel'))}</span> <span><i style="background:#c8714e"></i>${esc(t('legend_airport'))}</span> <span><i style="background:#9aa0a6"></i>${esc(t('legend_optional'))}</span>`;return div;};control.addTo(map);
+}
+function initMap(){
+  const container=document.getElementById('map');if(map){map.remove();map=null;}container.innerHTML='';dayMarkers={};allPoints=[];meMarker=null;meLine=null;
+  if(typeof L==='undefined'){container.innerHTML=`<div class="mapfallback">${esc(t('map_unavailable'))}</div>`;return;}
+  const p=firstPoint();chinaMode=p?!outChina(p.ln,p.la):META.locale==='zh-CN';
+  if(chinaMode){
+    street=L.tileLayer('https://wprd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scl=1&style=7&x={x}&y={y}&z={z}',{subdomains:'1234',maxZoom:18,attribution:'高德地图'});
+    satellite=L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',{subdomains:'1234',maxZoom:18,attribution:'高德地图'});
+    satOn=readStore(MAP_STORE,'street')==='satellite';
+  }else{
+    street=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'});satellite=null;satOn=false;
+  }
+  map=L.map('map',{layers:[satOn&&satellite?satellite:street],zoomControl:true}).setView(p?G(p.la,p.ln):[25,102],p?7:4);addLegend();
+  const segments=new Map();
+  DAYS.forEach(day=>{
+    dayMarkers[day.d]=[];const coords=[];
+    (day.pts||[]).forEach(point=>{const g=G(point.la,point.ln),label=(point.t==='s1'||point.t==='s2')?String(day.d):null;const marker=L.marker(g,{icon:markerIcon(point.t,label)}).addTo(map);
+      marker.bindPopup(`<div class="pt">${esc(point.n)}</div><div class="pd">Day ${esc(day.d)} · ${esc(day.date)}</div>${esc(point.dc||'')}<br><a class="pn" target="_blank" rel="noopener" href="${navUrl(point)}">${esc(outChina(point.ln,point.la)?t('nav_maps'):t('nav_amap'))}</a>`);
+      dayMarkers[day.d].push(marker);if(point.t!=='opt'){allPoints.push(g);coords.push(g);if(!segments.has(day.s||1))segments.set(day.s||1,[]);segments.get(day.s||1).push(g);}
+    });
+    const optional=(day.pts||[]).filter(x=>x.t==='opt').map(x=>G(x.la,x.ln));if(optional.length&&coords.length)L.polyline([coords[0],...optional,coords[coords.length-1]],{color:'#9aa0a6',weight:2.5,opacity:.72,dashArray:'4,7'}).addTo(map);
+    const airports=(day.pts||[]).filter(x=>x.t==='air').map(x=>G(x.la,x.ln));if(day.fly&&airports.length>1)L.polyline(airports,{color:'#c8714e',weight:2.5,opacity:.82,dashArray:'2,8'}).addTo(map);
+  });
+  segments.forEach((coords,s)=>{if(coords.length>1)L.polyline(coords,{color:segmentColor(s),weight:4,opacity:.85}).addTo(map);});
+  if(allPoints.length)map.fitBounds(L.latLngBounds(allPoints).pad(.12));updateMapModeButton();setTimeout(()=>map&&map.invalidateSize(),250);
+}
+function updateMapModeButton(){const b=document.getElementById('satellite-btn');if(!b)return;b.textContent=satOn?t('btn_street'):t('btn_satellite');b.disabled=!chinaMode;b.title=chinaMode?'':t('map_osm_only');}
+function toggleSat(){if(!map||!chinaMode||!satellite){toast(t('map_osm_only'));return;}satOn=!satOn;if(satOn){map.removeLayer(street);map.addLayer(satellite);}else{map.removeLayer(satellite);map.addLayer(street);}writeStore(MAP_STORE,satOn?'satellite':'street');updateMapModeButton();toast(t(satOn?'map_satellite_on':'map_street_on'));}
+function flyDay(dayNumber){if(!map)return;const markers=dayMarkers[dayNumber]||[];if(!markers.length)return;const bounds=L.latLngBounds(markers.map(m=>m.getLatLng()));map.flyToBounds(bounds.pad(.35),{maxZoom:12,duration:.8});setTimeout(()=>markers[0]&&markers[0].openPopup(),700);}
+function overview(){if(!map||!allPoints.length)return;map.flyToBounds(L.latLngBounds(allPoints).pad(.12),{duration:.8});toast(t('map_overview'));}
+function focusToday(){const c=curIdx();if(c<1){const n=Math.max(0,Math.ceil((new Date(START+'T00:00:00')-new Date())/864e5));toast(t('before_short',{n}));flyDay(DAYS[0]&&DAYS[0].d);return;}if(c>DAYS.length){overview();toast(t('trip_finished_short'));return;}toast(t('today_day',{n:c}));flyDay(c);}
+function locateMe(){
+  if(!map)return;if(!navigator.geolocation){toast(t('locate_unsupported'));return;}toast(t('locating'));
+  navigator.geolocation.getCurrentPosition(pos=>{const g=G(pos.coords.latitude,pos.coords.longitude);if(meMarker)map.removeLayer(meMarker);meMarker=L.marker(g,{icon:L.divIcon({className:'',html:'<div class="me"></div>',iconSize:[16,16],iconAnchor:[8,8]})}).addTo(map).bindPopup(esc(t('my_location'))).openPopup();
+    let bestDistance=Infinity,best=null;DAYS.forEach(day=>(day.pts||[]).forEach(point=>{const pg=G(point.la,point.ln),distance=map.distance(g,pg);if(distance<bestDistance){bestDistance=distance;best={point,day,pg};}}));
+    if(best){if(meLine)map.removeLayer(meLine);meLine=L.polyline([g,best.pg],{color:'#1a73e8',weight:2,dashArray:'3,6'}).addTo(map);toast(t('nearest',{day:best.day.d,place:best.point.n,km:(bestDistance/1000).toFixed(1)}));}map.flyTo(g,9,{duration:.8});
+  },err=>toast(err.code===1?t('locate_permission'):t('locate_failed')),{enableHighAccuracy:true,timeout:10000});
+}
+function toast(message){const el=document.getElementById('toast');el.textContent=message;el.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.style.display='none',3000);}
+function setupNavSpy(){if(navObserver)navObserver.disconnect();const links=[...document.querySelectorAll('nav a')];navObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){const id=entry.target.id;links.forEach(link=>link.classList.toggle('on',link.getAttribute('href')==='#'+id));}}),{rootMargin:'-45% 0px -50% 0px'});document.querySelectorAll('section[id],header[id],details[id]').forEach(section=>navObserver.observe(section));}
+function toggleLocale(){locale=locale==='zh-CN'?'en-US':'zh-CN';writeStore(LOCALE_STORE,locale);render();toast(t('language_changed'));}
+function render(){
+  document.documentElement.lang=locale;renderNav();renderHero();renderHowTo();renderSectionChrome();buildTimeline();buildCards();renderBooked();renderVideos();renderTips();renderFooter();initMap();setupNavSpy();
+}
+render();
+</script>
+</body>
+</html>

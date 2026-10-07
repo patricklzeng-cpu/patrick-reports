@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatGPT Voice 2.0 — The Jarvis Era (5 Levels) · 双语知识仪表盘</title>
+<style>
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1f2733;--fg:#e6edf3;--fg2:#8b949e;--accent:#58a6ff;--accent2:#7ee787;--warn:#d29922;--danger:#f85149;--border:#30363d}
+[data-theme="light"]{--bg:#ffffff;--bg2:#f6f8fa;--bg3:#eaeef2;--fg:#1f2328;--fg2:#59636e;--accent:#0969da;--accent2:#1a7f37;--warn:#9a6700;--danger:#cf222e;--border:#d0d7de}
+[data-theme="sepia"]{--bg:#f4ecd8;--bg2:#e8dcc0;--bg3:#dcc9a3;--fg:#3a2f1d;--fg2:#6b5a3f;--accent:#a0522d;--accent2:#6b8e23;--warn:#b8860b;--danger:#8b0000;--border:#c4b48f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;font-size:14px;transition:background .3s,color .3s}
+.container{max-width:1320px;margin:0 auto;padding:24px;display:grid;grid-template-columns:240px 1fr;gap:24px}
+aside.toc{position:sticky;top:24px;height:calc(100vh - 48px);overflow-y:auto;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:16px;transition:margin-left .3s,padding .3s,opacity .3s;margin-left:0}
+aside.toc.collapsed{margin-left:-220px;padding-left:0;padding-right:0;opacity:0;pointer-events:none}
+aside.toc h3{font-size:13px;color:var(--fg2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+aside.toc ul{list-style:none}
+aside.toc li{margin:4px 0}
+aside.toc a{color:var(--fg);text-decoration:none;display:block;padding:6px 10px;border-radius:6px;font-size:13px;transition:background .2s}
+aside.toc a:hover,aside.toc a.active{background:var(--bg3);color:var(--accent)}
+.toc-toggle{position:fixed;top:24px;left:24px;z-index:100;background:var(--bg2);border:1px solid var(--border);color:var(--fg);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+.toc-toggle.toc-open{left:268px}
+main{padding:0}
+header.hero{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+header.hero h1{font-size:24px;margin-bottom:8px;color:var(--accent)}
+header.hero .meta-pills{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+header.hero .meta-pill{background:var(--bg3);padding:4px 10px;border-radius:20px;font-size:12px;color:var(--fg2)}
+header.hero .lede{color:var(--fg2);font-size:14px;margin-top:8px}
+.controls-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.tabs-nav{display:flex;gap:4px;flex-wrap:wrap;background:var(--bg2);padding:8px;border-radius:10px;border:1px solid var(--border)}
+.tab-btn{background:transparent;border:1px solid transparent;color:var(--fg2);padding:8px 14px;border-radius:6px;cursor:pointer;font-size:13px;font-family:inherit;transition:all .2s}
+.tab-btn:hover{color:var(--fg);background:var(--bg3)}
+.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.lang-toggle{display:flex;gap:0;background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.lang-btn{background:transparent;border:none;color:var(--fg2);padding:8px 14px;cursor:pointer;font-size:13px;font-family:inherit}
+.lang-btn.active{background:var(--accent2);color:#0d1117}
+.theme-toggle{margin-left:auto}
+.theme-btn{background:var(--bg2);border:1px solid var(--border);color:var(--fg);padding:8px 12px;border-radius:6px;cursor:pointer;font-size:13px}
+.tab-content{display:none;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px}
+.tab-content.active{display:block}
+.tab-content h2{color:var(--accent);font-size:20px;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+.tab-content h3{color:var(--accent2);font-size:16px;margin:20px 0 10px}
+.tab-content p{margin:8px 0;color:var(--fg)}
+.tab-content ul,.tab-content ol{margin:10px 0 10px 24px}
+.tab-content li{margin:4px 0}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+.stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px}
+.stat-card .label{font-size:11px;color:var(--fg2);text-transform:uppercase;letter-spacing:.5px}
+.stat-card .value{font-size:22px;font-weight:600;color:var(--accent);margin-top:4px}
+.stat-card .sub{font-size:12px;color:var(--fg2);margin-top:4px}
+.window{background:var(--bg3);border-left:3px solid var(--accent);border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px}
+.window .ts{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--accent);font-size:12px;font-weight:600}
+.window .title{font-weight:600;color:var(--fg);margin:4px 0}
+.window .text{color:var(--fg);font-size:13px;line-height:1.6}
+.quote-card{background:var(--bg3);border-left:4px solid var(--accent2);padding:14px 16px;margin:12px 0;border-radius:6px}
+.quote-card .quote-text{font-style:italic;font-size:14px;color:var(--fg)}
+.quote-card .quote-en{font-style:italic;font-size:13px;color:var(--fg2);margin-top:6px;padding-top:6px;border-top:1px dashed var(--border)}
+.quote-card .quote-meta{font-size:11px;color:var(--fg2);margin-top:8px}
+.callout{background:rgba(210,153,34,.1);border-left:4px solid var(--warn);padding:12px 16px;margin:12px 0;border-radius:6px;font-size:13px}
+.callout strong{color:var(--warn)}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+.pros,.cons{background:var(--bg3);border-radius:8px;padding:14px}
+.pros h4{color:var(--accent2)}
+.cons h4{color:var(--danger)}
+.pros li,.cons li{margin:4px 0;font-size:13px}
+code{background:var(--bg3);padding:2px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;color:var(--accent2)}
+.pre-block{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:12px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;overflow-x:auto;margin:12px 0;line-height:1.5}
+.roster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.roster-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px}
+.roster-card .name{font-weight:600;color:var(--accent);font-size:14px}
+.roster-card .desc{font-size:12px;color:var(--fg2);margin-top:4px}
+.tab-badge{display:inline-block;background:var(--accent);color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;margin-left:6px;vertical-align:middle}
+@media(max-width:900px){.container{grid-template-columns:1fr}aside.toc{position:fixed;left:0;top:0;height:100vh;z-index:99;width:240px;margin-left:-260px;transition:margin-left .3s}aside.toc.open{margin-left:0}.toc-toggle{left:12px}.toc-toggle.toc-open{left:12px}}
+</style>
+</head>
+<body>
+
+<button class="toc-toggle" aria-label="Toggle TOC" onclick="toggleTOC()">☰</button>
+
+<div class="container">
+
+<aside class="toc" id="toc">
+<h3>📑 目录 / TOC</h3>
+<ul id="toc-list">
+<li><a href="#hero">🎬 视频概览</a></li>
+<li><a href="#levels">🏛️ 5 Levels 框架</a></li>
+<li><a href="#timeline">⏱️ 时间线 25 窗口</a></li>
+<li><a href="#level1">⚡ Level 1 · 多任务</a></li>
+<li><a href="#level2">🌐 Level 2 · 远程控制</a></li>
+<li><a href="#level3">💡 Level 3 · 上下文推荐</a></li>
+<li><a href="#level4">🔧 Level 4 · Agent 协作</a></li>
+<li><a href="#level5">🖐️ Level 5 · 完全解放双手</a></li>
+<li><a href="#quotes">💬 关键金句</a></li>
+<li><a href="#use-cases">🎯 实战场景</a></li>
+<li><a href="#limitations">⚠️ 诚实局限</a></li>
+<li><a href="#compare">📊 对比与权衡</a></li>
+<li><a href="#roster">🧠 Patrick 关联</a></li>
+<li><a href="#meta">📦 元数据</a></li>
+</ul>
+</aside>
+
+<main>
+
+<header class="hero" id="hero">
+<h1>🎙️ ChatGPT Voice 2.0 — The Jarvis Era <span class="tab-badge">5 Levels</span></h1>
+<div class="meta-pills">
+<span class="meta-pill">📺 Jack Roberts</span>
+<span class="meta-pill">⏱️ 13:19</span>
+<span class="meta-pill">📅 2026-07-28</span>
+<span class="meta-pill">👁 5,533</span>
+<span class="meta-pill">👍 177</span>
+<span class="meta-pill">🗓️ 2026-07-29 编译</span>
+</div>
+<p class="lede">
+<span data-zh>OpenAI 发布 ChatGPT Voice 2.0,本质上就是贾维斯 —— 浮动小图标跟随你的每一个窗口,后台思考 + 实时对话 + 桌面执行 5 个层次递进。从多任务 (Level 1) 到完全解放双手点按钮填表单 (Level 5),关键转折是 Hermes Agent 接入。</span>
+<span data-en style="display:none">OpenAI released ChatGPT Voice 2.0 — essentially JARVIS. A floating widget follows every window, thinks background while you talk, executes on desktop across 5 escalating levels. From multitasking (Level 1) to fully hands-free button-clicking + form-filling (Level 5). The critical unlock is Hermes Agent integration.</span>
+</p>
+</header>
+
+<div class="controls-row">
+<div class="tabs-nav" id="tabs-nav">
+<button class="tab-btn active" data-tab="overview">📊 概览</button>
+<button class="tab-btn" data-tab="levels">🏛️ 5 Levels</button>
+<button class="tab-btn" data-tab="timeline">⏱️ 时间线</button>
+<button class="tab-btn" data-tab="level1">⚡ L1</button>
+<button class="tab-btn" data-tab="level2">🌐 L2</button>
+<button class="tab-btn" data-tab="level3">💡 L3</button>
+<button class="tab-btn" data-tab="level4">🔧 L4</button>
+<button class="tab-btn" data-tab="level5">🖐️ L5</button>
+<button class="tab-btn" data-tab="quotes">💬 金句</button>
+<button class="tab-btn" data-tab="use-cases">🎯 场景</button>
+<button class="tab-btn" data-tab="limitations">⚠️ 局限</button>
+<button class="tab-btn" data-tab="compare">📊 对比</button>
+<button class="tab-btn" data-tab="roster">🧠 关联</button>
+<button class="tab-btn" data-tab="meta">📦 元数据</button>
+</div>
+<div class="lang-toggle" role="group" aria-label="Language toggle">
+<button class="lang-btn active" data-lang="zh">中文</button>
+<button class="lang-btn" data-lang="en">EN</button>
+</div>
+<button class="theme-btn theme-toggle" onclick="cycleTheme()">🎨 主题</button>
+</div>
+
+<section class="tab-content active" id="overview" data-tab-name="overview">
+<h2 id="hero">📊 视频概览</h2>
+<div class="stat-grid">
+<div class="stat-card"><div class="label">时长</div><div class="value">13:19</div><div class="sub">799 秒</div></div>
+<div class="stat-card"><div class="label">章节数</div><div class="value">25</div><div class="sub">5 个 Level × 5 子节</div></div>
+<div class="stat-card"><div class="label">核心概念</div><div class="value">JARVIS</div><div class="sub">浮动代理 + 后台思考</div></div>
+<div class="stat-card"><div class="label">触发点</div><div class="value">Hermes Agent</div><div class="sub">语音 → Agent 桥</div></div>
+<div class="stat-card"><div class="label">局限</div><div class="value">速度慢</div><div class="sub">浏览器控制 + 不支持直播</div></div>
+<div class="stat-card"><div class="label">观看</div><div class="value">5,533</div><div class="sub">👍 177 · 1d ago</div></div>
+</div>
+
+<h3>📌 一句话总结</h3>
+<p>
+<span data-zh>ChatGPT Voice 2.0 = 桌面浮动代理 + 5 级能力递进,从"多任务对话"到"完全解放双手点按钮填表单"。真正的杠杆点不是语音本身,而是它能主动触发你电脑上已经在跑的 Hermes Agent,把"对话"升级为"会话式 OS 控制"。</span>
+<span data-en style="display:none">ChatGPT Voice 2.0 = a floating desktop agent with 5 escalating capability tiers, from "multitasking conversation" to "fully hands-free button-clicking + form-filling". The real leverage isn't voice itself — it's that it can actively trigger your already-running Hermes Agent on the desktop, upgrading "dialog" into "conversational OS control".</span>
+</p>
+
+<h3>🎯 三个关键洞察</h3>
+<ol>
+<li><span data-zh><strong>JARVIS 隐喻成立</strong>:浮动小图标 + 后台思考 + 跨窗口跟随,这是 10 年前科幻片里的桌面代理,今天第一次有产品摸到门槛。</span><span data-en style="display:none"><strong>JARVIS metaphor lands</strong>: floating widget + background thinking + cross-window follow — this is the sci-fi desktop agent from 10 years ago, and for the first time a product is touching the threshold.</span></li>
+<li><span data-zh><strong>5 Levels 是渐进授权</strong>:从"被动对话"到"主动执行"再到"代为决策",每升一级就把一个"必须我亲自做"的任务交给它。</span><span data-en style="display:none"><strong>5 Levels = progressive authorization</strong>: from "passive convo" to "active execution" to "substitute decisions" — each level hands off one more "must-do-myself" task.</span></li>
+<li><span data-zh><strong>Hermes Agent 是关键解锁</strong>:语音聊天本身不够酷,真正改变游戏的是"让语音触发我的 Agent"—— 这把 ChatGPT 从"对话界面"升级为"Agent 编排器"。</span><span data-en style="display:none"><strong>Hermes Agent is the unlock</strong>: voice chat alone isn't enough; the game-changer is "let voice trigger my Agent" — this upgrades ChatGPT from "chat interface" to "Agent orchestrator".</span></li>
+</ol>
+
+<div class="callout">
+<strong>⚠️ 元数据说明:</strong>
+<span data-zh>本仪表盘基于 13:19 视频 + 432 字幕段 + 25 章节标题。YouTube 字幕为自动生成中英混合(EN 词 + 中文语法),已按章节窗口聚类重建。引用金句优先选择"英文 token 完整"段落。Hermes Agent 部分为视频中示意接入,实际 API 路径 Patrick 在自己的部署里实测。</span>
+<span data-en style="display:none">Dashboard built from 13:19 video + 432 cue segments + 25 chapter titles. YouTube auto-caption is bilingual-mixed (EN tokens + Chinese grammar) — re-clustered by chapter window. Quotes preferentially selected from English-complete paragraphs. Hermes Agent integration shown in video; actual API path validated by Patrick in his own deployment.</span>
+</div>
+</section>
+
+<section class="tab-content" id="levels" data-tab-name="levels">
+<h2 id="levels">🏛️ 5 Levels 框架</h2>
+<p>
+<span data-zh>整个视频围绕 5 个递进的"能力等级"展开。每个 Level 都把"你能让 ChatGPT 做什么"扩大一层,从"陪聊"到"代你动手"。</span>
+<span data-en style="display:none">The whole video revolves around 5 escalating capability tiers. Each Level expands what you can ask ChatGPT to do — from "chat" to "act on your behalf".</span>
+</p>
+
+<div class="stat-grid">
+<div class="stat-card"><div class="label">L1</div><div class="value">Multitasking</div><div class="sub">3 个任务并行</div></div>
+<div class="stat-card"><div class="label">L2</div><div class="value">Remote Control</div><div class="sub">远程访问桌面</div></div>
+<div class="stat-card"><div class="label">L3</div><div class="value">Context-Aware</div><div class="sub">任意窗口上下文</div></div>
+<div class="stat-card"><div class="label">L4</div><div class="value">Agent Bridge</div><div class="sub">触发 Hermes Agent</div></div>
+<div class="stat-card"><div class="label">L5</div><div class="value">Hands-Free</div><div class="sub">点按钮 + 填表单</div></div>
+</div>
+
+<h3>📶 每个 Level 的核心差异</h3>
+<table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:13px">
+<thead><tr style="background:var(--bg3)"><th style="padding:8px;text-align:left">Level</th><th style="padding:8px;text-align:left">能力</th><th style="padding:8px;text-align:left">关键演示</th></tr></thead>
+<tbody>
+<tr><td style="padding:8px"><strong>L1</strong></td><td style="padding:8px"><span data-zh>多任务并行处理</span><span data-en style="display:none">Parallel multi-task execution</span></td><td style="padding:8px"><span data-zh>3 个任务同时进行:清理桌面 + Firecrawl 研究 + 着陆页 HTML</span><span data-en style="display:none">3 tasks at once: clean desktop + Firecrawl research + landing page HTML</span></td></tr>
+<tr><td style="padding:8px"><strong>L2</strong></td><td style="padding:8px"><span data-zh">远程桌面控制</span><span data-en style="display:none">Remote desktop control</span></td><td style="padding:8px"><span data-zh>咖啡店里问"我桌面最后保存了什么",Web 登录 + 远程查桌面</span><span data-en style="display:none">From a coffee shop: ask "what did I last save on my desktop", web login + remote query</span></td></tr>
+<tr><td style="padding:8px"><strong>L3</strong></td><td style="padding:8px"><span data-zh">上下文感知推荐</span><span data-en style="display:none">Context-aware recommendations</span></td><td style="padding:8px"><span data-zh>在 Eleven Labs 页面问"哪个版本适合我",它根据项目背景推荐</span><span data-en style="display:none">On Eleven Labs page: ask "which plan fits me" — it recommends based on project context</span></td></tr>
+<tr><td style="padding:8px"><strong>L4</strong></td><td style="padding:8px"><span data-zh>Agent 桥接</span><span data-en style="display:none">Agent bridge</span></td><td style="padding:8px"><span data-zh>语音 → Hermes Agent 触发 + 配置检查 + 设置提醒</span><span data-en style="display:none">Voice → Hermes Agent trigger + config check + reminder setup</span></td></tr>
+<tr><td style="padding:8px"><strong>L5</strong></td><td style="padding:8px"><span data-zh>完全解放双手</span><span data-en style="display:none">Fully hands-free</span></td><td style="padding:8px"><span data-zh>语音指令 → 浏览器观察 → 点击按钮 → 填表单</span><span data-en style="display:none">Voice command → browser observe → click button → fill form</span></td></tr>
+</tbody>
+</table>
+</section>
+
+<section class="tab-content" id="timeline" data-tab-name="timeline">
+<h2 id="timeline">⏱️ 时间线 · 25 章节窗口</h2>
+<p>
+<span data-zh>全部 25 个章节窗口,按时间顺序排列。每个窗口含时间戳 + 章节标题 + 关键内容一句话。点击 TOC 右侧可跳转。</span>
+<span data-en style="display:none">All 25 chapter windows, chronologically ordered. Each window has timestamp + chapter title + one-line key content. Click TOC on right to jump.</span>
+</p>
+
+<h3>📚 完整时间线</h3>
+
+<div class="window"><div class="ts">[0:00–1:48]</div><div class="title">W01 · The Jarvis Era Begins</div><div class="text"><span data-zh>OpenAI 发布 ChatGPT Voice 2.0 = JARVIS。浮动小图标 + 跨窗口跟随 + 后台思考联动。准备 5 个 Level 演示。</span><span data-en style="display:none">OpenAI released ChatGPT Voice 2.0 = JARVIS. Floating widget + cross-window follow + back-ground thinking. 5 Levels preview.</span></div></div>
+<div class="window"><div class="ts">[1:48–2:24]</div><div class="title">W02 · What Changed Under The Hood</div><div class="text"><span data-zh>1.5 亿周活语音用户;app 没变,引擎变了。两款新模型 + 后台思考 + 性能提升 + 桌面/笔记本/手机全平台。</span><span data-en style="display:none">150M weekly voice users; app unchanged, engine swapped. Two new models + back-ground thinking + perf boost + desktop/laptop/mobile parity.</span></div></div>
+<div class="window"><div class="ts">[2:24–2:37]</div><div class="title">W03 · Level 1 Intro</div><div class="text"><span data-zh>第一个 Level = 多任务处理能力。打开语音模式,切换按钮,即将布置 3 个并发任务。</span><span data-en style="display:none">Level 1 = multitasking capability. Toggle voice mode, switch button, about to dispatch 3 concurrent tasks.</span></div></div>
+<div class="window"><div class="ts">[2:37–3:23]</div><div class="title">W04 · Three Tasks At Once</div><div class="text"><span data-zh>3 个任务并行:①清理桌面 ②Firecrawl 研究 2026 X 账户策略 ③为客户网站做互动着陆页。Agent 请求澄清(只整理下载)。</span><span data-en style="display:none">3 tasks parallel: ① clean desktop ② Firecrawl research 2026 X strategy ③ client landing page HTML. Agent asks clarification (downloads only).</span></div></div>
+<div class="window"><div class="ts">[3:23–3:47]</div><div class="title">W05 · Floating Widget</div><div class="text"><span data-zh>浮动小图标 = 真正的杠杆。可以随意移动,跟随任何窗口,任何网站都能聊。解锁一系列惊艳功能。</span><span data-en style="display:none">Floating widget = the real lever. Move anywhere, follows any window, chat on any site. Unlocks a series of surprising features.</span></div></div>
+<div class="window"><div class="ts">[3:47–4:14]</div><div class="title">W06 · Agent Thinks Before Acting</div><div class="text"><span data-zh>关键安全设计:动手前要求澄清。用户要求"整理桌面"但桌面有重要文件,Agent 主动澄清"只整理下载文件"。</span><span data-en style="display:none">Critical safety design: asks clarification before acting. User says "tidy desktop" but desktop has important files; Agent clarifies "only sort downloads".</span></div></div>
+<div class="window"><div class="ts">[4:14–4:40]</div><div class="title">W07 · Firecrawl Saves Tokens</div><div class="text"><span data-zh>为什么用 Firecrawl?减少 token:抓取+解析+交互一次完成,节省 token 成本 + 更快体验。</span><span data-en style="display:none">Why Firecrawl? Fewer tokens: scrape+parse+interact in one go, save token cost + faster experience.</span></div></div>
+<div class="window"><div class="ts">[4:40–5:19]</div><div class="title">W08 · Chat About Any Webpage</div><div class="text"><span data-zh>在 Firecrawl 网站上与 ChatGPT 直接对话:它解释"你可以搜索实时网络 + 抓取单个 URL",可截屏。</span><span data-en style="display:none">Chat directly with ChatGPT on Firecrawl website: it explains "you can search live web + crawl single URL", with screenshots.</span></div></div>
+<div class="window"><div class="ts">[5:19–5:27]</div><div class="title">W09 · Research Report</div><div class="text"><span data-zh>ChatGPT 主动打开新标签页,展示研究报告。语音指令 → 实际产出物。</span><span data-en style="display:none">ChatGPT opens new tab itself, shows research report. Voice command → actual deliverable.</span></div></div>
+<div class="window"><div class="ts">[5:27–6:01]</div><div class="title">W10 · Landing Page Built By Voice</div><div class="text"><span data-zh>第三个任务 = 着陆页 HTML 产出。Voicemod / 创造未来所需网站都是同类应用 —— 多命令 + 权限 + 尽情发挥。</span><span data-en style="display:none">Third task = landing page HTML output. Voicemod / "create the future" sites are same class — multi-commands + permissions + let it rip.</span></div></div>
+<div class="window"><div class="ts">[6:01–6:19]</div><div class="title">W11 · Level 2 Intro</div><div class="text"><span data-zh>Level 2 = 即使不在电脑前也能用。Web 端登录同一账号,即可远程访问桌面内容。</span><span data-en style="display:none">Level 2 = use even when not at computer. Web login same account → remote desktop access.</span></div></div>
+<div class="window"><div class="ts">[6:19–6:46]</div><div class="title">W12 · Control Desktop Remotely</div><div class="text"><span data-zh>咖啡店场景:"我桌面最后保存了什么?" → Web 端登录 → 远程检查桌面 + 检索信息 + 桌面任务执行。</span><span data-en style="display:none">Coffee shop scenario: "what did I last save on desktop?" → web login → remote check + retrieve + execute desktop tasks.</span></div></div>
+<div class="window"><div class="ts">[6:46–7:04]</div><div class="title">W13 · Level 3 Intro</div><div class="text"><span data-zh>Level 3 = 模糊想法得到有意义的反馈。在任何窗口打开都能继续用。</span><span data-en style="display:none">Level 3 = vague ideas get meaningful feedback. Open in any window and keep using.</span></div></div>
+<div class="window"><div class="ts">[7:04–7:35]</div><div class="title">W14 · Context-Aware Recommendations</div><div class="text"><span data-zh>展示页面: Eleven Labs 4 个版本。用一句话"我在做 XX 项目,推荐哪个版本?" → Agent 缩小范围确定最合适。</span><span data-en style="display:none">Demo: Eleven Labs 4 plans. One-sentence "I'm doing XX project, recommend which plan?" → Agent narrows domain and picks most fitting.</span></div></div>
+<div class="window"><div class="ts">[7:35–7:49]</div><div class="title">W15 · Assistant Follows Every Tab</div><div class="text"><span data-zh>跟随每一个标签页。静音 / 跳到 YouTube / 做任何事都不丢上下文。右键单击内容 → 在网页内继续检查。</span><span data-en style="display:none">Follows every tab. Mute / jump to YouTube / do anything without losing context. Right-click content → continue inspecting in page.</span></div></div>
+<div class="window"><div class="ts">[7:49–8:20]</div><div class="title">W16 · Debug Errors Hands-Free</div><div class="text"><span data-zh>调试错误:看到右侧一堆错误 → "帮我解释这里的错误" → 节省浏览时间。蓝色小图标随时在。</span><span data-en style="display:none">Debug errors: see right-side errors → "explain these errors" → save browsing time. Blue widget always there.</span></div></div>
+<div class="window"><div class="ts">[8:20–9:01]</div><div class="title">W17 · Pick Your Voice Model</div><div class="text"><span data-zh>加载语音程序时选声音 + 引擎:5.6 Sol → 推荐 GPT-5.6 / Claude Code Masterclass 课程植入。</span><span data-en style="display:none">When loading voice app, pick voice + engine: 5.6 Sol → recommends GPT-5.6 / Claude Code Masterclass course plug.</span></div></div>
+<div class="window"><div class="ts">[9:01–9:30]</div><div class="title">W18 · Level 4 Intro</div><div class="text"><span data-zh>Level 4 = 通过 ChatGPT 触发 Hermes Agent。Agent 无论 Claude / Hermes 都同等适用,巨大漏洞(重大利好)。</span><span data-en style="display:none">Level 4 = trigger Hermes Agent via ChatGPT. Works for any Agent (Claude / Hermes / Open) — huge unlock.</span></div></div>
+<div class="window"><div class="ts">[9:30–10:01]</div><div class="title">W19 · Agent Checks Its Own Config</div><div class="text"><span data-zh>"我的 Hermes Agent 目前用什么模型?" → 直接检查配置(不是猜测)→ GPT-5.6 Saul。连接其他代理系统。</span><span data-en style="display:none">"What model is my Hermes Agent on?" → directly check config (not guess) → GPT-5.6 Saul. Connect to other agent systems.</span></div></div>
+<div class="window"><div class="ts">[10:01–10:49]</div><div class="title">W20 · Voice-Set Reminders Via Agent</div><div class="text"><span data-zh>语音:设提醒 11:00 提醒领冰咖啡 → Agent 设置提醒。语音 + Agent = 远程 + 同步 + 跨设备。</span><span data-en style="display:none">Voice: set reminder at 11:00 to grab iced coffee → Agent sets reminder. Voice + Agent = remote + sync + cross-device.</span></div></div>
+<div class="window"><div class="ts">[10:49–11:11]</div><div class="title">W21 · Level 5 + Fully Hands-Free</div><div class="text"><span data-zh>Level 5 = 完全解放双手。漂亮浮动代理在屏幕上为你做事。机器人群组示例:导师 + 选成员 + 启动。</span><span data-en style="display:none">Level 5 = fully hands-free. Beautiful floating agent on screen doing things for you. Bot group example: mentor + select member + launch.</span></div></div>
+<div class="window"><div class="ts">[11:11–11:53]</div><div class="title">W22 · Voice Clicks Buttons</div><div class="text"><span data-zh>"点击进入下一页" → 按钮已启用。"分析我的个人资料" → 个人资料分析页面打开并运行。Agent 观察屏幕 + 决策。</span><span data-en style="display:none">"Click next page" → button enabled. "Analyze my profile" → profile analysis page opens and runs. Agent observes screen + decides.</span></div></div>
+<div class="window"><div class="ts">[11:53–12:20]</div><div class="title">W23 · Forms Fill Themselves</div><div class="text"><span data-zh>关键升级:Agent 看联系人 + 信息 + 帮出"假设 10,000 美元"等具体决策 + 自动填表单。提问题 → 匹配选项 → 填信息。</span><span data-en style="display:none">Key upgrade: Agent sees contacts + info + helps with concrete decisions like "say $10,000" + auto-fills forms. Ask Q → match options → fill info.</span></div></div>
+<div class="window"><div class="ts">[12:20–13:12]</div><div class="title">W24 · Honest Limitations</div><div class="text"><span data-zh>三大局限:①浏览器控制速度慢 ②无实时摄像头(不能直播询问) ③屏幕仅限 Mac 桌面 + 记忆不如 ChatGPT 全面。</span><span data-en style="display:none">Three limits: ① browser control is slow ② no live camera (can't live-ask) ③ Mac desktop only + memory less complete than ChatGPT.</span></div></div>
+<div class="window"><div class="ts">[13:12–13:19]</div><div class="title">W25 · What's Next</div><div class="text"><span data-zh>收尾:下一阶段学习如何把这项技术提升到全新水平,使用 Hermes Agent 一起实现。</span><span data-en style="display:none">Wrap-up: next stage, learn how to take this technique to a new level — using Hermes Agent together.</span></div></div>
+</section>
+
+<section class="tab-content" id="level1" data-tab-name="level1">
+<h2 id="level1">⚡ Level 1 · 多任务处理</h2>
+<p>
+<span data-zh>Level 1 演示的是"同时进行多个任务"的能力。视频里 Jack 一次性给 ChatGPT 布置 3 个任务,Agent 不但并行执行,还在动手前主动澄清("只整理下载文件,不动桌面")。</span>
+<span data-en style="display:none">Level 1 demonstrates "multiple tasks at once". Jack dispatches 3 tasks to ChatGPT simultaneously; the Agent runs them in parallel AND proactively clarifies before acting ("only sort downloads, don't touch desktop").</span>
+</p>
+
+<h3>🎯 三个并发任务</h3>
+<ol>
+<li><strong>任务 1: 清理桌面</strong>
+<br><span data-zh>「帮我清理一下桌面,看起来有点乱」</span><span data-en style="display:none">"Help me clean the desktop, looks a bit messy"</span></li>
+<li><strong>任务 2: Firecrawl 深度研究</strong>
+<br><span data-zh>「在 Codex 应用中打开新标签页,使用 Firecrawl 对 2026 年发展 X 账户的最佳策略进行深入研究,务必认真做好,找到很多不同的竞争对手」</span><span data-en style="display:none">"Open a new tab in Codex app, use Firecrawl to do deep research on the best strategy for growing an X account in 2026 — get it done well, find many different competitors"</span></li>
+<li><strong>任务 3: 着陆页 HTML</strong>
+<br><span data-zh>「帮我的客户网站做一个非常简单的着陆页,使其具有互动性和漂亮,各种各样的 HTML 代码」</span><span data-en style="display:none">"Make a very simple landing page for my client site — make it interactive and pretty, all kinds of HTML code"</span></li>
+</ol>
+
+<h3>🛡️ 关键安全设计 — 主动澄清</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「在我移动任何东西之前,它都会要求我提出一个澄清问题……哥们儿,我基本上想把所有东西都留在桌面上。我只是想让你把它们整理到更好的文件夹里,这样就不会有零散的文件了。实际上,桌面上的东西都不要动。就整理我的下载文件就行了。千万别动我桌面上的任何东西,拜托了」</span></div>
+<div class="quote-en">"Before I move anything, it asks me a clarifying question... 'bro, I basically want to keep everything on my desktop. I just want you to organize them into better folders, so there aren't scattered files. Actually, don't touch anything on the desktop. Just organize my downloads. Please don't touch anything on my desktop, please.'"</div>
+<div class="quote-meta">— Jack 演示 L1 主动澄清 · W06 [3:47–4:14] · 视频原话</div>
+</div>
+
+<h3>💡 这一层的真正杠杆</h3>
+<p>
+<span data-zh>不是"3 个任务并行"(任何线程池都能做到),而是 <strong>主动澄清 + 桌面状态保护</strong>。这意味着 Agent 不只是执行者,而是"理解意图边界"的协作者。</span>
+<span data-en style="display:none">It's not "3 tasks in parallel" (any thread pool can do that) — it's the <strong>proactive clarification + desktop state protection</strong>. This means the Agent isn't just an executor, but a "boundary-aware" collaborator.</span>
+</p>
+</section>
+
+<section class="tab-content" id="level2" data-tab-name="level2">
+<h2 id="level2">🌐 Level 2 · 远程桌面控制</h2>
+<p>
+<span data-zh>Level 2 解决"离开电脑也能用"的场景。Web 端登录同一账号 → 远程访问桌面 → 查询 + 检索 + 执行任务。咖啡店场景是经典演示。</span>
+<span data-en style="display:none">Level 2 solves "use it when away from the computer". Web login same account → remote desktop access → query + retrieve + execute. The coffee shop scenario is the classic demo.</span>
+</p>
+
+<h3>☕ 咖啡店场景</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「假设你要去咖啡店。我可以下来问它关于我桌面上任何内容的任何问题。我甚至可以让它帮我建造。我可以说:『嘿,哥们儿,你能帮我个忙,提醒我一下我最后保存在桌面上的东西是什么吗?』它不仅可以检索信息,还可以在您的桌面上为您完成一些工作」</span></div>
+<div class="quote-en">"Say you're going to a coffee shop. I can drop down and ask it any question about anything on my desktop. I can even have it build for me. I can say: 'Hey bro, can you do me a favor, remind me what I last saved on my desktop?' It can not only retrieve information, it can also do some work for you on your desktop."</div>
+<div class="quote-meta">— Jack 演示 L2 远程控制 · W12 [6:19–6:46] · 视频原话</div>
+</div>
+
+<h3>🔑 关键机制</h3>
+<ul>
+<li><span data-zh><strong>Web 端 ↔ 桌面端账号同步</strong>:登录同一账号即可同步,无需额外配置</span><span data-en style="display:none"><strong>Web ↔ desktop account sync</strong>: same account login, no extra config</span></li>
+<li><span data-zh><strong>远程唤醒</strong>:Web 触发 → 桌面 Agent 接收 → 查询桌面 → 返回结果</span><span data-en style="display:none"><strong>Remote wake</strong>: web trigger → desktop Agent receives → query desktop → return result</span></li>
+<li><span data-zh><strong>桌面状态常驻</strong>:Agent 始终在桌面跑,无需特别启动</span><span data-en style="display:none"><strong>Persistent desktop state</strong>: Agent runs on desktop, no special launch</span></li>
+</ul>
+
+<h3>💡 这一层的真正杠杆</h3>
+<p>
+<span data-zh>"远程"不只是访问文件,而是 <strong>让 Agent 跨设备成为一个统一实体</strong>。你在路上用 Web 问,Agent 在家帮你执行。这把"对话"扩展为"会话式远程协作"。</span>
+<span data-en style="display:none">"Remote" isn't just file access — it makes the Agent a <strong>unified entity across devices</strong>. You ask on web while out, the Agent executes at home. This extends "dialog" into "conversational remote collaboration".</span>
+</p>
+</section>
+
+<section class="tab-content" id="level3" data-tab-name="level3">
+<h2 id="level3">💡 Level 3 · 上下文感知推荐</h2>
+<p>
+<span data-zh>Level 3 是"模糊想法 → 有意义的反馈"。核心是 <strong>Agent 已经知道你的项目背景、客户关系、当前任务</strong>,所以你能用一句话让它"按你的实际情况做决定"。</span>
+<span data-en style="display:none">Level 3 is "vague idea → meaningful feedback". Core: the Agent already knows your project context, client relationships, current task — so you can give it one sentence and have it "decide based on your actual situation".</span>
+</p>
+
+<h3>🛒 Eleven Labs 演示</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「你好,我正想从 Eleven Labs 购买屏幕上展示的这些产品之一。你很了解我的客户关系,也知道我正在做的项目。那么,这四个版本中,你推荐我选择哪一个呢?免费版、入门版、创建者版,还是其他什么版本?」</span></div>
+<div class="quote-en">"Hey, I'm thinking about buying one of the products shown on screen from Eleven Labs. You know my client relationships well, and you know what projects I'm working on. So, among these four plans, which one would you recommend? Free, Starter, Creator, or something else?"</div>
+<div class="quote-meta">— Jack 演示 L3 上下文推荐 · W14 [7:04–7:35] · 视频原话</div>
+</div>
+
+<h3>🎯 关键能力:跨窗口跟随 + 后台推理</h3>
+<ul>
+<li><span data-zh><strong>看到 Eleven Labs 页面</strong> → 知道有 4 个付费版本</span><span data-en style="display:none"><strong>See Eleven Labs page</strong> → know 4 paid plans</span></li>
+<li><span data-zh"><strong>知道客户关系 + 项目背景</strong> → 推断预算 + 规模需求</span><span data-en style="display:none"><strong>Know client relationships + project context</strong> → infer budget + scale needs</span></li>
+<li><span data-zh"><strong>缩小范围 + 确定最合适</strong> → 不是"4 个里选一个",而是"基于你的情况推荐"</span><span data-en style="display:none"><strong>Narrow scope + pick the most fitting</strong> → not "pick one of 4", but "recommend based on YOUR situation"</span></li>
+</ul>
+
+<h3>🖱️ 调试错误 + 静音切换</h3>
+<p>
+<span data-zh>视频里另一演示:看到右侧一堆错误 → "帮我解释这些错误" → 节省浏览时间。蓝色小图标随时在,可以静音、跳到 YouTube、做任何事都不丢上下文。</span>
+<span data-en style="display:none">Another demo: see right-side errors → "help me explain these errors" → save browsing time. Blue widget always there — can mute, jump to YouTube, do anything without losing context.</span>
+</p>
+
+<h3>💡 这一层的真正杠杆</h3>
+<p>
+<span data-zh>把"决策权"从"我必须亲自选"变成"我用一句话 + 上下文推理"。Agent 不是检索工具,而是 <strong>基于你的实际情况做判断的代理</strong>。</span>
+<span data-en style="display:none">It shifts "decide who picks" from "I must choose myself" to "I give one sentence + contextual reasoning". The Agent isn't a retrieval tool, it's a <strong>decision proxy based on your actual situation</strong>.</span>
+</p>
+</section>
+
+<section class="tab-content" id="level4" data-tab-name="level4">
+<h2 id="level4">🔧 Level 4 · Agent 桥接(Hermes)</h2>
+<p>
+<span data-zh>Level 4 是真正的"游戏改变者"。不是 ChatGPT 自身能力的升级,而是 <strong>让 ChatGPT 语音触发你电脑上已经在跑的 Hermes Agent</strong>。这把 ChatGPT 从"对话界面"升级为"Agent 编排器"。</span>
+<span data-en style="display:none">Level 4 is the real game-changer. Not ChatGPT's own capability upgrade, but <strong>let ChatGPT voice trigger your already-running Hermes Agent</strong>. This upgrades ChatGPT from "chat interface" to "Agent orchestrator".</span>
+</p>
+
+<h3>🔧 三步触发演示</h3>
+<ol>
+<li><strong>询问配置</strong>
+<br><span data-zh>「告诉我 Hermes Agent 目前使用的是什么模型。直接检查配置,而不是猜测」</span><span data-en style="display:none">"Tell me what model Hermes Agent is currently using. Check the config directly, don't guess."</span></li>
+<li><strong>自动检查</strong>
+<br><span data-zh>「它现在正在检查配置。GPT-5.6 Saul」</span><span data-en style="display:none">"It's now checking config. GPT-5.6 Saul."</span></li>
+<li><strong>设置提醒</strong>
+<br><span data-zh>「请您设置一个提醒。请 Hermes 的工作人员在上午 11:00 提醒我领取两杯冰咖啡,以便我搭乘飞往该地的航班时使用」</span><span data-en style="display:none">"Please set a reminder. Have Hermes staff remind me at 11 AM to grab two iced coffees so I can take them on my flight there."</span></li>
+</ol>
+
+<h3>🌉 真正的杠杆 — Agent 无关性</h3>
+<div class="callout">
+<strong>💡 Patrick 视角:</strong>
+<span data-zh>视频里 Jack 反复强调:"无论你使用的是 Open Claude 还是 Hermes Agent,它都非常有用"。这意味着 ChatGPT Voice 2.0 是一个 <strong>Agent-agnostic 语音接口</strong>——它可以触发任何本地 Agent(Claude Code / Hermes / Hermes Agent),而不仅限于 OpenAI 自家产品。这与 Hermes Agent 的"本地编排"哲学完美契合。</span>
+<span data-en style="display:none">Jack repeatedly emphasizes: "whether you use Open Claude or Hermes Agent, it's very useful". This means ChatGPT Voice 2.0 is an <strong>Agent-agnostic voice interface</strong> — can trigger any local Agent (Claude Code / Hermes / Hermes Agent), not just OpenAI's own products. This perfectly aligns with Hermes Agent's "local orchestration" philosophy.</span>
+</div>
+
+<h3>💡 这一层的真正杠杆</h3>
+<p>
+<span data-zh>把"语音"和"Agent"解耦。<strong>ChatGPT = 语音入口,你的 Agent = 实际执行者。</strong>这意味着你投资了 Hermes Agent 之后,所有 ChatGPT Voice 2.0 的能力自动叠加。架构杠杆的经典案例。</span>
+<span data-en style="display:none">Decoupling "voice" from "Agent". <strong>ChatGPT = voice entry, YOUR Agent = actual executor.</strong> Means once you invest in Hermes Agent, all ChatGPT Voice 2.0 capabilities stack automatically. Classic case of architectural leverage.</span>
+</p>
+</section>
+
+<section class="tab-content" id="level5" data-tab-name="level5">
+<h2 id="level5">🖐️ Level 5 · 完全解放双手</h2>
+<p>
+<span data-zh>Level 5 是真正的"解放双手"。Agent 不只是回答问题,而是 <strong>主动观察屏幕 → 决策 → 点击按钮 → 填表单</strong>。 用户口述指令,Agent 代替你的手指。</span>
+<span data-en style="display:none">Level 5 is true "hands-free". The Agent doesn't just answer questions — it <strong>actively observes screens → decides → clicks buttons → fills forms</strong>. You speak, the Agent replaces your fingers.</span>
+</p>
+
+<h3>🖥️ 机器人群组演示</h3>
+<ol>
+<li><strong>选择忍者</strong>
+<br><span data-zh>「选择忍者,然后点击进入下一页」</span><span data-en style="display:none">"Choose ninja, then click into next page."</span></li>
+<li><strong>分析个人资料</strong>
+<br><span data-zh>「分析我的个人资料」</span><span data-en style="display:none">"Analyze my profile."</span></li>
+<li><strong>运行分析</strong>
+<br><span data-zh>「点击这个按钮,让我来分析一下我的个人资料」</span><span data-en style="display:none">"Click this button, let me analyze my profile."</span></li>
+</ol>
+
+<h3>📋 表单自动填充</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「举个例子,比如说 10,000 美元,它实际上可以根据正在发生的事情让 ChatGPT 填写这些信息。你很了解我。我希望你能仔细阅读这份清单,并根据你对我和我的情况的了解,帮我选出你认为最相关的选项」</span></div>
+<div class="quote-en">"For example, say $10,000, it can actually have ChatGPT fill out that information based on what's happening. You know me well. I want you to carefully read this list, and based on your knowledge of me and my situation, help me pick the options you think are most relevant."</div>
+<div class="quote-meta">— Jack 演示 L5 表单填写 · W23 [11:53–12:20] · 视频原话</div>
+</div>
+
+<h3>🧠 真正的杠杆 — 从"执行"到"决策"</h3>
+<p>
+<span data-zh>Level 1-4 的 Agent 还是"按你说的做",Level 5 的 Agent 已经能 <strong>读取你的上下文 + 代替你做出具体决定</strong>。从"替代手指"升级为"替代大脑的部分决策"。</span>
+<span data-en style="display:none">Level 1-4 Agents still "do what you say"; Level 5 Agents can <strong>read your context + make concrete decisions on your behalf</strong>. From "replacing fingers" to "replacing part of your brain's decisions".</span>
+</p>
+
+<h3>💡 这一层的真正杠杆</h3>
+<p>
+<span data-zh>把"键盘 + 鼠标"完全替换为"语音 + 上下文"。这不是无障碍功能的简单升级,而是 <strong>重新定义"人机交互"的形态</strong>——从 GUI 操作回到自然语言。</span>
+<span data-en style="display:none">Completely replacing "keyboard + mouse" with "voice + context". Not just an accessibility upgrade, but <strong>redefining the form of human-computer interaction</strong> — back from GUI to natural language.</span>
+</p>
+</section>
+
+<section class="tab-content" id="quotes" data-tab-name="quotes">
+<h2 id="quotes">💬 关键金句</h2>
+<p>
+<span data-zh>13 分钟视频里 Jack 反复强调的核心观点,按主题分组。</span>
+<span data-en style="display:none">Core points Jack repeatedly emphasized in the 13-min video, grouped by theme.</span>
+</p>
+
+<h3>🚀 关于能力边界</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「它本质上就是贾维斯。它可以连接你所有的工具,通过手机操作,它将改变你的工作方式」</span><span data-en style="display:none">"It is essentially JARVIS. It can connect to all your tools, operate via phone, and it will change the way you work."</span></div>
+<div class="quote-en">"It is essentially JARVIS. It can connect to all your tools, operate via phone, and it will change the way you work."</div>
+<div class="quote-meta">— W01 开场定位 · 视频原话</div>
+</div>
+
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「现在,你基本上可以把我们静音,或者根据需要移动它的位置。我们将一直允许这种情况发生」</span><span data-en style="display:none">"Now you can basically mute us, or move it wherever you need to. We will allow this to keep happening."</span></div>
+<div class="quote-en">"Now you can basically mute us, or move it wherever you need to. We will allow this to keep happening."</div>
+<div class="quote-meta">— W01 浮动控制 · 视频原话</div>
+</div>
+
+<h3>🤔 关于"思考"</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「它之所以感觉很智能,是因为它会在后台思考的同时与你保持沟通,这意味着你不用等待 15 个工作日才能得到实际的回复」</span><span data-en style="display:none">"The reason it feels so smart is because it thinks in the background while communicating with you. This means you don't have to wait 15 working days to get an actual reply."</span></div>
+<div class="quote-en">"The reason it feels so smart is because it thinks in the background while communicating with you. This means you don't have to wait 15 working days to get an actual reply."</div>
+<div class="quote-meta">— W02 后台思考 · 视频原话</div>
+</div>
+
+<h3>🛡️ 关于安全设计</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「在我移动任何东西之前,它都会要求我提出一个澄清问题」</span><span data-en style="display:none">"Before I move anything, it asks me a clarifying question."</span></div>
+<div class="quote-en">"Before I move anything, it asks me a clarifying question."</div>
+<div class="quote-meta">— W06 L1 主动澄清 · 视频原话</div>
+</div>
+
+<h3>🔧 关于 Agent 桥接</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「我可以通过 ChatGPT 触发我的 Hermes Agent,这真是太棒了!我在我的电脑上运行 Agent,这很棒,但我既可以通过语音在这里触发它,也可以在我的桌面上触发它。而这之所以是一个如此巨大的漏洞(注:译为'巨大解锁'),是因为无论你使用的是 Open Claude 还是 Hermes Agent,它都非常有用」</span></div>
+<div class="quote-en">"I can trigger my Hermes Agent via ChatGPT — this is amazing! I run Agent on my computer, which is great, but I can trigger it via voice here, or on my desktop. The reason this is such a huge unlock is that whether you use Open Claude or Hermes Agent, it's very useful."</div>
+<div class="quote-meta">— W18 L4 Agent 桥接 · 视频原话</div>
+</div>
+
+<h3>⚠️ 关于诚实局限</h3>
+<div class="quote-card">
+<div class="quote-text"><span data-zh>「它采用浏览器控制,那么它并不是地球上速度最快的东西。如果你想要解放双手、快速完成任务,那它很棒,但它的速度并不算快。我相信他们很快就会发布一款新型号,速度更快,那将会非常惊人」</span></div>
+<div class="quote-en">"It uses browser control, so it's not the fastest thing on earth. If you want hands-free, quick task completion, it's great, but it's not fast. I believe they'll release a new model soon that's faster, which will be amazing."</div>
+<div class="quote-meta">— W24 诚实局限 · 视频原话</div>
+</div>
+
+<div class="quote-card">
+<div class="quote-text"><span data-zh">「它没有实时摄像头,所以你不能把手机放在某个东西上,然后在 GPT 直播时询问它的情况。屏幕仅限 Mac 桌面,所以无法将屏幕共享到实时语音会话中,但是 Mac OS 桌面应用程序有应用程序截图功能,所以它可以读取屏幕上的所有内容」</span></div>
+<div class="quote-en">"It doesn't have live camera, so you can't put your phone on something and ask during a live GPT stream. The screen is Mac desktop only, so you can't screen-share into a live voice session, but the Mac OS desktop app has app screenshot capability, so it can read everything on screen."</div>
+<div class="quote-meta">— W24 设备限制 · 视频原话</div>
+</div>
+</section>
+
+<section class="tab-content" id="use-cases" data-tab-name="use-cases">
+<h2 id="use-cases">🎯 实战场景</h2>
+<p>
+<span data-zh>基于 5 Levels 演示,整理出 Patrick 视角下最值得立即尝试的实战场景。</span>
+<span data-en style="display:none">Based on the 5 Levels demo, the most worth-trying scenarios from Patrick's perspective.</span>
+</p>
+
+<h3>🟢 立即可用 (L1-L2)</h3>
+<ul>
+<li><span data-zh><strong>多任务并行</strong>:同时整理桌面 + 启动 Firecrawl 研究 + 写 HTML 着陆页(尤其配合 Hermes Agent 接管)</span><span data-en style="display:none"><strong>Parallel multi-task</strong>: organize desktop + kick off Firecrawl research + write landing HTML (especially when Hermes Agent takes over)</span></li>
+<li><span data-zh><strong>远程桌面查询</strong>:咖啡店 / 路上用 Web 问"我桌面最后保存了什么",回家前就已经知道</span><span data-en style="display:none"><strong>Remote desktop query</strong>: ask from a coffee shop "what did I last save" via web, know before getting home</span></li>
+<li><span data-zh><strong>跨窗口跟随</strong>:在任意网站 / 任意 App 都能继续对话,无需切换窗口</span><span data-en style="display:none"><strong>Cross-window follow</strong>: continue dialog on any site / any app without switching</span></li>
+</ul>
+
+<h3>🟡 中期部署 (L3-L4)</h3>
+<ul>
+<li><span data-zh><strong>上下文推荐</strong>:在 SaaS 产品页面看到定价 → 让 Agent 基于你的项目背景推荐最合适版本</span><span data-en style="display:none"><strong>Context-aware recommendation</strong>: on a SaaS pricing page → let Agent recommend the best plan based on your project context</span></li>
+<li><span data-zh><strong>Hermes Agent 触发</strong>:语音 "检查 Hermes Agent 配置" / "设置提醒 11:00" → 自动执行</span><span data-en style="display:none"><strong>Hermes Agent trigger</strong>: voice "check Hermes Agent config" / "set reminder for 11" → auto-execute</span></li>
+<li><span data-zh><strong>调试助手</strong>:看到错误日志 → "帮我解释这些错误" → 节省 30 分钟浏览时间</span><span data-en style="display:none"><strong>Debug assistant</strong>: see error logs → "explain these errors" → save 30 min browsing</span></li>
+</ul>
+
+<h3>🔴 远期愿景 (L5)</h3>
+<ul>
+<li><span data-zh"><strong>表单自动填写</strong>:Agent 读取你的联系人 + 项目背景 → 自动填复杂表单(KYC / 投资协议 / 报名)</span><span data-en style="display:none"><strong>Auto form-fill</strong>: Agent reads contacts + project context → auto-fill complex forms (KYC / investment / signup)</span></li>
+<li><span data-zh"><strong>决策代理</strong>:Agent 不只执行,而是"基于你的情况做决定"(例:根据你的投资偏好选基金)</span><span data-zh><strong>决策代理</strong>:Agent 不只执行,而是"基于你的情况做决定"(例:根据你的投资偏好选基金)</span><span data-en style="display:none"><strong>Decision proxy</strong>: Agent doesn't just execute but also "decides based on your situation" (e.g., pick funds per your investment preference)</span></li>
+<li><span data-zh"><strong>完全解放双手工作流</strong>:语音 + 上下文 = 完整替代键盘+鼠标的桌面工作流</span><span data-zh><strong>完全解放双手工作流</strong>:语音 + 上下文 = 完整替代键盘+鼠标的桌面工作流</span><span data-en style="display:none"><strong>Fully hands-free workflow</strong>: voice + context = complete replacement of keyboard + mouse desktop workflow</span></li>
+</ul>
+
+<div class="callout">
+<strong>💡 Patrick 部署建议:</strong>
+<span data-zh>鉴于 ChatGPT 屏幕仅限 Mac 桌面,而 Hermes Agent 本身已支持多平台,建议优先在 Hermes Agent 侧把"语音通道"补齐(用 Hermes 的 STT/TTS),把 ChatGPT Voice 2.0 作为"外部触发入口",而不是把它做成"主控"。这样既享受 ChatGPT 5 Levels 能力,又保持 Hermes 的本地编排优势。</span>
+<span data-en style="display:none">Given ChatGPT screenshare is Mac desktop only, and Hermes Agent already supports multi-platform — recommendation: prioritize filling "voice channel" on Hermes Agent side (use Hermes's STT/TTS), and treat ChatGPT Voice 2.0 as an "external trigger entry" rather than the "main controller". This way you enjoy ChatGPT's 5 Levels capabilities while keeping Hermes's local orchestration advantage.</span>
+</div>
+</section>
+
+<section class="tab-content" id="limitations" data-tab-name="limitations">
+<h2 id="limitations">⚠️ 诚实局限</h2>
+<p>
+<span data-zh>视频最后 50 秒 (W24) 是 Jack 明确给出的诚实局限,值得作为部署前的 reality check。</span>
+<span data-en style="display:none">The last 50 seconds (W24) of the video are Jack's honest limitations — treat as a pre-deployment reality check.</span>
+</p>
+
+<div class="pros-cons">
+<div class="cons">
+<h4>❌ 三大局限</h4>
+<ol>
+<li><strong>速度慢</strong>
+<br><span data-zh>采用浏览器控制,而不是地球上速度最快的东西。解放双手 + 完成任务 = 优秀,但速度不算快。新型号会更快。</span><span data-en style="display:none">Browser-control based, not the fastest on earth. Hands-free + task completion = great, but not fast. New model will be faster.</span></li>
+<li><strong>无实时摄像头</strong>
+<br><span data-zh>不能把手机放在某个东西上,然后在 ChatGPT 直播时询问它的情况(没摄像头实时流)。</span><span data-en style="display:none">Can't put phone on something and ask during live ChatGPT stream (no live camera stream).</span></li>
+<li><strong>屏幕仅限 Mac 桌面</strong>
+<br><span data-zh>无法将屏幕共享到实时语音会话中(只 Mac OS 桌面 apps)。但 Mac OS 桌面 apps 有截图功能,可以读取屏幕上的所有内容。Windows / Linux 用户暂不适用。</span><span data-en style="display:none">Can't screen-share into live voice session (Mac OS desktop apps only). Mac OS desktop apps DO have screenshot — can read everything on screen. Windows / Linux users not yet supported.</span></li>
+</ol>
+</div>
+<div class="pros">
+<h4>✅ 仍然强大的点</h4>
+<ul>
+<li><span data-zh>1.5亿周活语音用户规模</span><span data-en style="display:none">150M weekly voice users at scale</span></li>
+<li><span data-zh>后台思考 + 实时响应,不用等 15 个工作日</span><span data-en style="display:none">Back-ground thinking + real-time response, no 15-day wait</span></li>
+<li><span data-zh>3 个任务并行 + 主动澄清的安全设计</span><span data-en style="display:none">3 parallel tasks + proactive clarification safety design</span></li>
+<li><span data-zh>Web 端 + 桌面端 + 移动端跨平台同步</span><span data-en style="display:none">Web + desktop + mobile cross-platform sync</span></li>
+<li><span data-zh>Agent 无关性:Claude / Hermes / Open 都能触发</span><span data-en style="display:none">Agent-agnostic: can trigger Claude / Hermes / Open</span></li>
+<li><span data-zh>语音模型可选:5.6 Sol / 高版本等</span><span data-en style="display:none">Voice model pickable: 5.6 Sol / higher versions</span></li>
+</ul>
+</div>
+</div>
+
+<h3>📝 记忆 vs 完整 ChatGPT</h3>
+<p>
+<span data-zh>视频提到一个新限制:Voice 2.0 现在有记忆功能,但 <strong>不如 ChatGPT (主对话) 那样全面</strong>。如果你要问问题,有时最好参考具体文件,以获得更详细的信息。</span>
+<span data-en style="display:none">Video mentions a new limitation: Voice 2.0 now has memory, but <strong>not as complete as main ChatGPT</strong>. If you need to ask questions, sometimes better to reference specific files for more detailed info.</span>
+</p>
+</section>
+
+<section class="tab-content" id="compare" data-tab-name="compare">
+<h2 id="compare">📊 对比与权衡</h2>
+
+<h3>📊 ChatGPT Voice 2.0 vs 主 ChatGPT 对话</h3>
+<table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:13px">
+<thead><tr style="background:var(--bg3)"><th style="padding:8px;text-align:left">维度</th><th style="padding:8px;text-align:left">Voice 2.0</th><th style="padding:8px;text-align:left">主 ChatGPT</th></tr></thead>
+<tbody>
+<tr><td style="padding:8px"><span data-zh>输入</span><span data-en style="display:none">Input</span></td><td style="padding:8px"><span data-zh">语音 + 屏幕上下文</span><span data-en style="display:none">Voice + screen context</span></td><td style="padding:8px"><span data-zh">纯文本</span><span data-en style="display:none">Plain text</span></td></tr>
+<tr><td style="padding:8px"><span data-zh>执行</span><span data-en style="display:none">Execution</span></td><td style="padding:8px"><span data-zh">桌面 App + 浏览器 + Agent 触发</span><span data-en style="display:none">Desktop app + browser + Agent trigger</span></td><td style="padding:8px"><span data-zh">对话回复 + 工具调用</span><span data-en style="display:none">Dialog reply + tool calls</span></td></tr>
+<tr><td style="padding:8px"><span data-zh>速度</span><span data-en style="display:none">Speed</span></td><td style="padding:8px"><span data-zh">浏览器控制较慢</span><span data-en style="display:none">Browser control slower</span></td><td style="padding:8px"><span data-zh">文本瞬时</span><span data-en style="display:none">Text instant</span></td></tr>
+<tr><td style="padding:8px"><span data-zh>记忆</span><span data-en style="display:none">Memory</span></td><td style="padding:8px"><span data-zh">有但不全面</span><span data-en style="display:none">Has but incomplete</span></td><td style="padding:8px"><span data-zh">完整记忆 + 个性化</span><span data-en style="display:none">Full memory + personalization</span></td></tr>
+<tr><td style="padding:8px"><span data-zh>平台</span><span data-en style="display:none">Platform</span></td><td style="padding:8px"><span data-zh">Mac OS 桌面 only</span><span data-en style="display:none">Mac OS desktop only</span></td><td style="padding:8px"><span data-zh">Web + 全平台</span><span data-en style="display:none">Web + all platforms</span></td></tr>
+<tr><td style="padding:8px"><span data-zh>Agent 触发</span><span data-en style="display:none">Agent trigger</span></td><td style="padding:8px"><span data-zh">✅ Claude / Hermes / Open 全支持</span><span data-en style="display:none">✅ Claude / Hermes / Open all supported</span></td><td style="padding:8px"><span data-zh">需手动工具调用</span><span data-en style="display:none">Manual tool calls</span></td></tr>
+</tbody>
+</table>
+
+<h3>🎯 适用场景决策</h3>
+<ul>
+<li><span data-zh><strong>用 Voice 2.0 if</strong>:你在 Mac 桌面 + 想要语音 + 想要触发本地 Agent + 愿意牺牲速度换"贴近手边"</span><span data-en style="display:none"><strong>Use Voice 2.0 if</strong>: on Mac desktop + want voice + want to trigger local Agent + willing to trade speed for "near at hand"</span></li>
+<li><span data-zh"><strong>用主 ChatGPT if</strong>:跨平台 + 完整记忆 + 精确工具调用 + 速度优先</span><span data-en style="display:none"><strong>Use main ChatGPT if</strong>: cross-platform + full memory + precise tool calls + speed priority</span></li>
+</ul>
+</section>
+
+<section class="tab-content" id="roster" data-tab-name="roster">
+<h2 id="roster">🧠 Patrick 关联卡</h2>
+<p>
+<span data-zh>视频涉及的 5 个核心概念,对应 Patrick 知识库中的相关节点。</span>
+<span data-en style="display:none">5 core concepts in the video, mapped to Patrick's knowledge base nodes.</span>
+</p>
+
+<div class="roster-grid">
+<div class="roster-card"><div class="name">🤖 Hermes Agent</div><div class="desc"><span data-zh>视频第 4 Level 核心 — Hermes Agent 作为本地 Agent 被 ChatGPT 语音触发。Patrick 已在多个项目部署。</span><span data-en style="display:none">Video Level 4 core — Hermes Agent as local Agent triggered by ChatGPT voice. Patrick already deployed in multiple projects.</span></div></div>
+<div class="roster-card"><div class="name">💻 Claude Code</div><div class="desc"><span data-zh">视频中提到的"Claude Code Masterclass" 课程 + Hermes Agent 替代路径。Open Claude 同等适用。</span><span data-en style="display:none">"Claude Code Masterclass" course mentioned in video + Hermes Agent alternative path. Open Claude equally applicable.</span></div></div>
+<div class="roster-card"><div class="name">🔥 Firecrawl</div><div class="desc"><span data-zh">视频核心工具 — 抓取 + 解析 + 交互一站式,节省 token 成本 + 更快体验。Patrick 已集成到 Hermes Agent 工具链。</span><span data-zh>视频核心工具 — 抓取 + 解析 + 交互一站式,节省 token 成本 + 更快体验。Patrick 已集成到 Hermes Agent 工具链。</span><span data-en style="display:none">Video core tool — scrape + parse + interact one-stop, save token cost + faster. Patrick already integrated into Hermes Agent toolchain.</span></div></div>
+<div class="roster-card"><div class="name">🔌 OpenAI Voice 2.0</div><div class="desc"><span data-zh>2026-07-28 发布,1.5 亿周活用户,5 Levels 框架。仅 Mac OS 桌面,浏览器控制速度慢。</span><span data-en style="display:none">Released 2026-07-28, 150M weekly users, 5 Levels framework. Mac OS desktop only, browser control slow.</span></div></div>
+<div class="roster-card"><div class="name">🧠 JARVIS 隐喻</div><div class="desc"><span data-zh>10 年前科幻片的桌面代理 — 浮动 + 跟随 + 后台思考 + 主动执行。今天第一次有产品摸到门槛。</span><span data-en style="display:none">Sci-fi desktop agent from 10 years ago — float + follow + back-ground thinking + proactive execution. First product touching the threshold today.</span></div></div>
+</div>
+</section>
+
+<section class="tab-content" id="meta" data-tab-name="meta">
+<h2 id="meta">📦 元数据 / Build Provenance</h2>
+
+<h3>📋 视频信息</h3>
+<table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:13px">
+<tbody>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Title</strong></td><td style="padding:6px">ChatGPT Voice 2.0 Just Dropped, and…</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Channel</strong></td><td style="padding:6px">Jack Roberts</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Video ID</strong></td><td style="padding:6px"><code>_wtCHLUUzlQ</code></td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Duration</strong></td><td style="padding:6px">13:19 (799 sec)</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Upload Date</strong></td><td style="padding:6px">2026-07-28</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Views</strong></td><td style="padding:6px">5,533</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Likes</strong></td><td style="padding:6px">177</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Categories</strong></td><td style="padding:6px">Education</td></tr>
+</tbody>
+</table>
+
+<h3>🔨 构建信息</h3>
+<table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:13px">
+<tbody>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Build Date</strong></td><td style="padding:6px">2026-07-29</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Pipeline</strong></td><td style="padding:6px">video-to-knowledge-dashboard v1.5.24 (bilingual UI + TOC + 14 tabs)</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Transcript Source</strong></td><td style="padding:6px">yt-dlp 自动字幕 zh-Hans · 432 cues · 158KB</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Chapters</strong></td><td style="padding:6px">25 章节 from video metadata</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Skills</strong></td><td style="padding:6px">video-to-knowledge-dashboard · bilingual-dashboard-ui-pattern · toc-sidebar-batch · single-file-spa-design-patterns</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Tabs</strong></td><td style="padding:6px">14 (overview / levels / timeline / L1-5 / quotes / use-cases / limitations / compare / roster / meta)</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Timeline Windows</strong></td><td style="padding:6px">25 windows with bilingual legends</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>Bilingual Format</strong></td><td style="padding:6px">data-zh + data-en per span + localStorage 持久化</td></tr>
+<tr><td style="padding:6px;background:var(--bg3)"><strong>No YT URL</strong></td><td style="padding:6px">⚠️ 视频链接未渲染 (per v1.5.24 policy)</td></tr>
+</tbody>
+</table>
+
+<h3>⚠️ 警告 / Caveats</h3>
+<ul>
+<li><span data-zh><strong>自动字幕双语混合</strong>:YouTube 自动字幕为 EN token + 中文语法的混合形态,已按章节窗口聚类重建,但部分金句保留原文态。</span><span data-en style="display:none"><strong>Auto-caption is bilingual-mixed</strong>: YouTube auto-caption mixes EN tokens + Chinese grammar — re-clustered by chapter window, but some quotes preserved in original form.</span></li>
+<li><span data-zh><strong>Hermes Agent 集成</strong>:视频中示意接入,实际 API 路径 / 配置项由 Patrick 在自己的 Hermes Agent 部署中实测。</span><span data-en style="display:none"><strong>Hermes Agent integration</strong>: shown as demo in video; actual API path / config items validated by Patrick in his own Hermes Agent deployment.</span></li>
+<li><span data-zh"><strong>Jack Roberts 内容</strong>:本视频是 YouTube 教育频道,本仪表盘为知识提取,非商业用途,版权归 Jack Roberts 所有。</span><span data-en style="display:none"><strong>Jack Roberts content</strong>: this is a YouTube educational channel; this dashboard is for knowledge extraction, non-commercial, copyright remains with Jack Roberts.</span></li>
+</ul>
+</section>
+
+</main>
+</div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const tabId = btn.dataset.tab;
+    const content = document.getElementById(tabId);
+    if (content) content.classList.add('active');
+    setTimeout(spy, 50);
+  });
+});
+
+// TOC toggle
+function toggleTOC() {
+  const toc = document.getElementById('toc');
+  const btn = document.querySelector('.toc-toggle');
+  toc.classList.toggle('collapsed');
+  btn.classList.toggle('toc-open');
+}
+
+// TOC scrollspy
+function spy() {
+  const links = document.querySelectorAll('aside.toc a');
+  const activeTab = document.querySelector('.tab-content.active');
+  if (!activeTab) return;
+  const validLinks = Array.from(links).filter(a => {
+    const h = document.querySelector(a.getAttribute('href'));
+    return h && activeTab.contains(h);
+  });
+  if (validLinks.length === 0) return;
+  let activeLink = validLinks[0];
+  const y = window.scrollY + 80;
+  for (const a of validLinks) {
+    const h = document.querySelector(a.getAttribute('href'));
+    if (h && h.offsetTop <= y) activeLink = a;
+  }
+  links.forEach(a => a.classList.remove('active'));
+  activeLink.classList.add('active');
+}
+window.addEventListener('scroll', spy);
+window.addEventListener('resize', spy);
+
+// Language toggle
+function setLang(lang) {
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  document.querySelectorAll('[data-zh]').forEach(el => {
+    el.style.display = lang === 'zh' ? '' : 'none';
+  });
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.style.display = lang === 'en' ? '' : 'none';
+  });
+  try { localStorage.setItem('chatgpt-voice-2-zero-lang', lang); } catch (e) {}
+}
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+try {
+  const saved = localStorage.getItem('chatgpt-voice-2-zero-lang');
+  if (saved === 'en' || saved === 'zh') setLang(saved);
+} catch (e) {}
+
+// Theme cycle
+const themes = ['dark', 'light', 'sepia'];
+function cycleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = themes[(themes.indexOf(current) + 1) % themes.length];
+  document.documentElement.setAttribute('data-theme', next);
+  try { localStorage.setItem('chatgpt-voice-2-zero-theme', next); } catch (e) {}
+}
+try {
+  const saved = localStorage.getItem('chatgpt-voice-2-zero-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+} catch (e) {}
+
+// Spy on initial load
+setTimeout(spy, 100);
+</script>
+
+</body>
+</html>

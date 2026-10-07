@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="zh-CN" class="lang-zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ex-NASA dev reveals his Agentic Engineering Workflow — bilingual evidence brief, Patrick lens, and action cockpit.">
+  <meta name="theme-color" content="#171914">
+  <title>The Oracle Gap — Agentic Engineering Field Manual</title>
+  <style>
+    :root {
+      --ink: #171914;
+      --ink-2: #303229;
+      --paper: #f0ede2;
+      --paper-2: #e6e1d3;
+      --line: rgba(23, 25, 20, .17);
+      --acid: #d8f05b;
+      --orange: #ef643d;
+      --blue: #4f7cff;
+      --muted: #74766d;
+      --live: #246b47;
+      --warn: #a94a2e;
+      --shadow: 0 24px 70px rgba(28, 29, 24, .12);
+      --display: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif;
+      --body: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 28px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(23,25,20,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23,25,20,.035) 1px, transparent 1px),
+        var(--paper);
+      background-size: 28px 28px;
+      font-family: var(--body);
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 82% 8%, rgba(216,240,91,.22), transparent 32%);
+      z-index: -1;
+    }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .en { display: none !important; }
+    html.lang-en .zh { display: none !important; }
+    html.lang-en .en { display: inline !important; }
+    html.lang-en div.en, html.lang-en p.en, html.lang-en section.en { display: block !important; }
+    html.lang-en li.en { display: list-item !important; }
+    .skip-link { position: fixed; left: 16px; top: -80px; z-index: 100; background: var(--acid); padding: 10px 14px; font-weight: 800; }
+    .skip-link:focus { top: 16px; }
+    .scroll-meter { position: fixed; inset: 0 auto auto 0; height: 4px; width: 0; background: var(--orange); z-index: 90; }
+
+    .utility-bar {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      z-index: 80;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .utility-btn {
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      padding: 9px 13px;
+      background: rgba(240,237,226,.92);
+      backdrop-filter: blur(14px);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .utility-btn:hover { transform: translateY(-2px); background: var(--acid); }
+    .menu-btn { display: none; }
+
+    .toc {
+      position: fixed;
+      left: 18px;
+      top: 18px;
+      bottom: 18px;
+      width: 236px;
+      z-index: 70;
+      padding: 18px;
+      overflow: auto;
+      background: rgba(23,25,20,.96);
+      color: var(--paper);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .toc-brand { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,.16); }
+    .toc-brand strong { font-family: var(--display); font-size: 18px; letter-spacing: -.03em; }
+    .toc-index { color: var(--acid); font-family: var(--mono); font-size: 11px; }
+    .toc nav { display: grid; gap: 2px; margin-top: 18px; }
+    .toc a {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      align-items: start;
+      gap: 8px;
+      padding: 9px 8px;
+      color: rgba(240,237,226,.66);
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.35;
+      transition: color .2s ease, background .2s ease;
+    }
+    .toc a span:first-child { font-family: var(--mono); color: rgba(216,240,91,.64); }
+    .toc a:hover, .toc a.active { color: white; background: rgba(255,255,255,.10); }
+    .toc a.active span:first-child { color: var(--acid); }
+    .toc-foot { position: absolute; left: 18px; right: 18px; bottom: 18px; font-size: 10px; color: rgba(255,255,255,.42); letter-spacing: .06em; }
+
+    main { width: min(1120px, calc(100% - 320px)); margin: 0 34px 0 auto; padding: 40px 0 100px; }
+    .hero {
+      min-height: calc(100vh - 80px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(290px, .65fr);
+      gap: 34px;
+      align-items: center;
+      border-bottom: 1px solid var(--ink);
+      padding: 46px 0 64px;
+    }
+    .eyebrow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 28px; }
+    .eyebrow .code { font-family: var(--mono); font-size: 11px; letter-spacing: .11em; text-transform: uppercase; }
+    .signal-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 6px rgba(239,100,61,.15); }
+    .hero h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(62px, 8.8vw, 142px);
+      font-weight: 950;
+      letter-spacing: -.075em;
+      line-height: .78;
+      text-transform: uppercase;
+      max-width: 900px;
+    }
+    .hero h1 .outline { color: transparent; -webkit-text-stroke: 2px var(--ink); text-stroke: 2px var(--ink); }
+    .hero-lede { max-width: 720px; margin: 32px 0 0; font-size: clamp(18px, 2vw, 25px); line-height: 1.34; font-weight: 690; letter-spacing: -.025em; }
+    .hero-lede mark { background: var(--acid); padding: 0 .18em; color: inherit; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .primary-link, .ghost-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 16px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .primary-link { background: var(--ink); color: var(--paper); }
+    .ghost-link { background: transparent; }
+    .primary-link:hover, .ghost-link:hover { transform: translateY(-3px); box-shadow: 0 8px 0 var(--acid); }
+
+    .oracle-figure { position: relative; min-height: 520px; display: grid; place-items: center; }
+    .orbit { position: absolute; border: 1px solid var(--ink); border-radius: 50%; opacity: .35; }
+    .orbit.o1 { width: 390px; height: 390px; }
+    .orbit.o2 { width: 290px; height: 290px; border-style: dashed; }
+    .orbit.o3 { width: 185px; height: 185px; border-color: var(--orange); opacity: .75; }
+    .oracle-core {
+      position: relative;
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: var(--acid);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.25;
+      box-shadow: 0 0 0 14px rgba(216,240,91,.30);
+    }
+    .orbit-label { position: absolute; background: var(--paper); border: 1px solid var(--ink); padding: 7px 9px; font-family: var(--mono); font-size: 10px; font-weight: 800; }
+    .orbit-label.l1 { top: 58px; left: 12px; }
+    .orbit-label.l2 { top: 128px; right: -4px; }
+    .orbit-label.l3 { bottom: 86px; left: 26px; }
+    .orbit-label.l4 { bottom: 34px; right: 28px; }
+    .orbit-caption { position: absolute; bottom: 0; left: 0; right: 0; border-top: 1px solid var(--ink); padding-top: 13px; display: flex; justify-content: space-between; gap: 18px; font-family: var(--mono); font-size: 10px; }
+
+    section { scroll-margin-top: 24px; padding: 88px 0; border-bottom: 1px solid var(--ink); }
+    .section-head { display: grid; grid-template-columns: 86px minmax(0, 1fr) minmax(210px, .38fr); gap: 24px; align-items: start; margin-bottom: 38px; }
+    .section-no { font-family: var(--mono); font-size: 12px; padding-top: 12px; color: var(--muted); }
+    .section-head h2 { margin: 0; font-family: var(--display); font-size: clamp(40px, 6.1vw, 82px); line-height: .91; letter-spacing: -.055em; text-transform: uppercase; }
+    .section-note { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .badge { display: inline-flex; align-items: center; border: 1px solid currentColor; border-radius: 999px; padding: 4px 7px; font-family: var(--mono); font-size: 9px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+    .badge.source, .badge.live { color: var(--live); }
+    .badge.paraphrase, .badge.reference { color: #775c1a; }
+    .badge.warning, .badge.gap { color: var(--warn); }
+    .badge.action { color: #294fbd; }
+
+    .verdict-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 18px; }
+    .verdict-card { background: var(--ink); color: var(--paper); border-radius: 26px; padding: clamp(26px, 4vw, 52px); min-height: 350px; display: flex; flex-direction: column; justify-content: space-between; }
+    .verdict-card .big { font-family: var(--display); font-size: clamp(32px, 5vw, 66px); line-height: .96; letter-spacing: -.05em; font-weight: 920; }
+    .verdict-card .big em { color: var(--acid); font-style: normal; }
+    .verdict-card small { max-width: 580px; color: rgba(240,237,226,.66); }
+    .signal-stack { display: grid; gap: 12px; }
+    .signal-card { border: 1px solid var(--ink); border-radius: 20px; padding: 20px; background: rgba(240,237,226,.60); }
+    .signal-card b { display: block; font-family: var(--display); font-size: 27px; letter-spacing: -.04em; margin: 9px 0 4px; }
+    .signal-card p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .workflow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; counter-reset: gate; }
+    .gate { position: relative; min-height: 390px; border: 1px solid var(--ink); background: rgba(240,237,226,.68); padding: 22px; border-radius: 19px; overflow: hidden; counter-increment: gate; }
+    .gate::before { content: "0" counter(gate); display: block; font-family: var(--mono); font-size: 12px; margin-bottom: 56px; }
+    .gate::after { content: ""; position: absolute; width: 130px; height: 130px; border-radius: 50%; background: var(--acid); right: -54px; top: -54px; opacity: .75; }
+    .gate:nth-child(2)::after { background: var(--orange); }
+    .gate:nth-child(3)::after { background: var(--blue); }
+    .gate:nth-child(4)::after { background: var(--ink); }
+    .gate h3 { margin: 0 0 12px; font-family: var(--display); font-size: 28px; line-height: 1; letter-spacing: -.04em; text-transform: uppercase; }
+    .gate p { margin: 0; color: var(--muted); font-size: 13px; }
+    .gate ul { padding-left: 17px; margin: 20px 0 0; font-size: 12px; }
+    .gate time { position: absolute; bottom: 18px; left: 22px; font-family: var(--mono); font-size: 10px; color: var(--muted); }
+    .tracer-band { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 16px; }
+    .tracer-band span { min-height: 50px; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 9px; text-align: center; padding: 8px; }
+    .tracer-band span:first-child, .tracer-band span:last-child { background: var(--acid); color: var(--ink); }
+
+    .quote-tools, .patrick-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .filter-btn { border: 1px solid var(--ink); background: transparent; border-radius: 999px; padding: 7px 11px; font-size: 10px; font-weight: 850; cursor: pointer; }
+    .filter-btn.active { background: var(--ink); color: var(--paper); }
+    .quote-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .quote-card { min-height: 275px; border: 1px solid var(--ink); border-radius: 22px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; background: rgba(240,237,226,.72); }
+    .quote-card.verbatim { background: var(--ink); color: var(--paper); }
+    .quote-card[hidden], .patrick-card[hidden] { display: none; }
+    .quote-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .quote-card blockquote { margin: 32px 0 24px; font-family: var(--display); font-size: clamp(24px, 3vw, 40px); line-height: 1.04; letter-spacing: -.04em; font-weight: 850; }
+    .quote-card p { margin: 0; font-size: 14px; }
+    .quote-meta { display: flex; align-items: end; justify-content: space-between; gap: 18px; padding-top: 18px; border-top: 1px solid currentColor; font-family: var(--mono); font-size: 9px; opacity: .8; }
+    .time-link { text-decoration: none; border-bottom: 1px solid currentColor; font-weight: 900; }
+    .quote-note { color: var(--muted); }
+    .quote-card.verbatim .quote-note { color: rgba(240,237,226,.62); }
+
+    .evidence-boundary { border: 1px solid var(--orange); background: rgba(239,100,61,.08); border-radius: 18px; padding: 18px 20px; margin-bottom: 20px; display: grid; grid-template-columns: auto 1fr; gap: 14px; }
+    .evidence-boundary strong { color: var(--warn); font-family: var(--mono); font-size: 11px; }
+    .evidence-boundary p { margin: 0; font-size: 13px; }
+    .patrick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .patrick-card { border: 1px solid var(--ink); border-radius: 22px; padding: 22px; background: rgba(240,237,226,.72); }
+    .patrick-card header { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .relation { font-family: var(--mono); font-size: 9px; color: var(--muted); text-align: right; }
+    .patrick-card h3 { margin: 30px 0 8px; font-family: var(--display); font-size: 27px; line-height: 1; letter-spacing: -.035em; }
+    .patrick-card p { margin: 0; font-size: 13px; }
+    .mapping-arrow { margin: 20px 0; display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; font-size: 11px; }
+    .mapping-arrow i { font-style: normal; color: var(--orange); font-size: 18px; }
+    .path-row { margin-top: 18px; display: flex; gap: 8px; align-items: flex-start; }
+    .path-row code { flex: 1; min-width: 0; overflow-wrap: anywhere; font-family: var(--mono); font-size: 9px; background: rgba(23,25,20,.08); padding: 8px; border-radius: 8px; }
+    .copy-path { flex: 0 0 auto; border: 1px solid var(--ink); border-radius: 8px; background: transparent; cursor: pointer; font-size: 10px; padding: 6px 8px; }
+    .limitation { margin-top: 15px !important; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px !important; }
+
+    .cockpit { background: var(--ink); color: var(--paper); border-radius: 28px; padding: clamp(22px, 4vw, 48px); }
+    .cockpit-top { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
+    .progress-copy { font-family: var(--display); font-size: clamp(34px, 5vw, 62px); line-height: .95; letter-spacing: -.05em; }
+    .progress-copy b { color: var(--acid); }
+    .cockpit-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: end; }
+    .dark-btn { border: 1px solid rgba(255,255,255,.4); background: transparent; color: var(--paper); border-radius: 999px; padding: 9px 12px; font-size: 10px; font-weight: 850; cursor: pointer; }
+    .dark-btn:hover { background: var(--acid); color: var(--ink); border-color: var(--acid); }
+    .progress-track { height: 7px; background: rgba(255,255,255,.14); margin: 24px 0 28px; border-radius: 99px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 0; background: var(--acid); transition: width .4s ease; }
+    .action-list { display: grid; gap: 10px; }
+    .action-card { border: 1px solid rgba(255,255,255,.2); border-radius: 18px; background: rgba(255,255,255,.045); overflow: hidden; }
+    .action-card:has(input:checked) { opacity: .58; }
+    .action-summary { display: grid; grid-template-columns: 32px 50px minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 16px; cursor: pointer; }
+    .action-summary::-webkit-details-marker { display: none; }
+    .action-check { width: 20px; height: 20px; accent-color: var(--acid); cursor: pointer; }
+    .priority { font-family: var(--mono); font-size: 10px; color: var(--acid); }
+    .action-title { font-weight: 780; line-height: 1.25; }
+    .action-window { font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,.52); }
+    .action-body { padding: 0 18px 20px 110px; }
+    .today-step { border-left: 3px solid var(--acid); background: rgba(216,240,91,.08); padding: 10px 12px; font-size: 12px; margin-bottom: 14px; }
+    .spec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 0; }
+    .spec-grid div { border-top: 1px solid rgba(255,255,255,.12); padding-top: 8px; }
+    .spec-grid dt { font-family: var(--mono); font-size: 8px; color: rgba(255,255,255,.45); text-transform: uppercase; }
+    .spec-grid dd { margin: 4px 0 0; font-size: 11px; }
+
+    .context-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .context-card { border: 1px solid var(--ink); border-radius: 22px; padding: 24px; min-height: 280px; background: rgba(240,237,226,.72); }
+    .context-card.dark { background: var(--ink); color: var(--paper); }
+    .context-card h3 { margin: 34px 0 12px; font-family: var(--display); font-size: 31px; line-height: 1; letter-spacing: -.04em; }
+    .context-card ul { padding-left: 18px; font-size: 13px; }
+    .context-card code { font-family: var(--mono); font-size: 10px; }
+    .anti-map { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .anti { padding: 18px; border: 1px solid var(--orange); border-radius: 16px; background: rgba(239,100,61,.06); }
+    .anti b { font-family: var(--display); font-size: 19px; }
+    .anti p { margin: 8px 0 0; font-size: 11px; color: var(--muted); }
+
+    .chapter-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .chapter-link { display: grid; grid-template-columns: 50px 1fr; gap: 10px; align-items: start; border: 1px solid var(--ink); border-radius: 13px; padding: 12px; text-decoration: none; background: rgba(240,237,226,.68); transition: background .2s ease, transform .2s ease; }
+    .chapter-link:hover { background: var(--acid); transform: translateY(-2px); }
+    .chapter-link time { font-family: var(--mono); font-size: 10px; font-weight: 900; }
+    .chapter-link span { font-size: 11px; line-height: 1.35; }
+
+    .method-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .method-card { border-top: 5px solid var(--ink); padding: 18px 0; }
+    .method-card h3 { margin: 0 0 10px; font-family: var(--display); font-size: 23px; }
+    .method-card p { margin: 0; font-size: 12px; color: var(--muted); }
+    .source-list { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .source-list a { text-decoration: none; border: 1px solid var(--ink); border-radius: 999px; padding: 8px 11px; font-size: 10px; font-weight: 800; }
+    .source-list a:hover { background: var(--ink); color: var(--paper); }
+
+    footer { padding: 40px 0 0; font-size: 11px; color: var(--muted); display: flex; justify-content: space-between; gap: 22px; }
+    .toast { position: fixed; right: 22px; bottom: 22px; z-index: 120; background: var(--ink); color: var(--paper); border: 1px solid var(--acid); border-radius: 12px; padding: 11px 14px; font-size: 11px; transform: translateY(130px); opacity: 0; transition: .25s ease; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .mobile-overlay { display: none; }
+
+    @media (max-width: 1180px) {
+      .toc { width: 218px; }
+      main { width: calc(100% - 278px); }
+      .workflow { grid-template-columns: repeat(2, 1fr); }
+      .chapter-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .menu-btn { display: inline-flex; }
+      .toc { left: 12px; top: 12px; bottom: 12px; width: min(300px, calc(100vw - 38px)); transform: translateX(calc(-100% - 20px)); transition: transform .28s cubic-bezier(.2,.8,.2,1); }
+      .toc.open { transform: translateX(0); }
+      .toc-foot { position: static; margin-top: 22px; }
+      .mobile-overlay { position: fixed; inset: 0; z-index: 60; background: rgba(23,25,20,.38); backdrop-filter: blur(3px); }
+      .mobile-overlay.open { display: block; }
+      main { width: auto; margin: 0; padding: 24px 18px 70px; }
+      .utility-bar { top: 12px; right: 12px; }
+      .hero { grid-template-columns: 1fr; padding-top: 90px; }
+      .oracle-figure { min-height: 430px; }
+      .orbit.o1 { width: min(360px, 92vw); height: min(360px, 92vw); }
+      .section-head { grid-template-columns: 54px 1fr; }
+      .section-note { grid-column: 2; }
+      .verdict-grid, .context-grid { grid-template-columns: 1fr; }
+      .patrick-grid, .quote-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .utility-btn { padding: 8px 10px; }
+      .utility-btn .desktop-only { display: none; }
+      .hero h1 { font-size: clamp(58px, 20vw, 92px); }
+      .hero-actions { align-items: stretch; }
+      .primary-link, .ghost-link { justify-content: center; width: 100%; }
+      section { padding: 64px 0; }
+      .section-head { display: block; }
+      .section-no { padding: 0 0 10px; }
+      .section-note { margin-top: 14px; }
+      .workflow { grid-template-columns: 1fr; }
+      .gate { min-height: 330px; }
+      .tracer-band { grid-template-columns: 1fr; }
+      .tracer-band span { min-height: 38px; }
+      .chapter-list, .method-grid, .anti-map { grid-template-columns: 1fr; }
+      .cockpit-top { grid-template-columns: 1fr; }
+      .cockpit-actions { justify-content: start; }
+      .action-summary { grid-template-columns: 28px 40px 1fr; }
+      .action-window { grid-column: 3; }
+      .action-body { padding: 0 14px 18px; }
+      .spec-grid { grid-template-columns: 1fr; }
+      .oracle-figure { min-height: 390px; }
+      .orbit-label { font-size: 8px; }
+      .orbit-label.l2 { right: 4px; }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+    @media print {
+      .toc, .utility-bar, .scroll-meter, .mobile-overlay, .toast { display: none !important; }
+      main { width: 100%; margin: 0; padding: 0; }
+      section { break-inside: avoid; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#brief"><span class="zh">跳到正文</span><span class="en">Skip to content</span></a>
+  <div class="scroll-meter" id="scrollMeter" aria-hidden="true"></div>
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+
+  <div class="utility-bar" aria-label="Page utilities">
+    <button class="utility-btn menu-btn" id="menuBtn" type="button" aria-controls="toc" aria-expanded="false">☰ <span class="desktop-only"><span class="zh">目录</span><span class="en">TOC</span></span></button>
+    <button class="utility-btn" id="langBtn" type="button" aria-label="Switch language" onclick="toggleLang()">中 / EN</button>
+    <a class="utility-btn" href="index.md" download><span class="zh">下载笔记</span><span class="en">Note</span> ↓</a>
+  </div>
+
+  <aside class="toc" id="toc" aria-label="Table of contents">
+    <div class="toc-brand"><strong>THE ORACLE GAP</strong><span class="toc-index">XG / 01</span></div>
+    <nav>
+      <a href="#brief"><span>01</span><span><span class="zh">核心判断</span><span class="en">Signal brief</span></span></a>
+      <a href="#workflow"><span>02</span><span><span class="zh">四道设计门</span><span class="en">Four design gates</span></span></a>
+      <a href="#quotes"><span>03</span><span><span class="zh">金句与高信号线</span><span class="en">Key lines</span></span></a>
+      <a href="#patrick"><span>04</span><span>Patrick Lens</span></a>
+      <a href="#action"><span>05</span><span><span class="zh">行动驾驶舱</span><span class="en">Action cockpit</span></span></a>
+      <a href="#context"><span>06</span><span><span class="zh">上下文与反证</span><span class="en">Context & counterproof</span></span></a>
+      <a href="#chapters"><span>07</span><span><span class="zh">字幕整理时间轴</span><span class="en">Editorial timeline</span></span></a>
+      <a href="#evidence"><span>08</span><span><span class="zh">证据与方法</span><span class="en">Evidence & method</span></span></a>
+    </nav>
+    <div class="toc-foot">BILINGUAL · LOCAL-FIRST · 2026.08.07</div>
+  </aside>
+
+  <main id="main">
+    <header class="hero" id="top">
+      <div>
+        <div class="eyebrow"><span class="signal-dot"></span><span class="code">Source distillation / 58:37 / Education</span><span class="badge source">ASR VERIFIED</span></div>
+        <h1><span class="outline">The</span><br>Oracle<br>Gap</h1>
+        <p class="hero-lede">
+          <span class="zh">当代码生成变便宜，真正稀缺的是<mark>正确的问题、持续理解与可维护性判断</mark>。</span>
+          <span class="en">When code becomes cheap, the scarce resources are <mark>the right problem, continuous understanding, and maintainability judgment</mark>.</span>
+        </p>
+        <div class="hero-actions">
+          <a class="primary-link" href="https://www.youtube.com/watch?v=xgkjtF89-44" target="_blank" rel="noopener"><span class="zh">打开原视频</span><span class="en">Watch source</span> ↗</a>
+          <a class="ghost-link" href="#action"><span class="zh">直接进入行动</span><span class="en">Enter action cockpit</span> ↓</a>
+        </div>
+      </div>
+      <div class="oracle-figure" aria-label="Maintainability oracle gap diagram">
+        <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div>
+        <div class="oracle-core"><span class="zh">可维护性<br>没有快速<br>判定器</span><span class="en">NO FAST<br>ORACLE FOR<br>MAINTAINABILITY</span></div>
+        <span class="orbit-label l1"><span class="zh">产品结果</span><span class="en">PRODUCT OUTCOME</span></span>
+        <span class="orbit-label l2"><span class="zh">系统理解</span><span class="en">SYSTEM UNDERSTANDING</span></span>
+        <span class="orbit-label l3"><span class="zh">验证切片</span><span class="en">VERIFIED SLICES</span></span>
+        <span class="orbit-label l4"><span class="zh">长期可改性</span><span class="en">CHANGEABILITY</span></span>
+        <div class="orbit-caption"><span>CODE SPEED ↑</span><span>REVIEW / TRUST / MAINTAINABILITY → BOTTLENECK</span></div>
+      </div>
+    </header>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">01 / BRIEF</span><h2 id="brief"><span class="zh">核心<br>判断</span><span class="en">Signal<br>brief</span></h2><p class="section-note"><span class="zh">这不是“如何多跑几个 agent”的教程；它是在追问：当实现速度暴涨后，人类应该守住哪些前置判断。</span><span class="en">This is not a tutorial about running more agents. It asks which upstream judgments humans must retain when implementation speed explodes.</span></p></div>
+      <div class="verdict-grid">
+        <article class="verdict-card">
+          <span class="badge source">EDITORIAL SYNTHESIS</span>
+          <div class="big"><span class="zh">不要把人从环里拿掉。把人移到<em>设计、验证与瓶颈判断</em>的位置。</span><span class="en">Do not remove humans from the loop. Move them to <em>design, verification, and bottleneck judgment</em>.</span></div>
+          <small><span class="zh">视频最强主线：实现已经加速，审查、信任、系统掌控与长期可改性开始决定产出上限。</span><span class="en">The strongest through-line: implementation is faster; review, trust, system command, and long-horizon changeability now cap throughput.</span></small>
+        </article>
+        <div class="signal-stack">
+          <article class="signal-card"><span class="badge source">03:08</span><b><span class="zh">瓶颈迁移</span><span class="en">Bottleneck shift</span></b><p><span class="zh">编码从小时/天缩短到分钟/小时，审查与信任接棒成为约束。</span><span class="en">Coding drops from hours or days to minutes or hours; review and trust inherit the constraint.</span></p></article>
+          <article class="signal-card"><span class="badge warning">07:08–10:54</span><b><span class="zh">全自动反证</span><span class="en">Lights-out counterexample</span></b><p><span class="zh">三个月不读代码后，一个 agent 无法定位的 bug 迫使团队重读整片意大利面式代码。</span><span class="en">After three months without reading code, one agent-resistant bug forced the team to relearn a spaghetti system.</span></p></article>
+          <article class="signal-card"><span class="badge source">48:50</span><b><span class="zh">先找约束</span><span class="en">Find the constraint</span></b><p><span class="zh">优化非瓶颈，不会让用户价值更快到达。</span><span class="en">Optimizing a non-constraint does not deliver user value sooner.</span></p></article>
+        </div>
+      </div>
+    </section>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">02 / GATES</span><h2 id="workflow"><span class="zh">四道<br>设计门</span><span class="en">Four<br>design gates</span></h2><p class="section-note"><span class="zh">先让低置信、难逆转的决策暴露，再让 agent 写代码。四层都不是文档仪式，而是缩小错误搜索空间。</span><span class="en">Expose low-confidence, hard-to-reverse decisions before coding. Each layer narrows the costly part of the search space.</span></p></div>
+      <div class="workflow">
+        <article class="gate"><h3><span class="zh">产品结果</span><span class="en">Product outcome</span></h3><p><span class="zh">明确用户问题、可度量成功、面向用户的发布说明；用纯 HTML mockup 先把界面说清。</span><span class="en">Define the user problem, measurable success, and launch story; clarify the interface with a plain HTML mockup.</span></p><ul><li><span class="zh">用户能完成什么？</span><span class="en">What can the user now do?</span></li><li><span class="zh">什么数字会变化？</span><span class="en">Which number should move?</span></li></ul><time>11:50–15:15</time></article>
+        <article class="gate"><h3><span class="zh">系统架构</span><span class="en">System architecture</span></h3><p><span class="zh">服务流、端点、表、查询与边界如何拼接；把外部系统的必要说明留在 repo 内。</span><span class="en">Map services, endpoints, tables, queries, and boundaries; keep essential external-system context in the repository.</span></p><ul><li><span class="zh">数据从哪来、到哪去？</span><span class="en">Where does data enter and leave?</span></li><li><span class="zh">哪条边界最难逆转？</span><span class="en">Which boundary is hardest to reverse?</span></li></ul><time>15:16–16:36</time></article>
+        <article class="gate"><h3><span class="zh">程序设计</span><span class="en">Program design</span></h3><p><span class="zh">调用栈、文件位置、类型/方法签名与测试形态。编码前先审低置信决策。</span><span class="en">Specify call stacks, file placement, signatures, and test shape. Review low-confidence decisions before code.</span></p><ul><li><span class="zh">哪些选择会让后续功能更难？</span><span class="en">Which choice makes later features harder?</span></li><li><span class="zh">人类直觉应在哪里介入？</span><span class="en">Where should human intuition enter?</span></li></ul><time>16:37–19:28</time></article>
+        <article class="gate"><h3><span class="zh">纵向切片</span><span class="en">Vertical slices</span></h3><p><span class="zh">先用 mock API + stub UI 打通最小端到端，再逐层增加迁移、逻辑和错误处理；每步可验证。</span><span class="en">Connect a minimal end-to-end path with mock API and stub UI, then add migrations, logic, and errors—each verifiable.</span></p><ul><li><span class="zh">每片都能独立演示吗？</span><span class="en">Can each slice be demonstrated?</span></li><li><span class="zh">失败已变成回归测试吗？</span><span class="en">Did failure become a regression test?</span></li></ul><time>19:29–21:58</time></article>
+      </div>
+      <div class="tracer-band" aria-label="Vertical slice sequence"><span>MOCK API</span><span>STUB UI</span><span>REAL DATA</span><span>BUSINESS LOGIC</span><span>ERROR PATH</span></div>
+    </section>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">03 / LINES</span><h2 id="quotes"><span class="zh">金句与<br>高信号线</span><span class="en">Key<br>lines</span></h2><p class="section-note"><span class="zh">两条英文为自动字幕逐字子串；其余六条是明确标注的编辑转述。没有把记忆中的措辞伪装成引用。</span><span class="en">Two English lines are exact ASR substrings; the other six are explicitly labeled editorial paraphrases.</span></p></div>
+      <div class="quote-tools" role="group" aria-label="Quote filters"><button class="filter-btn active" data-quote-filter="all" type="button"><span class="zh">全部 8</span><span class="en">All 8</span></button><button class="filter-btn" data-quote-filter="verbatim" type="button">VERBATIM 2</button><button class="filter-btn" data-quote-filter="paraphrase" type="button">PARAPHRASE 6</button></div>
+      <div class="quote-grid">
+        <article class="quote-card verbatim" data-quote-type="verbatim"><div><div class="quote-top"><span class="badge live">VERBATIM · BYTE-EXACT</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1566s" target="_blank" rel="noopener">26:06 ↗</a></div><blockquote>maintainability has no fast oracle</blockquote><p class="quote-note"><span class="zh">测试可在几秒内给出反馈；坏架构的代价却常在数周或数月后才出现。</span><span class="en">Tests answer in seconds; bad architecture often reveals its cost weeks or months later.</span></p></div><div class="quote-meta"><span>DEX · ORACLE</span><span><span class="zh">自动字幕</span><span class="en">AUTO CAPTIONS</span></span></div></article>
+        <article class="quote-card verbatim" data-quote-type="verbatim"><div><div class="quote-top"><span class="badge live">VERBATIM · BYTE-EXACT</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2583s" target="_blank" rel="noopener">43:03 ↗</a></div><blockquote>Just do what works.</blockquote><p class="quote-note"><span class="zh">不要为了抽象的 token 完美或工具排名，忘记交付真正结果。</span><span class="en">Do not let abstract token perfection or tooling status replace delivery of the real result.</span></p></div><div class="quote-meta"><span>DEX · OUTCOME</span><span><span class="zh">自动字幕</span><span class="en">AUTO CAPTIONS</span></span></div></article>
+        <article class="quote-card" data-quote-type="paraphrase"><div><div class="quote-top"><span class="badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=188s" target="_blank" rel="noopener">03:08 ↗</a></div><blockquote><span class="zh">前置一小时澄清设计，常能省掉数小时错误构建与审查。</span><span class="en">An hour of design clarification can prevent hours of wrong implementation and review.</span></blockquote><p class="quote-note"><span class="zh">把昂贵判断移到代码生成之前。</span><span class="en">Move costly judgment ahead of code generation.</span></p></div><div class="quote-meta"><span>DESIGN · FRONT DOOR</span><span>EDITORIAL</span></div></article>
+        <article class="quote-card" data-quote-type="paraphrase"><div><div class="quote-top"><span class="badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=524s" target="_blank" rel="noopener">08:44 ↗</a></div><blockquote><span class="zh">让 agent 反过来教你系统：测验、图示、HTML 可视化。</span><span class="en">Have the agent teach the system back through quizzes, diagrams, and HTML visualizations.</span></blockquote><p class="quote-note"><span class="zh">目标不是逐行阅读，而是持续掌握系统逻辑。</span><span class="en">The goal is sustained command of system logic, not ritual line-by-line reading.</span></p></div><div class="quote-meta"><span>UNDERSTANDING</span><span>EDITORIAL</span></div></article>
+        <article class="quote-card" data-quote-type="paraphrase"><div><div class="quote-top"><span class="badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=810s" target="_blank" rel="noopener">13:30 ↗</a></div><blockquote><span class="zh">给 agent 一个可度量结果，它会把搜索与努力集中到真正目标。</span><span class="en">A measurable outcome concentrates agent search and effort on the real target.</span></blockquote><p class="quote-note"><span class="zh">成功标准比更多提示词更有杠杆。</span><span class="en">A success criterion often has more leverage than more prompting.</span></p></div><div class="quote-meta"><span>MEASURABLE OUTPUT</span><span>EDITORIAL</span></div></article>
+        <article class="quote-card" data-quote-type="paraphrase"><div><div class="quote-top"><span class="badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2420s" target="_blank" rel="noopener">40:20 ↗</a></div><blockquote><span class="zh">指定做法能收窄搜索空间；不指定则可能更差，也可能发现更优路径。</span><span class="en">Prescribing method narrows search; leaving it open can fail badly or discover a better route.</span></blockquote><p class="quote-note"><span class="zh">把“怎么做”当成风险旋钮，而不是教条。</span><span class="en">Treat method prescription as a risk dial, not dogma.</span></p></div><div class="quote-meta"><span>PERMISSION · SEARCH</span><span>EDITORIAL</span></div></article>
+        <article class="quote-card" data-quote-type="paraphrase"><div><div class="quote-top"><span class="badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2930s" target="_blank" rel="noopener">48:50 ↗</a></div><blockquote><span class="zh">大多数低效不是当前瓶颈；先确认什么真正阻挡用户价值。</span><span class="en">Most inefficiency is not the current constraint; identify what actually blocks user value.</span></blockquote><p class="quote-note"><span class="zh">工具吞吐不等于端到端吞吐。</span><span class="en">Tool throughput is not end-to-end throughput.</span></p></div><div class="quote-meta"><span>BOTTLENECK</span><span>EDITORIAL</span></div></article>
+        <article class="quote-card" data-quote-type="paraphrase"><div><div class="quote-top"><span class="badge paraphrase">PARAPHRASE</span><a class="time-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=3472s" target="_blank" rel="noopener">57:52 ↗</a></div><blockquote><span class="zh">极乐与灾难两端都无法指导计划；现实行动应押注中间路径。</span><span class="en">Neither utopia nor catastrophe supports planning; practical action belongs in the middle path.</span></blockquote><p class="quote-note"><span class="zh">在不完全信息下，以可逆、高期望值决策前进。</span><span class="en">Move through uncertainty with reversible, high-expected-value decisions.</span></p></div><div class="quote-meta"><span>AGENCY · MIDDLE PATH</span><span>EDITORIAL</span></div></article>
+      </div>
+    </section>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">04 / LENS</span><h2 id="patrick">Patrick<br>Lens</h2><p class="section-note"><span class="zh">个人合成层，不是视频人物关系。每张卡都把视频原则映射到已在磁盘核验的 Hermes 资产，并写明状态与限制。</span><span class="en">A personal synthesis layer—not a relationship in the video. Each card maps a source principle to a disk-verified Hermes asset, with status and limits.</span></p></div>
+      <div class="evidence-boundary"><strong>ZERO DIRECT MENTIONS</strong><p><span class="zh">完整英文自动字幕和视频简介中，Patrick / Patrik / Patric 均为 0 次。本区所有“Patrick 相关”均标为个人实现判断，不能归因给嘉宾。</span><span class="en">Patrick / Patrik / Patric appears zero times in the full English ASR and description. Everything below is personal implementation judgment, not a guest attribution.</span></p></div>
+      <div class="patrick-tools" role="group" aria-label="Patrick status filters"><button class="filter-btn active" data-patrick-filter="all" type="button"><span class="zh">全部 7</span><span class="en">All 7</span></button><button class="filter-btn" data-patrick-filter="live" type="button">LIVE</button><button class="filter-btn" data-patrick-filter="reference" type="button">REFERENCE</button><button class="filter-btn" data-patrick-filter="gap" type="button">GAP</button></div>
+      <div class="patrick-grid">
+        <article class="patrick-card" data-patrick-status="live"><header><span class="badge live">LIVE</span><span class="relation">FULLY ALIGNED</span></header><h3>Video → Knowledge Dashboard</h3><p><span class="zh">视频原则：先拿到可验证证据，再压成稳定交付物。</span><span class="en">Video principle: acquire verifiable evidence, then compress it into a stable deliverable.</span></p><div class="mapping-arrow"><span>TRANSCRIPT + CLAIMS</span><i>→</i><span>MD + HTML + CHECKS</span></div><div class="path-row"><code title="/Users/zl/.hermes/skills/media/video-to-knowledge-dashboard/SKILL.md">~/.hermes/skills/media/video-to-knowledge-dashboard/SKILL.md</code><button class="copy-path" type="button" data-copy="/Users/zl/.hermes/skills/media/video-to-knowledge-dashboard/SKILL.md">COPY</button></div><p class="limitation"><span class="zh">限制：历史包装脚本存在已记录契约错配；本次采用已下载 JSON3 + 人工主控合成，不把 wrapper 成功当作内容成功。</span><span class="en">Limit: its legacy wrapper has documented contract mismatches; this run used downloaded JSON3 plus controlled synthesis.</span></p></article>
+        <article class="patrick-card" data-patrick-status="reference"><header><span class="badge reference">REFERENCE</span><span class="relation">FULLY ALIGNED</span></header><h3>Video Patrick Action Lens</h3><p><span class="zh">视频原则：洞察只有变成可验收行动，才进入真实工作流。</span><span class="en">Video principle: insight enters a real workflow only when it becomes independently verifiable action.</span></p><div class="mapping-arrow"><span>KEY LINE</span><i>→</i><span>OWNER · THRESHOLD · EVIDENCE</span></div><div class="path-row"><code title="/Users/zl/.hermes/skills/media/video-patrick-action-lens/SKILL.md">~/.hermes/skills/media/video-patrick-action-lens/SKILL.md</code><button class="copy-path" type="button" data-copy="/Users/zl/.hermes/skills/media/video-patrick-action-lens/SKILL.md">COPY</button></div><p class="limitation"><span class="zh">限制：这是 overlay 规范，不独立抓字幕、写 vault 或发布；需由上游和输出技能承接。</span><span class="en">Limit: this is an overlay specification; it does not independently fetch, write the vault, or publish.</span></p></article>
+        <article class="patrick-card" data-patrick-status="live"><header><span class="badge live">LIVE</span><span class="relation">FULLY ALIGNED</span></header><h3>Task Decomposition / 3C</h3><p><span class="zh">视频原则：把大功能拆成可独立验证的纵向切片。</span><span class="en">Video principle: split a large feature into independently verifiable vertical slices.</span></p><div class="mapping-arrow"><span>CLEAR INPUT</span><i>→</i><span>OUTPUT + SUCCESS CRITERIA</span></div><div class="path-row"><code title="/Users/zl/.hermes/skills/autonomous-ai-agents/task-decomposition/SKILL.md">~/.hermes/skills/autonomous-ai-agents/task-decomposition/SKILL.md</code><button class="copy-path" type="button" data-copy="/Users/zl/.hermes/skills/autonomous-ai-agents/task-decomposition/SKILL.md">COPY</button></div><p class="limitation"><span class="zh">限制：3C 能让节点清晰，但不会自动保证切片是端到端的；必须额外要求 UI/API/数据形成完整细线。</span><span class="en">Limit: 3C clarifies nodes but does not guarantee an end-to-end slice; require a thin UI/API/data path.</span></p></article>
+        <article class="patrick-card" data-patrick-status="reference"><header><span class="badge reference">REFERENCE</span><span class="relation">ALIGNED + WARNING</span></header><h3>Dual-AI Peer Review</h3><p><span class="zh">视频原则：高风险改动需要第二意见与人类测试。</span><span class="en">Video principle: high-risk changes need a second opinion and human testing.</span></p><div class="mapping-arrow"><span>MODEL REVIEW</span><i>→</i><span>DISSENT + HUMAN GATE</span></div><div class="path-row"><code title="/Users/zl/.hermes/skills/autonomous-ai-agents/dual-ai-peer-review/SKILL.md">~/.hermes/skills/autonomous-ai-agents/dual-ai-peer-review/SKILL.md</code><button class="copy-path" type="button" data-copy="/Users/zl/.hermes/skills/autonomous-ai-agents/dual-ai-peer-review/SKILL.md">COPY</button></div><p class="limitation"><span class="zh">警示：SKILL.md 在磁盘，但其引用的 <code>~/.hermes/scripts/dual_ai_review.sh</code> 未找到，因此只按参考流程，不声称可运行；第二模型也不是可维护性 oracle。</span><span class="en">Warning: the SKILL.md exists, but its referenced <code>~/.hermes/scripts/dual_ai_review.sh</code> is absent, so this is reference-only; a second model is not a maintainability oracle.</span></p></article>
+        <article class="patrick-card" data-patrick-status="reference"><header><span class="badge reference">REFERENCE</span><span class="relation">ALIGNED</span></header><h3>Agent Trace Integrity</h3><p><span class="zh">视频原则：不要用“像证据的叙事”填补缺失日志、来源或运行结果。</span><span class="en">Video principle: never fill missing logs, sources, or outcomes with evidence-shaped narrative.</span></p><div class="mapping-arrow"><span>CLAIM</span><i>→</i><span>REAL FILE · EXIT · FETCH</span></div><div class="path-row"><code title="/Users/zl/.hermes/skills/agent-trace-integrity/SKILL.md">~/.hermes/skills/agent-trace-integrity/SKILL.md</code><button class="copy-path" type="button" data-copy="/Users/zl/.hermes/skills/agent-trace-integrity/SKILL.md">COPY</button></div><p class="limitation"><span class="zh">限制：它能守住证据链，不会自动判断产品问题是否值得做；仍需 Product gate。</span><span class="en">Limit: it protects the evidence chain but cannot decide whether the product problem is worth solving.</span></p></article>
+        <article class="patrick-card" data-patrick-status="live"><header><span class="badge live">LIVE</span><span class="relation">ALIGNED</span></header><h3>Obsidian / File-on-disk Context</h3><p><span class="zh">视频原则：ADR、外部系统说明与可靠上下文应进入 repo / 文件，而不是依赖长会话记忆。</span><span class="en">Video principle: ADRs, external-system notes, and reliable context belong in files—not in a long session's memory.</span></p><div class="mapping-arrow"><span>DECISION CONTEXT</span><i>→</i><span>DURABLE NOTE</span></div><div class="path-row"><code title="/Users/zl/.hermes/skills/note-taking/obsidian/SKILL.md">~/.hermes/skills/note-taking/obsidian/SKILL.md</code><button class="copy-path" type="button" data-copy="/Users/zl/.hermes/skills/note-taking/obsidian/SKILL.md">COPY</button></div><p class="limitation"><span class="zh">限制：视频没有提 Obsidian；这是相邻落地方式。活动 vault 已核验在 Downloads，但本次只交付兼容副本，未越权写入。</span><span class="en">Limit: the video never mentions Obsidian. This is an adjacent implementation; the active vault was verified, but this run does not write to it.</span></p></article>
+        <article class="patrick-card" data-patrick-status="gap"><header><span class="badge gap">GAP</span><span class="relation">HIGH-LEVERAGE GAP</span></header><h3>Maintainability Sequence Eval</h3><p><span class="zh">视频原则：不要只测一次任务是否通过；连续注入第 5/10/20 个未知需求，观察可改性是否衰减。</span><span class="en">Video principle: do not score one solved task; inject the 5th, 10th, and 20th unseen change and measure decay in changeability.</span></p><div class="mapping-arrow"><span>SINGLE BENCHMARK</span><i>→</i><span>SEQUENCE EVAL</span></div><div class="path-row"><code title="Proposed path — not on disk">~/.hermes/skills/evals/maintainability-sequence/SKILL.md</code><button class="copy-path" type="button" data-copy="/Users/zl/.hermes/skills/evals/maintainability-sequence/SKILL.md">COPY</button></div><p class="limitation"><span class="zh">现状：候选路径已核验不存在。先写 eval 规格和 20 个隐藏后续需求，再决定是否值得升格为 skill。</span><span class="en">Status: the proposed path is absent. Write the eval spec and 20 hidden follow-up requests before promoting it to a skill.</span></p></article>
+      </div>
+    </section>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">05 / ACTION</span><h2 id="action"><span class="zh">行动<br>驾驶舱</span><span class="en">Action<br>cockpit</span></h2><p class="section-note"><span class="zh">状态保存在本机浏览器；每项都有产物、完成阈值、证据、护栏与停止条件。先做两个五分钟 P0 微步。</span><span class="en">State persists locally. Every action has an artifact, threshold, evidence, guardrail, and stop condition. Start with two sub-five-minute P0 steps.</span></p></div>
+      <div class="cockpit">
+        <div class="cockpit-top"><div class="progress-copy"><span class="zh">已完成 <b id="doneCount">0</b> / 8</span><span class="en"><b id="doneCountEn">0</b> of 8 complete</span></div><div class="cockpit-actions"><button class="dark-btn" id="copyPlan" type="button"><span class="zh">复制 Markdown 计划</span><span class="en">Copy Markdown plan</span></button><button class="dark-btn" id="resetActions" type="button"><span class="zh">重置</span><span class="en">Reset</span></button></div></div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="action-list">
+          <details class="action-card" data-action-id="feature-brief-template" data-title-zh="建立统一 Feature Brief 模板" data-title-en="Create a canonical Feature Brief template" open><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete feature brief template"><span class="priority">P0</span><span class="action-title"><span class="zh">建立统一 Feature Brief 模板</span><span class="en">Create a canonical Feature Brief template</span></span><span class="action-window"><span class="zh">今天 · 30 分钟</span><span class="en">Today · 30 min</span></span></summary><div class="action-body"><div class="today-step"><b><span class="zh">5 分钟微步：</span><span class="en">5-minute micro-step:</span></b> <span class="zh">新建文件并只写 8 个标题，不填正文。</span><span class="en">Create the file with eight headings only; do not fill the body.</span></div><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>docs/feature-brief-template.md</code></dd></div><div><dt>Threshold</dt><dd><span class="zh">问题、可度量结果、护栏、发布说明、HTML mock、架构、程序设计、纵向切片 8/8 齐全。</span><span class="en">All 8 fields present: problem, metric, guardrail, launch note, HTML mock, architecture, program design, slices.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">一个真实功能按模板完成，并链接测试或截图。</span><span class="en">One real feature filled in, linked to a test or screenshot.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">低置信、难逆转决策未确认前，不进入实现。</span><span class="en">No implementation before low-confidence, hard-to-reverse decisions are reviewed.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">两次使用后若只增加文档负担，缩成一页 checklist。</span><span class="en">If two uses add only ceremony, collapse it into a one-page checklist.</span></dd></div><div><dt>Source</dt><dd>11:50–19:28 · Owner: Patrick</dd></div></dl></div></details>
+          <details class="action-card" data-action-id="vertical-slice-gate" data-title-zh="把下一功能改成纵向切片" data-title-en="Turn the next feature into vertical slices" open><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete vertical slice gate"><span class="priority">P0</span><span class="action-title"><span class="zh">把下一功能改成纵向切片</span><span class="en">Turn the next feature into vertical slices</span></span><span class="action-window"><span class="zh">今天 · 45 分钟</span><span class="en">Today · 45 min</span></span></summary><div class="action-body"><div class="today-step"><b><span class="zh">5 分钟微步：</span><span class="en">5-minute micro-step:</span></b> <span class="zh">在下一张 issue 里加上 “mock API → stub UI” 两个复选框。</span><span class="en">Add “mock API → stub UI” as the first two checkboxes in the next issue.</span></div><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>docs/workflows/vertical-slice-gate.md</code></dd></div><div><dt>Threshold</dt><dd><span class="zh">至少 4 片；每片都有独立演示、测试或浏览器证据。</span><span class="en">At least four slices; each has an independent demo, test, or browser proof.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">PR 中按片链接证据，失败模式进入回归测试。</span><span class="en">PR links evidence per slice; each observed failure becomes a regression test.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">高风险数据迁移和权限改动不得自动直发。</span><span class="en">High-risk migrations and permission changes may not auto-ship.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">切片间依赖使独立验证失真时，重新切边界。</span><span class="en">If dependencies make validation artificial, redraw slice boundaries.</span></dd></div><div><dt>Source</dt><dd>19:29–21:58 · Owner: Patrick</dd></div></dl></div></details>
+          <details class="action-card" data-action-id="decision-ledger" data-title-zh="编码前列出低置信决策" data-title-en="List low-confidence decisions before coding"><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete decision ledger"><span class="priority">P1</span><span class="action-title"><span class="zh">编码前列出低置信决策</span><span class="en">List low-confidence decisions before coding</span></span><span class="action-window"><span class="zh">本周 · 30 分钟</span><span class="en">This week · 30 min</span></span></summary><div class="action-body"><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>docs/decision-ledger.md</code></dd></div><div><dt>Threshold</dt><dd><span class="zh">每个决策有置信度、可逆性、备选项、确认者。</span><span class="en">Each decision has confidence, reversibility, alternatives, and approver.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">至少 3 个决定在首行代码前被确认。</span><span class="en">At least three decisions reviewed before the first implementation line.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">不得把偏好伪装成来源事实。</span><span class="en">Do not present preferences as source facts.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">低风险且完全可逆的调整可跳过。</span><span class="en">Skip for low-risk, fully reversible changes.</span></dd></div><div><dt>Source</dt><dd>16:37–19:28 · Owner: Patrick</dd></div></dl></div></details>
+          <details class="action-card" data-action-id="repo-context" data-title-zh="把关键上下文写进 repo" data-title-en="Put durable context in the repository"><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete repository context"><span class="priority">P1</span><span class="action-title"><span class="zh">把关键上下文写进 repo</span><span class="en">Put durable context in the repository</span></span><span class="action-window"><span class="zh">本周 · 60 分钟</span><span class="en">This week · 60 min</span></span></summary><div class="action-body"><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>docs/adr/</code> + <code>docs/external/README.md</code></dd></div><div><dt>Threshold</dt><dd><span class="zh">定价/API 兼容/支付/测试账号用途/客户入口五类上下文可搜索。</span><span class="en">Pricing, API compatibility, payments, test-account purpose, and customer entry points are searchable.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">新会话无需口头补充即可回答一轮架构问答。</span><span class="en">A fresh session answers one architecture quiz without oral supplementation.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">只写结构和说明，严禁密钥、令牌、客户敏感数据。</span><span class="en">Write structure and explanation only—never keys, tokens, or customer-sensitive data.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">过期文档必须标记 owner 与复核日期，否则删除。</span><span class="en">Stale docs need an owner and review date or should be removed.</span></dd></div><div><dt>Source</dt><dd>33:00–35:30 · Owner: Patrick</dd></div></dl></div></details>
+          <details class="action-card" data-action-id="sequence-eval" data-title-zh="建立连续功能可维护性评测" data-title-en="Build a sequential maintainability evaluation"><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete sequence evaluation"><span class="priority">P1</span><span class="action-title"><span class="zh">建立连续功能可维护性评测</span><span class="en">Build a sequential maintainability evaluation</span></span><span class="action-window"><span class="zh">两周 · 4 小时</span><span class="en">2 weeks · 4 hours</span></span></summary><div class="action-body"><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>evals/maintainability-sequence.yaml</code></dd></div><div><dt>Threshold</dt><dd><span class="zh">20 个隐藏后续需求；记录第 1/5/10/20 次的变更时间、测试、返工与文件扩散。</span><span class="en">20 hidden follow-ups; record change time, tests, rework, and file spread at steps 1/5/10/20.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">同一初始任务上比较两种 agent 流程并公开评分表。</span><span class="en">Compare two agent workflows from the same initial task and publish the scorecard.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">模型不能提前看到完整路线图。</span><span class="en">The model may not see the full roadmap in advance.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">若指标不能区分明显的好坏代码库，停止并重写测量。</span><span class="en">If metrics cannot separate visibly good and bad codebases, stop and redesign measurement.</span></dd></div><div><dt>Source</dt><dd>22:00–30:30 · Owner: TBD</dd></div></dl></div></details>
+          <details class="action-card" data-action-id="error-context-hook" data-title-zh="把近期错误变成确定性上下文" data-title-en="Turn recent errors into deterministic context"><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete error context hook"><span class="priority">P1</span><span class="action-title"><span class="zh">把近期错误变成确定性上下文</span><span class="en">Turn recent errors into deterministic context</span></span><span class="action-window"><span class="zh">本周 · 90 分钟</span><span class="en">This week · 90 min</span></span></summary><div class="action-body"><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>docs/agent-context/recent-errors.md</code> + generator</dd></div><div><dt>Threshold</dt><dd><span class="zh">最近 20 条错误/工单摘要可复现生成，24 小时内更新。</span><span class="en">Latest 20 error or ticket summaries are reproducibly generated and under 24 hours old.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">一次 agent 调试能引用文件中的真实错误，而非猜测。</span><span class="en">One agent diagnosis cites a real error from the file rather than guessing.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">生成前做秘密与 PII 清洗；原始工单不进入模型上下文。</span><span class="en">Redact secrets and PII before generation; raw tickets do not enter model context.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">摘要过时或噪声率超过 30% 时关闭 hook。</span><span class="en">Disable the hook if stale or more than 30% noisy.</span></dd></div><div><dt>Source</dt><dd>33:00–35:30 · Owner: TBD</dd></div></dl></div></details>
+          <details class="action-card" data-action-id="session-handoff" data-title-zh="建立会话重启协议" data-title-en="Create a session restart protocol"><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete session handoff"><span class="priority">P2</span><span class="action-title"><span class="zh">建立会话重启协议</span><span class="en">Create a session restart protocol</span></span><span class="action-window"><span class="zh">本月 · 45 分钟</span><span class="en">This month · 45 min</span></span></summary><div class="action-body"><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>docs/agent-handoff-template.md</code></dd></div><div><dt>Threshold</dt><dd><span class="zh">包含目标、已证事实、决策、未决问题、下一命令/文件。</span><span class="en">Contains goal, verified facts, decisions, open questions, and next command or file.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">新会话在 5 分钟内恢复且不重复已完成工作。</span><span class="en">A new session resumes within five minutes without repeating completed work.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">按表现触发，不迷信固定 token 阈值。</span><span class="en">Trigger on observed drift, not a magical token threshold.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">简单任务不创建 handoff。</span><span class="en">Do not create a handoff for simple tasks.</span></dd></div><div><dt>Source</dt><dd>41:40–43:12 · Owner: Patrick</dd></div></dl></div></details>
+          <details class="action-card" data-action-id="weekly-bottleneck" data-title-zh="每周做一次瓶颈审查" data-title-en="Run a weekly bottleneck review"><summary class="action-summary"><input class="action-check" type="checkbox" aria-label="Complete weekly bottleneck review"><span class="priority">P2</span><span class="action-title"><span class="zh">每周做一次瓶颈审查</span><span class="en">Run a weekly bottleneck review</span></span><span class="action-window"><span class="zh">每周 · 15 分钟</span><span class="en">Weekly · 15 min</span></span></summary><div class="action-body"><dl class="spec-grid"><div><dt>Artifact</dt><dd><code>ops/bottleneck-review.md</code></dd></div><div><dt>Threshold</dt><dd><span class="zh">只选一个当前约束，写出证据、非约束与本周停止事项。</span><span class="en">Choose one current constraint; state evidence, non-constraints, and what to stop this week.</span></dd></div><div><dt>Evidence</dt><dd><span class="zh">下一周至少一项投入从非瓶颈移到约束。</span><span class="en">At least one investment moves from a non-constraint to the constraint next week.</span></dd></div><div><dt>Guardrail</dt><dd><span class="zh">若瓶颈不是 agent 吞吐，停止优化 delegation/routing。</span><span class="en">If agent throughput is not the constraint, stop optimizing delegation and routing.</span></dd></div><div><dt>Rollback / stop</dt><dd><span class="zh">四周没有改变任何决策时，取消例会。</span><span class="en">Cancel the ritual if it changes no decision for four weeks.</span></dd></div><div><dt>Source</dt><dd>43:12–49:12 · Owner: Patrick</dd></div></dl></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">06 / CONTEXT</span><h2 id="context"><span class="zh">上下文<br>与反证</span><span class="en">Context &<br>counterproof</span></h2><p class="section-note"><span class="zh">Context engineering 不是把仓库塞满 token；是把正确、足够、尽可能紧凑的信息放进当下任务。</span><span class="en">Context engineering is not token-maxing the repository. It supplies the right, sufficient, compact information for the present task.</span></p></div>
+      <div class="context-grid">
+        <article class="context-card dark"><span class="badge live">CONTEXT CONTRACT</span><h3><span class="zh">文件优先，按需收敛</span><span class="en">File-first, task-tight</span></h3><ul><li><span class="zh">小改动：不必为每个 token 优化。</span><span class="en">Small change: do not optimize every token.</span></li><li><span class="zh">困难任务：把上下文收敛到决策相关内容。</span><span class="en">Hard task: converge context around decision-relevant material.</span></li><li><span class="zh">开始跑偏：压成 handoff，开新会话。</span><span class="en">When drift begins: write a handoff and start fresh.</span></li></ul></article>
+        <article class="context-card"><span class="badge reference">OBSIDIAN-READY</span><h3><span class="zh">这份交付怎样进入 Vault</span><span class="en">How this enters the vault</span></h3><ul><li><span class="zh">把整个文件夹复制到目标目录。</span><span class="en">Copy the whole folder into the target directory.</span></li><li><span class="zh">在 Obsidian 打开 <code>index.md</code>；其中包含 <code>![[dashboard.html]]</code>。</span><span class="en">Open <code>index.md</code> in Obsidian; it contains <code>![[dashboard.html]]</code>.</span></li><li><span class="zh">本次未直接写入活动 vault，避免越权覆盖。</span><span class="en">This run does not write into the active vault, avoiding unauthorized overwrite.</span></li></ul></article>
+      </div>
+      <div class="anti-map">
+        <article class="anti"><b><span class="zh">反证 01：通过测试 ≠ 可维护</span><span class="en">Counterproof 01: tests ≠ maintainability</span></b><p><span class="zh">单点 benchmark 奖励让测试变绿，不惩罚几周后才爆发的架构成本。</span><span class="en">A single benchmark rewards green tests and misses architecture costs that surface weeks later.</span></p></article>
+        <article class="anti"><b><span class="zh">反证 02：全自动 ≠ 无人理解</span><span class="en">Counterproof 02: automation ≠ nobody understands</span></b><p><span class="zh">可自动化 30–50% 的可验证工作，但人仍需掌握行为和系统逻辑。</span><span class="en">Automate 30–50% of verifiable work while humans retain command of behavior and system logic.</span></p></article>
+        <article class="anti"><b><span class="zh">反证 03：更多工具 ≠ 更快价值</span><span class="en">Counterproof 03: more tooling ≠ faster value</span></b><p><span class="zh">若真实约束在产品决策、客户反馈或审查，继续优化 agent 编排只是局部繁荣。</span><span class="en">If the constraint is product judgment, feedback, or review, more orchestration is local optimization.</span></p></article>
+      </div>
+    </section>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">07 / TIMELINE</span><h2 id="chapters"><span class="zh">字幕整理<br>时间轴</span><span class="en">Editorial<br>timeline</span></h2><p class="section-note"><span class="zh">YouTube 元数据没有官方章节；以下 28 个节点由完整自动字幕按主题整理，均直达原视频。</span><span class="en">YouTube provides no official chapters. These 28 editorial waypoints were organized from the full automatic captions.</span></p></div>
+      <div class="chapter-list">
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=0s" target="_blank" rel="noopener"><time>00:00</time><span><span class="zh">冷开场：反常识</span><span class="en">Cold open: the contrarian thesis</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=56s" target="_blank" rel="noopener"><time>00:56</time><span><span class="zh">一次性 benchmark 的误导</span><span class="en">Why one-shot benchmarks mislead</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=83s" target="_blank" rel="noopener"><time>01:23</time><span><span class="zh">AI 前后的 software factory</span><span class="en">Software factory before and after AI</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=188s" target="_blank" rel="noopener"><time>03:08</time><span><span class="zh">审查与信任成为瓶颈</span><span class="en">Review and trust become bottlenecks</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=226s" target="_blank" rel="noopener"><time>03:46</time><span><span class="zh">事故与反馈直达 agent</span><span class="en">Routing incidents and feedback to agents</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=398s" target="_blank" rel="noopener"><time>06:38</time><span><span class="zh">全自动工厂的边界</span><span class="en">The boundary of lights-out factories</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=524s" target="_blank" rel="noopener"><time>08:44</time><span><span class="zh">保持系统掌控</span><span class="en">Keeping command of the system</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=656s" target="_blank" rel="noopener"><time>10:56</time><span><span class="zh">读代码还是懂逻辑</span><span class="en">Reading code vs understanding logic</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=710s" target="_blank" rel="noopener"><time>11:50</time><span><span class="zh">设计 ① 产品结果</span><span class="en">Design ① product outcome</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=916s" target="_blank" rel="noopener"><time>15:16</time><span><span class="zh">设计 ② 系统架构</span><span class="en">Design ② system architecture</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=997s" target="_blank" rel="noopener"><time>16:37</time><span><span class="zh">设计 ③ 程序设计</span><span class="en">Design ③ program design</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1169s" target="_blank" rel="noopener"><time>19:29</time><span><span class="zh">设计 ④ 纵向切片</span><span class="en">Design ④ vertical slices</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1319s" target="_blank" rel="noopener"><time>21:59</time><span><span class="zh">RL、SWE-bench 与 slop</span><span class="en">RL, SWE-bench, and slop</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1566s" target="_blank" rel="noopener"><time>26:06</time><span><span class="zh">可维护性缺少快速 oracle</span><span class="en">No fast maintainability oracle</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1620s" target="_blank" rel="noopener"><time>27:00</time><span><span class="zh">连续功能 benchmark</span><span class="en">Sequential feature benchmarks</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1830s" target="_blank" rel="noopener"><time>30:30</time><span><span class="zh">按 PMF / 风险调整严谨度</span><span class="en">Calibrating rigor by PMF and risk</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1900s" target="_blank" rel="noopener"><time>31:40</time><span><span class="zh">提前注入人类直觉</span><span class="en">Injecting human intuition early</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=1980s" target="_blank" rel="noopener"><time>33:00</time><span><span class="zh">ADR 与外部说明入 repo</span><span class="en">ADRs and external context in-repo</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2133s" target="_blank" rel="noopener"><time>35:33</time><span><span class="zh">Context engineering 的起源</span><span class="en">Origins of context engineering</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2370s" target="_blank" rel="noopener"><time>39:30</time><span><span class="zh">2026 的上下文工程</span><span class="en">Context engineering in 2026</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2500s" target="_blank" rel="noopener"><time>41:40</time><span><span class="zh">Dumb zone、压缩与重启</span><span class="en">Dumb zone, compaction, restart</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2592s" target="_blank" rel="noopener"><time>43:12</time><span><span class="zh">结果优先，别沉迷工具</span><span class="en">Outcome first; avoid tool obsession</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2670s" target="_blank" rel="noopener"><time>44:30</time><span><span class="zh">The Goal 与真正瓶颈</span><span class="en">The Goal and the real constraint</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2856s" target="_blank" rel="noopener"><time>47:36</time><span><span class="zh">别玩 agent，回去工作</span><span class="en">Stop playing with agents; work</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=2952s" target="_blank" rel="noopener"><time>49:12</time><span><span class="zh">不完全信息下的决策</span><span class="en">Decisions under uncertainty</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=3060s" target="_blank" rel="noopener"><time>51:00</time><span><span class="zh">小团队仍可胜出</span><span class="en">Why small teams can still win</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=3262s" target="_blank" rel="noopener"><time>54:22</time><span><span class="zh">公众信任、就业与责任</span><span class="en">Trust, jobs, and responsibility</span></span></a>
+        <a class="chapter-link" href="https://www.youtube.com/watch?v=xgkjtF89-44&t=3472s" target="_blank" rel="noopener"><time>57:52</time><span><span class="zh">以中间路径规划现实</span><span class="en">Planning from the middle path</span></span></a>
+      </div>
+    </section>
+
+    <section data-toc>
+      <div class="section-head"><span class="section-no">08 / EVIDENCE</span><h2 id="evidence"><span class="zh">证据<br>与方法</span><span class="en">Evidence<br>& method</span></h2><p class="section-note"><span class="zh">来源边界比“看起来完整”更重要。官方章节不存在；说话人来自上下文判断；中文是编辑翻译，不是假装的官方字幕。</span><span class="en">Evidence boundaries matter more than cosmetic completeness. There are no official chapters; speaker labels use context; Chinese is editorial translation.</span></p></div>
+      <div class="method-grid">
+        <article class="method-card"><h3><span class="zh">来源层</span><span class="en">Source layer</span></h3><p><span class="zh">YouTube 公共元数据 + 完整 en-orig 自动字幕。视频无人工字幕、无发布者章节。</span><span class="en">YouTube public metadata plus full en-orig automatic captions. No uploaded captions and no publisher chapters.</span></p></article>
+        <article class="method-card"><h3><span class="zh">验证层</span><span class="en">Verification layer</span></h3><p><span class="zh">逐字金句直接切自字幕并做 byte-exact 子串检查；时间戳全部转为 YouTube 深链。</span><span class="en">Verbatim lines were sliced from captions and checked as byte-exact substrings; timestamps resolve to YouTube deep links.</span></p></article>
+        <article class="method-card"><h3><span class="zh">合成层</span><span class="en">Synthesis layer</span></h3><p><span class="zh">Patrick 卡先核验本地路径和语义再分类；行动均标为提案，不声称已执行。</span><span class="en">Patrick cards verify local path and meaning before classification; actions are proposals, never claims of execution.</span></p></article>
+      </div>
+      <div class="source-list">
+        <a href="https://www.youtube.com/watch?v=xgkjtF89-44" target="_blank" rel="noopener"><span class="zh">原视频</span><span class="en">Source video</span> ↗</a>
+        <a href="https://www.youtube.com/@DavidOndrej" target="_blank" rel="noopener">David Ondrej ↗</a>
+        <a href="https://www.humanlayer.com/" target="_blank" rel="noopener">HumanLayer ↗</a>
+        <a href="https://www.ycombinator.com/companies/humanlayer" target="_blank" rel="noopener">YC company profile ↗</a>
+        <a href="index.md" download><span class="zh">Obsidian 笔记</span><span class="en">Obsidian note</span> ↓</a>
+      </div>
+      <footer><span>Prepared 2026-08-07 · Asia/Shanghai · videoId xgkjtF89-44</span><span><span class="zh">本地优先 · 未写入活动 Vault · 行动状态仅保存在浏览器</span><span class="en">Local-first · active vault untouched · action state stays in your browser</span></span></footer>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    (() => {
+      const LANG_KEY = 'xgkjtF89-44-lang';
+      const ACTION_KEY = 'xgkjtF89-44-actions-v1';
+      const html = document.documentElement;
+      const langBtn = document.getElementById('langBtn');
+      const toast = document.getElementById('toast');
+      const toc = document.getElementById('toc');
+      const menuBtn = document.getElementById('menuBtn');
+      const overlay = document.getElementById('mobileOverlay');
+      let toastTimer;
+
+      function currentLang() { return html.classList.contains('lang-en') ? 'en' : 'zh'; }
+      function showToast(zh, en) {
+        toast.textContent = currentLang() === 'zh' ? zh : en;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+      }
+      function setLang(lang, persist = true) {
+        const y = window.scrollY;
+        html.classList.toggle('lang-en', lang === 'en');
+        html.classList.toggle('lang-zh', lang !== 'en');
+        html.lang = lang === 'en' ? 'en' : 'zh-CN';
+        langBtn.textContent = lang === 'en' ? 'EN / 中' : '中 / EN';
+        if (persist) localStorage.setItem(LANG_KEY, lang);
+        requestAnimationFrame(() => window.scrollTo({ top: y, behavior: 'instant' }));
+      }
+      setLang(localStorage.getItem(LANG_KEY) === 'en' ? 'en' : 'zh', false);
+      window.toggleLang = () => setLang(currentLang() === 'zh' ? 'en' : 'zh');
+
+      function closeMenu() {
+        toc.classList.remove('open'); overlay.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+      menuBtn.addEventListener('click', () => {
+        const open = toc.classList.toggle('open');
+        overlay.classList.toggle('open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+      });
+      overlay.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
+      toc.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+      function readActionState() {
+        try { return JSON.parse(localStorage.getItem(ACTION_KEY) || '{}'); }
+        catch (_) { return {}; }
+      }
+      function updateProgress() {
+        const checks = [...document.querySelectorAll('.action-check')];
+        const done = checks.filter(check => check.checked).length;
+        document.getElementById('doneCount').textContent = done;
+        document.getElementById('doneCountEn').textContent = done;
+        document.getElementById('progressFill').style.width = `${done / checks.length * 100}%`;
+      }
+      function hydrateActions() {
+        const state = readActionState();
+        document.querySelectorAll('.action-card').forEach(card => {
+          const check = card.querySelector('.action-check');
+          check.checked = Boolean(state[card.dataset.actionId]);
+        });
+        updateProgress();
+      }
+      document.querySelectorAll('.action-check').forEach(check => {
+        check.addEventListener('click', event => event.stopPropagation());
+        check.addEventListener('change', event => {
+          const card = event.target.closest('.action-card');
+          const state = readActionState();
+          state[card.dataset.actionId] = event.target.checked;
+          localStorage.setItem(ACTION_KEY, JSON.stringify(state));
+          updateProgress();
+        });
+      });
+      hydrateActions();
+      document.getElementById('resetActions').addEventListener('click', () => {
+        localStorage.removeItem(ACTION_KEY); hydrateActions();
+        showToast('行动状态已重置', 'Action state reset');
+      });
+      document.getElementById('copyPlan').addEventListener('click', async () => {
+        const lang = currentLang();
+        const rows = [...document.querySelectorAll('.action-card')].map(card => {
+          const checked = card.querySelector('.action-check').checked ? 'x' : ' ';
+          const title = lang === 'zh' ? card.dataset.titleZh : card.dataset.titleEn;
+          const priority = card.querySelector('.priority').textContent.trim();
+          return `- [${checked}] ${priority} · ${title}`;
+        });
+        const heading = lang === 'zh' ? '# Agentic Engineering 下一步行动' : '# Agentic Engineering Next Actions';
+        try { await navigator.clipboard.writeText(`${heading}\n\n${rows.join('\n')}`); showToast('Markdown 计划已复制', 'Markdown plan copied'); }
+        catch (_) { showToast('复制失败，请使用下载笔记', 'Copy failed; use the note download'); }
+      });
+
+      document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(button.dataset.copy); showToast('路径已复制', 'Path copied'); }
+        catch (_) { showToast('复制失败', 'Copy failed'); }
+      }));
+
+      document.querySelectorAll('[data-quote-filter]').forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll('[data-quote-filter]').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.quoteFilter;
+        document.querySelectorAll('[data-quote-type]').forEach(card => { card.hidden = filter !== 'all' && card.dataset.quoteType !== filter; });
+      }));
+      document.querySelectorAll('[data-patrick-filter]').forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll('[data-patrick-filter]').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.patrickFilter;
+        document.querySelectorAll('[data-patrick-status]').forEach(card => { card.hidden = filter !== 'all' && card.dataset.patrickStatus !== filter; });
+      }));
+
+      const tocLinks = [...toc.querySelectorAll('a')];
+      const sections = tocLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        tocLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`));
+      }, { rootMargin: '-15% 0px -65% 0px', threshold: [0, .2, .5] });
+      sections.forEach(section => observer.observe(section));
+
+      function updateScroll() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        document.getElementById('scrollMeter').style.width = `${max > 0 ? window.scrollY / max * 100 : 0}%`;
+      }
+      addEventListener('scroll', updateScroll, { passive: true });
+      addEventListener('resize', updateScroll, { passive: true });
+      updateScroll();
+    })();
+  </script>
+</body>
+</html>

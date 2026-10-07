@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WWDC26 Meet with Apple · Bilingual Dashboard</title>
+<meta name="description" content="WWDC26 Meet with Apple session — bilingual (中/EN) knowledge dashboard with TOC, 25 timeline windows, 17 quotes, 12 tabs.">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #141414;
+  --bg-card-hover: #1a1a1a;
+  --border: #2a2a2a;
+  --text: #e8e8e8;
+  --text-dim: #999;
+  --text-faint: #666;
+  --accent: #ff6b35;
+  --accent-dim: #cc5529;
+  --accent-glow: rgba(255, 107, 53, 0.15);
+  --lang-bg: rgba(255, 107, 53, 0.08);
+  --toc-bg: #0f0f0f;
+  --toc-border: #1f1f1f;
+  --toc-active: rgba(255, 107, 53, 0.18);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --radius: 10px;
+  --transition: 0.18s ease;
+}
+html[data-lang="en"] { --text: #e8e8e8; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  line-height: 1.65;
+  font-size: 15px;
+  margin-left: 280px;
+  padding: 2rem 2rem 6rem;
+  max-width: 1280px;
+  transition: margin-left var(--transition);
+}
+body.toc-collapsed { margin-left: 64px; }
+
+/* ─── TOC sidebar ────────────────────────────────────────── */
+.toc {
+  position: fixed;
+  top: 0; left: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--toc-bg);
+  border-right: 1px solid var(--toc-border);
+  z-index: 100;
+  transition: width var(--transition);
+  overflow: hidden;
+}
+body.toc-collapsed .toc { width: 64px; }
+.toc-toggle {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all var(--transition);
+  z-index: 2;
+}
+.toc-toggle:hover { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
+.toc-inner { padding: 60px 0 16px 0; height: 100%; overflow-y: auto; }
+.toc-title {
+  padding: 0 20px 12px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-faint);
+  font-weight: 600;
+}
+.toc-list { list-style: none; }
+.toc-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-left: 3px solid transparent;
+  transition: all var(--transition);
+}
+.toc-link:hover { background: var(--bg-card); color: var(--text); }
+.toc-link.active { background: var(--toc-active); color: var(--accent); border-left-color: var(--accent); }
+.toc-icon { font-size: 1.1rem; width: 24px; text-align: center; flex-shrink: 0; }
+body.toc-collapsed .toc-text,
+body.toc-collapsed .toc-title { display: none; }
+
+/* ─── Hero ───────────────────────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 1rem 1rem 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--lang-bg);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6b35, #f7c59f, #ff6b35);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+@keyframes shimmer { to { background-position: 200% center; } }
+.hero-subtitle {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  max-width: 720px;
+  margin: 0 auto 1.4rem;
+  line-height: 1.6;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.meta-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.source-link {
+  /* Deprecated per v1.5.24 §No-YouTube-Links policy — kept here only to avoid breaking any leftover markup */
+  display: none !important;
+}
+.hero-video-id {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: var(--text-dim);
+  letter-spacing: 0.3px;
+}
+
+/* ─── Language toggle ────────────────────────────────────── */
+.lang-toggle {
+  display: inline-flex;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 3px;
+  margin-top: 0.5rem;
+}
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  padding: 6px 18px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+.lang-btn.active {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.lang-btn:hover:not(.active) { color: var(--text); }
+
+/* ─── Stats row ──────────────────────────────────────────── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.2rem 1rem;
+  text-align: center;
+}
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+.stat-label { font-size: 0.8rem; color: var(--text-dim); }
+
+/* ─── Section titles ─────────────────────────────────────── */
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 2rem 0 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ─── Theme cards ────────────────────────────────────────── */
+.themes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.theme-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  transition: all var(--transition);
+}
+.theme-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+.theme-emoji { font-size: 2rem; margin-bottom: 0.6rem; }
+.theme-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--text); }
+.theme-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+
+.themes-deep-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+.theme-deep-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.theme-emoji-large { font-size: 2.5rem; flex-shrink: 0; }
+.theme-deep-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.theme-deep-body p { color: var(--text-dim); line-height: 1.6; }
+
+/* ─── Tabs ───────────────────────────────────────────────── */
+.tabs-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2rem 0 1.5rem;
+  padding: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.tab-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-dim);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all var(--transition);
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tab-btn:hover { background: var(--bg-card-hover); color: var(--text); }
+.tab-btn.active {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.tab-content-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tab-content-icon { font-size: 1.6rem; }
+
+/* ─── Timeline ───────────────────────────────────────────── */
+.timeline { display: flex; flex-direction: column; gap: 12px; }
+.window-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-dim);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  scroll-margin-top: 20px;
+}
+.window-row:target { border-left-color: var(--accent); background: var(--accent-glow); }
+.window-ts {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.window-row h4 { font-size: 1rem; margin-bottom: 0.4rem; color: var(--text); }
+.window-row p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.55; }
+
+/* ─── Quotes ─────────────────────────────────────────────── */
+.quotes-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.quote-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  position: relative;
+  padding-left: 64px;
+}
+.quote-num {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+.quote-ts {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  margin-bottom: 0.5rem;
+}
+blockquote {
+  border-left: 3px solid var(--accent-dim);
+  padding: 6px 0 6px 12px;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+blockquote.quote-en { color: var(--text-dim); margin-bottom: 0.5rem; }
+blockquote.quote-zh { color: var(--text); border-left-color: var(--accent); }
+.lang-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+blockquote.quote-en .lang-tag { background: rgba(255, 107, 53, 0.15); color: var(--accent); }
+blockquote.quote-zh .lang-tag { background: var(--accent); color: #0a0a0a; }
+
+/* ─── Content grid (cards inside tabs) ───────────────────── */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.content-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+}
+.content-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.7rem;
+  color: var(--accent);
+}
+.content-card ul {
+  list-style: none;
+  padding: 0;
+}
+.content-card li {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  padding: 4px 0 4px 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.content-card li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ─── Roster ─────────────────────────────────────────────── */
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 10px;
+}
+.roster-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all var(--transition);
+}
+.roster-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateX(2px);
+}
+.roster-emoji { font-size: 1.6rem; flex-shrink: 0; }
+.roster-info { flex: 1; min-width: 0; }
+.roster-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+.roster-desc { font-size: 0.78rem; color: var(--text-faint); }
+.roster-arrow { color: var(--accent); font-size: 1.1rem; }
+
+/* ─── Meta box ───────────────────────────────────────────── */
+.meta-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+}
+.meta-box h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+.meta-box h4 { margin: 1.4rem 0 0.6rem; color: var(--text); font-size: 1rem; }
+.meta-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+.meta-table th {
+  text-align: left;
+  padding: 6px 12px 6px 0;
+  color: var(--text-faint);
+  font-weight: 500;
+  font-size: 0.82rem;
+  width: 160px;
+  vertical-align: top;
+}
+.meta-table td {
+  padding: 6px 0;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+.meta-table a { color: var(--accent); text-decoration: none; }
+.meta-table code {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.82rem;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.meta-box ul { padding-left: 1.4rem; }
+.meta-box li {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 980px) {
+  body { margin-left: 0; padding: 1rem 1rem 4rem; }
+  .toc { transform: translateX(-100%); transition: transform var(--transition); }
+  body:not(.toc-collapsed) .toc { transform: translateX(0); }
+  .toc-inner { padding-top: 16px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .hero h1 { font-size: 1.8rem; }
+}
+
+/* ─── Print ──────────────────────────────────────────────── */
+@media print {
+  .toc, .lang-toggle, .tabs-nav { display: none; }
+  body { margin-left: 0; max-width: 100%; }
+  .tab-content { display: block !important; page-break-after: always; }
+}
+
+/* ─── Reading progress bar ───────────────────────────────── */
+.reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, #ff6b35, #ffa07a);
+  z-index: 1000;
+  transition: width 80ms linear;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* ─── Back-to-top ────────────────────────────────────────── */
+.back-to-top {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #0a0a0a;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 90;
+  font-family: inherit;
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 1.05;
+}
+.back-to-top.show { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { background: #ffa07a; transform: translateY(-2px); }
+
+/* ─── Global search box ──────────────────────────────────── */
+.global-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 8px 16px;
+  margin-bottom: 1.5rem;
+  position: sticky;
+  top: 12px;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.18s;
+}
+.global-search:focus-within { border-color: var(--accent); }
+.search-icon { font-size: 1.1rem; }
+#search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.92rem;
+}
+#search-input::placeholder { color: var(--text-faint); }
+.search-clear {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+.search-clear:hover { color: var(--accent); border-color: var(--accent); }
+.search-count {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-family: "SF Mono", Menlo, monospace;
+  white-space: nowrap;
+}
+.search-count.has-results { color: var(--accent); }
+.search-count.no-results { color: #ff5252; }
+
+/* Search highlight */
+.search-match { background: rgba(255, 107, 53, 0.25); border-radius: 2px; padding: 0 1px; }
+.dim-match { opacity: 0.25; transition: opacity 0.2s; }
+
+/* ─── Top tools row ───────────────────────────────────────── */
+.top-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.top-tools .global-search { margin-bottom: 0; flex: 1; min-width: 260px; }
+.tool-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 8px 14px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+.tool-btn:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); }
+.tool-btn.active { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+
+/* ─── Favorite quote button ────────────────────────────────── */
+.quote-card { position: relative; }
+.quote-fav {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-faint);
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s;
+  font-family: inherit;
+  z-index: 2;
+}
+.quote-fav:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.1); }
+.quote-fav.faved { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+.quote-fav.faved .fav-icon::before { content: "♥"; }
+.quote-fav:not(.faved) .fav-icon::before { content: "♡"; }
+
+/* ─── Window-row collapsible (Pol B) ───────────────────────── */
+.window-row { position: relative; padding-right: 44px; }
+.window-row-toggle {
+  position: absolute;
+  top: 14px; right: 12px;
+  width: 28px; height: 28px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.18s;
+  font-family: inherit;
+  z-index: 2;
+}
+.window-row-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.window-row.collapsed .toggle-icon { transform: rotate(-90deg); }
+.toggle-icon { transition: transform 0.18s; display: inline-block; }
+.window-row.collapsed .window-row-body { display: none; }
+.window-row.collapsed { padding-bottom: 1rem; }
+
+/* ─── Saved quotes panel ───────────────────────────────────── */
+.saved-panel {
+  position: fixed;
+  top: 80px; right: 32px;
+  width: 380px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.2rem;
+  z-index: 200;
+  display: none;
+}
+.saved-panel.show { display: block; }
+.saved-panel h3 { color: var(--accent); margin-bottom: 0.8rem; font-size: 1.05rem; }
+.saved-empty { color: var(--text-faint); font-size: 0.85rem; padding: 1.5rem 0; text-align: center; }
+.saved-quote-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+.saved-quote-ts {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+/* ─── Toast notification ───────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 100px; right: 32px;
+  background: var(--accent);
+  color: #0a0a0a;
+  padding: 12px 20px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
+  z-index: 300;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.window-row-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.window-duration {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+.window-jump {
+  /* Deprecated per v1.5.24 §No-YouTube-Links policy — timestamp links no longer rendered */
+  display: none !important;
+}
+
+.window-quote-count {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+  background: var(--accent-glow);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-family: "SF Mono", Menlo, monospace;
+}
+
+/* ─── Quote card: jump-window link ───────────────────────── */
+.quote-ts-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.6rem;
+}
+.quote-jump-window {
+  font-size: 0.7rem;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 1px 8px;
+  border: 1px solid var(--accent-dim);
+  border-radius: 10px;
+  font-family: "SF Mono", Menlo, monospace;
+  transition: all 0.15s;
+}
+.quote-jump-window:hover { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+
+/* ─── Theme deep card: related-windows chips ─────────────── */
+.theme-related-windows {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.related-label {
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  margin-right: 4px;
+}
+.theme-win-chip {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 3px 9px;
+  border: 1px solid var(--accent-dim);
+  border-radius: 10px;
+  transition: all 0.15s;
+}
+.theme-win-chip:hover { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+
+/* ─── Keyboard hint chip in tab nav ──────────────────────── */
+.kbd-hint {
+  display: inline-block;
+  font-size: 0.65rem;
+  color: var(--text-faint);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: "SF Mono", Menlo, monospace;
+  margin-left: 4px;
+}
+.tab-btn:hover .kbd-hint { color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+<aside class="toc" id="toc">
+  <button class="toc-toggle" id="toc-toggle" aria-label="Toggle TOC" title="Toggle TOC">☰</button>
+  <div class="toc-inner">
+    <div class="toc-title" data-zh>目录</div>
+    <div class="toc-title" data-en style="display:none">Contents</div>
+    <ul class="toc-list"><li><a href="#tab-overview" class="toc-link" data-tab="overview"><span class="toc-icon">🎯</span><span class="toc-text" data-zh>总览</span><span class="toc-text" data-en style="display:none">Overview</span></a></li>
+<li><a href="#tab-themes" class="toc-link" data-tab="themes"><span class="toc-icon">🧠</span><span class="toc-text" data-zh>5 大主题</span><span class="toc-text" data-en style="display:none">5 Big Themes</span></a></li>
+<li><a href="#tab-timeline" class="toc-link" data-tab="timeline"><span class="toc-icon">⏱️</span><span class="toc-text" data-zh>时间线</span><span class="toc-text" data-en style="display:none">Timeline</span></a></li>
+<li><a href="#tab-quotes" class="toc-link" data-tab="quotes"><span class="toc-icon">💬</span><span class="toc-text" data-zh>金句</span><span class="toc-text" data-en style="display:none">Quotes</span></a></li>
+<li><a href="#tab-ai" class="toc-link" data-tab="ai"><span class="toc-icon">🤖</span><span class="toc-text" data-zh>AI + 基础模型</span><span class="toc-text" data-en style="display:none">AI + Foundation Models</span></a></li>
+<li><a href="#tab-design" class="toc-link" data-tab="design"><span class="toc-icon">💎</span><span class="toc-text" data-zh>Liquid Glass</span><span class="toc-text" data-en style="display:none">Liquid Glass</span></a></li>
+<li><a href="#tab-xcode" class="toc-link" data-tab="xcode"><span class="toc-icon">🛠️</span><span class="toc-text" data-zh>Xcode 27</span><span class="toc-text" data-en style="display:none">Xcode 27</span></a></li>
+<li><a href="#tab-intents" class="toc-link" data-tab="intents"><span class="toc-icon">🎯</span><span class="toc-text" data-zh>App Intents + Widgets</span><span class="toc-text" data-en style="display:none">App Intents + Widgets</span></a></li>
+<li><a href="#tab-spatial" class="toc-link" data-tab="spatial"><span class="toc-icon">🥽</span><span class="toc-text" data-zh>空间计算</span><span class="toc-text" data-en style="display:none">Spatial Computing</span></a></li>
+<li><a href="#tab-store" class="toc-link" data-tab="store"><span class="toc-icon">🏪</span><span class="toc-text" data-zh>App Store 27</span><span class="toc-text" data-en style="display:none">App Store 27</span></a></li>
+<li><a href="#tab-roster" class="toc-link" data-tab="roster"><span class="toc-icon">🔗</span><span class="toc-text" data-zh>相关</span><span class="toc-text" data-en style="display:none">Related</span></a></li>
+<li><a href="#tab-meta" class="toc-link" data-tab="meta"><span class="toc-icon">ℹ️</span><span class="toc-text" data-zh>⚠️ 元数据</span><span class="toc-text" data-en style="display:none">⚠️ Provenance</span></a></li></ul>
+  </div>
+</aside>
+<!-- Reading progress bar -->
+<div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+
+<!-- Floating back-to-top -->
+<button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+  <span data-zh>↑ 顶部</span>
+  <span data-en style="display:none">↑ Top</span>
+</button>
+
+<main class="main">
+  <!-- Global search box + tools row -->
+  <div class="top-tools">
+    <div class="global-search" id="global-search">
+      <span class="search-icon">🔍</span>
+      <input type="search" id="search-input" autocomplete="off" spellcheck="false"
+             placeholder="搜索时间线 / 金句 / 主题... (Search timeline, quotes, themes)">
+      <button class="search-clear" id="search-clear" aria-label="Clear" style="display:none">×</button>
+      <span class="search-count" id="search-count" aria-live="polite"></span>
+    </div>
+    <button class="tool-btn" id="export-md-btn" data-zh title="导出整个 dashboard 为 Markdown">⬇ Export .md</button>
+    <button class="tool-btn" id="export-md-btn-en" data-en style="display:none" title="Export dashboard as Markdown">⬇ Export .md</button>
+    <button class="tool-btn" id="saved-quotes-btn" data-zh title="查看收藏的金句">★ Saved</button>
+    <button class="tool-btn" id="saved-quotes-btn-en" data-en style="display:none" title="View favorited quotes">★ Saved</button>
+  </div>
+
+  <!-- Overview tab content is rendered at top; tabs below are the rest -->
+  <div class="tab-content active" id="tab-overview" data-tab-content="overview"><h2 id="tab-overview-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <section class="hero">
+  <div class="hero-badge">WWDC26 · Apple Developer</div>
+  <h1>
+    <span data-zh>发现未来:WWDC26 最重要的更新 | 与 Apple 面对面</span>
+    <span data-en style="display:none">Discover what&#x27;s next: The biggest updates from WWDC26 | Meet with Apple</span>
+  </h1>
+  <p class="hero-subtitle" data-zh>在线加入我们,聚焦 Apple 全平台最重要的更新 — 并探索它们为你的应用带来的价值。我们关注「为什么」而非「怎么做」,把新技术映射到真实使用场景。本场面向设计师、产品经理和工程负责人,他们主导产品路线图的决策。</p>
+  <p class="hero-subtitle" data-en style="display:none">Join us online as we highlight the latest updates across Apple platforms — and explore the benefits for your apps. We&#x27;ll focus on the why over the how, mapping new technologies to real-world use cases. This session is for designers, product managers, and engineering leads who drive roadmap decisions.</p>
+  <div class="hero-meta">
+    <span class="meta-pill">👤 Apple Developer</span>
+    <span class="meta-pill">⏱ 1:14:00</span>
+    <span class="meta-pill">📅 2026-07-23</span>
+    <span class="meta-pill video-id-pill" data-zh>🆔 视频 ID</span>
+    <span class="meta-pill video-id-pill" data-en style="display:none">🆔 Video ID</span>
+    <code class="hero-video-id">V2i8f_NeKDI</code>
+  </div>
+  <div class="lang-toggle" role="group" aria-label="Language toggle">
+    <button class="lang-btn active" data-lang="zh">中文</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</section>
+<div class="stats-row">
+<div class="stat-card">
+  <div class="stat-value">25</div>
+  <div class="stat-label" data-zh>主题分段</div>
+  <div class="stat-label" data-en style="display:none">Topic windows</div>
+</div>
+<div class="stat-card">
+  <div class="stat-value">12</div>
+  <div class="stat-label" data-zh>面板</div>
+  <div class="stat-label" data-en style="display:none">Tabs</div>
+</div>
+<div class="stat-card">
+  <div class="stat-value">1:14</div>
+  <div class="stat-label" data-zh>时长</div>
+  <div class="stat-label" data-en style="display:none">Duration</div>
+</div>
+<div class="stat-card">
+  <div class="stat-value">WWDC26</div>
+  <div class="stat-label" data-zh>发布版本</div>
+  <div class="stat-label" data-en style="display:none">Release</div>
+</div>
+</div>
+<h2 class="section-title">
+  <span data-zh>5 大主题</span>
+  <span data-en style="display:none">5 Big Themes</span>
+</h2>
+<div class="themes-grid">
+<div class="theme-card">
+  <div class="theme-emoji">🧠</div>
+  <h3 data-zh>Apple Intelligence 2.0 — 基础模型框架</h3>
+  <h3 data-en style="display:none">Apple Intelligence 2.0 — Foundation Models Framework</h3>
+  <p class="theme-desc" data-zh>端侧 30 亿参数大模型,统一入口。隐私优先的推理。同一个 Swift API 同时支持端侧和云端。开源。支持工具调用、结构化输出、流式响应。</p>
+  <p class="theme-desc" data-en style="display:none">On-device 3B-param LLM as a single front door. Privacy-first inference. Same Swift API for on-device + cloud. Open-source. Tool calling, structured output, streaming.</p>
+</div>
+<div class="theme-card">
+  <div class="theme-emoji">💎</div>
+  <h3 data-zh>Liquid Glass 材质 — 重大设计语言革新</h3>
+  <h3 data-en style="display:none">Liquid Glass Material — Major design language refresh</h3>
+  <p class="theme-desc" data-zh>折射、深度、动态着色。iPhone 可调整尺寸。iPad 通过 Mac 镜像支持可调尺寸。通用布局。适配 iOS 27 / iPadOS 27 / macOS 27。</p>
+  <p class="theme-desc" data-en style="display:none">Refraction, depth, dynamic tinting. iPhone resizability. iPad resizable via Mac mirroring. Universal layout. Adopts iOS 27 → iPadOS 27 → macOS 27.</p>
+</div>
+<div class="theme-card">
+  <div class="theme-emoji">🤖</div>
+  <h3 data-zh>Xcode 27 — Agentic 编程伙伴</h3>
+  <h3 data-en style="display:none">Xcode 27 — Agentic Coding Partner</h3>
+  <p class="theme-desc" data-zh>全项目上下文感知。内联 diff。多步编辑。实时预览。接入 Anthropic Claude、OpenAI GPT、Codex。文档感知。</p>
+  <p class="theme-desc" data-en style="display:none">Whole-project context. Inline diffs. Multi-step editing. Live previews. Powered by Anthropic Claude, OpenAI GPT, Codex. Documentation-aware.</p>
+</div>
+<div class="theme-card">
+  <div class="theme-emoji">🥽</div>
+  <h3 data-zh>Reality Composer Pro 3 + WebKit 沉浸式</h3>
+  <h3 data-en style="display:none">Reality Composer Pro 3 + WebKit immersive</h3>
+  <p class="theme-desc" data-zh>3D 场景、材质、动画的可视化编辑器。基于节点的创作。粒子特效。Cyberpunk 2077 通过游戏移植工具包移植。WebKit 网格通道支持沉浸式 HTML。</p>
+  <p class="theme-desc" data-en style="display:none">Visual editor for 3D scenes, materials, animations. Node-based authoring. Particle effects. Cyberpunk 2077 ported via Game Porting Toolkit. WebKit grid lanes for immersive HTML.</p>
+</div>
+<div class="theme-card">
+  <div class="theme-emoji">🎯</div>
+  <h3 data-zh>Core AI + Widgets + App Intents — Agentic 用户体验</h3>
+  <h3 data-en style="display:none">Core AI + Widgets + App Intents — Agentic UX</h3>
+  <p class="theme-desc" data-zh>动态档案支持持续对话。Schema / 实体 / 语义。智能回复、翻译、优先通知。分步引导式体验。</p>
+  <p class="theme-desc" data-en style="display:none">Dynamic profiles for continuous conversation. Schemas/entities/schemas semantics. Smart Reply, Translation, Priority Notifications. Step-by-step guided experiences.</p>
+</div>
+<div class="theme-card">
+  <div class="theme-emoji">🏪</div>
+  <h3 data-zh>App Store 27 — 发现、订阅、合购</h3>
+  <h3 data-en style="display:none">App Store 27 — Discovery, Subscriptions, Bundles</h3>
+  <p class="theme-desc" data-zh>175 个店面 / 50 种语言。自动生成的预览素材。900 档定价层级。200 种支付方式。TV / Arcade / iCloud 合购。学校管理员 + 企业批量采购。</p>
+  <p class="theme-desc" data-en style="display:none">175 storefronts / 50 languages. Auto-generated preview assets. 900-point pricing tiers. 200 payment methods. Bundle TV/Arcade/iCloud. School Manager + enterprise volume.</p>
+</div>
+</div>
+  </div>
+
+  <nav class="tabs-nav" id="tabs-nav">
+    <button class="tab-btn" data-tab="overview"><span class="tab-icon">🎯</span><span class="tab-label" data-zh>总览</span><span class="tab-label" data-en style="display:none">Overview</span></button>
+<button class="tab-btn" data-tab="themes"><span class="tab-icon">🧠</span><span class="tab-label" data-zh>5 大主题</span><span class="tab-label" data-en style="display:none">5 Big Themes</span></button>
+<button class="tab-btn" data-tab="timeline"><span class="tab-icon">⏱️</span><span class="tab-label" data-zh>时间线</span><span class="tab-label" data-en style="display:none">Timeline</span></button>
+<button class="tab-btn" data-tab="quotes"><span class="tab-icon">💬</span><span class="tab-label" data-zh>金句</span><span class="tab-label" data-en style="display:none">Quotes</span></button>
+<button class="tab-btn" data-tab="ai"><span class="tab-icon">🤖</span><span class="tab-label" data-zh>AI + 基础模型</span><span class="tab-label" data-en style="display:none">AI + Foundation Models</span></button>
+<button class="tab-btn" data-tab="design"><span class="tab-icon">💎</span><span class="tab-label" data-zh>Liquid Glass</span><span class="tab-label" data-en style="display:none">Liquid Glass</span></button>
+<button class="tab-btn" data-tab="xcode"><span class="tab-icon">🛠️</span><span class="tab-label" data-zh>Xcode 27</span><span class="tab-label" data-en style="display:none">Xcode 27</span></button>
+<button class="tab-btn" data-tab="intents"><span class="tab-icon">🎯</span><span class="tab-label" data-zh>App Intents + Widgets</span><span class="tab-label" data-en style="display:none">App Intents + Widgets</span></button>
+<button class="tab-btn" data-tab="spatial"><span class="tab-icon">🥽</span><span class="tab-label" data-zh>空间计算</span><span class="tab-label" data-en style="display:none">Spatial Computing</span></button>
+<button class="tab-btn" data-tab="store"><span class="tab-icon">🏪</span><span class="tab-label" data-zh>App Store 27</span><span class="tab-label" data-en style="display:none">App Store 27</span></button>
+<button class="tab-btn" data-tab="roster"><span class="tab-icon">🔗</span><span class="tab-label" data-zh>相关</span><span class="tab-label" data-en style="display:none">Related</span></button>
+<button class="tab-btn" data-tab="meta"><span class="tab-icon">ℹ️</span><span class="tab-label" data-zh>⚠️ 元数据</span><span class="tab-label" data-en style="display:none">⚠️ Provenance</span></button>
+  </nav>
+
+  <div class="tab-content" id="tab-themes" data-tab-content="themes"><h2 id="tab-themes-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="themes-deep-grid"><div class="theme-deep-card">
+  <div class="theme-deep-head">
+    <span class="theme-emoji-large">🧠</span>
+    <h3 data-zh>Apple Intelligence 2.0 — 基础模型框架</h3>
+    <h3 data-en style="display:none">Apple Intelligence 2.0 — Foundation Models Framework</h3>
+  </div>
+  <div class="theme-deep-body">
+    <p data-zh>端侧 30 亿参数大模型,统一入口。隐私优先的推理。同一个 Swift API 同时支持端侧和云端。开源。支持工具调用、结构化输出、流式响应。</p>
+    <p data-en style="display:none">On-device 3B-param LLM as a single front door. Privacy-first inference. Same Swift API for on-device + cloud. Open-source. Tool calling, structured output, streaming.</p>
+    <div class="theme-related-windows" data-zh><span class="related-label">📍 相关时间段:</span><a class="theme-win-chip" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02">W02</a>
+<a class="theme-win-chip" href="#window-W05" data-jump-tab="timeline" data-jump-anchor="window-W05">W05</a>
+<a class="theme-win-chip" href="#window-W06" data-jump-tab="timeline" data-jump-anchor="window-W06">W06</a>
+<a class="theme-win-chip" href="#window-W07" data-jump-tab="timeline" data-jump-anchor="window-W07">W07</a></div><div class="theme-related-windows" data-en style="display:none"><span class="related-label">📍 Related windows:</span><a class="theme-win-chip" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02">W02</a>
+<a class="theme-win-chip" href="#window-W05" data-jump-tab="timeline" data-jump-anchor="window-W05">W05</a>
+<a class="theme-win-chip" href="#window-W06" data-jump-tab="timeline" data-jump-anchor="window-W06">W06</a>
+<a class="theme-win-chip" href="#window-W07" data-jump-tab="timeline" data-jump-anchor="window-W07">W07</a></div>
+  </div>
+</div><div class="theme-deep-card">
+  <div class="theme-deep-head">
+    <span class="theme-emoji-large">💎</span>
+    <h3 data-zh>Liquid Glass 材质 — 重大设计语言革新</h3>
+    <h3 data-en style="display:none">Liquid Glass Material — Major design language refresh</h3>
+  </div>
+  <div class="theme-deep-body">
+    <p data-zh>折射、深度、动态着色。iPhone 可调整尺寸。iPad 通过 Mac 镜像支持可调尺寸。通用布局。适配 iOS 27 / iPadOS 27 / macOS 27。</p>
+    <p data-en style="display:none">Refraction, depth, dynamic tinting. iPhone resizability. iPad resizable via Mac mirroring. Universal layout. Adopts iOS 27 → iPadOS 27 → macOS 27.</p>
+    <div class="theme-related-windows" data-zh><span class="related-label">📍 相关时间段:</span><a class="theme-win-chip" href="#window-W03" data-jump-tab="timeline" data-jump-anchor="window-W03">W03</a>
+<a class="theme-win-chip" href="#window-W16" data-jump-tab="timeline" data-jump-anchor="window-W16">W16</a>
+<a class="theme-win-chip" href="#window-W17" data-jump-tab="timeline" data-jump-anchor="window-W17">W17</a>
+<a class="theme-win-chip" href="#window-W18" data-jump-tab="timeline" data-jump-anchor="window-W18">W18</a></div><div class="theme-related-windows" data-en style="display:none"><span class="related-label">📍 Related windows:</span><a class="theme-win-chip" href="#window-W03" data-jump-tab="timeline" data-jump-anchor="window-W03">W03</a>
+<a class="theme-win-chip" href="#window-W16" data-jump-tab="timeline" data-jump-anchor="window-W16">W16</a>
+<a class="theme-win-chip" href="#window-W17" data-jump-tab="timeline" data-jump-anchor="window-W17">W17</a>
+<a class="theme-win-chip" href="#window-W18" data-jump-tab="timeline" data-jump-anchor="window-W18">W18</a></div>
+  </div>
+</div><div class="theme-deep-card">
+  <div class="theme-deep-head">
+    <span class="theme-emoji-large">🤖</span>
+    <h3 data-zh>Xcode 27 — Agentic 编程伙伴</h3>
+    <h3 data-en style="display:none">Xcode 27 — Agentic Coding Partner</h3>
+  </div>
+  <div class="theme-deep-body">
+    <p data-zh>全项目上下文感知。内联 diff。多步编辑。实时预览。接入 Anthropic Claude、OpenAI GPT、Codex。文档感知。</p>
+    <p data-en style="display:none">Whole-project context. Inline diffs. Multi-step editing. Live previews. Powered by Anthropic Claude, OpenAI GPT, Codex. Documentation-aware.</p>
+    <div class="theme-related-windows" data-zh><span class="related-label">📍 相关时间段:</span><a class="theme-win-chip" href="#window-W19" data-jump-tab="timeline" data-jump-anchor="window-W19">W19</a>
+<a class="theme-win-chip" href="#window-W20" data-jump-tab="timeline" data-jump-anchor="window-W20">W20</a></div><div class="theme-related-windows" data-en style="display:none"><span class="related-label">📍 Related windows:</span><a class="theme-win-chip" href="#window-W19" data-jump-tab="timeline" data-jump-anchor="window-W19">W19</a>
+<a class="theme-win-chip" href="#window-W20" data-jump-tab="timeline" data-jump-anchor="window-W20">W20</a></div>
+  </div>
+</div><div class="theme-deep-card">
+  <div class="theme-deep-head">
+    <span class="theme-emoji-large">🥽</span>
+    <h3 data-zh>Reality Composer Pro 3 + WebKit 沉浸式</h3>
+    <h3 data-en style="display:none">Reality Composer Pro 3 + WebKit immersive</h3>
+  </div>
+  <div class="theme-deep-body">
+    <p data-zh>3D 场景、材质、动画的可视化编辑器。基于节点的创作。粒子特效。Cyberpunk 2077 通过游戏移植工具包移植。WebKit 网格通道支持沉浸式 HTML。</p>
+    <p data-en style="display:none">Visual editor for 3D scenes, materials, animations. Node-based authoring. Particle effects. Cyberpunk 2077 ported via Game Porting Toolkit. WebKit grid lanes for immersive HTML.</p>
+    <div class="theme-related-windows" data-zh><span class="related-label">📍 相关时间段:</span><a class="theme-win-chip" href="#window-W04" data-jump-tab="timeline" data-jump-anchor="window-W04">W04</a></div><div class="theme-related-windows" data-en style="display:none"><span class="related-label">📍 Related windows:</span><a class="theme-win-chip" href="#window-W04" data-jump-tab="timeline" data-jump-anchor="window-W04">W04</a></div>
+  </div>
+</div><div class="theme-deep-card">
+  <div class="theme-deep-head">
+    <span class="theme-emoji-large">🎯</span>
+    <h3 data-zh>Core AI + Widgets + App Intents — Agentic 用户体验</h3>
+    <h3 data-en style="display:none">Core AI + Widgets + App Intents — Agentic UX</h3>
+  </div>
+  <div class="theme-deep-body">
+    <p data-zh>动态档案支持持续对话。Schema / 实体 / 语义。智能回复、翻译、优先通知。分步引导式体验。</p>
+    <p data-en style="display:none">Dynamic profiles for continuous conversation. Schemas/entities/schemas semantics. Smart Reply, Translation, Priority Notifications. Step-by-step guided experiences.</p>
+    <div class="theme-related-windows" data-zh><span class="related-label">📍 相关时间段:</span><a class="theme-win-chip" href="#window-W08" data-jump-tab="timeline" data-jump-anchor="window-W08">W08</a>
+<a class="theme-win-chip" href="#window-W09" data-jump-tab="timeline" data-jump-anchor="window-W09">W09</a>
+<a class="theme-win-chip" href="#window-W10" data-jump-tab="timeline" data-jump-anchor="window-W10">W10</a>
+<a class="theme-win-chip" href="#window-W11" data-jump-tab="timeline" data-jump-anchor="window-W11">W11</a>
+<a class="theme-win-chip" href="#window-W12" data-jump-tab="timeline" data-jump-anchor="window-W12">W12</a>
+<a class="theme-win-chip" href="#window-W13" data-jump-tab="timeline" data-jump-anchor="window-W13">W13</a>
+<a class="theme-win-chip" href="#window-W14" data-jump-tab="timeline" data-jump-anchor="window-W14">W14</a>
+<a class="theme-win-chip" href="#window-W15" data-jump-tab="timeline" data-jump-anchor="window-W15">W15</a></div><div class="theme-related-windows" data-en style="display:none"><span class="related-label">📍 Related windows:</span><a class="theme-win-chip" href="#window-W08" data-jump-tab="timeline" data-jump-anchor="window-W08">W08</a>
+<a class="theme-win-chip" href="#window-W09" data-jump-tab="timeline" data-jump-anchor="window-W09">W09</a>
+<a class="theme-win-chip" href="#window-W10" data-jump-tab="timeline" data-jump-anchor="window-W10">W10</a>
+<a class="theme-win-chip" href="#window-W11" data-jump-tab="timeline" data-jump-anchor="window-W11">W11</a>
+<a class="theme-win-chip" href="#window-W12" data-jump-tab="timeline" data-jump-anchor="window-W12">W12</a>
+<a class="theme-win-chip" href="#window-W13" data-jump-tab="timeline" data-jump-anchor="window-W13">W13</a>
+<a class="theme-win-chip" href="#window-W14" data-jump-tab="timeline" data-jump-anchor="window-W14">W14</a>
+<a class="theme-win-chip" href="#window-W15" data-jump-tab="timeline" data-jump-anchor="window-W15">W15</a></div>
+  </div>
+</div><div class="theme-deep-card">
+  <div class="theme-deep-head">
+    <span class="theme-emoji-large">🏪</span>
+    <h3 data-zh>App Store 27 — 发现、订阅、合购</h3>
+    <h3 data-en style="display:none">App Store 27 — Discovery, Subscriptions, Bundles</h3>
+  </div>
+  <div class="theme-deep-body">
+    <p data-zh>175 个店面 / 50 种语言。自动生成的预览素材。900 档定价层级。200 种支付方式。TV / Arcade / iCloud 合购。学校管理员 + 企业批量采购。</p>
+    <p data-en style="display:none">175 storefronts / 50 languages. Auto-generated preview assets. 900-point pricing tiers. 200 payment methods. Bundle TV/Arcade/iCloud. School Manager + enterprise volume.</p>
+    <div class="theme-related-windows" data-zh><span class="related-label">📍 相关时间段:</span><a class="theme-win-chip" href="#window-W21" data-jump-tab="timeline" data-jump-anchor="window-W21">W21</a>
+<a class="theme-win-chip" href="#window-W22" data-jump-tab="timeline" data-jump-anchor="window-W22">W22</a>
+<a class="theme-win-chip" href="#window-W23" data-jump-tab="timeline" data-jump-anchor="window-W23">W23</a>
+<a class="theme-win-chip" href="#window-W24" data-jump-tab="timeline" data-jump-anchor="window-W24">W24</a></div><div class="theme-related-windows" data-en style="display:none"><span class="related-label">📍 Related windows:</span><a class="theme-win-chip" href="#window-W21" data-jump-tab="timeline" data-jump-anchor="window-W21">W21</a>
+<a class="theme-win-chip" href="#window-W22" data-jump-tab="timeline" data-jump-anchor="window-W22">W22</a>
+<a class="theme-win-chip" href="#window-W23" data-jump-tab="timeline" data-jump-anchor="window-W23">W23</a>
+<a class="theme-win-chip" href="#window-W24" data-jump-tab="timeline" data-jump-anchor="window-W24">W24</a></div>
+  </div>
+</div></div>
+  </div>
+  <div class="tab-content" id="tab-timeline" data-tab-content="timeline"><h2 id="tab-timeline-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="timeline"><div class="window-row" id="window-W01" data-window-id="W01"><h2 id="window-W01" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W01-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W01 · 00:00 → 02:02</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W01-body">
+    <h4 data-zh>欢迎 + 回顾 WWDC26</h4>
+    <h4 data-en style="display:none">Welcome + recap of WWDC26</h4>
+    <p data-zh>Josh Tidsbury 开场。WWDC26 是大年 — 回顾各场 session、关键发布、AI 贯穿全平台。本场目标:让你清晰看到新特性,以及怎么用起来。</p>
+    <p data-en style="display:none">Josh Tidsbury opens. WWDC26 was a big year — recap sessions, key announcements, AI throughout the platforms. Goal of this session: give you a clear vision of what&#x27;s new and how to use it.</p>
+  </div>
+</div><div class="window-row" id="window-W02" data-window-id="W02"><h2 id="window-W02" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W02-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W02 · 02:02 → 05:05</span>
+    <span class="window-duration" data-zh>⏱ 3.0 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 3.0 min</span>
+  </div>
+  <div class="window-row-body" id="window-W02-body">
+    <h4 data-zh>Apple Intelligence — 统一入口</h4>
+    <h4 data-en style="display:none">Apple Intelligence — single front door</h4>
+    <p data-zh>头条:现在有一个模型。统一入口,支持端侧、私密、可离线推理。因 Apple 自研芯片而极快。更重的负载走云端算力,却不牺牲隐私。统一的 Swift API:同一段代码可指向端侧或云端。</p>
+    <p data-en style="display:none">Headline: there&#x27;s now a model. Single front door to on-device, private, offline-capable inference. Fast because purpose-built silicon. Cloud compute for heavier lifts without giving up privacy. Common API: same Swift code points to on-device or cloud.</p>
+  </div>
+</div><div class="window-row" id="window-W03" data-window-id="W03"><h2 id="window-W03" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W03-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W03 · 05:05 → 08:08</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W03-body">
+    <h4 data-zh>Siri、Spotlight、App Intents + Liquid Glass</h4>
+    <h4 data-en style="display:none">Siri, Spotlight, App Intents + Liquid Glass</h4>
+    <p data-zh>App Intents 突破启动屏限制。Siri / Spotlight 在用户当前场景直接调用。Liquid Glass 设计语言进化:层次、可读性、动态着色。iPhone 可调尺寸。iPad 通过 Mac 镜像支持可调尺寸。</p>
+    <p data-en style="display:none">App Intents escape the launch screen. Siri / Spotlight surface them where users already are. Liquid Glass design language evolves: depth, readability, tinted. iPhone resizability. iPad resizable via Mac mirroring.</p>
+  </div>
+</div><div class="window-row" id="window-W04" data-window-id="W04"><h2 id="window-W04" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W04-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W04 · 08:08 → 11:11</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W04-body">
+    <h4 data-zh>Reality Composer Pro + Cyberpunk 2077 + WebKit</h4>
+    <h4 data-en style="display:none">Reality Composer Pro + Cyberpunk 2077 + WebKit</h4>
+    <p data-zh>空间计算 — Reality Composer Pro 加入基于节点的动画 + 粒子特效。CD Projekt Red 通过游戏移植工具包,几个月内移植 Cyberpunk 2077。WebKit 加入网格通道,支持可定制的沉浸式 HTML。</p>
+    <p data-en style="display:none">Spatial computing — Reality Composer Pro gets node-based animations + particle effects. CD Projekt Red ported Cyberpunk 2077 in months via Game Porting Toolkit. WebKit adds grid lanes for customizable immersive HTML.</p>
+  </div>
+</div><div class="window-row" id="window-W05" data-window-id="W05"><h2 id="window-W05" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W05-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W05 · 11:11 → 14:14</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W05-body">
+    <h4 data-zh>基础模型 — 受控生成 + 工具调用</h4>
+    <h4 data-en style="display:none">Foundation Models — Guided Generation + Tool Calling</h4>
+    <p data-zh>不只是文本生成:一个 3 天巴黎行程能直接以结构化形式返回。受控生成(Guided Generation)保证输出结构(JSON 类型等)。工具调用连接天气、日历、个人上下文。流式响应实现实时 UI 更新。</p>
+    <p data-en style="display:none">Beyond basic text: a 3-day Paris itinerary comes back structured. Guided Generation guarantees output structure (e.g. JSON types). Tool calling connects weather, calendar, personal context. Streaming enables real-time UI updates.</p>
+  </div>
+</div><div class="window-row" id="window-W06" data-window-id="W06"><h2 id="window-W06" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W06-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W06 · 14:14 → 17:17</span>
+    <span class="window-duration" data-zh>⏱ 3.0 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 3.0 min</span>
+  </div>
+  <div class="window-row-body" id="window-W06-body">
+    <h4 data-zh>第三方模型 + Vision Pro 生成式 AI</h4>
+    <h4 data-en style="display:none">Third-party providers + Vision Pro generative</h4>
+    <p data-zh>统一的 Provider 协议,Anthropic / OpenAI 等可插入。同一套任务抽象。Vision Pro 现在能识别手势、移除背景、分离人声 — 生成式 AI 本地运行,流畅体验。</p>
+    <p data-en style="display:none">Provider protocol lets Anthropic / OpenAI / etc. packages plug in. Same task abstraction. Vision Pro now recognizes gestures, removes backgrounds, isolates voices — generative AI runs locally with smooth performance.</p>
+  </div>
+</div><div class="window-row" id="window-W07" data-window-id="W07"><h2 id="window-W07" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W07-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W07 · 17:17 → 20:20</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W07-body">
+    <h4 data-zh>Core AI + MLX + 开源权重模型</h4>
+    <h4 data-en style="display:none">Core AI + MLX + open-weight models</h4>
+    <p data-zh>MLX:端到端机器学习部署生命周期栈。开源权重,专为 Apple Silicon 打造。统一内存加速 M5。Hugging Face 接入:支持 10,000+ 模型。Ollama、LM Studio、VLM 集成。</p>
+    <p data-en style="display:none">MLX: complete stack for ML deployment lifecycle. Open-weight, purpose-built. Unified memory accelerates M5. Hugging Face presence: 10,000+ supported models. Ollama, LM Studio, VLM integration.</p>
+  </div>
+</div><div class="window-row" id="window-W08" data-window-id="W08"><h2 id="window-W08" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W08-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W08 · 20:20 → 23:23</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W08-body">
+    <h4 data-zh>动态档案 — 持续 Agent 对话</h4>
+    <h4 data-en style="display:none">Dynamic Profiles — continuous agent conversations</h4>
+    <p data-zh>旅行规划 demo:订机票 → 航班延误后改签酒店 → 动态档案保持对话记录 + 输出,维护上下文。实现跨 session 的多步 Agent,不丢失连续性。</p>
+    <p data-en style="display:none">Travel planner demo: book flight → rebook hotel after delay → dynamic profile keeps the transcript + outputs active, maintains context. Enables multi-step agents across sessions without losing continuity.</p>
+  </div>
+</div><div class="window-row" id="window-W09" data-window-id="W09"><h2 id="window-W09" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W09-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W09 · 23:23 → 26:26</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W09-body">
+    <h4 data-zh>评测 — 可复现的质量衡量</h4>
+    <h4 data-en style="display:none">Evaluations — repeatable quality measurement</h4>
+    <p data-zh>Agent 输出不确定。传统单元测试不够。评分评测器:跨多样样本的统计分析,包括合成生成样本。扩大覆盖范围而无需手工写每个测试用例。</p>
+    <p data-en style="display:none">Agents are unpredictable. Traditional unit tests insufficient. Grade evaluators: statistical analysis across diverse samples, including synthetically generated ones. Scales coverage without hand-writing every case.</p>
+  </div>
+</div><div class="window-row" id="window-W10" data-window-id="W10"><h2 id="window-W10" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W10-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W10 · 26:26 → 29:29</span>
+    <span class="window-duration" data-zh>⏱ 3.0 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 3.0 min</span>
+  </div>
+  <div class="window-row-body" id="window-W10-body">
+    <h4 data-zh>Widget + 一眼即得集成</h4>
+    <h4 data-en style="display:none">Widgets + glanceable integrations</h4>
+    <p data-zh>Widget 演化为分步界面(咖啡店订单追踪)。ActivityKit 支持实时进度。Siri 语音动作。Widget 不再是仪表盘,而是会话界面。</p>
+    <p data-en style="display:none">Widgets as step-by-step interfaces (coffee shop order tracker). ActivityKit for live progress. Siri voice actions. Widgets become conversation surfaces, not just dashboards.</p>
+  </div>
+</div><div class="window-row" id="window-W11" data-window-id="W11"><h2 id="window-W11" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W11-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W11 · 29:29 → 32:32</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W11-body">
+    <h4 data-zh>App Intents demo — 日历 + 事件</h4>
+    <h4 data-en style="display:none">App Intents demo — calendar + events</h4>
+    <p data-zh>&quot;谁会来观星?&quot; — Siri 找到事件、参与者、起草邀请。改时间 noon → 11:30 a.m.,Siri 询问确认。重度工作由 App Intents 完成 — schema 感知。</p>
+    <p data-en style="display:none">&quot;Who&#x27;s coming to stargazing?&quot; — Siri finds event, attendees, drafts invite. Reschedule to noon → 11:30 a.m., Siri asks confirm. Heavy lifting done by App Intents — schema-aware.</p>
+  </div>
+</div><div class="window-row" id="window-W12" data-window-id="W12"><h2 id="window-W12" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W12-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W12 · 32:32 → 35:35</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W12-body">
+    <h4 data-zh>App Entities — 屏幕感知</h4>
+    <h4 data-en style="display:none">App Entities — on-screen awareness</h4>
+    <p data-zh>App Intents 现在理解屏幕上当前的实体。能识别细节,以对话方式引用它们。照片专辑实体在消息中被引用 — `[[专辑名]]` 变为一等公民。</p>
+    <p data-en style="display:none">App Intents now understands entities currently on-screen. Identifies detail, refers to them conversationally. Photo album entities referenced in messages — `[[album name]]` becomes first-class.</p>
+  </div>
+</div><div class="window-row" id="window-W13" data-window-id="W13"><h2 id="window-W13" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W13-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W13 · 35:35 → 38:38</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W13-body">
+    <h4 data-zh>Schema + 动作 + 预定义动作</h4>
+    <h4 data-en style="display:none">Schemas + Verbs + predefined actions</h4>
+    <p data-zh>Apple 训练了常见领域的 schema:日历、地图、媒体、相机、电话、时钟。从动作到行为的几十个预定义映射。你描述,系统就懂。</p>
+    <p data-en style="display:none">Apple trained schemas on common domains: calendar, maps, media, camera, phone, clock. Dozens of predefined mappings from verbs to actions. You describe; the system knows.</p>
+  </div>
+</div><div class="window-row" id="window-W14" data-window-id="W14"><h2 id="window-W14" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W14-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W14 · 38:38 → 41:41</span>
+    <span class="window-duration" data-zh>⏱ 3.0 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 3.0 min</span>
+  </div>
+  <div class="window-row-body" id="window-W14-body">
+    <h4 data-zh>标注 → 请求流转</h4>
+    <h4 data-en style="display:none">Annotation → request flow</h4>
+    <p data-zh>标签视图对应屏幕上的 Siri 像素。支撑请求持续拉取下一个。App 之间的墙变流动 — Siri 在它们之间调度。联系人、日历、备忘录全互通。</p>
+    <p data-en style="display:none">Tag views correspond to Siri&#x27;s pixels on screen. Backing request continues to pull another. Walls between apps become fluid — Siri mediates across them. Contacts, calendar, notes all interop.</p>
+  </div>
+</div><div class="window-row" id="window-W15" data-window-id="W15"><h2 id="window-W15" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W15-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W15 · 41:41 → 43:43</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W15-body">
+    <h4 data-zh>现场 demo — Cosmo Tunes、Unicorn Chat</h4>
+    <h4 data-en style="display:none">Live demos — Cosmo Tunes, Unicorn Chat</h4>
+    <p data-zh>Maho 上场。在已上架 App 中实时演示新的 App Intents + Core AI 特性。识别最快路径的交互,通过真实 App 建立信任。</p>
+    <p data-en style="display:none">Maho takes stage. Live demos of new App Intents + Core AI features in shipping apps. Identifying fastest-path interactions, building trust through real apps.</p>
+  </div>
+</div><div class="window-row" id="window-W16" data-window-id="W16"><h2 id="window-W16" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W16-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W16 · 43:43 → 46:46</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W16-body">
+    <h4 data-zh>iPad 可调尺寸 — 现代自适应</h4>
+    <h4 data-en style="display:none">iPad resizability — modern adaptive</h4>
+    <p data-zh>iOS 支持可调尺寸。专用 iPad 版本不再需要。App 自适应 — 任何人都能调窗口,布局自动回流。工具栏 / 边栏自动重定位。现代自适应设计。</p>
+    <p data-en style="display:none">iOS resizes. Dedicated iPad version goes away. App adapts gracefully — anyone can resize window, layout reflows. Toolbar / sidebars reposition automatically. Modern adaptive design.</p>
+  </div>
+</div><div class="window-row" id="window-W17" data-window-id="W17"><h2 id="window-W17" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W17-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W17 · 46:46 → 49:49</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W17-body">
+    <h4 data-zh>自适应布局 — 紧凑堆叠</h4>
+    <h4 data-en style="display:none">Adaptive layouts — compact stacking</h4>
+    <p data-zh>长宽比类 — 水平 / 垂直 / 紧凑 / 标准。重定位自动扩展填充,自动调整宽度。Figma 设计套件可用。尺寸间过渡持续流畅。</p>
+    <p data-en style="display:none">Aspect ratio classes — horizontal / vertical / compact / regular. Repositioning expands to fill, adjusts wider automatically. Figma design kit available. Persistent transitions between sizes.</p>
+  </div>
+</div><div class="window-row" id="window-W18" data-window-id="W18"><h2 id="window-W18" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W18-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W18 · 49:49 → 52:52</span>
+    <span class="window-duration" data-zh>⏱ 3.0 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 3.0 min</span>
+  </div>
+  <div class="window-row-body" id="window-W18-body">
+    <h4 data-zh>Liquid Glass 视觉细节 — 折射 + 深度</h4>
+    <h4 data-en style="display:none">Liquid Glass visual details — refraction + depth</h4>
+    <p data-zh>暗化 + 高光之间的分离度。微调滑块。具有美丽折射的边栏 — 滚动后重新清晰。图标层调节折射、阴影、半透明。</p>
+    <p data-en style="display:none">Separation between darken + brighter specular highlights. Slider for fine-tuning. Sidebar with beautiful refractions — scrolls and regains sharpness. Icon layers dial refraction, shadows, translucency.</p>
+  </div>
+</div><div class="window-row" id="window-W19" data-window-id="W19"><h2 id="window-W19" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W19-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W19 · 52:52 → 55:55</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W19-body">
+    <h4 data-zh>Cursor + Agentic 编程(Xcode 27 深入)</h4>
+    <h4 data-en style="display:none">Cursor + Agentic Coding (Xcode 27 deep dive)</h4>
+    <p data-zh>Cursor 与你协作。验证方案、编辑文件、解释推理。内联 diff。批准 / 细化反馈粒度细。文档档案感知。多步编辑。</p>
+    <p data-en style="display:none">Cursor works alongside you. Validates solutions, edits files, explains reasoning. Inline diffs. Approve / refine with fine-grain feedback. Documentation archive aware. Multi-step editing.</p>
+  </div>
+</div><div class="window-row" id="window-W20" data-window-id="W20"><h2 id="window-W20" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W20-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W20 · 55:55 → 58:58</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W20-body">
+    <h4 data-zh>Xcode 27 — 可视化原型 + 调试</h4>
+    <h4 data-en style="display:none">Xcode 27 — visual prototyping + debugging</h4>
+    <p data-zh>可视化方向。原型设计 — 增量渲染,快照随做随存。本地化准备 — 单复数感知。LLDB 控制台日志。带安全 + 审批的模拟器。</p>
+    <p data-en style="display:none">Visual directions. Prototyping — render incrementally, snapshots as you go. Localization prep — singular / plural aware. LLDB console logging. Simulators with security + approval.</p>
+  </div>
+</div><div class="window-row" id="window-W21" data-window-id="W21"><h2 id="window-W21" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W21-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W21 · 58:58 → 61:01</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W21-body">
+    <h4 data-zh>App Store 27 — 发现 + 创意素材</h4>
+    <h4 data-en style="display:none">App Store 27 — Discovery + creative assets</h4>
+    <p data-zh>175 个店面 / 50 种语言 / 8.5 亿周访客。从创意素材自动生成页面。展示生活方式图像(瑜伽垫、哑铃、徒步者)。讲述更丰富故事,提升价值。</p>
+    <p data-en style="display:none">175 storefronts / 50 languages / 850M weekly visitors. Auto-generates page from creative assets. Showcases lifestyle imagery (yoga mat, dumbbells, hiker). Tells richer story, uplifts value.</p>
+  </div>
+</div><div class="window-row" id="window-W22" data-window-id="W22"><h2 id="window-W22" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W22-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W22 · 61:01 → 64:04</span>
+    <span class="window-duration" data-zh>⏱ 3.0 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 3.0 min</span>
+  </div>
+  <div class="window-row-body" id="window-W22-body">
+    <h4 data-zh>App Store 27 — 定价 + 订阅</h4>
+    <h4 data-en style="display:none">App Store 27 — Pricing + Subscriptions</h4>
+    <p data-zh>900 档定价层级。200 种支付方式。自动货币转换。付费墙模板。强大分析。StoreKit 2 entitlement。订阅提醒 — 赠送一个月以保留用户。</p>
+    <p data-en style="display:none">900-point pricing tiers. 200 payment methods. Auto currency conversion. Paywall templates. Robust analytics. StoreKit 2 entitlements. Subscription reminders — free month to retain.</p>
+  </div>
+</div><div class="window-row" id="window-W23" data-window-id="W23"><h2 id="window-W23" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W23-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W23 · 64:04 → 67:07</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W23-body">
+    <h4 data-zh>合购 + 学校管理员 + 企业</h4>
+    <h4 data-en style="display:none">Bundles + School Manager + Enterprise</h4>
+    <p data-zh>合购 — TV / Arcade / iCloud 可配置。批量采购。学校管理员用于教育。自动续订月度。组织 12 个月承诺。续订提醒 + 安全支付。</p>
+    <p data-en style="display:none">Bundles — TV / Arcade / iCloud configurable. Volume purchasing. School Manager for education. Auto-renewable monthly. 12-month commitment for orgs. Renewal reminders + secure payments.</p>
+  </div>
+</div><div class="window-row" id="window-W24" data-window-id="W24"><h2 id="window-W24" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W24-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W24 · 67:07 → 70:10</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W24-body">
+    <h4 data-zh>提交 + 分发 + 营销活动</h4>
+    <h4 data-en style="display:none">Submission + distribution + campaigns</h4>
+    <p data-zh>简化的提交流程。批量提交。秋季营销活动。对抗流失、获取用户、提升参与。WWDC26 全景 — 增长、简化、希望激发灵感。</p>
+    <p data-en style="display:none">Streamlined submission. Batching submissions. Fall campaigns. Combat churn, acquire, drive engagement. WWDC26 snapshot — grow, simplify, hopefully inspire.</p>
+  </div>
+</div><div class="window-row" id="window-W25" data-window-id="W25"><h2 id="window-W25" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+  <button class="window-row-toggle" data-toggle-target="window-W25-body" aria-label="Toggle" title="折叠/展开 Collapse/Expand">
+    <span class="toggle-icon">▾</span>
+  </button>
+  <div class="window-row-head">
+    <span class="window-ts">W25 · 70:10 → 73:13</span>
+    <span class="window-duration" data-zh>⏱ 2.9 分钟</span>
+    <span class="window-duration" data-en style="display:none">⏱ 2.9 min</span>
+  </div>
+  <div class="window-row-body" id="window-W25-body">
+    <h4 data-zh>收尾 + WWDC26 全球活动</h4>
+    <h4 data-en style="display:none">Wrap-up + WWDC26 events worldwide</h4>
+    <p data-zh>WWDC YouTube 频道。Apple Developer 论坛。Lab 答疑。Apple Developer 中心。柏林中心新近开业。晚上 10 点将近 — 大堂有茶点。Q&amp;A。</p>
+    <p data-en style="display:none">WWDC YouTube channel. Apple Developer forums. Labs. Apple Developer Centers. Berlin center recently opened. 10 p.m. approaching — snacks, beverages in the lobby. Q&amp;A.</p>
+  </div>
+</div></div>
+  </div>
+  <div class="tab-content" id="tab-quotes" data-tab-content="quotes"><h2 id="tab-quotes-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="quotes-grid"><div class="quote-card" data-quote-index="0" data-window-id="W02">
+  <div class="quote-num">#01</div>
+  <button class="quote-fav" data-fav-index="0" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:02:55</span>
+    <a class="quote-jump-window" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02" data-zh title="跳到 W02">→ W02</a><a class="quote-jump-window" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02" data-en style="display:none" title="Jump to W02">→ W02</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> The headline is: there&#x27;s a model now. You access it through a single front door — on-device, private, works offline.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 头条是:现在有一个模型。你通过统一入口访问它 — 端侧、私密、可离线。</blockquote>
+</div><div class="quote-card" data-quote-index="1" data-window-id="W02">
+  <div class="quote-num">#02</div>
+  <button class="quote-fav" data-fav-index="1" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:04:30</span>
+    <a class="quote-jump-window" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02" data-zh title="跳到 W02">→ W02</a><a class="quote-jump-window" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02" data-en style="display:none" title="Jump to W02">→ W02</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Inference is fast because it&#x27;s running on purpose-built silicon. Cloud compute reaches for heavier loads without giving up privacy.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 推理极快,因为跑在 Apple 自研芯片上。云端算力承接更重的负载,却不牺牲隐私。</blockquote>
+</div><div class="quote-card" data-quote-index="2" data-window-id="W02">
+  <div class="quote-num">#03</div>
+  <button class="quote-fav" data-fav-index="2" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:05:45</span>
+    <a class="quote-jump-window" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02" data-zh title="跳到 W02">→ W02</a><a class="quote-jump-window" href="#window-W02" data-jump-tab="timeline" data-jump-anchor="window-W02" data-en style="display:none" title="Jump to W02">→ W02</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> A common API foundation framework allows you to point basically the same code at whichever you choose. Swift APIs, end-to-end.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 统一的 API 基础框架让你能用基本相同的代码指向任何你选的。Swift API,端到端。</blockquote>
+</div><div class="quote-card" data-quote-index="3" data-window-id="W03">
+  <div class="quote-num">#04</div>
+  <button class="quote-fav" data-fav-index="3" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:08:46</span>
+    <a class="quote-jump-window" href="#window-W03" data-jump-tab="timeline" data-jump-anchor="window-W03" data-zh title="跳到 W03">→ W03</a><a class="quote-jump-window" href="#window-W03" data-jump-tab="timeline" data-jump-anchor="window-W03" data-en style="display:none" title="Jump to W03">→ W03</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> App Intents become something where, as the user discovers exactly what they need, it just appears and behaves across devices.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> App Intents 变得 — 当用户发现他们真正需要的东西时,它就出现并跨设备工作。</blockquote>
+</div><div class="quote-card" data-quote-index="4" data-window-id="W04">
+  <div class="quote-num">#05</div>
+  <button class="quote-fav" data-fav-index="4" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:11:42</span>
+    <a class="quote-jump-window" href="#window-W04" data-jump-tab="timeline" data-jump-anchor="window-W04" data-zh title="跳到 W04">→ W04</a><a class="quote-jump-window" href="#window-W04" data-jump-tab="timeline" data-jump-anchor="window-W04" data-en style="display:none" title="Jump to W04">→ W04</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Returns a detailed plan in a natural way — beyond basic text generation. Guided Generation gives precise control over output structure.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 以自然方式返回详细方案 — 远超基础文本生成。受控生成对输出结构提供精确控制。</blockquote>
+</div><div class="quote-card" data-quote-index="5" data-window-id="W06">
+  <div class="quote-num">#06</div>
+  <button class="quote-fav" data-fav-index="5" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:14:37</span>
+    <a class="quote-jump-window" href="#window-W06" data-jump-tab="timeline" data-jump-anchor="window-W06" data-zh title="跳到 W06">→ W06</a><a class="quote-jump-window" href="#window-W06" data-jump-tab="timeline" data-jump-anchor="window-W06" data-en style="display:none" title="Jump to W06">→ W06</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Provider accessible via creating a package that conforms to a protocol. Anthropic packages extend this — making state-of-the-art run on-device.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 第三方模型通过符合协议的 package 接入。Anthropic 的包扩展了这一点 — 让最先进模型在端侧运行。</blockquote>
+</div><div class="quote-card" data-quote-index="6" data-window-id="W06">
+  <div class="quote-num">#07</div>
+  <button class="quote-fav" data-fav-index="6" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:17:33</span>
+    <a class="quote-jump-window" href="#window-W06" data-jump-tab="timeline" data-jump-anchor="window-W06" data-zh title="跳到 W06">→ W06</a><a class="quote-jump-window" href="#window-W06" data-jump-tab="timeline" data-jump-anchor="window-W06" data-en style="display:none" title="Jump to W06">→ W06</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> MLX is a complete runtime — spanning the deployment life cycle. Open-weight, purpose-built, takes unified memory, accelerates with M5.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> MLX 是完整的运行时 — 覆盖部署全生命周期。开源权重、专为 Apple Silicon 打造、利用统一内存、由 M5 加速。</blockquote>
+</div><div class="quote-card" data-quote-index="7" data-window-id="W08">
+  <div class="quote-num">#08</div>
+  <button class="quote-fav" data-fav-index="7" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:23:24</span>
+    <a class="quote-jump-window" href="#window-W08" data-jump-tab="timeline" data-jump-anchor="window-W08" data-zh title="跳到 W08">→ W08</a><a class="quote-jump-window" href="#window-W08" data-jump-tab="timeline" data-jump-anchor="window-W08" data-en style="display:none" title="Jump to W08">→ W08</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Dynamic Profiles handle what happens in session, preserving continuity through handoffs. Maintains a transcript of responses, outputs.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 动态档案处理 session 内发生的事,跨交接保持连续性。维护响应和输出的对话记录。</blockquote>
+</div><div class="quote-card" data-quote-index="8" data-window-id="W09">
+  <div class="quote-num">#09</div>
+  <button class="quote-fav" data-fav-index="8" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:26:18</span>
+    <a class="quote-jump-window" href="#window-W09" data-jump-tab="timeline" data-jump-anchor="window-W09" data-zh title="跳到 W09">→ W09</a><a class="quote-jump-window" href="#window-W09" data-jump-tab="timeline" data-jump-anchor="window-W09" data-en style="display:none" title="Jump to W09">→ W09</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> You cannot rely on functional consistency — simple unit tests are insufficient. You need evaluators that grade with statistical trends.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 你不能依赖功能一致性 — 简单单元测试不够。你需要评分评测器,以统计趋势打分。</blockquote>
+</div><div class="quote-card" data-quote-index="9" data-window-id="W10">
+  <div class="quote-num">#10</div>
+  <button class="quote-fav" data-fav-index="9" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:29:18</span>
+    <a class="quote-jump-window" href="#window-W10" data-jump-tab="timeline" data-jump-anchor="window-W10" data-zh title="跳到 W10">→ W10</a><a class="quote-jump-window" href="#window-W10" data-jump-tab="timeline" data-jump-anchor="window-W10" data-en style="display:none" title="Jump to W10">→ W10</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Widgets become step-by-step — like tracking a coffee shop order. Integrate with action buttons. Stay useful, appearing in moments of friction.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> Widget 演化为分步界面 — 比如追踪咖啡店订单。与操作按钮集成。在摩擦时刻保持有用。</blockquote>
+</div><div class="quote-card" data-quote-index="10" data-window-id="W12">
+  <div class="quote-num">#11</div>
+  <button class="quote-fav" data-fav-index="10" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:35:06</span>
+    <a class="quote-jump-window" href="#window-W12" data-jump-tab="timeline" data-jump-anchor="window-W12" data-zh title="跳到 W12">→ W12</a><a class="quote-jump-window" href="#window-W12" data-jump-tab="timeline" data-jump-anchor="window-W12" data-en style="display:none" title="Jump to W12">→ W12</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> App Intents now understands entities currently on-screen — identifies and opens detail. Tries to refer rather than email.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> App Intents 现在理解屏幕上当前的实体 — 识别并打开细节。尝试引用而非发邮件。</blockquote>
+</div><div class="quote-card" data-quote-index="11" data-window-id="W13">
+  <div class="quote-num">#12</div>
+  <button class="quote-fav" data-fav-index="11" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:38:00</span>
+    <a class="quote-jump-window" href="#window-W13" data-jump-tab="timeline" data-jump-anchor="window-W13" data-zh title="跳到 W13">→ W13</a><a class="quote-jump-window" href="#window-W13" data-jump-tab="timeline" data-jump-anchor="window-W13" data-en style="display:none" title="Jump to W13">→ W13</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Earlier showing said phrase — tag views correspond to what Siri sees on the pixels. Backing request continues to pull another.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 之前展示的短语 — 标签视图对应 Siri 在屏幕上看到的像素。支撑请求持续拉取下一个。</blockquote>
+</div><div class="quote-card" data-quote-index="12" data-window-id="W15">
+  <div class="quote-num">#13</div>
+  <button class="quote-fav" data-fav-index="12" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:43:54</span>
+    <a class="quote-jump-window" href="#window-W15" data-jump-tab="timeline" data-jump-anchor="window-W15" data-zh title="跳到 W15">→ W15</a><a class="quote-jump-window" href="#window-W15" data-jump-tab="timeline" data-jump-anchor="window-W15" data-en style="display:none" title="Jump to W15">→ W15</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> iPad resizability — iOS resizes. The dedicated iPad version can go away. App resizes gracefully.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> iPad 可调尺寸 — iOS 可调尺寸。专用 iPad 版本可以消失。App 优雅地调整尺寸。</blockquote>
+</div><div class="quote-card" data-quote-index="13" data-window-id="W17">
+  <div class="quote-num">#14</div>
+  <button class="quote-fav" data-fav-index="13" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:49:42</span>
+    <a class="quote-jump-window" href="#window-W17" data-jump-tab="timeline" data-jump-anchor="window-W17" data-zh title="跳到 W17">→ W17</a><a class="quote-jump-window" href="#window-W17" data-jump-tab="timeline" data-jump-anchor="window-W17" data-en style="display:none" title="Jump to W17">→ W17</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Liquid Glass — separation between darken and brighter specular highlights. Slider for fine-tune taste. Sidebars with beautiful refractions.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> Liquid Glass — 暗化与高光的分离。微调滑块。具有美丽折射的边栏。</blockquote>
+</div><div class="quote-card" data-quote-index="14" data-window-id="W18">
+  <div class="quote-num">#15</div>
+  <button class="quote-fav" data-fav-index="14" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:52:42</span>
+    <a class="quote-jump-window" href="#window-W18" data-jump-tab="timeline" data-jump-anchor="window-W18" data-zh title="跳到 W18">→ W18</a><a class="quote-jump-window" href="#window-W18" data-jump-tab="timeline" data-jump-anchor="window-W18" data-en style="display:none" title="Jump to W18">→ W18</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> Cursor works well-known partners — OpenAI, Claude, Codex. High-level drafts, written. Correct, expand, refine.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> Cursor 与知名伙伴协作 — OpenAI、Claude、Codex。高层草案、写就、修正、扩展、细化。</blockquote>
+</div><div class="quote-card" data-quote-index="15" data-window-id="W20">
+  <div class="quote-num">#16</div>
+  <button class="quote-fav" data-fav-index="15" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:58:30</span>
+    <a class="quote-jump-window" href="#window-W20" data-jump-tab="timeline" data-jump-anchor="window-W20" data-zh title="跳到 W20">→ W20</a><a class="quote-jump-window" href="#window-W20" data-jump-tab="timeline" data-jump-anchor="window-W20" data-en style="display:none" title="Jump to W20">→ W20</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> 175 storefronts, half a billion weekly visitors across 50 languages. Safe and trusted.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 175 个店面、50 种语言、每周 5 亿访客。安全、可信。</blockquote>
+</div><div class="quote-card" data-quote-index="16" data-window-id="W21">
+  <div class="quote-num">#17</div>
+  <button class="quote-fav" data-fav-index="16" aria-label="Favorite" title="收藏 / Favorite">
+    <span class="fav-icon">♡</span>
+  </button>
+  <div class="quote-ts-row">
+    <span class="quote-ts">00:61:24</span>
+    <a class="quote-jump-window" href="#window-W21" data-jump-tab="timeline" data-jump-anchor="window-W21" data-zh title="跳到 W21">→ W21</a><a class="quote-jump-window" href="#window-W21" data-jump-tab="timeline" data-jump-anchor="window-W21" data-en style="display:none" title="Jump to W21">→ W21</a>
+  </div>
+  <blockquote class="quote-en"><span class="lang-tag">EN</span> 900-point pricing tiers updated for taxes and currencies. 200 payment options. Robust analytics and sales reporting.</blockquote>
+  <blockquote class="quote-zh"><span class="lang-tag">中文</span> 900 档定价层级,自动适配税费与货币。200 种支付方式。强大分析与销售报告。</blockquote>
+</div></div>
+  </div>
+  <div class="tab-content" id="tab-ai" data-tab-content="ai"><h2 id="tab-ai-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="content-grid">
+  <div class="content-card">
+    <h3 data-zh>Foundation Models Framework</h3>
+    <h3 data-en style="display:none">Foundation Models Framework</h3>
+    <ul data-zh>
+      <li>端侧 3B 参数 LLM,统一入口</li>
+      <li>同一段 Swift 代码可指向端侧或云端</li>
+      <li>开源,Anthropic 等第三方可接入</li>
+      <li>工具调用 + 结构化输出 + 流式响应</li>
+      <li>Guided Generation 保证输出结构</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>On-device 3B-param LLM, single front door</li>
+      <li>Same Swift code points to on-device or cloud</li>
+      <li>Open-source; third-party providers plug in</li>
+      <li>Tool calling + structured output + streaming</li>
+      <li>Guided Generation guarantees output structure</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>Core AI 五大能力</h3>
+    <h3 data-en style="display:none">Core AI — 5 Pillars</h3>
+    <ul data-zh>
+      <li>基础模型(Foundation Models)— 推理核心</li>
+      <li>工具调用(Tool Calling)— 连接个人上下文</li>
+      <li>动态档案(Dynamic Profiles)— 持续 Agent 会话</li>
+      <li>评测(Evaluations)— 可复现质量衡量</li>
+      <li>Streaming + Guided Generation — 实时 UI</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Foundation Models — inference core</li>
+      <li>Tool Calling — connect personal context</li>
+      <li>Dynamic Profiles — continuous agent sessions</li>
+      <li>Evaluations — repeatable quality measurement</li>
+      <li>Streaming + Guided Generation — real-time UI</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>MLX + 开源权重</h3>
+    <h3 data-en style="display:none">MLX + Open-Weight</h3>
+    <ul data-zh>
+      <li>完整运行时,覆盖部署全生命周期</li>
+      <li>利用统一内存,M5 加速</li>
+      <li>Hugging Face 接入,10,000+ 模型</li>
+      <li>Ollama / LM Studio / VLM 集成</li>
+      <li>本地推理,跨 Apple Silicon 设备</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Complete runtime — full deployment lifecycle</li>
+      <li>Unified memory + M5 acceleration</li>
+      <li>Hugging Face — 10,000+ supported models</li>
+      <li>Ollama / LM Studio / VLM integration</li>
+      <li>Local inference across Apple Silicon devices</li>
+    </ul>
+  </div>
+</div>
+  </div>
+  <div class="tab-content" id="tab-design" data-tab-content="design"><h2 id="tab-design-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="content-grid">
+  <div class="content-card">
+    <h3 data-zh>Liquid Glass 材质语言</h3>
+    <h3 data-en style="display:none">Liquid Glass Material Language</h3>
+    <ul data-zh>
+      <li>暗化 + 高光之间的分离度</li>
+      <li>微调滑块调节强度</li>
+      <li>边栏具备美丽折射,滚动后重新清晰</li>
+      <li>图标层:折射、阴影、半透明可调</li>
+      <li>通用化,跨 iOS / iPadOS / macOS 27</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Separation between darken + specular highlights</li>
+      <li>Fine-tune slider for intensity</li>
+      <li>Sidebar with beautiful refractions — sharp after scroll</li>
+      <li>Icon layers: refraction, shadows, translucency</li>
+      <li>Universal across iOS / iPadOS / macOS 27</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>Resizability — iPad / iPhone 全平台</h3>
+    <h3 data-en style="display:none">Resizability across iPad / iPhone</h3>
+    <ul data-zh>
+      <li>iPhone 支持可调尺寸</li>
+      <li>iPad 通过 Mac 镜像支持可调尺寸</li>
+      <li>不再假设固定尺寸</li>
+      <li>Universal layout 优雅适配任意画布</li>
+      <li>专用 iPad 版本不再必需</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>iPhone resizable windows</li>
+      <li>iPad resizable via Mac mirroring</li>
+      <li>No more fixed-size assumptions</li>
+      <li>Universal layout adapts to any canvas</li>
+      <li>Dedicated iPad versions no longer required</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>自适应布局类</h3>
+    <h3 data-en style="display:none">Adaptive Layout Classes</h3>
+    <ul data-zh>
+      <li>水平 / 垂直 / 紧凑 / 标准 四类</li>
+      <li>重定位自动扩展填充</li>
+      <li>Figma 设计套件可用</li>
+      <li>尺寸间过渡持续流畅</li>
+      <li>工具栏 / 边栏自动重定位</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Horizontal / Vertical / Compact / Regular</li>
+      <li>Repositioning auto-expands to fill</li>
+      <li>Figma design kit available</li>
+      <li>Persistent transitions between sizes</li>
+      <li>Toolbar / sidebars auto-reposition</li>
+    </ul>
+  </div>
+</div>
+  </div>
+  <div class="tab-content" id="tab-xcode" data-tab-content="xcode"><h2 id="tab-xcode-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="content-grid">
+  <div class="content-card">
+    <h3 data-zh>Xcode 27 — Agentic 编程伙伴</h3>
+    <h3 data-en style="display:none">Xcode 27 — Agentic Coding Partner</h3>
+    <ul data-zh>
+      <li>全项目上下文感知</li>
+      <li>内联 diff,多步编辑</li>
+      <li>实时预览</li>
+      <li>接入 OpenAI / Anthropic Claude / Codex</li>
+      <li>文档档案感知</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Whole-project context</li>
+      <li>Inline diffs, multi-step editing</li>
+      <li>Live previews</li>
+      <li>OpenAI / Anthropic Claude / Codex integration</li>
+      <li>Documentation archive aware</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>可视化原型 + 调试</h3>
+    <h3 data-en style="display:none">Visual Prototyping + Debugging</h3>
+    <ul data-zh>
+      <li>增量渲染,快照随做随存</li>
+      <li>本地化准备:单复数感知</li>
+      <li>LLDB 控制台日志增强</li>
+      <li>带安全 + 审批的模拟器</li>
+      <li>多周级本地化测试套件</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Render incrementally, snapshots as you go</li>
+      <li>Localization prep — singular/plural aware</li>
+      <li>Enhanced LLDB console logging</li>
+      <li>Simulators with security + approval</li>
+      <li>Multi-week localization test suites</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>Cursor 等合作伙伴</h3>
+    <h3 data-en style="display:none">Cursor + Partner Integrations</h3>
+    <ul data-zh>
+      <li>OpenAI / Claude / Codex 直接接入</li>
+      <li>高层草案生成</li>
+      <li>细粒度反馈循环</li>
+      <li>批准 / 修正 / 扩展 / 细化</li>
+      <li>UI 测试套件对接</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Direct OpenAI / Claude / Codex integration</li>
+      <li>High-level draft generation</li>
+      <li>Fine-grain feedback loops</li>
+      <li>Approve / correct / expand / refine</li>
+      <li>UI test suites integrated</li>
+    </ul>
+  </div>
+</div>
+  </div>
+  <div class="tab-content" id="tab-intents" data-tab-content="intents"><h2 id="tab-intents-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="content-grid">
+  <div class="content-card">
+    <h3 data-zh>App Intents 进化</h3>
+    <h3 data-en style="display:none">App Intents — Evolution</h3>
+    <ul data-zh>
+      <li>突破启动屏限制,跨应用出现</li>
+      <li>Siri / Spotlight 在当前场景直接调用</li>
+      <li>屏幕感知:理解当前 on-screen 实体</li>
+      <li>动态档案:持续 Agent 会话</li>
+      <li>引用而非操作:如 `[[album name]]` 一等公民</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Escape launch screen — appear across apps</li>
+      <li>Siri / Spotlight surface them in current context</li>
+      <li>On-screen awareness: understand entities</li>
+      <li>Dynamic Profiles: continuous agent sessions</li>
+      <li>Refer over act: `[[album name]]` is first-class</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>Widget — 一眼即得集成</h3>
+    <h3 data-en style="display:none">Widgets — Glanceable Integrations</h3>
+    <ul data-zh>
+      <li>分步界面(咖啡订单追踪)</li>
+      <li>ActivityKit 实时进度</li>
+      <li>Siri 语音动作</li>
+      <li>Home Screen / Lock Screen / StandBy</li>
+      <li>摩擦时刻保持有用</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Step-by-step interfaces (coffee tracker)</li>
+      <li>ActivityKit for live progress</li>
+      <li>Siri voice actions</li>
+      <li>Home Screen / Lock Screen / StandBy</li>
+      <li>Stay useful in moments of friction</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>Schemas + 预定义动作</h3>
+    <h3 data-en style="display:none">Schemas + Predefined Actions</h3>
+    <ul data-zh>
+      <li>Apple 训练常见领域 schema</li>
+      <li>日历 / 地图 / 媒体 / 相机 / 电话 / 时钟</li>
+      <li>几十个预定义映射:动作 → 行为</li>
+      <li>你描述,系统就懂</li>
+      <li>App Entities 一等公民</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Apple-trained schemas on common domains</li>
+      <li>Calendar / maps / media / camera / phone / clock</li>
+      <li>Dozens of predefined verb → action mappings</li>
+      <li>You describe; the system knows</li>
+      <li>App Entities are first-class</li>
+    </ul>
+  </div>
+</div>
+  </div>
+  <div class="tab-content" id="tab-spatial" data-tab-content="spatial"><h2 id="tab-spatial-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="content-grid">
+  <div class="content-card">
+    <h3 data-zh>Reality Composer Pro 3</h3>
+    <h3 data-en style="display:none">Reality Composer Pro 3</h3>
+    <ul data-zh>
+      <li>3D 场景、材质、动画可视化编辑</li>
+      <li>基于节点的动画系统</li>
+      <li>粒子特效、行为、状态机</li>
+      <li>visionOS 27 适配</li>
+      <li>Cyberpunk 2077 已成功移植</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Visual editor for 3D scenes, materials, animations</li>
+      <li>Node-based animation system</li>
+      <li>Particle effects, behaviors, state machines</li>
+      <li>visionOS 27 optimized</li>
+      <li>Cyberpunk 2077 already ported</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>WebKit + 沉浸式 HTML</h3>
+    <h3 data-en style="display:none">WebKit + Immersive HTML</h3>
+    <ul data-zh>
+      <li>Grid lanes 网格通道</li>
+      <li>可定制沉浸式 HTML 环境</li>
+      <li>Web 扩展支持</li>
+      <li>摄像头 / 照片 / 音频 / 无障碍</li>
+      <li>visionOS 直接嵌入网页</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Grid lanes for customizable layouts</li>
+      <li>Immersive HTML environments</li>
+      <li>Web extensions supported</li>
+      <li>Camera / photo / audio / accessibility</li>
+      <li>visionOS embeds web pages directly</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>Vision Pro 生成式 AI</h3>
+    <h3 data-en style="display:none">Vision Pro Generative AI</h3>
+    <ul data-zh>
+      <li>识别手势</li>
+      <li>移除背景</li>
+      <li>分离人声</li>
+      <li>生成式 AI 本地运行</li>
+      <li>流畅性能</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Recognize gestures</li>
+      <li>Remove backgrounds</li>
+      <li>Isolate voices</li>
+      <li>Generative AI runs locally</li>
+      <li>Smooth performance</li>
+    </ul>
+  </div>
+</div>
+  </div>
+  <div class="tab-content" id="tab-store" data-tab-content="store"><h2 id="tab-store-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="content-grid">
+  <div class="content-card">
+    <h3 data-zh>App Store 27 — 全球覆盖</h3>
+    <h3 data-en style="display:none">App Store 27 — Global Reach</h3>
+    <ul data-zh>
+      <li>175 个店面</li>
+      <li>50 种语言</li>
+      <li>每周 5 亿访客</li>
+      <li>安全可信</li>
+      <li>多种类型、玩法、风格</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>175 storefronts</li>
+      <li>50 languages</li>
+      <li>850M weekly visitors</li>
+      <li>Safe and trusted</li>
+      <li>Multiple genres, play styles</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>Discovery + 创意素材</h3>
+    <h3 data-en style="display:none">Discovery + Creative Assets</h3>
+    <ul data-zh>
+      <li>从创意素材自动生成页面</li>
+      <li>展示生活方式图像</li>
+      <li>中央素材库</li>
+      <li>个性化合集</li>
+      <li>明 / 暗模式适配</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>Auto-generate pages from creative assets</li>
+      <li>Showcase lifestyle imagery</li>
+      <li>Central asset library</li>
+      <li>Personalized collections</li>
+      <li>Light / dark mode adaptation</li>
+    </ul>
+  </div>
+  <div class="content-card">
+    <h3 data-zh>定价 + 订阅 + 合购</h3>
+    <h3 data-en style="display:none">Pricing + Subscriptions + Bundles</h3>
+    <ul data-zh">
+      <li>900 档定价层级,自动适配税费货币</li>
+      <li>200 种支付方式</li>
+      <li>付费墙模板</li>
+      <li>订阅提醒:赠送一个月保留用户</li>
+      <li>合购 TV / Arcade / iCloud</li>
+      <li>批量采购 + 学校管理员</li>
+    </ul>
+    <ul data-en style="display:none">
+      <li>900-point pricing tiers, auto currency conversion</li>
+      <li>200 payment options</li>
+      <li>Paywall templates</li>
+      <li>Subscription reminders — free month to retain</li>
+      <li>Bundles: TV / Arcade / iCloud</li>
+      <li>Volume purchasing + School Manager</li>
+    </ul>
+  </div>
+</div>
+  </div>
+  <div class="tab-content" id="tab-roster" data-tab-content="roster"><h2 id="tab-roster-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="roster-grid"><a class="roster-card" href="https://2017zyl.xyz/apple-developer-wwdc26-24h.html" target="_blank" rel="noopener">
+  <div class="roster-emoji">🍎</div>
+  <div class="roster-info">
+    <div class="roster-title">Apple Developer WWDC26 — 24h Tracker</div>
+    <div class="roster-desc">Latest 24h Apple Developer videos.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://2017zyl.xyz/apple-wwdc26-mlx-local-agentic-ai.html" target="_blank" rel="noopener">
+  <div class="roster-emoji">🧠</div>
+  <div class="roster-info">
+    <div class="roster-title">Apple WWDC26 MLX Local Agentic AI</div>
+    <div class="roster-desc">MLX + open-weight + local inference deep dive.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://2017zyl.xyz/wwdc26-keynote-summary.html" target="_blank" rel="noopener">
+  <div class="roster-emoji">⚡</div>
+  <div class="roster-info">
+    <div class="roster-title">WWDC26 Keynote Summary</div>
+    <div class="roster-desc">WWDC26 keynote at a glance.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://2017zyl.xyz/wwdc26-summary.html" target="_blank" rel="noopener">
+  <div class="roster-emoji">📝</div>
+  <div class="roster-info">
+    <div class="roster-title">WWDC26 General Summary</div>
+    <div class="roster-desc">Full WWDC26 session summary.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://2017zyl.xyz/wwdc26_ml_group_lab_cn.html" target="_blank" rel="noopener">
+  <div class="roster-emoji">🀄</div>
+  <div class="roster-info">
+    <div class="roster-title">WWDC26 ML Group Lab (CN)</div>
+    <div class="roster-desc">Chinese ML group lab discussion.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://2017zyl.xyz/wwdc2026-debate-ak-peng-lin-yunfei-laodai.html" target="_blank" rel="noopener">
+  <div class="roster-emoji">🎙️</div>
+  <div class="roster-info">
+    <div class="roster-title">WWDC26 Debate — AK / Peng / Lin / Yunfei</div>
+    <div class="roster-desc">Multi-host panel on WWDC26.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://2017zyl.xyz/papers-wwdc26-24h-dashboard.html" target="_blank" rel="noopener">
+  <div class="roster-emoji">📰</div>
+  <div class="roster-info">
+    <div class="roster-title">WWDC26 Papers 24h Dashboard</div>
+    <div class="roster-desc">Apple-related ML papers.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://developer.apple.com/events/" target="_blank" rel="noopener">
+  <div class="roster-emoji">📅</div>
+  <div class="roster-info">
+    <div class="roster-title">developer.apple.com/events</div>
+    <div class="roster-desc">WWDC26 events worldwide.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://developer.apple.com/forums/" target="_blank" rel="noopener">
+  <div class="roster-emoji">🎓</div>
+  <div class="roster-info">
+    <div class="roster-title">Apple Developer Forums</div>
+    <div class="roster-desc">Developer community forums.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://developer.apple.com/events/labs/" target="_blank" rel="noopener">
+  <div class="roster-emoji">🧪</div>
+  <div class="roster-info">
+    <div class="roster-title">Apple Developer Labs</div>
+    <div class="roster-desc">1:1 lab sessions with Apple engineers.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a>
+<a class="roster-card" href="https://developer.apple.com/events/" target="_blank" rel="noopener">
+  <div class="roster-emoji">🏛️</div>
+  <div class="roster-info">
+    <div class="roster-title">Apple Developer Centers</div>
+    <div class="roster-desc">Berlin + global centers.</div>
+  </div>
+  <div class="roster-arrow">→</div>
+</a></div>
+  </div>
+  <div class="tab-content" id="tab-meta" data-tab-content="meta"><h2 id="tab-meta-title" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"> </h2>
+    <div class="meta-box">
+  <h3 data-zh>构建元数据</h3>
+  <h3 data-en style="display:none">Build Provenance</h3>
+  <table class="meta-table">
+    <tr><th>Video ID</th><td><code>V2i8f_NeKDI</code></td></tr>
+    <tr><th>Transcript</th><td data-zh>YouTube 自动字幕 (EN, 官方 ASR)</td><td data-en style="display:none">YouTube auto-captions (EN, official ASR)</td></tr>
+    <tr><th>Coverage</th><td>99.7% (0s → 4389s, 125 segments, 25 windows)</td></tr>
+    <tr><th>Translation</th><td data-zh>LLM 转写 (Hermes),非 Apple 官方 zh-Hans</td><td data-en style="display:none">LLM rewrite (Hermes), not Apple's official zh-Hans</td></tr>
+    <tr><th>Window Strategy</th><td data-zh>每 ~3 分钟一段,共 25 段</td><td data-en style="display:none">~3-minute windows, 25 total</td></tr>
+    <tr><th>Build Date</th><td>2026-07-24 (video 上传 24h 内)</td></tr>
+    <tr><th>Skill</th><td><code>media/video-to-knowledge-dashboard</code> v1.5.24 + bilingual UI</td></tr>
+  </table>
+
+  <h4 data-zh>⚠️ 已知局限</h4>
+  <h4 data-en style="display:none">⚠️ Known limitations</h4>
+  <ul data-zh">
+    <li>中文翻译是 LLM 转写,可能与 Apple 官方术语不一致</li>
+    <li>官方 Apple Intelligence 文档未在此 session 完整覆盖</li>
+    <li>macOS 27 / watchOS 27 / tvOS 27 细节未在 1h14min 内全展开</li>
+    <li>部分 visionOS 27 / Reality Composer Pro 3 demo 细节需后续 session 验证</li>
+    <li>演讲者 Josh / Shashank / Alan / Maho 真实姓名可能未完整捕获</li>
+  </ul>
+  <ul data-en style="display:none">
+    <li>Chinese translation is LLM-rewritten, may diverge from Apple's official terminology</li>
+    <li>Official Apple Intelligence docs not fully covered in this session</li>
+    <li>macOS 27 / watchOS 27 / tvOS 27 details not fully unpacked in 1h14min</li>
+    <li>Some visionOS 27 / Reality Composer Pro 3 demo details need follow-up sessions</li>
+    <li>Presenter names Josh / Shashank / Alan / Maho may be incomplete</li>
+  </ul>
+</div>
+  </div>
+</main>
+
+<script>
+// ── Embedded data for export/saved-panel ─────────────────
+const THEMES_DATA = [{"emoji": "🧠", "title_en": "Apple Intelligence 2.0 — Foundation Models Framework", "title_zh": "Apple Intelligence 2.0 — 基础模型框架", "desc_en": "On-device 3B-param LLM as a single front door. Privacy-first inference. Same Swift API for on-device + cloud. Open-source. Tool calling, structured output, streaming.", "desc_zh": "端侧 30 亿参数大模型,统一入口。隐私优先的推理。同一个 Swift API 同时支持端侧和云端。开源。支持工具调用、结构化输出、流式响应。"}, {"emoji": "💎", "title_en": "Liquid Glass Material — Major design language refresh", "title_zh": "Liquid Glass 材质 — 重大设计语言革新", "desc_en": "Refraction, depth, dynamic tinting. iPhone resizability. iPad resizable via Mac mirroring. Universal layout. Adopts iOS 27 → iPadOS 27 → macOS 27.", "desc_zh": "折射、深度、动态着色。iPhone 可调整尺寸。iPad 通过 Mac 镜像支持可调尺寸。通用布局。适配 iOS 27 / iPadOS 27 / macOS 27。"}, {"emoji": "🤖", "title_en": "Xcode 27 — Agentic Coding Partner", "title_zh": "Xcode 27 — Agentic 编程伙伴", "desc_en": "Whole-project context. Inline diffs. Multi-step editing. Live previews. Powered by Anthropic Claude, OpenAI GPT, Codex. Documentation-aware.", "desc_zh": "全项目上下文感知。内联 diff。多步编辑。实时预览。接入 Anthropic Claude、OpenAI GPT、Codex。文档感知。"}, {"emoji": "🥽", "title_en": "Reality Composer Pro 3 + WebKit immersive", "title_zh": "Reality Composer Pro 3 + WebKit 沉浸式", "desc_en": "Visual editor for 3D scenes, materials, animations. Node-based authoring. Particle effects. Cyberpunk 2077 ported via Game Porting Toolkit. WebKit grid lanes for immersive HTML.", "desc_zh": "3D 场景、材质、动画的可视化编辑器。基于节点的创作。粒子特效。Cyberpunk 2077 通过游戏移植工具包移植。WebKit 网格通道支持沉浸式 HTML。"}, {"emoji": "🎯", "title_en": "Core AI + Widgets + App Intents — Agentic UX", "title_zh": "Core AI + Widgets + App Intents — Agentic 用户体验", "desc_en": "Dynamic profiles for continuous conversation. Schemas/entities/schemas semantics. Smart Reply, Translation, Priority Notifications. Step-by-step guided experiences.", "desc_zh": "动态档案支持持续对话。Schema / 实体 / 语义。智能回复、翻译、优先通知。分步引导式体验。"}, {"emoji": "🏪", "title_en": "App Store 27 — Discovery, Subscriptions, Bundles", "title_zh": "App Store 27 — 发现、订阅、合购", "desc_en": "175 storefronts / 50 languages. Auto-generated preview assets. 900-point pricing tiers. 200 payment methods. Bundle TV/Arcade/iCloud. School Manager + enterprise volume.", "desc_zh": "175 个店面 / 50 种语言。自动生成的预览素材。900 档定价层级。200 种支付方式。TV / Arcade / iCloud 合购。学校管理员 + 企业批量采购。"}];
+const WINDOWS_DATA = [{"id": "W01", "start_min": 0.0, "end_min": 2.9, "title_en": "Welcome + recap of WWDC26", "title_zh": "欢迎 + 回顾 WWDC26", "summary_en": "Josh Tidsbury opens. WWDC26 was a big year — recap sessions, key announcements, AI throughout the platforms. Goal of this session: give you a clear vision of what's new and how to use it.", "summary_zh": "Josh Tidsbury 开场。WWDC26 是大年 — 回顾各场 session、关键发布、AI 贯穿全平台。本场目标:让你清晰看到新特性,以及怎么用起来。"}, {"id": "W02", "start_min": 2.9, "end_min": 5.9, "title_en": "Apple Intelligence — single front door", "title_zh": "Apple Intelligence — 统一入口", "summary_en": "Headline: there's now a model. Single front door to on-device, private, offline-capable inference. Fast because purpose-built silicon. Cloud compute for heavier lifts without giving up privacy. Common API: same Swift code points to on-device or cloud.", "summary_zh": "头条:现在有一个模型。统一入口,支持端侧、私密、可离线推理。因 Apple 自研芯片而极快。更重的负载走云端算力,却不牺牲隐私。统一的 Swift API:同一段代码可指向端侧或云端。"}, {"id": "W03", "start_min": 5.9, "end_min": 8.8, "title_en": "Siri, Spotlight, App Intents + Liquid Glass", "title_zh": "Siri、Spotlight、App Intents + Liquid Glass", "summary_en": "App Intents escape the launch screen. Siri / Spotlight surface them where users already are. Liquid Glass design language evolves: depth, readability, tinted. iPhone resizability. iPad resizable via Mac mirroring.", "summary_zh": "App Intents 突破启动屏限制。Siri / Spotlight 在用户当前场景直接调用。Liquid Glass 设计语言进化:层次、可读性、动态着色。iPhone 可调尺寸。iPad 通过 Mac 镜像支持可调尺寸。"}, {"id": "W04", "start_min": 8.8, "end_min": 11.7, "title_en": "Reality Composer Pro + Cyberpunk 2077 + WebKit", "title_zh": "Reality Composer Pro + Cyberpunk 2077 + WebKit", "summary_en": "Spatial computing — Reality Composer Pro gets node-based animations + particle effects. CD Projekt Red ported Cyberpunk 2077 in months via Game Porting Toolkit. WebKit adds grid lanes for customizable immersive HTML.", "summary_zh": "空间计算 — Reality Composer Pro 加入基于节点的动画 + 粒子特效。CD Projekt Red 通过游戏移植工具包,几个月内移植 Cyberpunk 2077。WebKit 加入网格通道,支持可定制的沉浸式 HTML。"}, {"id": "W05", "start_min": 11.7, "end_min": 14.6, "title_en": "Foundation Models — Guided Generation + Tool Calling", "title_zh": "基础模型 — 受控生成 + 工具调用", "summary_en": "Beyond basic text: a 3-day Paris itinerary comes back structured. Guided Generation guarantees output structure (e.g. JSON types). Tool calling connects weather, calendar, personal context. Streaming enables real-time UI updates.", "summary_zh": "不只是文本生成:一个 3 天巴黎行程能直接以结构化形式返回。受控生成(Guided Generation)保证输出结构(JSON 类型等)。工具调用连接天气、日历、个人上下文。流式响应实现实时 UI 更新。"}, {"id": "W06", "start_min": 14.6, "end_min": 17.6, "title_en": "Third-party providers + Vision Pro generative", "title_zh": "第三方模型 + Vision Pro 生成式 AI", "summary_en": "Provider protocol lets Anthropic / OpenAI / etc. packages plug in. Same task abstraction. Vision Pro now recognizes gestures, removes backgrounds, isolates voices — generative AI runs locally with smooth performance.", "summary_zh": "统一的 Provider 协议,Anthropic / OpenAI 等可插入。同一套任务抽象。Vision Pro 现在能识别手势、移除背景、分离人声 — 生成式 AI 本地运行,流畅体验。"}, {"id": "W07", "start_min": 17.6, "end_min": 20.5, "title_en": "Core AI + MLX + open-weight models", "title_zh": "Core AI + MLX + 开源权重模型", "summary_en": "MLX: complete stack for ML deployment lifecycle. Open-weight, purpose-built. Unified memory accelerates M5. Hugging Face presence: 10,000+ supported models. Ollama, LM Studio, VLM integration.", "summary_zh": "MLX:端到端机器学习部署生命周期栈。开源权重,专为 Apple Silicon 打造。统一内存加速 M5。Hugging Face 接入:支持 10,000+ 模型。Ollama、LM Studio、VLM 集成。"}, {"id": "W08", "start_min": 20.5, "end_min": 23.4, "title_en": "Dynamic Profiles — continuous agent conversations", "title_zh": "动态档案 — 持续 Agent 对话", "summary_en": "Travel planner demo: book flight → rebook hotel after delay → dynamic profile keeps the transcript + outputs active, maintains context. Enables multi-step agents across sessions without losing continuity.", "summary_zh": "旅行规划 demo:订机票 → 航班延误后改签酒店 → 动态档案保持对话记录 + 输出,维护上下文。实现跨 session 的多步 Agent,不丢失连续性。"}, {"id": "W09", "start_min": 23.4, "end_min": 26.3, "title_en": "Evaluations — repeatable quality measurement", "title_zh": "评测 — 可复现的质量衡量", "summary_en": "Agents are unpredictable. Traditional unit tests insufficient. Grade evaluators: statistical analysis across diverse samples, including synthetically generated ones. Scales coverage without hand-writing every case.", "summary_zh": "Agent 输出不确定。传统单元测试不够。评分评测器:跨多样样本的统计分析,包括合成生成样本。扩大覆盖范围而无需手工写每个测试用例。"}, {"id": "W10", "start_min": 26.3, "end_min": 29.3, "title_en": "Widgets + glanceable integrations", "title_zh": "Widget + 一眼即得集成", "summary_en": "Widgets as step-by-step interfaces (coffee shop order tracker). ActivityKit for live progress. Siri voice actions. Widgets become conversation surfaces, not just dashboards.", "summary_zh": "Widget 演化为分步界面(咖啡店订单追踪)。ActivityKit 支持实时进度。Siri 语音动作。Widget 不再是仪表盘,而是会话界面。"}, {"id": "W11", "start_min": 29.3, "end_min": 32.2, "title_en": "App Intents demo — calendar + events", "title_zh": "App Intents demo — 日历 + 事件", "summary_en": "\"Who's coming to stargazing?\" — Siri finds event, attendees, drafts invite. Reschedule to noon → 11:30 a.m., Siri asks confirm. Heavy lifting done by App Intents — schema-aware.", "summary_zh": "\"谁会来观星?\" — Siri 找到事件、参与者、起草邀请。改时间 noon → 11:30 a.m.,Siri 询问确认。重度工作由 App Intents 完成 — schema 感知。"}, {"id": "W12", "start_min": 32.2, "end_min": 35.1, "title_en": "App Entities — on-screen awareness", "title_zh": "App Entities — 屏幕感知", "summary_en": "App Intents now understands entities currently on-screen. Identifies detail, refers to them conversationally. Photo album entities referenced in messages — `[[album name]]` becomes first-class.", "summary_zh": "App Intents 现在理解屏幕上当前的实体。能识别细节,以对话方式引用它们。照片专辑实体在消息中被引用 — `[[专辑名]]` 变为一等公民。"}, {"id": "W13", "start_min": 35.1, "end_min": 38.0, "title_en": "Schemas + Verbs + predefined actions", "title_zh": "Schema + 动作 + 预定义动作", "summary_en": "Apple trained schemas on common domains: calendar, maps, media, camera, phone, clock. Dozens of predefined mappings from verbs to actions. You describe; the system knows.", "summary_zh": "Apple 训练了常见领域的 schema:日历、地图、媒体、相机、电话、时钟。从动作到行为的几十个预定义映射。你描述,系统就懂。"}, {"id": "W14", "start_min": 38.0, "end_min": 41.0, "title_en": "Annotation → request flow", "title_zh": "标注 → 请求流转", "summary_en": "Tag views correspond to Siri's pixels on screen. Backing request continues to pull another. Walls between apps become fluid — Siri mediates across them. Contacts, calendar, notes all interop.", "summary_zh": "标签视图对应屏幕上的 Siri 像素。支撑请求持续拉取下一个。App 之间的墙变流动 — Siri 在它们之间调度。联系人、日历、备忘录全互通。"}, {"id": "W15", "start_min": 41.0, "end_min": 43.9, "title_en": "Live demos — Cosmo Tunes, Unicorn Chat", "title_zh": "现场 demo — Cosmo Tunes、Unicorn Chat", "summary_en": "Maho takes stage. Live demos of new App Intents + Core AI features in shipping apps. Identifying fastest-path interactions, building trust through real apps.", "summary_zh": "Maho 上场。在已上架 App 中实时演示新的 App Intents + Core AI 特性。识别最快路径的交互,通过真实 App 建立信任。"}, {"id": "W16", "start_min": 43.9, "end_min": 46.8, "title_en": "iPad resizability — modern adaptive", "title_zh": "iPad 可调尺寸 — 现代自适应", "summary_en": "iOS resizes. Dedicated iPad version goes away. App adapts gracefully — anyone can resize window, layout reflows. Toolbar / sidebars reposition automatically. Modern adaptive design.", "summary_zh": "iOS 支持可调尺寸。专用 iPad 版本不再需要。App 自适应 — 任何人都能调窗口,布局自动回流。工具栏 / 边栏自动重定位。现代自适应设计。"}, {"id": "W17", "start_min": 46.8, "end_min": 49.7, "title_en": "Adaptive layouts — compact stacking", "title_zh": "自适应布局 — 紧凑堆叠", "summary_en": "Aspect ratio classes — horizontal / vertical / compact / regular. Repositioning expands to fill, adjusts wider automatically. Figma design kit available. Persistent transitions between sizes.", "summary_zh": "长宽比类 — 水平 / 垂直 / 紧凑 / 标准。重定位自动扩展填充,自动调整宽度。Figma 设计套件可用。尺寸间过渡持续流畅。"}, {"id": "W18", "start_min": 49.7, "end_min": 52.7, "title_en": "Liquid Glass visual details — refraction + depth", "title_zh": "Liquid Glass 视觉细节 — 折射 + 深度", "summary_en": "Separation between darken + brighter specular highlights. Slider for fine-tuning. Sidebar with beautiful refractions — scrolls and regains sharpness. Icon layers dial refraction, shadows, translucency.", "summary_zh": "暗化 + 高光之间的分离度。微调滑块。具有美丽折射的边栏 — 滚动后重新清晰。图标层调节折射、阴影、半透明。"}, {"id": "W19", "start_min": 52.7, "end_min": 55.6, "title_en": "Cursor + Agentic Coding (Xcode 27 deep dive)", "title_zh": "Cursor + Agentic 编程(Xcode 27 深入)", "summary_en": "Cursor works alongside you. Validates solutions, edits files, explains reasoning. Inline diffs. Approve / refine with fine-grain feedback. Documentation archive aware. Multi-step editing.", "summary_zh": "Cursor 与你协作。验证方案、编辑文件、解释推理。内联 diff。批准 / 细化反馈粒度细。文档档案感知。多步编辑。"}, {"id": "W20", "start_min": 55.6, "end_min": 58.5, "title_en": "Xcode 27 — visual prototyping + debugging", "title_zh": "Xcode 27 — 可视化原型 + 调试", "summary_en": "Visual directions. Prototyping — render incrementally, snapshots as you go. Localization prep — singular / plural aware. LLDB console logging. Simulators with security + approval.", "summary_zh": "可视化方向。原型设计 — 增量渲染,快照随做随存。本地化准备 — 单复数感知。LLDB 控制台日志。带安全 + 审批的模拟器。"}, {"id": "W21", "start_min": 58.5, "end_min": 61.4, "title_en": "App Store 27 — Discovery + creative assets", "title_zh": "App Store 27 — 发现 + 创意素材", "summary_en": "175 storefronts / 50 languages / 850M weekly visitors. Auto-generates page from creative assets. Showcases lifestyle imagery (yoga mat, dumbbells, hiker). Tells richer story, uplifts value.", "summary_zh": "175 个店面 / 50 种语言 / 8.5 亿周访客。从创意素材自动生成页面。展示生活方式图像(瑜伽垫、哑铃、徒步者)。讲述更丰富故事,提升价值。"}, {"id": "W22", "start_min": 61.4, "end_min": 64.4, "title_en": "App Store 27 — Pricing + Subscriptions", "title_zh": "App Store 27 — 定价 + 订阅", "summary_en": "900-point pricing tiers. 200 payment methods. Auto currency conversion. Paywall templates. Robust analytics. StoreKit 2 entitlements. Subscription reminders — free month to retain.", "summary_zh": "900 档定价层级。200 种支付方式。自动货币转换。付费墙模板。强大分析。StoreKit 2 entitlement。订阅提醒 — 赠送一个月以保留用户。"}, {"id": "W23", "start_min": 64.4, "end_min": 67.3, "title_en": "Bundles + School Manager + Enterprise", "title_zh": "合购 + 学校管理员 + 企业", "summary_en": "Bundles — TV / Arcade / iCloud configurable. Volume purchasing. School Manager for education. Auto-renewable monthly. 12-month commitment for orgs. Renewal reminders + secure payments.", "summary_zh": "合购 — TV / Arcade / iCloud 可配置。批量采购。学校管理员用于教育。自动续订月度。组织 12 个月承诺。续订提醒 + 安全支付。"}, {"id": "W24", "start_min": 67.3, "end_min": 70.2, "title_en": "Submission + distribution + campaigns", "title_zh": "提交 + 分发 + 营销活动", "summary_en": "Streamlined submission. Batching submissions. Fall campaigns. Combat churn, acquire, drive engagement. WWDC26 snapshot — grow, simplify, hopefully inspire.", "summary_zh": "简化的提交流程。批量提交。秋季营销活动。对抗流失、获取用户、提升参与。WWDC26 全景 — 增长、简化、希望激发灵感。"}, {"id": "W25", "start_min": 70.2, "end_min": 73.1, "title_en": "Wrap-up + WWDC26 events worldwide", "title_zh": "收尾 + WWDC26 全球活动", "summary_en": "WWDC YouTube channel. Apple Developer forums. Labs. Apple Developer Centers. Berlin center recently opened. 10 p.m. approaching — snacks, beverages in the lobby. Q&A.", "summary_zh": "WWDC YouTube 频道。Apple Developer 论坛。Lab 答疑。Apple Developer 中心。柏林中心新近开业。晚上 10 点将近 — 大堂有茶点。Q&A。"}];
+const QUOTES_DATA = [{"ts": "00:02:55", "en": "The headline is: there's a model now. You access it through a single front door — on-device, private, works offline.", "zh": "头条是:现在有一个模型。你通过统一入口访问它 — 端侧、私密、可离线。", "window_id": "W02"}, {"ts": "00:04:30", "en": "Inference is fast because it's running on purpose-built silicon. Cloud compute reaches for heavier loads without giving up privacy.", "zh": "推理极快,因为跑在 Apple 自研芯片上。云端算力承接更重的负载,却不牺牲隐私。", "window_id": "W02"}, {"ts": "00:05:45", "en": "A common API foundation framework allows you to point basically the same code at whichever you choose. Swift APIs, end-to-end.", "zh": "统一的 API 基础框架让你能用基本相同的代码指向任何你选的。Swift API,端到端。", "window_id": "W02"}, {"ts": "00:08:46", "en": "App Intents become something where, as the user discovers exactly what they need, it just appears and behaves across devices.", "zh": "App Intents 变得 — 当用户发现他们真正需要的东西时,它就出现并跨设备工作。", "window_id": "W03"}, {"ts": "00:11:42", "en": "Returns a detailed plan in a natural way — beyond basic text generation. Guided Generation gives precise control over output structure.", "zh": "以自然方式返回详细方案 — 远超基础文本生成。受控生成对输出结构提供精确控制。", "window_id": "W04"}, {"ts": "00:14:37", "en": "Provider accessible via creating a package that conforms to a protocol. Anthropic packages extend this — making state-of-the-art run on-device.", "zh": "第三方模型通过符合协议的 package 接入。Anthropic 的包扩展了这一点 — 让最先进模型在端侧运行。", "window_id": "W06"}, {"ts": "00:17:33", "en": "MLX is a complete runtime — spanning the deployment life cycle. Open-weight, purpose-built, takes unified memory, accelerates with M5.", "zh": "MLX 是完整的运行时 — 覆盖部署全生命周期。开源权重、专为 Apple Silicon 打造、利用统一内存、由 M5 加速。", "window_id": "W06"}, {"ts": "00:23:24", "en": "Dynamic Profiles handle what happens in session, preserving continuity through handoffs. Maintains a transcript of responses, outputs.", "zh": "动态档案处理 session 内发生的事,跨交接保持连续性。维护响应和输出的对话记录。", "window_id": "W08"}, {"ts": "00:26:18", "en": "You cannot rely on functional consistency — simple unit tests are insufficient. You need evaluators that grade with statistical trends.", "zh": "你不能依赖功能一致性 — 简单单元测试不够。你需要评分评测器,以统计趋势打分。", "window_id": "W09"}, {"ts": "00:29:18", "en": "Widgets become step-by-step — like tracking a coffee shop order. Integrate with action buttons. Stay useful, appearing in moments of friction.", "zh": "Widget 演化为分步界面 — 比如追踪咖啡店订单。与操作按钮集成。在摩擦时刻保持有用。", "window_id": "W10"}, {"ts": "00:35:06", "en": "App Intents now understands entities currently on-screen — identifies and opens detail. Tries to refer rather than email.", "zh": "App Intents 现在理解屏幕上当前的实体 — 识别并打开细节。尝试引用而非发邮件。", "window_id": "W12"}, {"ts": "00:38:00", "en": "Earlier showing said phrase — tag views correspond to what Siri sees on the pixels. Backing request continues to pull another.", "zh": "之前展示的短语 — 标签视图对应 Siri 在屏幕上看到的像素。支撑请求持续拉取下一个。", "window_id": "W13"}, {"ts": "00:43:54", "en": "iPad resizability — iOS resizes. The dedicated iPad version can go away. App resizes gracefully.", "zh": "iPad 可调尺寸 — iOS 可调尺寸。专用 iPad 版本可以消失。App 优雅地调整尺寸。", "window_id": "W15"}, {"ts": "00:49:42", "en": "Liquid Glass — separation between darken and brighter specular highlights. Slider for fine-tune taste. Sidebars with beautiful refractions.", "zh": "Liquid Glass — 暗化与高光的分离。微调滑块。具有美丽折射的边栏。", "window_id": "W17"}, {"ts": "00:52:42", "en": "Cursor works well-known partners — OpenAI, Claude, Codex. High-level drafts, written. Correct, expand, refine.", "zh": "Cursor 与知名伙伴协作 — OpenAI、Claude、Codex。高层草案、写就、修正、扩展、细化。", "window_id": "W18"}, {"ts": "00:58:30", "en": "175 storefronts, half a billion weekly visitors across 50 languages. Safe and trusted.", "zh": "175 个店面、50 种语言、每周 5 亿访客。安全、可信。", "window_id": "W20"}, {"ts": "00:61:24", "en": "900-point pricing tiers updated for taxes and currencies. 200 payment options. Robust analytics and sales reporting.", "zh": "900 档定价层级,自动适配税费与货币。200 种支付方式。强大分析与销售报告。", "window_id": "W21"}];
+
+(function () {
+  'use strict';
+
+  // ── Language toggle ────────────────────────────────────────
+  function setLang(lang) {
+    document.documentElement.setAttribute('data-lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    document.querySelectorAll('[data-zh]').forEach(function (el) {
+      el.style.display = lang === 'zh' ? '' : 'none';
+    });
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      el.style.display = lang === 'en' ? '' : 'none';
+    });
+    try { localStorage.setItem('wwdc26-meet-lang', lang); } catch (e) {}
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { setLang(btn.dataset.lang); });
+  });
+
+  var savedLang = null;
+  try { savedLang = localStorage.getItem('wwdc26-meet-lang'); } catch (e) {}
+  if (savedLang === 'en' || savedLang === 'zh') setLang(savedLang);
+
+  // ── TOC sidebar collapse ───────────────────────────────────
+  var body = document.body;
+  var tocToggle = document.getElementById('toc-toggle');
+  function setTocCollapsed(collapsed) {
+    body.classList.toggle('toc-collapsed', collapsed);
+    try { localStorage.setItem('wwdc26-meet-toc-collapsed', collapsed ? '1' : '0'); } catch (e) {}
+  }
+  tocToggle.addEventListener('click', function () {
+    setTocCollapsed(!body.classList.contains('toc-collapsed'));
+  });
+  var savedCollapsed = null;
+  try { savedCollapsed = localStorage.getItem('wwdc26-meet-toc-collapsed'); } catch (e) {}
+  if (savedCollapsed === '1') setTocCollapsed(true);
+
+  // ── Tab navigation ─────────────────────────────────────────
+  function activateTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.tab === tabId);
+    });
+    document.querySelectorAll('.tab-content').forEach(function (section) {
+      section.classList.toggle('active', section.dataset.tabContent === tabId);
+    });
+    var target = document.getElementById('tab-' + tabId);
+    if (target && tabId !== 'overview') {
+      // Scroll so the tab content title is visible
+      var tabsNav = document.getElementById('tabs-nav');
+      var offset = (tabsNav ? tabsNav.offsetHeight : 0) + 80;
+      var y = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    } else if (tabId === 'overview') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    try { localStorage.setItem('wwdc26-meet-tab', tabId); } catch (e) {}
+    updateTocActive(tabId);
+  }
+
+  function updateTocActive(tabId) {
+    document.querySelectorAll('.toc-link').forEach(function (a) {
+      a.classList.toggle('active', a.dataset.tab === tabId);
+    });
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { activateTab(btn.dataset.tab); });
+  });
+
+  // TOC link clicks → switch tab
+  document.querySelectorAll('.toc-link').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      activateTab(a.dataset.tab);
+    });
+  });
+
+  var savedTab = null;
+  try { savedTab = localStorage.getItem('wwdc26-meet-tab'); } catch (e) {}
+  if (savedTab && document.getElementById('tab-' + savedTab)) {
+    activateTab(savedTab);
+  } else {
+    updateTocActive('overview');
+  }
+
+  // ── Scroll-spy for timeline windows (within Timeline tab) ──
+  var timelineRows = document.querySelectorAll('.window-row');
+  if (timelineRows.length > 0 && 'IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.borderLeftColor = 'var(--accent)';
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    timelineRows.forEach(function (r) { obs.observe(r); });
+  }
+
+  // ── Quote keyboard shortcut: 'Q' jumps to quotes tab ───────
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'q' || e.key === 'Q') activateTab('quotes');
+    if (e.key === 't' || e.key === 'T') activateTab('timeline');
+    if (e.key === 'o' || e.key === 'O') activateTab('overview');
+    if (e.key === 'Escape') {
+      setTocCollapsed(true);
+      var si = document.getElementById('search-input');
+      if (si && si.value) { si.value = ''; performSearch(''); si.blur(); }
+    }
+    // Number keys 1-9 → quick-jump tabs
+    var num = parseInt(e.key, 10);
+    if (!isNaN(num) && num >= 1 && num <= 9) {
+      var tabs = document.querySelectorAll('.tab-btn');
+      if (tabs[num - 1]) activateTab(tabs[num - 1].dataset.tab);
+    }
+  });
+
+  // ── Reading progress bar ───────────────────────────────────
+  var progressBar = document.getElementById('reading-progress');
+  function updateProgress() {
+    var h = document.documentElement;
+    var scrolled = h.scrollTop || document.body.scrollTop;
+    var max = (h.scrollHeight - h.clientHeight) || 1;
+    var pct = Math.max(0, Math.min(100, (scrolled / max) * 100));
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ── Back-to-top ────────────────────────────────────────────
+  var backToTop = document.getElementById('back-to-top');
+  function updateBackToTop() {
+    if (window.scrollY > 600) backToTop.classList.add('show');
+    else backToTop.classList.remove('show');
+  }
+  window.addEventListener('scroll', updateBackToTop, { passive: true });
+  backToTop.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  updateBackToTop();
+
+  // ── Generic cross-tab jump (data-jump-tab + data-jump-anchor) ──
+  document.querySelectorAll('[data-jump-tab]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var tabId = a.dataset.jumpTab;
+      var anchorId = a.dataset.jumpAnchor;
+      if (!tabId) return;
+      e.preventDefault();
+      activateTab(tabId);
+      if (anchorId) {
+        // Wait for tab content to render
+        setTimeout(function () {
+          var el = document.getElementById(anchorId);
+          if (el) {
+            var tabsNav = document.getElementById('tabs-nav');
+            var offset = (tabsNav ? tabsNav.offsetHeight : 0) + 80;
+            var y = el.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+            // Flash highlight
+            el.style.transition = 'box-shadow 0.4s';
+            el.style.boxShadow = '0 0 0 3px var(--accent)';
+            setTimeout(function () { el.style.boxShadow = ''; }, 1400);
+          }
+        }, 80);
+      }
+    });
+  });
+
+  // ── Global search ──────────────────────────────────────────
+  var searchInput = document.getElementById('search-input');
+  var searchClear = document.getElementById('search-clear');
+  var searchCount = document.getElementById('search-count');
+
+  // Collect searchable content (per active language)
+  function getLang() { return document.documentElement.getAttribute('data-lang') || 'zh'; }
+
+  function buildSearchIndex() {
+    // Re-index every time language changes (since [data-zh]/[data-en] swap)
+    var items = [];
+    document.querySelectorAll('.window-row, .quote-card, .theme-deep-card, .theme-card').forEach(function (el) {
+      var lang = getLang();
+      var visibleTextEl = el.querySelector(lang === 'zh' ? '[data-zh]:not([style*="display: none"])' : '[data-en]:not([style*="display: none"])');
+      // Fallback: concat all text from active-language spans
+      var activeSpans = el.querySelectorAll(lang === 'zh' ? '[data-zh]' : '[data-en]');
+      var text = '';
+      activeSpans.forEach(function (s) {
+        // Only include if display is not 'none'
+        if (window.getComputedStyle(s).display !== 'none') text += ' ' + s.textContent;
+      });
+      items.push({ el: el, text: text.toLowerCase(), html: el.outerHTML });
+    });
+    return items;
+  }
+
+  function highlightIn(el, query) {
+    if (!query) return; // clear
+    var lang = getLang();
+    // Remove existing marks
+    el.querySelectorAll('mark.search-mark').forEach(function (m) {
+      var t = document.createTextNode(m.textContent);
+      m.parentNode.replaceChild(t, m);
+    });
+    // Highlight new
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [];
+    var node;
+    while ((node = walker.nextNode())) {
+      if (node.parentNode.closest('mark.search-mark')) continue;
+      if (node.parentNode.closest('script, style')) continue;
+      if (node.nodeValue.toLowerCase().indexOf(query) === -1) continue;
+      nodes.push(node);
+    }
+    nodes.forEach(function (n) {
+      var span = document.createElement('span');
+      var idx = n.nodeValue.toLowerCase().indexOf(query);
+      span.innerHTML = n.nodeValue.slice(0, idx) + '<mark class="search-mark" style="background:rgba(255,107,53,0.4);color:inherit;padding:0 1px;border-radius:2px;">' + n.nodeValue.slice(idx, idx + query.length) + '</mark>' + n.nodeValue.slice(idx + query.length);
+      n.parentNode.replaceChild(span, n);
+    });
+  }
+
+  function clearAllHighlights() {
+    document.querySelectorAll('mark.search-mark').forEach(function (m) {
+      var t = document.createTextNode(m.textContent);
+      m.parentNode.replaceChild(t, m);
+      m.parentNode.normalize && m.parentNode.normalize();
+    });
+  }
+
+  function performSearch(query) {
+    query = (query || '').trim().toLowerCase();
+    if (!query) {
+      clearAllHighlights();
+      document.querySelectorAll('.window-row, .quote-card, .theme-deep-card, .theme-card').forEach(function (el) {
+        el.classList.remove('dim-match');
+      });
+      searchClear.style.display = 'none';
+      searchCount.textContent = '';
+      searchCount.className = 'search-count';
+      return;
+    }
+    searchClear.style.display = 'inline-block';
+    var index = buildSearchIndex();
+    var hits = 0;
+    index.forEach(function (item) {
+      if (item.text.indexOf(query) !== -1) {
+        hits++;
+        item.el.classList.remove('dim-match');
+        highlightIn(item.el, query);
+      } else {
+        item.el.classList.add('dim-match');
+      }
+    });
+    searchCount.textContent = hits === 0 ? '0 matches' : (hits + ' matches');
+    searchCount.className = 'search-count ' + (hits === 0 ? 'no-results' : 'has-results');
+  }
+
+  searchInput.addEventListener('input', function () {
+    performSearch(searchInput.value);
+  });
+  searchClear.addEventListener('click', function () {
+    searchInput.value = '';
+    performSearch('');
+    searchInput.focus();
+  });
+
+  // ── Window-row: inject quote count badge ────────────────────
+  document.querySelectorAll('.window-row').forEach(function (row) {
+    var winId = row.id; // e.g. "window-W02"
+    if (!winId) return;
+    var winShort = winId.replace('window-', '');
+    var quoteCount = document.querySelectorAll('.quote-card[data-window-id="' + winShort + '"]').length;
+    if (quoteCount > 0) {
+      var badge = document.createElement('span');
+      badge.className = 'window-quote-count';
+      badge.innerHTML = '💬 ' + quoteCount;
+      var head = row.querySelector('.window-row-head');
+      if (head) head.appendChild(badge);
+    }
+  });
+
+  // ── Toast helper ───────────────────────────────────────────
+  function showToast(msg) {
+    var toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    requestAnimationFrame(function () { toast.classList.add('show'); });
+    setTimeout(function () {
+      toast.classList.remove('show');
+      setTimeout(function () { toast.remove(); }, 350);
+    }, 2000);
+  }
+
+  // ── Pol A: Quote favorite (♡/♥) ───────────────────────────
+  var SAVED_KEY = 'wwdc26-meet-saved-quotes';
+  function getSaved() {
+    try { return JSON.parse(localStorage.getItem(SAVED_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function setSaved(arr) {
+    try { localStorage.setItem(SAVED_KEY, JSON.stringify(arr)); } catch (e) {}
+    renderSavedPanel();
+    updateSavedBtn();
+  }
+  function updateSavedBtn() {
+    var saved = getSaved();
+    document.querySelectorAll('#saved-quotes-btn, #saved-quotes-btn-en').forEach(function (b) {
+      b.textContent = '★ Saved (' + saved.length + ')';
+    });
+  }
+  document.querySelectorAll('.quote-fav').forEach(function (btn) {
+    var idx = parseInt(btn.dataset.favIndex, 10);
+    var saved = getSaved();
+    if (saved.indexOf(idx) !== -1) btn.classList.add('faved');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var savedNow = getSaved();
+      var pos = savedNow.indexOf(idx);
+      if (pos === -1) { savedNow.push(idx); btn.classList.add('faved'); showToast('★ 已收藏 (Saved)'); }
+      else { savedNow.splice(pos, 1); btn.classList.remove('faved'); showToast('× 已取消 (Removed)'); }
+      setSaved(savedNow);
+    });
+  });
+  updateSavedBtn();
+
+  // ── Pol A: Saved quotes panel ──────────────────────────────
+  var savedPanel = document.createElement('div');
+  savedPanel.className = 'saved-panel';
+  savedPanel.id = 'saved-panel';
+  document.body.appendChild(savedPanel);
+
+  function renderSavedPanel() {
+    var saved = getSaved();
+    if (saved.length === 0) {
+      savedPanel.innerHTML = '<h3>★ ' + (getLang() === 'zh' ? '已收藏金句' : 'Saved Quotes') + '</h3><div class="saved-empty">' + (getLang() === 'zh' ? '点击金句右上角的 ♡ 收藏' : 'Click ♡ on any quote to save') + '</div>';
+      return;
+    }
+    var html = '<h3>★ ' + (getLang() === 'zh' ? '已收藏金句 (' + saved.length + ')' : 'Saved Quotes (' + saved.length + ')') + '</h3>';
+    var lang = getLang();
+    saved.forEach(function (idx) {
+      var card = document.querySelector('.quote-card[data-quote-index="' + idx + '"]');
+      if (!card) return;
+      var ts = card.querySelector('.quote-ts').textContent;
+      var bq = card.querySelector(lang === 'zh' ? '.quote-zh' : '.quote-en');
+      var text = bq ? bq.textContent.replace(/^.+?\s/, '').trim() : '(empty)';
+      html += '<div class="saved-quote-item" data-saved-idx="' + idx + '">';
+      html += '<div class="saved-quote-ts">' + ts + '</div>';
+      html += text;
+      html += '</div>';
+    });
+    savedPanel.innerHTML = html;
+  }
+
+  ['saved-quotes-btn', 'saved-quotes-btn-en'].forEach(function (id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', function () {
+      var wasShown = savedPanel.classList.contains('show');
+      document.querySelectorAll('.tool-btn').forEach(function (b) { b.classList.remove('active'); });
+      if (wasShown) { savedPanel.classList.remove('show'); }
+      else { renderSavedPanel(); savedPanel.classList.add('show'); btn.classList.add('active'); }
+    });
+  });
+  // Close panel when clicking outside
+  document.addEventListener('click', function (e) {
+    if (!savedPanel.contains(e.target) &&
+        !e.target.closest('#saved-quotes-btn') &&
+        !e.target.closest('#saved-quotes-btn-en')) {
+      savedPanel.classList.remove('show');
+      document.querySelectorAll('.tool-btn').forEach(function (b) { b.classList.remove('active'); });
+    }
+  });
+
+  // ── Pol B: Window-row collapsible ──────────────────────────
+  document.querySelectorAll('.window-row-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var target = document.getElementById(btn.dataset.toggleTarget);
+      if (!target) return;
+      var row = btn.closest('.window-row');
+      if (row.classList.contains('collapsed')) {
+        row.classList.remove('collapsed');
+      } else {
+        row.classList.add('collapsed');
+      }
+    });
+  });
+
+  // ── Pol C: Export dashboard as Markdown ────────────────────
+  function buildMarkdown() {
+    var lang = getLang();
+    var L = function (zh, en) { return lang === 'zh' ? zh : en; };
+    var md = [];
+    var videoTitle = document.querySelector('.hero h1 span[data-' + lang + ']').textContent.trim();
+    md.push('# ' + videoTitle);
+    md.push('');
+    md.push(L('*构建于 ' + new Date().toISOString().split('T')[0] + ' · ' + QUOTES_DATA.length + ' 金句 · ' + WINDOWS_DATA.length + ' 时间段 · ' + THEMES_DATA.length + ' 主题*',
+              '*Built ' + new Date().toISOString().split('T')[0] + ' · ' + QUOTES_DATA.length + ' quotes · ' + WINDOWS_DATA.length + ' windows · ' + THEMES_DATA.length + ' themes*'));
+    md.push('');
+
+    // Stats
+    md.push('## ' + L('📊 数据', '📊 Stats'));
+    document.querySelectorAll('.stat-card').forEach(function (c) {
+      var v = c.querySelector('.stat-value').textContent.trim();
+      var l = c.querySelector('.stat-label[data-' + lang + ']').textContent.trim();
+      md.push('- **' + v + '** — ' + l);
+    });
+    md.push('');
+
+    // Themes
+    md.push('## ' + L('🧠 5 大主题', '🧠 5 Big Themes'));
+    THEMES_DATA.forEach(function (t, i) {
+      md.push('### ' + t.emoji + ' ' + (lang === 'zh' ? t.title_zh : t.title_en));
+      md.push('');
+      md.push(lang === 'zh' ? t.desc_zh : t.desc_en);
+      md.push('');
+    });
+
+    // Timeline
+    md.push('## ' + L('⏱ 时间线', '⏱ Timeline'));
+    WINDOWS_DATA.forEach(function (w) {
+      md.push('### ' + w.id + ' — ' + (lang === 'zh' ? w.title_zh : w.title_en));
+      md.push('*' + (lang === 'zh' ? w.summary_zh : w.summary_en) + '*');
+      md.push('');
+    });
+
+    // Quotes
+    md.push('## ' + L('💬 金句', '💬 Quotes'));
+    QUOTES_DATA.forEach(function (q, i) {
+      md.push('### #' + (i + 1) + ' — ' + q.ts);
+      md.push('> **EN:** ' + q.en);
+      md.push('>');
+      md.push('> **中文:** ' + q.zh);
+      md.push('');
+    });
+
+    return md.join('\n');
+  }
+
+  ['export-md-btn', 'export-md-btn-en'].forEach(function (id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', function () {
+      try {
+        var md = buildMarkdown();
+        var blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'wwdc26-meet-with-apple-' + getLang() + '-' + new Date().toISOString().split('T')[0] + '.md';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('⬇ ' + (getLang() === 'zh' ? '已下载 Markdown' : 'Markdown downloaded'));
+      } catch (err) {
+        showToast('✗ Export failed: ' + err.message);
+      }
+    });
+  });
+
+  // Rebuild saved panel when language changes
+  var origSetLang = setLang;
+  // (setLang already updates DOM; just need to re-render saved panel if open)
+  var langObserver = new MutationObserver(function () {
+    if (savedPanel.classList.contains('show')) renderSavedPanel();
+  });
+  langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
+})();
+</script>
+</body>
+</html>

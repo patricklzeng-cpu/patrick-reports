@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Erik Brynjolfsson on AI, jobs, agents, and the next decade — an interactive bilingual video brief.">
+  <title>AI 时代的最好与最坏十年｜Erik Brynjolfsson</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07100f;
+      --bg-soft: #0d1b19;
+      --panel: rgba(17, 35, 32, .82);
+      --panel-solid: #112320;
+      --panel-2: #17302c;
+      --text: #f3f7ec;
+      --muted: #a9bcb5;
+      --line: rgba(218, 239, 225, .13);
+      --cyan: #79f2cf;
+      --cyan-2: #33d9b0;
+      --orange: #ff9a62;
+      --yellow: #f9df78;
+      --danger: #ff7f73;
+      --shadow: 0 24px 80px rgba(0, 0, 0, .34);
+      --toc-w: 276px;
+      --toc-collapsed: 72px;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f3f0e7;
+      --bg-soft: #e8eadf;
+      --panel: rgba(255, 255, 250, .88);
+      --panel-solid: #fffefa;
+      --panel-2: #e1e9df;
+      --text: #13201d;
+      --muted: #5d6d67;
+      --line: rgba(19, 32, 29, .14);
+      --cyan: #087f69;
+      --cyan-2: #0aa081;
+      --orange: #c45220;
+      --yellow: #8b6900;
+      --danger: #b72e27;
+      --shadow: 0 24px 60px rgba(52, 63, 55, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 80% 0%, rgba(51, 217, 176, .12), transparent 32rem),
+        radial-gradient(circle at 20% 35%, rgba(255, 154, 98, .09), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      line-height: 1.65;
+      transition: background .3s ease, color .3s ease;
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--cyan) 70%, transparent);
+      outline-offset: 3px;
+    }
+
+    .topbar {
+      position: fixed;
+      z-index: 70;
+      top: 0;
+      right: 0;
+      left: var(--toc-w);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 84%, transparent);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: left .32s var(--ease);
+    }
+
+    body.toc-collapsed .topbar { left: var(--toc-collapsed); }
+    .topbar__brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .topbar__brand b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--cyan);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 18px var(--cyan); }
+
+    .actions { display: flex; align-items: center; gap: 8px; }
+    .icon-btn, .lang-btn, .source-btn, .mobile-toc-btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .icon-btn:hover, .lang-btn:hover, .source-btn:hover, .mobile-toc-btn:hover { transform: translateY(-1px); border-color: var(--cyan); }
+    .icon-btn { width: 40px; padding: 0; }
+    .lang-btn { padding: 0 14px; font-weight: 800; color: var(--cyan); }
+    .source-btn { display: inline-flex; align-items: center; padding: 0 15px; text-decoration: none; font-weight: 750; }
+    .mobile-toc-btn { display: none; width: 40px; padding: 0; }
+
+    .toc {
+      position: fixed;
+      z-index: 80;
+      inset: 0 auto 0 0;
+      width: var(--toc-w);
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg-soft) 92%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: width .32s var(--ease), transform .32s var(--ease);
+    }
+    body.toc-collapsed .toc { width: var(--toc-collapsed); }
+    .toc__head { min-height: 64px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid var(--line); }
+    .toc__mark { flex: 0 0 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: var(--cyan); color: #06201a; font-weight: 950; }
+    .toc__title { min-width: 0; flex: 1; }
+    .toc__title strong, .toc__title span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .toc__title span { color: var(--muted); font-size: .72rem; }
+    .toc__collapse { flex: 0 0 34px; height: 34px; border: 0; border-radius: 10px; color: var(--muted); background: transparent; cursor: pointer; }
+    .toc__collapse:hover { color: var(--text); background: var(--panel-2); }
+    body.toc-collapsed .toc__title, body.toc-collapsed .toc__label, body.toc-collapsed .toc__section-label { display: none; }
+    body.toc-collapsed .toc__head { padding-inline: 17px; }
+    body.toc-collapsed .toc__collapse { display: none; }
+
+    .toc__scroll { overflow: auto; padding: 18px 12px 28px; scrollbar-width: thin; }
+    .toc__section-label { margin: 8px 10px; color: var(--muted); font-size: .66rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .toc__list { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+    .toc__link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .84rem;
+      transition: .18s ease;
+    }
+    .toc__link:hover { color: var(--text); background: var(--panel); }
+    .toc__link.active { color: var(--text); border-color: var(--line); background: var(--panel-2); }
+    .toc__link.active .toc__num { color: #07241d; background: var(--cyan); }
+    .toc__num { flex: 0 0 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; background: var(--panel); color: var(--cyan); font-size: .68rem; font-weight: 900; }
+
+    .page { margin-left: var(--toc-w); padding-top: 64px; transition: margin-left .32s var(--ease); }
+    body.toc-collapsed .page { margin-left: var(--toc-collapsed); }
+    .content { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+
+    .hero { position: relative; min-height: 630px; display: grid; align-items: end; overflow: hidden; border-bottom: 1px solid var(--line); }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, var(--bg) 5%, color-mix(in srgb, var(--bg) 88%, transparent) 42%, color-mix(in srgb, var(--bg) 38%, transparent) 76%, var(--bg) 100%),
+        linear-gradient(0deg, var(--bg) 0%, transparent 56%),
+        url("https://i.ytimg.com/vi/72duHF7iZiU/maxresdefault.jpg") center 18% / cover no-repeat;
+      filter: saturate(.82) contrast(1.04);
+    }
+    .hero::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(121, 242, 207, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(121, 242, 207, .035) 1px, transparent 1px); background-size: 36px 36px; mask-image: linear-gradient(to bottom, black, transparent 68%); }
+    .hero__inner { position: relative; z-index: 2; padding: 110px 0 64px; }
+    .hero h1 { max-width: 900px; margin: 18px 0 16px; font-family: Georgia, "Songti SC", serif; font-size: clamp(2.65rem, 6vw, 6.2rem); line-height: .97; letter-spacing: -.045em; }
+    .hero h1 em { color: var(--cyan); font-style: normal; }
+    .hero__deck { max-width: 760px; margin: 0; color: color-mix(in srgb, var(--text) 78%, var(--muted)); font-size: clamp(1rem, 2vw, 1.25rem); }
+    .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .meta span { padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; background: color-mix(in srgb, var(--bg) 72%, transparent); color: var(--muted); font-size: .78rem; }
+
+    .section { padding: 90px 0; scroll-margin-top: 86px; border-bottom: 1px solid var(--line); }
+    .section__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 420px); gap: 38px; align-items: end; margin-bottom: 36px; }
+    .kicker { margin: 0 0 10px; color: var(--orange); font-size: .74rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin: 0; font-family: Georgia, "Songti SC", serif; font-size: clamp(2rem, 4vw, 4.2rem); line-height: 1.02; letter-spacing: -.035em; }
+    .section__intro { margin: 0; color: var(--muted); }
+    h3 { margin: 0; font-size: 1.08rem; line-height: 1.35; }
+    p { margin: 0; }
+
+    .thesis-grid { display: grid; grid-template-columns: 1.18fr .82fr; gap: 18px; }
+    .thesis-card, .card, .stat, .job, .chapter-card, .notice, .quote-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .thesis-card { min-height: 340px; padding: clamp(26px, 5vw, 54px); border-radius: 28px; background: linear-gradient(145deg, color-mix(in srgb, var(--cyan) 12%, var(--panel)), var(--panel)); }
+    .thesis-card blockquote { margin: 0 0 28px; font-family: Georgia, "Songti SC", serif; font-size: clamp(1.55rem, 3vw, 3.15rem); line-height: 1.14; }
+    .thesis-card p { color: var(--muted); }
+    .signal-stack { display: grid; gap: 12px; }
+    .signal { display: grid; grid-template-columns: 56px 1fr; gap: 16px; align-items: start; min-height: 96px; padding: 18px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    .signal b { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: var(--panel-2); color: var(--cyan); font-size: 1.15rem; }
+    .signal p { margin-top: 5px; color: var(--muted); font-size: .9rem; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .stat { padding: 24px; border-radius: 21px; box-shadow: none; }
+    .stat__value { display: block; margin-bottom: 8px; color: var(--cyan); font-family: Georgia, serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; line-height: 1; }
+    .stat__label { color: var(--muted); font-size: .86rem; }
+    .source-note { margin-top: 14px; color: var(--muted); font-size: .78rem; }
+
+    .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .flow .card { position: relative; padding: 28px; border-radius: 22px; box-shadow: none; }
+    .flow .card:not(:last-child)::after { content: "→"; position: absolute; z-index: 2; top: 50%; right: -22px; width: 30px; height: 30px; display: grid; place-items: center; transform: translateY(-50%); border: 1px solid var(--line); border-radius: 50%; background: var(--bg); color: var(--cyan); }
+    .step { display: block; margin-bottom: 22px; color: var(--cyan); font-size: .72rem; font-weight: 900; letter-spacing: .12em; }
+    .card p { margin-top: 10px; color: var(--muted); }
+    .ownership { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+    .ownership .card { padding: 26px; border-radius: 22px; box-shadow: none; }
+    .ownership .human { border-color: color-mix(in srgb, var(--cyan) 45%, var(--line)); }
+    .ownership .ai { border-color: color-mix(in srgb, var(--orange) 45%, var(--line)); }
+
+    .jobs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .job { padding: 24px; border-radius: 22px; box-shadow: none; }
+    .job__top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .risk { padding: 5px 9px; border-radius: 999px; font-size: .7rem; font-weight: 900; white-space: nowrap; }
+    .risk.high { color: var(--danger); background: color-mix(in srgb, var(--danger) 12%, transparent); }
+    .risk.mixed { color: var(--yellow); background: color-mix(in srgb, var(--yellow) 12%, transparent); }
+    .risk.growth { color: var(--cyan); background: color-mix(in srgb, var(--cyan) 12%, transparent); }
+    .job p { margin: 12px 0 18px; color: var(--muted); }
+    .job__move { padding-top: 14px; border-top: 1px solid var(--line); color: var(--text); font-size: .88rem; }
+
+    .edge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .edge-grid .card { min-height: 260px; padding: 24px; border-radius: 22px; box-shadow: none; }
+    .edge-num { display: inline-grid; place-items: center; width: 44px; height: 44px; margin-bottom: 36px; border-radius: 14px; background: var(--cyan); color: #08221c; font-weight: 950; }
+
+    .economy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .economy-grid .card { padding: 26px; border-radius: 22px; box-shadow: none; }
+    .economy-grid .card:nth-child(2) { background: linear-gradient(150deg, color-mix(in srgb, var(--orange) 10%, var(--panel)), var(--panel)); }
+    .economy-grid .card:nth-child(3) { background: linear-gradient(150deg, color-mix(in srgb, var(--danger) 9%, var(--panel)), var(--panel)); }
+
+    .action-list { display: grid; gap: 12px; counter-reset: action; }
+    .action-item { counter-increment: action; display: grid; grid-template-columns: 58px 1fr auto; gap: 18px; align-items: center; padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+    .action-item::before { content: counter(action, decimal-leading-zero); display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--panel-2); color: var(--cyan); font-weight: 900; }
+    .action-item p { margin-top: 4px; color: var(--muted); font-size: .9rem; }
+    .action-item span { color: var(--orange); font-size: .76rem; font-weight: 900; white-space: nowrap; }
+
+    .chapter-tools { display: flex; gap: 10px; margin-bottom: 20px; }
+    .search {
+      width: min(440px, 100%);
+      min-height: 44px;
+      padding: 0 15px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--panel);
+      color: var(--text);
+    }
+    .chapters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .chapter-card { position: relative; display: grid; grid-template-columns: 68px 1fr; gap: 18px; padding: 22px; border-radius: 22px; box-shadow: none; transition: transform .2s ease, border-color .2s ease; }
+    .chapter-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--cyan) 45%, var(--line)); }
+    .chapter-card.sponsor { border-style: dashed; opacity: .8; }
+    .chapter-card__time { color: var(--cyan); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; font-weight: 900; }
+    .chapter-card h3 { padding-right: 32px; }
+    .chapter-card p { margin-top: 8px; color: var(--muted); font-size: .9rem; }
+    .chapter-card__link { position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--panel-2); color: var(--cyan); text-decoration: none; }
+    .chapter-card[hidden] { display: none; }
+
+    .quote-panel { display: grid; grid-template-columns: .8fr 1.2fr; gap: 30px; padding: clamp(26px, 5vw, 54px); border-radius: 28px; }
+    .quote-panel__big { font-family: Georgia, "Songti SC", serif; font-size: clamp(1.55rem, 3vw, 2.8rem); line-height: 1.14; }
+    .quote-panel__list { display: grid; gap: 15px; }
+    .quote-panel__list li { color: var(--muted); }
+
+    .notice { padding: 24px; border-radius: 20px; border-color: color-mix(in srgb, var(--yellow) 35%, var(--line)); background: color-mix(in srgb, var(--yellow) 6%, var(--panel)); box-shadow: none; }
+    .notice strong { color: var(--yellow); }
+    .notice p { margin-top: 8px; color: var(--muted); }
+
+    .layer-grid, .quote-grid, .patrick-grid, .source-grid { display: grid; gap: 14px; }
+    .layer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 18px; }
+    .layer-card, .quote-card, .patrick-card, .source-card { padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    .layer-card b, .quote-card time { color: var(--cyan); font: 800 .76rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .04em; }
+    .layer-card h3, .quote-card h3, .patrick-card h3, .source-card h3 { margin-top: 10px; }
+    .layer-card p, .quote-card p, .patrick-card p, .source-card p { margin-top: 8px; color: var(--muted); font-size: .9rem; }
+    .quote-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .quote-card { display: flex; flex-direction: column; min-height: 210px; }
+    .quote-card a { margin-top: auto; padding-top: 18px; color: var(--cyan); font-size: .78rem; font-weight: 800; text-decoration: none; }
+    .patrick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .patrick-card { position: relative; overflow: hidden; }
+    .patrick-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: linear-gradient(var(--cyan), var(--purple)); }
+    .patrick-card .relation { display: inline-flex; color: var(--purple); font-size: .72rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; }
+    .skill-path { display: block; margin-top: 14px; padding: 9px 11px; overflow-wrap: anywhere; border-radius: 10px; background: var(--panel-2); color: var(--cyan); font-size: .72rem; }
+    .priority-band { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: start; margin-top: 14px; }
+    .priority-label { padding: 12px; border-radius: 14px; text-align: center; font-weight: 950; color: var(--bg); background: var(--cyan); }
+    .priority-band:nth-of-type(2) .priority-label { background: var(--yellow); }
+    .priority-band:nth-of-type(3) .priority-label { background: var(--purple); }
+    .evidence-table { width: 100%; margin-top: 18px; border-collapse: separate; border-spacing: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+    .evidence-table th, .evidence-table td { padding: 15px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: .86rem; }
+    .evidence-table th { color: var(--cyan); background: var(--panel-2); font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; }
+    .evidence-table tr:last-child td { border-bottom: 0; }
+    .evidence-table td:first-child { white-space: nowrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--cyan); }
+    .source-grid { grid-template-columns: 1fr 1fr; }
+    .source-card a { color: var(--cyan); overflow-wrap: anywhere; }
+
+    footer { padding: 44px 0 64px; color: var(--muted); font-size: .8rem; }
+    footer .content { display: flex; justify-content: space-between; gap: 20px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 14px; }
+    .footer-links a { color: var(--cyan); }
+
+    .mobile-scrim { display: none; position: fixed; z-index: 75; inset: 0; background: rgba(0,0,0,.48); }
+
+    @media (max-width: 1100px) {
+      .stats-grid, .edge-grid { grid-template-columns: repeat(2, 1fr); }
+      .economy-grid { grid-template-columns: 1fr; }
+      .layer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .toc { width: min(86vw, 320px); transform: translateX(-104%); box-shadow: var(--shadow); }
+      body.toc-mobile-open .toc { transform: translateX(0); }
+      body.toc-mobile-open .mobile-scrim { display: block; }
+      body.toc-collapsed .toc { width: min(86vw, 320px); }
+      body.toc-collapsed .toc__title, body.toc-collapsed .toc__label, body.toc-collapsed .toc__section-label { display: block; }
+      body.toc-collapsed .toc__collapse { display: block; }
+      .page, body.toc-collapsed .page { margin-left: 0; }
+      .topbar, body.toc-collapsed .topbar { left: 0; padding-inline: 16px; }
+      .mobile-toc-btn { display: inline-block; }
+      .topbar__brand .eyebrow { display: none; }
+      .source-btn { display: none; }
+      .hero { min-height: 580px; }
+      .hero::before { background: linear-gradient(0deg, var(--bg) 4%, color-mix(in srgb, var(--bg) 36%, transparent) 70%, var(--bg) 100%), url("https://i.ytimg.com/vi/72duHF7iZiU/maxresdefault.jpg") 62% 18% / cover no-repeat; opacity: .72; }
+      .hero__inner { padding-bottom: 50px; }
+      .section__head, .thesis-grid, .quote-panel { grid-template-columns: 1fr; }
+      .section__head { gap: 18px; }
+      .flow { grid-template-columns: 1fr; }
+      .flow .card:not(:last-child)::after { content: "↓"; top: auto; right: 50%; bottom: -22px; transform: translateX(50%); }
+      .chapters { grid-template-columns: 1fr; }
+      .quote-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 620px) {
+      .content { width: min(100% - 28px, 1160px); }
+      .topbar__brand b { max-width: 140px; }
+      .hero h1 { font-size: clamp(2.4rem, 14vw, 4rem); }
+      .section { padding: 68px 0; }
+      .stats-grid, .jobs-grid, .edge-grid, .ownership { grid-template-columns: 1fr; }
+      .layer-grid, .quote-grid, .patrick-grid, .source-grid { grid-template-columns: 1fr; }
+      .priority-band { grid-template-columns: 1fr; }
+      .evidence-table { display: block; overflow-x: auto; }
+      .chapter-card { grid-template-columns: 1fr; gap: 8px; }
+      .action-item { grid-template-columns: 48px 1fr; }
+      .action-item span { grid-column: 2; }
+      footer .content { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="toc" aria-label="目录" id="toc">
+    <div class="toc__head">
+      <div class="toc__mark">AI</div>
+      <div class="toc__title"><strong>Erik B.</strong><span data-i18n="toc.subtitle">视频知识简报</span></div>
+      <button class="toc__collapse" id="tocCollapse" type="button" aria-label="折叠目录" title="Collapse table of contents">←</button>
+    </div>
+    <div class="toc__scroll">
+      <div class="toc__section-label" data-i18n="toc.sections">章节</div>
+      <ol class="toc__list" id="tocList"></ol>
+    </div>
+  </aside>
+  <div class="mobile-scrim" id="mobileScrim" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="topbar__brand">
+      <button class="mobile-toc-btn" id="mobileToc" type="button" aria-label="打开目录">☰</button>
+      <span class="eyebrow">Bilingual brief</span>
+      <b data-i18n="top.title">AI、工作与下一个十年</b>
+    </div>
+    <div class="actions">
+      <a class="source-btn" href="https://www.youtube.com/watch?v=72duHF7iZiU" target="_blank" rel="noopener" data-i18n="top.watch">观看原视频 ↗</a>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="切换主题" title="Theme">◐</button>
+      <button class="lang-btn" id="langToggle" type="button" aria-label="Switch language">EN</button>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" data-toc="01">
+      <div class="content hero__inner">
+        <h2 class="sr-only" id="overview" data-i18n="top.title">AI、工作与下一个十年</h2>
+        <span class="eyebrow" data-i18n="hero.eyebrow">视频知识简报 · 53 分钟</span>
+        <h1 data-i18n-html="hero.title">历史上<em>最好</em>与最坏的十年，都从现在开始</h1>
+        <p class="hero__deck" data-i18n="hero.deck">Erik Brynjolfsson 的核心判断：AI 能力与经济影响之间仍有巨大落差。真正的竞争，不是“会不会用 AI”，而是能否定义值得解决的问题、调度 agent 执行，并判断结果是否真的创造价值。</p>
+        <div class="meta">
+          <span>Silicon Valley Girl</span><span>Erik Brynjolfsson</span><span>53:32</span><span>2026-07-21</span><span data-i18n="hero.meta">英文原字幕 · 中文摘要翻译</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="02">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="thesis.kicker">核心判断 · One read</p><h2 id="h2-1" data-i18n="thesis.title">不是替代论，而是重组论</h2></div>
+          <p class="section__intro" data-i18n="thesis.intro">AI 不会一次性吞掉完整职业，它先重组职业内部的任务。被自动化的通常是执行层；定义问题、整合领域知识、评估质量与承担后果，反而变得更稀缺。</p>
+        </div>
+        <div class="thesis-grid">
+          <article class="thesis-card">
+            <blockquote data-i18n="thesis.quote">“AI”更实用的解释，是放大人的意图。没有方向，它只会放大噪音；有清晰目标，它会放大行动力。</blockquote>
+            <p data-i18n="thesis.note">这是视频 28:25 段落的意译，不是逐字引文。</p>
+          </article>
+          <div class="signal-stack">
+            <article class="signal"><b>01</b><div><h3 data-i18n="thesis.s1t">岗位 ≠ 单一任务</h3><p data-i18n="thesis.s1d">放射科医生约有 26 类任务，影像判读只是其中之一。</p></div></article>
+            <article class="signal"><b>02</b><div><h3 data-i18n="thesis.s2t">效率 ≠ 用工必降</h3><p data-i18n="thesis.s2d">需求弹性高时，价格下降会放大消费，甚至增加就业。</p></div></article>
+            <article class="signal"><b>03</b><div><h3 data-i18n="thesis.s3t">能力 ≠ 经济价值</h3><p data-i18n="thesis.s3d">模型能力已快速上升，但组织流程、技能与产品尚未跟上。</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="03">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="evidence.kicker">事实层与推断层</p><h2 id="h2-2" data-i18n="evidence.title">就业冲击与 3–5 年时间窗</h2></div>
+          <p class="section__intro" data-i18n="evidence.intro">这些数字来自访谈中的表述与视频简介。它们用于理解受访者的论证，不等于本页面对外部研究做了独立复核。</p>
+        </div>
+        <div class="stats-grid" id="statsGrid"></div>
+        <p class="source-note" data-i18n="evidence.note">注：16% 指高度暴露职业中、25 岁及以下群体的就业差异；并非“所有年轻人岗位减少 16%”。</p>
+        <table class="evidence-table">
+          <thead><tr><th data-i18n="evidence.tableLayer">层级</th><th data-i18n="evidence.tableClaim">本页采用的判断</th><th data-i18n="evidence.tableBoundary">边界</th></tr></thead>
+          <tbody>
+            <tr><td>FACT</td><td data-i18n="evidence.fact">Stanford DEL 的更新研究在控制公司层面冲击后，观察到最暴露职业中的 22–25 岁早期职业劳动者就业相对下降 16%。</td><td data-i18n="evidence.factBoundary">这是特定年龄、职业暴露度和研究窗口下的相对变化，不是整体青年就业率。</td></tr>
+            <tr><td>INFERENCE</td><td data-i18n="evidence.inference">Brynjolfsson 预计组织重构将在未来 3–5 年把模型能力更明显地转化为生产率。</td><td data-i18n="evidence.inferenceBoundary">这是受访者的预测，依赖流程重构、培训、投资和需求反应。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" data-toc="04">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="loop.kicker">四层工作模型</p><h2 id="h2-3" data-i18n="loop.title">自动化、增强、Agent 与人的 Agency</h2></div>
+          <p class="section__intro" data-i18n="loop.intro">Brynjolfsson 把几乎所有项目拆成三段。Agent 正在快速占据中间的执行层；人要把注意力前移到问题定义，并后移到结果评估。</p>
+        </div>
+        <div class="flow">
+          <article class="card"><span class="step">01 · HUMAN</span><h3 data-i18n="loop.c1t">定义问题</h3><p data-i18n="loop.c1d">找出真正值得解决的瓶颈，明确约束、成功标准与不可妥协项。</p></article>
+          <article class="card"><span class="step">02 · AGENTS</span><h3 data-i18n="loop.c2t">组织执行</h3><p data-i18n="loop.c2d">让一组 agent 研究、生成、编码、分析和测试；人负责拆分与调度。</p></article>
+          <article class="card"><span class="step">03 · HUMAN</span><h3 data-i18n="loop.c3t">评估与迭代</h3><p data-i18n="loop.c3d">判断输出是否解决真实问题，识别幻觉与偏差，再反过来改写问题。</p></article>
+        </div>
+        <div class="ownership">
+          <article class="card human"><h3 data-i18n="loop.humanT">人的责任</h3><p data-i18n="loop.humanD">意图、价值取舍、上下文、品味、最终判断与后果。</p></article>
+          <article class="card ai"><h3 data-i18n="loop.aiT">Agent 的优势</h3><p data-i18n="loop.aiD">高速度、低边际成本、并行执行、重复试验与大范围信息处理。</p></article>
+        </div>
+        <div class="layer-grid" id="layerGrid">
+          <article class="layer-card"><b>01 · AUTOMATION</b><h3 data-i18n="layers.l1t">自动化</h3><p data-i18n="layers.l1d">机器接管规则清晰、可验证、重复性的执行步骤。</p></article>
+          <article class="layer-card"><b>02 · AUGMENTATION</b><h3 data-i18n="layers.l2t">增强</h3><p data-i18n="layers.l2d">人保留任务所有权，用 AI 提速、扩展搜索范围与方案数量。</p></article>
+          <article class="layer-card"><b>03 · AGENTS</b><h3 data-i18n="layers.l3t">Agent 编排</h3><p data-i18n="layers.l3d">多个 agent 按角色并行研究、制作、测试与复核。</p></article>
+          <article class="layer-card"><b>04 · AGENCY</b><h3 data-i18n="layers.l4t">人的主动性</h3><p data-i18n="layers.l4d">定义何为值得做、何为足够好，以及由谁承担结果。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="05">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="jobs.kicker">AI 经济学 Playbook</p><h2 id="h2-4" data-i18n="jobs.title">看任务组合、需求弹性与 J 曲线</h2></div>
+          <p class="section__intro" data-i18n="jobs.intro">视频中的风险判断不是“某个职业会整体消失”，而是：规则清晰、产出可数字化、反馈可自动验证的执行型任务，会先被压缩。</p>
+        </div>
+        <div class="jobs-grid" id="jobsGrid"></div>
+        <div class="economy-grid" style="margin-top:16px">
+          <article class="card"><h3 data-i18n="playbook.c1t">① 先拆任务，不猜职业</h3><p data-i18n="playbook.c1d">职业是任务组合。判断暴露度时，逐项标出可自动化、可增强与必须人工负责的部分。</p></article>
+          <article class="card"><h3 data-i18n="playbook.c2t">② 再看需求弹性</h3><p data-i18n="playbook.c2d">单位成本下降未必减少总用工；若需求扩张更快，行业规模和就业都可能增长。</p></article>
+          <article class="card"><h3 data-i18n="playbook.c3t">③ 最后看组织 J 曲线</h3><p data-i18n="playbook.c3d">工具采购只是起点。流程、技能、激励和产品形态完成互补创新后，生产率才会显现。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="06">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="edge.kicker">教育与组织重构</p><h2 id="h2-5" data-i18n="edge.title">没有初级岗位，如何长成资深人才？</h2></div>
+          <p class="section__intro" data-i18n="edge.intro">当一般智能成为按需调用的基础设施，稀缺性会迁移到“决定做什么”“让谁信任你”“处理意外”与“创造尚未命名的新需求”。</p>
+        </div>
+        <div class="edge-grid" id="edgeGrid"></div>
+        <div class="notice" style="margin-top:16px"><strong data-i18n="education.title">组织形状：从金字塔转向菱形</strong><p data-i18n="education.body">不要直接删除初级层，而要把初级人才从常规执行迁移到系统理解、客户现场、项目管理、复盘和判断训练。否则今天省下成本，明天却失去资深人才管线。</p></div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="07">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="economy.kicker">福利、分配与权力</p><h2 id="h2-6" data-i18n="economy.title">更多财富，不自动等于共享繁荣</h2></div>
+          <p class="section__intro" data-i18n="economy.intro">受访者同时给出乐观与警告：生产率和福利可能显著上升，但若所有权与能力集中在少数公司或政府，经济权力会转化为政治权力。</p>
+        </div>
+        <div class="economy-grid">
+          <article class="card"><h3 data-i18n="economy.c1t">J 曲线：先慢后快</h3><p data-i18n="economy.c1d">电力花了约 30 年才转化为工厂生产率；AI 预计更快，但仍需重构流程、培训员工、发明新产品。Brynjolfsson 估计是 3–5 年级别，而非一夜之间。</p></article>
+          <article class="card"><h3 data-i18n="economy.c2t">GDP 看不见免费价值</h3><p data-i18n="economy.c2d">Wikipedia、免费聊天机器人等创造大量消费者剩余，却因价格为零而几乎不进入 GDP。他提出 GDP-B，用“放弃使用需要补偿多少钱”衡量福利。</p></article>
+          <article class="card"><h3 data-i18n="economy.c3t">集中化与反弹风险</h3><p data-i18n="economy.c3d">若转型成本由少数群体承担、收益却高度集中，社会可能重演全球化反弹。创业、教育、再培训以及必要时的再分配，都被视为缓冲机制。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="08">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="quotes.kicker">短句与论证卡</p><h2 id="h2-7" data-i18n="quotes.title">六个关键时刻，保留语境</h2></div>
+          <p class="section__intro" data-i18n="quotes.intro">卡片以极短原句或意译概括论点，并标注时间。它们用于快速定位，不替代完整上下文。</p>
+        </div>
+        <div class="quote-grid" id="quoteGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="09">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="chapters.kicker">时间戳目录</p><h2 id="h2-8" data-i18n="chapters.title">18 个章节，直达原视频</h2></div>
+          <p class="section__intro" data-i18n="chapters.intro">每一章都链接到 YouTube 的对应时间。摘要基于英文原字幕重新归纳；广告段单独标出。</p>
+        </div>
+        <div class="chapter-tools"><input class="search" id="chapterSearch" type="search" data-i18n-placeholder="chapters.search" placeholder="搜索章节或关键词…" aria-label="搜索章节"></div>
+        <div class="chapters" id="chapterGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="10">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="patrick.kicker">Patrick's Agentic OS</p><h2 id="h2-9" data-i18n="patrick.title">把视频论点映射到真实 Hermes skills</h2></div>
+          <p class="section__intro" data-i18n="patrick.intro">这里不是泛泛推荐工具，而是把访谈中的工作模型连接到你当前 Hermes 目录里实际存在的 14 个 skill。</p>
+        </div>
+        <div class="patrick-grid" id="patrickGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="11">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="actions.kicker">P0 / P1 / P2</p><h2 id="h2-10" data-i18n="actions.title">把观点变成可执行的工作方法</h2></div>
+          <p class="section__intro" data-i18n="actions.intro">每一层都给出今天能完成的微步骤。以下是基于访谈的落地整理，不是受访者逐字给出的清单。</p>
+        </div>
+        <div class="priority-band"><div class="priority-label">P0 · TODAY</div><div class="action-list" id="actionP0"></div></div>
+        <div class="priority-band"><div class="priority-label">P1 · WEEK</div><div class="action-list" id="actionP1"></div></div>
+        <div class="priority-band"><div class="priority-label">P2 · SYSTEM</div><div class="action-list" id="actionP2"></div></div>
+      </div>
+    </section>
+
+    <section class="section" data-toc="12">
+      <div class="content">
+        <div class="section__head">
+          <div><p class="kicker" data-i18n="sources.kicker">证据索引</p><h2 id="h2-11" data-i18n="sources.title">来源、查证与方法说明</h2></div>
+          <p class="section__intro" data-i18n="sources.intro">把“视频里说了什么”“外部研究支持什么”“本页做了什么推断”分开，方便回看与复核。</p>
+        </div>
+        <table class="evidence-table">
+          <thead><tr><th data-i18n="sources.time">时间</th><th data-i18n="sources.topic">论点</th><th data-i18n="sources.use">本页用法</th></tr></thead>
+          <tbody>
+            <tr><td>00:49</td><td data-i18n="sources.r1t">年轻劳动者与 AI 暴露</td><td data-i18n="sources.r1d">与 Stanford DEL 更新研究交叉核对，并保留样本边界。</td></tr>
+            <tr><td>04:27</td><td data-i18n="sources.r2t">需求弹性</td><td data-i18n="sources.r2d">用于解释生产率提升为何可能减少、也可能增加就业。</td></tr>
+            <tr><td>12:47</td><td data-i18n="sources.r3t">定义—执行—评估</td><td data-i18n="sources.r3d">转化为 Agentic OS 的人机分工主线。</td></tr>
+            <tr><td>44:37</td><td data-i18n="sources.r4t">消费者剩余与 GDP-B</td><td data-i18n="sources.r4d">用于区分免费数字服务的福利价值与传统 GDP。</td></tr>
+          </tbody>
+        </table>
+        <div class="source-grid" style="margin-top:16px">
+          <article class="source-card"><h3 data-i18n="sources.primary">一手材料</h3><p><a href="https://www.youtube.com/watch?v=72duHF7iZiU" target="_blank" rel="noopener">YouTube interview ↗</a></p><p><a href="https://digitaleconomy.stanford.edu/publication/canaries-in-the-coal-mine-six-facts-about-the-recent-employment-effects-of-artificial-intelligence/" target="_blank" rel="noopener">Stanford Digital Economy Lab · Canaries in the Coal Mine ↗</a></p></article>
+          <article class="source-card"><h3 data-i18n="sources.method">生成方法</h3><p data-i18n="notice.body">本页依据 YouTube 英文自动字幕、视频简介与章节时间生成。中文为摘要翻译，不是逐字译稿；引文式表述均按意译处理。研究数字与未来判断保留其原始语境。</p><p><a href="https://2017zyl.xyz/daily-reports/demis-hassabis-2030-agi-tool-to-agency-2026-07-18#h2-9" target="_blank" rel="noopener" data-i18n="sources.reference">参考的信息架构 ↗</a></p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="content">
+      <p data-i18n="footer.note">Built from the verified English transcript · Transcript coverage 100% · 2026-07-22</p>
+      <div class="footer-links"><a href="https://www.youtube.com/watch?v=72duHF7iZiU" target="_blank" rel="noopener">YouTube ↗</a><a href="#overview" data-i18n="footer.top">返回顶部 ↑</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const VIDEO_ID = '72duHF7iZiU';
+    const STORAGE = {
+      lang: VIDEO_ID + '-lang',
+      theme: VIDEO_ID + '-theme',
+      toc: VIDEO_ID + '-toc-collapsed'
+    };
+
+    const copy = {
+      zh: {
+        'toc.subtitle':'视频知识简报','toc.sections':'章节','top.title':'AI、工作与下一个十年','top.watch':'观看原视频 ↗',
+        'hero.eyebrow':'视频知识简报 · 53 分钟','hero.title':'历史上<em>最好</em>与最坏的十年，都从现在开始','hero.deck':'Erik Brynjolfsson 的核心判断：AI 能力与经济影响之间仍有巨大落差。真正的竞争，不是“会不会用 AI”，而是能否定义值得解决的问题、调度 agent 执行，并判断结果是否真的创造价值。','hero.meta':'英文原字幕 · 中文摘要翻译',
+        'thesis.kicker':'核心判断','thesis.title':'不是替代论，而是重组论','thesis.intro':'AI 不会一次性吞掉完整职业，它先重组职业内部的任务。被自动化的通常是执行层；定义问题、整合领域知识、评估质量与承担后果，反而变得更稀缺。','thesis.quote':'“AI”更实用的解释，是放大人的意图。没有方向，它只会放大噪音；有清晰目标，它会放大行动力。','thesis.note':'这是视频 28:25 段落的意译，不是逐字引文。','thesis.s1t':'岗位 ≠ 单一任务','thesis.s1d':'放射科医生约有 26 类任务，影像判读只是其中之一。','thesis.s2t':'效率 ≠ 用工必降','thesis.s2d':'需求弹性高时，价格下降会放大消费，甚至增加就业。','thesis.s3t':'能力 ≠ 经济价值','thesis.s3d':'模型能力已快速上升，但组织流程、技能与产品尚未跟上。',
+        'evidence.kicker':'视频中的关键数字','evidence.title':'变化已经发生，但分布极不均匀','evidence.intro':'这些数字来自访谈中的表述与视频简介。它们用于理解受访者的论证，不等于本页面对外部研究做了独立复核。','evidence.note':'注：16% 指高度暴露职业中、25 岁及以下群体的就业差异；并非“所有年轻人岗位减少 16%”。',
+        'loop.kicker':'未来工作的操作系统','loop.title':'定义 → 执行 → 评估','loop.intro':'Brynjolfsson 把几乎所有项目拆成三段。Agent 正在快速占据中间的执行层；人要把注意力前移到问题定义，并后移到结果评估。','loop.c1t':'定义问题','loop.c1d':'找出真正值得解决的瓶颈，明确约束、成功标准与不可妥协项。','loop.c2t':'组织执行','loop.c2d':'让一组 agent 研究、生成、编码、分析和测试；人负责拆分与调度。','loop.c3t':'评估与迭代','loop.c3d':'判断输出是否解决真实问题，识别幻觉与偏差，再反过来改写问题。','loop.humanT':'人的责任','loop.humanD':'意图、价值取舍、上下文、品味、最终判断与后果。','loop.aiT':'Agent 的优势','loop.aiD':'高速度、低边际成本、并行执行、重复试验与大范围信息处理。',
+        'jobs.kicker':'职业风险地图','jobs.title':'看任务组合，不看职位名称','jobs.intro':'视频中的风险判断不是“某个职业会整体消失”，而是：规则清晰、产出可数字化、反馈可自动验证的执行型任务，会先被压缩。',
+        'edge.kicker':'智能变便宜之后','edge.title':'人类仍被支付的四种能力','edge.intro':'当一般智能成为按需调用的基础设施，稀缺性会迁移到“决定做什么”“让谁信任你”“处理意外”与“创造尚未命名的新需求”。',
+        'economy.kicker':'宏观分岔','economy.title':'更多财富，不自动等于共享繁荣','economy.intro':'受访者同时给出乐观与警告：生产率和福利可能显著上升，但若所有权与能力集中在少数公司或政府，经济权力会转化为政治权力。','economy.c1t':'J 曲线：先慢后快','economy.c1d':'电力花了约 30 年才转化为工厂生产率；AI 预计更快，但仍需重构流程、培训员工、发明新产品。Brynjolfsson 估计是 3–5 年级别，而非一夜之间。','economy.c2t':'GDP 看不见免费价值','economy.c2d':'Wikipedia、免费聊天机器人等创造大量消费者剩余，却因价格为零而几乎不进入 GDP。他提出 GDP-B，用“放弃使用需要补偿多少钱”衡量福利。','economy.c3t':'集中化与反弹风险','economy.c3d':'若转型成本由少数群体承担、收益却高度集中，社会可能重演全球化反弹。创业、教育、再培训以及必要时的再分配，都被视为缓冲机制。',
+        'actions.kicker':'一周内可以开始','actions.title':'把观点变成工作方法','actions.intro':'这份行动清单是基于访谈内容的落地化整理，不是受访者逐条给出的原始列表。',
+        'chapters.kicker':'时间戳目录','chapters.title':'18 个章节，直达原视频','chapters.intro':'每一章都链接到 YouTube 的对应时间。摘要基于英文原字幕重新归纳；广告段单独标出。','chapters.search':'搜索章节或关键词…',
+        'judgment.kicker':'我的综合判断','judgment.title':'最值得带走的不是预测，而是分工原则','judgment.intro':'“2030 前会发生多大变化”仍有高度不确定性；更稳健的结论是：执行能力正在快速商品化，而问题选择、质量判断、组织学习与利益分配成为新的瓶颈。','judgment.big':'真正的护城河不是拥有某个模型，而是建立一套能持续发现好问题、调用多 agent、验证结果并沉淀组织经验的循环。','judgment.l1':'对个人：从“提示词熟练”升级到“问题架构 + 结果审计”。','judgment.l2':'对公司：不要用 AI 做更好的午餐菜单；要重做核心价值链。','judgment.l3':'对教育：减少菜谱式教学，增加开放问题、跨学科判断与品味训练。','judgment.l4':'对政策：不能只做增长，也要投资转型、培训与更广泛的参与权。','notice.title':'来源与准确性说明','notice.body':'本页依据 YouTube 英文自动字幕、视频简介与章节时间生成。中文为摘要翻译，不是逐字译稿；引文式表述均按意译处理。视频中的研究数字与未来判断保留其原始语境，未在本页独立完成学术复核。','footer.note':'基于已验证英文字幕 · 字幕覆盖率 100% · 2026-07-22','footer.top':'返回顶部 ↑'
+      },
+      en: {
+        'toc.subtitle':'Video knowledge brief','toc.sections':'Sections','top.title':'AI, work, and the next decade','top.watch':'Watch source ↗',
+        'hero.eyebrow':'Video knowledge brief · 53 minutes','hero.title':'The <em>best</em> and worst decade in history starts now','hero.deck':'Erik Brynjolfsson’s central claim: a large gap still separates AI capability from economic impact. The real contest is not whether you can use AI, but whether you can define valuable problems, orchestrate agents, and judge if the result creates real value.','hero.meta':'English source transcript · Chinese summary translation',
+        'thesis.kicker':'Core thesis','thesis.title':'Work is being recomposed, not simply replaced','thesis.intro':'AI rarely consumes an entire occupation at once. It first reshapes the tasks inside it. Execution is increasingly automated; framing problems, combining domain knowledge, judging quality, and owning consequences become scarcer.','thesis.quote':'A more useful reading of “AI” is amplification of intention. Without direction it amplifies noise; with a clear aim it amplifies agency.','thesis.note':'A paraphrase of the segment at 28:25, not a verbatim quote.','thesis.s1t':'A job is not one task','thesis.s1d':'Radiologists perform roughly 26 task types; reading images is only one.','thesis.s2t':'Efficiency does not imply fewer jobs','thesis.s2d':'When demand is elastic, lower cost can expand consumption and employment.','thesis.s3t':'Capability is not business value','thesis.s3d':'Model capability is rising fast, while workflows, skills, and products lag behind.',
+        'evidence.kicker':'Numbers used in the interview','evidence.title':'The shift is real, but highly uneven','evidence.intro':'These numbers reflect claims in the interview and its description. They explain the guest’s argument; this page does not independently reproduce the underlying research.','evidence.note':'Note: 16% refers to an employment difference for workers aged 25 and under in highly exposed occupations—not a 16% loss across all young workers.',
+        'loop.kicker':'The operating system for future work','loop.title':'Define → execute → evaluate','loop.intro':'Brynjolfsson divides most projects into three parts. Agents are rapidly taking over the middle execution layer; humans need to move upstream into framing and downstream into evaluation.','loop.c1t':'Define the question','loop.c1d':'Find the constraint worth solving and state the context, success criteria, and non-negotiables.','loop.c2t':'Orchestrate execution','loop.c2d':'Use a fleet of agents to research, generate, code, analyze, and test; the human decomposes and directs.','loop.c3t':'Evaluate and iterate','loop.c3d':'Decide whether the output solves the real problem, detect errors, and rewrite the question.','loop.humanT':'Human responsibility','loop.humanD':'Intent, values, context, taste, final judgment, and consequences.','loop.aiT':'Agent advantage','loop.aiD':'Speed, low marginal cost, parallel execution, repeated trials, and broad information processing.',
+        'jobs.kicker':'Job risk map','jobs.title':'Inspect the task bundle, not the job title','jobs.intro':'The interview is not claiming that whole occupations vanish at once. Structured execution tasks with digital outputs and machine-checkable feedback are compressed first.',
+        'edge.kicker':'When intelligence gets cheap','edge.title':'Four things humans may still be paid for','edge.intro':'As general intelligence becomes on-demand infrastructure, scarcity moves to choosing what to do, earning trust, handling surprise, and inventing needs that do not yet have names.',
+        'economy.kicker':'The macro fork','economy.title':'More wealth does not guarantee shared prosperity','economy.intro':'The guest is both optimistic and alarmed: productivity and welfare may rise sharply, but concentration of ownership and capability can turn economic power into political power.','economy.c1t':'The J-curve: slowly, then fast','economy.c1d':'Electricity took roughly 30 years to lift factory productivity. AI should diffuse faster, but processes, workforce skills, and products still have to change. Brynjolfsson expects a 3–5 year scale, not an overnight jump.','economy.c2t':'GDP misses free value','economy.c2d':'Wikipedia and free chatbots create consumer surplus while adding little to GDP because their price is zero. GDP-B asks how much compensation a person would need to give up a service.','economy.c3t':'Concentration and backlash','economy.c3d':'If transition costs hit a narrow group while gains concentrate elsewhere, AI could repeat the backlash against globalization. Entrepreneurship, education, retraining, and redistribution are possible buffers.',
+        'actions.kicker':'Start within one week','actions.title':'Turn the argument into a work method','actions.intro':'This action list operationalizes the interview; it is not a verbatim checklist supplied by the guest.',
+        'chapters.kicker':'Timestamped contents','chapters.title':'18 chapters linked to the source','chapters.intro':'Each chapter jumps to its timestamp on YouTube. Summaries are synthesized from the English transcript; the sponsor segment is clearly labeled.','chapters.search':'Search chapters or keywords…',
+        'judgment.kicker':'Synthesis','judgment.title':'The durable takeaway is a division of labor, not a forecast','judgment.intro':'How much changes by 2030 is deeply uncertain. A sturdier conclusion is that execution is becoming commoditized, while problem choice, quality judgment, organizational learning, and distribution become bottlenecks.','judgment.big':'The moat is not access to a model. It is a repeatable loop that finds valuable questions, coordinates multiple agents, verifies outcomes, and compounds organizational learning.','judgment.l1':'For individuals: move from prompt fluency to problem architecture and output auditing.','judgment.l2':'For companies: do not use AI only to improve lunch menus; redesign the core value chain.','judgment.l3':'For education: reduce cookbook instruction and increase open problems, cross-domain judgment, and taste.','judgment.l4':'For policy: pursue growth while investing in transitions, training, and broad participation.','notice.title':'Source and accuracy note','notice.body':'This page uses YouTube’s English auto-caption transcript, the video description, and chapter timestamps. Chinese is a summary translation, not a verbatim transcript; quote-like passages are paraphrased. Research figures and future claims retain the interview’s context and were not independently reproduced here.','footer.note':'Built from the verified English transcript · Transcript coverage 100% · 2026-07-22','footer.top':'Back to top ↑'
+      }
+    };
+
+    Object.assign(copy.zh, {
+      'thesis.kicker':'核心判断 · One read',
+      'evidence.kicker':'事实层与推断层','evidence.title':'就业冲击与 3–5 年时间窗','evidence.intro':'先区分已经观察到的就业信号与对未来生产率的预测；两者证据强度不同，不能混写成确定事实。','evidence.tableLayer':'层级','evidence.tableClaim':'本页采用的判断','evidence.tableBoundary':'边界','evidence.fact':'Stanford DEL 的更新研究在控制公司层面冲击后，观察到最暴露职业中的 22–25 岁早期职业劳动者就业相对下降 16%。','evidence.factBoundary':'这是特定年龄、职业暴露度和研究窗口下的相对变化，不是整体青年就业率。','evidence.inference':'Brynjolfsson 预计组织重构将在未来 3–5 年把模型能力更明显地转化为生产率。','evidence.inferenceBoundary':'这是受访者的预测，依赖流程重构、培训、投资和需求反应。',
+      'loop.kicker':'四层工作模型','loop.title':'自动化、增强、Agent 与人的 Agency',
+      'layers.l1t':'自动化','layers.l1d':'机器接管规则清晰、可验证、重复性的执行步骤。','layers.l2t':'增强','layers.l2d':'人保留任务所有权，用 AI 提速、扩展搜索范围与方案数量。','layers.l3t':'Agent 编排','layers.l3d':'多个 agent 按角色并行研究、制作、测试与复核。','layers.l4t':'人的主动性','layers.l4d':'定义何为值得做、何为足够好，以及由谁承担结果。',
+      'jobs.kicker':'AI 经济学 Playbook','jobs.title':'看任务组合、需求弹性与 J 曲线','playbook.c1t':'① 先拆任务，不猜职业','playbook.c1d':'职业是任务组合。判断暴露度时，逐项标出可自动化、可增强与必须人工负责的部分。','playbook.c2t':'② 再看需求弹性','playbook.c2d':'单位成本下降未必减少总用工；若需求扩张更快，行业规模和就业都可能增长。','playbook.c3t':'③ 最后看组织 J 曲线','playbook.c3d':'工具采购只是起点。流程、技能、激励和产品形态完成互补创新后，生产率才会显现。',
+      'edge.kicker':'教育与组织重构','edge.title':'没有初级岗位，如何长成资深人才？','education.title':'组织形状：从金字塔转向菱形','education.body':'不要直接删除初级层，而要把初级人才从常规执行迁移到系统理解、客户现场、项目管理、复盘和判断训练。否则今天省下成本，明天却失去资深人才管线。',
+      'economy.kicker':'福利、分配与权力',
+      'quotes.kicker':'短句与论证卡','quotes.title':'六个关键时刻，保留语境','quotes.intro':'卡片以极短原句或意译概括论点，并标注时间。它们用于快速定位，不替代完整上下文。',
+      'patrick.kicker':"Patrick's Agentic OS",'patrick.title':'把视频论点映射到真实 Hermes skills','patrick.intro':'这里不是泛泛推荐工具，而是把访谈中的工作模型连接到你当前 Hermes 目录里实际存在的 14 个 skill。','patrick.verified':'已验证 skill',
+      'actions.kicker':'P0 / P1 / P2','actions.title':'把观点变成可执行的工作方法','actions.intro':'每一层都给出今天能完成的微步骤。以下是基于访谈的落地整理，不是受访者逐字给出的清单。',
+      'sources.kicker':'证据索引','sources.title':'来源、查证与方法说明','sources.intro':'把“视频里说了什么”“外部研究支持什么”“本页做了什么推断”分开，方便回看与复核。','sources.time':'时间','sources.topic':'论点','sources.use':'本页用法','sources.r1t':'年轻劳动者与 AI 暴露','sources.r1d':'与 Stanford DEL 更新研究交叉核对，并保留样本边界。','sources.r2t':'需求弹性','sources.r2d':'用于解释生产率提升为何可能减少、也可能增加就业。','sources.r3t':'定义—执行—评估','sources.r3d':'转化为 Agentic OS 的人机分工主线。','sources.r4t':'消费者剩余与 GDP-B','sources.r4d':'用于区分免费数字服务的福利价值与传统 GDP。','sources.primary':'一手材料','sources.method':'生成方法','sources.reference':'参考的信息架构 ↗'
+    });
+
+    Object.assign(copy.en, {
+      'thesis.kicker':'Core thesis · One read',
+      'evidence.kicker':'Fact layer vs. inference layer','evidence.title':'The employment shock and the 3–5 year window','evidence.intro':'Separate observed labor signals from forecasts about future productivity. They carry different levels of evidence and should not be presented as equally certain.','evidence.tableLayer':'Layer','evidence.tableClaim':'Claim used here','evidence.tableBoundary':'Boundary','evidence.fact':'Stanford DEL’s updated study finds a 16% relative employment decline among ages 22–25 in the most AI-exposed occupations after controlling for firm-level shocks.','evidence.factBoundary':'This is a relative change for a specific age group, exposure level, and study window—not youth employment overall.','evidence.inference':'Brynjolfsson expects organizational redesign to translate model capability into visible productivity over the next 3–5 years.','evidence.inferenceBoundary':'This is the guest’s forecast and depends on workflow redesign, training, investment, and demand response.',
+      'loop.kicker':'A four-layer work model','loop.title':'Automation, augmentation, agents, and human agency',
+      'layers.l1t':'Automation','layers.l1d':'Machines take structured, repeatable execution steps with checkable outputs.','layers.l2t':'Augmentation','layers.l2d':'Humans retain ownership while AI expands speed, search breadth, and option volume.','layers.l3t':'Agent orchestration','layers.l3d':'Multiple agents research, build, test, and review in parallel roles.','layers.l4t':'Human agency','layers.l4d':'Humans decide what is worth doing, what counts as good, and who owns the outcome.',
+      'jobs.kicker':'AI economics playbook','jobs.title':'Inspect tasks, demand elasticity, and the J-curve','playbook.c1t':'① Decompose tasks before predicting jobs','playbook.c1d':'An occupation is a bundle. Mark which parts can be automated, augmented, or must retain human ownership.','playbook.c2t':'② Check demand elasticity','playbook.c2d':'Lower unit cost does not always reduce employment; faster demand expansion can grow both the industry and its workforce.','playbook.c3t':'③ Account for the organizational J-curve','playbook.c3d':'Buying tools is only the start. Productivity appears after complementary changes to workflows, skills, incentives, and products.',
+      'edge.kicker':'Education and organizational redesign','edge.title':'Without junior roles, how do seniors emerge?','education.title':'Organization shape: pyramid to diamond','education.body':'Do not simply delete the junior layer. Move early-career talent from routine execution into systems understanding, customer contact, project management, retrospectives, and judgment practice—or save cost today and lose the senior pipeline tomorrow.',
+      'economy.kicker':'Welfare, distribution, and power',
+      'quotes.kicker':'Phrases and argument cards','quotes.title':'Six moments, kept in context','quotes.intro':'Each card uses a very short source phrase or paraphrase with a timestamp. It is a locator, not a replacement for full context.',
+      'patrick.kicker':"Patrick's Agentic OS",'patrick.title':'Map the interview to real Hermes skills','patrick.intro':'This is not a generic tool list. It connects the interview’s work model to 14 skills that actually exist in your current Hermes directory.','patrick.verified':'Verified skill',
+      'actions.kicker':'P0 / P1 / P2','actions.title':'Turn the argument into an executable work method','actions.intro':'Each priority includes a micro-step you can complete today. This is an operational synthesis, not a verbatim checklist from the guest.',
+      'sources.kicker':'Evidence index','sources.title':'Sources, verification, and method','sources.intro':'Keep separate what the video says, what external research supports, and what this page infers.','sources.time':'Time','sources.topic':'Claim','sources.use':'How this page uses it','sources.r1t':'Young workers and AI exposure','sources.r1d':'Cross-checked against Stanford DEL’s updated study with sample boundaries preserved.','sources.r2t':'Demand elasticity','sources.r2d':'Explains why productivity can either reduce or expand employment.','sources.r3t':'Define—execute—evaluate','sources.r3d':'Converted into the human-agent division of labor for an Agentic OS.','sources.r4t':'Consumer surplus and GDP-B','sources.r4d':'Separates the welfare value of free digital services from conventional GDP.','sources.primary':'Primary materials','sources.method':'Generation method','sources.reference':'Reference information architecture ↗'
+    });
+
+    const stats = [
+      {v:'16%', zh:'高度暴露职业中，≤25 岁就业差异', en:'employment difference for ≤25s in highly exposed jobs'},
+      {v:'3–5', zh:'年：组织价值大规模显现的估计窗口', en:'years: estimated window for broad organizational impact'},
+      {v:'26', zh:'放射科医生的任务类型，影像判读仅其一', en:'radiologist task types; image reading is only one'},
+      {v:'2030', zh:'受访者判断转型经济性将明显可见', en:'year by which the guest expects clear economic transformation'},
+      {v:'70%', zh:'访谈称 LLM 消费者价值 9 个月增幅', en:'reported 9-month rise in consumer value from LLMs'},
+      {v:'30×–50×', zh:'工业革命后生活水平的长期增幅类比', en:'long-run living-standard gain used as the industrial analogy'},
+      {v:'3', zh:'未来项目循环：定义、执行、评估', en:'parts of the future project loop'},
+      {v:'4', zh:'智能普及后仍可能稀缺的人类优势', en:'human advantages that may remain scarce'}
+    ];
+
+    const jobs = [
+      {titleZh:'初级软件工程', titleEn:'Junior software engineering', risk:'high', riskZh:'高风险', riskEn:'High risk', descZh:'常规编码与可自动验证的执行任务快速被 agent 压缩。', descEn:'Routine coding and machine-checkable execution are rapidly compressed by agents.', moveZh:'转向：系统设计、需求澄清、评审、项目管理。', moveEn:'Move toward system design, requirements, review, and project management.'},
+      {titleZh:'中层营销管理', titleEn:'Mid-level marketing management', risk:'high', riskZh:'高风险', riskEn:'High risk', descZh:'内容生成、分析与流程协调中有大量结构化任务。', descEn:'Content, analysis, and workflow coordination contain many structured tasks.', moveZh:'转向：客户洞察、品味、品牌判断、跨团队决策。', moveEn:'Move toward customer insight, taste, brand judgment, and cross-team decisions.'},
+      {titleZh:'律师助理', titleEn:'Paralegal work', risk:'high', riskZh:'高风险', riskEn:'High risk', descZh:'检索、比对、摘要和文档起草高度数字化。', descEn:'Search, comparison, summarization, and drafting are highly digitized.', moveZh:'转向：事实核验、客户关系、复杂案件策略与责任边界。', moveEn:'Move toward verification, client work, case strategy, and accountability.'},
+      {titleZh:'放射科医生', titleEn:'Radiology', risk:'growth', riskZh:'需求增长', riskEn:'Potential growth', descZh:'AI 改进影像判读，但它只是整套任务的一部分；成本下降还可能扩大检查需求。', descEn:'AI improves image reading, only one part of the job; lower costs may expand demand.', moveZh:'转向：整合诊断、协调照护、解释结果与临床决策。', moveEn:'Move toward integrated diagnosis, care coordination, explanation, and clinical judgment.'},
+      {titleZh:'教育与培训', titleEn:'Education and training', risk:'mixed', riskZh:'重构', riskEn:'Recomposed', descZh:'菜谱式步骤教学价值下降，开放问题和即时反馈价值上升。', descEn:'Cookbook instruction loses value while open problems and feedback gain value.', moveZh:'转向：苏格拉底式提问、问题界定、跨学科与品味训练。', moveEn:'Move toward Socratic questioning, framing, cross-domain work, and taste.'},
+      {titleZh:'医疗与照护', titleEn:'Health and care', risk:'growth', riskZh:'增长', riskEn:'Growth', descZh:'人口需求高、服务仍需身体与关系工作，效率提升可能释放更多需求。', descEn:'Demand is high and care remains physical and relational; efficiency can unlock more use.', moveZh:'转向：人机协作、现场工作、关系信任与连续照护。', moveEn:'Move toward human-AI collaboration, field work, trust, and continuity of care.'}
+    ];
+
+    const edges = [
+      {n:'01', zhT:'主动性 / Agency', enT:'Agency', zhD:'决定要做什么，并把意图转化为持续行动。AI 放大已有意图，不能替你产生人生方向。', enD:'Choose what to do and turn intention into action. AI amplifies intent; it does not supply a life direction.'},
+      {n:'02', zhT:'真实的人际连接', enT:'Human connection', zhD:'当合成内容泛滥，“由真人创造、为真人负责”会成为信任与体验的一部分。', enD:'As synthetic content expands, being created by and accountable to real people becomes part of trust and experience.'},
+      {n:'03', zhT:'即兴与异常处理', enT:'Improvisation', zhD:'机器擅长在已定义的问题里优化；人类擅长在规则失效、目标变化时重写问题。', enD:'Machines optimize inside a defined problem; humans rewrite the problem when rules fail or goals change.'},
+      {n:'04', zhT:'尚未命名的新工作', enT:'Unimagined work', zhD:'历史上每次技术跃迁都产生预测者没想到的职业。探索与低成本试错本身就是优势。', enD:'Every technological leap has created jobs forecasters missed. Exploration and cheap experimentation are advantages.'}
+    ];
+
+    const quotes = [
+      {sec:49,time:'00:49',zhT:'冲击先集中，而非平均扩散',enT:'The shock is concentrated, not evenly spread',zhD:'最先出现的就业信号集中在年轻、早期职业阶段和高度暴露的任务组合。',enD:'The earliest employment signal concentrates among young, early-career workers in highly exposed task bundles.'},
+      {sec:185,time:'03:05',zhT:'“Everybody’s a coder now”',enT:'“Everybody’s a coder now”',zhD:'短句背后的重点不是人人转行，而是更多人能把想法直接做成可运行原型。',enD:'The point is not universal career switching; it is that more people can turn ideas into working prototypes.'},
+      {sec:452,time:'07:32',zhT:'别只改进午餐菜单',enT:'Do not stop at a better lunch menu',zhD:'组织若不重做核心流程，再强的模型也只会停留在边缘用例。',enD:'Without redesigning core workflows, powerful models remain trapped in peripheral use cases.'},
+      {sec:767,time:'12:47',zhT:'人定义与评估，Agent 执行',enT:'Humans define and evaluate; agents execute',zhD:'真正稀缺的是把模糊目标变成好问题，并能识别“看似完成、实际无效”的结果。',enD:'Scarcity shifts to turning vague goals into good questions and detecting outputs that look complete but fail in reality.'},
+      {sec:1688,time:'28:08',zhT:'AI 是 “amplifying intention”',enT:'AI as “amplifying intention”',zhD:'能力越强，人的方向感与主动性越重要；工具会同时放大清晰意图和混乱意图。',enD:'As capability rises, direction and agency matter more; tools amplify both clear and confused intention.'},
+      {sec:3046,time:'50:46',zhT:'最好或最坏，取决于制度选择',enT:'Best or worst depends on institutional choices',zhD:'技术潜力不自动决定结果，分配、治理、风险控制与参与权共同决定十年的走向。',enD:'Technical potential does not determine the outcome; distribution, governance, risk controls, and participation shape the decade.'}
+    ];
+
+    const patrickRefs = [
+      {name:'Task Clarity Gate',path:'agentic-os/task-clarity-gate/SKILL.md',zh:'对应“定义问题”：在执行前固定目标、约束、完成标准与边界。',en:'Maps to defining the problem: lock the objective, constraints, done criteria, and boundaries before execution.'},
+      {name:'Agent Orchestration',path:'autonomous-ai-agents/agent-orchestration/SKILL.md',zh:'对应“管理一支 agent 舰队”：拆分并行角色、交付物与依赖。',en:'Maps to managing a fleet of agents by decomposing parallel roles, deliverables, and dependencies.'},
+      {name:'Agent Role Registry',path:'agentic-os/agent-role-registry/SKILL.md',zh:'把每个 agent 的责任、权限与交接写清，避免多 agent 协作中的责任真空。',en:'Makes responsibility, authority, and handoffs explicit so multi-agent work has no ownership vacuum.'},
+      {name:'Hermes Eval Harness',path:'agentic-os/hermes-eval-harness/SKILL.md',zh:'对应“评估结果”：把质量门槛、失败样例和回归检查变成可重复测试。',en:'Maps to evaluating outcomes by turning quality bars, failure cases, and regressions into repeatable tests.'},
+      {name:'Agent Observability',path:'autonomous-ai-agents/agent-observability/SKILL.md',zh:'区分自动化与增强：看 agent 做了什么、失败在哪里、人工在哪一步接管。',en:'Distinguishes automation from augmentation by tracing agent work, failures, and human intervention.'},
+      {name:'Graphify',path:'knowledge-synthesis/graphify/SKILL.md',zh:'把一次成功执行沉淀为组织知识图谱，让经验不只留在聊天记录里。',en:'Turns a successful run into organizational knowledge so learning does not remain trapped in chat logs.'},
+      {name:'Obsidian Agentic OS',path:'productivity/obsidian-agentic-os/SKILL.md',zh:'为人和 agent 提供持久上下文、项目记忆与可追溯决策。',en:'Provides durable context, project memory, and traceable decisions for humans and agents.'},
+      {name:'Daily Review V2',path:'productivity/daily-review-v2/SKILL.md',zh:'把“更多输出”改成“更多价值”：每天复盘结果、摩擦与下一轮改进。',en:'Shifts from more output to more value through daily review of outcomes, friction, and next improvements.'},
+      {name:'Distributed Research Playbook',path:'research/distributed-research-playbook/SKILL.md',zh:'让多路研究并行展开，同时保留来源、证据强度与最终综合责任。',en:'Runs research in parallel while preserving sources, evidence strength, and synthesis ownership.'},
+      {name:'YouTube Content',path:'media/youtube-content/SKILL.md',zh:'把原视频、字幕与时间戳作为可核查的一手证据层。',en:'Keeps the source video, transcript, and timestamps as a verifiable primary evidence layer.'},
+      {name:'Video to Knowledge Dashboard',path:'media/video-to-knowledge-dashboard/SKILL.md',zh:'把线性视频改造成可搜索、可导航、可行动的知识界面。',en:'Transforms linear video into a searchable, navigable, action-oriented knowledge surface.'},
+      {name:'TOC Sidebar Batch',path:'creative/toc-sidebar-batch/SKILL.md',zh:'为长篇知识档案建立稳定锚点、目录高亮与移动端导航。',en:'Adds stable anchors, active TOC state, and mobile navigation to long-form knowledge artifacts.'},
+      {name:'System Routing Decision',path:'agentic-os/system-routing-decision/SKILL.md',zh:'按任务风险、成本与能力需求，把工作路由给正确的模型、工具或人。',en:'Routes work to the right model, tool, or human based on task risk, cost, and capability needs.'},
+      {name:'Humanizer',path:'creative/humanizer/SKILL.md',zh:'对应“真实人际连接”：在合成内容泛滥时保留人的语气、判断与关系责任。',en:'Maps to authentic connection by preserving human voice, judgment, and relational accountability.'}
+    ];
+
+    const actions = [
+      {p:'P0',zhT:'选一个每周重复的真实任务', enT:'Choose one real task you repeat weekly', zhD:'今天微步骤：写下输入、理想输出、耗时与失败成本。不要从“学一个模型”开始。', enD:'Today: write down its inputs, ideal output, time cost, and failure cost. Do not start by learning a model.', zhTag:'15 分钟', enTag:'15 min'},
+      {p:'P0',zhT:'把任务写成三段式', enT:'Rewrite it as a three-part loop', zhD:'今天微步骤：分别写清问题定义、agent 执行与人工验收标准。', enD:'Today: state the framing, agent execution, and human acceptance criteria separately.', zhTag:'30 分钟', enTag:'30 min'},
+      {p:'P1',zhT:'让 AI 反过来采访你', enT:'Ask AI to interview you', zhD:'本周微步骤：让它连续追问摩擦点、担忧与目标，再排序 10 个用例。', enD:'This week: have it probe friction, worries, and goals, then rank ten use cases.', zhTag:'45 分钟', enTag:'45 min'},
+      {p:'P1',zhT:'建立结果审计清单', enT:'Create an output audit checklist', zhD:'本周微步骤：加入事实、遗漏、风险、边界条件与“是否解决真实问题”。', enD:'This week: add facts, omissions, risk, edge cases, and whether the real problem was solved.', zhTag:'本周', enTag:'This week'},
+      {p:'P2',zhT:'把成功流程沉淀成 skill', enT:'Turn the successful loop into a skill', zhD:'系统微步骤：第二次成功后保存输入格式、步骤、判断门槛与失败处理。', enD:'System step: after the second success, save inputs, steps, decision thresholds, and failure handling.', zhTag:'复用', enTag:'Reuse'},
+      {p:'P2',zhT:'把省下的时间投到资深能力', enT:'Reinvest saved time in senior skills', zhD:'系统微步骤：为系统思考、客户理解、协调与品味设定明确学习时段。', enD:'System step: schedule explicit learning time for systems thinking, customer insight, coordination, and taste.', zhTag:'持续', enTag:'Ongoing'}
+    ];
+
+    const chapters = [
+      {sec:0, time:'00:00', zhT:'开场：最好或最坏的十年', enT:'Opening: the best or worst decade', zhD:'AI 正在放大脑力，生产率潜力巨大，但分配与风险治理决定它走向繁荣还是灾难。', enD:'AI is amplifying cognitive power; productivity could surge, but distribution and risk governance determine prosperity or disaster.'},
+      {sec:49, time:'00:49', zhT:'16%：最年轻、最暴露的岗位先受冲击', enT:'16%: young workers in exposed jobs are hit first', zhD:'冲击集中在高度暴露职业和年轻人；较少暴露的照护岗位、年长者以及“增强型使用”群体表现不同。', enD:'The effect concentrates in exposed occupations and young workers; care work, older workers, and augmentation-heavy use look different.'},
+      {sec:123, time:'02:03', zhT:'先分析任务，再判断职业', enT:'Analyze tasks before occupations', zhD:'编码、呼叫中心、销售与营销暴露较高，但几乎没有职业的所有任务都能被 LLM 完整覆盖。', enD:'Coding, call centers, sales, and marketing are exposed, but almost no occupation has every task covered by LLMs.'},
+      {sec:185, time:'03:05', zhT:'Stanford 学生都要交付可运行代码', enT:'Every Stanford student now ships working code', zhD:'工具让非程序员也能从想法走到软件原型，课程产出从 PPT 变成实际运行的项目。', enD:'Tools let non-programmers move from idea to prototype, shifting course output from slides to working projects.'},
+      {sec:267, time:'04:27', zhT:'“机票规则”：效率会减少还是增加就业？', enT:'The plane-ticket rule: does efficiency cut jobs?', zhD:'答案取决于需求弹性。成本下降若显著扩大需求，总支出与用工可能反而增加。', enD:'It depends on demand elasticity. If lower cost expands demand enough, total spending and employment can rise.'},
+      {sec:452, time:'07:32', zhT:'AI 黑客松不该只改进午餐菜单', enT:'AI hackathons should solve more than lunch menus', zhD:'能力没有自动变成业务价值；公司必须连接核心问题、重构流程并培训员工。', enD:'Capability does not automatically become business value; firms must target core problems, redesign workflows, and retrain people.'},
+      {sec:560, time:'09:20', zhT:'“AI 被低估”的生产率赌约', enT:'The productivity bet that AI is underhyped', zhD:'Brynjolfsson 押注 2030 前生产率将明显超过官方预期，真正增长可能集中在接下来三四年。', enD:'Brynjolfsson bets productivity will beat official projections by 2030, with major gains in the next three or four years.'},
+      {sec:618, time:'10:18', zhT:'赞助内容：把重复流程保存成 skill', enT:'Sponsor segment: save repeated workflows as skills', zhD:'主持人展示将每周重复的分析流程保存为团队可复用 skill。此段为 Genspark 赞助内容。', enD:'The host demonstrates saving a weekly analysis workflow as a reusable team skill. This is a Genspark sponsor segment.', sponsor:true},
+      {sec:767, time:'12:47', zhT:'未来职位：管理一支 agent 舰队', enT:'The future role: manage a fleet of agents', zhD:'人负责定义与评估，agent 负责执行。价值来自提出正确问题、设定范围、检查幻觉并迭代。', enD:'Humans define and evaluate while agents execute. Value comes from asking the right question, scoping it, checking errors, and iterating.'},
+      {sec:1005, time:'16:45', zhT:'初级工程师、营销经理、律师助理', enT:'Junior engineer, marketing manager, paralegal', zhD:'这些职位的核心执行任务都在靶心；但项目管理、品味、关系与复杂判断仍需人承担。', enD:'Core execution tasks in these jobs sit in the bullseye, while project management, taste, relationships, and complex judgment remain.'},
+      {sec:1029, time:'17:09', zhT:'没有初级岗位，如何成为资深？', enT:'How do you become senior without junior jobs?', zhD:'Infosys 的例子是继续招聘初级人才，但把时间从常规执行转为系统学习、项目管理与大局训练。', enD:'Infosys continues hiring juniors but shifts time from routine execution into explicit learning, project management, and big-picture training.'},
+      {sec:1316, time:'21:56', zhT:'被宣判消失的放射科，反而短缺', enT:'Radiology was declared doomed—then grew', zhD:'影像判读只是一项任务；效率提升带来更多检查需求，也放大其他医疗任务的价值。', enD:'Image reading is one task; efficiency drives more imaging demand and increases the value of the job’s other tasks.'},
+      {sec:1688, time:'28:08', zhT:'智能普及后，四种人类优势', enT:'Four human advantages after intelligence becomes abundant', zhD:'主动性、真实连接、暂时更难自动化的身体工作，以及尚未被发明的新职业。', enD:'Agency, authentic connection, temporarily harder physical work, and new jobs that have not yet been invented.'},
+      {sec:1893, time:'31:33', zhT:'Reid Hoffman 的棋局：即兴是超能力', enT:'Reid Hoffman’s chess story: improvisation', zhD:'机器在既定棋局中更强，人类却会重写局面、寻找规则之外的路径；异常处理是重要优势。', enD:'Machines dominate the defined game, while humans can rewrite the situation and search outside its rules; improvisation matters.'},
+      {sec:2038, time:'33:58', zhT:'普通人如何参与：创造，而非只持有', enT:'How ordinary people participate: create, not only own', zhD:'核心建议是用 AI 创造产品与服务；若财富仍高度集中，税收、基础收入等再分配也应成为备选。', enD:'The main advice is to create products and services with AI; if wealth concentrates, taxes and basic income remain backup options.'},
+      {sec:2677, time:'44:37', zhT:'Erik 一个月不用 AI 的真实价格', enT:'Erik’s real price to give up AI for a month', zhD:'对深度使用者，AI 的个人价值远高于订阅价格；这也说明价格与消费者实际获得的福利并不等价。', enD:'For a heavy user, AI’s personal value can far exceed its subscription price, showing why price and consumer benefit are not the same.'},
+      {sec:2718, time:'45:18', zhT:'从搜索框升级到协作伙伴', enT:'Move beyond search into collaboration', zhD:'让 AI 采访你、发现用途；在医疗等高风险领域保持人类最终判断，以协作为主而非完全委托。', enD:'Ask AI to interview you and discover uses; retain human judgment in high-risk areas and treat AI as a collaborator, not a full delegate.'},
+      {sec:3046, time:'50:46', zhT:'最好与最坏的十年：取决于我们的选择', enT:'The best or worst decade depends on our choices', zhD:'更长寿、更富足与疾病突破并存于生物风险、操纵、武器化和权力集中。技术越强，人类的选择权也越大。', enD:'Longevity, abundance, and medical breakthroughs coexist with bio-risk, manipulation, weaponization, and concentrated power. More powerful tools increase human agency.'}
+    ];
+
+    const tocSections = [
+      ['overview','概览','Overview'],['h2-1','核心论点','Core thesis'],['h2-2','就业与时间窗','Jobs & timeline'],['h2-3','四层工作模型','Four-layer model'],['h2-4','AI 经济学','AI economics'],['h2-5','教育与组织','Education & org'],['h2-6','共享繁荣','Shared prosperity'],['h2-7','短句卡片','Idea cards'],['h2-8','章节时间线','Chapters'],['h2-9',"Patrick's OS",'Patrick cross-refs'],['h2-10','行动清单','Action items'],['h2-11','来源与方法','Sources']
+    ];
+
+    let lang = localStorage.getItem(STORAGE.lang) || 'zh';
+
+    function esc(value) {
+      return String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+    }
+
+    function renderStaticCopy() {
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const value = copy[lang][el.dataset.i18n];
+        if (value !== undefined) el.textContent = value;
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const value = copy[lang][el.dataset.i18nHtml];
+        if (value !== undefined) el.innerHTML = value;
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const value = copy[lang][el.dataset.i18nPlaceholder];
+        if (value !== undefined) el.placeholder = value;
+      });
+      document.getElementById('langToggle').textContent = lang === 'zh' ? 'EN' : '中文';
+      document.title = lang === 'zh' ? 'AI 时代的最好与最坏十年｜Erik Brynjolfsson' : 'The Best and Worst AI Decade | Erik Brynjolfsson';
+    }
+
+    function renderToc() {
+      document.getElementById('tocList').innerHTML = tocSections.map((s, i) => `<li><a class="toc__link" data-target="${esc(s[0])}"><span class="toc__num">${String(i + 1).padStart(2,'0')}</span><span class="toc__label">${esc(lang === 'zh' ? s[1] : s[2])}</span></a></li>`).join('');
+      document.querySelectorAll('.toc__link').forEach(a => a.setAttribute('href', '#' + a.dataset.target));
+    }
+
+    function renderStats() {
+      document.getElementById('statsGrid').innerHTML = stats.map(s => `<article class="stat"><span class="stat__value">${esc(s.v)}</span><span class="stat__label">${esc(lang === 'zh' ? s.zh : s.en)}</span></article>`).join('');
+    }
+
+    function renderJobs() {
+      document.getElementById('jobsGrid').innerHTML = jobs.map(j => `<article class="job"><div class="job__top"><h3>${esc(lang === 'zh' ? j.titleZh : j.titleEn)}</h3><span class="risk ${esc(j.risk)}">${esc(lang === 'zh' ? j.riskZh : j.riskEn)}</span></div><p>${esc(lang === 'zh' ? j.descZh : j.descEn)}</p><div class="job__move">${esc(lang === 'zh' ? j.moveZh : j.moveEn)}</div></article>`).join('');
+    }
+
+    function renderEdges() {
+      document.getElementById('edgeGrid').innerHTML = edges.map(e => `<article class="card"><span class="edge-num">${esc(e.n)}</span><h3>${esc(lang === 'zh' ? e.zhT : e.enT)}</h3><p>${esc(lang === 'zh' ? e.zhD : e.enD)}</p></article>`).join('');
+    }
+
+    function renderQuotes() {
+      document.getElementById('quoteGrid').innerHTML = quotes.map(q => `<article class="quote-card"><time>${esc(q.time)}</time><h3>${esc(lang === 'zh' ? q.zhT : q.enT)}</h3><p>${esc(lang === 'zh' ? q.zhD : q.enD)}</p><a href="https://www.youtube.com/watch?v=${VIDEO_ID}&t=${q.sec}s" target="_blank" rel="noopener">${lang === 'zh' ? '跳到原视频 ↗' : 'Jump to source ↗'}</a></article>`).join('');
+    }
+
+    function renderPatrick() {
+      const verified = copy[lang]['patrick.verified'];
+      document.getElementById('patrickGrid').innerHTML = patrickRefs.map(p => `<article class="patrick-card"><span class="relation">${esc(verified)}</span><h3>${esc(p.name)}</h3><p>${esc(lang === 'zh' ? p.zh : p.en)}</p><code class="skill-path">${esc(p.path)}</code></article>`).join('');
+    }
+
+    function renderActions() {
+      ['P0','P1','P2'].forEach(priority => {
+        document.getElementById('action' + priority).innerHTML = actions.filter(a => a.p === priority).map(a => `<article class="action-item"><div><h3>${esc(lang === 'zh' ? a.zhT : a.enT)}</h3><p>${esc(lang === 'zh' ? a.zhD : a.enD)}</p></div><span>${esc(lang === 'zh' ? a.zhTag : a.enTag)}</span></article>`).join('');
+      });
+    }
+
+    function renderChapters() {
+      const query = document.getElementById('chapterSearch').value.trim().toLowerCase();
+      document.getElementById('chapterGrid').innerHTML = chapters.map(c => {
+        const title = lang === 'zh' ? c.zhT : c.enT;
+        const desc = lang === 'zh' ? c.zhD : c.enD;
+        const hay = (title + ' ' + desc + ' ' + c.time).toLowerCase();
+        const hidden = query && !hay.includes(query) ? ' hidden' : '';
+        return `<article class="chapter-card${c.sponsor ? ' sponsor' : ''}"${hidden}><div class="chapter-card__time">${esc(c.time)}</div><div><h3>${esc(title)}</h3><p>${esc(desc)}</p></div><a class="chapter-card__link" href="https://www.youtube.com/watch?v=${VIDEO_ID}&t=${c.sec}s" target="_blank" rel="noopener" aria-label="${esc(title)}">↗</a></article>`;
+      }).join('');
+    }
+
+    function renderAll() {
+      renderStaticCopy(); renderToc(); renderStats(); renderJobs(); renderEdges(); renderQuotes(); renderPatrick(); renderActions(); renderChapters(); observeSections();
+    }
+
+    let sectionObserver;
+    function observeSections() {
+      if (sectionObserver) sectionObserver.disconnect();
+      const links = [...document.querySelectorAll('.toc__link')];
+      const byId = new Map(links.map(a => [a.dataset.target, a]));
+      sectionObserver = new IntersectionObserver(entries => {
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        links.forEach(a => a.classList.toggle('active', a === byId.get(visible.target.id)));
+      }, {rootMargin:'-20% 0px -65% 0px', threshold:[0,.1,.3]});
+      tocSections.forEach(s => { const el = document.getElementById(s[0]); if (el) sectionObserver.observe(el); });
+      links.forEach(a => a.addEventListener('click', () => document.body.classList.remove('toc-mobile-open')));
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      lang = lang === 'zh' ? 'en' : 'zh';
+      localStorage.setItem(STORAGE.lang, lang);
+      renderAll();
+    });
+
+    const initialTheme = localStorage.getItem(STORAGE.theme) || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.dataset.theme = initialTheme;
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem(STORAGE.theme, next);
+    });
+
+    if (localStorage.getItem(STORAGE.toc) === '1' && innerWidth > 900) document.body.classList.add('toc-collapsed');
+    document.getElementById('tocCollapse').addEventListener('click', () => {
+      document.body.classList.toggle('toc-collapsed');
+      localStorage.setItem(STORAGE.toc, document.body.classList.contains('toc-collapsed') ? '1' : '0');
+    });
+    document.getElementById('mobileToc').addEventListener('click', () => document.body.classList.add('toc-mobile-open'));
+    document.getElementById('mobileScrim').addEventListener('click', () => document.body.classList.remove('toc-mobile-open'));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.body.classList.remove('toc-mobile-open'); });
+    document.getElementById('chapterSearch').addEventListener('input', renderChapters);
+    addEventListener('hashchange', () => { if (location.hash) document.body.classList.remove('toc-mobile-open'); });
+
+    renderAll();
+  </script>
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Google DeepMind 新论文: 从 AGI 到 ASI 的 Timeline — TheAIGRID 解读</title>
+<style>
+:root{
+  --bg:#0d0d10;--bg-card:#16161b;--bg-elevated:#1c1c22;
+  --border:#2a2a32;--text:#e8e8ea;--text-dim:#a8a8b2;--text-mute:#6a6a76;
+  --accent:#ff6b35;--accent-2:#f7c59f;
+  --green:#4ade80;--red:#f87171;--yellow:#fbbf24;
+  --blue:#60a5fa;--purple:#a78bfa;--gray:#9ca3af;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:2rem;max-width:1400px;margin:0 auto}
+h1{font-size:2.2rem;color:var(--accent);margin-bottom:0.5rem}
+.subtitle{color:var(--text-dim);font-size:1.1rem;margin-bottom:1.5rem}
+.meta-bar{display:flex;flex-wrap:wrap;gap:1rem;background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;margin-bottom:1.5rem;border:1px solid var(--border);font-size:0.9rem}
+.meta-bar span{display:inline-flex;align-items:center;gap:0.4rem}
+.meta-bar b{color:var(--accent-2)}
+.hero{background:linear-gradient(135deg,#1a1a22 0%,#16161b 100%);padding:1.5rem;border-radius:10px;margin-bottom:1.5rem;border-left:4px solid var(--accent)}
+.hero h2{color:var(--accent-2);margin-bottom:0.8rem;font-size:1.3rem}
+.hero p{color:var(--text);margin-bottom:0.6rem}
+.hero ol{margin-left:1.5rem;margin-top:0.5rem}
+.hero li{margin-bottom:0.3rem;color:var(--text-dim)}
+.warn-box{background:rgba(251,191,36,0.08);border-left:4px solid var(--yellow);padding:1rem 1.2rem;border-radius:8px;margin-bottom:1.5rem}
+.warn-box h3{color:var(--yellow);margin-bottom:0.6rem;font-size:1.05rem}
+.warn-box p{margin-bottom:0.4rem;font-size:0.92rem}
+.warn-box ul{margin-left:1.3rem;margin-top:0.4rem}
+.warn-box li{font-size:0.9rem;color:var(--text-dim);margin-bottom:0.2rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--bg-card);padding:1.2rem;border-radius:8px;border:1px solid var(--border);text-align:center}
+.stat-card .num{font-size:1.6rem;color:var(--accent);font-weight:700;margin-bottom:0.3rem}
+.stat-card .label{font-size:0.82rem;color:var(--text-dim)}
+.tabs{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;border-bottom:2px solid var(--border);padding-bottom:0.6rem}
+.tab{background:var(--bg-card);color:var(--text-dim);border:1px solid var(--border);padding:0.5rem 0.9rem;border-radius:6px;cursor:pointer;font-size:0.88rem;transition:all 0.2s}
+.tab:hover{background:var(--bg-elevated);color:var(--text)}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tab-content{display:none;padding:1.5rem 0;animation:fadeIn 0.3s}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+h2.section{color:var(--accent-2);font-size:1.4rem;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+h3{color:var(--text);font-size:1.1rem;margin:1rem 0 0.6rem}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;margin-bottom:1.5rem}
+.card{background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;border:1px solid var(--border);border-left:3px solid var(--accent)}
+.card h4{color:var(--accent-2);margin-bottom:0.5rem;font-size:1rem}
+.card p{color:var(--text-dim);font-size:0.92rem;margin-bottom:0.3rem}
+.card .tag{display:inline-block;background:var(--bg-elevated);padding:0.15rem 0.5rem;border-radius:4px;font-size:0.75rem;margin-right:0.4rem;margin-top:0.3rem}
+.card .badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-weight:600;margin-top:0.4rem}
+.badge.mitig{background:rgba(74,222,128,0.15);color:var(--green);border:1px solid rgba(74,222,128,0.3)}
+.badge.warn{background:rgba(251,191,36,0.15);color:var(--yellow);border:1px solid rgba(251,191,36,0.3)}
+.badge.gap{background:rgba(248,113,113,0.15);color:var(--red);border:1px solid rgba(248,113,113,0.3)}
+.badge.verified{background:rgba(96,165,250,0.15);color:var(--blue);border:1px solid rgba(96,165,250,0.3)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.9rem}
+th,td{padding:0.6rem;text-align:left;border-bottom:1px solid var(--border)}
+th{background:var(--bg-elevated);color:var(--accent-2);font-weight:600}
+tr.highlight{background:rgba(255,107,53,0.08)}
+blockquote{background:var(--bg-elevated);border-left:3px solid var(--accent);padding:0.8rem 1rem;margin:1rem 0;color:var(--text);font-style:italic}
+.quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0.8rem;margin:1rem 0}
+.quote-card{background:var(--bg-card);padding:0.9rem 1rem;border-radius:8px;border-left:3px solid var(--purple);font-size:0.92rem}
+.quote-card.yellow{border-left-color:var(--yellow)}
+.quote-card.green{border-left-color:var(--green)}
+.quote-card.blue{border-left-color:var(--blue)}
+.quote-card .src{color:var(--text-mute);font-size:0.8rem;margin-top:0.4rem;display:block}
+.timeline{position:relative;padding-left:1.5rem;margin:1rem 0}
+.timeline:before{content:"";position:absolute;left:0.4rem;top:0;bottom:0;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:1rem}
+.tl-item:before{content:"";position:absolute;left:-1.1rem;top:0.5rem;width:10px;height:10px;background:var(--accent);border-radius:50%}
+.tl-item .time{color:var(--accent);font-weight:600;font-size:0.88rem}
+.tl-item .what{color:var(--text);margin-top:0.2rem;font-size:0.92rem}
+footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);color:var(--text-mute);font-size:0.85rem;text-align:center}
+/* TOC v1.4.4 collapsible */
+aside.toc{position:fixed;left:1rem;top:2rem;width:240px;max-height:80vh;overflow-y:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:0.8rem;z-index:100;font-size:0.82rem;transition:transform 0.3s ease}
+aside.toc.collapsed{transform:translateX(-220px)}
+aside.toc h4{color:var(--accent-2);margin-bottom:0.5rem;font-size:0.95rem}
+aside.toc a{display:block;color:var(--text-dim);text-decoration:none;padding:0.25rem 0;border-bottom:1px solid var(--border);transition:color 0.15s}
+aside.toc a:hover{color:var(--accent)}
+.toc-toggle{position:fixed;left:1rem;top:2rem;background:var(--accent);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;z-index:101;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:left 0.3s ease}
+.toc-toggle.collapsed{left:1.5rem}
+.page{margin-left:260px;transition:margin-left 0.3s ease}
+.page.toc-collapsed{margin-left:40px}
+@media(max-width:900px){aside.toc{display:none}.toc-toggle{display:none}.page{margin-left:0}}
+</style>
+</head>
+<body>
+
+<button class="toc-toggle" id="tocToggle" title="Toggle TOC">«</button>
+
+<aside class="toc" id="tocSidebar">
+<h4>Table of Contents</h4>
+<a href="#core">🔥 核心论点</a>
+<a href="#ch1">Ch1 论文发布</a>
+<a href="#ch2">Ch2 AGI/ASI 区分</a>
+<a href="#ch3">Ch3 数字与生物智能</a>
+<a href="#ch4">Ch4 Working Memory</a>
+<a href="#ch5">Ch5 Compute Scaling</a>
+<a href="#ch6">Ch6 Effective Compute</a>
+<a href="#ch7">Ch7 Self-Improvement</a>
+<a href="#ch8">Ch8 Agent Collectives</a>
+<a href="#ch9">Ch9 Multi-Agent Scaling</a>
+<a href="#ch10">Ch10 Bottlenecks</a>
+<a href="#related">🔗 Patrick 关联</a>
+<a href="#action">🗺 实战路线</a>
+<a href="#quotes">💬 金句库</a>
+<a href="#timeline">⏱️ 时间戳</a>
+</aside>
+
+<div class="page" id="mainPage">
+
+<h1>Google DeepMind 新论文: 从 AGI 到 ASI 的 Timeline</h1>
+<p class="subtitle">TheAIGRID 解读 — DeepMind 论文 10 大核心点</p>
+
+<div class="meta-bar">
+<span>🎥 <b>TheAIGRID</b> (396K subs)</span>
+<span>⏱️ <b>16:50</b></span>
+<span>📅 <b>2026-07-14</b></span>
+<span>📺 <b>video-commentary</b></span>
+<span>🌐 <a href="https://www.youtube.com/watch?v=jXGgNb0DLNg" target="_blank" style="color:var(--blue)">YouTube</a></span>
+<span>⚠️ <b>red_flag: 2</b></span>
+<span>📊 <b>3,261 字 / 10 chapters</b></span>
+</div>
+
+<div class="hero">
+<h2>🔥 核心论点 (一段话总结)</h2>
+<p><b>Google DeepMind 2026 新论文不是给 AGI 具体日期, 而是重新提问: "AGI 之后怎么样?"</b> 一旦 AGI 出现, ASI transition 可能极快 — 原因是数字智能的三大工程优势（bandwidth / 复制 / working memory）。</p>
+<ol>
+<li><b>AGI 不是终点, 是加速起点</b> — paper 是 conditional map, 不是 single-date prediction。</li>
+<li><b>数字智能 vs 生物智能</b> — 3 大优势都不需要意识, 是 engineering properties → transition 可能指数级。</li>
+<li><b>4 timeline variables × 4 bottlenecks = conditional timeline</b> — 不是问 "几年到 ASI", 是问 "哪些条件能推动、哪些会拖累"</li>
+</ol>
+</div>
+
+<div class="warn-box">
+<h3>⚠️ 诚实折扣框 (RED FLAG #2)</h3>
+<p><b>2 个 Red Flag 触发</b> (Pitfall 28 SOP):</p>
+<ul>
+<li><b>AI-news aggregate 频道</b> — TheAIGRID (396K subs) 是剧本+剪辑+旁白频道, 非 primary research。</li>
+<li><b>VEED paid promotion</b> — 视频包含 sponsor segment (825-1993 chars 已剖除)。</li>
+</ul>
+<p><b>Split Rating (Pitfall 31):</b> 论文内容 = <b style="color:var(--green)">9/10</b> (公开发布的 research paper, 引用真实); 频道解读 = <b style="color:var(--yellow)">6/10</b> (主理人 editorial framing 30% 折扣); Sponsor-infused = <b style="color:var(--red)">5/10</b>。</p>
+<p><b>结论</b>: 🟡 论文框架和数据可信 (来自 paper), 主理人解读需 30% 折扣。作为 race-aware-loop-audit 的 secondary signal (跟 Kokotajlo + Hassabis + Tristan Harris 组成4-source cross-validation)。</p>
+</div>
+
+<div class="stats">
+<div class="stat-card"><div class="num">10 yr</div><div class="label">AGI 窗口 (paper 提出)</div></div>
+<div class="stat-card"><div class="num">10x/yr</div><div class="label">Effective Compute 增长 (核心假设)</div></div>
+<div class="stat-card"><div class="num">100M</div><div class="label">5年后 AGI 实例数 (按 10x/年)</div></div>
+<div class="stat-card"><div class="num">4 × 4</div><div class="label">Timeline Var × Bottleneck</div></div>
+<div class="stat-card"><div class="num">3</div><div class="label">数字智能优势</div></div>
+<div class="stat-card"><div class="num">0</div><div class="label">ASI 具体年份</div></div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="core">🔥 核心</button>
+<button class="tab" data-tab="ch1">Ch1 论文</button>
+<button class="tab" data-tab="ch2">Ch2 AGI/ASI</button>
+<button class="tab" data-tab="ch3">Ch3 智能对比</button>
+<button class="tab" data-tab="ch4">Ch4 Working Memory</button>
+<button class="tab" data-tab="ch5">Ch5 Compute</button>
+<button class="tab" data-tab="ch6">Ch6 Effective</button>
+<button class="tab" data-tab="ch7">Ch7 Self-Imp</button>
+<button class="tab" data-tab="ch8">Ch8 Collectives</button>
+<button class="tab" data-tab="ch9">Ch9 Multi-Agent</button>
+<button class="tab" data-tab="ch10">Ch10 Bottlenecks</button>
+<button class="tab" data-tab="related">🔗 Patrick</button>
+<button class="tab" data-tab="action">🗺 实战</button>
+<button class="tab" data-tab="quotes">💬 金句</button>
+<button class="tab" data-tab="timeline">⏱️ 时间戳</button>
+</div>
+
+<!-- Tab: Core -->
+<div class="tab-content active" data-tab-content="core">
+<h2 class="section">🔥 核心论点</h2>
+<div class="card-grid">
+<div class="card">
+<h4>1. AGI 不是终点, 是加速起点</h4>
+<p>DeepMind 论文不是给 AGI 具体日期, 而是重新提问 "AGI 之后怎么样". 一旦 AGI 出现, ASI transition 可能极快。</p>
+<span class="badge verified">paper</span>
+</div>
+<div class="card">
+<h4>2. 数字智能 vs 生物智能: 3 大工程优势</h4>
+<p>(a) High-bandwidth I/O (b) 可复制/可部署 (c) 可升级硬件 — 都不需要意识, 是 engineering properties。</p>
+<span class="badge mitig">高可信</span>
+</div>
+<div class="card">
+<h4>3. 4 × 4 Conditional Map</h4>
+<p>4 timeline variables (compute / self-imp / paradigm / collectives) × 4 bottlenecks (data / 物理 / paradigm / 制度) = 不是 single-date prediction, 是 conditional map。</p>
+<span class="badge verified">paper</span>
+</div>
+<div class="card">
+<h4>4. 100 → 10K → 100M 数字例子</h4>
+<p>DeepMind 给的具体预测: 若 effective compute 每年 10x, 100 个 AGI 实例 → 1年后 10,000 → 5年后 1亿。</p>
+<span class="badge verified">paper</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch1 -->
+<div class="tab-content" data-tab-content="ch1">
+<h2 class="section">Ch1 — DeepMind 新论文: AGI 不是终点 (0:00–1:48)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>论文重点</h4>
+<p>DeepMind 不再把 AGI 当哲学辩论, 而是放进 practical planning window: <b>"within the next decade or less"</b>。</p>
+<p>真正变化 = 不问 "AGI 何时", 改问 "AGI 之后多快到 ASI"。</p>
+</div>
+<div class="card">
+<h4>主理人解读点</h4>
+<p>"The scary part of this paper is not the fact Google is talking about AGI timelines, it's that they're asking whether AGI is actually the finish line."</p>
+<span class="badge warn">editorial</span>
+</div>
+<div class="card">
+<h4>10-year 窗口的含义</h4>
+<p>Paper 不给具体年份, 但“next decade or less” 设立了严肃的 planning horizon — 从学术辩论变成工程计划。</p>
+<span class="badge mitig">信号明确</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch2 -->
+<div class="tab-content" data-tab-content="ch2">
+<h2 class="section">Ch2 — AGI/ASI 区分: 论文的真正贡献 (1:48—3:35)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>ASI 不是 AGI 加一点</h4>
+<p><b>ASI 定义</b> = outperform expert collectives + research fields + companies + 协调人类大群组。AGI ≈ 一个 human-level mind; ASI ≈ outperform the civilization。</p>
+</div>
+<div class="card">
+<h4>DeepMind 原文描述</h4>
+<p>"ASI is much stronger. DeepMind describes artificial superintelligence as a system with superhuman abilities across virtually all tasks and domains of human interest."</p>
+<span class="badge verified">paper quote</span>
+</div>
+<div class="card">
+<h4>论文贡献评估</h4>
+<p>主理人: "This is the part that makes the timeline harder. I mean, if you only care about AGI, you are …" — AGI 难度 < ASI 难度。</p>
+<span class="badge warn">editorial</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch3 -->
+<div class="tab-content" data-tab-content="ch3">
+<h2 class="section">Ch3 — 数字智能 vs 生物智能: 3 大本质优势 (3:35–5:30)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>1. High-Bandwidth I/O</h4>
+<p>AI 处理输入输出比人快几个数量级 — 人类大脑 1Gbps 上限，AI 可以设备加速。</p>
+<span class="badge mitig">优势明确</span>
+</div>
+<div class="card">
+<h4>2. 可复制 / 可部署</h4>
+<p>一个 AGI 可以 N 份并行 — 人类不能复制大脑。</p>
+<span class="badge mitig">优势明确</span>
+</div>
+<div class="card">
+<h4>3. 可升级硬件</h4>
+<p>人脑 can't upgrade。AGI 可以搬到更快的 GPU 上。</p>
+<span class="badge mitig">优势明确</span>
+</div>
+<div class="card">
+<h4>不需要意识</h4>
+<p>"These advantages do not require the AI to be conscious, they do not require the system to have human feelings." — 都是 engineering properties。</p>
+<span class="badge verified">paper quote</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch4 -->
+<div class="tab-content" data-tab-content="ch4">
+<h2 class="section">Ch4 — Working Memory + 复制能力 (5:30–7:25)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>数字系统 4 隐性优势</h4>
+<ol style="margin-left:1.5rem;color:var(--text-dim);font-size:0.92rem">
+<li>更大 working memory (超越人类 7±2 限制)</li>
+<li>可搬到更好硬件 (人脑 can't upgrade)</li>
+<li>可复制，经验可 stored / replayed / shared / reused</li>
+<li>可 scale instances on demand (需求增长时跑更多份)</li>
+</ol>
+</div>
+<div class="card">
+<h4>Transition 可能飞快的原因</h4>
+<p>上述 4 点都是 engineering properties — 不需要意识、不需要情感、不需要人格。论文的暗示 = transition 可能是指数级。</p>
+<span class="badge warn">主理人推断</span>
+</div>
+<div class="card">
+<h4>论文原文</h4>
+<p>"A digital system can be duplicated in a way a biological mind cannot. A digital system can be deployed across infrastructure in a way a person cannot."</p>
+<span class="badge verified">paper quote</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch5 -->
+<div class="tab-content" data-tab-content="ch5">
+<h2 class="section">Ch5 — Compute Scaling: 论文给出的数字时间表 (7:25—9:20)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>Compute 是可预测部分</h4>
+<p>论文第 4 个 clue: <b>compute 是 timeline 问题中最“tractable”的部分</b>。Capabilities 难预测, compute 增长可估算 (hardware + 投资 + 算法)。</p>
+<span class="badge mitig">信号明确</span>
+</div>
+<div class="card">
+<h4>3 个 Scaling 维度</h4>
+<ol style="margin-left:1.5rem;color:var(--text-dim);font-size:0.92rem">
+<li>Hardware manufacturing improvements (compute per dollar 数十年提升)</li>
+<li>Investment growth (rapid)</li>
+<li>Algorithmic efficiency (持续改进)</li>
+</ol>
+</div>
+<div class="card">
+<h4>主理人 Editorial</h4>
+<p>"If hardware + investment + 算法都继续, practical capabilities 可能跟今天很不一样."</p>
+<span class="badge warn">editorial</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch6 -->
+<div class="tab-content" data-tab-content="ch6">
+<h2 class="section">Ch6 — Effective Compute 跳跃: 论文核心预测 (9:20–11:10)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>论文给的具体例子</h4>
+<p>若 effective compute 每年 ×10: <b>100 AGI → 1年后 10,000 → 5年后 1亿</b>。</p>
+<span class="badge verified">paper quote</span>
+</div>
+<div class="card">
+<h4>核心引文</h4>
+<p>"Even if a first AGI is expensive and limited, continued compute growth could let you run many more instances."</p>
+<span class="badge verified">paper quote</span>
+</div>
+<div class="card">
+<h4>“AGI 之后可能飞快”的具体数字论据</h4>
+<p>不是 hype, 是 scaling math。但依赖 10x/年假设 — 若失效 (e.g. 能源、芯片瓶颈), timeline 变得难预测。</p>
+<span class="badge gap">高不确定性</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch7 -->
+<div class="tab-content" data-tab-content="ch7">
+<h2 class="section">Ch7 — Recursive Self-Improvement: 最危险的不确定项 (11:10–13:00)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>6 步 Loop Compression</h4>
+<ol style="margin-left:1.5rem;color:var(--text-dim);font-size:0.92rem">
+<li>AI 帮写 code 更快</li>
+<li>AI 帮跑实验</li>
+<li>AI 帮分析失败</li>
+<li>AI 生成 synthetic data</li>
+<li>AI 设计 new training recipes</li>
+<li>AI 帮协调 research teams</li>
+</ol>
+</div>
+<div class="card">
+<h4>核心引文</h4>
+<p>"If AI starts improving the process that builds the next generation of AI, timelines become much harder to predict."</p>
+<span class="badge verified">paper quote</span>
+</div>
+<div class="card">
+<h4>主理人 Editorial</h4>
+<p>Transition 不一定像 1 个 single event — 可能是 gradual compression, 突然 overshoot。</p>
+<span class="badge warn">editorial</span>
+</div>
+<div class="card">
+<h4>论文设计上的“不确定”</h4>
+<p>DeepMind 认认真真地设计了不确定性 — 不给 single-date, 但提出 “this is the timeline variable that matches most” (设计为 “最难预测”的变量)。</p>
+<span class="badge gap">不可预测</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch8 -->
+<div class="tab-content" data-tab-content="ch8">
+<h2 class="section">Ch8 — AI Agent Collectives: 协调 vs 协作新维度 (13:00–15:00)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>论文核心新视角</h4>
+<p><b>ASI 不一定来自 1 个巨型模型, 可能来自 AI collectives</b>。</p>
+<p>人类类比: 1个员工 < 1个公司; 1个科学家 < 1个 lab; 1个大脑 < civilization。</p>
+<span class="badge mitig">重要洞察</span>
+</div>
+<div class="card">
+<h4>论文原文</h4>
+<p>"ASI may come from AI collectives, not just from one giant model."</p>
+<span class="badge verified">paper quote</span>
+</div>
+<div class="card">
+<h4>被低估的洞察</h4>
+<p>主理人: "Most people picture ASI as one huge mind, but DeepMind points out that human intelligence already scales through groups."</p>
+<span class="badge warn">editorial</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch9 -->
+<div class="tab-content" data-tab-content="ch9">
+<h2 class="section">Ch9 — Multi-Agent Coordination Problems vs Solutions (15:00–16:55)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>Coordination 不是 No-Problem</h4>
+<p>论文认: AI agent collectives 也有 coordination problems (重复 / 噪声 / 冲突 / 官僚)。</p>
+</div>
+<div class="card">
+<h4>AI 优势与人类对比</h4>
+<p>AI agents 可能在 bandwidth + time scale 上比人类公司高几个数量级 — 人类受限于 attention / memory / 沟通 bandwidth / 管理成本。</p>
+</div>
+<div class="card">
+<h4>论文提出新概念</h4>
+<p>需要 <b>multi-agent scaling laws</b> — 类似 scaling laws, 但针对 coordination。</p>
+<p>"We need to know when adding more agents increases intelligence and when it just creates duplication, noise, conflict, or bureaucracy."</p>
+<span class="badge verified">paper quote</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ch10 -->
+<div class="tab-content" data-tab-content="ch10">
+<h2 class="section">Ch10 — Bottlenecks: 物理 + Coordination + Race Dynamics (16:55—16:50)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>1. 数据 Wall</h4>
+<p>Human-generated text 可能不够。但 synthetic data + simulations + self-play + test-time compute + agent interaction data 可能绕过。</p>
+<span class="badge warn">部分可解</span>
+</div>
+<div class="card">
+<h4>2. 物理资源</h4>
+<p>Chips + 能源 + 基础设施 + 供应链 + land + cooling。<br><b>关键:</b> 若物理 scaling 不够快, timelines slow down。</p>
+<span class="badge gap">高不确定</span>
+</div>
+<div class="card">
+<h4>3. 当前 Paradigm</h4>
+<p>Pre-train + post-train + retrieval + tools + scaffolding。可能 hit limits, 需要 paradigm shift。</p>
+<span class="badge warn">部分可解</span>
+</div>
+<div class="card">
+<h4>4. 制度 / Coordination</h4>
+<p>Research agents 在成熟领域变难 + global coordination 难 + race dynamics 可能 push against slowdown。</p>
+<span class="badge gap">全局难题</span>
+</div>
+<div class="card">
+<h4>论文结论 (主理人原话)</h4>
+<p>"The honest answer is not Google says ASI in 2032. The honest answer is that Google is saying AGI is now a serious next decade target."</p>
+<span class="badge verified">editorial 原话</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Related -->
+<div class="tab-content" data-tab-content="related">
+<h2 class="section">🔗 Patrick 关联 (17-card roster, verified-on-disk)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>1. agentic-os (umbrella)</h4>
+<p>M10 race-aware overlay 在这里用: DeepMind 论文 = Kokotajlo 70% 灭绝论的 academic grounding。</p>
+<span class="badge warn">同源警示</span>
+</div>
+<div class="card">
+<h4>2. media/video-to-knowledge-dashboard</h4>
+<p>本 dashboard 本身用这 skill, master-takeover pattern。</p>
+<span class="badge verified">完全同源</span>
+</div>
+<div class="card">
+<h4>3. research/llm-wiki</h4>
+<p>Karpathy LLM Wiki 多源 cross-validation 哲学; 本视频 = 4-source race-aware chain 之一。</p>
+<span class="badge mitig">同源</span>
+</div>
+<div class="card">
+<h4>4. knowledge-synthesis/graphify</h4>
+<p>Vault 269 papers 交叉链接图、本 note 加 11 related_notes = 减少 isolated。</p>
+<span class="badge mitig">同源</span>
+</div>
+<div class="card">
+<h4>5. autonomous-ai-agents/agent-orchestration</h4>
+<p>DeepMind "AI agent collectives" = agent-orchestration 的 academic framing。</p>
+<span class="badge verified">完全同源</span>
+</div>
+<div class="card">
+<h4>6. autonomous-ai-agents/fable-vs-hermes-capability-gap</h4>
+<p>Fable 5/Mythos 5 给的是“如何防御 race risks”, DeepMind 论文 = “race timeline 数学” — 两个角度看同一问题。</p>
+<span class="badge warn">同源警示</span>
+</div>
+<div class="card">
+<h4>7. agentic-os/llm-protocol-router</h4>
+<p>"10x effective compute / year" 影响 model router 设计 — 模型能力快速变化 → router 必须 dynamic。</p>
+<span class="badge warn">部分同源</span>
+</div>
+<div class="card">
+<h4>8. devops/patricks-publish-pipeline-watchdog</h4>
+<p>Deploy loop = recursive self-improvement 的工程版本; "10x / year" 类比 CF Pages 自动化。</p>
+<span class="badge warn">部分同源</span>
+</div>
+<div class="card">
+<h4>9. media/video-bidirectional-mapping</h4>
+<p>Tier 4 anti-mapping 适用于 race-aware video — 区分 paper fact vs editorial framing。</p>
+<span class="badge verified">完全同源</span>
+</div>
+<div class="card">
+<h4>10. creative/rich-html-output</h4>
+<p>HTML composition 给 dashboard 14-tab 视觉骨架。</p>
+<span class="badge mitig">同源</span>
+</div>
+<div class="card">
+<h4>11. knowledge-synthesis/graphify-obsidian-baseline</h4>
+<p>Vault graph size 随 race-aware topic 增加 → baseline benchmark 价值。</p>
+<span class="badge warn">部分同源</span>
+</div>
+<div class="card">
+<h4>12. meta/how-to-sell</h4>
+<p>DeepMind 论文“是否 value 该 conditional map 公开” = 学术 vs 媒体 framing 的销售逻辑。</p>
+<span class="badge warn">同源警示</span>
+</div>
+<div class="card">
+<h4>13. agentic-os/gstack</h4>
+<p>24 specialists 团队 = AI collectives 的 microcosm。</p>
+<span class="badge mitig">同源</span>
+</div>
+<div class="card">
+<h4>14. research/distributed-research-playbook</h4>
+<p>10-year research direction = DeepMind "post-AGI timeline" 类比。</p>
+<span class="badge mitig">同源</span>
+</div>
+<div class="card">
+<h4>15. extract-youtube-video</h4>
+<p>Transcript 提取核心工具 — 本次用 kome.ai fallback (Pitfall 68)。</p>
+<span class="badge mitig">同源</span>
+</div>
+<div class="card">
+<h4>16. mlops/apple-silicon-llama-server</h4>
+<p>本地 LLM 跑 AGI 自循环测试 = DeepMind self-improvement 实验的 microcosm。</p>
+<span class="badge warn">部分同源</span>
+</div>
+<div class="card">
+<h4>17. autonomous-ai-agents/dual-ai-peer-review</h4>
+<p>论文 conditional map = dual-AI vote 哲学同源 — 不靠单一权威, 看多 signal 收敛。</p>
+<span class="badge verified">完全同源</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Action -->
+<div class="tab-content" data-tab-content="action">
+<h2 class="section">🗺 实战路线 (Patrick-level action items)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>P0 立即</h4>
+<p><b>(1)</b> 将 DeepMind 论文加入 neo-labs-paper-tracker 监控列表 — 跟踪 paper 后续 published version / lab follow-up。</p>
+<p><b>(2)</b> Vault 写 1 篇 "race-aware 4-source synthesis" — Kokotajlo + Hassabis + Tristan Harris + DeepMind = 4 个 race-aware perspective, 合并成 single authoritative note。</p>
+<span class="badge gap">P0</span>
+</div>
+<div class="card">
+<h4>P1 本周</h4>
+<p><b>(3)</b> Agentic-os 加 M10 Race-Aware Overlay tab — DeepMind 论文 = Kokotajlo 70% 灭绝论的 academic grounding, 给 agentic-os 加 academic frame。</p>
+<p><b>(4)</b> Graphify 加 "race-aware" 标签 — vault 已有 7 个 race-aware paper/video, 加 community detection 看是否成 cluster。</p>
+<span class="badge warn">P1</span>
+</div>
+<div class="card">
+<h4>P2 本月</h4>
+<p><b>(5)</b> 写 1 个 skill: <code>race-aware-loop-audit</code> v1.0.0 — 综合 Kokotajlo / DeepMind / Anthropic / OpenAI 4 个 source, 给 agent loop audit 标准化 race-aware 评估。</p>
+<p><b>(6)</b> 本地 LLM self-improvement 实验 — DeepMind recursive loop 用 llama-server + sandbox cron 验证: 1 个 agent + 1 个 coder 互相协助 30 天, 看 throughput 变化。</p>
+<span class="badge mitig">P2</span>
+</div>
+</div>
+</div>
+
+<!-- Tab: Quotes -->
+<div class="tab-content" data-tab-content="quotes">
+<h2 class="section">💬 金句库 (12 条)</h2>
+<div class="quote-grid">
+<div class="quote-card"><p>"AGI is the moment everything starts speeding up"</p><span class="src">主理人 editorial</span></div>
+<div class="quote-card yellow"><p>"AGI is now close enough that we need to study the next phase now"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card blue"><p>"ASI means something that outperforms expert collectives, research fields, companies"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card"><p>"These advantages do not require the AI to be conscious"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card yellow"><p>"A digital system can be duplicated in a way a biological mind cannot"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card blue"><p>"Forecasting how much compute will be available is one of the more tractable parts"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card green"><p>"100 AGI instances could become 10,000 after a year and a hundred million after five years"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card"><p>"If AI starts improving the process that builds the next generation of AI, timelines become much harder to predict"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card yellow"><p>"ASI may come from AI collectives, not just from one giant model"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card blue"><p>"We need multi-agent scaling laws"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card"><p>"If those bottlenecks can't scale fast enough, those timelines slow down"</p><span class="src">DeepMind paper</span></div>
+<div class="quote-card green"><p>"The honest answer is not Google says ASI in 2032"</p><span class="src">主理人 editorial</span></div>
+</div>
+</div>
+
+<!-- Tab: Timeline -->
+<div class="tab-content" data-tab-content="timeline">
+<h2 class="section">⏱️ 关键时间戳</h2>
+<div class="timeline">
+<div class="tl-item"><div class="time">0:00</div><div class="what">论文 release intro — "Google Deepmind just released a paper that quietly changes the AGI conversation"</div></div>
+<div class="tl-item"><div class="time">1:48</div><div class="what">AGI 是加速起点 — "AGI is actually the finish line or whether it is the moment everything starts speeding up"</div></div>
+<div class="tl-item"><div class="time">2:30</div><div class="what">"Next decade or less" — "This is close enough that we need to study the next phase now"</div></div>
+<div class="tl-item"><div class="time">3:45</div><div class="what">ASI ≠ AGI × 2 — "ASI means something that outperforms expert collectives"</div></div>
+<div class="tl-item"><div class="time">5:00</div><div class="what">数字智能 3 优势 — "AI can process input and output at very high bandwidth"</div></div>
+<div class="tl-item"><div class="time">6:50</div><div class="what">Engineering properties — "These advantages do not require the AI to be conscious"</div></div>
+<div class="tl-item"><div class="time">7:30</div><div class="what">Compute tractable — "Forecasting how much compute will be available is one of the more tractable parts"</div></div>
+<div class="tl-item"><div class="time">8:45</div><div class="what">100→10K→100M AGI — "A hundred AGI instances could become 10,000 after a year and a hundred million after five years"</div></div>
+<div class="tl-item"><div class="time">10:30</div><div class="what">Self-improvement loop — "If AI starts improving the process that builds the next generation of AI"</div></div>
+<div class="tl-item"><div class="time">11:45</div><div class="what">AI collectives — "ASI may come from AI collectives, not just from one giant model"</div></div>
+<div class="tl-item"><div class="time">13:00</div><div class="what">Multi-agent scaling laws — "We need to know when adding more agents increases intelligence"</div></div>
+<div class="tl-item"><div class="time">14:30</div><div class="what">Bottlenecks — "If those bottlenecks can't scale fast enough, those timelines slow down"</div></div>
+</div>
+</div>
+
+<footer>
+<p>📝 Vault: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/theaigrid-google-deepmind-agi-asi-timeline-2026-07-14/</code></p>
+<p>🌐 Source: <a href="https://www.youtube.com/watch?v=jXGgNb0DLNg" target="_blank" style="color:var(--blue)">https://www.youtube.com/watch?v=jXGgNb0DLNg</a></p>
+<p>Built by <code>video-to-knowledge-dashboard v1.5.38</code> master-takeover | Pitfalls hit: 28 + 31 + 64 + 67 + 68 + 69 + 73</p>
+<p>Tier 4 distribution: 5 mitig / 3 warn / 2 gap (≋ 50% rule)</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  // Tab switching + hash routing
+  var tabs=document.querySelectorAll('.tab');
+  var contents=document.querySelectorAll('.tab-content');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      tabs.forEach(function(x){x.classList.toggle('active',x===t)});
+      contents.forEach(function(c){c.classList.toggle('active',c.dataset.tabContent===t.dataset.tab)});
+      try{history.replaceState(null,'','#'+t.dataset.tab)}catch(e){}
+    });
+  });
+
+  // Init from URL hash
+  var initHash=(location.hash||'').replace('#','');
+  if(initHash){
+    var target=document.querySelector('[data-tab="'+initHash+'"]');
+    if(target) target.click();
+  }
+
+  // TOC v1.4.4 collapsible with localStorage persistence
+  var toc=document.getElementById('tocSidebar');
+  var tog=document.getElementById('tocToggle');
+  var main=document.getElementById('mainPage');
+  var slug='theaigrid-google-deepmind-agi-asi-timeline-2026-07-14';
+  var key=slug+'-toc-collapsed';
+  var saved=localStorage.getItem(key);
+  function setCollapsed(collapsed){
+    if(collapsed){
+      toc.classList.add('collapsed');
+      tog.classList.add('collapsed');
+      main.classList.add('toc-collapsed');
+      tog.innerHTML='\u00BB';
+    }else{
+      toc.classList.remove('collapsed');
+      tog.classList.remove('collapsed');
+      main.classList.remove('toc-collapsed');
+      tog.innerHTML='\u00AB';
+    }
+    try{localStorage.setItem(key,collapsed?'1':'0')}catch(e){}
+  }
+  tog.addEventListener('click',function(){setCollapsed(!toc.classList.contains('collapsed'))});
+  // Default to collapsed on mobile, expanded on desktop
+  if(window.innerWidth<=900){setCollapsed(true)}else if(saved==='1'){setCollapsed(true)}else{setCollapsed(false)}
+
+  // Click on TOC anchor scrolls + updates hash (already handled by browser)
+  document.querySelectorAll('aside.toc a').forEach(function(a){
+    a.addEventListener('click',function(){
+      try{history.replaceState(null,'','#'+a.getAttribute('href').replace('#',''))}catch(e){}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

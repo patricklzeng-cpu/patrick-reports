@@ -1,0 +1,1669 @@
+<!doctype html>
+<html lang="zh-Hans" data-theme="dark" data-lang="bi" data-toc="open">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Alex Finn 2026 ChatGPT Voice 视频的 Hermes 五技能双语知识仪表盘、Patrick 证据映射与 Obsidian 行动协议。">
+  <title>Voice is the Front Door — Hermes × Patrick Signal Note v2</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('hermesVoice.theme');
+      const savedLang = localStorage.getItem('hermesVoice.lang');
+      const savedToc = localStorage.getItem('hermesVoice.toc');
+      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
+      if (savedLang === 'zh' || savedLang === 'en' || savedLang === 'bi') document.documentElement.dataset.lang = savedLang;
+      if (savedToc === 'open' || savedToc === 'closed') document.documentElement.dataset.toc = savedToc;
+      else document.documentElement.dataset.toc = matchMedia('(max-width: 1050px)').matches ? 'closed' : 'open';
+    } catch (_) {}
+  </script>
+  <style>
+    :root {
+      --bg: #080b10;
+      --bg-elevated: #0e131b;
+      --panel: rgba(15, 21, 30, .84);
+      --panel-strong: #111823;
+      --text: #edf2f7;
+      --muted: #94a2b6;
+      --faint: #7f8da1;
+      --line: rgba(177, 199, 222, .14);
+      --line-strong: rgba(177, 199, 222, .26);
+      --cyan: #63e7ff;
+      --cyan-soft: rgba(99, 231, 255, .12);
+      --lime: #bbf76b;
+      --lime-soft: rgba(187, 247, 107, .11);
+      --amber: #ffc66d;
+      --amber-soft: rgba(255, 198, 109, .12);
+      --violet: #b79cff;
+      --violet-soft: rgba(183, 156, 255, .12);
+      --red: #ff8d91;
+      --shadow: 0 24px 72px rgba(0, 0, 0, .34);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f2f5f7;
+      --bg-elevated: #ffffff;
+      --panel: rgba(255, 255, 255, .88);
+      --panel-strong: #ffffff;
+      --text: #17202a;
+      --muted: #59697c;
+      --faint: #5f6d7d;
+      --line: rgba(25, 45, 65, .12);
+      --line-strong: rgba(25, 45, 65, .22);
+      --cyan: #007a92;
+      --cyan-soft: rgba(0, 122, 146, .09);
+      --lime: #477b00;
+      --lime-soft: rgba(71, 123, 0, .09);
+      --amber: #9a5b00;
+      --amber-soft: rgba(154, 91, 0, .09);
+      --violet: #6849c7;
+      --violet-soft: rgba(104, 73, 199, .09);
+      --red: #a93239;
+      --shadow: 0 24px 60px rgba(41, 55, 70, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 78px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(99, 231, 255, .09), transparent 30rem),
+        radial-gradient(circle at 90% 32%, rgba(183, 156, 255, .08), transparent 28rem),
+        linear-gradient(var(--bg), var(--bg));
+      font-family: var(--sans);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    ::selection { background: var(--cyan); color: var(--bg); }
+    :focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      transform: translateY(-180%);
+      background: var(--cyan);
+      color: #061015;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .reading-progress {
+      position: fixed;
+      z-index: 90;
+      inset: 0 0 auto;
+      height: 3px;
+      background: transparent;
+    }
+    .reading-progress > span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--lime));
+      box-shadow: 0 0 18px var(--cyan);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 86%, transparent);
+      backdrop-filter: blur(18px) saturate(130%);
+    }
+    .topbar-inner {
+      max-width: 1440px;
+      min-height: 58px;
+      margin: 0 auto;
+      padding: 8px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--lime);
+      box-shadow: 0 0 0 5px var(--lime-soft), 0 0 18px var(--lime);
+    }
+    .controls { display: flex; align-items: center; gap: 8px; }
+    .segmented {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+    .segmented button,
+    .icon-button,
+    .action-button {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+    .segmented button {
+      min-width: 42px;
+      padding: 6px 9px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .segmented button[aria-pressed="true"] {
+      color: var(--text);
+      background: var(--cyan-soft);
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cyan) 44%, transparent);
+    }
+    .icon-button {
+      min-width: 42px;
+      min-height: 36px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--muted);
+      background: var(--panel);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .icon-button:hover, .action-button:hover { border-color: var(--line-strong); color: var(--text); }
+
+    .page-shell {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 30px 22px 90px;
+      display: grid;
+      grid-template-columns: 228px minmax(0, 1fr);
+      gap: 40px;
+      align-items: start;
+    }
+    .toc { position: sticky; top: 88px; }
+    .toc-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .toc-label {
+      margin: 0 0 12px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .toc nav { display: grid; gap: 2px; }
+    .toc a {
+      display: grid;
+      grid-template-columns: 25px 1fr;
+      gap: 7px;
+      align-items: baseline;
+      padding: 7px 8px;
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .toc a span:first-child { color: var(--faint); font-family: var(--mono); font-size: 10px; }
+    .toc a:hover, .toc a[aria-current="location"] { color: var(--text); background: var(--cyan-soft); }
+    .toc a[aria-current="location"] span:first-child { color: var(--cyan); }
+    .toc-meta {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 7px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+    .kbd {
+      display: inline-flex;
+      min-width: 22px;
+      height: 20px;
+      padding: 0 5px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line-strong);
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      color: var(--muted);
+      background: var(--bg-elevated);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    main { min-width: 0; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 610px;
+      padding: clamp(30px, 6vw, 72px);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background:
+        linear-gradient(135deg, var(--cyan-soft), transparent 42%),
+        linear-gradient(315deg, var(--violet-soft), transparent 44%),
+        var(--panel-strong);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .hero::after {
+      content: "VOICE";
+      position: absolute;
+      right: -18px;
+      bottom: -58px;
+      z-index: -1;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--line-strong);
+      font-family: var(--mono);
+      font-size: clamp(94px, 18vw, 220px);
+      font-weight: 900;
+      letter-spacing: -.09em;
+      opacity: .62;
+      user-select: none;
+    }
+    .eyebrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 0 0 22px;
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(46px, 8.2vw, 104px);
+      line-height: .91;
+      letter-spacing: -.07em;
+    }
+    h1 .accent { color: var(--cyan); text-shadow: 0 0 30px var(--cyan-soft); }
+    .hero-deck {
+      max-width: 780px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.55;
+    }
+    .hero-deck strong { color: var(--text); }
+    .source-strip {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+    .source-chip, .tag {
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--bg-elevated) 72%, transparent);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .04em;
+    }
+    .source-chip a { color: var(--text); text-decoration: none; }
+    .source-chip a:hover { color: var(--cyan); }
+    .source-title {
+      max-width: 760px;
+      margin: 12px 0 0;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    .source-title a { color: var(--muted); text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+    .source-title a:hover { color: var(--cyan); }
+    .source-hash { display: block; margin-top: 12px; color: var(--faint); font-family: var(--mono); font-size: 9px; line-height: 1.6; overflow-wrap: anywhere; }
+    .tag.source { border-color: color-mix(in srgb, var(--cyan) 32%, transparent); color: var(--cyan); background: var(--cyan-soft); }
+    .tag.official { border-color: color-mix(in srgb, var(--lime) 32%, transparent); color: var(--lime); background: var(--lime-soft); }
+    .tag.author { border-color: color-mix(in srgb, var(--amber) 32%, transparent); color: var(--amber); background: var(--amber-soft); }
+    .tag.editorial { border-color: color-mix(in srgb, var(--violet) 32%, transparent); color: var(--violet); background: var(--violet-soft); }
+    .tag.implementation { border-color: color-mix(in srgb, var(--cyan) 32%, transparent); color: var(--cyan); background: var(--cyan-soft); }
+    .tag.live { border-color: color-mix(in srgb, var(--lime) 34%, transparent); color: var(--lime); background: var(--lime-soft); }
+    .tag.reference { border-color: color-mix(in srgb, var(--cyan) 34%, transparent); color: var(--cyan); background: var(--cyan-soft); }
+    .tag.gap { border-color: color-mix(in srgb, var(--red) 34%, transparent); color: var(--red); background: color-mix(in srgb, var(--red) 9%, transparent); }
+    .tag.relation { border-color: color-mix(in srgb, var(--amber) 34%, transparent); color: var(--amber); background: var(--amber-soft); }
+
+    .thesis {
+      margin-top: 22px;
+      padding: 22px;
+      border: 1px solid color-mix(in srgb, var(--lime) 28%, transparent);
+      border-radius: 16px;
+      background: var(--lime-soft);
+    }
+    .thesis-kicker { color: var(--lime); font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .thesis p { margin: 6px 0 0; font-size: clamp(17px, 2vw, 22px); font-weight: 750; letter-spacing: -.015em; }
+
+    section { margin-top: 86px; scroll-margin-top: 92px; }
+    .section-heading {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .section-number {
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: .12em;
+    }
+    h2 { margin: 0; font-size: clamp(29px, 4vw, 48px); line-height: 1.06; letter-spacing: -.045em; }
+    .section-intro { max-width: 760px; margin: 12px 0 0; color: var(--muted); }
+    .section-intro strong { color: var(--text); }
+
+    .brief-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 18px; }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 14px 42px rgba(0, 0, 0, .12);
+    }
+    .brief-card { padding: 26px; }
+    .brief-card h3, .workflow-card h3, .mapping-card h3 { margin: 0; font-size: 19px; letter-spacing: -.025em; }
+    .brief-card p { margin: 12px 0 0; color: var(--muted); }
+    .signal-list { display: grid; gap: 12px; margin-top: 18px; }
+    .signal-item { display: grid; grid-template-columns: 24px 1fr; gap: 10px; color: var(--muted); }
+    .signal-item::before { content: "/"; color: var(--cyan); font-family: var(--mono); font-weight: 900; }
+    .signal-item strong { color: var(--text); }
+
+    .loop-card { padding: 26px; }
+    .loop-label { color: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; }
+    .loop-flow { display: grid; gap: 8px; margin-top: 18px; }
+    .loop-node {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--bg-elevated);
+      font-size: 13px;
+    }
+    .loop-node b { color: var(--cyan); font-family: var(--mono); font-size: 11px; }
+    .loop-node small { color: var(--faint); font-family: var(--mono); }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 5px;
+      margin: 0 0 20px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+    }
+    .timeline a {
+      min-height: 72px;
+      padding: 10px 8px;
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--muted);
+      background: linear-gradient(to top, var(--cyan-soft), transparent);
+      text-decoration: none;
+      font-size: 10px;
+      font-family: var(--mono);
+    }
+    .timeline a:nth-child(even) { background: linear-gradient(to top, var(--violet-soft), transparent); }
+    .timeline a:hover { color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
+    .timeline strong { color: var(--cyan); font-size: 11px; }
+
+    .workflow-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .workflow-card {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      min-height: 248px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+    .workflow-card::after {
+      content: attr(data-step);
+      position: absolute;
+      right: 14px;
+      top: -16px;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--line-strong);
+      font-family: var(--mono);
+      font-size: 78px;
+      font-weight: 900;
+      line-height: 1;
+      opacity: .5;
+    }
+    .card-top { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 28px; }
+    .time-link {
+      display: inline-flex;
+      padding: 5px 8px;
+      border: 1px solid color-mix(in srgb, var(--cyan) 30%, transparent);
+      border-radius: 7px;
+      color: var(--cyan);
+      background: var(--cyan-soft);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .time-link:hover { background: var(--cyan); color: #061015; }
+    .workflow-card p { margin: 10px 0 0; color: var(--muted); }
+    .micro-rule {
+      margin-top: 17px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+    .micro-rule::before { content: "RULE / "; color: var(--lime); }
+
+    .golden-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .golden-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--amber-soft), transparent 65%), var(--panel);
+    }
+    .golden-card .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .golden-card .golden-line { margin: 18px 0 0; font-size: 18px; line-height: 1.48; font-weight: 720; letter-spacing: -.015em; }
+    .golden-card .golden-line::before { content: "// "; color: var(--amber); font-family: var(--mono); }
+    .golden-card .quote-context { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .golden-card[hidden] { display: none; }
+    .quote-tools { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 16px; }
+    .quote-filter { padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--panel); cursor: pointer; font-family: var(--mono); font-size: 10px; }
+    .quote-filter[aria-pressed="true"] { color: var(--text); border-color: color-mix(in srgb, var(--amber) 38%, transparent); background: var(--amber-soft); }
+    .paraphrase-note {
+      padding: 14px 16px;
+      border-left: 3px solid var(--amber);
+      color: var(--muted);
+      background: var(--amber-soft);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .patrick-note {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 24px;
+      border: 1px solid color-mix(in srgb, var(--violet) 30%, transparent);
+      border-radius: var(--radius);
+      background: linear-gradient(120deg, var(--violet-soft), transparent), var(--panel);
+    }
+    .patrick-note h3 { margin: 0; font-size: 22px; }
+    .patrick-note p { margin: 8px 0 0; color: var(--muted); }
+    .patrick-seal {
+      display: grid;
+      place-items: center;
+      width: 92px;
+      height: 92px;
+      border: 1px solid var(--violet);
+      border-radius: 50%;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-align: center;
+      box-shadow: inset 0 0 30px var(--violet-soft), 0 0 30px var(--violet-soft);
+    }
+    .mapping-grid { display: grid; gap: 10px; }
+    .skill-stack {
+      margin: 18px 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+    .skill-stack-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+    .skill-stack-head h3 { margin: 0; font-size: 18px; }
+    .skill-rail { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+    .skill-slot {
+      min-height: 92px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--bg-elevated);
+    }
+    .skill-slot b { display: block; color: var(--cyan); font-family: var(--mono); font-size: 10px; letter-spacing: .08em; }
+    .skill-slot span { display: block; margin-top: 9px; font-family: var(--mono); font-size: 11px; overflow-wrap: anywhere; }
+    .skill-stack-note { margin: 14px 0 0; color: var(--muted); font-size: 12px; }
+    .mapping-card {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1.25fr;
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--line);
+    }
+    .mapping-card > div { padding: 17px; background: var(--panel-strong); }
+    .mapping-card small { display: block; margin-bottom: 7px; color: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .mapping-card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .mapping-card strong { color: var(--text); }
+    .mapping-card .status-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+    .mapping-card code.path { display: block; margin-top: 9px; color: var(--cyan); font-family: var(--mono); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+    .mapping-card .limitation { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--line); }
+    .mapping-card .limitation::before { content: "LIMIT / "; color: var(--red); font-family: var(--mono); font-size: 9px; font-weight: 800; }
+
+    .action-shell { overflow: hidden; }
+    .action-head {
+      padding: 22px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .completion { min-width: 220px; }
+    .completion-top { display: flex; justify-content: space-between; margin-bottom: 7px; color: var(--muted); font-family: var(--mono); font-size: 11px; }
+    .completion-track { height: 6px; overflow: hidden; border-radius: 999px; background: var(--line); }
+    .completion-fill { width: 0; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--lime)); transition: width .3s ease; }
+    .reset-button { padding: 8px 11px; border: 1px solid var(--line); border-radius: 9px; color: var(--muted); background: transparent; cursor: pointer; font-family: var(--mono); font-size: 10px; }
+    .checklist { display: grid; }
+    .check-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: start;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+    }
+    .check-row:last-child { border-bottom: 0; }
+    .check-row:hover { background: var(--cyan-soft); }
+    .check-row input { position: absolute; opacity: 0; pointer-events: none; }
+    .fake-check {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 7px;
+      background: var(--bg-elevated);
+      color: transparent;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 900;
+    }
+    .check-row input:focus-visible + .fake-check { outline: 3px solid var(--cyan); outline-offset: 3px; }
+    .check-row input:checked + .fake-check { color: #061015; background: var(--lime); border-color: var(--lime); }
+    .check-copy strong { display: block; }
+    .check-copy small { display: block; margin-top: 4px; color: var(--muted); }
+    .action-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 7px; }
+    .action-badge { display: inline-flex; padding: 3px 6px; border: 1px solid var(--line); border-radius: 999px; color: var(--faint); background: var(--bg-elevated); font-family: var(--mono); font-size: 9px; font-weight: 800; letter-spacing: .04em; }
+    .action-badge.p0 { color: var(--red); border-color: color-mix(in srgb, var(--red) 32%, transparent); }
+    .action-badge.p1 { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 32%, transparent); }
+    .action-badge.p2 { color: var(--cyan); border-color: color-mix(in srgb, var(--cyan) 32%, transparent); }
+    .action-contract { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 14px; margin-top: 11px; padding-top: 10px; border-top: 1px solid var(--line); }
+    .action-contract span { color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .action-contract b { color: var(--text); font-family: var(--mono); font-size: 9px; letter-spacing: .05em; }
+    .check-row input:checked ~ .check-copy { opacity: .58; }
+    .check-row input:checked ~ .check-copy strong { text-decoration: line-through; }
+    .check-id { color: var(--faint); font-family: var(--mono); font-size: 10px; }
+
+    .obsidian-layout { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; }
+    .markdown-window { overflow: hidden; }
+    .window-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-strong);
+    }
+    .window-title { color: var(--muted); font-family: var(--mono); font-size: 11px; }
+    .window-dots { display: flex; gap: 6px; }
+    .window-dots i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+    pre {
+      max-height: 520px;
+      margin: 0;
+      padding: 22px;
+      overflow: auto;
+      color: var(--muted);
+      background: #090d13;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      tab-size: 2;
+    }
+    html[data-theme="light"] pre { background: #f8fafb; }
+    .export-card { padding: 20px; }
+    .export-card h3 { margin: 0; font-size: 17px; }
+    .export-card p { margin: 8px 0 18px; color: var(--muted); font-size: 13px; }
+    .export-actions { display: grid; gap: 9px; }
+    .action-button {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      text-align: left;
+      background: var(--bg-elevated);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+    .action-button.primary { border-color: color-mix(in srgb, var(--cyan) 38%, transparent); color: var(--cyan); background: var(--cyan-soft); }
+    .export-facts { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 7px; color: var(--faint); font-family: var(--mono); font-size: 10px; }
+
+    .evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .evidence-card { padding: 22px; }
+    .evidence-card h3 { margin: 12px 0 0; font-size: 18px; }
+    .evidence-card p, .evidence-card li { color: var(--muted); font-size: 14px; }
+    .evidence-card ul { margin: 13px 0 0; padding-left: 18px; }
+    .evidence-card a { color: var(--text); text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+    .evidence-card a:hover { color: var(--cyan); }
+    .warning {
+      grid-column: 1 / -1;
+      padding: 20px 22px;
+      border: 1px solid color-mix(in srgb, var(--red) 26%, transparent);
+      border-radius: 14px;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--red) 8%, transparent);
+    }
+    .warning strong { color: var(--red); }
+
+    footer {
+      margin-top: 90px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .anchor-alias { display: block; position: relative; top: -92px; width: 1px; height: 1px; overflow: hidden; }
+    .toc-scrim { display: none; }
+
+    [data-copy="zh"], [data-copy="en"] { animation: languageIn .24s ease both; }
+    .pair > [data-copy="zh"], .pair > [data-copy="en"] { display: block; }
+    html[data-lang="zh"] [data-copy="en"],
+    html[data-lang="en"] [data-copy="zh"] { display: none !important; }
+    html[data-lang="bi"] .pair > [data-copy="en"] { margin-top: .38em; color: var(--muted); font-size: .88em; }
+    html[data-lang="bi"] .pair.compact > [data-copy="en"] { margin-top: .2em; }
+    @keyframes languageIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 80;
+      max-width: min(360px, calc(100vw - 36px));
+      padding: 12px 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: 11px;
+      color: var(--text);
+      background: var(--panel-strong);
+      box-shadow: var(--shadow);
+      transform: translateY(140%);
+      opacity: 0;
+      transition: .24s ease;
+      font-size: 13px;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    @media (min-width: 1051px) {
+      .page-shell { display: block; position: relative; }
+      main { margin-left: 268px; transition: margin-left .24s ease; }
+      .toc {
+        position: fixed;
+        z-index: 40;
+        top: 88px;
+        left: max(22px, calc(50vw - 720px + 22px));
+        width: 228px;
+        max-height: calc(100vh - 110px);
+        overflow: auto;
+        transition: transform .24s ease, opacity .24s ease;
+      }
+      html[data-toc="closed"] .toc { transform: translateX(calc(-100% - 42px)); opacity: 0; pointer-events: none; }
+      html[data-toc="closed"] main { margin-left: 0; }
+    }
+
+    @media (max-width: 1050px) {
+      .page-shell { display: block; padding-top: 14px; }
+      .toc {
+        position: fixed;
+        z-index: 72;
+        inset: 58px auto 0 0;
+        width: min(320px, 88vw);
+        margin: 0;
+        overflow: auto;
+        border-right: 1px solid var(--line);
+        background: color-mix(in srgb, var(--bg) 94%, transparent);
+        backdrop-filter: blur(18px);
+        transform: translateX(-105%);
+        transition: transform .24s ease;
+      }
+      .toc-panel { min-width: 0; padding: 18px; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+      .toc-label, .toc-meta { display: grid; }
+      .toc nav { display: grid; }
+      .toc a { grid-template-columns: 25px 1fr; white-space: normal; padding: 9px 10px; }
+      .toc a span:first-child { display: inline; }
+      html[data-toc="open"] .toc { transform: translateX(0); }
+      .toc-scrim {
+        position: fixed;
+        z-index: 71;
+        inset: 58px 0 0;
+        width: 100%;
+        border: 0;
+        background: rgba(2, 5, 9, .62);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .24s ease;
+      }
+      html[data-toc="open"] .toc-scrim { display: block; opacity: 1; pointer-events: auto; }
+    }
+
+    @media (max-width: 760px) {
+      .topbar-inner { padding-inline: 14px; }
+      .brand span:last-child { display: none; }
+      .page-shell { padding-inline: 14px; }
+      .hero { min-height: auto; padding: 30px 22px 42px; border-radius: 20px; }
+      h1 { font-size: clamp(44px, 17vw, 78px); }
+      .brief-grid, .workflow-grid, .golden-grid, .evidence-grid, .obsidian-layout { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .section-heading { grid-template-columns: 1fr; gap: 7px; }
+      .mapping-card { grid-template-columns: 1fr; }
+      .skill-rail { grid-template-columns: 1fr; }
+      .patrick-note { grid-template-columns: 1fr; }
+      .patrick-seal { width: 72px; height: 72px; }
+      .warning { grid-column: auto; }
+      .check-row { grid-template-columns: 28px minmax(0, 1fr); padding: 16px; }
+      .action-contract { grid-template-columns: 1fr; }
+      .check-id { display: none; }
+    }
+
+    @media (max-width: 430px) {
+      .segmented button { min-width: 34px; padding-inline: 6px; }
+      .icon-button { min-width: 36px; padding-inline: 7px; }
+      .hero-deck { font-size: 16px; }
+      .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    }
+
+    @media print {
+      :root, html[data-theme="light"], html[data-theme="dark"] {
+        --bg: #fff; --bg-elevated: #fff; --panel: #fff; --panel-strong: #fff; --text: #111; --muted: #444; --faint: #666; --line: #d8d8d8; --line-strong: #aaa; --cyan: #005a70; --lime: #406900; --amber: #885000; --violet: #5540a2;
+      }
+      body { background: white; font-size: 10pt; }
+      body::before, .topbar, .toc, .reading-progress, .export-actions, .reset-button, .toast { display: none !important; }
+      .page-shell { display: block; max-width: none; padding: 0; }
+      .hero { min-height: auto; padding: 28px; box-shadow: none; break-after: page; }
+      section { margin-top: 34px; scroll-margin-top: 126px; }
+      .panel, .workflow-card, .golden-card { box-shadow: none; break-inside: avoid; }
+      .obsidian-layout { grid-template-columns: 1fr; }
+      pre { max-height: none; color: #222; background: #fafafa; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link pair compact" href="#brief"><span data-copy="zh">跳到正文</span><span data-copy="en">Skip to content</span></a>
+  <div class="reading-progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><i class="pulse-dot" aria-hidden="true"></i><span>HERMES SIGNAL LAB</span><span>/ FIELD NOTE 008</span></div>
+      <div class="controls">
+        <button class="icon-button" id="tocToggle" type="button" aria-controls="tocPanel" aria-expanded="true" aria-label="收起目录 / Close table of contents">TOC</button>
+        <div class="segmented" role="group" aria-label="Language mode / 语言模式">
+          <button type="button" data-lang-choice="zh" aria-label="中文模式，快捷键 1" aria-pressed="false" title="中文模式，快捷键 1">中</button>
+          <button type="button" data-lang-choice="en" aria-label="English mode, shortcut 2" aria-pressed="false" title="English mode, shortcut 2">EN</button>
+          <button type="button" data-lang-choice="bi" aria-label="双语模式，快捷键 3" aria-pressed="true" title="双语模式，快捷键 3">双</button>
+        </div>
+        <button class="icon-button" id="themeToggle" type="button" title="切换主题 / Toggle theme (T)" aria-label="切换浅色或深色主题">LIGHT</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-shell">
+    <aside class="toc" id="tocPanel" aria-label="Table of contents">
+      <div class="toc-panel">
+        <p class="toc-label">Navigation / 目录</p>
+        <nav>
+          <a href="#brief" aria-current="location"><span>01</span><span class="pair compact"><span data-copy="zh">执行摘要</span><span data-copy="en">Executive Brief</span></span></a>
+          <a href="#workflow"><span>02</span><span class="pair compact"><span data-copy="zh">八步技能链</span><span data-copy="en">8-skill Workflow</span></span></a>
+          <a href="#quotes"><span>03</span><span class="pair compact"><span data-copy="zh">金句</span><span data-copy="en">Golden Lines</span></span></a>
+          <a href="#patrick"><span>04</span><span class="pair compact"><span data-copy="zh">Patrick 映射</span><span data-copy="en">Patrick Mapping</span></span></a>
+          <a href="#action"><span>05</span><span class="pair compact"><span data-copy="zh">下一步行动</span><span data-copy="en">Next Actions</span></span></a>
+          <a href="#obsidian"><span>06</span><span>Obsidian</span></a>
+          <a href="#evidence"><span>07</span><span class="pair compact"><span data-copy="zh">证据与边界</span><span data-copy="en">Evidence</span></span></a>
+        </nav>
+        <div class="toc-meta" aria-label="Keyboard shortcuts">
+          <span><kbd class="kbd">1</kbd> ZH &nbsp; <kbd class="kbd">2</kbd> EN &nbsp; <kbd class="kbd">3</kbd> BI</span>
+          <span><kbd class="kbd">T</kbd> THEME &nbsp; <kbd class="kbd">C</kbd> COPY MD</span>
+          <span>25:55 / 2026-08-07</span>
+        </div>
+      </div>
+    </aside>
+    <button class="toc-scrim" id="tocScrim" type="button" aria-label="关闭目录 / Close table of contents"></button>
+
+    <main id="main" tabindex="-1">
+      <article>
+        <header class="hero" id="top">
+          <p class="eyebrow">VOICE ORCHESTRATION / HERMES × PATRICK / V2</p>
+          <h1>VOICE IS THE <span class="accent">FRONT DOOR.</span></h1>
+          <div class="hero-deck pair">
+            <p data-copy="zh"><strong>声音不是执行者，而是编排入口。</strong>真正的杠杆来自把意图切成独立任务、持续查看状态、收拢结果，再把下一步问清楚。</p>
+            <p data-copy="en"><strong>Voice is not the worker; it is the orchestration layer.</strong> The leverage comes from splitting intent into independent tasks, checking state, collecting results, and making the next question explicit.</p>
+          </div>
+          <div class="source-strip" aria-label="Source metadata">
+            <span class="source-chip"><span>VIDEO</span><a href="https://www.youtube.com/watch?v=jKkr8czmG4U" target="_blank" rel="noreferrer noopener">Alex Finn ↗</a></span>
+            <span class="source-chip">PUBLISHED 2026-08-07</span>
+            <span class="source-chip">DURATION 25:55</span>
+            <span class="source-chip">FIELD NOTE 2026-08-10</span>
+            <span class="source-chip">AUTO-CAPTION ANCHORS VERIFIED</span>
+            <span class="source-chip">5-SKILL STACK APPLIED</span>
+          </div>
+          <p class="source-title">SOURCE / <a href="https://www.youtube.com/watch?v=jKkr8czmG4U" target="_blank" rel="noreferrer noopener">Alex Finn — “ChatGPT Voice is the most powerful AI feature of 2026. Here’s how to master it”</a></p>
+          <div class="thesis">
+            <div class="thesis-kicker">Core thesis / 核心判断 · Editorial synthesis</div>
+            <div class="pair">
+              <p data-copy="zh">Voice = 前台与控制面；线程 / agents = 后台执行面。</p>
+              <p data-copy="en">Voice = front door and control plane; threads / agents = execution plane.</p>
+            </div>
+          </div>
+        </header>
+
+        <section id="brief-section" data-nav-target="brief" aria-labelledby="brief">
+          <div class="section-heading">
+            <div class="section-number">01 / 07</div>
+            <div>
+              <h2 id="brief" class="pair"><span data-copy="zh">执行摘要</span><span data-copy="en">Executive Brief</span></h2>
+              <div class="section-intro pair">
+                <p data-copy="zh">这不是一份逐字稿，而是一份<strong>可执行的编辑提炼</strong>：把视频的语音编排思路改写为 Hermes / Patrick 工作协议。</p>
+                <p data-copy="en">This is not a transcript. It is an <strong>operational editorial distillation</strong> of the video's voice-orchestration idea into a Hermes / Patrick protocol.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="brief-grid">
+            <div class="panel brief-card">
+              <span class="tag source">SOURCE PARAPHRASE / 来源转述</span>
+              <div class="pair">
+                <h3 data-copy="zh">真正的新界面不是聊天框，而是调度循环</h3>
+                <h3 data-copy="en">The new interface is a dispatch loop, not a chat box</h3>
+                <p data-copy="zh">用几秒说清意图，系统在多个独立线程里做耗时工作；你回到语音入口检查进展、处理例外、决定下一步。</p>
+                <p data-copy="en">State the intent in seconds, let separate threads do the slow work, then return to voice to inspect progress, handle exceptions, and choose the next move.</p>
+              </div>
+              <div class="signal-list">
+                <div class="signal-item pair"><span data-copy="zh"><strong>输入：</strong>目标、边界、完成标准。</span><span data-copy="en"><strong>Input:</strong> goal, constraints, definition of done.</span></div>
+                <div class="signal-item pair"><span data-copy="zh"><strong>分发：</strong>一个任务一个线程。</span><span data-copy="en"><strong>Dispatch:</strong> one task, one thread.</span></div>
+                <div class="signal-item pair"><span data-copy="zh"><strong>回收：</strong>状态、证据、下一步。</span><span data-copy="en"><strong>Return:</strong> state, evidence, next action.</span></div>
+              </div>
+            </div>
+
+            <div class="panel loop-card">
+              <div class="loop-label">The closed loop / 闭环</div>
+              <div class="loop-flow">
+                <div class="loop-node"><b>01</b><span class="pair compact"><span data-copy="zh">纸面计划</span><span data-copy="en">Paper plan</span></span><small>PLAN</small></div>
+                <div class="loop-node"><b>02</b><span class="pair compact"><span data-copy="zh">状态复述</span><span data-copy="en">State recap</span></span><small>SYNC</small></div>
+                <div class="loop-node"><b>03</b><span class="pair compact"><span data-copy="zh">追问下一步</span><span data-copy="en">Ask next</span></span><small>DECIDE</small></div>
+                <div class="loop-node"><b>04</b><span class="pair compact"><span data-copy="zh">一事一线程</span><span data-copy="en">One thread / task</span></span><small>ROUTE</small></div>
+                <div class="loop-node"><b>05</b><span class="pair compact"><span data-copy="zh">监控与处理例外</span><span data-copy="en">Monitor exceptions</span></span><small>WATCH</small></div>
+                <div class="loop-node"><b>06</b><span class="pair compact"><span data-copy="zh">明确电脑 / 浏览器操作</span><span data-copy="en">Explicit computer / browser use</span></span><small>ACT</small></div>
+                <div class="loop-node"><b>07</b><span class="pair compact"><span data-copy="zh">写摘要笔记</span><span data-copy="en">Write summary note</span></span><small>LOG</small></div>
+                <div class="loop-node"><b>08</b><span class="pair compact"><span data-copy="zh">复盘，再问</span><span data-copy="en">Review, then ask</span></span><small>LOOP</small></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="workflow-section" data-nav-target="workflow" aria-labelledby="workflow">
+          <div class="section-heading">
+            <div class="section-number">02 / 07</div>
+            <div>
+              <h2 id="workflow" class="pair"><span data-copy="zh">八步技能链</span><span data-copy="en">The 8-skill Workflow</span></h2>
+              <div class="section-intro pair">
+                <p data-copy="zh">每张卡先保留视频的真实章节概念，再提炼为可复用的 Hermes 技能。时间戳回到现场；RULE 行是编辑性适配。</p>
+                <p data-copy="en">Each card preserves the video's actual chapter concept, then distills it into a reusable Hermes skill. Timestamps return to the source; RULE lines are editorial adaptations.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline" aria-label="Workflow timestamp timeline">
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=636s" target="_blank" rel="noreferrer noopener"><strong>10:36</strong><span>REMOTE</span></a>
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=763s" target="_blank" rel="noreferrer noopener"><strong>12:43</strong><span>ORCHESTRATE</span></a>
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=873s" target="_blank" rel="noreferrer noopener"><strong>14:33</strong><span>PAPER</span></a>
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1007s" target="_blank" rel="noreferrer noopener"><strong>16:47</strong><span>SUMMARY</span></a>
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1140s" target="_blank" rel="noreferrer noopener"><strong>19:00</strong><span>COMPUTER</span></a>
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1276s" target="_blank" rel="noreferrer noopener"><strong>21:16</strong><span>ACTIVITY</span></a>
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1339s" target="_blank" rel="noreferrer noopener"><strong>22:19</strong><span>AMBIENT</span></a>
+            <a href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1423s" target="_blank" rel="noreferrer noopener"><strong>23:43</strong><span>QUESTION</span></a>
+          </div>
+
+          <div class="workflow-grid">
+            <article class="workflow-card" data-step="01">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=636s" target="_blank" rel="noreferrer noopener">10:36 ↗</a><span class="tag source">SOURCE PARAPHRASE</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">Remote Hub：从远程入口看全局</h3><h3 data-copy="en">Remote Hub: see the system from afar</h3>
+                <p data-copy="zh">把语音入口当成远程调度台：启动工作、查看线程、询问状态，再把需要深度执行的部分送往后台，而不是在同一段语音里完成全部工作。</p>
+                <p data-copy="en">Use voice as a remote dispatch surface: start work, inspect threads, ask for state, and route deep execution to the background instead of doing everything inside one voice exchange.</p>
+                <div class="micro-rule" data-copy="zh">入口只负责编排，不假装执行。</div><div class="micro-rule" data-copy="en">The front door orchestrates; it does not pretend to execute.</div>
+              </div>
+            </article>
+
+            <article class="workflow-card" data-step="02">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=763s" target="_blank" rel="noreferrer noopener">12:43 ↗</a><span class="tag source">SOURCE PARAPHRASE</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">编排模型：控制面与执行面分离</h3><h3 data-copy="en">Orchestration model: separate control from execution</h3>
+                <p data-copy="zh">声音负责表达意图、拆分与路由；独立线程和 agents 承担耗时执行。几秒钟的口头编排，可以开启多条相互隔离的工作线。</p>
+                <p data-copy="en">Voice states intent, decomposes, and routes; separate threads and agents perform the slow work. Seconds of spoken orchestration can launch multiple isolated work tracks.</p>
+                <div class="micro-rule" data-copy="zh">Voice 是控制面，agents 是执行面。</div><div class="micro-rule" data-copy="en">Voice is the control plane; agents are the execution plane.</div>
+              </div>
+            </article>
+
+            <article class="workflow-card" data-step="03">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=873s" target="_blank" rel="noreferrer noopener">14:33 ↗</a><span class="tag source">SOURCE PARAPHRASE</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">Paper before screen：先在纸上规划</h3><h3 data-copy="en">Paper before screen: plan before opening the UI</h3>
+                <p data-copy="zh">先离开界面，写出目标、交付件、依赖与完成标准；再决定哪些工作值得分发。这样计划不被页面、通知和即时反应牵走。</p>
+                <p data-copy="en">Step away from the interface and write the goal, deliverables, dependencies, and definition of done before deciding what to dispatch. This keeps the plan from being captured by pages and notifications.</p>
+                <div class="micro-rule" data-copy="zh">先确定工作，再打开工作界面。</div><div class="micro-rule" data-copy="en">Define the work before opening the workspace.</div>
+              </div>
+            </article>
+
+            <article class="workflow-card" data-step="04">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1007s" target="_blank" rel="noreferrer noopener">16:47 ↗</a><span class="tag source">SOURCE PARAPHRASE</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">Summary note：让结果回到一张纸</h3><h3 data-copy="en">Summary note: return results to one page</h3>
+                <p data-copy="zh">并行任务完成后，把产出、证据、未决问题与下一步收拢到一个结果摘要。否则多线程只会制造分散的完成感。</p>
+                <p data-copy="en">When parallel tasks finish, collect outputs, evidence, open questions, and next actions into one result note. Otherwise many threads create only a fragmented sense of completion.</p>
+                <div class="micro-rule" data-copy="zh">并行必须以统一摘要收口。</div><div class="micro-rule" data-copy="en">Parallel work must close through one summary.</div>
+              </div>
+            </article>
+
+            <article class="workflow-card" data-step="05">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1140s" target="_blank" rel="noreferrer noopener">19:00 ↗</a><span class="tag editorial">SOURCE PARAPHRASE / EDITORIAL RULE</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">明确 Computer / Browser Use</h3><h3 data-copy="en">Make Computer / Browser Use explicit</h3>
+                <p data-copy="zh">视频建议在本机应用或登录态网页任务中明确点名 computer / browser use；本页进一步加入操作对象、权限范围与停止条件，后半部分是编辑规则。</p>
+                <p data-copy="en">The video recommends explicitly naming computer / browser use for local apps or signed-in web tasks. This page adds the target, authority boundary, and stop condition as an editorial rule.</p>
+                <div class="micro-rule" data-copy="zh">动作、范围、停止条件，三件套。</div><div class="micro-rule" data-copy="en">Action, scope, stop condition.</div>
+              </div>
+            </article>
+
+            <article class="workflow-card" data-step="06">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1276s" target="_blank" rel="noreferrer noopener">21:16 ↗</a><span class="tag author">AUTHOR CLAIM — PARAPHRASED</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">Activity inbox：只看需要介入的事</h3><h3 data-copy="en">Activity inbox: attend to what needs you</h3>
+                <p data-copy="zh">用活动收件箱式视图汇总已完成、进行中、失败与等待决定的事项。它是注意力队列，不是另一个需要持续刷新的 feed。</p>
+                <p data-copy="en">Use an activity-inbox view to collect completed, active, failed, and decision-waiting items. It is an attention queue, not another feed to refresh constantly.</p>
+                <div class="micro-rule" data-copy="zh">监控例外，不遥控过程。</div><div class="micro-rule" data-copy="en">Monitor exceptions, not keystrokes.</div>
+              </div>
+            </article>
+
+            <article class="workflow-card" data-step="07">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1339s" target="_blank" rel="noreferrer noopener">22:19 ↗</a><span class="tag author">AUTHOR CLAIM — PARAPHRASED</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">Ambient widget：在场，但不占据目光</h3><h3 data-copy="en">Ambient widget: present without owning your gaze</h3>
+                <p data-copy="zh">让语音入口以轻量、随时可唤起的形态存在，用于分发、检查和追问；生产力可以表现为更少的屏幕凝视。</p>
+                <p data-copy="en">Keep voice lightweight and summonable for dispatch, checks, and follow-ups. Productivity can look like spending less time staring at the screen.</p>
+                <div class="micro-rule" data-copy="zh">随时可用，不必一直可见。</div><div class="micro-rule" data-copy="en">Always available need not mean always visible.</div>
+              </div>
+            </article>
+
+            <article class="workflow-card" data-step="08">
+              <div class="card-top"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1423s" target="_blank" rel="noreferrer noopener">23:43 ↗</a><span class="tag source">SOURCE PARAPHRASE</span></div>
+              <div class="pair">
+                <h3 data-copy="zh">Question-first steering：用问题来掌舵</h3><h3 data-copy="en">Question-first steering: steer by asking</h3>
+                <p data-copy="zh">优秀的编排者不会连续发号施令，而会问结果说明了什么、假设哪里错了、下一轮最重要的问题是什么。</p>
+                <p data-copy="en">Good orchestrators do not issue an uninterrupted stream of commands. They ask what the result means, which assumption failed, and what question matters most next.</p>
+                <div class="micro-rule" data-copy="zh">先问清，再命令。</div><div class="micro-rule" data-copy="en">Clarify through questions before commanding.</div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="quotes-section" data-nav-target="quotes" aria-labelledby="quotes">
+          <span id="golden" class="anchor-alias" aria-hidden="true"></span>
+          <div class="section-heading">
+            <div class="section-number">03 / 07</div>
+            <div>
+              <h2 id="quotes" class="pair"><span data-copy="zh">八条金句</span><span data-copy="en">Eight Golden Lines</span></h2>
+              <div class="section-intro pair"><p data-copy="zh">适合放进每日笔记，但请保留标签：<strong>以下全部是编辑转述，不是视频逐字引语。</strong></p><p data-copy="en">Built for daily notes, with one essential label: <strong>every line below is an editorial paraphrase, not a verbatim quote.</strong></p></div>
+            </div>
+          </div>
+
+          <div class="paraphrase-note pair"><span data-copy="zh">字幕核验：英文原始自动字幕存在 ChatGPT 名称误识别，因此本页只用它验证主题锚点。时间戳已经逐一对齐；措辞经过压缩与 Hermes 化，不应作为 Alex Finn 的直接引用。</span><span data-copy="en">Caption check: the original English auto-captions contain ASR errors in the ChatGPT name, so this page uses them only to verify idea anchors. Every timestamp was checked; wording is compressed and adapted for Hermes and must not be attributed as a direct Alex Finn quotation.</span></div>
+          <div class="quote-tools" role="group" aria-label="Golden line theme filter / 金句主题筛选">
+            <button class="quote-filter" type="button" data-quote-filter="all" aria-pressed="true">ALL / 全部</button>
+            <button class="quote-filter" type="button" data-quote-filter="orchestration" aria-pressed="false">ORCHESTRATION / 编排</button>
+            <button class="quote-filter" type="button" data-quote-filter="attention" aria-pressed="false">ATTENTION / 注意力</button>
+            <button class="quote-filter" type="button" data-quote-filter="evidence" aria-pressed="false">EVIDENCE / 证据</button>
+            <button class="quote-filter" type="button" data-quote-filter="questions" aria-pressed="false">QUESTIONS / 提问</button>
+          </div>
+          <div class="golden-grid">
+            <article class="golden-card" data-quote-theme="orchestration"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=81s" target="_blank" rel="noreferrer noopener">01:21 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">ORCHESTRATION</span></div><p class="golden-line pair"><span data-copy="zh">声音的杠杆，不是回答更快，而是让更多正确的线程开始工作。</span><span data-copy="en">Voice gains leverage not by answering faster, but by starting the right threads.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · “Why voice is special”。<strong>意义：</strong>把语音从听写器提升为任务路由入口。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · “Why voice is special.” <strong>Why it matters:</strong> reframes voice from dictation into task routing.</span></p></article>
+            <article class="golden-card" data-quote-theme="orchestration"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=209s" target="_blank" rel="noreferrer noopener">03:29 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">CHIEF OF STAFF</span></div><p class="golden-line pair"><span data-copy="zh">把语音当首席幕僚：它澄清意图、调度资源、把例外带回来。</span><span data-copy="en">Treat voice as a chief of staff: clarify intent, route resources, return exceptions.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · 跨线程可见性。<strong>意义：</strong>入口负责协调，不伪装成后台执行者。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · cross-thread visibility. <strong>Why it matters:</strong> the front door coordinates instead of pretending to be the worker.</span></p></article>
+            <article class="golden-card" data-quote-theme="orchestration"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=540s" target="_blank" rel="noreferrer noopener">09:00 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">PARALLEL</span></div><p class="golden-line pair"><span data-copy="zh">几秒钟的编排，可以启动数条并行的深度工作线。</span><span data-copy="en">Seconds of orchestration can launch several deep-work tracks in parallel.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · 早晨工作流演示。<strong>意义：</strong>衡量的不是说了多少，而是启动了多少可验收结果。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · morning workflow demo. <strong>Why it matters:</strong> measure accepted outcomes started, not words spoken.</span></p></article>
+            <article class="golden-card" data-quote-theme="orchestration"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=771s" target="_blank" rel="noreferrer noopener">12:51 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">CONTROL / EXECUTION</span></div><p class="golden-line pair"><span data-copy="zh">声音是控制面；agents 与线程才是执行面。</span><span data-copy="en">Voice is the control plane; agents and threads are the execution plane.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · Tip 2 Orchestration Model。<strong>意义：</strong>把意图路由与耗时工作分开。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · Tip 2, Orchestration Model. <strong>Why it matters:</strong> separates intent routing from slow execution.</span></p></article>
+            <article class="golden-card" data-quote-theme="attention"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=991s" target="_blank" rel="noreferrer noopener">16:31 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">ATTENTION</span></div><p class="golden-line pair"><span data-copy="zh">生产力的升级，可能不是更多屏幕时间，而是更少凝视、更准介入。</span><span data-copy="en">Higher productivity may mean less screen time and more precise intervention.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · Tip 3 Paper Before Screen。<strong>意义：</strong>把注意力保留给决定与例外。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · Tip 3, Paper Before Screen. <strong>Why it matters:</strong> preserves attention for decisions and exceptions.</span></p></article>
+            <article class="golden-card" data-quote-theme="evidence"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1054s" target="_blank" rel="noreferrer noopener">17:34 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">RESULT LEDGER</span></div><p class="golden-line pair"><span data-copy="zh">并行工作没有结果账本，就只是同时发生的遗忘。</span><span data-copy="en">Parallel work without a result ledger is just forgetting things concurrently.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · Tip 4 Summary Note。<strong>意义：</strong>产物、证据、阻塞和下一步必须回到一个账本。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · Tip 4, Summary Note. <strong>Why it matters:</strong> outputs, evidence, blockers, and next moves must return to one ledger.</span></p></article>
+            <article class="golden-card" data-quote-theme="attention"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1406s" target="_blank" rel="noreferrer noopener">23:26 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">AMBIENT</span></div><p class="golden-line pair"><span data-copy="zh">环境式 AI 的价值，是随时在场，却不要求你一直盯着它。</span><span data-copy="en">Ambient AI stays available without demanding your constant gaze.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · Tip 7 Always-on Voice。<strong>意义：</strong>可用性不应等于持续占据注意力。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · Tip 7, Always-on Voice. <strong>Why it matters:</strong> availability should not require continuous attention.</span></p></article>
+            <article class="golden-card" data-quote-theme="questions"><div class="meta"><a class="time-link" href="https://www.youtube.com/watch?v=jKkr8czmG4U&amp;t=1427s" target="_blank" rel="noreferrer noopener">23:47 ↗</a><span class="tag editorial">EDITORIAL PARAPHRASE</span><span class="tag relation">QUESTIONS</span></div><p class="golden-line pair"><span data-copy="zh">好的编排者提出的问题，通常比发出的命令更多。</span><span data-copy="en">Good orchestrators usually ask more questions than they issue commands.</span></p><p class="quote-context pair"><span data-copy="zh"><strong>讲者 / 章节：</strong>Alex Finn · Tip 8 Question-first Steering。<strong>意义：</strong>先暴露假设和下一步，再承诺执行。</span><span data-copy="en"><strong>Speaker / chapter:</strong> Alex Finn · Tip 8, Question-first Steering. <strong>Why it matters:</strong> expose assumptions and the next move before committing execution.</span></p></article>
+          </div>
+        </section>
+
+        <section id="patrick-section" data-nav-target="patrick" aria-labelledby="patrick">
+          <div class="section-heading">
+            <div class="section-number">04 / 07</div>
+            <div>
+              <h2 id="patrick">Patrick × Hermes</h2>
+              <div class="section-intro pair"><p data-copy="zh">把视频概念映射到 Patrick 已有的 Hermes / Vault 工作，并标清哪些需要自定义补层。</p><p data-copy="en">Map the video’s concepts to Patrick’s existing Hermes / Vault work, with custom gaps called out explicitly.</p></div>
+            </div>
+          </div>
+
+          <div class="patrick-note">
+            <div>
+              <span class="tag editorial">EDITORIAL / WORKFLOW ADAPTATION</span>
+              <div class="pair">
+                <h3 data-copy="zh">Patrick 并未在视频中出现；这里映射的是 Patrick 已有的 Hermes / Vault 工作。</h3><h3 data-copy="en">Patrick is not mentioned in the source; this maps the video to Patrick's existing Hermes / Vault work.</h3>
+                <p data-copy="zh">Patrick 不是本页虚构的人格。编辑适配发生在“视频概念如何连接到 Patrick 已有工作流”这一层：语音入口、并行委派、Kanban、Obsidian Vault 与双语输出。该映射不是 Alex Finn 的原始术语。</p>
+                <p data-copy="en">Patrick is not an invented persona here. The editorial adaptation is the mapping from video concepts to Patrick's existing workflow: voice intake, parallel delegation, Kanban, Obsidian Vault, and bilingual output. Those links are not Alex Finn's terminology.</p>
+              </div>
+            </div>
+            <div class="patrick-seal" aria-hidden="true">PATRICK<br>HERMES / VAULT</div>
+          </div>
+
+          <div class="skill-stack">
+            <div class="skill-stack-head">
+              <h3 class="pair"><span data-copy="zh">本次实际使用的五技能栈</span><span data-copy="en">Five-skill stack applied to this rebuild</span></h3>
+              <span class="tag live">INSTALLED / VERIFIED</span>
+            </div>
+            <div class="skill-rail" aria-label="Five skill stack">
+              <div class="skill-slot"><b>01 / CORE</b><span>video-to-knowledge-dashboard</span></div>
+              <div class="skill-slot"><b>02 / LENS</b><span>video-patrick-action-lens</span></div>
+              <div class="skill-slot"><b>03 / STORE</b><span>obsidian</span></div>
+              <div class="skill-slot"><b>04 / PRESERVE</b><span>html-redesign-preserve-semantics</span></div>
+              <div class="skill-slot"><b>05 / NAVIGATE</b><span>toc-sidebar-batch</span></div>
+            </div>
+            <p class="skill-stack-note pair"><span data-copy="zh">这是 <strong>video-patrick-action-lens</strong> 明确推荐的标准栈，也正好命中 Hermes 单次最多五个堆叠技能的上限。核心 skill 负责视频证据与 HTML，Patrick lens 负责金句 / 映射 / 行动，Obsidian 落库，重设计 skill 保留现有状态机，TOC skill 负责可导航目录。</span><span data-copy="en">This is the canonical stack recommended by <strong>video-patrick-action-lens</strong>, exactly filling Hermes’s five-skill stacking limit. The core skill owns video evidence and HTML; the Patrick lens owns golden lines, mappings, and actions; Obsidian stores the note; the redesign skill preserves the state machine; and the TOC skill provides navigation.</span></p>
+          </div>
+
+          <div class="mapping-grid">
+            <article class="mapping-card" data-status="live" data-relation="fully-aligned"><div><small>01 / Source principle</small><p class="pair"><span data-copy="zh"><strong>Voice 是入口：</strong>从手机说出意图，再交给后台。</span><span data-copy="en"><strong>Voice is the front door:</strong> capture intent on mobile, then hand it to the background.</span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/autonomous-ai-agents/hermes-agent/SKILL.md</code><div class="status-row"><span class="tag live">LIVE</span><span class="tag relation">FULLY ALIGNED</span></div><p class="pair"><span data-copy="zh">多平台 gateway 与语音自动转录路径均已核验。</span><span data-copy="en">Multi-platform gateway and automatic voice transcription paths are verified.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">先复述意图，再创建可验证任务；语音只证明收到输入，不证明工作完成。</span><span data-copy="en">Restate intent before creating a verifiable task; voice proves intake, not completion.</span></p><p class="limitation pair"><span data-copy="zh">需要启用 STT 并配置可用 provider。</span><span data-copy="en">Requires STT to be enabled with a usable provider.</span></p></div></article>
+            <article class="mapping-card" data-status="reference" data-relation="aligned"><div><small>02 / Source principle</small><p class="pair"><span data-copy="zh"><strong>意图要先变成 brief：</strong>目标、证据、步骤、停止条件。</span><span data-copy="en"><strong>Intent must become a brief:</strong> goal, proof, steps, and stop condition.</span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/agentic-os/task-clarity-gate/SKILL.md</code><div class="status-row"><span class="tag reference">REFERENCE</span><span class="tag relation">ALIGNED</span></div><p class="pair"><span data-copy="zh">ARR + GPS 明确 Goal / Proof / Steps，并拒绝模糊委派。</span><span data-copy="en">ARR + GPS defines Goal / Proof / Steps and rejects unclear delegation.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">每个语音任务先编译成 GPS 卡，再进入执行。</span><span data-copy="en">Compile each spoken task into a GPS card before execution.</span></p><p class="limitation pair"><span data-copy="zh">这是程序性 skill；未发现自动 runtime gate。</span><span data-copy="en">This is a procedural skill; no automatic runtime gate was found.</span></p></div></article>
+            <article class="mapping-card" data-status="live" data-relation="fully-aligned"><div><small>03 / Source principle</small><p class="pair"><span data-copy="zh"><strong>一件交付物，一条持久 lane。</strong></span><span data-copy="en"><strong>One deliverable, one persistent lane.</strong></span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/devops/kanban-orchestrator/SKILL.md</code><div class="status-row"><span class="tag live">LIVE</span><span class="tag relation">FULLY ALIGNED</span></div><p class="pair"><span data-copy="zh">持久任务卡、父依赖、审计轨迹与人工介入均已核验。</span><span data-copy="en">Persistent cards, parent dependencies, audit trails, and human interjection are verified.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">把“开线程”升级成带 owner、证据和下一步的任务 lane。</span><span data-copy="en">Upgrade “open a thread” into a task lane with owner, evidence, and next move.</span></p><p class="limitation pair"><span data-copy="zh">未知 profile 名会让 ready 卡搁浅；必须先发现 profile。</span><span data-copy="en">Unknown profile names can strand ready cards; discover profiles first.</span></p></div></article>
+            <article class="mapping-card" data-status="live" data-relation="warning"><div><small>04 / Source principle</small><p class="pair"><span data-copy="zh"><strong>并行执行必须带回证据，</strong>而不是自报完成。</span><span data-copy="en"><strong>Parallel execution must return evidence,</strong> not self-reported completion.</span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/autonomous-ai-agents/parallel-orchestrator-with-worktree/SKILL.md</code><div class="status-row"><span class="tag live">LIVE</span><span class="tag relation">ALIGNED + WARNING</span></div><p class="pair"><span data-copy="zh">独立 worktree、SHA 与证据合并门已存在。</span><span data-copy="en">Independent worktrees, SHAs, and evidence merge gates exist.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">只把真正独立、可直接合并的代码任务并行化。</span><span data-copy="en">Parallelize only truly independent code tasks with straightforward merges.</span></p><p class="limitation pair"><span data-copy="zh">它是 Git 专用，不是通用生活工作流。</span><span data-copy="en">It is Git-specific, not a general life workflow.</span></p></div></article>
+            <article class="mapping-card" data-status="reference" data-relation="warning"><div><small>05 / Source principle</small><p class="pair"><span data-copy="zh"><strong>权限边界属于 prompt 本身。</strong></span><span data-copy="en"><strong>Authority boundaries belong inside the prompt.</strong></span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/autonomous-ai-agents/human-validation-zones/SKILL.md</code><div class="status-row"><span class="tag reference">REFERENCE</span><span class="tag relation">ALIGNED + WARNING</span></div><p class="pair"><span data-copy="zh">A / B / C 授权分类、回滚和 sign-off 面已核验。</span><span data-copy="en">A / B / C authority classes, rollback, and sign-off surfaces are verified.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">浏览器、电脑、发送、发布、删除各自标明权限等级。</span><span data-copy="en">Classify browser, computer, send, publish, and delete actions explicitly.</span></p><p class="limitation pair"><span data-copy="zh">这是政策模式，不是强制 RBAC；采用后半部分 A/B/C 规则。</span><span data-copy="en">It is a policy pattern, not enforced RBAC; prefer the later A/B/C taxonomy.</span></p></div></article>
+            <article class="mapping-card" data-status="gap" data-relation="warning"><div><small>06 / Source principle</small><p class="pair"><span data-copy="zh"><strong>主动，但必须可恢复、可停止。</strong></span><span data-copy="en"><strong>Be proactive, but recoverable and stoppable.</strong></span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/productivity/hermes-proactive/SKILL.md</code><div class="status-row"><span class="tag gap">GAP</span><span class="tag relation">ALIGNED + WARNING</span></div><p class="pair"><span data-copy="zh">WAL / recovery / “suggest, don’t decide” 设计很强，但依赖缺失。</span><span data-copy="en">WAL / recovery / “suggest, don’t decide” is strong, but dependencies are missing.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">只借用有界主动性的原则，不把它标成可运行能力。</span><span data-copy="en">Reuse the bounded-proactivity principle without calling it runnable.</span></p><p class="limitation pair"><span data-copy="zh">recover_from_compaction.py 与 PAI/MEMORY 当前不存在。</span><span data-copy="en">recover_from_compaction.py and PAI/MEMORY are currently absent.</span></p></div></article>
+            <article class="mapping-card" data-status="live" data-relation="fully-aligned"><div><small>07 / Source principle</small><p class="pair"><span data-copy="zh"><strong>结果回到 Vault，再进入行动闭环。</strong></span><span data-copy="en"><strong>Results return to the Vault, then re-enter the action loop.</strong></span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/patricks-vault-os/SKILL.md</code><div class="status-row"><span class="tag live">LIVE</span><span class="tag relation">FULLY ALIGNED</span></div><p class="pair"><span data-copy="zh">五个实际工具目录与 #action 审计 / ship 责任均存在。</span><span data-copy="en">Five real tool directories and #action audit / ship ownership exist.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">把 dashboard 与 index.md 成对落库，行动使用稳定 ID。</span><span data-copy="en">Store dashboard and index.md together with stable action IDs.</span></p><p class="limitation pair"><span data-copy="zh">上游 video-to-obsidian 当前截断；本页改用 knowledge-dashboard 标准栈。</span><span data-copy="en">Its upstream video-to-obsidian is truncated; this page uses the knowledge-dashboard stack instead.</span></p></div></article>
+            <article class="mapping-card" data-status="gap" data-relation="counter-evidence"><div><small>08 / Source principle</small><p class="pair"><span data-copy="zh"><strong>重复成功，才晋升为 skill IP。</strong></span><span data-copy="en"><strong>Only repeated success earns promotion into skill IP.</strong></span></p></div><div><small>Verified Hermes asset</small><code class="path">skills/continuous-learning-v2/SKILL.md</code><div class="status-row"><span class="tag gap">GAP</span><span class="tag relation">COUNTER-EVIDENCE</span></div><p class="pair"><span data-copy="zh">文件定义 ≥0.9 置信、≥5 条证据、≥2 次 session，但也明确当前实现未采用 atomic instinct schema。</span><span data-copy="en">The file requires ≥0.9 confidence, ≥5 evidence items, and ≥2 sessions, yet explicitly says current Hermes does not use its atomic instinct schema.</span></p></div><div><small>Patrick move + limit</small><p class="pair"><span data-copy="zh">先把 Voice 模式放进候选区；通过 5 次试验后再写 SKILL.md。</span><span data-copy="en">Keep the Voice pattern as a candidate; write SKILL.md only after five trials.</span></p><p class="limitation pair"><span data-copy="zh">auto-extract 有手动脚本，但 session-end hook 尚未接通。</span><span data-copy="en">Auto-extract has manual scripts, but no session-end hook is connected.</span></p></div></article>
+          </div>
+        </section>
+
+        <section id="action-section" data-nav-target="action" aria-labelledby="action">
+          <span id="actions" class="anchor-alias" aria-hidden="true"></span>
+          <div class="section-heading">
+            <div class="section-number">05 / 07</div>
+            <div>
+              <h2 id="action" class="pair"><span data-copy="zh">下一步行动</span><span data-copy="en">Next Actions</span></h2>
+              <div class="section-intro pair"><p data-copy="zh">把观点变成一次有阈值、有证据、有回滚的真实试验。两项 P0 都能在 5 分钟内启动；勾选状态保存在本机，并同步进入下方 Markdown。</p><p data-copy="en">Turn the thesis into a real experiment with thresholds, evidence, and rollback. Both P0 items start in under five minutes; checkmarks persist locally and flow into the Markdown below.</p></div>
+            </div>
+          </div>
+
+          <div class="panel action-shell">
+            <div class="action-head">
+              <div class="completion">
+                <div class="completion-top"><span>PROTOCOL COMPLETION</span><strong id="completionText">0 / 8</strong></div>
+                <div class="completion-track" id="completionTrack" role="progressbar" aria-label="Action completion / 行动完成度" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><div class="completion-fill" id="completionFill"></div></div>
+              </div>
+              <button type="button" class="reset-button pair compact" id="resetActions"><span data-copy="zh">重置清单</span><span data-copy="en">Reset checklist</span></button>
+            </div>
+            <div class="checklist" id="checklist">
+              <label class="check-row" data-priority="P0" data-owner="Patrick" data-artifact="hermes-voice/GPS-brief-template.md"><input type="checkbox" data-action-id="plan"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p0">P0</span><span class="action-badge">TODAY · 3 MIN</span><span class="action-badge">OWNER · PATRICK</span></span><span class="pair"><span data-copy="zh"><strong>填写一张 GPS 语音任务卡</strong><small>先把这次 dashboard 重建写成 Goal / Proof / 3–7 Steps / Owner / Stop condition。</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/GPS-brief-template.md</span><span><b>THRESHOLD</b> 6 个字段全部非空</span><span><b>EVIDENCE</b> 保存后的 brief</span><span><b>GUARDRAIL</b> Proof 不清楚就回到人类</span><span><b>ROLLBACK</b> 退回 text-only intake</span><span><b>SOURCE</b> 14:33 Paper Before Screen</span></span></span><span data-copy="en"><strong>Fill one GPS voice-task card</strong><small>Compile this dashboard rebuild into Goal / Proof / 3–7 Steps / Owner / Stop condition.</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/GPS-brief-template.md</span><span><b>THRESHOLD</b> all six fields non-empty</span><span><b>EVIDENCE</b> saved brief</span><span><b>GUARDRAIL</b> unclear Proof routes to human</span><span><b>ROLLBACK</b> return to text-only intake</span><span><b>SOURCE</b> 14:33 Paper Before Screen</span></span></span></span></span><span class="check-id">A-01</span></label>
+              <label class="check-row" data-priority="P0" data-owner="Hermes" data-artifact="hermes-voice/voice-result-ledger.md"><input type="checkbox" data-action-id="recap"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p0">P0</span><span class="action-badge">TODAY · 4 MIN</span><span class="action-badge">OWNER · HERMES</span></span><span class="pair"><span data-copy="zh"><strong>生成一次只读状态复述</strong><small>对最近三条 lane 返回 done / active / blocked / decision / next。</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-result-ledger.md</span><span><b>THRESHOLD</b> 3/3 lane 五字段齐全</span><span><b>EVIDENCE</b> task IDs + 状态快照</span><span><b>GUARDRAIL</b> 未知状态保持 UNKNOWN</span><span><b>ROLLBACK</b> 停在只读复述</span><span><b>SOURCE</b> 06:40 demo + 16:47 summary</span></span></span><span data-copy="en"><strong>Generate one read-only state recap</strong><small>Return done / active / blocked / decision / next for the latest three lanes.</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-result-ledger.md</span><span><b>THRESHOLD</b> 3/3 lanes have five fields</span><span><b>EVIDENCE</b> task IDs + state snapshot</span><span><b>GUARDRAIL</b> unknown remains UNKNOWN</span><span><b>ROLLBACK</b> stop at read-only recap</span><span><b>SOURCE</b> 06:40 demo + 16:47 summary</span></span></span></span></span><span class="check-id">A-02</span></label>
+              <label class="check-row" data-priority="P1" data-owner="Patrick" data-artifact="hermes-voice/voice-next-decision.md"><input type="checkbox" data-action-id="next"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p1">P1</span><span class="action-badge">NEXT SESSION · 2 MIN</span><span class="action-badge">OWNER · PATRICK</span></span><span class="pair"><span data-copy="zh"><strong>每轮只批准一个下一步</strong><small>让 Voice 先给选项、假设和推荐，再由 Patrick 选择。</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-next-decision.md</span><span><b>THRESHOLD</b> 恰好 1 个已批准动作</span><span><b>EVIDENCE</b> 问题 + 选择 + 原因</span><span><b>GUARDRAIL</b> 批准前不执行</span><span><b>ROLLBACK</b> 停在 options-only</span><span><b>SOURCE</b> 23:43 Question-first</span></span></span><span data-copy="en"><strong>Approve only one next move per round</strong><small>Have Voice surface options, assumptions, and a recommendation before Patrick chooses.</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-next-decision.md</span><span><b>THRESHOLD</b> exactly one approved action</span><span><b>EVIDENCE</b> question + choice + reason</span><span><b>GUARDRAIL</b> no execution before approval</span><span><b>ROLLBACK</b> stop at options-only</span><span><b>SOURCE</b> 23:43 Question-first</span></span></span></span></span><span class="check-id">A-03</span></label>
+              <label class="check-row" data-priority="P1" data-owner="Hermes" data-artifact="Hermes Kanban board + task IDs"><input type="checkbox" data-action-id="threads"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p1">P1</span><span class="action-badge">NEXT SESSION · 10 MIN</span><span class="action-badge">OWNER · HERMES</span></span><span class="pair"><span data-copy="zh"><strong>每个交付件创建一条 Kanban lane</strong><small>最多先开三条；每条都写 owner、Proof 与停止条件。</small><span class="action-contract"><span><b>ARTIFACT</b> Hermes Kanban board + task IDs</span><span><b>THRESHOLD</b> 1 deliverable = 1 lane</span><span><b>EVIDENCE</b> task IDs + parent links</span><span><b>GUARDRAIL</b> 初始并行上限 3</span><span><b>ROLLBACK</b> 暂停 children，保留证据</span><span><b>SOURCE</b> 01:21 + 09:00 + 12:43</span></span></span><span data-copy="en"><strong>Create one Kanban lane per deliverable</strong><small>Start with at most three; every lane needs owner, Proof, and stop condition.</small><span class="action-contract"><span><b>ARTIFACT</b> Hermes Kanban board + task IDs</span><span><b>THRESHOLD</b> 1 deliverable = 1 lane</span><span><b>EVIDENCE</b> task IDs + parent links</span><span><b>GUARDRAIL</b> initial concurrency cap of 3</span><span><b>ROLLBACK</b> pause children, preserve evidence</span><span><b>SOURCE</b> 01:21 + 09:00 + 12:43</span></span></span></span></span><span class="check-id">A-04</span></label>
+              <label class="check-row" data-priority="P1" data-owner="Hermes" data-artifact="hermes-voice/voice-result-ledger.md"><input type="checkbox" data-action-id="ledger"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p1">P1</span><span class="action-badge">THIS WEEK · 8 MIN</span><span class="action-badge">OWNER · HERMES</span></span><span class="pair"><span data-copy="zh"><strong>建立结果账本而不是完成感</strong><small>所有 lane 统一记录 owner / status / evidence / blocker / next。</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-result-ledger.md</span><span><b>THRESHOLD</b> 100% lane 五字段齐全</span><span><b>EVIDENCE</b> board export + note diff</span><span><b>GUARDRAIL</b> 无证据不得标 done</span><span><b>ROLLBACK</b> 归档新版本，不覆盖旧账本</span><span><b>SOURCE</b> 16:47 Summary Note</span></span></span><span data-copy="en"><strong>Build a result ledger, not a feeling of completion</strong><small>Every lane records owner / status / evidence / blocker / next.</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-result-ledger.md</span><span><b>THRESHOLD</b> 100% of lanes have five fields</span><span><b>EVIDENCE</b> board export + note diff</span><span><b>GUARDRAIL</b> no evidence, no done state</span><span><b>ROLLBACK</b> archive new version; never overwrite</span><span><b>SOURCE</b> 16:47 Summary Note</span></span></span></span></span><span class="check-id">A-05</span></label>
+              <label class="check-row" data-priority="P1" data-owner="Patrick" data-artifact="hermes-voice/voice-authority-matrix.md"><input type="checkbox" data-action-id="computer"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p1">P1</span><span class="action-badge">TODAY · 3 MIN</span><span class="action-badge">OWNER · PATRICK</span></span><span class="pair"><span data-copy="zh"><strong>写一张 A / B / C 授权矩阵</strong><small>computer / browser use 明确动作、范围、停止条件与审批点。</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-authority-matrix.md</span><span><b>THRESHOLD</b> send / publish / delete / credentials 全分类</span><span><b>EVIDENCE</b> 20-command audit rows</span><span><b>GUARDRAIL</b> 公开 / 破坏 / 凭证永远 C</span><span><b>ROLLBACK</b> 暂停 gateway automation</span><span><b>SOURCE</b> 19:00 Computer / Browser Use</span></span></span><span data-copy="en"><strong>Write an A / B / C authority matrix</strong><small>Computer / browser use states action, scope, stop condition, and approval point.</small><span class="action-contract"><span><b>ARTIFACT</b> hermes-voice/voice-authority-matrix.md</span><span><b>THRESHOLD</b> send / publish / delete / credentials classified</span><span><b>EVIDENCE</b> 20-command audit rows</span><span><b>GUARDRAIL</b> public / destructive / credentials always C</span><span><b>ROLLBACK</b> pause gateway automation</span><span><b>SOURCE</b> 19:00 Computer / Browser Use</span></span></span></span></span><span class="check-id">A-06</span></label>
+              <label class="check-row" data-priority="P1" data-owner="Hermes" data-artifact="Obsidian Vault/hermes-voice/jkkr8czmg4u-voice-front-door-v2/"><input type="checkbox" data-action-id="obsidian"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p1">P1</span><span class="action-badge">THIS WEEK · 5 MIN</span><span class="action-badge">OWNER · HERMES</span></span><span class="pair"><span data-copy="zh"><strong>把 index.md 与 dashboard.html 成对落库</strong><small>同一 bundle 保留来源、金句、Patrick 映射和稳定行动 ID。</small><span class="action-contract"><span><b>ARTIFACT</b> Vault/hermes-voice/jkkr8czmg4u-voice-front-door-v2/</span><span><b>THRESHOLD</b> 2 个文件 + 3 个 canonical anchors</span><span><b>EVIDENCE</b> 路径 + HTML / MD QA</span><span><b>GUARDRAIL</b> 新目录；禁止覆盖 v1</span><span><b>ROLLBACK</b> 只归档 v2 bundle</span><span><b>SOURCE</b> 16:47 Summary Note</span></span></span><span data-copy="en"><strong>Store index.md and dashboard.html as one bundle</strong><small>Keep source, golden lines, Patrick mappings, and stable action IDs together.</small><span class="action-contract"><span><b>ARTIFACT</b> Vault/hermes-voice/jkkr8czmg4u-voice-front-door-v2/</span><span><b>THRESHOLD</b> 2 files + 3 canonical anchors</span><span><b>EVIDENCE</b> paths + HTML / MD QA</span><span><b>GUARDRAIL</b> new directory; never overwrite v1</span><span><b>ROLLBACK</b> archive only the v2 bundle</span><span><b>SOURCE</b> 16:47 Summary Note</span></span></span></span></span><span class="check-id">A-07</span></label>
+              <label class="check-row" data-priority="P2" data-owner="Patrick" data-artifact="voice-front-door/SKILL.md + demo fixture"><input type="checkbox" data-action-id="review"><span class="fake-check" aria-hidden="true">✓</span><span class="check-copy"><span class="action-badges"><span class="action-badge p2">P2</span><span class="action-badge">5-DAY REVIEW</span><span class="action-badge">OWNER · PATRICK</span></span><span class="pair"><span data-copy="zh"><strong>达到证据门后再晋升 Voice skill</strong><small>先观察模式，不因一次漂亮 demo 就固化为长期 IP。</small><span class="action-contract"><span><b>ARTIFACT</b> voice-front-door/SKILL.md + demo fixture</span><span><b>THRESHOLD</b> ≥5 次 / ≥2 sessions / confidence ≥.9 / 10/10 demo</span><span><b>EVIDENCE</b> source links + test output</span><span><b>GUARDRAIL</b> 不晋升 secrets / PII / recall-only claims</span><span><b>ROLLBACK</b> 降级为 REFERENCE 并停用</span><span><b>SOURCE</b> 23:43 Question-first</span></span></span><span data-copy="en"><strong>Promote a Voice skill only after the evidence gate</strong><small>Observe the pattern first; one beautiful demo is not durable IP.</small><span class="action-contract"><span><b>ARTIFACT</b> voice-front-door/SKILL.md + demo fixture</span><span><b>THRESHOLD</b> ≥5 times / ≥2 sessions / confidence ≥.9 / 10/10 demo</span><span><b>EVIDENCE</b> source links + test output</span><span><b>GUARDRAIL</b> never promote secrets / PII / recall-only claims</span><span><b>ROLLBACK</b> downgrade to REFERENCE and disable</span><span><b>SOURCE</b> 23:43 Question-first</span></span></span></span></span><span class="check-id">A-08</span></label>
+            </div>
+          </div>
+        </section>
+
+        <section id="obsidian-section" data-nav-target="obsidian" aria-labelledby="obsidian">
+          <div class="section-heading">
+            <div class="section-number">06 / 07</div>
+            <div>
+              <h2 id="obsidian">Obsidian Relay</h2>
+              <div class="section-intro pair"><p data-copy="zh">把阅读模式与行动状态一起压成干净的 Markdown：复制或下载即可入库。</p><p data-copy="en">Compress the current language mode and action state into clean Markdown, ready to copy or download.</p></div>
+            </div>
+          </div>
+
+          <div class="obsidian-layout">
+            <div class="panel markdown-window">
+              <div class="window-bar"><div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="window-title">2026-08-10-chatgpt-voice-hermes-workflow-v2.md</span></div>
+              <pre id="markdownPreview" tabindex="0" aria-label="Obsidian Markdown preview"></pre>
+            </div>
+            <aside class="panel export-card">
+              <span class="tag editorial">LIVE EXPORT</span>
+              <div class="pair"><h3 data-copy="zh">带走这份协议</h3><h3 data-copy="en">Take the protocol with you</h3><p data-copy="zh">导出内容会跟随中文 / English / 双语模式，也会保留清单勾选状态。</p><p data-copy="en">The export follows ZH / EN / bilingual mode and preserves checklist state.</p></div>
+              <div class="export-actions">
+                <button class="action-button primary pair compact" id="copyMarkdown" type="button"><span data-copy="zh">复制 Markdown</span><span data-copy="en">Copy Markdown</span></button>
+                <button class="action-button pair compact" id="downloadMarkdown" type="button"><span data-copy="zh">下载 .md 文件</span><span data-copy="en">Download .md file</span></button>
+              </div>
+              <div class="export-facts"><span id="exportLanguage">MODE / BILINGUAL</span><span id="exportTasks">ACTIONS / 0 OF 8</span><span>FORMAT / OBSIDIAN MD</span></div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="evidence-section" data-nav-target="evidence" aria-labelledby="evidence">
+          <div class="section-heading">
+            <div class="section-number">07 / 07</div>
+            <div>
+              <h2 id="evidence" class="pair"><span data-copy="zh">证据、确认与边界</span><span data-copy="en">Evidence, Confirmation &amp; Caveats</span></h2>
+              <div class="section-intro pair"><p data-copy="zh">同一页中有四种不同性质的信息。颜色标签不是装饰，而是可信度路由。</p><p data-copy="en">Four different kinds of information coexist here. The colored labels are provenance routing, not decoration.</p></div>
+            </div>
+          </div>
+
+          <div class="evidence-grid">
+            <article class="panel evidence-card">
+              <span class="tag source">SOURCE PARAPHRASE / 来源转述</span>
+              <div class="pair"><h3 data-copy="zh">视频中可回看的思想线索</h3><h3 data-copy="en">Ideas traceable to the video</h3><p data-copy="zh">英文原始自动字幕与中文自动翻译字幕已在本地核对。8 个金句锚点和 8 个 workflow 入口均语义匹配；自动字幕存在 ChatGPT 名称误识别，因此本页保留 0 条 VERBATIM，全部使用压缩转述。</p><p data-copy="en">The original English auto-captions and Chinese auto-translation were checked locally. All eight golden-line anchors and eight workflow entries match semantically; because the auto-captions misrecognize the ChatGPT name, this page keeps zero VERBATIM excerpts and uses compressed paraphrases throughout.</p></div>
+              <code class="source-hash">CAPTION SHA256 · EN 95b20e3e1ac1f1f3e8bc358c7ce86a15b43230134bffb249da6cd72b3c2f9ba9 · ZH 6b38042a56559cbe97a2ad09466cf03728da5cdf2109899843a4e57f2076202f</code>
+            </article>
+            <article class="panel evidence-card">
+              <span class="tag official">OFFICIAL CONFIRMATION / 官方确认</span>
+              <div class="pair"><h3 data-copy="zh">当前官方边界</h3><h3 data-copy="en">Current official boundary</h3><p data-copy="zh">当前官方 Voice 文档将 Voice 标识为 <strong>GPT-Live</strong>，并确认可围绕独立线程进行检查与后续跟进。电脑操作、远程使用与项目上下文各有单独的官方说明。</p><p data-copy="en">Current official Voice documentation identifies Voice as <strong>GPT-Live</strong> and confirms checking and follow-ups across separate threads. Computer use, remote use, and project context each have distinct official guidance.</p>
+              <ul>
+                <li><a href="https://openai.com/index/introducing-gpt-live/" target="_blank" rel="noreferrer noopener">OpenAI · Introducing GPT-Live ↗</a></li>
+                <li><a href="https://help.openai.com/en/articles/20001274-chatgpt-voice" target="_blank" rel="noreferrer noopener">OpenAI Help · ChatGPT Voice ↗</a></li>
+                <li><a href="https://learn.chatgpt.com/docs/remote" target="_blank" rel="noreferrer noopener">Remote use ↗</a></li>
+                <li><a href="https://learn.chatgpt.com/docs/computer-use" target="_blank" rel="noreferrer noopener">Computer use ↗</a></li>
+                <li><a href="https://learn.chatgpt.com/docs/projects" target="_blank" rel="noreferrer noopener">Projects ↗</a></li>
+              </ul></div>
+            </article>
+            <article class="panel evidence-card">
+              <span class="tag author">AUTHOR CLAIM / 作者主张</span>
+              <div class="pair"><h3 data-copy="zh">需要单独核验的具体建议</h3><h3 data-copy="en">Specific advice that needs verification</h3><p data-copy="zh">视频中的产品评价、未来影响判断，以及任何特定模型、token 或路由技巧，属于作者在发布时的经验性主张，不等同于官方保证。</p><p data-copy="en">Product judgments, predictions, and any model-, token-, or routing-specific tactics in the video are the author's experience at publication time, not an official guarantee.</p></div>
+            </article>
+            <article class="panel evidence-card">
+              <span class="tag editorial">EDITORIAL / HERMES ADAPTATION</span>
+              <div class="pair"><h3 data-copy="zh">本页新加入的工作层</h3><h3 data-copy="en">The operating layer added here</h3><p data-copy="zh">八步循环、结果账本、Patrick 工作流映射、Obsidian 摘要、规则句与行动清单，都是为了落地而做的编辑设计，不应倒推为视频原话或官方功能。</p><p data-copy="en">The eight-step loop, result ledger, Patrick workflow mapping, Obsidian note, micro-rules, and checklist are editorial designs for execution—not source quotes or official features.</p></div>
+            </article>
+            <article class="panel evidence-card">
+              <span class="tag implementation">HERMES IMPLEMENTATION CHECK</span>
+              <div class="pair"><h3 data-copy="zh">本地五技能栈核验</h3><h3 data-copy="en">Local five-skill stack verification</h3><p data-copy="zh">已确认并应用 <strong>video-to-knowledge-dashboard</strong>、<strong>video-patrick-action-lens</strong>、<strong>obsidian</strong>、<strong>html-redesign-preserve-semantics</strong> 与 <strong>toc-sidebar-batch</strong>。本次采用版本化 master takeover：保留 v1、沿用旧 ID / 语言 / 主题 / 行动状态机，再升级证据、Patrick 与行动层；没有调用已知不完整的 <code>--from-json</code> 路径。</p><p data-copy="en">Verified and applied: <strong>video-to-knowledge-dashboard</strong>, <strong>video-patrick-action-lens</strong>, <strong>obsidian</strong>, <strong>html-redesign-preserve-semantics</strong>, and <strong>toc-sidebar-batch</strong>. This rebuild uses a versioned master takeover: v1 remains untouched while its IDs, language, theme, and action state machine are preserved and the evidence, Patrick, and action layers are upgraded; the known-incomplete <code>--from-json</code> path was not used.</p></div>
+            </article>
+            <div class="warning pair">
+              <div data-copy="zh"><strong>版本校正：</strong>视频里的 Terra / Luna / Soul 路由与特定模型 / token 建议，可能已经过时或与当前产品不一致，本页不将其作为推荐。以当前官方文档与实际界面为准。</div>
+              <div data-copy="en"><strong>Version correction:</strong> The video's Terra / Luna / Soul routing and model/token advice may be outdated or inconsistent with the current product. This report does not endorse it; use current official docs and the live interface as the authority.</div>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <span>HERMES SIGNAL LAB / SOURCE-AWARE FIELD NOTE</span>
+          <span class="pair compact"><span data-copy="zh">阅读不是完成；写下下一步才是。</span><span data-copy="en">Reading is not completion. Writing the next move is.</span></span>
+        </footer>
+      </article>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const root = document.documentElement;
+      const progressBar = document.getElementById('progressBar');
+      const themeToggle = document.getElementById('themeToggle');
+      const tocToggle = document.getElementById('tocToggle');
+      const tocPanel = document.getElementById('tocPanel');
+      const tocScrim = document.getElementById('tocScrim');
+      const langButtons = [...document.querySelectorAll('[data-lang-choice]')];
+      const quoteFilters = [...document.querySelectorAll('[data-quote-filter]')];
+      const quoteCards = [...document.querySelectorAll('[data-quote-theme]')];
+      const actionInputs = [...document.querySelectorAll('[data-action-id]')];
+      const completionText = document.getElementById('completionText');
+      const completionFill = document.getElementById('completionFill');
+      const completionTrack = document.getElementById('completionTrack');
+      const markdownPreview = document.getElementById('markdownPreview');
+      const exportLanguage = document.getElementById('exportLanguage');
+      const exportTasks = document.getElementById('exportTasks');
+      const toast = document.getElementById('toast');
+      let toastTimer;
+
+      const sourceUrl = 'https://www.youtube.com/watch?v=jKkr8czmG4U';
+      const stateKey = 'jkkr8czmg4u-voice-front-door-v2-actions';
+
+      const workflow = [
+        ['10:36', 636, 'Remote Hub：从远程入口看全局', 'Remote Hub: see the system from afar', '启动、查看、追问与分发；入口负责编排。', 'Start, inspect, follow up, and dispatch; the front door orchestrates.'],
+        ['12:43', 763, '编排模型：控制面与执行面分离', 'Orchestration model: separate control from execution', 'Voice 表达意图与路由，独立线程 / agents 执行。', 'Voice states intent and routes; separate threads / agents execute.'],
+        ['14:33', 873, 'Paper before screen：先在纸上规划', 'Paper before screen: plan before opening the UI', '先写目标、交付件、依赖与完成标准。', 'Write the goal, deliverables, dependencies, and definition of done first.'],
+        ['16:47', 1007, 'Summary note：让结果回到一张纸', 'Summary note: return results to one page', '收拢产出、证据、未决问题与下一步。', 'Collect outputs, evidence, open questions, and next actions.'],
+        ['19:00', 1140, '明确 Computer / Browser Use', 'Make Computer / Browser Use explicit', '写清动作、范围与停止条件。', 'State action, scope, and stop condition.'],
+        ['21:16', 1276, 'Activity inbox：只看需要介入的事', 'Activity inbox: attend to what needs you', '汇总完成、进行中、失败与等待决定的事项。', 'Collect completed, active, failed, and decision-waiting items.'],
+        ['22:19', 1339, 'Ambient widget：在场，但不占据目光', 'Ambient widget: present without owning your gaze', '用于分发、检查和追问，不要求持续盯屏。', 'Dispatch, check, and follow up without constant screen attention.'],
+        ['23:43', 1423, 'Question-first steering：用问题来掌舵', 'Question-first steering: steer by asking', '先问结果、假设与关键下一问，再下命令。', 'Ask about results, assumptions, and the key next question before commanding.']
+      ];
+
+      const golden = [
+        { time: '01:21', sec: 81, theme: 'ORCHESTRATION', zh: '声音的杠杆，不是回答更快，而是让更多正确的线程开始工作。', en: 'Voice gains leverage not by answering faster, but by starting the right threads.', chapterZh: 'Why voice is special', chapterEn: 'Why voice is special', whyZh: '把语音从听写器提升为任务路由入口。', whyEn: 'Reframes voice from dictation into task routing.' },
+        { time: '03:29', sec: 209, theme: 'CHIEF OF STAFF', zh: '把语音当首席幕僚：它澄清意图、调度资源、把例外带回来。', en: 'Treat voice as a chief of staff: clarify intent, route resources, return exceptions.', chapterZh: '跨线程可见性', chapterEn: 'Cross-thread visibility', whyZh: '入口负责协调，不伪装成后台执行者。', whyEn: 'The front door coordinates instead of pretending to be the worker.' },
+        { time: '09:00', sec: 540, theme: 'PARALLEL', zh: '几秒钟的编排，可以启动数条并行的深度工作线。', en: 'Seconds of orchestration can launch several deep-work tracks in parallel.', chapterZh: '早晨工作流演示', chapterEn: 'Morning workflow demo', whyZh: '衡量可验收结果，而不是说了多少。', whyEn: 'Measure accepted outcomes, not words spoken.' },
+        { time: '12:51', sec: 771, theme: 'CONTROL / EXECUTION', zh: '声音是控制面；agents 与线程才是执行面。', en: 'Voice is the control plane; agents and threads are the execution plane.', chapterZh: 'Tip 2 Orchestration Model', chapterEn: 'Tip 2, Orchestration Model', whyZh: '把意图路由与耗时工作分开。', whyEn: 'Separates intent routing from slow execution.' },
+        { time: '16:31', sec: 991, theme: 'ATTENTION', zh: '生产力的升级，可能不是更多屏幕时间，而是更少凝视、更准介入。', en: 'Higher productivity may mean less screen time and more precise intervention.', chapterZh: 'Tip 3 Paper Before Screen', chapterEn: 'Tip 3, Paper Before Screen', whyZh: '把注意力保留给决定与例外。', whyEn: 'Preserves attention for decisions and exceptions.' },
+        { time: '17:34', sec: 1054, theme: 'RESULT LEDGER', zh: '并行工作没有结果账本，就只是同时发生的遗忘。', en: 'Parallel work without a result ledger is just forgetting things concurrently.', chapterZh: 'Tip 4 Summary Note', chapterEn: 'Tip 4, Summary Note', whyZh: '产物、证据、阻塞和下一步回到一个账本。', whyEn: 'Returns outputs, evidence, blockers, and next moves to one ledger.' },
+        { time: '23:26', sec: 1406, theme: 'AMBIENT', zh: '环境式 AI 的价值，是随时在场，却不要求你一直盯着它。', en: 'Ambient AI stays available without demanding your constant gaze.', chapterZh: 'Tip 7 Always-on Voice', chapterEn: 'Tip 7, Always-on Voice', whyZh: '可用性不应等于持续占据注意力。', whyEn: 'Availability should not require continuous attention.' },
+        { time: '23:47', sec: 1427, theme: 'QUESTIONS', zh: '好的编排者提出的问题，通常比发出的命令更多。', en: 'Good orchestrators usually ask more questions than they issue commands.', chapterZh: 'Tip 8 Question-first Steering', chapterEn: 'Tip 8, Question-first Steering', whyZh: '先暴露假设和下一步，再承诺执行。', whyEn: 'Expose assumptions and the next move before committing execution.' }
+      ];
+
+      const mappings = [
+        { principleZh: 'Voice 是入口：从手机说出意图，再交给后台。', principleEn: 'Voice is the front door: capture intent on mobile, then hand it to the background.', path: 'skills/autonomous-ai-agents/hermes-agent/SKILL.md', status: 'LIVE', relation: 'FULLY ALIGNED', moveZh: '复述意图，再创建可验证任务；语音只证明收到输入。', moveEn: 'Restate intent, then create a verifiable task; voice proves intake only.', limitZh: '需要启用 STT 并配置可用 provider。', limitEn: 'Requires STT with a usable provider.' },
+        { principleZh: '意图要先变成 Goal / Proof / Steps / Stop brief。', principleEn: 'Intent must become a Goal / Proof / Steps / Stop brief.', path: 'skills/agentic-os/task-clarity-gate/SKILL.md', status: 'REFERENCE', relation: 'ALIGNED', moveZh: '每个语音任务先编译成 GPS 卡。', moveEn: 'Compile each spoken task into a GPS card.', limitZh: '程序性 skill；未发现自动 runtime gate。', limitEn: 'Procedural skill; no automatic runtime gate found.' },
+        { principleZh: '一件交付物，一条持久 lane。', principleEn: 'One deliverable, one persistent lane.', path: 'skills/devops/kanban-orchestrator/SKILL.md', status: 'LIVE', relation: 'FULLY ALIGNED', moveZh: '用 owner、证据、阻塞和下一步升级“开线程”。', moveEn: 'Upgrade “open a thread” with owner, evidence, blocker, and next move.', limitZh: '未知 profile 名会让 ready 卡搁浅。', limitEn: 'Unknown profile names can strand ready cards.' },
+        { principleZh: '并行执行必须带回证据。', principleEn: 'Parallel execution must return evidence.', path: 'skills/autonomous-ai-agents/parallel-orchestrator-with-worktree/SKILL.md', status: 'LIVE', relation: 'ALIGNED + WARNING', moveZh: '只并行真正独立、可直接合并的代码任务。', moveEn: 'Parallelize only independent code tasks with straightforward merges.', limitZh: 'Git 专用，不是通用生活工作流。', limitEn: 'Git-specific, not a general life workflow.' },
+        { principleZh: '权限边界属于 prompt 本身。', principleEn: 'Authority boundaries belong inside the prompt.', path: 'skills/autonomous-ai-agents/human-validation-zones/SKILL.md', status: 'REFERENCE', relation: 'ALIGNED + WARNING', moveZh: '给 browser / computer / send / publish / delete 标 A / B / C。', moveEn: 'Classify browser / computer / send / publish / delete as A / B / C.', limitZh: '政策模式，不是强制 RBAC。', limitEn: 'Policy pattern, not enforced RBAC.' },
+        { principleZh: '主动，但必须可恢复、可停止。', principleEn: 'Be proactive, but recoverable and stoppable.', path: 'skills/productivity/hermes-proactive/SKILL.md', status: 'GAP', relation: 'ALIGNED + WARNING', moveZh: '只借用有界主动性原则，不标成可运行能力。', moveEn: 'Reuse bounded-proactivity principles without calling it runnable.', limitZh: 'recover_from_compaction.py 与 PAI/MEMORY 当前缺失。', limitEn: 'recover_from_compaction.py and PAI/MEMORY are missing.' },
+        { principleZh: '结果回到 Vault，再进入行动闭环。', principleEn: 'Results return to the Vault, then re-enter the action loop.', path: 'skills/patricks-vault-os/SKILL.md', status: 'LIVE', relation: 'FULLY ALIGNED', moveZh: 'dashboard 与 index.md 成对落库，行动使用稳定 ID。', moveEn: 'Store dashboard and index.md together with stable action IDs.', limitZh: '上游 video-to-obsidian 截断；改用 knowledge-dashboard 栈。', limitEn: 'Upstream video-to-obsidian is truncated; use the knowledge-dashboard stack.' },
+        { principleZh: '重复成功，才晋升为 skill IP。', principleEn: 'Only repeated success earns promotion into skill IP.', path: 'skills/continuous-learning-v2/SKILL.md', status: 'GAP', relation: 'COUNTER-EVIDENCE', moveZh: '先放候选区，通过五次试验后再写 SKILL.md。', moveEn: 'Keep it as a candidate; write SKILL.md only after five trials.', limitZh: 'atomic instinct schema 未接入；auto-extract 无 session-end hook。', limitEn: 'Atomic instinct schema is not wired; auto-extract lacks a session-end hook.' }
+      ];
+
+      const actions = [
+        { id: 'plan', priority: 'P0', window: 'TODAY · 3 MIN', owner: 'Patrick', titleZh: '填写一张 GPS 语音任务卡', titleEn: 'Fill one GPS voice-task card', artifact: 'hermes-voice/GPS-brief-template.md', thresholdZh: '6 个字段全部非空', thresholdEn: 'all six fields non-empty', evidenceZh: '保存后的 brief', evidenceEn: 'saved brief', guardrailZh: 'Proof 不清楚就回到人类', guardrailEn: 'unclear Proof routes to human', rollbackZh: '退回 text-only intake', rollbackEn: 'return to text-only intake', source: '14:33 Paper Before Screen' },
+        { id: 'recap', priority: 'P0', window: 'TODAY · 4 MIN', owner: 'Hermes', titleZh: '生成一次只读状态复述', titleEn: 'Generate one read-only state recap', artifact: 'hermes-voice/voice-result-ledger.md', thresholdZh: '3/3 lane 五字段齐全', thresholdEn: '3/3 lanes have five fields', evidenceZh: 'task IDs + 状态快照', evidenceEn: 'task IDs + state snapshot', guardrailZh: '未知状态保持 UNKNOWN', guardrailEn: 'unknown remains UNKNOWN', rollbackZh: '停在只读复述', rollbackEn: 'stop at read-only recap', source: '06:40 demo + 16:47 summary' },
+        { id: 'next', priority: 'P1', window: 'NEXT SESSION · 2 MIN', owner: 'Patrick', titleZh: '每轮只批准一个下一步', titleEn: 'Approve only one next move per round', artifact: 'hermes-voice/voice-next-decision.md', thresholdZh: '恰好 1 个已批准动作', thresholdEn: 'exactly one approved action', evidenceZh: '问题 + 选择 + 原因', evidenceEn: 'question + choice + reason', guardrailZh: '批准前不执行', guardrailEn: 'no execution before approval', rollbackZh: '停在 options-only', rollbackEn: 'stop at options-only', source: '23:43 Question-first' },
+        { id: 'threads', priority: 'P1', window: 'NEXT SESSION · 10 MIN', owner: 'Hermes', titleZh: '每个交付件创建一条 Kanban lane', titleEn: 'Create one Kanban lane per deliverable', artifact: 'Hermes Kanban board + task IDs', thresholdZh: '1 deliverable = 1 lane', thresholdEn: '1 deliverable = 1 lane', evidenceZh: 'task IDs + parent links', evidenceEn: 'task IDs + parent links', guardrailZh: '初始并行上限 3', guardrailEn: 'initial concurrency cap of 3', rollbackZh: '暂停 children，保留证据', rollbackEn: 'pause children, preserve evidence', source: '01:21 + 09:00 + 12:43' },
+        { id: 'ledger', priority: 'P1', window: 'THIS WEEK · 8 MIN', owner: 'Hermes', titleZh: '建立结果账本而不是完成感', titleEn: 'Build a result ledger, not a feeling of completion', artifact: 'hermes-voice/voice-result-ledger.md', thresholdZh: '100% lane 五字段齐全', thresholdEn: '100% of lanes have five fields', evidenceZh: 'board export + note diff', evidenceEn: 'board export + note diff', guardrailZh: '无证据不得标 done', guardrailEn: 'no evidence, no done state', rollbackZh: '归档新版本，不覆盖旧账本', rollbackEn: 'archive new version; never overwrite', source: '16:47 Summary Note' },
+        { id: 'computer', priority: 'P1', window: 'TODAY · 3 MIN', owner: 'Patrick', titleZh: '写一张 A / B / C 授权矩阵', titleEn: 'Write an A / B / C authority matrix', artifact: 'hermes-voice/voice-authority-matrix.md', thresholdZh: 'send / publish / delete / credentials 全分类', thresholdEn: 'send / publish / delete / credentials classified', evidenceZh: '20-command audit rows', evidenceEn: '20-command audit rows', guardrailZh: '公开 / 破坏 / 凭证永远 C', guardrailEn: 'public / destructive / credentials always C', rollbackZh: '暂停 gateway automation', rollbackEn: 'pause gateway automation', source: '19:00 Computer / Browser Use' },
+        { id: 'obsidian', priority: 'P1', window: 'THIS WEEK · 5 MIN', owner: 'Hermes', titleZh: '把 index.md 与 dashboard.html 成对落库', titleEn: 'Store index.md and dashboard.html as one bundle', artifact: 'Vault/hermes-voice/jkkr8czmg4u-voice-front-door-v2/', thresholdZh: '2 个文件 + 3 个 canonical anchors', thresholdEn: '2 files + 3 canonical anchors', evidenceZh: '路径 + HTML / MD QA', evidenceEn: 'paths + HTML / MD QA', guardrailZh: '新目录；禁止覆盖 v1', guardrailEn: 'new directory; never overwrite v1', rollbackZh: '只归档 v2 bundle', rollbackEn: 'archive only the v2 bundle', source: '16:47 Summary Note' },
+        { id: 'review', priority: 'P2', window: '5-DAY REVIEW', owner: 'Patrick', titleZh: '达到证据门后再晋升 Voice skill', titleEn: 'Promote a Voice skill only after the evidence gate', artifact: 'voice-front-door/SKILL.md + demo fixture', thresholdZh: '≥5 次 / ≥2 sessions / confidence ≥.9 / 10/10 demo', thresholdEn: '≥5 times / ≥2 sessions / confidence ≥.9 / 10/10 demo', evidenceZh: 'source links + test output', evidenceEn: 'source links + test output', guardrailZh: '不晋升 secrets / PII / recall-only claims', guardrailEn: 'never promote secrets / PII / recall-only claims', rollbackZh: '降级为 REFERENCE 并停用', rollbackEn: 'downgrade to REFERENCE and disable', source: '23:43 Question-first' }
+      ];
+
+      function safeGet(key, fallback) {
+        try {
+          const value = localStorage.getItem(key);
+          return value === null ? fallback : value;
+        } catch (_) { return fallback; }
+      }
+
+      function safeSet(key, value) {
+        try { localStorage.setItem(key, value); } catch (_) {}
+      }
+
+      function say(zh, en) {
+        const lang = root.dataset.lang;
+        if (lang === 'zh') return zh;
+        if (lang === 'en') return en;
+        return zh + ' / ' + en;
+      }
+
+      function showToast(zh, en) {
+        toast.textContent = say(zh, en);
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2300);
+      }
+
+      function setTheme(theme) {
+        root.dataset.theme = theme;
+        safeSet('hermesVoice.theme', theme);
+        const next = theme === 'dark' ? 'LIGHT' : 'DARK';
+        themeToggle.textContent = next;
+        themeToggle.setAttribute('aria-label', theme === 'dark' ? '切换到浅色主题 / Switch to light theme' : '切换到深色主题 / Switch to dark theme');
+      }
+
+      function setToc(state, persist = true) {
+        const nextState = state === 'closed' ? 'closed' : 'open';
+        root.dataset.toc = nextState;
+        const expanded = nextState === 'open';
+        tocToggle.setAttribute('aria-expanded', String(expanded));
+        tocToggle.setAttribute('aria-label', expanded ? say('收起目录', 'Close table of contents') : say('展开目录', 'Open table of contents'));
+        tocPanel.setAttribute('aria-hidden', String(!expanded));
+        if (expanded) tocPanel.removeAttribute('inert');
+        else tocPanel.setAttribute('inert', '');
+        if (persist) safeSet('hermesVoice.toc', nextState);
+      }
+
+      function setQuoteFilter(theme) {
+        quoteFilters.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.quoteFilter === theme)));
+        quoteCards.forEach(card => { card.hidden = theme !== 'all' && card.dataset.quoteTheme !== theme; });
+      }
+
+      function setLanguage(lang, preservePosition = true) {
+        const activeSection = preservePosition ? [...document.querySelectorAll('main section[id]')].reverse().find(section => section.getBoundingClientRect().top <= 130) : null;
+        const oldTop = activeSection ? activeSection.getBoundingClientRect().top : 0;
+        root.dataset.lang = lang;
+        root.lang = lang === 'en' ? 'en' : 'zh-Hans';
+        safeSet('hermesVoice.lang', lang);
+        langButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.langChoice === lang)));
+        renderAll();
+        setToc(root.dataset.toc, false);
+        requestAnimationFrame(() => {
+          if (activeSection) window.scrollBy(0, activeSection.getBoundingClientRect().top - oldTop);
+          updateProgress();
+          updateActiveNav();
+        });
+      }
+
+      function loadActionState() {
+        let saved = {};
+        try { saved = JSON.parse(safeGet(stateKey, '{}')) || {}; } catch (_) {}
+        actionInputs.forEach(input => { input.checked = Boolean(saved[input.dataset.actionId]); });
+      }
+
+      function saveActionState() {
+        const saved = {};
+        actionInputs.forEach(input => { saved[input.dataset.actionId] = input.checked; });
+        safeSet(stateKey, JSON.stringify(saved));
+      }
+
+      function taskState(id) {
+        const input = actionInputs.find(item => item.dataset.actionId === id);
+        return Boolean(input && input.checked);
+      }
+
+      function languageText(zh, en) {
+        if (root.dataset.lang === 'zh') return zh;
+        if (root.dataset.lang === 'en') return en;
+        return zh + ' / ' + en;
+      }
+
+      function buildMarkdown() {
+        const lang = root.dataset.lang;
+        const mode = lang === 'zh' ? 'zh-CN' : lang === 'en' ? 'en' : 'zh-CN + en';
+        const title = languageText('Voice 是前门：Hermes × Patrick 编排协议 v2', 'Voice Is the Front Door: Hermes × Patrick Orchestration Protocol v2');
+        const thesis = languageText('声音不是执行者，而是编排入口；线程与 agents 才是执行面。', 'Voice is not the worker; it is the orchestration front door; threads and agents are the execution plane.');
+        const lines = [
+          '---',
+          'title: "' + title.replace(/"/g, '\\"') + '"',
+          'source: "Alex Finn — ChatGPT Voice is the most powerful AI feature of 2026. Here’s how to master it"',
+          'source_url: "' + sourceUrl + '"',
+          'published: 2026-08-07',
+          'duration: "25:55"',
+          'note_date: 2026-08-10',
+          'version: 2',
+          'language: "' + mode + '"',
+          'evidence: "English auto-caption anchors verified; zero verbatim quotes"',
+          'tags: [hermes, voice, orchestration, patrick, workflow, video-dashboard]',
+          '---',
+          '',
+          '# ' + title,
+          '',
+          '> [!summary] ' + languageText('核心判断', 'Core thesis'),
+          '> ' + thesis,
+          '',
+          '## ' + languageText('执行摘要', 'Executive Brief'),
+          '',
+          '- ' + languageText('Voice 是前台与控制面；独立线程 / agents 是后台执行面。', 'Voice is the front door and control plane; separate threads / agents are the execution plane.'),
+          '- ' + languageText('闭环：纸面计划 → 状态复述 → 追问下一步 → 一事一线程 → 监控 → 明确 computer / browser use → 摘要笔记 → 复盘。', 'Loop: paper plan → state recap → ask next → one thread per task → monitor → explicit computer / browser use → summary note → review.'),
+          '- ' + languageText('Patrick 并未在源视频中出现；本页把视频概念编辑映射到 Patrick 已有的 Hermes / Vault 工作。', 'Patrick is not mentioned in the source video; this note editorially maps its ideas to Patrick’s existing Hermes / Vault work.'),
+          '- ' + languageText('英文自动字幕存在 ASR 错词；8 个金句时间点已核对，全部为编辑转述，0 条 VERBATIM。', 'The English auto-captions contain ASR errors; all eight golden-line anchors were checked, all remain editorial paraphrases, and zero are VERBATIM.'),
+          '',
+          '## ' + languageText('八步技能链', '8-skill Workflow'),
+          ''
+        ];
+
+        workflow.forEach((item, index) => {
+          lines.push((index + 1) + '. [' + item[0] + '](' + sourceUrl + '&t=' + item[1] + 's) **' + languageText(item[2], item[3]) + '** — ' + languageText(item[4], item[5]));
+        });
+
+        lines.push('', '<a id="quotes"></a><a id="golden"></a>', '', '## ' + languageText('金句（全部为编辑转述）', 'Golden Lines (all editorial paraphrases)'), '', '> [!warning] ' + languageText('英文自动字幕只用于核验主题锚点；因 ASR 错词，本页保留 0 条 VERBATIM。', 'English auto-captions are used only to verify idea anchors; because of ASR errors, this page keeps zero VERBATIM excerpts.'), '');
+        golden.forEach(item => {
+          lines.push('- [' + item.time + '](' + sourceUrl + '&t=' + item.sec + 's) · **' + item.theme + ' · EDITORIAL PARAPHRASE** — ' + languageText(item.zh, item.en));
+          lines.push('  - ' + languageText('讲者 / 章节：Alex Finn · ' + item.chapterZh + '；意义：' + item.whyZh, 'Speaker / chapter: Alex Finn · ' + item.chapterEn + '; why it matters: ' + item.whyEn));
+        });
+
+        lines.push(
+          '',
+          '<a id="patrick"></a>',
+          '',
+          '## Patrick × Hermes',
+          '',
+          '> [!important] ' + languageText('Patrick 映射连接到他已有的 Hermes / Vault 工作；它是编辑 / 工作流适配，不是视频原话。', 'The Patrick mapping connects to his existing Hermes / Vault work; it is an editorial / workflow adaptation, not source language.'),
+          '',
+          '### ' + languageText('本次实际使用的五技能栈', 'Five-skill stack applied to this rebuild'),
+          '',
+          '1. `video-to-knowledge-dashboard` — CORE',
+          '2. `video-patrick-action-lens` — LENS',
+          '3. `obsidian` — STORE',
+          '4. `html-redesign-preserve-semantics` — PRESERVE',
+          '5. `toc-sidebar-batch` — NAVIGATE',
+          '',
+          '> [!note] ' + languageText('五项均已安装并核验；这是 video-patrick-action-lens 推荐的标准栈，也正好命中单次五技能上限。', 'All five are installed and verified; this is the canonical stack recommended by video-patrick-action-lens and exactly fills the five-skill limit.'),
+          '',
+          '### ' + languageText('证据映射', 'Evidence-backed mappings'),
+          ''
+        );
+
+        mappings.forEach((item, index) => {
+          lines.push((index + 1) + '. **' + languageText(item.principleZh, item.principleEn) + '**');
+          lines.push('   - **ASSET:** `' + item.path + '`');
+          lines.push('   - **STATUS / RELATION:** ' + item.status + ' / ' + item.relation);
+          lines.push('   - **PATRICK MOVE:** ' + languageText(item.moveZh, item.moveEn));
+          lines.push('   - **LIMIT:** ' + languageText(item.limitZh, item.limitEn));
+        });
+
+        lines.push(
+          '',
+          '<a id="action"></a><a id="actions"></a>',
+          '',
+          '## ' + languageText('下一步行动', 'Next Actions'),
+          ''
+        );
+
+        actions.forEach(item => {
+          lines.push('- [' + (taskState(item.id) ? 'x' : ' ') + '] **' + item.priority + ' · ' + item.window + ' · OWNER ' + item.owner + '** — ' + languageText(item.titleZh, item.titleEn));
+          lines.push('  - **ARTIFACT:** `' + item.artifact + '`');
+          lines.push('  - **THRESHOLD:** ' + languageText(item.thresholdZh, item.thresholdEn));
+          lines.push('  - **EVIDENCE:** ' + languageText(item.evidenceZh, item.evidenceEn));
+          lines.push('  - **GUARDRAIL:** ' + languageText(item.guardrailZh, item.guardrailEn));
+          lines.push('  - **ROLLBACK:** ' + languageText(item.rollbackZh, item.rollbackEn));
+          lines.push('  - **SOURCE:** ' + item.source);
+        });
+
+        lines.push(
+          '',
+          '## ' + languageText('证据与边界', 'Evidence & Caveats'),
+          '',
+          '- **' + languageText('来源转述', 'Source paraphrase') + ':** ' + languageText('英文原始自动字幕与中文自动翻译字幕已核对；时间戳定位主题，金句 0 条 VERBATIM。', 'Original English auto-captions and Chinese auto-translation were checked; timestamps locate ideas and zero golden lines are VERBATIM.'),
+          '- **CAPTION SHA256:** `EN 95b20e3e1ac1f1f3e8bc358c7ce86a15b43230134bffb249da6cd72b3c2f9ba9` · `ZH 6b38042a56559cbe97a2ad09466cf03728da5cdf2109899843a4e57f2076202f`.',
+          '- **' + languageText('官方确认', 'Official confirmation') + ':** [Introducing GPT-Live](https://openai.com/index/introducing-gpt-live/), [ChatGPT Voice](https://help.openai.com/en/articles/20001274-chatgpt-voice), [Remote](https://learn.chatgpt.com/docs/remote), [Computer use](https://learn.chatgpt.com/docs/computer-use), [Projects](https://learn.chatgpt.com/docs/projects).',
+          '- **' + languageText('作者主张', 'Author claim') + ':** ' + languageText('产品评价、模型 / token / 路由建议须独立核验。', 'Product judgments and model / token / routing advice require independent verification.'),
+          '- **' + languageText('Hermes 代码库核验', 'Hermes codebase check') + ':** ' + languageText('五技能标准栈全部存在并已应用；v2 采用 master takeover，保留旧交互语义，未调用不完整的 --from-json 路径。', 'All five canonical skills exist and were applied; v2 uses a master takeover that preserves prior interaction semantics and avoids the incomplete --from-json path.'),
+          '- **' + languageText('版本校正', 'Version correction') + ':** ' + languageText('Terra / Luna / Soul 路由建议可能已过时；以当前官方文档与实际界面为准。', 'Terra / Luna / Soul routing advice may be outdated; defer to current official docs and the live interface.'),
+          '',
+          '---',
+          languageText('阅读不是完成；写下下一步才是。', 'Reading is not completion. Writing the next move is.')
+        );
+        return lines.join('\n');
+      }
+
+      function renderAll() {
+        const checked = actionInputs.filter(input => input.checked).length;
+        const langLabel = root.dataset.lang === 'zh' ? 'ZH' : root.dataset.lang === 'en' ? 'EN' : 'BILINGUAL';
+        completionText.textContent = checked + ' / ' + actionInputs.length;
+        completionFill.style.width = (checked / actionInputs.length * 100) + '%';
+        completionTrack.setAttribute('aria-valuemax', String(actionInputs.length));
+        completionTrack.setAttribute('aria-valuenow', String(checked));
+        completionTrack.setAttribute('aria-valuetext', checked + ' of ' + actionInputs.length + ' actions complete');
+        exportLanguage.textContent = 'MODE / ' + langLabel;
+        exportTasks.textContent = 'ACTIONS / ' + checked + ' OF ' + actionInputs.length;
+        markdownPreview.textContent = buildMarkdown();
+      }
+
+      async function copyMarkdown() {
+        const markdown = buildMarkdown();
+        try {
+          await navigator.clipboard.writeText(markdown);
+        } catch (_) {
+          const textarea = document.createElement('textarea');
+          textarea.value = markdown;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          textarea.remove();
+        }
+        showToast('Markdown 已复制', 'Markdown copied');
+      }
+
+      function downloadMarkdown() {
+        const blob = new Blob([buildMarkdown()], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = '2026-08-10-chatgpt-voice-hermes-workflow-v2.md';
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+        showToast('Markdown 已下载', 'Markdown downloaded');
+      }
+
+      function updateProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        progressBar.style.width = (ratio * 100) + '%';
+      }
+
+      function updateActiveNav() {
+        const sections = [...document.querySelectorAll('main section[id]')];
+        const navLinks = [...document.querySelectorAll('.toc nav a')];
+        let active = sections[0] ? (sections[0].dataset.navTarget || sections[0].id) : '';
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= 170) active = section.dataset.navTarget || section.id;
+        }
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === '#' + active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      }
+
+      langButtons.forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.langChoice)));
+      themeToggle.addEventListener('click', () => setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'));
+      tocToggle.addEventListener('click', () => setToc(root.dataset.toc === 'open' ? 'closed' : 'open'));
+      tocScrim.addEventListener('click', () => setToc('closed'));
+      quoteFilters.forEach(button => button.addEventListener('click', () => setQuoteFilter(button.dataset.quoteFilter)));
+      document.querySelectorAll('.toc nav a').forEach(link => link.addEventListener('click', () => {
+        if (matchMedia('(max-width: 1050px)').matches) setToc('closed');
+      }));
+
+      actionInputs.forEach(input => input.addEventListener('change', () => {
+        saveActionState();
+        renderAll();
+      }));
+
+      document.getElementById('resetActions').addEventListener('click', () => {
+        if (!actionInputs.some(input => input.checked)) return;
+        const approved = window.confirm(say('重置本机保存的全部行动状态？', 'Reset every locally saved action?'));
+        if (!approved) return;
+        actionInputs.forEach(input => { input.checked = false; });
+        saveActionState();
+        renderAll();
+        showToast('清单已重置', 'Checklist reset');
+      });
+
+      document.getElementById('copyMarkdown').addEventListener('click', copyMarkdown);
+      document.getElementById('downloadMarkdown').addEventListener('click', downloadMarkdown);
+
+      document.querySelectorAll('[data-copy="zh"]').forEach(node => node.setAttribute('lang', 'zh-Hans'));
+      document.querySelectorAll('[data-copy="en"]').forEach(node => node.setAttribute('lang', 'en'));
+
+      document.addEventListener('keydown', event => {
+        const target = event.target;
+        if (target instanceof Element && target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return;
+        const key = event.key.toLowerCase();
+        if (key === '1') setLanguage('zh');
+        if (key === '2') setLanguage('en');
+        if (key === '3') setLanguage('bi');
+        if (key === 't') setTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        if (key === 'c' && !event.metaKey && !event.ctrlKey && !event.altKey) copyMarkdown();
+      });
+
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          updateProgress();
+          updateActiveNav();
+          ticking = false;
+        });
+      }, { passive: true });
+
+      loadActionState();
+      setTheme(root.dataset.theme === 'light' ? 'light' : 'dark');
+      setToc(root.dataset.toc === 'closed' ? 'closed' : 'open', false);
+      setQuoteFilter('all');
+      setLanguage(['zh', 'en', 'bi'].includes(root.dataset.lang) ? root.dataset.lang : 'bi', false);
+      updateProgress();
+      updateActiveNav();
+    })();
+  </script>
+</body>
+</html>

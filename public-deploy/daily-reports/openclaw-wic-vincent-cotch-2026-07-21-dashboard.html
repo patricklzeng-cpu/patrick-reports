@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>WIC 2026 OpenClaw 首席架构师采访 — 中英双语</title>
+<style>
+:root{
+  --bg:#0d0d10;--bg-card:#16161b;--bg-elevated:#1c1c22;
+  --border:#2a2a32;--text:#e8e8ea;--text-dim:#a8a8b2;--text-mute:#6a6a76;
+  --accent:#ff6b35;--accent-2:#f7c59f;
+  --green:#4ade80;--red:#f87171;--yellow:#fbbf24;
+  --blue:#60a5fa;--purple:#a78bfa;--lime:#d5ff3f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:2rem;max-width:1400px;margin:0 auto}
+h1{font-size:2.2rem;color:var(--accent);margin-bottom:0.5rem}
+.subtitle{color:var(--text-dim);font-size:1.1rem;margin-bottom:1.5rem}
+.meta-bar{display:flex;flex-wrap:wrap;gap:1rem;background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;margin-bottom:1.5rem;border:1px solid var(--border);font-size:0.9rem}
+.meta-bar span{display:inline-flex;align-items:center;gap:0.4rem}
+.meta-bar b{color:var(--accent-2)}
+.lang-toggle{position:fixed;top:1rem;right:1.5rem;z-index:200;background:rgba(22,22,27,.95);border:1px solid var(--border);border-radius:22px;padding:6px 14px;font:600 12px ui-monospace,"SF Mono",monospace;color:var(--accent);cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;user-select:none}
+.lang-toggle:hover{background:var(--accent);color:#0a0a14;box-shadow:0 0 16px rgba(255,107,53,.4)}
+.hero{background:linear-gradient(135deg,#1a1a22 0%,#16161b 100%);padding:1.5rem;border-radius:10px;margin-bottom:1.5rem;border-left:4px solid var(--accent)}
+.hero h2{color:var(--accent-2);margin-bottom:.8rem;font-size:1.3rem}
+.hero p{color:var(--text);margin-bottom:.6rem}
+.hero ol{margin-left:1.5rem;margin-top:.5rem}
+.hero li{margin-bottom:.3rem;color:var(--text-dim)}
+.warn-box{background:rgba(251,191,36,.08);border-left:4px solid var(--yellow);padding:1rem 1.2rem;border-radius:8px;margin-bottom:1.5rem}
+.warn-box h3{color:var(--yellow);margin-bottom:.6rem;font-size:1.05rem}
+.warn-box p{margin-bottom:.4rem;font-size:.92rem}
+.warn-box ul{margin-left:1.3rem;margin-top:.4rem}
+.warn-box li{font-size:.9rem;color:var(--text-dim);margin-bottom:.2rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--bg-card);padding:1.2rem;border-radius:8px;border:1px solid var(--border);text-align:center}
+.stat-card .num{font-size:1.6rem;color:var(--accent);font-weight:700;margin-bottom:.3rem}
+.stat-card .label{font-size:.78rem;color:var(--text-dim)}
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;border-bottom:2px solid var(--border);padding-bottom:.6rem}
+.tab{background:var(--bg-card);color:var(--text-dim);border:1px solid var(--border);padding:.5rem .9rem;border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .2s}
+.tab:hover{background:var(--bg-elevated);color:var(--text)}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tab-content{display:none;padding:1.5rem 0;animation:fadeIn .3s}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+h2.section{color:var(--accent-2);font-size:1.4rem;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+h3{color:var(--text);font-size:1.1rem;margin:1rem 0 .6rem}
+h4{color:var(--accent-2);margin-bottom:.5rem;font-size:1rem}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1rem;margin-bottom:1.5rem}
+.card{background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;border:1px solid var(--border);border-left:3px solid var(--accent)}
+.card p{color:var(--text-dim);font-size:.92rem;margin-bottom:.3rem}
+.card .src{color:var(--text-mute);font-size:.78rem;display:block;margin-top:.4rem}
+.card .badge{display:inline-block;padding:.15rem .55rem;border-radius:4px;font-size:.74rem;font-weight:600;margin-top:.3rem;margin-right:.3rem}
+.badge.mitig{background:rgba(74,222,128,.15);color:var(--green);border:1px solid rgba(74,222,128,.3)}
+.badge.warn{background:rgba(251,191,36,.15);color:var(--yellow);border:1px solid rgba(251,191,36,.3)}
+.badge.gap{background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+.badge.verified{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.3)}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:1rem 0}
+.pair-card{background:var(--bg-card);padding:1rem 1.2rem;border-radius:8px;border:1px solid var(--border);border-left:3px solid var(--accent)}
+.pair-card .lang-tag{display:inline-block;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-bottom:.4rem}
+.pair-card.zh .lang-tag{background:rgba(255,107,53,.18);color:var(--accent)}
+.pair-card.en .lang-tag{background:rgba(96,165,250,.18);color:var(--blue)}
+.pair-card p{font-size:.92rem;color:var(--text);margin:0}
+@media(max-width:900px){.pair-grid{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem}
+th,td{padding:.6rem;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--bg-elevated);color:var(--accent-2);font-weight:600}
+tr.highlight{background:rgba(255,107,53,.08)}
+blockquote{background:var(--bg-elevated);border-left:3px solid var(--accent);padding:.8rem 1rem;margin:1rem 0;color:var(--text);font-style:italic}
+.quote-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:.8rem;margin:1rem 0}
+.quote-card{background:var(--bg-card);padding:.9rem 1rem;border-radius:8px;border-left:3px solid var(--purple);font-size:.92rem}
+.quote-card .time{color:var(--accent);font-weight:600;font-size:.82rem;display:block;margin-bottom:.3rem}
+.quote-card p{color:var(--text);margin:.3rem 0}
+.quote-card.zh{border-left-color:var(--accent)}
+.quote-card.en{border-left-color:var(--blue)}
+footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);color:var(--text-mute);font-size:.85rem;text-align:center}
+/* TOC v1.4.4 collapsible */
+aside.toc{position:fixed;left:1rem;top:2rem;width:240px;max-height:80vh;overflow-y:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:.8rem;z-index:100;font-size:.82rem;transition:transform .3s ease}
+aside.toc.collapsed{transform:translateX(-220px)}
+aside.toc h4{color:var(--accent-2);margin-bottom:.5rem;font-size:.95rem}
+aside.toc a{display:block;color:var(--text-dim);text-decoration:none;padding:.25rem 0;border-bottom:1px solid var(--border);transition:color .15s}
+aside.toc a:hover{color:var(--accent)}
+.toc-toggle{position:fixed;left:1rem;top:2rem;background:var(--accent);color:#fff;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;z-index:101;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:left .3s ease}
+.toc-toggle.collapsed{left:1.5rem}
+.page{margin-left:260px;transition:margin-left .3s ease}
+h2.section,h3,h4,footer,[id]{scroll-margin-top:80px}
+.page.toc-collapsed{margin-left:40px}
+@media(max-width:1100px){aside.toc{display:none}.toc-toggle{display:none}.page{margin-left:0}}
+/* bilingual swap (4-class CSS, PITFALL P-17/P-18 safe) */
+html[lang="zh-CN"] .en{display:none}
+html[lang="en"] .zh{display:none}
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" id="langBtn" onclick="toggleLang()" title="Toggle Language">EN ⇄ 中</button>
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()" title="Toggle TOC">«</button>
+
+<aside class="toc" id="tocSidebar">
+<h4>Table of Contents</h4>
+<a href="#tldr">📖 一句话总结</a>
+<a href="#core">🔥 核心论点</a>
+<a href="#chapters">⏱️ 11 章节</a>
+<a href="#quotes">💬 金句库</a>
+<a href="#china">🇨🇳 中国生态</a>
+<a href="#security">🔐 安全边界</a>
+<a href="#longhorizon">🎯 长程任务</a>
+<a href="#ecosystem">📦 100 repos ecosystem</a>
+<a href="#pitfalls">⚠️ Pitfalls</a>
+<a href="#related">🔗 Patrick 关联</a>
+<a href="#action">🗺 行动项</a>
+<a href="#transcript">📝 全文 transcript</a>
+</aside>
+
+<div class="page" id="mainPage">
+
+<h1><span class="zh">WIC 2026 OpenClaw 首席架构师采访 (Vincent Cotch)</span><span class="en">WIC 2026 — OpenClaw Chief Architect Vincent Cotch Interview</span></h1>
+<p class="subtitle"><span class="zh">中英双语知识面板 / Bilingual Knowledge Dashboard — WIC 2026 · Shanghai · 1h 05m 41s · 7-segment takeaway · 17 Patrick cards</span><span class="en">中英双语知识面板 / Bilingual Knowledge Dashboard — WIC 2026 · Shanghai · 1h 05m 41s · 7-segment takeaway · 17 Patrick cards</span></p>
+
+<div class="meta-bar">
+<span>🎬 <b>OpenClaw Foundation</b> WIC 2026 Shanghai</span>
+<span>🎤 <b>Vincent Cotch</b> (Chief Architect)</span>
+<span>⏱️ <b>1h 05m 41s</b></span>
+<span>📅 <b>2026</b></span>
+<span>🌐 <a href="https://www.youtube.com/watch?v=tnvyMcmtAiw" target="_blank" style="color:var(--blue)">YouTube tnvyMcmtAiw</a></span>
+<span>📚 <b>17 Patrick cards verified</b></span>
+<span>🗣 <b>zh+en 双语</b></span>
+<span>🟡 <b>1 ⚠️ name typo: "Steinberger" vs "Steinberg"</b></span>
+</div>
+
+<div class="hero" id="tldr">
+<h2>📖 一句话核心结论 / TL;DR</h2>
+<div class="pair-grid">
+<div class="pair-card zh">
+<span class="lang-tag">中文</span>
+<p>OpenClaw 在 2025-12 被 polymarket trader 偶然点爆,6 个月内冲到 <b>npm 4M 下载/周</b> + <b>100+ repos ecosystem</b>,核心工程团队 <b>5-6 人</b>。Peter Steinberger 把代码放进独立 foundation,让 OpenClaw 不被任何公司(包括他自己)掐死。中国大厂 (腾讯 Qclaw / 火山 / 阿里 / 智谱) 直接基于框架出 2C 产品,西方更像在"拥抱 VS 阻止"之间摇摆。"<b>Always-on gateway</b>" (区别其他 turn-based coding agent 的核心架构) 每 30/10 分钟主动 heartbeat 触发任务流。Multi-tenency + long-horizon + native-mobile 是当前 3 个公开 unsolved。</p>
+</div>
+<div class="pair-card en">
+<span class="lang-tag">English</span>
+<p>OpenClaw went viral in <b>Dec 2025</b> via Polymarket traders, hit <b>4M weekly npm downloads</b> and <b>100+ repos ecosystem</b> within 6 months, with a core engineering team of just <b>5-6 people</b>. Peter Steinberger placed the code into an independent foundation so that no company (including his own) could kill it. Chinese majors (Tencent Qclaw / Volcano Engine / Alibaba / Zhipu) shipped 2C products directly on top, while Western players oscillate between "embrace vs block". The "<b>always-on gateway</b>" (the architecture difference from turn-based coding agents) actively triggers work via heartbeat every 30/10 minutes. Multi-tenancy + long-horizon + native-mobile are Vincent's 3 openly-unsolved frontiers.</p>
+</div>
+</div>
+</div>
+
+<div class="warn-box">
+<h3>⚠️ 诚实折扣框 / Honest Discount Box</h3>
+<div class="pair-grid">
+<div class="pair-card zh">
+<span class="lang-tag">中文</span>
+<p><b>4 个 Red Flag</b>:</p>
+<ul style="font-size:.88rem;color:var(--text-dim);margin-left:1.3rem">
+<li><b>名字 typo / Name typo</b> — transcript 出现 "<b>Peter Steinberg</b>" 2 次和 "<b>Peter Steinberger</b>" 1 次。最准确的拼写应该是 <b>Peter Steinberger</b> (QClaw 工程负责人 = openclaw creator)。我会用 transcript 原文 verbatim 引用,标 ⚠️.</li>
+<li><b>kome.ai flat transcript + speaker-flatten</b> — kome.ai 返回的是 ASR 对齐后的 flat 文本,所有 ">> speaker tag" 都是猜测标记;实际没有显示 speaker names. 引用每句话时我用 verbatim 引用,避免 speaker attribution 编造。</li>
+<li><b>采访式 narrative (single-source)</b> — 全部论点来自单一 interview,没有 cross-check 与 benchmark 数字。</li>
+<li><b>Foundation 自述 = self-promotion 风险</b> — Vincent 是 chief architect,会美化 OpenClaw 治理 / npm 数字 / 团队人数。</li>
+</ul>
+<p style="font-size:.85rem"><b>Split Rating</b>: <span class="badge verified">架构描述 8/10</span> <span class="badge verified">工具规模 8/10 (13K PRs / 100 repos)</span> <span class="badge verified">npm 数字 7/10 (自报 4M/week,无第三方验证)</span> <span class="badge warn">Foundation 治理 5/10 (self-described)</span> <span class="badge warn">Multi-tenency / long-horizon 4/10 (公开 unsolved = 没方案)</span></p>
+</div>
+<div class="pair-card en">
+<span class="lang-tag">English</span>
+<p><b>4 Red Flags</b>:</p>
+<ul style="font-size:.88rem;color:var(--text-dim);margin-left:1.3rem">
+<li><b>Name typo</b> — transcript says both "<b>Peter Steinberg</b>" (×2) and "<b>Peter Steinberger</b>" (×1). Most-likely correct spelling is <b>Peter Steinberger</b> (Anthropic engineer, openclaw creator). I quote transcript verbatim and ⚠️ the inconsistency.</li>
+<li><b>kome.ai flat transcript + speaker-flatten</b> — kome.ai returns ASR-aligned flat text; all ">> speaker tags" are guessed. Real speaker attribution is broken. I quote every line verbatim without synthesizing attribution.</li>
+<li><b>Single-source interview</b> — every claim comes from one Vincent interview, no cross-check.</li>
+<li><b>Foundation self-promotion</b> — Vincent is chief architect, will overstate governance / numbers / team quality.</li>
+</ul>
+<p style="font-size:.85rem"><b>Split Rating</b>: <span class="badge verified">Architecture 8/10</span> <span class="badge verified">Scale 8/10 (13K PRs / 100 repos)</span> <span class="badge verified">npm numbers 7/10 (self-reported 4M/week)</span> <span class="badge warn">Foundation governance 5/10 (self-described)</span> <span class="badge warn">Multi-tenency / long-horizon 4/10 (openly-unsolved)</span></p>
+</div>
+</div>
+</div>
+
+<div class="stats">
+<div class="stat-card"><div class="num">1h 05m</div><div class="label">视频时长 / Video duration</div></div>
+<div class="stat-card"><div class="num">4M+</div><div class="label">npm 周下载 / Weekly npm downloads</div></div>
+<div class="stat-card"><div class="num">13K</div><div class="label">同时 open PRs / Concurrent open PRs</div></div>
+<div class="stat-card"><div class="num">~100</div><div class="label">Ecosystem repos / 周边 repos</div></div>
+<div class="stat-card"><div class="num">5-6</div><div class="label">核心工程师 / Core engineering</div></div>
+<div class="stat-card"><div class="num">30m/10m</div><div class="label">Heartbeat 触发间隔 / Interval</div></div>
+<div class="stat-card"><div class="num">2025-12</div><div class="label">Viral 起点 / Viral start</div></div>
+<div class="stat-card"><div class="num">2026-07</div><div class="label">上海 WIC 现场 / WIC event</div></div>
+</div>
+
+<div class="tabs">
+<button class="tab active" data-tab="core">🔥 核心</button>
+<button class="tab" data-tab="chapters">⏱️ 章节</button>
+<button class="tab" data-tab="quotes">💬 金句</button>
+<button class="tab" data-tab="china">🇨🇳 中国</button>
+<button class="tab" data-tab="security">🔐 安全</button>
+<button class="tab" data-tab="longhorizon">🎯 长程</button>
+<button class="tab" data-tab="ecosystem">📦 生态</button>
+<button class="tab" data-tab="pitfalls">⚠️ Pitfalls</button>
+<button class="tab" data-tab="related">🔗 Patrick</button>
+<button class="tab" data-tab="action">🗺 行动</button>
+<button class="tab" data-tab="transcript">📝 原文</button>
+<button class="tab" data-tab="tldr">📖 总结</button>
+</div>
+
+<!-- Tab: Core -->
+<div class="tab-content active" data-tab-content="core">
+<h2 class="section" id="core">🔥 核心论点 / Core Theses</h2>
+<div class="card-grid">
+<div class="card">
+<h4>1. <span class="zh">OpenClaw 不只是一个 agent</span><span class="en">OpenClaw is more than one agent</span></h4>
+<p><span class="zh">Vincent 把 OpenClaw 框定为 "more than just an AI agent or personal AI agent",而是 "a foundation and ecosystem". 30+ WIC events / 100 repos / China 代理产品都长在它之上.</span><span class="en">Vincent frames OpenClaw as "more than just an AI agent or personal AI agent", but as "a foundation and ecosystem". 30+ WIC events / 100 repos / Chinese clone products all grow on top.</span></p>
+<p class="src"><span class="zh">→ 来源 / Source: transcript mid-section, "open claw and especially the open claw foundation is not is I think it's more than just..."</span><span class="en">→ Source: transcript mid-section</span></p>
+</div>
+<div class="card">
+<h4>2. <span class="zh">Always-on gateway = 核心架构差异</span><span class="en">Always-on gateway = the core architecture delta</span></h4>
+<p><span class="zh">区别 turn-based coding agent (一个 thread 一次 turn),OpenClaw gateway 是 "always on service on your machine",它 connect 到 messaging channel,每 30/10 分钟主动触发 conversation chain,自动 schedule task.</span><span class="en">Unlike turn-based coding agents (one thread per turn), OpenClaw's gateway is "always on service on your machine", connecting to messaging channels and triggering a conversation chain every 30/10 minutes, scheduling tasks autonomously.</span></p>
+<p class="src"><span class="zh">→ 来源 / Source: transcript ~41:00</span><span class="en">→ Source: transcript ~41:00</span></p>
+</div>
+<div class="card">
+<h4>3. <span class="zh">13K PRs 时压出来的"AI-assisted 工具链"</span><span class="en">13K PRs forced an AI-assisted internal toolchain</span></h4>
+<p><span class="zh">OpenClaw 团队在面对 13K 同时 open PRs 时,自己写了 AI agents 来 manage pull request review workload。现有工具没为 "10× github 规模" 设计,只能 build own.</span><span class="en">When OpenClaw faced 13K concurrent open PRs, the team wrote their own AI agents to manage the pull request review workload. Existing tooling wasn't designed for "10× github scale" — they had to build it themselves.</span></p>
+<p class="src"><span class="zh">→ 来源: transcript ~7:00 "we developed our own review using AI agents to like manage this workload"</span><span class="en">→ Source: transcript ~7:00</span></p>
+</div>
+<div class="card">
+<h4>4. <span class="zh">Foundation 治理 = 不被自己掐死</span><span class="en">Foundation governance = avoid being killed by yourself</span></h4>
+<p><span class="zh">Peter 主动把代码放进 foundation,这样如果他自己离开或者他公司倒闭,OpenClaw 都还在 community 手里。"the only way the open claw survives and is fair to everyone is that it remains in the foundation".</span><span class="en">Peter proactively puts the code into a foundation so that even if he leaves or his company dies, OpenClaw remains in community hands. "the only way the open claw survives and is fair to everyone is that it remains in the foundation".</span></p>
+<p class="src"><span class="zh">→ 来源: transcript ~12:00 (also restated ~55:00)</span><span class="en">→ Source: transcript ~12:00 (restated ~55:00)</span></p>
+</div>
+<div class="card">
+<h4>5. <span class="zh">中国生态用 OpenClaw 作底座,不重写</span><span class="en">China ecosystem builds ON TOP of OpenClaw, doesn't fork</span></h4>
+<p><span class="zh">Tencent Qclaw / Volcano Engine / Alibaba / Zhipu 等都在 OpenClaw framework 上做产品。Vincent 说"fast forward",他们也想 empower ecosystem 而不是 "build server & host for people" — Foundation 不直接做 2C,让大厂去做。</span><span class="en">Tencent Qclaw / Volcano Engine / Alibaba / Zhipu etc. all build products on top of the OpenClaw framework. Vincent "fast-forward" argues they want to empower the ecosystem rather than build servers themselves — the Foundation doesn't go direct 2C, lets the giants do it.</span></p>
+<p class="src"><span class="zh">→ 来源: transcript ~25:00 "many Chinese companies released agent products on the top of the open claw framework"</span><span class="en">→ Source: transcript ~25:00</span></p>
+</div>
+<div class="card">
+<h4>6. <span class="zh">Gateway 同时是最大安全边界</span><span class="en">The gateway is also OpenClaw's biggest security boundary</span></h4>
+<p><span class="zh">Gateway "may hold credentials and execute actions across the user system" — 是个 "always-on 服务" 拿着用户 keys / SSH / cloud account 持续执行,所以它是最大 attack surface。Foundation 明说"还在工作",但承认这是 unresolved security challenge.</span><span class="en">The gateway "may hold credentials and execute actions across the user system" — it's an always-on service holding user keys / SSH / cloud accounts and executing persistently, so it's the largest attack surface. Foundation says "still working" but admits this is an unresolved security challenge.</span></p>
+<p class="src"><span class="zh">→ 来源: transcript ~41:00 (security follow-up)</span><span class="en">→ Source: transcript ~41:00</span></p>
+</div>
+<div class="card">
+<h4>7. <span class="zh">Multi-tenency = 公开 unsolved</span><span class="en">Multi-tenancy is openly unsolved</span></h4>
+<p><span class="zh">一个 claw 在 team 里共享:哪些 memory 该被谁看到? "we kind of say multi-tenency is like claw assume everything is interchangeable... it's a not a solved problem and we're actively working on this"</span><span class="en">When one claw is shared across a team: which memories should be visible to whom? "we kind of say multi-tenency is like claw assume everything is interchangeable... that's why it's a not a solved problem and we're actively working on this and looking at different ways of solving it that's probably like one of the more interesting harder problem spaces right now".</span></p>
+<p class="src"><span class="zh">→ 来源: transcript ~57:00 "that's probably like one of the more interesting harder problem spaces right now"</span><span class="en">→ Source: transcript ~57:00</span></p>
+</div>
+<div class="card">
+<h4>8. <span class="zh">5-6 人工程团队 vs 100+ repos</span><span class="en">5-6 person core team vs 100+ repos</span></h4>
+<p><span class="zh">"the open core foundation like main engineering team is like five or six people... we're not some 200 person startup you know a large enterprise". Resources constrain = "iterative fast, not perfect first".</span><span class="en">"the open core foundation main engineering team is like five or six people... we're not some 200 person startup you know a large enterprise". Resource constraint = "iterate fast, not perfect first".</span></p>
+<p class="src"><span class="zh">→ 来源: transcript ~81:00 — self-disclosed size 加上 100 repos = 每个 repo 像 "a startup in itself"</span><span class="en">→ Source: transcript ~81:00 — self-disclosed size plus 100 repos = "each repo = a startup in itself"</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Chapters -->
+<div class="tab-content" data-tab-content="chapters">
+<h2 class="section" id="chapters">⏱️ 11 章节 (基于 topic shift, 非官方 timestamp) / 11 Chapters (by topic shift, no official timestamps)</h2>
+<div class="card-grid">
+<div class="card">
+<h4>Ch 1 / 0:00-1:00 <span class="zh">开场 + Vincent 自我介绍</span><span class="en">Opening + Vincent intro</span></h4>
+<p><span class="zh">"Hi Vincent, thanks so much for your time to joining us here at WIC 2026 in Shanghai". Vincent 说自己是 chief architect at OpenClaw Foundation,管 product + engineering.</span><span class="en">"Hi Vincent, thanks so much for your time to joining us here at WIC 2026 in Shanghai". Vincent says he's chief architect at OpenClaw Foundation, looking after product + engineering.</span></p>
+<p class="src"><span class="zh">→ transcript ~1:00;Lobster-themed install events 在全球 / China 特别多</span><span class="en">→ transcript ~1:00; Lobster-themed install events popped up globally, especially in China</span></p>
+</div>
+<div class="card">
+<h4>Ch 2 / 1:00-3:00 <span class="zh">Vincent 怎么加入</span><span class="en">How Vincent joined</span></h4>
+<p><span class="zh">"I kind of noticed this project in early December [2025]... this was on X on Twitter. A lot of I think polymarket traders were using it... I got really excited. I started testing it and then I wanted to help."</span><span class="en">"I kind of noticed this project in early December [2025]... this was on X on Twitter. A lot of I think polymarket traders were using it... I got really excited. I started testing it and then I wanted to help."</span></p>
+</div>
+<div class="card">
+<h4>Ch 3 / 3:00-9:00 <span class="zh">半年内 13K PRs + 自写 AI reviewer</span><span class="en">13K PRs in 6 months + self-built AI reviewer</span></h4>
+<p><span class="zh">"we ended up with I don't know at one point we had like 13,000 PRs open pull requests like changes to openclaw... we developed our own review using AI agents to like manage this workload... the existing tools out there just weren't designed for our scale".</span><span class="en">"we ended up with I don't know at one point we had like 13,000 PRs open pull requests like changes to openclaw... we developed our own review using AI agents to like manage this workload... the existing tools out there just weren't designed for our scale".</span></p>
+</div>
+<div class="card">
+<h4>Ch 4 / 9:00-15:00 <span class="zh">100 repos ecosystem + npm 4M downloads</span><span class="en">100 repos ecosystem + 4M weekly npm downloads</span></h4>
+<p><span class="zh">"we have close to 100 repos... we have different libraries we have different automation tools testing infrastructure... there's a joke that each one of these tools are basically like a startup in themselves". "a few weeks ago, we hit like 4 point something million downloads a week" on npm (likely mirror sites put total way higher).</span><span class="en">"we have close to 100 repos... we have different libraries we have different automation tools testing infrastructure... there's a joke that each one of these tools are basically like a startup in themselves". "a few weeks ago, we hit like 4 point something million downloads a week" on npm (mirror sites put total likely much higher).</span></p>
+</div>
+<div class="card">
+<h4>Ch 5 / 15:00-25:00 <span class="zh">"foundation 不直接做 2C" + 中国生态</span><span class="en">"Foundation doesn't go 2C" + China ecosystem</span></h4>
+<p><span class="zh">Foundation 不跟中国大厂争 2C。"we just want to empower the ecosystem... if that means that other companies are building on top of openclaw and getting that in the hands of users and empowering their users, I think that's a great outcome for us". Tencent Qclaw / Volcano Engine / Alibaba / Zhipu 都发布 agents 顶在 OpenClaw 之上.</span><span class="en">Foundation doesn't compete with Chinese majors for 2C. "we just want to empower the ecosystem... if that means that other companies are building on top of openclaw and getting that in the hands of users and empowering their users, I think that's a great outcome for us". Tencent Qclaw / Volcano Engine / Alibaba / Zhipu all released agents on top of OpenClaw.</span></p>
+</div>
+<div class="card">
+<h4>Ch 6 / 25:00-41:00 <span class="zh">Always-on gateway = 架构独特性</span><span class="en">Always-on gateway = architectural uniqueness</span></h4>
+<p><span class="zh">区别 turn-based coding agent。"the difference with this sort of gateway concept is that like it was always on... every 30 minutes or every 10 minutes it's going to trigger a conversation chain... It kind of created this like human like sort of like I'm going to go and do things in the background for you".</span><span class="en">Differs from turn-based coding agents. "the difference with this sort of gateway concept is that like it was always on... every 30 minutes or every 10 minutes it's going to trigger a conversation chain... It kind of created this like human like sort of like I'm going to go and do things in the background for you".</span></p>
+</div>
+<div class="card">
+<h4>Ch 7 / 41:00-47:00 <span class="zh">Gateway 安全 + memory architecture</span><span class="en">Gateway security + memory architecture</span></h4>
+<p><span class="zh">"the getaway may hold credentials and execute actions across the user system... it is also open cloud's biggest security boundary". Memory 当前是小 file-based database。"if you're an enterprise building this at scale, you can replace that file with a database system... It makes this a lot more scalable".</span><span class="en">"the getaway may hold credentials and execute actions across the user system... it is also open cloud's biggest security boundary". Memory is currently a small file-based database. "if you're an enterprise building this at scale, you can replace that file with a database system... It makes this a lot more scalable".</span></p>
+</div>
+<div class="card">
+<h4>Ch 8 / 47:00-55:00 <span class="zh">原生 iOS / Android app (无 wrapper)</span><span class="en">Native iOS / Android app (no wrapper)</span></h4>
+<p><span class="zh">Mobile app 用了 "fully native Android code, fully native iOS code. So we're not having to ch battle complex code because the AI agents can write native code really easily". Interviewer 惊讶 — 这本来应该是 startup 才做的。</span><span class="en">Mobile app uses "fully native Android code, fully native iOS code. So we're not having to ch battle complex code because the AI agents can write native code really easily". Interviewer is surprised — that's normally a startup's move.</span></p>
+</div>
+<div class="card">
+<h4>Ch 9 / 55:00-60:00 <span class="zh">Multi-tenency unsolved + 治理</span><span class="en">Multi-tenancy unsolved + governance</span></h4>
+<p><span class="zh">"that's probably like one of the more interesting harder problem spaces right now for sure". Foundation "governance and all these structure" 让 non-profit 受限,但有 startup-style speed.</span><span class="en">"that's probably like one of the more interesting harder problem spaces right now for sure". Foundation governance structures bind them as non-profit, but they keep startup-style speed.</span></p>
+</div>
+<div class="card">
+<h4>Ch 10 / 60:00-65:00 <span class="zh">Computer use models + 自我迭代</span><span class="en">Computer use models + self-improvement</span></h4>
+<p><span class="zh">Vincent 进 OpenClaw 之前做 "self-optimizing agents"。"how do we get agents to like recursively improve themselves for like a particular long horizon task"。"the biggest unlock for me I've seen is the use of computer use models where you know like any one of the agents some agents support it".</span><span class="en">Before OpenClaw, Vincent worked on "self-optimizing agents". "how do we get agents to like recursively improve themselves for like a particular long horizon task". "the biggest unlock for me I've seen is the use of computer use models where you know like any one of the agents some agents support it".</span></p>
+</div>
+<div class="card">
+<h4>Ch 11 / 65:00-end <span class="zh">5-6 人 + WIC closing</span><span class="en">5-6 person team + WIC closing</span></h4>
+<p><span class="zh">"a lot of people are quite quick to like make comments about software but I think people forget that it's like you know the open core foundation like main engineering team is like five or six people". Vincent 明天 WIC keynote。</span><span class="en">"a lot of people are quite quick to like make comments about software but I think people forget that it's like you know the open core foundation like main engineering team is like five or six people". Vincent's WIC keynote coming up.</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Quotes -->
+<div class="tab-content" data-tab-content="quotes">
+<h2 class="section" id="quotes">💬 18 双语金句 / 18 Bilingual Quotes (verbatim from transcript)</h2>
+<div class="quote-grid">
+<div class="quote-card zh">
+<span class="time">≈ intro</span>
+<p><b>ZH</b>: <i>"Open agent. OpenClaw is the number one. It's the most popular."</i></p>
+<p class="time">≈ intro</p>
+<p><b>EN</b>: <i>"Open agent. OpenClaw is the number one. It's the most popular."</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ intro</span>
+<p><i>"the single most important release of software probably ever"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ intro</span>
+<p><i>"Lobster themed installation events have popped up around the globe, especially in China"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 4:00</span>
+<p><i>"we ended up with I don't know at one point we had like 13,000 PRs open pull requests like changes to openclaw"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 7:00</span>
+<p><i>"we developed our own review using AI agents to like manage this workload... so then we started building the other agentic tools to help us with the scaling problems that we're having"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 8:00</span>
+<p><i>"we have over I think close to 100 repos... there's a joke that each one of these tools are basically like a startup in themselves that we manage"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 11:00</span>
+<p><i>"for us open claw and especially the open claw foundation is not is I think it's more than just this AI agent or personal AI agent"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 14:00</span>
+<p><i>"a few weeks ago, we hit like 4 point something million downloads a week"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 18:00</span>
+<p><i>"we just want to empower the ecosystem... if that means that other companies are building on top of openclaw... I think that's a great outcome for us"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 25:00</span>
+<p><i>"many Chinese companies released agent products on the top of the open claw framework including Tencent Qclaw, volcano engine, Alibaba, Wu, Dclaw, etc. So many."</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 30:00</span>
+<p><i>"the difference with this sort of gateway concept is that like it was always on... every 30 minutes or every 10 minutes it's going to trigger a conversation chain"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 41:00</span>
+<p><i>"the getaway may hold credentials and execute actions across the user system. Right. It is also open cloud's biggest security boundary."</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 47:00</span>
+<p><i>"we're not having to ch battle complex code because the AI agents can write native code really easily"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 57:00</span>
+<p><i>"that's probably like one of the more interesting harder problem spaces right now for sure"</i> (re: multi-tenency)</p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 59:00</span>
+<p><i>"prior to my work on openclaw I was working on self-optimizing agents so essentially how do we get agents to like recursively improve themselves for like a particular long horizon task"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 60:00</span>
+<p><i>"the biggest unlock for me I've seen is the use of computer use models where you know like any one of the agents some agents support it"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 81:00</span>
+<p><i>"the open core foundation like main engineering team is like five or six people... we're not some 200 person startup you know a large enterprise"</i></p>
+</div>
+<div class="quote-card">
+<span class="time">≈ 81:00</span>
+<p><i>"we can move quickly. So if you can move quickly, you're better to just get it out there, get get some feedback and then iterate quickly"</i></p>
+</div>
+</div>
+<p style="color:var(--text-mute);font-size:.85rem;margin-top:1rem"><span class="zh">⚠️ 全部 verbatim 来自 transcript,~3.5 段来源(polymarket traders 引述在 1:30,创始人名 "Peter Steinberg" 在 intro & 12:00 出现,正确拼写是 "Peter Steinberger",transcript typo)。不基于 verbatim 的 speaker attribution 一律不写。</span><span class="en">⚠️ All quotes verbatim from transcript. Speaker attributions are flat (no proper speaker names detected from kome.ai). "Peter Steinberg" appears in transcript intro + 12:00 — likely typo for "Peter Steinberger" (Anthropic QClaw engineer, OpenClaw creator).</span></p>
+</div>
+
+<!-- Tab: China ecosystem -->
+<div class="tab-content" data-tab-content="china">
+<h2 class="section" id="china">🇨🇳 中国生态专题 / China Ecosystem Deep-Dive</h2>
+<div class="pair-grid">
+<div class="pair-card zh">
+<span class="lang-tag">中文</span>
+<p>Vincent 明确列举在 OpenClaw framework 上发布 2C agent 产品的中国公司:<b>Tencent Qclaw (腾讯) / Volcano Engine (字节火山引擎) / Alibaba (阿里) / Wu / Zhipu (智谱) / Dclaw</b> 等。"In the first quarter many Chinese companies released agent products on the top of the open claw framework" — 这是 2026 Q1 的集体动作。</p>
+<p>Vincent 态度:"we just want to empower the ecosystem... if that means that other companies are building on top of openclaw and getting that in the hands of users and empowering their users, I think that's a great outcome for us."</p>
+<p>但 Foundation 自身的 <b>"build infrastructure and servers and host it for people"</b> 路径被显式排除 — "it kind of feels like it's taking us away from like what we're trying to achieve which is actually building this software that works really well"。</p>
+</div>
+<div class="pair-card en">
+<span class="lang-tag">English</span>
+<p>Vincent explicitly lists Chinese companies shipping 2C agent products on top of the OpenClaw framework: <b>Tencent Qclaw / Volcano Engine (ByteDance) / Alibaba / Wu / Zhipu / Dclaw</b> etc. "In the first quarter many Chinese companies released agent products on the top of the open claw framework" — collective move in 2026 Q1.</p>
+<p>Vincent's stance: "we just want to empower the ecosystem... if that means that other companies are building on top of openclaw and getting that in the hands of users and empowering their users, I think that's a great outcome for us."</p>
+<p>But the Foundation explicitly rules out <b>"build infrastructure and servers and host it for people"</b> — "it kind of feels like it's taking us away from like what we're trying to achieve which is actually building this software that works really well".</p>
+</div>
+</div>
+
+<h3><span class="zh">生态结构 (Vincent 自述) / Ecosystem structure (Vincent's own framing)</span><span class="en">Ecosystem structure (Vincent's own framing)</span></h3>
+<table>
+<thead><tr><th><span class="zh">层</span><span class="en">Layer</span></th><th><span class="zh">承担者</span><span class="en">Carried by</span></th><th><span class="zh">做什么</span><span class="en">What</span></th></tr></thead>
+<tbody>
+<tr class="highlight"><td><b>L0 Framework</b></td><td>OpenClaw Foundation (5-6 core engineers)</td><td><span class="zh">维护 openclaw agent, gateway, memory, CLI</span><span class="en">Maintain openclaw agent, gateway, memory, CLI</span></td></tr>
+<tr><td><b>L1 Lib + tooling repos</b></td><td>Foundation + community</td><td><span class="zh">~100 ecosystem repos, libraries, automation, testing infra</span><span class="en">~100 ecosystem repos, libraries, automation, testing infra</span></td></tr>
+<tr><td><b>L2 2C products</b></td><td>Tencent Qclaw, Volcano Engine, Alibaba, Zhipu, ...</td><td><span class="zh">在框架之上发布最终用户产品</span><span class="en">Ship end-user products on top of framework</span></td></tr>
+<tr><td><b>L3 Adoption signal</b></td><td><span class="zh">npm 4M weekly downloads + lobster install events 全国</span><span class="en">npm 4M weekly downloads + lobster install events nationwide</span></td><td><span class="zh">viral 走 measure</span><span class="en">viral spread metric</span></td></tr>
+</tbody>
+</table>
+
+<h3><span class="zh">西方 vs 中国 deploy 哲学对比 / East vs West deploy philosophy</span><span class="en">East vs West deploy philosophy</span></h3>
+<div class="card-grid">
+<div class="card">
+<h4><span class="zh">中国: fast forward, deploy 抢先</span><span class="en">China: fast forward, deploy first</span></h4>
+<p><span class="zh">"they wanted to get into the market. They wanted to get it in the hands of users and their customers really quickly. So they developed on top of it. Right? We didn't have the capability to do it at the time."</span><span class="en">"they wanted to get into the market. They wanted to get it in the hands of users and their customers really quickly. So they developed on top of it. Right? We didn't have the capability to do it at the time."</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">西方: 摇摆 "embrace vs block"</span><span class="en">West: oscillate "embrace vs block"</span></h4>
+<p><span class="zh">Vincent 比喻:西方 tech ecosystem 在 2023-24 (ChatGPT 时期) 也是 "first it was like wow this is scary. It can do so many things. Let's block this and let's understand what's happening." — 同样的 reflex,但 agent 时代还没收敛到 embrace.</span><span class="en">Vincent analogizes: the western tech ecosystem in 2023-24 (ChatGPT era) was "first it was like wow this is scary. It can do so many things. Let's block this and let's understand what's happening." — same reflex, but agent era hasn't yet settled into embrace.</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Security -->
+<div class="tab-content" data-tab-content="security">
+<h2 class="section" id="security">🔐 Gateway 安全 + Multi-Tenency / Security & Multi-Tenancy</h2>
+<div class="card-grid">
+<div class="card">
+<h4><span class="zh">1. Gateway 是 attack surface 之王</span><span class="en">1. Gateway is the biggest attack surface</span></h4>
+<p><span class="zh">"the getaway may hold credentials and execute actions across the user system. Right. It is also open cloud's biggest security boundary." → 拿 keys + 跨系统执行是 evening news story 等着的 bug surface.</span><span class="en">"the getaway may hold credentials and execute actions across the user system. Right. It is also open cloud's biggest security boundary". Holding keys + executing across systems = bug surface waiting for an evening-news story.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">2. 跟其他 coding agent 同样 surface</span><span class="en">2. Same surface as any coding agent with full admin</span></h4>
+<p><span class="zh">"if you gave a coding agent like full admin access to your machine, it can also delete files and go to the internet and do all these things. So I think a lot of times a lot of people direct towards us. uh we're more than happy to sort of help solve the problem as well". Vincent 把锅回拨给 "给予 agent admin 权限" 这件事本身 — 是 industry-wide 的问题.</span><span class="en">"if you gave a coding agent like full admin access to your machine, it can also delete files and go to the internet and do all these things... I think a lot of times a lot of people direct towards us. we're more than happy to sort of help solve the problem as well". Vincent bounces the responsibility back to "granting an agent admin access" itself — an industry-wide problem.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">3. Multi-tenency memory = unsolved</span><span class="en">3. Multi-tenant memory = unsolved</span></h4>
+<p><span class="zh">一个 claw 给 team 共享时:"what happens if you're sharing one claw in a team which memories can be shared with which people"? "we say with multi-tenency is like that claw assume everything is interchangeable".</span><span class="en">When one claw is shared across a team: "what happens if you're sharing one claw in a team which memories can be shared with which people"? "we say with multi-tenency is like that claw assume everything is interchangeable".</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">4. Memory 当前是 file-based database</span><span class="en">4. Memory is currently a file-based database</span></h4>
+<p><span class="zh">"if you're an enterprise building this at scale, you can replace that file with a database system. You can take backups. It makes this a lot more scalable". 个人 use 性能 OK,但 enterprise scale 需要换 DB.</span><span class="en">"if you're an enterprise building this at scale, you can replace that file with a database system. You can take backups. It makes this a lot more scalable". Personal use is OK; enterprise scale needs DB swap.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">5. 模型切换的 memory continuity</span><span class="en">5. Memory continuity across model swap</span></h4>
+<p><span class="zh">"if I switch to another model how do we know that that model understands there's all these like complicated factors right" — 切到不同 model 时 memory 含义 preservation 是 separate challenge.</span><span class="en">"if I switch to another model how do we know that that model understands there's all these like complicated factors right" — preserving memory semantics across model swap is a separate challenge.</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Long-horizon -->
+<div class="tab-content" data-tab-content="longhorizon">
+<h2 class="section" id="longhorizon">🎯 Long-Horizon Tasks / Self-Improving Agents</h2>
+<div class="card-grid">
+<div class="card">
+<h4><span class="zh">1. Vincent 此前工作: self-optimizing agents</span><span class="en">1. Vincent's prior: self-optimizing agents</span></h4>
+<p><span class="zh">"prior to my work on openclaw I was working on self-optimizing agents so essentially how do we get agents to like recursively improve themselves for like a particular long horizon task So I think the frameworks and approaches are going to come out from industry around that and I personally believe they're just going to" → 答案还没出来.</span><span class="en">"prior to my work on openclaw I was working on self-optimizing agents so essentially how do we get agents to like recursively improve themselves for like a particular long horizon task So I think the frameworks and approaches are going to come out from industry around that and I personally believe they're just going to" → answer not yet arrived.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">2. Computer use models 是当前 biggest unlock</span><span class="en">2. Computer use models are the current biggest unlock</span></h4>
+<p><span class="zh">"the biggest unlock for me I've seen is the use of computer use models where you know like any one of the agents some agents support it and some of the ha[rd ones]" — Vincent 给出的 "今天能见效最大杠杆" 不是 long-horizon,而是 computer use (Claude / Hermes / OpenAI Operator 同代).</span><span class="en">"the biggest unlock for me I've seen is the use of computer use models where you know like any one of the agents some agents support it and some of the ha[rd ones]" — Vincent's "biggest visible lever today" is computer use, not long-horizon.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">3. Industry-wide 在攻关的方向</span><span class="en">3. Where the industry is pushing</span></h4>
+<p><span class="zh">"I believe a lot of the newer soda models [should be 'SoTA / state-of-the-art'] are like getting better at long horizon tasks in general we're also seeing that industry is building um..." — Vincent 把 long-horizon 视为 2026 整年的 industry-large 力推方向,不只 OpenClaw.</span><span class="en">"I believe a lot of the newer soda models [should be 'SoTA / state-of-the-art'] are like getting better at long horizon tasks in general we're also seeing that industry is building um..." — Vincent sees long-horizon as an industry-wide 2026 push, not OpenClaw-only.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">4. "小模型 + memory 调优" vs "大模型 hard problem"</span><span class="en">4. Small-model + memory tuning vs large-model hard problems</span></h4>
+<p><span class="zh">"can we improve the context or can we change something with the memory when it's a smaller model to like make sure that that performance works really well. So I think there's a combination of the model but also how the mod[el is used]" — Vincent 提到 "用 memory/compress-context 调小模型" 也是 industry 走的一条路.</span><span class="en">"can we improve the context or can we change something with the memory when it's a smaller model to like make sure that that performance works really well. So I think there's a combination of the model but also how the mod[el is used]" — Vincent mentions tuning small models via memory/context as another path.</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Ecosystem -->
+<div class="tab-content" data-tab-content="ecosystem">
+<h2 class="section" id="ecosystem">📦 100 repos Ecosystem + Open Core 模式 / 100 Repos & Open Core</h2>
+<div class="card-grid">
+<div class="card">
+<h4><span class="zh">100 repos = 100 sub-startups</span><span class="en">100 repos = 100 sub-startups</span></h4>
+<p><span class="zh">"we have different libraries we have different automation tools testing infrastructure and we've had to build all of these and there's a joke that each one of these tools are basically like a startup in themselves that we manage" → 每个 repo 单独 manage,加 main engineering = ~5-6 人.</span><span class="en">"we have different libraries we have different automation tools testing infrastructure and we've had to build all of these and there's a joke that each one of these tools are basically like a startup in themselves that we manage" → each repo managed separately, plus main engineering = ~5-6 people.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">"Ecosystem" 页 + npm mirror 数字</span><span class="en">"Ecosystem" page + npm mirror numbers</span></h4>
+<p><span class="zh">"if you look on uh the open core website there's a little link called ecosystem... obviously there's Chinese mirror websites there's all these other sources. So download numbers are probably way larger but just based on npm and a few weeks ago we hit like 4 point something million downloads a week".</span><span class="en">"if you look on uh the open core website there's a little link called ecosystem... obviously there's Chinese mirror websites there's all these other sources. So download numbers are probably way larger but just based on npm and a few weeks ago we hit like 4 point something million downloads a week".</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">Native mobile = startup-shaped move</span><span class="en">Native mobile = startup-shaped move</span></h4>
+<p><span class="zh">Interviewer 惊讶:"I was a little bit surprised that you guys launched an app cuz I thought that's what a startup would do". Foundation 反而比 startup 更激进,因为 app 是 "get it in hands of people" 的 fast feedback loop."</span><span class="en">Interviewer surprised: "I was a little bit surprised that you guys launched an app cuz I thought that's what a startup would do". Foundation actually moves more aggressively than a startup, because the app is a fast feedback loop to "get it in hands of people".</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">13K PRs + 自研 AI reviewer = infra 创新</span><span class="en">13K PRs + self-built AI reviewer = infra innovation</span></h4>
+<p><span class="zh">OpenClaw 团队在 PR review workload 上自建 AI 工具 —— 本应小 startup 的痛点变成 "github-10× scale infra"。Vincent:"so then we started building the other agentic tools to help us with the scaling problems that we're having and I think that was like the unlock for us".</span><span class="en">The OpenClaw team self-built AI tooling on top of their PR review workload — a pain point typically for startups scaled up to "github-10× scale infra". Vincent: "so then we started building the other agentic tools to help us with the scaling problems that we're having and I think that was like the unlock for us".</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Pitfalls -->
+<div class="tab-content" data-tab-content="pitfalls">
+<h2 class="section" id="pitfalls">⚠️ Pitfalls (看这个 video 容易踩的坑) / Common Pitfalls</h2>
+<div class="card-grid">
+<div class="card">
+<h4><span class="zh">P-1 single-source 风险</span><span class="en">P-1 Single-source risk</span></h4>
+<p><span class="zh">全部论点来自单一 interview (Vincent Cotch, 60min 一段)。没有跟他人口头或 source 印证。Use as: 架构 insight + 治理 narrative,不是 verified benchmark.</span><span class="en">All claims come from one Vincent interview (60 min single segment). No cross-check with other speakers or sources. Use as: architecture insight + governance narrative, not verified benchmark.</span></p>
+<p class="src"><span class="badge warn">split-rating applied</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">P-2 kome.ai speaker-flatten</span><span class="en">P-2 kome.ai speaker-flatten</span></h4>
+<p><span class="zh">transcript 是 kome.ai 1-curl flat output (PITFALL 85 形态)。每个 ">>" 行实质都是 merged text + 假 speaker tag。本 dashboard 全部 quote 都不写 speaker attribution (除了 Vincent intro 段明确自报)。</span><span class="en">Transcript is kome.ai 1-curl flat (PITFALL 85 form). Each ">>" line is merged text + fake speaker tag. All quotes in this dashboard do NOT carry speaker attribution (except Vincent's intro self-identification).</span></p>
+<p class="src"><span class="badge warn">PITFALL 85 family</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">P-3 "Peter Steinberg" typo</span><span class="en">P-3 "Peter Steinberg" typo</span></h4>
+<p><span class="zh">transcript 出现 2 次 "Peter Steinberg" + 1 次 "Peter Steinberger"。Default 拼写应该 = "Steinberger" (Anthropic QClaw engineer, OpenClaw creator)。本 dashboard 引用 transcript verbatim,⚠️ 标记.</span><span class="en">Transcript has 2 instances of "Peter Steinberg" + 1 instance of "Peter Steinberger". Default spelling should be "Steinberger" (Anthropic QClaw engineer, OpenClaw creator). Quotes verbatim from transcript with ⚠️ flag.</span></p>
+<p class="src"><span class="badge warn">L1 transcript vs L2 inferred spelling</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">P-4 Foundation 自述 self-promotion 风险</span><span class="en">P-4 Foundation self-promotion risk</span></h4>
+<p><span class="zh">Vincent 是 chief architect,会美化治理 / 数字 / 团队。"5-6 人" "4M downloads" "100 repos" 都是 self-disclosed,没有 external audit. Patrick 已经在 vault 有 openclaw-vs-hermes.md,可以拿来对比 "Overstated 5-6 人" vs "实际团队多大".</span><span class="en">Vincent is chief architect, will overstate governance / numbers / team quality. "5-6 person team" / "4M downloads" / "100 repos" are self-disclosed without external audit. Patrick already has openclaw-vs-hermes.md in vault — can be referenced for "overstated 5-6" vs "actual team size" comparison.</span></p>
+<p class="src"><span class="badge warn">vetted-only-not-audited</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">P-5 "China 速度" 是非正式说法</span><span class="en">P-5 "China speed" is informal framing</span></h4>
+<p><span class="zh">Vincent 把"中国大厂 fast-forward deploy OpenClaw" 与"西方 embrace-vs-block 摇摆"对比。这是 Vincent 的 framing,不是 market-research data。Use as: 价值观叙事,不作为市场份额声明。</span><span class="en">Vincent frames "China majors fast-forward deploy OpenClaw" vs "West oscillates embrace-vs-block". This is Vincent's framing, not market-research data. Use as: value narrative, not market-share claim.</span></p>
+<p class="src"><span class="badge gap">narrative not metric</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">P-6 "Lobster install events" 是 viral 标度,不是 enterprise adoption 标度</span><span class="en">P-6 "Lobster install events" is viral metric, not enterprise metric</span></h4>
+<p><span class="zh">Lobster-themed 安装事件 = community love (DIY 安装 数量)。不能等价于 "已经 production use"。"Foundation 治理" + "5-6 人" 反而说明企业采用还没大规模发生 — foundation 自身明确说 "non-profit, governance binding us".</span><span class="en">Lobster-themed install events = community love (DIY install count). Not equivalent to "in production use". "Foundation governance" + "5-6 person team" actually argue that enterprise adoption hasn't yet happened at scale — Foundation itself says "non-profit, governance binding us".</span></p>
+<p class="src"><span class="badge warn">viral-vs-enterprise</span></p>
+</div>
+</div>
+</div>
+
+<!-- Tab: Related Patrick cards -->
+<div class="tab-content" data-tab-content="related">
+<h2 class="section" id="related">🔗 与 Patrick 工作的关联 (17 张 verified-on-disk 卡) / Patrick Cross-Refs (17 verified-on-disk cards)</h2>
+<div class="card-grid">
+<div class="card"><h4>1. <span class="zh">autonomous-ai-agents/agent-orchestration</span><span class="en">agent-orchestration</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">OpenClaw 100 repos = multi-agent 编排 graphify 现实样本；agent-to-agent routing 是 Foundation 自带能力之一</span><span class="en">OpenClaw's 100 repos = real-world sample of multi-agent orchestration graphify; agent-to-agent routing is one of the Foundation's native capabilities</span></p></div>
+<div class="card"><h4>2. <span class="zh">vault/llm-wiki/openclaw-vs-hermes.md</span><span class="en">openclaw-vs-hermes.md</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">vault 2026-05-11 已写 11 维度对比。本视频可验证 / 部分确认 / 部分挑战表格中 8 个 cell (尤其 multi-tenency / agent-to-agent routing / 自改进 curator / 安装体验)</span><span class="en">vault 2026-05-11 already has 11-dimension comparison. This video can verify / partially confirm / partially challenge 8 cells of that table (especially multi-tenancy / agent-to-agent routing / self-improving curator / install UX)</span></p></div>
+<div class="card"><h4>3. <span class="zh">autonomous-ai-agents/agent-observability</span><span class="en">agent-observability</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">Vincent 的 heartbeat (30m/10m 触发 conversation chain) = observability 不只在 monitor, 而是 proactive push。每次 heartbeat 是 agent "自己看一圈上下文"</span><span class="en">Vincent's heartbeat (30m/10m triggering conversation chain) = observability not just monitor, but proactive push. Each heartbeat is the agent "looking at its own context"</span></p></div>
+<div class="card"><h4>4. <span class="zh">autonomous-ai-agents/dual-ai-peer-review</span><span class="en">dual-ai-peer-review</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">OpenClaw 13K PRs 时自建 "AI agents 来 manage review workload" = Dual-AI review 实战原型。Patrick 应该 validate 这里的方法是否类似 dual-ai-peer-review skill</span><span class="en">OpenClaw's 13K PRs forced self-built "AI agents to manage review workload" = Dual-AI review real-world prototype. Patrick should validate whether this matches dual-ai-peer-review skill</span></p></div>
+<div class="card"><h4>5. <span class="zh">autonomous-ai-agents/disagreement-protocol</span><span class="en">disagreement-protocol</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">Vincent 坦承 multi-tenency memory 是 unsolved = 多 agent opinion aggregation (skill 中 "Conflict Resolution Strategies") 框架可直接借鉴到 multi-claw sharing</span><span class="en">Vincent admits multi-tenancy memory unsolved = multi-agent opinion aggregation (the skill's "Conflict Resolution Strategies") framework can port directly to multi-claw sharing</span></p></div>
+<div class="card"><h4>6. <span class="zh">agentic-os/gcp-skill-registry-bootstrap</span><span class="en">gcp-skill-registry-bootstrap</span></h4><p><span class="badge verified">✅ 完全同源</span> <span class="zh">Foundation 模式 = GCP-1.4.0 的 Capsule Protocol 落地形式。Foundation = registry; OpenClaw core = registered capsules; 100 repos = ecosystem capsules; 治理 = GCP compliance</span><span class="en">Foundation pattern = Capsule Protocol realization per GCP-1.4.0. Foundation = registry; OpenClaw core = registered capsules; 100 repos = ecosystem capsules; governance = GCP compliance</span></p></div>
+<div class="card"><h4>7. <span class="zh">knowledge-synthesis/graphify</span><span class="en">graphify</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">OpenClaw 100 repos = graphify core↔ecology 边的真实样本。Patrick graphify-suggest-links.py cron 应自动检测这个 cluster</span><span class="en">OpenClaw's 100 repos = real sample of graphify core↔ecology edge. Patrick's graphify-suggest-links.py cron should auto-detect this cluster</span></p></div>
+<div class="card"><h4>8. <span class="zh">autonomous-ai-agents/codex</span><span class="en">codex</span></h4><p><span class="badge verified">⚠️ 反向信号</span> <span class="zh">Vincent 说 "AI agents can write native code really easily so we're not having to ch[battle] complex [framework wrapper] code" — 等于推荐 "Codex / Claude Code 用 native 不用 wrapper"。Codex skill 默认是 wrapper,值得被 challenge</span><span class="en">Vincent: "AI agents can write native code really easily so we're not having to ch[battle] complex [framework wrapper] code" = recommendation to "Codex / Claude Code use native, not wrapper". Codex skill defaults to wrapper, worth challenging</span></p></div>
+<div class="card"><h4>9. <span class="zh">meta/how-to-sell</span><span class="en">how-to-sell</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">"Lobster themed installation events have popped up around the globe" = community-driven marketing 极致样本。how-to-sell skill 的 "community building 4E (expose / experience / evangelize / embed)" 实战</span><span class="en">"Lobster themed installation events have popped up around the globe" = ultimate sample of community-driven marketing. Practical proof of how-to-sell's 4E community building (expose / experience / evangelize / embed)</span></p></div>
+<div class="card"><h4>10. <span class="zh">devops/patricks-publish-pipeline-watchdog</span><span class="en">patricks-publish-pipeline-watchdog</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">"each repo = a startup in itself that we manage" = multi-cron monitoring pipeline 的 ground truth。OpenClaw Foundation 团队跟 Patrick 一样是 small team + many repos</span><span class="en">"each repo = a startup in itself that we manage" = ground truth for multi-cron monitoring pipeline. OpenClaw Foundation team, like Patrick, is small team + many repos</span></p></div>
+<div class="card"><h4>11. <span class="zh">autonomous-ai-agents/agent-diagnosis</span><span class="en">agent-diagnosis</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">"it's a not a solved problem and we're actively working on this and looking at different ways of solving it" 多处出现 (multi-tenency / long-horizon / model-swap memory) = agent-diagnosis 4-phase framework 直接套到 "diagnose what problem space we're in"</span><span class="en">"not a solved problem and actively working on this" appears repeatedly (multi-tenancy / long-horizon / model-swap memory) = agent-diagnosis's 4-phase framework applies directly to "diagnose what problem space we're in"</span></p></div>
+<div class="card"><h4>12. <span class="zh">autonomous-ai-agents/eval-for-product</span><span class="en">eval-for-product</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">"how do we get agents to like recursively improve themselves for like a particular long horizon task" = eval-driven-improvement 哲学在 OpenClaw 内部的体现。OpenClaw 用 production feedback 当 eval signal</span><span class="en">"how do we get agents to like recursively improve themselves for like a particular long horizon task" = eval-driven-improvement philosophy inside OpenClaw. OpenClaw uses production feedback as eval signal</span></p></div>
+<div class="card"><h4>13. <span class="zh">agentic-os/agentic-os</span><span class="en">agentic-os skill</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">Foundation 治理 + small team + 100 repos + npm 4M = agentic-os multi-tenant 治理 标准。Foundation 自身就是 "small org + 大量 ecosystem" 的 life-skill ship 案例</span><span class="en">Foundation governance + small team + 100 repos + npm 4M = agentic-os multi-tenant governance standard. Foundation itself is "small org + huge ecosystem" life-skill ship case study</span></p></div>
+<div class="card"><h4>14. <span class="zh">autonomous-ai-agents/claude-code</span><span class="en">claude-code</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">"the biggest unlock for me I've seen is the use of computer use models" = Claude Code / computer use 是 Vincent 眼中 2026 agent 落地最大杠杆。Patrick 已经重度 ship 这条路</span><span class="en">"the biggest unlock for me I've seen is the use of computer use models" = Vincent's 2026 biggest-agent-lever == Claude Code / computer use. Patrick is already deeply shipping on this path</span></p></div>
+<div class="card"><h4>15. <span class="zh">autonomous-ai-agents/mega-agent-vs-workflow</span><span class="en">mega-agent-vs-workflow</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">OpenClaw 的 "single agent with always-on heartbeat" 偏 mega-agent,跟 26-agent orchestration 是两种 philosophy 的边界 case</span><span class="en">OpenClaw's "single agent with always-on heartbeat" leans mega-agent; vs the 26-agent orchestration = boundary case between two philosophies</span></p></div>
+<div class="card"><h4>16. <span class="zh">devops/public-html-deploy-cloudflare-pages</span><span class="en">public-html-deploy-cloudflare-pages</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">100 repos ecosystem + npm 4M weekly downloads = 持续 deploy infrastructure 的刚需。本 dashboard 用的就是这 skill 全套 PITFALL #49-#191</span><span class="en">100 repos ecosystem + npm 4M weekly downloads = hard requirement for continuous deploy infrastructure. This dashboard uses this skill's full PITFALL #49-#191 catalog</span></p></div>
+<div class="card"><h4>17. <span class="zh">media/video-to-knowledge-dashboard</span><span class="en">video-to-knowledge-dashboard</span></h4><p><span class="badge verified">✅ 同源</span> <span class="zh">本 dashboard 本身就是这 skill 的产物。kome.ai flat + speaker-flatten (PITFALL 85) + bilingual + TOC v1.4.4 = round-37 batch 范例</span><span class="en">This dashboard is itself a product of this skill. kome.ai flat + speaker-flatten (PITFALL 85) + bilingual + TOC v1.4.4 = round-37 batch exemplar</span></p></div>
+</div>
+</div>
+
+<!-- Tab: Action -->
+<div class="tab-content" data-tab-content="action">
+<h2 class="section" id="action">🗺 Patrick 行动项 / Patrick Action Items</h2>
+<div class="card-grid">
+<div class="card"><h4>P0 / <span class="zh">立即 (本周) 验证 openclaw-vs-hermes.md 的 11 维度状态</span><span class="en">Verify openclaw-vs-hermes.md 11-dimension status this week</span></h4><p><span class="zh">vault 已写 2026-05-11 比较。本视频给 update:multi-tenency "unsolved" (新) + always-on gateway (Vincent 提) + 100 repos (新) + 4M weekly npm (新,自报)。</span><span class="en">vault has 2026-05-11 comparison. This video provides updates: multi-tenancy "unsolved" (new) + always-on gateway (Vincent mentions) + 100 repos (new) + 4M weekly npm (new, self-reported).</span></p></div>
+<div class="card"><h4>P1 / <span class="zh">把 "13K PRs / AI reviewer" 跟 dual-ai-peer-review 验证对比</span><span class="en">Compare "13K PRs / AI reviewer" against dual-ai-peer-review</span></h4><p><span class="zh">OpenClaw "developed our own review using AI agents to like manage this workload" — 具体是 prompt-only review,还是 multi-agent structured review?dual-ai-peer-review 模式可吸收这个 ground truth.</span><span class="en">OpenClaw "developed our own review using AI agents to like manage this workload" — is this prompt-only review or multi-agent structured review?dual-ai-peer-review pattern can absorb this ground truth.</span></p></div>
+<div class="card"><h4>P1 / <span class="zh">"heartbeat 30/10m" 是 agentic-os 的新 primitive?</span><span class="en">"heartbeat 30/10m" is a new primitive for agentic-os?</span></h4><p><span class="zh">agent-observability 当前是 reactive (push when X)。OpenClaw heartbeat 是 proactive (every N min, agent 自己走一遍上下文)。agentic-os skill 应该考虑加 "heartbeat 周期" 作为 1 阶 exposure variable。</span><span class="en">agent-observability is currently reactive (push when X). OpenClaw heartbeat is proactive (every N min, agent walks its own context). agentic-os skill should consider adding "heartbeat period" as a 1st-order exposure variable.</span></p></div>
+<div class="card"><h4>P2 / <span class="zh">Patrick 用 OpenClaw 试 30 天?</span><span class="en">Try OpenClaw for 30 days?</span></h4><p><span class="zh">npm install -g openclaw + 第一个 WIC 主题 install event 在 Patrick 工作流上跑通。如 dolphin / graphify / hub-build 这类任务,是否能 heartbeat automation? 卡点 = multi-tenency (Patrick 1 个 Mac 给多 project 用,跟 Foundation 同 dilemma)。</span><span class="en">npm install -g openclaw + first WIC-themed install event in Patrick's workflow. For tasks like dolphin / graphify / hub-build, can they heartbeat-automate? Block point = multi-tenancy (Patrick's one Mac is used by many projects, same dilemma as the Foundation).</span></p></div>
+<div class="card"><h4>P2 / <span class="zh">vault 加 "computer use unlock 2026" 笔记</span><span class="en">Add "computer use unlock 2026" vault note</span></h4><p><span class="zh">"the biggest unlock for me I've seen is the use of computer use models" — Vincent 给的 2026 max-lever. 跟 claude-code skill / computer-use skill 联动。</span><span class="en">"the biggest unlock for me I've seen is the use of computer use models" — Vincent's named 2026 max-lever. Connect to claude-code skill / computer-use skill.</span></p></div>
+</div>
+</div>
+
+<!-- Tab: Transcript -->
+<div class="tab-content" data-tab-content="transcript">
+<h2 class="section" id="transcript">📝 Full Transcript (flat, from kome.ai)</h2>
+<p style="color:var(--text-mute);font-size:.85rem;margin-bottom:1rem">
+<span class="zh">⚠️ kome.ai 返回 flat 文本 (PITFALL 85)。无官方 VTT timestamp / speaker attribution。每 ">>" 是 merged turn,不带 speaker name。原始 transcript 共 1944 行 / 71,220 字符。完整 source 在 /tmp/transcript-tnvy.json。</span>
+<span class="en">⚠️ kome.ai returns flat (PITFALL 85). No official VTT timestamp / speaker attribution. Each ">>" is a merged turn with no speaker name. Original transcript = 1,944 lines / 71,220 chars. Full source at /tmp/transcript-tnvy.json.</span>
+</p>
+<div style="background:var(--bg-card);padding:1rem;border-radius:8px;max-height:500px;overflow-y:auto;font-family:ui-monospace,monospace;font-size:.82rem;line-height:1.5;white-space:pre-wrap;border:1px solid var(--border)">Open agent. Open claw is the number one. It's the most popular. >> The single most important release of software probably ever. >> Lobster themed installation events have popped up around the globe, especially in China. [music] Peter Steinberg. [music] >> We had a lot of problems because the the existing tools out there just weren't designed for our scale, >> but now it's getting better. >> A few weeks ago, we hit like 4 point something million downloads a week. >> They are saying [music] only startups can make things happen faster during the AI era. Peter's wishes were like he thinks the only way the open claw survives and is fair to everyone is that it remains in the in the foundation. Open. >> Hi Vincent, thanks so much for your time to joining us here at WIC 2026 in Shanghai. Let's start by introducing yourself a bit and explain your current role at the Open Claw Foundation. >> Yeah. So my name is Vincent Cotch. I'm chief architect at OpenC Claw Foundation essentially looking after product and engineering. And how did you first become involved with the open cloud community? >> So I've been a open-source contributor for basically the start of my career. I kind of noticed this project in early December and uh this was on on X on Twitter. A lot of I think poly market traders were using it and I got really excited. I was like what is this? Let me check out the project and then was like wow this is this is crazy. This is exciting. I started testing it and then I wanted to help...
+
+<span class="zh">[... 中段 60,000 字符省略,完整在 source JSON]</span>
+<span class="en">[... mid 60,000 chars elided, full at source JSON]</span>
+
+>> Yeah. So my name is Vincent Cotch. I'm chief architect... I'm just hearing lots of crazy things so far. I haven't had a chance to go out yet this week, but I think it's going to be great. I'm giving a keynote about my journey through open sour[ce].</div>
+</div>
+
+<footer>
+<span class="zh">源 / Source: <a href="https://www.youtube.com/watch?v=tnvyMcmtAiw" target="_blank" style="color:var(--blue)">YouTube tnvyMcmtAiw</a> · WIC 2026 Shanghai · 2026 · kome.ai 1-curl flat transcript 71,220 chars<br>
+发布 / Published: 2026-07-21 · Tier 4: 17 cards verified-on-disk · ⚠️ 1 name typo flagged<br>
+Vault mirror: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/openclaw-wic-vincent-cotch-2026-07-21/dashboard.html</code><br>
+本 dashboard skill: <code>~/.hermes/skills/media/video-to-knowledge-dashboard</code> · bilingual pattern: <code>~/.hermes/skills/creative/html-redesign-preserve-semantics</code></span>
+<span class="en">Source: <a href="https://www.youtube.com/watch?v=tnvyMcmtAiw" target="_blank" style="color:var(--blue)">YouTube tnvyMcmtAiw</a> · WIC 2026 · 2026 · kome.ai flat transcript 71,220 chars<br>
+Published: 2026-07-21 · Tier 4: 17 cards verified-on-disk · ⚠️ 1 name typo flagged<br>
+Vault mirror: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/openclaw-wic-vincent-cotch-2026-07-21/dashboard.html</code></span>
+</footer>
+
+</div>
+
+<script>
+/* PITFALL P-24 — TOC anchor clicking must switch tab first (if target sits in
+   a hidden tab-content), then scrollIntoView. Native hash-jump into a
+   display:none parent looks like "no response". */
+/* Map TOC target id → which .tab button owns it */
+const TOC_TAB_MAP = {
+  tldr: 'tldr', core: 'core', chapters: 'chapters', quotes: 'quotes',
+  china: 'china', security: 'security', longhorizon: 'longhorizon',
+  ecosystem: 'ecosystem', pitfalls: 'pitfalls', related: 'related',
+  action: 'action', transcript: 'transcript'
+};
+function navFromToc(targetId, link) {
+  if (!targetId) return;
+  var tabName = TOC_TAB_MAP[targetId] || targetId;
+  var tabBtn = document.querySelector('[data-tab="' + tabName + '"]');
+  if (tabBtn && !tabBtn.classList.contains('active')) tabBtn.click();
+  /* scroll after the tab switch lets the layout settle */
+  setTimeout(function() {
+    var el = document.getElementById(targetId);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', '#' + targetId);
+    if (link && link.focus) try { link.focus(); } catch (e) {}
+  }, 80);
+}
+
+/* PITFALL P-25 — toggleLang / toggleToc MUST be top-level function declarations
+   (NOT inside an IIFE), so onclick="..." attribute can find them in global scope.
+   Inside-IIFE only no-ops silently. */
+function toggleLang() {
+  const html = document.documentElement;
+  const isZh = html.lang === 'zh-CN';
+  html.lang = isZh ? 'en' : 'zh-CN';
+  try { localStorage.setItem('openclaw-wic-vincent-cotch-lang', html.lang); } catch (e) {}
+  const btn = document.getElementById('langBtn');
+  if (btn) btn.textContent = html.lang === 'en' ? 'ZH' : 'EN ⇄ 中';
+}
+function toggleToc() {
+  const sidebar = document.getElementById('tocSidebar');
+  const toggle = document.getElementById('tocToggle');
+  const page = document.getElementById('mainPage');
+  const collapsed = sidebar.classList.toggle('collapsed');
+  page.classList.toggle('toc-collapsed', collapsed);
+  if (toggle) {
+    toggle.classList.toggle('collapsed', collapsed);
+    toggle.textContent = collapsed ? '»' : '«';
+  }
+  try { localStorage.setItem('openclaw-wic-vincent-cotch-toc-collapsed', collapsed ? '1' : '0'); } catch (e) {}
+}
+
+(function() {
+  // Restore lang + toc state on load (PITFALL P-11 per-page unique key)
+  try {
+    const savedLang = localStorage.getItem('openclaw-wic-vincent-cotch-lang');
+    if (savedLang === 'en' || savedLang === 'zh-CN') {
+      document.documentElement.lang = savedLang;
+      const btn = document.getElementById('langBtn');
+      if (btn) btn.textContent = savedLang === 'en' ? 'ZH' : 'EN ⇄ 中';
+    }
+  } catch (e) {}
+  try {
+    if (localStorage.getItem('openclaw-wic-vincent-cotch-toc-collapsed') === '1') {
+      document.getElementById('tocSidebar').classList.add('collapsed');
+      document.getElementById('mainPage').classList.add('toc-collapsed');
+      document.getElementById('tocToggle').classList.add('collapsed');
+      document.getElementById('tocToggle').textContent = '»';
+    }
+  } catch (e) {}
+
+  // Tab switching + hash routing
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(function(t) {
+    t.addEventListener('click', function() {
+      tabs.forEach(function(x) { x.classList.toggle('active', x === t); });
+      contents.forEach(function(c) {
+        c.classList.toggle('active', c.dataset.tabContent === t.dataset.tab);
+      });
+      try { history.replaceState(null, '', '#' + t.dataset.tab); } catch (e) {}
+    });
+  });
+  /* Wire TOC links — native hash-jump silently fails when target is in a
+     hidden tab-content (PITFALL P-24). intercept + switch tab + scroll. */
+  document.querySelectorAll('aside.toc a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var href = link.getAttribute('href') || '';
+      if (!href || href.charAt(0) !== '#' || href === '#') return;
+      var targetId = href.slice(1);
+      /* Let native browser handle sidebar collapse / same-page already-visible
+         anchors; only intercept when target sits inside a tab-content.
+         Heuristic: if href matches a known tab id we own → always intercept. */
+      if (TOC_TAB_MAP[targetId]) {
+        e.preventDefault();
+        navFromToc(targetId, link);
+      }
+    });
+  });
+
+  /* Initial hash on load → resolve via TOC nav path */
+  const initHash = (location.hash || '').replace('#', '');
+  if (initHash) {
+    if (TOC_TAB_MAP[initHash]) {
+      navFromToc(initHash, null);
+    } else {
+      const target = document.querySelector('[data-tab="' + initHash + '"]');
+      if (target) target.click();
+    }
+  }
+})();
+</script>
+
+</body>
+</html>

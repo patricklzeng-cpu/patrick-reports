@@ -1,0 +1,87 @@
+{
+  "source": {
+    "type": "youtube",
+    "video_id": "eRrc1pUY5oU",
+    "url": "https://www.youtube.com/watch?v=eRrc1pUY5oU",
+    "title": "Garry Tan: \"Personal AGI Is How You Stay Under Your Own Power\"",
+    "channel": "Y Combinator",
+    "published": "2026-08-06",
+    "duration_seconds": 2528,
+    "duration_display": "42:08",
+    "retrieved": "2026-08-07",
+    "caption_track": "English auto-captions (en)",
+    "caption_formats_reviewed": ["JSON3", "VTT"]
+  },
+  "evidence_boundary": {
+    "verbatim_quote_count": 1,
+    "verbatim_source_word_count": 7,
+    "verbatim_verification": "exact match after merging caption segments and normalizing whitespace",
+    "paraphrase_count": 7,
+    "patrick_alias_scan": {
+      "aliases": ["Patrick", "Patrik", "Patric"],
+      "direct_mentions": 0
+    },
+    "obsidian_direct_mentions": 0,
+    "hermes_direct_mentions": [
+      {"timestamp_seconds": 698, "display": "11:38"},
+      {"timestamp_seconds": 1475, "display": "24:35"}
+    ]
+  },
+  "verified_skill_paths": [
+    {
+      "path": "~/.hermes/skills/autonomous-ai-agents/skillify/SKILL.md",
+      "status": "present",
+      "runtime_tested_this_run": false
+    },
+    {
+      "path": "~/.hermes/skills/patricks-vault-os/SKILL.md",
+      "status": "present",
+      "runtime_tested_this_run": false
+    },
+    {
+      "path": "~/.hermes/skills/note-taking/obsidian/SKILL.md",
+      "status": "present",
+      "runtime_tested_this_run": false
+    },
+    {
+      "path": "~/.hermes/skills/media/video-patrick-action-lens/SKILL.md",
+      "status": "present_and_applied_as_reference",
+      "runtime_tested_this_run": false
+    },
+    {
+      "path": "~/.hermes/skills/agent-trace-integrity/SKILL.md",
+      "status": "present",
+      "runtime_tested_this_run": false
+    },
+    {
+      "path": "~/.hermes/skills/autonomous-ai-agents/memory-three-layer/SKILL.md",
+      "status": "present_reference",
+      "runtime_tested_this_run": false
+    },
+    {
+      "path": "~/.hermes/skills/creative/html-redesign-preserve-semantics/SKILL.md",
+      "status": "present_and_applied_as_reference",
+      "runtime_tested_this_run": false
+    },
+    {
+      "path": "~/.hermes/skills/creative/toc-sidebar-batch/SKILL.md",
+      "status": "present_and_applied_as_reference",
+      "runtime_tested_this_run": false
+    }
+  ],
+  "runtime_surfaces_verified_present": [
+    "~/.hermes/telegram-claude-bot",
+    "~/.hermes/content-multiplier",
+    "~/.hermes/answer-class-checker",
+    "~/.hermes/heartbeat",
+    "~/.hermes/task-router",
+    "~/.hermes/claude_api.py",
+    "~/Downloads/Obsidian Vault"
+  ],
+  "mutations_not_performed": [
+    "active Obsidian vault write",
+    "Hermes skill edit",
+    "scheduled task registration",
+    "publication or deployment during evidence capture"
+  ]
+}

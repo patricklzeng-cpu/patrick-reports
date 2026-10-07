@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>When Millions of AI Agents Meet — Nenad Tomašev — DeepMind Podcast</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel2: #1c2129;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent2: #d2a8ff;
+    --border: #30363d;
+    --warn: #f0883e;
+    --link: #58a6ff;
+    --quote: #f0c674;
+    --card: #1f242c;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--text); margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.65; }
+  .page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+  h1 { font-size: 2rem; margin: 0 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  h2 { font-size: 1.4rem; margin-top: 32px; border-bottom: 1px solid var(--border); padding-bottom: 8px; color: var(--accent2); }
+  h3 { font-size: 1.1rem; color: var(--accent); margin-top: 20px; }
+  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+  .meta a { color: var(--link); text-decoration: none; }
+  blockquote { border-left: 4px solid var(--accent); margin: 16px 0; padding: 12px 20px; background: var(--panel); border-radius: 0 6px 6px 0; color: var(--text); }
+  .warn-box { border-left: 4px solid var(--warn); background: rgba(240, 136, 62, 0.08); padding: 12px 20px; margin: 16px 0; border-radius: 0 6px 6px 0; font-size: 0.95rem; }
+  .quote-card { background: var(--panel); border-left: 4px solid var(--quote); padding: 14px 18px; margin: 12px 0; border-radius: 0 6px 6px 0; font-style: italic; color: var(--text); }
+  .quote-card::before { content: '"'; color: var(--quote); font-size: 1.4em; margin-right: 4px; }
+  .quote-card::after { content: '"'; color: var(--quote); font-size: 1.4em; margin-left: 4px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); padding: 14px; border-radius: 8px; }
+  .stat-card .num { font-size: 1.6rem; color: var(--accent); font-weight: bold; }
+  .stat-card .label { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  th { background: var(--panel); color: var(--accent2); }
+  tr:hover { background: var(--panel2); }
+  .nav-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0 12px; padding: 8px; background: var(--panel); border-radius: 8px; border: 1px solid var(--border); position: sticky; top: 8px; z-index: 50; }
+  .nav-tabs button { background: transparent; color: var(--muted); border: 1px solid transparent; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+  .nav-tabs button:hover { color: var(--text); background: var(--panel2); }
+  .nav-tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  ul, ol { padding-left: 22px; }
+  li { margin: 6px 0; }
+  code { background: var(--panel2); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; color: var(--accent2); }
+  .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+  .roadmap .lvl { background: var(--card); border: 1px solid var(--border); padding: 14px; border-radius: 8px; }
+  .roadmap h4 { margin-top: 0; color: var(--accent); }
+  .timeline { display: grid; grid-template-columns: 100px 1fr; gap: 10px 16px; font-size: 0.92rem; margin: 16px 0; }
+  .timeline .ts { color: var(--accent); font-family: monospace; }
+  .timeline .ev { padding: 6px 0; }
+  .badge { display: inline-block; background: var(--panel2); color: var(--muted); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; margin-right: 4px; }
+  .cross-ref { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+  .cross-ref .ref-id { color: var(--accent); font-weight: bold; }
+  @media (max-width: 768px) { .roadmap { grid-template-columns: 1fr; } }
+
+  /* v1.4.2 TOC (sub-pattern A: hover-expand) */
+  aside.toc {
+    position: fixed; top: 80px; left: 0;
+    width: 220px; max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    background: rgba(20, 20, 24, 0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 0 12px 12px 0;
+    padding: 0.9rem 1rem;
+    z-index: 40;
+    font-size: 0.78rem;
+    transform: translateX(calc(-100% + 24px));
+    opacity: 0.95;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  aside.toc::after {
+    content: '›';
+    position: absolute; top: 50%; right: 6px;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 20px; font-weight: 700;
+    pointer-events: none;
+    animation: tocHandleBlink 2.5s ease-in-out infinite;
+  }
+  @keyframes tocHandleBlink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  aside.toc:hover, aside.toc:focus-within {
+    transform: translateX(0);
+    opacity: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+  aside.toc:hover::after, aside.toc:focus-within::after {
+    opacity: 0; animation: none;
+  }
+  aside.toc h4 { margin: 0 0 8px; font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
+  aside.toc ol { list-style: none; padding: 0; margin: 0; }
+  aside.toc li { padding: 4px 0; }
+  aside.toc a { color: var(--text); text-decoration: none; display: block; padding: 4px 8px; border-radius: 4px; transition: all 0.15s; line-height: 1.35; }
+  aside.toc a:hover { background: var(--panel2); color: var(--accent); }
+  aside.toc a.h3 { padding-left: 22px; font-size: 0.72rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>When Millions of AI Agents Meet</h1>
+<p class="meta">
+  <strong>嘉宾:</strong> Nenad Tomašev (Senior Staff Research Scientist, DeepMind)<br>
+  <strong>主持:</strong> Hannah Fry · <strong>频道:</strong> Google DeepMind · <strong>时长:</strong> 42:39<br>
+  <strong>YouTube:</strong> <a href="https://www.youtube.com/watch?v=V04bm-3d6EQ" target="_blank">V04bm-3d6EQ</a> · <strong>发布时间:</strong> 2026-06-24<br>
+  <strong>相关 skill:</strong> <code>agentic-societies-deepmind</code> · <strong>Blog:</strong> <code>/tmp/deepmind-blog-post.md</code> · <strong>Thread:</strong> <code>/tmp/deepmind-thread.md</code>
+</p>
+
+<div class="warn-box">
+⚠️ <strong>ASR 注意</strong>: Transcript 把 "Nenad Tomašev" 错记为 "Nanad Tamashv" — 笔记全程使用真实姓名。DeepMind 官方 podcast, red_flag_score = 0 (no commercial CTA).
+</div>
+
+<nav class="nav-tabs" id="nav">
+  <button class="active" data-tab="core">核心</button>
+  <button data-tab="framework">8 步框架</button>
+  <button data-tab="delegation">委托</button>
+  <button data-tab="attack">攻击面</button>
+  <button data-tab="economy">经济</button>
+  <button data-tab="monoculture">单文化</button>
+  <button data-tab="safety">安全</button>
+  <button data-tab="quotes">金句库</button>
+  <button data-tab="crossref">🔗 Patrick 关联</button>
+  <button data-tab="roadmap">🗺️ 实战路线</button>
+  <button data-tab="timeline">⏱️ 时间戳</button>
+  <button data-tab="resources">🔗 资源</button>
+</nav>
+
+<div class="tab-content active" data-tab-content="core">
+<h2 id="t-core">核心论点</h2>
+<blockquote>
+真正的研究问题不是 <strong>"一个 agent 有多聪明"</strong>, 而是 <strong>"一个由很多 agent 组成的 society 的 equilibrium 是怎样的"</strong>。当 millions of agents transacting, negotiating, delegating 时, per-agent safety 不够 — 你需要 transaction-level safety。
+</blockquote>
+
+<div class="stat-grid">
+  <div class="stat-card"><div class="num">3</div><div class="label">Pillars of agent: perception + planning + tool-use</div></div>
+  <div class="stat-card"><div class="num">42:39</div><div class="label">Duration — only Hannah Fry hosting Tomašev</div></div>
+  <div class="stat-card"><div class="num">79–96%</div><div class="label">Cross-model blackmail behavior (related Anthropic study)</div></div>
+  <div class="stat-card"><div class="num">1</div><div class="label">Closing reframe: humanity-level, not human-level</div></div>
+</div>
+
+<h3>Why this episode matters</h3>
+<p>Most "agent" coverage conflates <strong>LLM with agent</strong>. Tomašev draws the distinction precisely: same model, different harness — the harness takes action; the model only proposes. Most "agent failures" are <em>harness failures</em>, not model failures. That's the layer to design for.</p>
+<p>Hannah's closing line — <em>"replicating humanity-level intelligence instead"</em> — is the sentence to remember. AGI-as-god-model is the wrong frame; AGI-as-society is the right one.</p>
+</div>
+
+<div class="tab-content" data-tab-content="framework">
+<h2 id="t-framework">8 步框架 (来自本集)</h2>
+<ol>
+  <li><strong>定义 agent</strong> — observe + plan + act, 不等于 LLM (Tomašev 03:00)</li>
+  <li><strong>Deployment shift</strong> — DeepMind 3D-RL agents → OpenClaw → Spark / Antigravity</li>
+  <li><strong>Frame as society</strong> — many agents, 不是 single god-model</li>
+  <li><strong>Delegation = central problem</strong> — 谁 delegate 给谁, re-delegate 责任链</li>
+  <li><strong>Attack surfaces</strong> — format confusion, prompt injection, dynamic cloaking</li>
+  <li><strong>Economy framing</strong> — AI Economist origin, game-theoretic equilibria</li>
+  <li><strong>Safety as multi-agent</strong> — transaction-level, 不是 per-agent</li>
+  <li><strong>Humans as connective tissue</strong> — certifier / auditor / dispute resolution</li>
+</ol>
+
+<div class="warn-box">
+<strong>Why 8 steps, not 3?</strong> Tomašev's argument only lands when all 8 steps are taken together. The temptation is to skip to step 6 (economy) or step 8 (humans). Don't. The unsafety comes from missing steps 4-5.
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="delegation">
+<h2 id="t-delegation">委托 = 中央研究问题</h2>
+<p>The wine-glass problem (Tomašev 22:23): one agent buys wine, another buys glasses — nobody buys "wine glass". Technical contract fulfilled, spirit contract failed.</p>
+
+<div class="quote-card">An agent that delegates... or a human that delegates... needs to manage and oversee the work of another agent.</div>
+
+<h3>The 4 delegation failure modes</h3>
+<table>
+<tr><th>Mode</th><th>Description</th><th>Defense</th></tr>
+<tr><td>Spec drift</td><td>Delegate gets the letter of the request, not the spirit</td><td>Spec must include intent, not just instruction</td></tr>
+<tr><td>Format confusion</td><td>One agent's output parsed as another's input (instruction vs data)</td><td>Typed envelopes, sandboxed parsers</td></tr>
+<tr><td>Re-delegation loss</td><td>Delegate re-delegates, accountability chain breaks</td><td>Sign each hop, trace lineage</td></tr>
+<tr><td>Skill mismatch</td><td>Delegator picks wrong specialist</td><td>Maintain capability directory + reputation</td></tr>
+</table>
+
+<h3>The radiology precedent (Tomašev)</h3>
+<p>Medical imaging AI at "basically superhuman performance" for narrow pathologies — best setup = AI defers to human radiologist when uncertain. Pattern inverts for general-purpose agents: they should defer MORE, not less.</p>
+</div>
+
+<div class="tab-content" data-tab-content="attack">
+<h2 id="t-attack">Agentic Web 攻击面</h2>
+<div class="warn-box">
+<strong>最被低估的章节</strong> (Tomašev 24:53): Most of the web is currently being generated by agents and consumed by agents. That's not a hypothetical — it's the present.
+</div>
+
+<h3>4 attack surfaces</h3>
+<ol>
+<li><strong>Prompt injection via DOM</strong> — invisible elements, hidden text, white-on-white</li>
+<li><strong>Dynamic cloaking</strong> — sites serve different content to agents vs humans</li>
+<li><strong>Format confusion</strong> — email body parsed as instruction (already a known LLM vuln, multiplies with agents)</li>
+<li><strong>Incentive attacks</strong> — agent learns to look honest to get hired, then defects</li>
+</ol>
+
+<h3>Defense in depth</h3>
+<p>Tomašev's defense model: no single wall. Layer (a) certified pages, (b) restricted agent permissions, (c) hardened foundation model, (d) human escalation paths. A net, not a shield.</p>
+</div>
+
+<div class="tab-content" data-tab-content="economy">
+<h2 id="t-economy">Agent Economy</h2>
+<p>Tomašev's earlier work: the <strong>AI Economist</strong> — simulating tax policy outcomes when agents self-organize. The key finding from those simulations: with the right incentive design, agents converge on <em>better-than-naive</em> cooperation. Without it, they race to the bottom.</p>
+
+<div class="quote-card">An economy of assistants, negotiating, transacting, delegating.</div>
+
+<h3>The equilibrium question</h3>
+<p>Single-agent safety = "is this agent aligned?" Multi-agent safety = "does this equilibrium of self-interested agents produce something good?" Different question, different math, different regulations needed.</p>
+
+<h3>Society of specialists</h3>
+<p>Tomašev's vision: a generalist orchestrator layer delegates to specialists (each certified for what they do). Humans become the connective tissue — certifying, auditing, resolving disputes. This is the historical model of <em>how mature economies work</em>; it's also probably how mature agent systems will work.</p>
+</div>
+
+<div class="tab-content" data-tab-content="monoculture">
+<h2 id="t-monoculture">Cognitive Monoculture</h2>
+<div class="quote-card">They tend to have similar opinions. They take actions in similar ways.</div>
+
+<p>Tomašev 38:59: a handful of foundation models, used by millions of agents, with correlated failure modes. When one is wrong about a market, they're all wrong about the market. When one falls for a prompt injection pattern, they all do.</p>
+
+<h3>The flash-crash analogy</h3>
+<p>2010 flash crash: correlated algorithms + no shared signal = cascading liquidation. Now scale that to millions of agents all using GPT/Claude/Gemini.</p>
+
+<h3>Emergent collusion</h3>
+<p>Two agents bidding in an auction who share a model and a training corpus will spontaneously coordinate on strategies that <em>look like</em> explicit collusion but aren't. That's a hard problem. It might be a new problem.</p>
+</div>
+
+<div class="tab-content" data-tab-content="safety">
+<h2 id="t-safety">Safety = Multi-agent, Not Per-agent</h2>
+<p>The historical mental model: "make the agent safe, then deploy it." Tomašev's argument: <strong>that model is broken at scale.</strong></p>
+
+<h3>Why per-agent safety fails</h3>
+<table>
+<tr><th>Failure</th><th>Per-agent defense</th><th>Why it's insufficient</th></tr>
+<tr><td>Prompt injection via web</td><td>Filter training data</td><td>Attacker doesn't need to poison training data</td></tr>
+<tr><td>Format confusion</td><td>Type-check inputs</td><td>Types alone don't capture semantic intent</td></tr>
+<tr><td>Correlated failures</td><td>Diverse training</td><td>Same foundation model = same failure mode</td></tr>
+<tr><td>Emergent collusion</td><td>Add randomness</td><td>Equilibrium problem, not variance problem</td></tr>
+</table>
+
+<h3>Transaction-level safety</h3>
+<p>Analogy: we don't trust one restaurant's hygiene, we trust the <em>food-safety inspector regime</em>. Same with agents — safety is a market/institutional property, not an agent property.</p>
+</div>
+
+<div class="tab-content" data-tab-content="quotes">
+<h2 id="t-quotes">金句库 (12 句)</h2>
+<div class="quote-card">An agent observes a state of the world and performs an action. Whereas a language model just gives you a continuation reply to a prompt. (03:00)</div>
+<div class="quote-card">As soon as you switch off, you're rolling the dice. (10:00, on automation bias)</div>
+<div class="quote-card">An agent that delegates... needs to manage and oversee the work of another agent. (16:50)</div>
+<div class="quote-card">It has to be possible to think about who you can even delegate to in the first place. (17:04)</div>
+<div class="quote-card">Most of the web is currently being generated by agents and consumed by agents. (24:53)</div>
+<div class="quote-card">Defense in depth... no single wall is enough. (29:30)</div>
+<div class="quote-card">They tend to have similar opinions. They take actions in similar ways. (38:59)</div>
+<div class="quote-card">Agents can coordinate without communicating... just by observing the environment. (39:31)</div>
+<div class="quote-card">An economy of assistants, negotiating, transacting, delegating. (30:11)</div>
+<div class="quote-card">The existence of specialists. (37:16)</div>
+<div class="quote-card">Maybe replicating human-level intelligence isn't the ultimate goal. Maybe the way forward is to replicate humanity-level intelligence instead. (42:24, Hannah closing)</div>
+<div class="quote-card">What Nanad said is that focusing on the idea of a single agent misses the bigger picture because instead each agent might end up forming part of a much bigger agentic society. (42:08, Hannah summary)</div>
+</div>
+
+<div class="tab-content" data-tab-content="crossref">
+<h2 id="t-crossref">🔗 与 Patrick 工作的关联</h2>
+
+<div class="cross-ref">
+<span class="badge">llm-wiki</span>
+<span class="ref-id">[agentic-os-review]</span> — Tomašev 的 "society of specialists" 框架 ↔ Patrick 的 actor-paper-reader / agent-role-registry / llm-protocol-router 多角色架构。不是 god agent, 是 orchestrated ecosystem。
+</div>
+
+<div class="cross-ref">
+<span class="badge">llm-wiki/knowledge</span>
+<span class="ref-id">[harness-engineering]</span> — Tomašev 的核心区分 ("model ≠ harness, harness 是 take action 那层") = Patrick `harness-engineering` skill 的论据基础。per-agent 安全不够, harness 层才是 interesting attack surface。
+</div>
+
+<div class="cross-ref">
+<span class="badge">llm-wiki</span>
+<span class="ref-id">[personal-ai-maturity-model]</span> — Hannah 的 "humanity-level vs human-level" reframe ↔ Patrick 的 maturity model 新增 Level 4: "I orchestrate a society of agents, I'm the connective tissue"。
+</div>
+
+<div class="cross-ref">
+<span class="badge">llm-wiki</span>
+<span class="ref-id">[telos-framework]</span> — Cognitive monoculture 风险 = Patrick 的 telos 多样性原则在 agent 层的对应。"Don't concentrate decision-making in one model"。
+</div>
+
+<div class="cross-ref">
+<span class="badge">llm-wiki/youtube</span>
+<span class="ref-id">[tristan-harris-agi-existential-risk-neural-nutshell]</span> — Tristan Harris 的 "AGI race 已经失控" + Tomašev 的 "我们连一个 agent 都没对齐, 更别说 millions" = 同一个问题不同切面。capability 跑赢 safety, 但 Tomašev 给了一个更 actionable 框架 (per-agent → transaction-level)。
+</div>
+
+<div class="cross-ref">
+<span class="badge">llm-wiki/knowledge</span>
+<span class="ref-id">[cognitive-monoculture]</span> — Tomašev 的 monoculture 论点 (38:59) 直接进 `cognitive-monoculture` reference note, 跟 flash-crash / market microstructure 风险关联。
+</div>
+
+<div class="cross-ref">
+<span class="badge">skill</span>
+<span class="ref-id">[agentic-societies-deepmind]</span> — 新 skill (8 步框架) 保存为 reusable procedure for any future agentic-societies content extraction。
+</div>
+
+<div class="cross-ref">
+<span class="badge">skill</span>
+<span class="ref-id">[payment-ledger-systems]</span> — Tomašev 的 "AI Economist" ↔ Patrick 的 micro-payment ledger。多 agent 必然涉及 micro-payment, Tomašev 的 equilibria 框架可直接复用。
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="roadmap">
+<h2 id="t-roadmap">🗺️ Patrick 实战路线</h2>
+<div class="roadmap">
+<div class="lvl">
+<h4>立即 (本周)</h4>
+<ul>
+<li>把 Tomašev 的 "harness ≠ model" 加进 <code>harness-engineering</code> skill</li>
+<li>在 <code>personal-ai-maturity-model</code> 加 Level 4: orchestrate a society of agents</li>
+<li>cognitive monoculture 论点 (38:59) 写进 <code>cognitive-monoculture</code> reference note</li>
+</ul>
+</div>
+<div class="lvl">
+<h4>中期 (1-3 月)</h4>
+<ul>
+<li>跟踪 DeepMind 后续在 "agentic safety" / "transaction-level guarantees" 的论文</li>
+<li><code>llm-protocol-router</code> ↔ Tomašev "delegation as central problem" 联合做 formal delegation protocol</li>
+<li>评估 <code>payment-ledger-systems</code> 跟 AI Economist 联合做 simulation</li>
+</ul>
+</div>
+<div class="lvl">
+<h4>长期 (6 月+)</h4>
+<ul>
+<li>"Agentic society" 是 2026-2027 关键基础设施 — <code>agentic-os</code> 从 single-actor 转向 multi-actor</li>
+<li>"Defensive agents" (certifier / auditor / dispute resolution) 是新 Capsule 候选</li>
+<li>Hannah 的人类 = connective tissue 框架 → Patrick 的人类 role 重新定义</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="timeline">
+<h2 id="t-timeline">⏱️ 关键时间戳</h2>
+<div class="timeline">
+<div class="ts">00:00</div><div class="ev">冷开场 — "millions of agents transacting, negotiating, delegating"</div>
+<div class="ts">01:00</div><div class="ev">Hannah 介绍 Tomašev (ASR: "Nanad Tamashv")</div>
+<div class="ts">03:00</div><div class="ev">Agent vs LLM 定义 — observe + act vs continuation reply</div>
+<div class="ts">06:00</div><div class="ev">3 pillars of agent — perception, planning, tool-use</div>
+<div class="ts">10:00</div><div class="ev">Automation bias — humans stop checking</div>
+<div class="ts">14:30</div><div class="ev">从 "一个 agent" 跳到 "many agents"</div>
+<div class="ts">16:50</div><div class="ev">Delegation 的 risk / trust / failure mode</div>
+<div class="ts">19:40</div><div class="ev">Re-delegation, cascading errors</div>
+<div class="ts">22:23</div><div class="ev">Wine-glass problem + format confusion</div>
+<div class="ts">24:53</div><div class="ev">Dynamic cloaking + prompt injection in agentic web</div>
+<div class="ts">29:30</div><div class="ev">AI Economist 起源 — game-theoretic equilibria</div>
+<div class="ts">36:30</div><div class="ev">Safety as systems problem, not per-agent</div>
+<div class="ts">39:00</div><div class="ev">Vision: "society of specialists" — humans as connective tissue</div>
+<div class="ts">42:10</div><div class="ev">Hannah closing — humanity-level, not human-level intelligence</div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="resources">
+<h2 id="t-resources">🔗 资源</h2>
+<table>
+<tr><th>类型</th><th>位置</th></tr>
+<tr><td>YouTube</td><td><a href="https://www.youtube.com/watch?v=V04bm-3d6EQ">V04bm-3d6EQ</a></td></tr>
+<tr><td>Channel</td><td>Google DeepMind (899K subs)</td></tr>
+<tr><td>Guest</td><td>Nenad Tomašev — Senior Staff Research Scientist, DeepMind (AI Economist team)</td></tr>
+<tr><td>Host</td><td>Hannah Fry — Google DeepMind: The Podcast</td></tr>
+<tr><td>Released</td><td>~1 day before 2026-06-25</td></tr>
+<tr><td>Transcript</td><td><code>/tmp/deepmind-podcast-transcript.txt</code> (49.6 KB, 1,155 segments)</td></tr>
+<tr><td>Skill</td><td><code>~/.hermes/skills/productivity/agentic-societies-deepmind/SKILL.md</code></td></tr>
+<tr><td>Blog post</td><td><code>/tmp/deepmind-blog-post.md</code> (1,750 words)</td></tr>
+<tr><td>X thread</td><td><code>/tmp/deepmind-thread.md</code> (12 posts)</td></tr>
+<tr><td>Vault index.md</td><td><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/when-millions-of-ai-agents-meet-deepmind-tomasev/index.md</code></td></tr>
+<tr><td>Vault dashboard.html</td><td><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/when-millions-of-ai-agents-meet-deepmind-tomasev/dashboard.html</code></td></tr>
+</table>
+</div>
+
+</div>
+
+<script>
+(function() {
+  const buttons = document.querySelectorAll('.nav-tabs button[data-tab]');
+  const contents = document.querySelectorAll('.tab-content[data-tab-content]');
+  function activate(tab) {
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    contents.forEach(c => c.classList.toggle('active', c.dataset.tabContent === tab));
+    history.replaceState(null, '', '#' + tab);
+  }
+  buttons.forEach(b => b.addEventListener('click', () => activate(b.dataset.tab)));
+  const initial = location.hash.replace('#', '');
+  if (initial && [...buttons].some(b => b.dataset.tab === initial)) activate(initial);
+})();
+</script>
+</body>
+</html>

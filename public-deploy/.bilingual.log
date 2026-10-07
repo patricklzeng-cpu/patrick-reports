@@ -1,0 +1,26 @@
+[extract] 76 cards · 3 section_h2 · 4 topic_h2
+Traceback (most recent call last):
+  File "/Users/zl/.hermes/scripts/bilingual_inject.py", line 607, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/zl/.hermes/scripts/bilingual_inject.py", line 527, in main
+    response = call_claude(prompt)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/zl/.hermes/scripts/bilingual_inject.py", line 297, in call_claude
+    return claude_call(prompt, model="claude-sonnet-4-5", max_tokens=12288, system=TRANSLATE_SYSTEM)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zl/.hermes/claude_api.py", line 53, in call
+    response = client.messages.create(**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zl/.hermes/hermes-agent/venv/lib/python3.11/site-packages/anthropic/_utils/_utils.py", line 282, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zl/.hermes/hermes-agent/venv/lib/python3.11/site-packages/anthropic/resources/messages/messages.py", line 996, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/zl/.hermes/hermes-agent/venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1364, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zl/.hermes/hermes-agent/venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1137, in request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.APIStatusError: Error code: 402 - {'type': 'error', 'error': {'type': 'insufficient_balance_error', 'message': 'insufficient balance (1008)'}, 'request_id': '0714ccdae6cecbd6710500333a2b8062'}

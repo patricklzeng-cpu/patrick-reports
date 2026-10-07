@@ -28,6 +28,7 @@ workers-push/
 # We deploy via wrangler pages deploy from this Mac, so no need to push workflow files.
 # Leave them local so git push doesn't fail with "without workflow scope" error.
 .github/workflows/*.yml
+!.github/workflows/rocket-launch-db-update.yml
 
 # 2026-07-09: archive/ = local backups (PITFALL #114-A "bak must not deploy").
 # neo-labs.bak-* / *.bak.html moved here from public-deploy/ to prevent shipping
