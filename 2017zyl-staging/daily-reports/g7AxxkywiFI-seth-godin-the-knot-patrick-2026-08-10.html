@@ -1,0 +1,2281 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Seth Godin on quitting, agency, AI, and meaningful work — bilingual video knowledge dashboard with Patrick action lens.">
+  <meta name="color-scheme" content="dark light">
+  <title>解开结，而不是硬撑 / Untie the Knot, Do Not Just Endure</title>
+  <script>
+    (function () {
+      try {
+        var key = "g7AxxkywiFI-seth-godin-knot-lang";
+        var mode = localStorage.getItem(key) || "zh";
+        var langs = { zh: "zh-CN", en: "en", bi: "zh-Hans" };
+        if (langs[mode]) {
+          document.documentElement.lang = langs[mode];
+          document.documentElement.dataset.lang = mode;
+        }
+      } catch (error) {
+        document.documentElement.lang = "zh-CN";
+        document.documentElement.dataset.lang = "zh";
+      }
+    }());
+  </script>
+  <style>
+    :root {
+      --night: #121712;
+      --night-2: #1b231b;
+      --pine: #243429;
+      --paper: #f2eee3;
+      --paper-2: #e7e1d3;
+      --ink: #182019;
+      --muted: #667067;
+      --line: #cfc7b6;
+      --amber: #e6a53a;
+      --amber-soft: #f5d797;
+      --coral: #dc705b;
+      --green: #78a977;
+      --blue: #6e96a8;
+      --white: #fffdf6;
+      --shadow: 0 18px 50px rgba(9, 15, 10, 0.14);
+      --radius: 18px;
+      --radius-sm: 10px;
+      --toc-width: 238px;
+      --toc-gap: 22px;
+      --display: Georgia, "Songti SC", "Noto Serif CJK SC", serif;
+      --sans: "Avenir Next", "Segoe UI", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: auto;
+      scroll-padding-top: 126px;
+      background: var(--night);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      padding-left: calc(var(--toc-width) + var(--toc-gap) * 2);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 85% 8%, rgba(230, 165, 58, 0.09), transparent 24rem),
+        var(--paper);
+      font-family: var(--sans);
+      line-height: 1.62;
+      transition: padding-left 220ms ease;
+    }
+
+    body.toc-collapsed {
+      padding-left: 66px;
+    }
+
+    button, a, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    code {
+      overflow-wrap: anywhere;
+      color: #34463a;
+      font-family: var(--mono);
+      font-size: 0.82em;
+    }
+
+    html[lang="zh-CN"] .en { display: none !important; }
+    html[lang="en"] .zh { display: none !important; }
+
+    html[data-lang="bi"] .label-pair > .en::before,
+    html[data-lang="bi"] h1 > .en::before,
+    html[data-lang="bi"] h2 > .en::before,
+    html[data-lang="bi"] h3 > .en::before {
+      content: " / ";
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    html[data-lang="bi"] .pair-block {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    html[data-lang="bi"] .pair-block > .en {
+      padding-left: 18px;
+      border-left: 1px solid var(--line);
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 1000;
+      top: 8px;
+      left: 8px;
+      padding: 9px 13px;
+      color: var(--night);
+      background: var(--amber);
+      border-radius: 8px;
+      transform: translateY(-160%);
+      transition: transform 160ms ease;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .toc-shell {
+      position: fixed;
+      z-index: 70;
+      inset: 18px auto 18px 18px;
+      width: var(--toc-width);
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+      color: #e9ecdf;
+      background: var(--night);
+      border: 1px solid #364039;
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+      transition: transform 220ms ease;
+    }
+
+    body.toc-collapsed .toc-shell {
+      transform: translateX(calc(-1 * var(--toc-width) + 43px));
+    }
+
+    .toc-head {
+      min-height: 118px;
+      padding: 19px 18px 15px;
+      border-bottom: 1px solid #303b32;
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .toc-brand {
+      margin: 0;
+      font-family: var(--display);
+      font-size: 1.28rem;
+      line-height: 1.1;
+    }
+
+    .toc-meta {
+      margin-top: 8px;
+      color: #aeb8ad;
+      font-size: 0.72rem;
+    }
+
+    .toc-toggle {
+      position: absolute;
+      top: 20px;
+      right: -17px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      color: var(--night);
+      background: var(--amber);
+      border: 0;
+      border-radius: 50%;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .toc-toggle svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 180ms ease;
+    }
+
+    body.toc-collapsed .toc-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .toc-nav {
+      flex: 1;
+      min-height: 0;
+      padding: 11px 9px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #4c594e transparent;
+    }
+
+    .toc-group-label {
+      margin: 12px 11px 5px;
+      color: #728075;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .toc-link {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 2px 0;
+      padding: 7px 9px;
+      color: #bfc8bc;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.76rem;
+      line-height: 1.22;
+      transition: color 130ms ease, background 130ms ease;
+    }
+
+    .toc-link:hover {
+      color: var(--white);
+      background: #202a22;
+    }
+
+    .toc-link.active {
+      color: var(--white);
+      background: #2b382e;
+      box-shadow: inset 3px 0 0 var(--amber);
+    }
+
+    .toc-number {
+      min-width: 21px;
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+    }
+
+    .toc-foot {
+      padding: 12px 16px 15px;
+      color: #8f9a90;
+      border-top: 1px solid #303b32;
+      font-size: 0.66rem;
+      line-height: 1.45;
+    }
+
+    .scrim {
+      position: fixed;
+      z-index: 60;
+      inset: 0;
+      display: none;
+      background: rgba(4, 8, 5, 0.58);
+      backdrop-filter: blur(2px);
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 50;
+      top: 0;
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px clamp(16px, 3vw, 42px);
+      color: var(--white);
+      background: rgba(18, 23, 18, 0.95);
+      border-bottom: 1px solid #354037;
+      backdrop-filter: blur(12px);
+    }
+
+    .top-left,
+    .top-actions,
+    .language-switch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-title {
+      color: #cad1c7;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .icon-button,
+    .lang-button,
+    .utility-button {
+      min-height: 34px;
+      padding: 6px 10px;
+      color: #c5cec2;
+      background: transparent;
+      border: 1px solid #445046;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .icon-button:hover,
+    .lang-button:hover,
+    .utility-button:hover {
+      color: var(--white);
+      border-color: #6f7d70;
+    }
+
+    .lang-button[aria-pressed="true"] {
+      color: var(--night);
+      background: var(--amber);
+      border-color: var(--amber);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.8fr);
+      align-items: center;
+      gap: clamp(28px, 5vw, 76px);
+      overflow: hidden;
+      padding: clamp(62px, 9vw, 124px) clamp(22px, 7vw, 112px);
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(18, 23, 18, 0.99), rgba(27, 35, 27, 0.94)),
+        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,.02) 20px);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -80px;
+      bottom: -130px;
+      width: 440px;
+      height: 440px;
+      content: "";
+      border: 1px solid rgba(230, 165, 58, 0.19);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 46px rgba(230, 165, 58, 0.035),
+        0 0 0 92px rgba(230, 165, 58, 0.025);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 23px;
+      color: var(--amber-soft);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      width: 34px;
+      height: 2px;
+      content: "";
+      background: var(--amber);
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 940px;
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 7.4rem);
+      font-weight: 500;
+      letter-spacing: -0.055em;
+      line-height: 0.94;
+    }
+
+    .hero-deck {
+      max-width: 760px;
+      margin: 28px 0 0;
+      color: #c9d0c7;
+      font-size: clamp(1rem, 1.55vw, 1.28rem);
+      line-height: 1.58;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 31px;
+    }
+
+    .primary-link,
+    .secondary-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 9px 15px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .primary-link {
+      color: var(--night);
+      background: var(--amber);
+      border: 1px solid var(--amber);
+    }
+
+    .secondary-link {
+      color: var(--white);
+      background: transparent;
+      border: 1px solid #536056;
+    }
+
+    .hero-side {
+      position: relative;
+      z-index: 2;
+      min-height: 410px;
+      display: grid;
+      place-items: center;
+    }
+
+    .knot-figure {
+      position: relative;
+      width: min(340px, 78vw);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .loop {
+      position: absolute;
+      width: 66%;
+      height: 39%;
+      border: 12px solid var(--amber);
+      border-radius: 50%;
+      opacity: 0.88;
+      transform: rotate(34deg);
+    }
+
+    .loop.two {
+      border-color: var(--coral);
+      transform: rotate(-34deg);
+    }
+
+    .loop.three {
+      width: 42%;
+      height: 75%;
+      border-color: var(--green);
+      transform: rotate(90deg);
+      opacity: 0.72;
+    }
+
+    .knot-center {
+      position: relative;
+      z-index: 2;
+      width: 132px;
+      height: 132px;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      color: var(--white);
+      background: var(--night);
+      border: 1px solid #566157;
+      border-radius: 50%;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .hero-facts {
+      position: absolute;
+      right: 0;
+      bottom: 8px;
+      left: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      color: #b8c1b6;
+      background: rgba(18, 23, 18, 0.76);
+      border: 1px solid #3c473e;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-fact {
+      padding: 12px 10px;
+      border-right: 1px solid #3c473e;
+      text-align: center;
+    }
+
+    .hero-fact:last-child { border-right: 0; }
+
+    .hero-fact strong {
+      display: block;
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 0.9rem;
+    }
+
+    .hero-fact span {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.65rem;
+      line-height: 1.25;
+    }
+
+    .tabs-wrap {
+      position: sticky;
+      z-index: 44;
+      top: 58px;
+      padding: 10px clamp(16px, 3vw, 42px);
+      overflow-x: auto;
+      background: rgba(242, 238, 227, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      scrollbar-width: thin;
+    }
+
+    .tabs {
+      width: max-content;
+      min-width: 100%;
+      display: flex;
+      gap: 6px;
+    }
+
+    .tab-btn {
+      min-height: 38px;
+      padding: 7px 12px;
+      color: #667067;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--ink);
+      background: var(--paper-2);
+    }
+
+    .tab-btn.active,
+    .tab-btn[aria-selected="true"] {
+      color: var(--white);
+      background: var(--pine);
+      border-color: var(--pine);
+    }
+
+    main {
+      min-height: 60vh;
+    }
+
+    .tab-content {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: clamp(56px, 7vw, 96px) 0 112px;
+      scroll-margin-top: 126px;
+      animation: rise 230ms ease both;
+    }
+
+    .tab-content[hidden] { display: none; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+      align-items: end;
+      gap: 32px;
+      margin-bottom: 44px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-index {
+      color: var(--coral);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+    }
+
+    h2 {
+      margin: 8px 0 0;
+      font-size: clamp(2rem, 4.6vw, 4.2rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.03;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .section-summary {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .lead {
+      margin: 0 0 34px;
+      color: #334038;
+      font-family: var(--display);
+      font-size: clamp(1.3rem, 2.3vw, 2rem);
+      line-height: 1.42;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      position: relative;
+      padding: 23px;
+      background: rgba(255, 253, 246, 0.7);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 28px rgba(18, 27, 20, 0.045);
+    }
+
+    .card.dark {
+      color: #e7ece3;
+      background: var(--night-2);
+      border-color: #39443b;
+    }
+
+    .card.accent {
+      background: #eedfc0;
+      border-color: #d8bd82;
+    }
+
+    .card-number {
+      display: inline-grid;
+      width: 28px;
+      height: 28px;
+      place-items: center;
+      margin-bottom: 18px;
+      color: var(--night);
+      background: var(--amber);
+      border-radius: 50%;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 900;
+    }
+
+    .card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .card.dark p { color: #aeb8ad; }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 23px;
+      padding: 3px 7px;
+      color: #3f4a42;
+      background: #e3ded2;
+      border: 1px solid #c8c0b0;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 0.59rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+
+    .badge.source,
+    .badge.verbatim { color: #12311b; background: #cce3c9; border-color: #9fc99d; }
+    .badge.paraphrase { color: #1e3540; background: #d1e2e9; border-color: #abc8d4; }
+    .badge.patrick { color: #4c2f03; background: #f4d89c; border-color: #dfb75f; }
+    .badge.action { color: #4d1f16; background: #f2c5bc; border-color: #dd9487; }
+    .badge.live { color: #12311b; background: #cce3c9; border-color: #9fc99d; }
+    .badge.reference { color: #2d3445; background: #d9dcea; border-color: #b6bdd8; }
+    .badge.gap { color: #4a2821; background: #efd3cd; border-color: #d9a79d; }
+    .badge.external { color: #3e3150; background: #e1d6ea; border-color: #c6b2d7; }
+    .badge.p0 { color: #fff; background: #bd4b38; border-color: #bd4b38; }
+    .badge.p1 { color: #231702; background: #e1a635; border-color: #d29729; }
+    .badge.p2 { color: #fff; background: #4f7b64; border-color: #4f7b64; }
+
+    .diagnostic {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .diagnostic:first-child { border-top: 0; }
+
+    .diagnostic-key {
+      color: var(--coral);
+      font-family: var(--mono);
+      font-size: 0.69rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .diagnostic h3 { margin-bottom: 6px; }
+    .diagnostic p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+    .callout {
+      margin: 28px 0;
+      padding: 24px 26px;
+      color: #e9eee7;
+      background: var(--pine);
+      border-left: 5px solid var(--amber);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .callout p { margin: 8px 0 0; color: #bdc7bc; }
+    .callout strong { color: var(--amber-soft); }
+
+    .decision-table,
+    .evidence-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      background: rgba(255, 253, 246, 0.62);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .decision-table th,
+    .decision-table td,
+    .evidence-table th,
+    .evidence-table td {
+      padding: 14px 15px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 0.8rem;
+    }
+
+    .decision-table th,
+    .evidence-table th {
+      color: #445048;
+      background: var(--paper-2);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .decision-table tr:last-child td,
+    .evidence-table tr:last-child td { border-bottom: 0; }
+
+    .decision-table td:first-child {
+      width: 20%;
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .formula {
+      display: grid;
+      grid-template-columns: repeat(5, auto);
+      justify-content: center;
+      align-items: center;
+      gap: 11px;
+      margin: 30px 0;
+      padding: 24px;
+      color: var(--white);
+      background: var(--night);
+      border-radius: var(--radius);
+      font-family: var(--mono);
+      text-align: center;
+    }
+
+    .formula-item {
+      padding: 10px 13px;
+      color: var(--night);
+      background: var(--amber);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .formula-symbol { color: #849087; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 34px;
+    }
+
+    .timeline::before {
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 50%;
+      width: 1px;
+      content: "";
+      background: var(--line);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+      min-height: 88px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(207, 199, 182, 0.62);
+    }
+
+    .timeline-item:nth-child(odd) { padding-right: 18px; }
+    .timeline-item:nth-child(even) { padding-left: 18px; }
+
+    .time-link {
+      color: var(--coral);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .time-link:hover { text-decoration: underline; }
+
+    .timeline-title {
+      margin: 0 0 4px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .timeline-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.76rem;
+      line-height: 1.42;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .quote-card {
+      position: relative;
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 25px;
+      color: var(--white);
+      background: var(--night-2);
+      border: 1px solid #39443b;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .quote-card::after {
+      position: absolute;
+      right: 14px;
+      bottom: -28px;
+      content: "“";
+      color: rgba(230, 165, 58, 0.12);
+      font-family: Georgia, serif;
+      font-size: 11rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    blockquote {
+      position: relative;
+      z-index: 2;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(1.45rem, 2.6vw, 2.3rem);
+      line-height: 1.2;
+    }
+
+    .quote-translation {
+      position: relative;
+      z-index: 2;
+      margin-top: 14px;
+      color: #b8c2b8;
+      font-size: 0.83rem;
+    }
+
+    .quote-foot {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .asset-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .asset-card {
+      display: grid;
+      grid-template-columns: minmax(185px, 0.55fr) minmax(0, 1.45fr);
+      gap: 24px;
+      padding: 24px;
+      background: rgba(255, 253, 246, 0.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .asset-name {
+      padding-right: 20px;
+      border-right: 1px solid var(--line);
+    }
+
+    .asset-name h3 { margin-bottom: 12px; }
+
+    .asset-path {
+      display: block;
+      margin-top: 10px;
+      color: #657068;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .asset-body {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .asset-field strong,
+    .action-field strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #6b736b;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .asset-field p,
+    .action-field p {
+      margin: 0;
+      color: #414c44;
+      font-size: 0.79rem;
+      line-height: 1.5;
+    }
+
+    .boundary-note {
+      margin-bottom: 28px;
+      padding: 20px 22px;
+      background: #f0d9d2;
+      border: 1px solid #dba99e;
+      border-radius: var(--radius);
+    }
+
+    .boundary-note strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #6b2f25;
+    }
+
+    .boundary-note p { margin: 0; color: #6d4b44; font-size: 0.86rem; }
+
+    .action-toolbar {
+      position: sticky;
+      z-index: 20;
+      top: 116px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding: 13px 15px;
+      color: var(--white);
+      background: rgba(27, 35, 27, 0.96);
+      border: 1px solid #435046;
+      border-radius: 13px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .progress-wrap {
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .progress-track {
+      width: 120px;
+      height: 7px;
+      overflow: hidden;
+      background: #475248;
+      border-radius: 999px;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: var(--amber);
+      border-radius: inherit;
+      transition: width 200ms ease;
+    }
+
+    .progress-text {
+      color: #c7d0c4;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+    }
+
+    .toolbar-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 7px;
+    }
+
+    .action-list {
+      display: grid;
+      gap: 17px;
+    }
+
+    .action-card {
+      position: relative;
+      padding: 25px;
+      background: rgba(255, 253, 246, 0.76);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--coral);
+      border-radius: var(--radius);
+      transition: opacity 150ms ease, transform 150ms ease;
+    }
+
+    .action-card[data-priority="P1"] { border-left-color: var(--amber); }
+    .action-card[data-priority="P2"] { border-left-color: var(--green); }
+
+    .action-card.completed {
+      opacity: 0.58;
+      transform: scale(0.995);
+    }
+
+    .action-card.completed .action-title {
+      text-decoration: line-through;
+    }
+
+    .action-head {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .action-check {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      accent-color: var(--green);
+    }
+
+    .action-title {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+    }
+
+    .action-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .micro-step {
+      display: inline-flex;
+      margin-top: 9px;
+      padding: 5px 8px;
+      color: #4c2f03;
+      background: var(--amber-soft);
+      border-radius: 7px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .action-fields {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+    }
+
+    .action-field.source-field {
+      grid-column: span 2;
+    }
+
+    .success-badge {
+      display: inline-block;
+      min-width: 18px;
+      margin-left: 4px;
+      color: var(--amber-soft);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+    }
+
+    .source-ladder {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .source-step {
+      min-height: 148px;
+      padding: 19px;
+      background: #ece6d9;
+      border-top: 4px solid var(--green);
+      border-radius: 12px;
+    }
+
+    .source-step:nth-child(2) { border-top-color: var(--blue); }
+    .source-step:nth-child(3) { border-top-color: var(--amber); }
+    .source-step:nth-child(4) { border-top-color: var(--coral); }
+
+    .source-step strong {
+      display: block;
+      margin-bottom: 7px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+    }
+
+    .source-step p { margin: 0; color: var(--muted); font-size: 0.78rem; }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      padding: 30px clamp(20px, 5vw, 80px);
+      color: #99a49a;
+      background: var(--night);
+      border-top: 1px solid #354037;
+      font-size: 0.72rem;
+    }
+
+    .footer a { color: var(--amber-soft); }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    @media (max-width: 1120px) {
+      .hero { grid-template-columns: 1fr 0.55fr; }
+      .asset-body { grid-template-columns: 1fr; }
+      .action-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .source-ladder { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      body, body.toc-collapsed { padding-left: 0; }
+      .toc-shell,
+      body.toc-collapsed .toc-shell {
+        inset: 12px auto 12px 12px;
+        transform: translateX(calc(-100% - 24px));
+      }
+      body.mobile-toc-open .toc-shell { transform: translateX(0); }
+      body.mobile-toc-open .scrim { display: block; }
+      .toc-toggle { display: none; }
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        padding-top: 72px;
+      }
+      .hero-side { min-height: 330px; }
+      .knot-figure { width: min(300px, 75vw); }
+      .section-head { grid-template-columns: 1fr; align-items: start; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .asset-card { grid-template-columns: 1fr; }
+      .asset-name { padding-right: 0; padding-bottom: 16px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .timeline { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) { padding-right: 0; padding-left: 0; }
+      .action-toolbar { top: 116px; align-items: flex-start; }
+      .footer { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      html[data-lang="bi"] .pair-block { grid-template-columns: 1fr; }
+      html[data-lang="bi"] .pair-block > .en { padding-top: 12px; padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+      .top-title { display: none; }
+      .topbar { padding-inline: 12px; }
+      .top-actions > .utility-button { display: none; }
+      .language-switch { gap: 4px; }
+      .lang-button, .icon-button { padding-inline: 8px; font-size: 0.67rem; }
+      .hero { padding-inline: 20px; }
+      .hero-side { min-height: 290px; }
+      .hero-facts { grid-template-columns: 1fr 1fr 1fr; }
+      .hero-fact { padding-inline: 5px; }
+      .tabs-wrap { top: 58px; padding-inline: 10px; }
+      .tab-content { width: min(100% - 28px, 1180px); }
+      .grid-2, .grid-4, .quote-grid { grid-template-columns: 1fr; }
+      .formula { grid-template-columns: 1fr; }
+      .formula-symbol { transform: rotate(90deg); }
+      .action-toolbar { position: static; flex-direction: column; }
+      .toolbar-buttons { justify-content: flex-start; }
+      .action-head { grid-template-columns: 26px minmax(0, 1fr); }
+      .action-head .badge { grid-column: 2; width: max-content; }
+      .action-fields { grid-template-columns: 1fr; }
+      .action-field.source-field { grid-column: auto; }
+      .source-ladder { grid-template-columns: 1fr; }
+      .decision-table,
+      .evidence-table { display: block; overflow-x: auto; }
+    }
+
+    @media print {
+      body { padding-left: 0; background: #fff; }
+      .toc-shell, .topbar, .tabs-wrap, .action-toolbar, .footer { display: none !important; }
+      .hero { min-height: auto; padding: 34px; color: #111; background: #fff; border-bottom: 2px solid #111; }
+      .hero-deck { color: #333; }
+      .hero-side { display: none; }
+      .tab-content,
+      .tab-content[hidden] { width: 100%; display: block !important; padding: 36px 0; page-break-before: always; }
+      .card, .asset-card, .action-card, .quote-card { break-inside: avoid; box-shadow: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#tab-overview">
+    <span class="zh">跳到正文</span><span class="en">Skip to content</span>
+  </a>
+
+  <div class="scrim" id="tocScrim" aria-hidden="true"></div>
+
+  <aside class="toc-shell" id="tocPanel" aria-label="Table of contents">
+    <div class="toc-head">
+      <p class="eyebrow">Video Knowledge Lab</p>
+      <p class="toc-brand label-pair"><span class="zh">解开结</span><span class="en">Untie the Knot</span></p>
+      <div class="toc-meta">Seth Godin · 01:53:06 · 2026-08-10</div>
+    </div>
+    <button class="toc-toggle" id="tocEdgeToggle" type="button" aria-label="Toggle table of contents" aria-expanded="true">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.8 4.2 7 10l5.8 5.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <nav class="toc-nav" aria-label="Page sections">
+      <div class="toc-group-label">Frame</div>
+      <a class="toc-link active" href="#tab-overview" data-tab-target="overview"><span class="toc-number">01</span><span class="label-pair"><span class="zh">核心判断</span><span class="en">Executive Brief</span></span></a>
+      <a class="toc-link" href="#tab-knot" data-tab-target="knot"><span class="toc-number">02</span><span class="label-pair"><span class="zh">结与冲突目标</span><span class="en">The Knot</span></span></a>
+      <a class="toc-link" href="#tab-resistance" data-tab-target="resistance"><span class="toc-number">03</span><span class="label-pair"><span class="zh">阻力与羞耻</span><span class="en">Resistance</span></span></a>
+      <a class="toc-link" href="#tab-audience" data-tab-target="audience"><span class="toc-number">04</span><span class="label-pair"><span class="zh">目的与受众</span><span class="en">Purpose & Audience</span></span></a>
+      <div class="toc-group-label">Decide</div>
+      <a class="toc-link" href="#tab-quitting" data-tab-target="quitting"><span class="toc-number">05</span><span class="label-pair"><span class="zh">坚持还是退出</span><span class="en">Quit or Persist</span></span></a>
+      <a class="toc-link" href="#tab-practice" data-tab-target="practice"><span class="toc-number">06</span><span class="label-pair"><span class="zh">练习与专业性</span><span class="en">Practice & Quality</span></span></a>
+      <a class="toc-link" href="#tab-ai" data-tab-target="ai"><span class="toc-number">07</span><span class="label-pair"><span class="zh">AI 与人的位置</span><span class="en">AI & Human Edge</span></span></a>
+      <div class="toc-group-label">Evidence</div>
+      <a class="toc-link" href="#tab-timeline" data-tab-target="timeline"><span class="toc-number">08</span><span class="label-pair"><span class="zh">完整时间线</span><span class="en">Full Timeline</span></span></a>
+      <a class="toc-link" href="#tab-quotes" data-tab-target="quotes"><span class="toc-number">09</span><span class="label-pair"><span class="zh">原文金句</span><span class="en">Verbatim Quotes</span></span></a>
+      <div class="toc-group-label">Apply</div>
+      <a class="toc-link" href="#tab-patrick" data-tab-target="patrick"><span class="toc-number">10</span><span class="label-pair"><span class="zh">Patrick 映射</span><span class="en">Patrick Lens</span></span></a>
+      <a class="toc-link" href="#tab-action" data-tab-target="action"><span class="toc-number">11</span><span class="label-pair"><span class="zh">下一步</span><span class="en">Next Actions</span></span></a>
+      <a class="toc-link" href="#tab-evidence" data-tab-target="evidence"><span class="toc-number">12</span><span class="label-pair"><span class="zh">证据与边界</span><span class="en">Evidence & Limits</span></span></a>
+    </nav>
+    <div class="toc-foot">
+      <span class="zh">目录和语言偏好保存在本机。行动勾选不会上传。</span>
+      <span class="en">TOC, language, and action state stay on this device.</span>
+    </div>
+  </aside>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="top-left">
+        <button class="icon-button" id="tocButton" type="button" aria-controls="tocPanel" aria-expanded="true">
+          <span class="zh">目录</span><span class="en">TOC</span>
+        </button>
+        <span class="top-title">DOAC × SETH GODIN / KNOWLEDGE DASHBOARD</span>
+      </div>
+      <div class="top-actions">
+        <div class="language-switch" role="group" aria-label="Language mode">
+          <button class="lang-button" type="button" data-lang-mode="zh" aria-pressed="true">中</button>
+          <button class="lang-button" type="button" data-lang-mode="en" aria-pressed="false">EN</button>
+          <button class="lang-button" type="button" data-lang-mode="bi" aria-pressed="false">中/EN</button>
+        </div>
+        <a class="utility-button" href="https://www.youtube.com/watch?v=g7AxxkywiFI" target="_blank" rel="noopener">
+          <span class="zh">原视频 ↗</span><span class="en">Source ↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <div class="hero-kicker">The quitting capability · Seth Godin</div>
+          <h1 id="page-title"><span class="zh">解开结，<br>不是硬撑</span><span class="en">Untie the knot.<br>Do not just endure.</span></h1>
+          <div class="hero-deck pair-block">
+            <div class="zh">卡住常常不是能力不足，而是同时要求两个不相容的结果。Seth Godin 把“退出”重新定义为一种设计能力：分清问题与处境、选择你愿意服务的人、识别低谷和死胡同，再把注意力放回可控的投入。</div>
+            <div class="en">Being stuck is often not a capability gap; it is the demand for two incompatible outcomes at once. Seth Godin reframes quitting as design: separate problems from situations, choose whom to serve, distinguish a Dip from a dead end, and return attention to controllable inputs.</div>
+          </div>
+          <div class="hero-cta">
+            <a class="primary-link" href="#tab-action" data-jump-tab="action"><span class="zh">先做 5 分钟行动</span><span class="en">Take the 5-minute step</span></a>
+            <a class="secondary-link" href="#tab-timeline" data-jump-tab="timeline"><span class="zh">浏览完整章节</span><span class="en">Browse all chapters</span></a>
+          </div>
+        </div>
+        <div class="hero-side" aria-hidden="true">
+          <div class="knot-figure">
+            <div class="loop one"></div>
+            <div class="loop two"></div>
+            <div class="loop three"></div>
+            <div class="knot-center">Purpose<br>Audience<br>Trade-off</div>
+          </div>
+          <div class="hero-facts">
+            <div class="hero-fact"><strong>36</strong><span class="label-pair"><span class="zh">章节锚点</span><span class="en">chapters</span></span></div>
+            <div class="hero-fact"><strong>6</strong><span class="label-pair"><span class="zh">核验原句</span><span class="en">verified quotes</span></span></div>
+            <div class="hero-fact"><strong>5</strong><span class="label-pair"><span class="zh">可执行步骤</span><span class="en">next actions</span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="tabs-wrap">
+        <div class="tabs" role="tablist" aria-label="Dashboard sections">
+          <button class="tab-btn active" id="tab-btn-overview" type="button" role="tab" aria-selected="true" aria-controls="tab-overview" data-tab="overview"><span class="zh">核心</span><span class="en">Brief</span></button>
+          <button class="tab-btn" id="tab-btn-knot" type="button" role="tab" aria-selected="false" aria-controls="tab-knot" data-tab="knot"><span class="zh">结</span><span class="en">Knot</span></button>
+          <button class="tab-btn" id="tab-btn-resistance" type="button" role="tab" aria-selected="false" aria-controls="tab-resistance" data-tab="resistance"><span class="zh">阻力</span><span class="en">Resistance</span></button>
+          <button class="tab-btn" id="tab-btn-audience" type="button" role="tab" aria-selected="false" aria-controls="tab-audience" data-tab="audience"><span class="zh">受众</span><span class="en">Audience</span></button>
+          <button class="tab-btn" id="tab-btn-quitting" type="button" role="tab" aria-selected="false" aria-controls="tab-quitting" data-tab="quitting"><span class="zh">退出</span><span class="en">Quitting</span></button>
+          <button class="tab-btn" id="tab-btn-practice" type="button" role="tab" aria-selected="false" aria-controls="tab-practice" data-tab="practice"><span class="zh">练习</span><span class="en">Practice</span></button>
+          <button class="tab-btn" id="tab-btn-ai" type="button" role="tab" aria-selected="false" aria-controls="tab-ai" data-tab="ai"><span class="zh">AI</span><span class="en">AI</span></button>
+          <button class="tab-btn" id="tab-btn-timeline" type="button" role="tab" aria-selected="false" aria-controls="tab-timeline" data-tab="timeline"><span class="zh">时间线</span><span class="en">Timeline</span></button>
+          <button class="tab-btn" id="tab-btn-quotes" type="button" role="tab" aria-selected="false" aria-controls="tab-quotes" data-tab="quotes"><span class="zh">金句</span><span class="en">Quotes</span></button>
+          <button class="tab-btn" id="tab-btn-patrick" type="button" role="tab" aria-selected="false" aria-controls="tab-patrick" data-tab="patrick"><span class="zh">Patrick</span><span class="en">Patrick</span></button>
+          <button class="tab-btn" id="tab-btn-action" type="button" role="tab" aria-selected="false" aria-controls="tab-action" data-tab="action"><span class="zh">下一步</span><span class="en">Actions</span></button>
+          <button class="tab-btn" id="tab-btn-evidence" type="button" role="tab" aria-selected="false" aria-controls="tab-evidence" data-tab="evidence"><span class="zh">证据</span><span class="en">Evidence</span></button>
+        </div>
+      </div>
+
+      <div class="tab-content active" id="tab-overview" role="tabpanel" aria-labelledby="tab-btn-overview" data-tab-content="overview">
+        <div class="section-head">
+          <div><span class="section-index">01 / EXECUTIVE BRIEF</span><h2 id="overview-heading"><span class="zh">核心不是“要不要辞职”</span><span class="en">This is not merely “Should I quit?”</span></h2></div>
+          <p class="section-summary"><span class="zh">这是关于能动性、取舍与工作的设计框架。辞职只是其中一种可能动作。</span><span class="en">It is a framework for agency, trade-offs, and work design. Leaving a job is only one possible move.</span></p>
+        </div>
+        <div class="pair-block lead">
+          <div class="zh">一句话结论：先定义你要改变谁、改变什么，再判断眼前是可解决的问题、必须接受的处境、值得穿越的低谷，还是应当离开的死胡同。</div>
+          <div class="en">One-line conclusion: define whom you seek to change and how, then decide whether the present is a solvable problem, a situation to accept, a Dip worth crossing, or a dead end to leave.</div>
+        </div>
+        <div class="grid-3">
+          <article class="card"><span class="card-number">1</span><h3><span class="zh">问题 ≠ 处境</span><span class="en">Problem ≠ situation</span></h3><p><span class="zh">问题有可行动的改变路径；处境是目前无法由你单方面改变的事实。把处境当问题，会制造无穷摩擦。</span><span class="en">A problem has an actionable path to change; a situation is a fact you cannot presently alter alone. Treating a situation as a problem creates endless friction.</span></p></article>
+          <article class="card"><span class="card-number">2</span><h3><span class="zh">“但是”藏着结</span><span class="en">The knot hides inside “but”</span></h3><p><span class="zh">“我想要 X，但是又要 Y”往往意味着两个目标不能同时最大化。不是更努力，而是先选优先级。</span><span class="en">“I want X, but I also need Y” often means two goals cannot be maximized together. The first move is priority, not more effort.</span></p></article>
+          <article class="card"><span class="card-number">3</span><h3><span class="zh">目的需要选择</span><span class="en">Purpose is chosen</span></h3><p><span class="zh">工作的目的不是等待发现的神秘答案，而是你愿意承担的承诺：为谁，带来什么变化。</span><span class="en">The purpose of work is not a mystical answer waiting to be found; it is a commitment you choose: for whom, and what change.</span></p></article>
+          <article class="card"><span class="card-number">4</span><h3><span class="zh">坚持需要证据</span><span class="en">Persistence needs evidence</span></h3><p><span class="zh">低谷有出口、里程碑与累积效应；死胡同只重复消耗。沉没成本不能证明下一步仍值得。</span><span class="en">A Dip has an exit, milestones, and compounding; a dead end only repeats cost. Sunk cost is not evidence that the next step is worthwhile.</span></p></article>
+          <article class="card"><span class="card-number">5</span><h3><span class="zh">练投，不练接</span><span class="en">Practice the throw, not the catch</span></h3><p><span class="zh">结果依赖别人，投入更可控。把练习定义为可重复的输出、清晰规格和稳定承诺。</span><span class="en">Outcomes depend on others; inputs are more controllable. Define practice as repeatable output, a clear spec, and consistent promises.</span></p></article>
+          <article class="card dark"><span class="card-number">AI</span><h3><span class="zh">可描述的工作会被压缩</span><span class="en">Describable work gets compressed</span></h3><p><span class="zh">AI 会吞掉可完整写成指令的任务；人的位置更靠近品味、信任、关系、判断和带领他人。</span><span class="en">AI absorbs tasks that can be fully described as instructions. Human leverage moves toward taste, trust, relationships, judgment, and leadership.</span></p></article>
+        </div>
+        <div class="callout">
+          <div class="badge-row"><span class="badge paraphrase">PARAPHRASE</span></div>
+          <strong><span class="zh">不要把“好好退出”误读成“立刻辞职”。</span><span class="en">Do not misread “quitting well” as “resign immediately.”</span></strong>
+          <p><span class="zh">访谈更接近一套诊断法：把结说清楚，收集低谷或死胡同的证据，先做可逆的小实验，再决定继续、重设或退出。</span><span class="en">The interview is closer to a diagnostic method: name the knot, gather Dip-or-dead-end evidence, run a reversible small experiment, then continue, redesign, or leave.</span></p>
+        </div>
+        <div class="card accent">
+          <div class="badge-row"><span class="badge action">ACTION</span><span class="badge p0">P0 · TODAY</span></div>
+          <h3><span class="zh">最短入口：写下一个“我想要 X，但又想要 Y”</span><span class="en">Shortest entry: write one “I want X, but I also want Y”</span></h3>
+          <p><span class="zh">用 5 分钟把隐藏的取舍变成可见文字，然后去“下一步”页完成 14 天优先级选择。</span><span class="en">Spend five minutes making the hidden trade-off visible, then use the Actions tab to choose a 14-day priority.</span></p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-knot" role="tabpanel" aria-labelledby="tab-btn-knot" data-tab-content="knot" hidden>
+        <div class="section-head">
+          <div><span class="section-index">02 / THE KNOT</span><h2 id="knot-heading"><span class="zh">先诊断“结”，再增加努力</span><span class="en">Diagnose the knot before adding effort</span></h2></div>
+          <p class="section-summary"><span class="zh">卡住经常是目标结构的问题，而不是动力不足。</span><span class="en">Stuckness is often a goal-structure problem, not a motivation shortage.</span></p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 02:31</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">问题：存在可验证的改变路径</span><span class="en">Problem: a testable path to change exists</span></h3>
+            <p><span class="zh">下一步可以由行动改变信息、能力或结果。例：不会销售、作品未交付、没有向目标受众测试承诺。</span><span class="en">The next action can change information, capability, or outcome. Examples: no sales skill, an unshipped artifact, or an untested promise to the intended audience.</span></p>
+          </article>
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 02:31</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">处境：今天无法单方面改变的事实</span><span class="en">Situation: a fact you cannot unilaterally change today</span></h3>
+            <p><span class="zh">你仍可改变边界、叙事、资源配置或离开的时间表，但不能靠重复意志让事实消失。</span><span class="en">You can still change boundaries, narrative, resource allocation, or an exit timeline, but repetition of will cannot erase the fact.</span></p>
+          </article>
+        </div>
+        <div class="formula" aria-label="Knot diagnostic formula">
+          <span class="formula-item"><span class="zh">想要 X</span><span class="en">Want X</span></span>
+          <span class="formula-symbol">+</span>
+          <span class="formula-item"><span class="zh">拒绝 X 的代价</span><span class="en">Refuse X's cost</span></span>
+          <span class="formula-symbol">=</span>
+          <span class="formula-item"><span class="zh">结</span><span class="en">Knot</span></span>
+        </div>
+        <table class="decision-table">
+          <thead><tr><th><span class="zh">诊断</span><span class="en">Diagnosis</span></th><th><span class="zh">识别问题</span><span class="en">Recognition question</span></th><th><span class="zh">下一动作</span><span class="en">Next move</span></th></tr></thead>
+          <tbody>
+            <tr><td><span class="zh">技能问题</span><span class="en">Skill problem</span></td><td><span class="zh">有人在相近条件下可重复做到吗？</span><span class="en">Can someone repeatedly do it under comparable conditions?</span></td><td><span class="zh">拆成练习、反馈和交付节奏。</span><span class="en">Break it into practice, feedback, and shipping cadence.</span></td></tr>
+            <tr><td><span class="zh">信息问题</span><span class="en">Information problem</span></td><td><span class="zh">哪一个未知量会改变决定？</span><span class="en">Which unknown would change the decision?</span></td><td><span class="zh">运行最小、可逆、能产生证据的测试。</span><span class="en">Run the smallest reversible test that creates evidence.</span></td></tr>
+            <tr><td><span class="zh">目标冲突</span><span class="en">Goal conflict</span></td><td><span class="zh">X 与 Y 能否同时最大化？</span><span class="en">Can X and Y be maximized at the same time?</span></td><td><span class="zh">明确 14 天优先级与愿意放弃的东西。</span><span class="en">Name a 14-day priority and what you will give up.</span></td></tr>
+            <tr><td><span class="zh">结构性处境</span><span class="en">Structural situation</span></td><td><span class="zh">谁拥有真正的决定权？</span><span class="en">Who actually owns the decision rights?</span></td><td><span class="zh">接受、协商边界、重新设计或准备退出。</span><span class="en">Accept, negotiate boundaries, redesign, or prepare to exit.</span></td></tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <strong><span class="zh">“梦想是你的吗？”不是浪漫问题，而是所有权问题。</span><span class="en">“Is the dream yours?” is an ownership question, not a romantic one.</span></strong>
+          <p><span class="zh">如果成功标准来自父母、同侪、地位游戏或旧身份，更多执行力只会让你更快抵达别人的终点。</span><span class="en">If the success criterion comes from parents, peers, status games, or an old identity, more execution only gets you faster to someone else's finish line.</span></p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-resistance" role="tabpanel" aria-labelledby="tab-btn-resistance" data-tab-content="resistance" hidden>
+        <div class="section-head">
+          <div><span class="section-index">03 / RESISTANCE</span><h2 id="resistance-heading"><span class="zh">给阻力命名，别让它伪装成逻辑</span><span class="en">Name resistance before it disguises itself as logic</span></h2></div>
+          <p class="section-summary"><span class="zh">恐惧、归属、身份与面子会制造看似合理的拖延。</span><span class="en">Fear, belonging, identity, and status can manufacture reasonable-looking delay.</span></p>
+        </div>
+        <div class="grid-3">
+          <article class="card dark">
+            <div class="badge-row"><span class="badge source">SOURCE · 23:54</span></div>
+            <h3><span class="zh">命名</span><span class="en">Name it</span></h3>
+            <p><span class="zh">把“我还没准备好”拆成更具体的行李：怕被拒绝、怕失去身份、怕显得不专业，还是怕真的成功后要承担新承诺。</span><span class="en">Turn “I am not ready” into specific baggage: rejection, loss of identity, appearing unprofessional, or the new commitment that success would demand.</span></p>
+          </article>
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 30:38</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">羞耻不是必须签收的包裹</span><span class="en">Shame is not a package you must receive</span></h3>
+            <p><span class="zh">别人可能递来评价，但你不必让它成为身份。把事实反馈和地位惩罚分开。</span><span class="en">Others may hand you a judgment, but you do not have to turn it into identity. Separate factual feedback from status punishment.</span></p>
+          </article>
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 45:39</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">内在声音不是单一声音</span><span class="en">The inner voice is not singular</span></h3>
+            <p><span class="zh">安全、归属、地位和创造欲会竞争。你不需要消灭恐惧，只需要决定哪一个声音拥有本轮投票权。</span><span class="en">Safety, belonging, status, and creative drive compete. You do not need to erase fear; decide which voice gets the vote this round.</span></p>
+          </article>
+        </div>
+        <div class="card accent" style="margin-top:16px">
+          <div class="badge-row"><span class="badge action">ACTION</span></div>
+          <h3><span class="zh">阻力日志：事实 / 故事 / 最小暴露</span><span class="en">Resistance log: fact / story / smallest exposure</span></h3>
+          <div class="grid-3" style="margin-top:18px">
+            <div><strong><span class="zh">事实</span><span class="en">Fact</span></strong><p><span class="zh">只写可被摄像机记录的内容。</span><span class="en">Write only what a camera could record.</span></p></div>
+            <div><strong><span class="zh">故事</span><span class="en">Story</span></strong><p><span class="zh">写下你赋予事实的身份含义。</span><span class="en">Write the identity meaning attached to the fact.</span></p></div>
+            <div><strong><span class="zh">最小暴露</span><span class="en">Smallest exposure</span></strong><p><span class="zh">设计一次不会伤筋动骨的真实反馈。</span><span class="en">Design one real feedback event with limited downside.</span></p></div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong><span class="zh">沉没成本可以被视为过去的自己送来的礼物，而不是现在必须继续支付的账单。</span><span class="en">Treat sunk cost as a gift from your past self, not a bill your present self must keep paying.</span></strong>
+          <p><span class="zh">尊重过去的投入，不等于让它替未来做决定。</span><span class="en">Respecting past effort does not give it decision rights over the future.</span></p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-audience" role="tabpanel" aria-labelledby="tab-btn-audience" data-tab-content="audience" hidden>
+        <div class="section-head">
+          <div><span class="section-index">04 / PURPOSE & AUDIENCE</span><h2 id="audience-heading"><span class="zh">目的 = 为谁带来什么变化</span><span class="en">Purpose = whom you change, and how</span></h2></div>
+          <p class="section-summary"><span class="zh">意义从具体承诺生长，而不是从抽象自我表达自动出现。</span><span class="en">Meaning grows from a specific commitment, not automatically from abstract self-expression.</span></p>
+        </div>
+        <div class="formula" aria-label="Purpose formula">
+          <span class="formula-item"><span class="zh">具体的人</span><span class="en">Specific people</span></span>
+          <span class="formula-symbol">×</span>
+          <span class="formula-item"><span class="zh">值得解决的问题</span><span class="en">Worthwhile problem</span></span>
+          <span class="formula-symbol">×</span>
+          <span class="formula-item"><span class="zh">可信的承诺</span><span class="en">Credible promise</span></span>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 06:14</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">不要从“我想做什么”开始</span><span class="en">Do not begin with “What do I want to make?”</span></h3>
+            <p><span class="zh">先问：哪些人正在经历我理解的问题？我能否让他们的能力、选择或感受发生可观察变化？</span><span class="en">Ask first: which people face a problem I understand, and can I create an observable change in their capability, choices, or experience?</span></p>
+          </article>
+          <article class="card dark">
+            <div class="badge-row"><span class="badge source">SOURCE · 57:28</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">最小可行受众</span><span class="en">Smallest viable audience</span></h3>
+            <p><span class="zh">不是“所有可能点赞的人”，而是一群足够具体、彼此相似、能判断承诺是否兑现的人。</span><span class="en">Not everyone who might click Like, but a group specific and coherent enough to judge whether the promise was kept.</span></p>
+          </article>
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 52:09</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">选择自己，不等于忽略市场</span><span class="en">Choose yourself does not mean ignore the market</span></h3>
+            <p><span class="zh">互联网和 AI 降低了守门人的权力，但价值仍要由真实受众验证。发布自由不是需求证明。</span><span class="en">The internet and AI weaken gatekeepers, but real audiences still validate value. Freedom to publish is not evidence of demand.</span></p>
+          </article>
+          <article class="card accent">
+            <div class="badge-row"><span class="badge action">ACTION</span><span class="badge p0">P0 · &lt;5 MIN</span></div>
+            <h3><span class="zh">列出 5 个具体角色</span><span class="en">List five concrete roles</span></h3>
+            <p><span class="zh">不要写“创业者”。写“第一次带 3–8 人远程团队、每周被同步会议拖累的产品负责人”。</span><span class="en">Do not write “founders.” Write “product leads managing a 3–8 person remote team for the first time and losing a week to sync meetings.”</span></p>
+          </article>
+        </div>
+        <div class="callout">
+          <strong><span class="zh">承诺模板</span><span class="en">Promise template</span></strong>
+          <p><span class="zh">“为【具体的人】，把【当前处境】变成【可观察的变化】，同时不要求他们【不可接受的代价】。”</span><span class="en">“For [specific people], turn [current situation] into [observable change], without requiring [unacceptable cost].”</span></p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-quitting" role="tabpanel" aria-labelledby="tab-btn-quitting" data-tab-content="quitting" hidden>
+        <div class="section-head">
+          <div><span class="section-index">05 / QUIT OR PERSIST</span><h2 id="quitting-heading"><span class="zh">穿越低谷，离开死胡同</span><span class="en">Cross the Dip; leave the cul-de-sac</span></h2></div>
+          <p class="section-summary"><span class="zh">“永不放弃”把所有困难混成一类；好决策要识别困难的结构。</span><span class="en">“Never quit” flattens every difficulty into one category. Better decisions inspect the structure of difficulty.</span></p>
+        </div>
+        <div class="grid-2">
+          <article class="card dark">
+            <div class="badge-row"><span class="badge source">SOURCE · 1:09:18</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">低谷：难，但有出口</span><span class="en">The Dip: difficult, with an exit</span></h3>
+            <p><span class="zh">能力在累积；里程碑会改变胜率；目标受众仍在；资源上限可承受；穿越后存在更高价值。</span><span class="en">Capability compounds; milestones change the odds; the audience remains; the resource cap is bearable; value rises after the crossing.</span></p>
+          </article>
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 1:09:18</span><span class="badge paraphrase">PARAPHRASE</span></div>
+            <h3><span class="zh">死胡同：动，但不前进</span><span class="en">Cul-de-sac: motion without progress</span></h3>
+            <p><span class="zh">同样失败重复出现；新投入不产生新信息；成功条件不在你控制内；继续只是避免承认旧选择失效。</span><span class="en">The same failure repeats; new input creates no new information; success conditions lie outside your control; continuation only avoids admitting an old choice has expired.</span></p>
+          </article>
+        </div>
+        <table class="decision-table" style="margin-top:18px">
+          <thead><tr><th><span class="zh">维度</span><span class="en">Dimension</span></th><th><span class="zh">继续的证据</span><span class="en">Evidence to continue</span></th><th><span class="zh">暂停或退出的证据</span><span class="en">Evidence to pause or quit</span></th></tr></thead>
+          <tbody>
+            <tr><td><span class="zh">学习</span><span class="en">Learning</span></td><td><span class="zh">每轮测试减少关键未知量。</span><span class="en">Each test removes a key unknown.</span></td><td><span class="zh">只重复活动，没有新证据。</span><span class="en">Activity repeats without new evidence.</span></td></tr>
+            <tr><td><span class="zh">受众</span><span class="en">Audience</span></td><td><span class="zh">小群体出现可重复的有效信号。</span><span class="en">A small group shows repeatable usefulness signals.</span></td><td><span class="zh">问题不痛、承诺不清，或无人愿意改变行为。</span><span class="en">The problem is weak, promise unclear, or nobody changes behavior.</span></td></tr>
+            <tr><td><span class="zh">资源</span><span class="en">Resources</span></td><td><span class="zh">投入低于预设上限且仍可恢复。</span><span class="en">Input stays below a preset cap and remains recoverable.</span></td><td><span class="zh">继续将伤害健康、关系或不可替代资产。</span><span class="en">Continuation harms health, relationships, or irreplaceable assets.</span></td></tr>
+            <tr><td><span class="zh">控制权</span><span class="en">Control</span></td><td><span class="zh">关键投入由你掌控。</span><span class="en">Critical inputs remain yours to control.</span></td><td><span class="zh">唯一成功路径依赖不可协商的守门人。</span><span class="en">The only success path depends on an immovable gatekeeper.</span></td></tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <strong><span class="zh">退出也需要庆祝，因为它释放了有限注意力。</span><span class="en">Good quitting deserves celebration because it releases finite attention.</span></strong>
+          <p><span class="zh">正确退出不是给失败贴金，而是停止向无证据路径继续投资。</span><span class="en">Right quitting is not romanticizing failure; it stops investment in a path without evidence.</span></p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-practice" role="tabpanel" aria-labelledby="tab-btn-practice" data-tab-content="practice" hidden>
+        <div class="section-head">
+          <div><span class="section-index">06 / PRACTICE & QUALITY</span><h2 id="practice-heading"><span class="zh">练可控的投掷，不追不可控的接球</span><span class="en">Practice the controllable throw, not the catch</span></h2></div>
+          <p class="section-summary"><span class="zh">好工作来自规格、节奏和承诺，而不是无限润色。</span><span class="en">Good work comes from specifications, cadence, and promises—not endless polishing.</span></p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 1:04:50</span></div>
+            <h3><span class="zh">投入指标</span><span class="en">Input metric</span></h3>
+            <p><span class="zh">今天是否完成一次面向同一受众的真实投掷？是否保留产物和反馈？</span><span class="en">Did you make one real throw to the same audience today? Did you retain the artifact and feedback?</span></p>
+          </article>
+          <article class="card">
+            <div class="badge-row"><span class="badge source">SOURCE · 1:29:16</span></div>
+            <h3><span class="zh">质量</span><span class="en">Quality</span></h3>
+            <p><span class="zh">质量是清晰规格：什么必须正确、什么足够好、什么可以稍后改。</span><span class="en">Quality is a clear specification: what must be right, what is good enough, and what can improve later.</span></p>
+          </article>
+          <article class="card dark">
+            <div class="badge-row"><span class="badge source">SOURCE · 1:34:17</span></div>
+            <h3><span class="zh">专业性</span><span class="en">Professionalism</span></h3>
+            <p><span class="zh">稳定兑现对正确的人做出的正确承诺，而不是每次依赖灵感。</span><span class="en">Consistently keep the right promise to the right people instead of depending on inspiration each time.</span></p>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top:16px">
+          <article class="card accent">
+            <h3><span class="zh">完美主义保护“交付者”</span><span class="en">Perfectionism protects the shipper</span></h3>
+            <p><span class="zh">如果永远不交付，别人就无法判断作品，也无法判断你。代价是受众永远收不到价值，你也永远得不到学习。</span><span class="en">If nothing ships, nobody can judge the work—or you. The cost is that the audience receives no value and you receive no learning.</span></p>
+          </article>
+          <article class="card">
+            <h3><span class="zh">质量服务“接收者”</span><span class="en">Quality serves the receiver</span></h3>
+            <p><span class="zh">定义受众真正需要的可靠性、清晰度、安全性和完成标准，然后准时交付并收集信号。</span><span class="en">Define the reliability, clarity, safety, and completion criteria the audience needs, then ship on time and collect signals.</span></p>
+          </article>
+        </div>
+        <div class="formula" aria-label="Practice loop">
+          <span class="formula-item"><span class="zh">投掷</span><span class="en">Throw</span></span>
+          <span class="formula-symbol">→</span>
+          <span class="formula-item"><span class="zh">记录</span><span class="en">Record</span></span>
+          <span class="formula-symbol">→</span>
+          <span class="formula-item"><span class="zh">调整下一次投掷</span><span class="en">Adjust next throw</span></span>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-ai" role="tabpanel" aria-labelledby="tab-btn-ai" data-tab-content="ai" hidden>
+        <div class="section-head">
+          <div><span class="section-index">07 / AI & HUMAN EDGE</span><h2 id="ai-heading"><span class="zh">让 AI 为你工作，把人放回判断位置</span><span class="en">Make AI work for you; return humans to judgment</span></h2></div>
+          <p class="section-summary"><span class="zh">如果任务能被完整描述，它会快速商品化；人的优势转向难以压缩的关系与选择。</span><span class="en">If a task can be fully described, it will commoditize quickly. Human advantage moves toward relationships and choices that resist compression.</span></p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <span class="card-number">01</span>
+            <h3><span class="zh">交给 AI：可描述的重复劳动</span><span class="en">Delegate to AI: describable repetition</span></h3>
+            <p><span class="zh">整理、转换、初稿、对照、结构化检查。前提是输入边界、验收标准和风险等级都明确。</span><span class="en">Sorting, transforming, drafting, comparing, and structured checks—when input boundaries, acceptance criteria, and risk level are explicit.</span></p>
+          </article>
+          <article class="card dark">
+            <span class="card-number">02</span>
+            <h3><span class="zh">由人验证：品味、语境与后果</span><span class="en">Human validation: taste, context, consequence</span></h3>
+            <p><span class="zh">决定何为“对”、谁会受影响、错误能否逆转，以及输出是否兑现关系中的承诺。</span><span class="en">Decide what “right” means, who is affected, whether error is reversible, and whether the output keeps a relational promise.</span></p>
+          </article>
+          <article class="card">
+            <span class="card-number">03</span>
+            <h3><span class="zh">人来带领：信任、勇气与方向</span><span class="en">Humans lead: trust, courage, direction</span></h3>
+            <p><span class="zh">选择值得解决的问题，承担取舍，对不确定性负责，并让他人愿意一起行动。</span><span class="en">Choose worthwhile problems, own trade-offs, take responsibility under uncertainty, and help others act together.</span></p>
+          </article>
+        </div>
+        <div class="callout">
+          <div class="badge-row"><span class="badge source">SOURCE · 1:35:44</span><span class="badge paraphrase">PARAPHRASE</span></div>
+          <strong><span class="zh">AI 风险不只在于“替代”，也在于你把全部工作身份建立在可描述任务上。</span><span class="en">AI risk is not only “replacement”; it is building your entire work identity on describable tasks.</span></strong>
+          <p><span class="zh">更稳妥的策略是：用 AI 扩大投掷次数，同时把人的时间投入到受众理解、质量规格、验证区、信任和领导。</span><span class="en">A sturdier strategy: use AI to increase throws while investing human time in audience understanding, quality specs, validation zones, trust, and leadership.</span></p>
+        </div>
+        <div class="card accent">
+          <div class="badge-row"><span class="badge action">ACTION</span><span class="badge p1">P1 · THIS WEEK</span></div>
+          <h3><span class="zh">一个任务、一个验证区、一次干跑</span><span class="en">One task, one validation zone, one dry run</span></h3>
+          <p><span class="zh">选择一个完全可描述的重复任务交给 AI；明确人类必须批准的节点；用非敏感样本跑一次并保存输入、输出与最终人类决定。</span><span class="en">Give AI one fully describable repeated task; define the point requiring human approval; dry-run with a non-sensitive sample and retain input, output, and the final human decision.</span></p>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-timeline" role="tabpanel" aria-labelledby="tab-btn-timeline" data-tab-content="timeline" hidden>
+        <div class="section-head">
+          <div><span class="section-index">08 / FULL TIMELINE</span><h2 id="timeline-heading"><span class="zh">完整章节地图</span><span class="en">Complete chapter map</span></h2></div>
+          <p class="section-summary"><span class="zh">时间戳来自视频说明。点击时间直接打开对应位置；赞助段已标记。</span><span class="en">Timestamps follow the video description. Click a time to open the exact point; sponsor segments are labeled.</span></p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=0s" target="_blank" rel="noopener">00:00</a><div><p class="timeline-title"><span class="zh">开场：退出是一种能力</span><span class="en">Opening: quitting as capability</span></p><p class="timeline-note"><span class="zh">重新定义“退出”，从羞耻标签变成决策能力。</span><span class="en">Reframe quitting from shame label to decision capability.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=151s" target="_blank" rel="noopener">02:31</a><div><p class="timeline-title"><span class="zh">问题与处境</span><span class="en">Problems versus situations</span></p><p class="timeline-note"><span class="zh">先判断是否存在可行动的改变路径。</span><span class="en">First ask whether an actionable path to change exists.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=374s" target="_blank" rel="noopener">06:14</a><div><p class="timeline-title"><span class="zh">人真正追求什么</span><span class="en">What people are really seeking</span></p><p class="timeline-note"><span class="zh">目的、变化与服务对象。</span><span class="en">Purpose, change, and the people served.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=766s" target="_blank" rel="noopener">12:46</a><div><p class="timeline-title"><span class="zh">结：隐藏的取舍</span><span class="en">The knot: hidden trade-offs</span></p><p class="timeline-note"><span class="zh">“但是”可能把不相容目标绑在一起。</span><span class="en">“But” may bind incompatible objectives together.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1175s" target="_blank" rel="noopener">19:35</a><div><p class="timeline-title"><span class="zh">不相容目标</span><span class="en">Incompatible goals</span></p><p class="timeline-note"><span class="zh">努力不能替代优先级选择。</span><span class="en">Effort cannot substitute for priority.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1281s" target="_blank" rel="noopener">21:21</a><div><p class="timeline-title"><span class="zh">梦想真的是你的吗？</span><span class="en">Is the dream actually yours?</span></p><p class="timeline-note"><span class="zh">检查成功标准的所有权。</span><span class="en">Inspect ownership of the success criterion.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1329s" target="_blank" rel="noopener">22:09</a><div><p class="timeline-title"><span class="zh">工作的目的</span><span class="en">The purpose of work</span></p><p class="timeline-note"><span class="zh">目的被选择，并通过承诺实现。</span><span class="en">Purpose is chosen and enacted through commitment.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1434s" target="_blank" rel="noopener">23:54</a><div><p class="timeline-title"><span class="zh">给阻力命名</span><span class="en">Name resistance</span></p><p class="timeline-note"><span class="zh">把含混拖延拆成具体行李。</span><span class="en">Turn vague delay into specific baggage.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1509s" target="_blank" rel="noopener">25:09</a><div><p class="timeline-title"><span class="zh">为什么行动不同</span><span class="en">Why action differs</span></p><p class="timeline-note"><span class="zh">身份、恐惧与环境会改变行动成本。</span><span class="en">Identity, fear, and context change the cost of action.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1838s" target="_blank" rel="noopener">30:38</a><div><p class="timeline-title"><span class="zh">尴尬的成本</span><span class="en">The cost of embarrassment</span></p><p class="timeline-note"><span class="zh">地位风险如何阻断尝试。</span><span class="en">How status risk blocks attempts.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=2017s" target="_blank" rel="noopener">33:37</a><div><p class="timeline-title"><span class="zh">错位的羞耻</span><span class="en">Misplaced shame</span></p><p class="timeline-note"><span class="zh">不必把外部判断内化为身份。</span><span class="en">External judgment need not become identity.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=2511s" target="_blank" rel="noopener">41:51</a><div><p class="timeline-title"><span class="zh">金钱、奢侈与地位</span><span class="en">Money, luxury, and status</span></p><p class="timeline-note"><span class="zh">区分实际需要与地位游戏。</span><span class="en">Separate practical needs from status games.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=2594s" target="_blank" rel="noopener">43:14</a><div><p class="timeline-title"><span class="badge">SPONSOR</span> <span class="zh">赞助段</span><span class="en">Sponsor segment</span></p><p class="timeline-note"><span class="zh">非核心访谈内容。</span><span class="en">Not part of the core interview.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=2739s" target="_blank" rel="noopener">45:39</a><div><p class="timeline-title"><span class="zh">内在声音</span><span class="en">The inner voice</span></p><p class="timeline-note"><span class="zh">安全、归属、地位和创造欲竞争。</span><span class="en">Safety, belonging, status, and creative drive compete.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=2865s" target="_blank" rel="noopener">47:45</a><div><p class="timeline-title"><span class="zh">沉没成本</span><span class="en">Sunk costs</span></p><p class="timeline-note"><span class="zh">尊重旧投入，不让它控制新决定。</span><span class="en">Respect old effort without letting it control new decisions.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=3129s" target="_blank" rel="noopener">52:09</a><div><p class="timeline-title"><span class="zh">选择自己，不等守门人</span><span class="en">Choose yourself; do not wait for a gatekeeper</span></p><p class="timeline-note"><span class="zh">发布自由必须连接真实价值验证。</span><span class="en">Publishing freedom must connect to real value validation.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=3448s" target="_blank" rel="noopener">57:28</a><div><p class="timeline-title"><span class="zh">最小可行受众</span><span class="en">Smallest viable audience</span></p><p class="timeline-note"><span class="zh">足够具体，能判断承诺是否兑现。</span><span class="en">Specific enough to judge whether the promise was kept.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=3549s" target="_blank" rel="noopener">59:09</a><div><p class="timeline-title"><span class="zh">不受欢迎的答案</span><span class="en">Unwelcome answers</span></p><p class="timeline-note"><span class="zh">真正的答案可能要求真实代价。</span><span class="en">A real answer may demand a real cost.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=3890s" target="_blank" rel="noopener">1:04:50</a><div><p class="timeline-title"><span class="zh">练习与可控投入</span><span class="en">Practice and controllable inputs</span></p><p class="timeline-note"><span class="zh">练投掷，而不是追求被接住。</span><span class="en">Practice throwing rather than demanding a catch.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4016s" target="_blank" rel="noopener">1:06:56</a><div><p class="timeline-title"><span class="badge">SPONSOR</span> <span class="zh">赞助段</span><span class="en">Sponsor segment</span></p><p class="timeline-note"><span class="zh">非核心访谈内容。</span><span class="en">Not part of the core interview.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4158s" target="_blank" rel="noopener">1:09:18</a><div><p class="timeline-title"><span class="zh">坚持还是退出</span><span class="en">Persist or quit</span></p><p class="timeline-note"><span class="zh">低谷与死胡同的结构性区别。</span><span class="en">The structural difference between a Dip and a cul-de-sac.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4411s" target="_blank" rel="noopener">1:13:31</a><div><p class="timeline-title"><span class="zh">“永不放弃”的迷思</span><span class="en">The myth of “never quit”</span></p><p class="timeline-note"><span class="zh">口号抹去了证据和机会成本。</span><span class="en">The slogan erases evidence and opportunity cost.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4511s" target="_blank" rel="noopener">1:15:11</a><div><p class="timeline-title"><span class="zh">庆祝正确退出</span><span class="en">Celebrate right quitting</span></p><p class="timeline-note"><span class="zh">释放有限注意力去做更有价值的事。</span><span class="en">Release finite attention for more valuable work.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4774s" target="_blank" rel="noopener">1:19:34</a><div><p class="timeline-title"><span class="zh">成功却不满足</span><span class="en">Success without fulfillment</span></p><p class="timeline-note"><span class="zh">拥有选择，或支付改变选择的成本。</span><span class="en">Own the choice or pay the cost to change it.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4982s" target="_blank" rel="noopener">1:23:02</a><div><p class="timeline-title"><span class="zh">无助叙事</span><span class="en">The helplessness narrative</span></p><p class="timeline-note"><span class="zh">叙事会改变你看见的行动空间。</span><span class="en">Narrative changes the action space you can see.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5088s" target="_blank" rel="noopener">1:24:48</a><div><p class="timeline-title"><span class="zh">有意义的工作与选择</span><span class="en">Meaningful work and choice</span></p><p class="timeline-note"><span class="zh">意义来自愿意承担的承诺。</span><span class="en">Meaning comes from a commitment you choose to carry.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5239s" target="_blank" rel="noopener">1:27:19</a><div><p class="timeline-title"><span class="zh">目的被选择</span><span class="en">Purpose is chosen</span></p><p class="timeline-note"><span class="zh">不是等待发现唯一正确答案。</span><span class="en">Do not wait to discover one uniquely correct answer.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5301s" target="_blank" rel="noopener">1:28:21</a><div><p class="timeline-title"><span class="zh">下一份工作前先向内看</span><span class="en">Look inward before the next job</span></p><p class="timeline-note"><span class="zh">换环境前，先辨认会被你带走的模式。</span><span class="en">Before changing context, identify the pattern you will carry with you.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5356s" target="_blank" rel="noopener">1:29:16</a><div><p class="timeline-title"><span class="zh">完美主义与质量</span><span class="en">Perfectionism versus quality</span></p><p class="timeline-note"><span class="zh">一个保护交付者，一个服务接收者。</span><span class="en">One protects the shipper; the other serves the receiver.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5657s" target="_blank" rel="noopener">1:34:17</a><div><p class="timeline-title"><span class="zh">专业性与稳定承诺</span><span class="en">Professionalism and consistent promises</span></p><p class="timeline-note"><span class="zh">可靠兑现，不依赖每次都有灵感。</span><span class="en">Deliver reliably without relying on inspiration.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5744s" target="_blank" rel="noopener">1:35:44</a><div><p class="timeline-title"><span class="zh">让 AI 为你工作</span><span class="en">Make AI work for you</span></p><p class="timeline-note"><span class="zh">可描述任务与人类判断的边界。</span><span class="en">The boundary between describable tasks and human judgment.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=6039s" target="_blank" rel="noopener">1:40:39</a><div><p class="timeline-title"><span class="zh">小群体与系统改变</span><span class="en">Small groups and system change</span></p><p class="timeline-note"><span class="zh">变化从足够具体的关系网络扩散。</span><span class="en">Change spreads through sufficiently specific relationship networks.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=6273s" target="_blank" rel="noopener">1:44:33</a><div><p class="timeline-title"><span class="zh">对未来自己的紧迫感</span><span class="en">Urgency for your future self</span></p><p class="timeline-note"><span class="zh">今天做未来自己会感谢的最小一步。</span><span class="en">Take the smallest step your future self will value.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=6411s" target="_blank" rel="noopener">1:46:51</a><div><p class="timeline-title"><span class="zh">为什么 Seth 持续创作</span><span class="en">Why Seth keeps creating</span></p><p class="timeline-note"><span class="zh">持续投掷是实践，而不是结果保证。</span><span class="en">Continued throwing is practice, not an outcome guarantee.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=6499s" target="_blank" rel="noopener">1:48:19</a><div><p class="timeline-title"><span class="zh">给卡住者的结尾建议</span><span class="en">Closing advice for feeling stuck</span></p><p class="timeline-note"><span class="zh">缩小受众、命名结、做可逆一步。</span><span class="en">Narrow the audience, name the knot, take a reversible step.</span></p></div></article>
+          <article class="timeline-item"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=6657s" target="_blank" rel="noopener">1:50:57</a><div><p class="timeline-title"><span class="zh">不朽与连接</span><span class="en">Immortality and connection</span></p><p class="timeline-note"><span class="zh">工作的痕迹留在人与人的改变中。</span><span class="en">The trace of work remains in change between people.</span></p></div></article>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-quotes" role="tabpanel" aria-labelledby="tab-btn-quotes" data-tab-content="quotes" hidden>
+        <div class="section-head" id="quotes">
+          <div><span class="section-index">09 / VERBATIM QUOTES</span><h2 id="quotes-heading"><span class="zh">6 条核验原句</span><span class="en">Six verified lines</span></h2></div>
+          <p class="section-summary"><span class="zh">英文来自自动字幕逐字匹配；中文是辅助译文，不是原话。合计引用 22 个英文词。</span><span class="en">English was matched against the auto-caption transcript; Chinese is an assistive translation, not source wording. Total quotation: 22 English words.</span></p>
+        </div>
+        <div class="quote-grid">
+          <article class="quote-card"><div><div class="badge-row"><span class="badge verbatim">VERBATIM</span><span class="badge source">SOURCE</span></div><blockquote lang="en">“Name the baggage.”</blockquote><div class="quote-translation"><span class="zh">给那件行李命名。</span><span class="en">A compact instruction to make resistance specific.</span></div></div><div class="quote-foot"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1494s" target="_blank" rel="noopener">00:24:54 ↗</a><span class="badge">RESISTANCE</span></div></article>
+          <article class="quote-card"><div><div class="badge-row"><span class="badge verbatim">VERBATIM</span><span class="badge source">SOURCE</span></div><blockquote lang="en">“Who's this for?”</blockquote><div class="quote-translation"><span class="zh">这是为谁做的？</span><span class="en">The audience question that disciplines purpose and quality.</span></div></div><div class="quote-foot"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=2375s" target="_blank" rel="noopener">00:39:35 ↗</a><span class="badge">AUDIENCE</span></div></article>
+          <article class="quote-card"><div><div class="badge-row"><span class="badge verbatim">VERBATIM</span><span class="badge source">SOURCE</span></div><blockquote lang="en">“Pick yourself.”</blockquote><div class="quote-translation"><span class="zh">选择自己。</span><span class="en">Permission is less scarce; value still requires an audience.</span></div></div><div class="quote-foot"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=3286s" target="_blank" rel="noopener">00:54:46 ↗</a><span class="badge">AGENCY</span></div></article>
+          <article class="quote-card"><div><div class="badge-row"><span class="badge verbatim">VERBATIM</span><span class="badge source">SOURCE</span></div><blockquote lang="en">“Get good at throwing.”</blockquote><div class="quote-translation"><span class="zh">把投掷练好。</span><span class="en">Practice the controllable input rather than demanding reception.</span></div></div><div class="quote-foot"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4004s" target="_blank" rel="noopener">01:06:44 ↗</a><span class="badge">PRACTICE</span></div></article>
+          <article class="quote-card"><div><div class="badge-row"><span class="badge verbatim">VERBATIM</span><span class="badge source">SOURCE</span></div><blockquote lang="en">“Perfectionism is a trap every time.”</blockquote><div class="quote-translation"><span class="zh">完美主义每一次都是陷阱。</span><span class="en">Quality needs a specification; perfectionism delays exposure.</span></div></div><div class="quote-foot"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5375s" target="_blank" rel="noopener">01:29:35 ↗</a><span class="badge">QUALITY</span></div></article>
+          <article class="quote-card"><div><div class="badge-row"><span class="badge verbatim">VERBATIM</span><span class="badge source">SOURCE</span></div><blockquote lang="en">“AI works for you.”</blockquote><div class="quote-translation"><span class="zh">让 AI 为你工作。</span><span class="en">Keep human judgment over direction, validation, and consequence.</span></div></div><div class="quote-foot"><a class="time-link" href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5785s" target="_blank" rel="noopener">01:36:25 ↗</a><span class="badge">AI</span></div></article>
+        </div>
+        <h3 style="margin:42px 0 16px"><span class="zh">金句 ↔ 章节查找表</span><span class="en">Quote ↔ chapter lookup</span></h3>
+        <table class="evidence-table">
+          <thead><tr><th><span class="zh">原句</span><span class="en">Quote</span></th><th><span class="zh">对应章节</span><span class="en">Related chapter</span></th><th><span class="zh">本页用法</span><span class="en">Use in this page</span></th></tr></thead>
+          <tbody>
+            <tr><td>Name the baggage.</td><td><a href="#tab-resistance" data-jump-tab="resistance">03 · Resistance</a></td><td><span class="zh">阻力日志</span><span class="en">Resistance log</span></td></tr>
+            <tr><td>Who's this for?</td><td><a href="#tab-audience" data-jump-tab="audience">04 · Audience</a></td><td><span class="zh">最小可行受众</span><span class="en">Smallest viable audience</span></td></tr>
+            <tr><td>Pick yourself.</td><td><a href="#tab-audience" data-jump-tab="audience">04 · Audience</a></td><td><span class="zh">发布与验证</span><span class="en">Publishing and validation</span></td></tr>
+            <tr><td>Get good at throwing.</td><td><a href="#tab-practice" data-jump-tab="practice">06 · Practice</a></td><td><span class="zh">30 次投掷</span><span class="en">Thirty throws</span></td></tr>
+            <tr><td>Perfectionism is a trap every time.</td><td><a href="#tab-practice" data-jump-tab="practice">06 · Practice</a></td><td><span class="zh">质量规格</span><span class="en">Quality spec</span></td></tr>
+            <tr><td>AI works for you.</td><td><a href="#tab-ai" data-jump-tab="ai">07 · AI</a></td><td><span class="zh">人类验证区</span><span class="en">Human validation zone</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tab-content" id="tab-patrick" role="tabpanel" aria-labelledby="tab-btn-patrick" data-tab-content="patrick" hidden>
+        <div class="section-head" id="patrick">
+          <div><span class="section-index">10 / PATRICK LENS</span><h2 id="patrick-heading"><span class="zh">从视频原则到 Patrick 的本地能力</span><span class="en">From video principles to Patrick's local capabilities</span></h2></div>
+          <p class="section-summary"><span class="zh">这里只做关系映射：本地资产不是原视频证据，Seth 也没有评价这些工具。</span><span class="en">This is relationship mapping only: local assets are not source-video evidence, and Seth did not evaluate these tools.</span></p>
+        </div>
+        <div class="boundary-note">
+          <strong><span class="zh">来源边界：视频中没有 Patrick 相关人物或章节。</span><span class="en">Source boundary: the video contains no Patrick person or Patrick chapter.</span></strong>
+          <p><span class="zh">以下卡片属于 PATRICK LENS / PERSONAL SYNTHESIS。LIVE 表示本机存在可运行实现；REFERENCE 表示存在说明或流程资产；EXTERNAL RELATED 仅表示外部主题相关。每张卡都写明限制。</span><span class="en">The cards below are PATRICK LENS / PERSONAL SYNTHESIS. LIVE means a runnable local implementation exists; REFERENCE means an instructional or procedural asset exists; EXTERNAL RELATED means thematic relation only. Every card states a limitation.</span></p>
+        </div>
+        <div class="asset-grid">
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge patrick">PATRICK LENS</span><span class="badge reference">REFERENCE</span><span class="badge">FULLY ALIGNED</span></div><h3>Burst</h3><code class="asset-path">~/.hermes/skills/productivity/burst/SKILL.md</code></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">视频原则</span><span class="en">Video principle</span></strong><p><span class="zh">卡住时，不要只保留一条想象路径。</span><span class="en">When stuck, do not preserve only one imagined path.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">Burst 用多选项降低单一路径依赖，适合在“问题”阶段扩展可测试动作。</span><span class="en">Burst reduces single-path dependence with options, useful for expanding testable moves in the problem phase.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">选项过多也会增加负担；必须用优先级和资源上限收敛。</span><span class="en">Too many options add burden; priorities and resource caps must narrow them.</span></p></div>
+            </div>
+          </article>
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge patrick">PATRICK LENS</span><span class="badge reference">REFERENCE</span><span class="badge">ALIGNED + WARNING</span></div><h3>Task Clarity Gate</h3><code class="asset-path">~/.hermes/skills/agentic-os/task-clarity-gate/SKILL.md</code></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">视频原则</span><span class="en">Video principle</span></strong><p><span class="zh">把目的、受众、取舍和完成标准说清楚。</span><span class="en">Clarify purpose, audience, trade-off, and definition of done.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">清晰度门像 GPS：在执行前暴露模糊要求和互相冲突的目标。</span><span class="en">The clarity gate acts like GPS, exposing vague requirements and conflicting objectives before execution.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">GPS 不能替你处理恐惧、地位或羞耻；清晰不等于有勇气。</span><span class="en">GPS cannot process fear, status, or shame for you; clarity is not courage.</span></p></div>
+            </div>
+          </article>
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge patrick">PATRICK LENS</span><span class="badge reference">REFERENCE</span><span class="badge">ALIGNED</span></div><h3>Content Multiplier</h3><code class="asset-path">~/.hermes/skills/productivity/content-multiplier/SKILL.md</code></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">视频原则</span><span class="en">Video principle</span></strong><p><span class="zh">围绕最小可行受众设计工作。</span><span class="en">Design work around a smallest viable audience.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">受众层级和内容中枢能把一次投掷变成多种合适形式。</span><span class="en">Audience tiers and content hubs turn one throw into multiple appropriate forms.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">分发量不等于产品市场匹配；必须保留真实有用性信号。</span><span class="en">Distribution volume is not product-market fit; retain real usefulness signals.</span></p></div>
+            </div>
+          </article>
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge patrick">PATRICK LENS</span><span class="badge reference">REFERENCE</span><span class="badge">FULLY ALIGNED</span></div><h3>Human Validation Zones</h3><code class="asset-path">~/.hermes/skills/autonomous-ai-agents/human-validation-zones/SKILL.md</code></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">视频原则</span><span class="en">Video principle</span></strong><p><span class="zh">让 AI 做可描述工作，人保留判断和后果所有权。</span><span class="en">Let AI perform describable work while humans retain judgment and consequence ownership.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">把审批、边界和高风险节点明确成可执行区域。</span><span class="en">Turns approvals, boundaries, and high-risk points into operational zones.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">框架能限制风险，但不会自动产生品味、勇气或连接。</span><span class="en">The framework limits risk but does not create taste, courage, or connection.</span></p></div>
+            </div>
+          </article>
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge patrick">PATRICK LENS</span><span class="badge live">LIVE</span><span class="badge">ALIGNED</span></div><h3>Dual AI Peer Review</h3><code class="asset-path">~/.hermes/skills/autonomous-ai-agents/dual-ai-peer-review/scripts/</code></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">视频原则</span><span class="en">Video principle</span></strong><p><span class="zh">用练习与反馈改善下一次投掷。</span><span class="en">Use practice and feedback to improve the next throw.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">本地存在双评审与视频质量基准脚本，可给产物增加第二视角。</span><span class="en">Local dual-review and video-quality benchmark scripts add a second perspective to artifacts.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">外部认证未在本次验证；AI 评审不能替代真实受众、品味或最终人类决定。</span><span class="en">External authentication was not verified here; AI review cannot replace a real audience, taste, or the final human decision.</span></p></div>
+            </div>
+          </article>
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge patrick">PATRICK LENS</span><span class="badge live">LIVE</span><span class="badge">FULLY ALIGNED</span></div><h3>Publish Pipeline Watchdog</h3><code class="asset-path">~/.hermes/skills/devops/patricks-publish-pipeline-watchdog/SKILL.md</code></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">视频原则</span><span class="en">Video principle</span></strong><p><span class="zh">专业性是稳定兑现正确承诺。</span><span class="en">Professionalism is consistently keeping the right promise.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">本地发布与修补脚本存在，可对内容交付形成运营闭环。</span><span class="en">Local publishing and patch scripts exist, enabling an operational delivery loop.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">管道闭环不能解决心理阻力，也不能证明内容对受众有用。</span><span class="en">Pipeline closure does not resolve psychological resistance or prove audience usefulness.</span></p></div>
+            </div>
+          </article>
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge patrick">PATRICK LENS</span><span class="badge reference">REFERENCE</span><span class="badge">ALIGNED</span></div><h3>How to Sell</h3><code class="asset-path">~/.hermes/skills/meta/how-to-sell/SKILL.md</code></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">视频原则</span><span class="en">Video principle</span></strong><p><span class="zh">从具体人群和可信承诺开始。</span><span class="en">Begin with specific people and a credible promise.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">用较小胜利和信任降低受众采用成本。</span><span class="en">Use smaller wins and trust to reduce audience adoption cost.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">销售流程不等于受众发现，也不能替代问题是否真实的证据。</span><span class="en">A sales flow is not audience discovery and cannot replace evidence that the problem is real.</span></p></div>
+            </div>
+          </article>
+          <article class="asset-card">
+            <div class="asset-name"><div class="badge-row"><span class="badge external">EXTERNAL RELATED</span><span class="badge gap">NOT SOURCE</span></div><h3>Dr. Rhonda Patrick</h3><a class="asset-path" href="https://tim.blog/2017/07/23/when-to-quit/" target="_blank" rel="noopener">Tim Ferriss #254 · When to Quit ↗</a></div>
+            <div class="asset-body">
+              <div class="asset-field"><strong><span class="zh">为什么放这里</span><span class="en">Why it appears here</span></strong><p><span class="zh">该外部圆桌同时涉及 Seth Godin、Dr. Rhonda Patrick 与“何时退出”的问题。</span><span class="en">That external roundtable includes Seth Godin, Dr. Rhonda Patrick, and the question of when to quit.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">关系</span><span class="en">Relationship</span></strong><p><span class="zh">仅供 Patrick 姓名相关的延伸阅读，不是本视频内容。</span><span class="en">It is optional name-related further reading, not content from this video.</span></p></div>
+              <div class="asset-field"><strong><span class="zh">限制</span><span class="en">Limitation</span></strong><p><span class="zh">不得把该外部节目中的观点归因给本视频。</span><span class="en">Do not attribute claims from that separate episode to this source video.</span></p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-action" role="tabpanel" aria-labelledby="tab-btn-action" data-tab-content="action" hidden>
+        <div class="section-head" id="action">
+          <div><span class="section-index">11 / NEXT ACTIONS</span><h2 id="action-heading"><span class="zh">把结变成可逆行动</span><span class="en">Turn the knot into reversible action</span></h2></div>
+          <p class="section-summary"><span class="zh">P0 今天做；P1 本周形成证据；P2 用 30 天建立练习。勾选状态仅保存在本机浏览器。</span><span class="en">P0 happens today; P1 creates evidence this week; P2 builds practice over 30 days. Check state stays in this browser.</span></p>
+        </div>
+        <div class="action-toolbar">
+          <div class="progress-wrap">
+            <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="actionProgressBar"></div></div>
+            <span class="progress-text" id="actionProgressText" aria-live="polite">0 / 5</span>
+          </div>
+          <div class="toolbar-buttons">
+            <button class="utility-button" id="copyPlanButton" type="button"><span class="zh">复制 Markdown</span><span class="en">Copy Markdown</span><span class="success-badge" id="copyStatus" aria-live="polite"></span></button>
+            <button class="utility-button" id="downloadPlanButton" type="button"><span class="zh">下载笔记</span><span class="en">Download note</span></button>
+            <button class="utility-button" id="resetActionsButton" type="button"><span class="zh">重置勾选</span><span class="en">Reset checks</span></button>
+          </div>
+        </div>
+        <div class="action-list">
+          <article class="action-card" data-action-id="p0-name-one-knot" data-priority="P0">
+            <div class="action-head">
+              <input class="action-check" type="checkbox" aria-label="Complete P0 name one knot">
+              <div><h3 class="action-title"><span class="zh">写下一个结，选择 14 天优先级</span><span class="en">Name one knot and choose a 14-day priority</span></h3><p class="action-desc"><span class="zh">写“我想要 X，但又想要 Y”，然后选择本轮优先级与愿意暂时放弃的东西。</span><span class="en">Write “I want X, but I also want Y,” then choose this round's priority and what you will temporarily give up.</span></p><span class="micro-step"><span class="zh">今天 &lt;5 分钟：只写一句冲突</span><span class="en">Today &lt;5 min: write one conflict sentence</span></span></div>
+              <span class="badge p0">P0</span>
+            </div>
+            <div class="action-fields">
+              <div class="action-field"><strong><span class="zh">负责人</span><span class="en">Owner</span></strong><p>Patrick</p></div>
+              <div class="action-field"><strong><span class="zh">计划产物</span><span class="en">Planned artifact</span></strong><p><code>./patrick/one-knot.md</code></p></div>
+              <div class="action-field"><strong><span class="zh">阈值</span><span class="en">Threshold</span></strong><p><span class="zh">包含目的、受众、愿意放弃的东西和复盘日期。</span><span class="en">Contains purpose, audience, give-up, and review date.</span></p></div>
+              <div class="action-field"><strong><span class="zh">证据</span><span class="en">Evidence</span></strong><p><span class="zh">带时间戳的一页决策记录。</span><span class="en">One timestamped decision record.</span></p></div>
+              <div class="action-field"><strong><span class="zh">护栏</span><span class="en">Guardrail</span></strong><p><span class="zh">今天不做不可逆的人事或财务决定。</span><span class="en">No irreversible employment or financial decision today.</span></p></div>
+              <div class="action-field"><strong><span class="zh">回滚</span><span class="en">Rollback</span></strong><p><span class="zh">14 天后根据证据重新选择优先级。</span><span class="en">Re-select priority after 14 days using evidence.</span></p></div>
+              <div class="action-field source-field"><strong><span class="zh">来源</span><span class="en">Source</span></strong><p><a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=766s" target="_blank" rel="noopener">12:46</a> · <a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=1434s" target="_blank" rel="noopener">23:54</a></p></div>
+            </div>
+          </article>
+
+          <article class="action-card" data-action-id="p0-smallest-audience" data-priority="P0">
+            <div class="action-head">
+              <input class="action-check" type="checkbox" aria-label="Complete P0 smallest audience">
+              <div><h3 class="action-title"><span class="zh">定义最小受众与一个承诺</span><span class="en">Define a smallest audience and one promise</span></h3><p class="action-desc"><span class="zh">列出 5 个具体受众角色、他们共享的一个问题，以及你愿意测试的一句承诺。</span><span class="en">List five concrete audience roles, one shared problem, and one promise you are willing to test.</span></p><span class="micro-step"><span class="zh">今天 &lt;5 分钟：先写 5 个角色名</span><span class="en">Today &lt;5 min: list five role names</span></span></div>
+              <span class="badge p0">P0</span>
+            </div>
+            <div class="action-fields">
+              <div class="action-field"><strong><span class="zh">负责人</span><span class="en">Owner</span></strong><p>Patrick</p></div>
+              <div class="action-field"><strong><span class="zh">计划产物</span><span class="en">Planned artifact</span></strong><p><code>./patrick/smallest-audience-test.md</code></p></div>
+              <div class="action-field"><strong><span class="zh">阈值</span><span class="en">Threshold</span></strong><p><span class="zh">5 个角色、1 个共同问题、1 个可观察承诺。</span><span class="en">Five roles, one shared problem, one observable promise.</span></p></div>
+              <div class="action-field"><strong><span class="zh">证据</span><span class="en">Evidence</span></strong><p><span class="zh">本地保存的受众草稿与版本日期。</span><span class="en">Locally saved audience draft with version date.</span></p></div>
+              <div class="action-field"><strong><span class="zh">护栏</span><span class="en">Guardrail</span></strong><p><span class="zh">只做本地规划；不批量联系，不写敏感个人信息。</span><span class="en">Local planning only; no bulk outreach or sensitive personal data.</span></p></div>
+              <div class="action-field"><strong><span class="zh">回滚</span><span class="en">Rollback</span></strong><p><span class="zh">若问题不共同，缩小或重新选择角色。</span><span class="en">If the problem is not shared, narrow or reselect roles.</span></p></div>
+              <div class="action-field source-field"><strong><span class="zh">来源</span><span class="en">Source</span></strong><p><a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=374s" target="_blank" rel="noopener">06:14</a> · <a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=3448s" target="_blank" rel="noopener">57:28</a></p></div>
+            </div>
+          </article>
+
+          <article class="action-card" data-action-id="p1-dip-or-dead-end" data-priority="P1">
+            <div class="action-head">
+              <input class="action-check" type="checkbox" aria-label="Complete P1 Dip review">
+              <div><h3 class="action-title"><span class="zh">给一个进行中项目做低谷 / 死胡同评审</span><span class="en">Run a Dip / dead-end review on one active project</span></h3><p class="action-desc"><span class="zh">预先写出里程碑、资源上限、继续条件、暂停条件和退出日期，不再用情绪当天决定。</span><span class="en">Pre-write milestones, resource cap, continue condition, pause condition, and exit date instead of deciding from the day's emotion.</span></p></div>
+              <span class="badge p1">P1</span>
+            </div>
+            <div class="action-fields">
+              <div class="action-field"><strong><span class="zh">负责人</span><span class="en">Owner</span></strong><p>Patrick</p></div>
+              <div class="action-field"><strong><span class="zh">计划产物</span><span class="en">Planned artifact</span></strong><p><code>./patrick/dip-review.md</code></p></div>
+              <div class="action-field"><strong><span class="zh">阈值</span><span class="en">Threshold</span></strong><p><span class="zh">继续与暂停条件都必须可观察；包含资源上限和日期。</span><span class="en">Continue and pause criteria are observable; cap and date included.</span></p></div>
+              <div class="action-field"><strong><span class="zh">证据</span><span class="en">Evidence</span></strong><p><span class="zh">最近 3 次尝试、结果和新增信息。</span><span class="en">Last three attempts, outcomes, and new information.</span></p></div>
+              <div class="action-field"><strong><span class="zh">护栏</span><span class="en">Guardrail</span></strong><p><span class="zh">不因一天情绪删除项目或资产。</span><span class="en">Do not delete a project or asset because of one day's emotion.</span></p></div>
+              <div class="action-field"><strong><span class="zh">回滚</span><span class="en">Rollback</span></strong><p><span class="zh">暂停时归档，不删除；保留恢复条件。</span><span class="en">Archive rather than delete; retain resumption criteria.</span></p></div>
+              <div class="action-field source-field"><strong><span class="zh">来源</span><span class="en">Source</span></strong><p><a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4158s" target="_blank" rel="noopener">1:09:18</a> · <a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=4511s" target="_blank" rel="noopener">1:15:11</a></p></div>
+            </div>
+          </article>
+
+          <article class="action-card" data-action-id="p1-ai-human-pilot" data-priority="P1">
+            <div class="action-head">
+              <input class="action-check" type="checkbox" aria-label="Complete P1 AI human pilot">
+              <div><h3 class="action-title"><span class="zh">跑一次 AI × 人类验证小实验</span><span class="en">Run one AI × human-validation pilot</span></h3><p class="action-desc"><span class="zh">把一个完全可描述的重复任务交给 AI，同时明确一个必须由人决定的验证区。</span><span class="en">Delegate one fully describable repeated task to AI while defining one validation zone that a human must decide.</span></p></div>
+              <span class="badge p1">P1</span>
+            </div>
+            <div class="action-fields">
+              <div class="action-field"><strong><span class="zh">负责人</span><span class="en">Owner</span></strong><p>Patrick</p></div>
+              <div class="action-field"><strong><span class="zh">计划产物</span><span class="en">Planned artifact</span></strong><p><code>./patrick/ai-human-pilot.md</code></p></div>
+              <div class="action-field"><strong><span class="zh">阈值</span><span class="en">Threshold</span></strong><p><span class="zh">1 次干跑，0 次高风险变更，明确最终人类决定。</span><span class="en">One dry run, zero high-risk changes, explicit final human decision.</span></p></div>
+              <div class="action-field"><strong><span class="zh">证据</span><span class="en">Evidence</span></strong><p><span class="zh">保存输入、AI 输出、修改和批准理由。</span><span class="en">Retain input, AI output, edits, and approval rationale.</span></p></div>
+              <div class="action-field"><strong><span class="zh">护栏</span><span class="en">Guardrail</span></strong><p><span class="zh">不碰生产环境、密钥、客户数据或不可逆外部写入。</span><span class="en">No production, keys, customer data, or irreversible external writes.</span></p></div>
+              <div class="action-field"><strong><span class="zh">回滚</span><span class="en">Rollback</span></strong><p><span class="zh">验证失败立即停止循环，保留原流程。</span><span class="en">Stop the loop on failed validation and retain the original workflow.</span></p></div>
+              <div class="action-field source-field"><strong><span class="zh">来源</span><span class="en">Source</span></strong><p><a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5744s" target="_blank" rel="noopener">1:35:44</a></p></div>
+            </div>
+          </article>
+
+          <article class="action-card" data-action-id="p2-thirty-throws" data-priority="P2">
+            <div class="action-head">
+              <input class="action-check" type="checkbox" aria-label="Complete P2 thirty throws">
+              <div><h3 class="action-title"><span class="zh">30 天做 30 次小投掷</span><span class="en">Make thirty small throws in thirty days</span></h3><p class="action-desc"><span class="zh">每天用 15 分钟为同一受众完成一个小产物，记录有用性信号，不把粉丝数当首要指标。</span><span class="en">Spend 15 minutes daily making one small artifact for the same audience; record usefulness signals and do not use follower count as the primary metric.</span></p></div>
+              <span class="badge p2">P2</span>
+            </div>
+            <div class="action-fields">
+              <div class="action-field"><strong><span class="zh">负责人</span><span class="en">Owner</span></strong><p>Patrick</p></div>
+              <div class="action-field"><strong><span class="zh">计划产物</span><span class="en">Planned artifact</span></strong><p><code>./patrick/30-throws.csv</code></p></div>
+              <div class="action-field"><strong><span class="zh">阈值</span><span class="en">Threshold</span></strong><p><span class="zh">30 天至少完成 20 次；每次最多 15 分钟。</span><span class="en">At least 20 of 30 days; no more than 15 minutes per throw.</span></p></div>
+              <div class="action-field"><strong><span class="zh">证据</span><span class="en">Evidence</span></strong><p><span class="zh">日期、产物链接、受众回应和有用性信号。</span><span class="en">Date, artifact link, audience response, and usefulness signal.</span></p></div>
+              <div class="action-field"><strong><span class="zh">护栏</span><span class="en">Guardrail</span></strong><p><span class="zh">不以曝光量替代价值；不为连续打卡牺牲健康。</span><span class="en">Do not substitute reach for value or sacrifice health for a streak.</span></p></div>
+              <div class="action-field"><strong><span class="zh">回滚</span><span class="en">Rollback</span></strong><p><span class="zh">连续 3 次证明问题不真实时，停止并重新选择受众。</span><span class="en">After three tests show the problem is wrong, stop and reselect the audience.</span></p></div>
+              <div class="action-field source-field"><strong><span class="zh">来源</span><span class="en">Source</span></strong><p><a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=3890s" target="_blank" rel="noopener">1:04:50</a> · <a href="https://www.youtube.com/watch?v=g7AxxkywiFI&t=5356s" target="_blank" rel="noopener">1:29:16</a></p></div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-evidence" role="tabpanel" aria-labelledby="tab-btn-evidence" data-tab-content="evidence" hidden>
+        <div class="section-head">
+          <div><span class="section-index">12 / EVIDENCE & LIMITS</span><h2 id="evidence-heading"><span class="zh">知道哪些是原话，哪些是综合</span><span class="en">Know what is source and what is synthesis</span></h2></div>
+          <p class="section-summary"><span class="zh">页面把证据层级做成显式标签，避免把推论、翻译和 Patrick 映射写成嘉宾原话。</span><span class="en">Evidence levels are explicit so inference, translation, and Patrick mapping are not presented as guest wording.</span></p>
+        </div>
+        <div class="source-ladder">
+          <div class="source-step"><strong>VERBATIM</strong><p><span class="zh">逐字匹配英文自动字幕，并给出时间锚点。只保留 6 条短句。</span><span class="en">Matched word-for-word against English auto-captions with time anchors. Only six short lines retained.</span></p></div>
+          <div class="source-step"><strong>PARAPHRASE</strong><p><span class="zh">根据访谈内容做的压缩表达，不使用引号，不冒充原话。</span><span class="en">Compressed expression based on the interview; no quotation marks and no claim of source wording.</span></p></div>
+          <div class="source-step"><strong>PATRICK LENS</strong><p><span class="zh">视频原则与本地 Hermes 资产的关系映射，属于个人综合。</span><span class="en">Relationship mapping between video principles and local Hermes assets; personal synthesis.</span></p></div>
+          <div class="source-step"><strong>ACTION</strong><p><span class="zh">为 Patrick 设计的可逆执行计划，不是 Seth 的处方。</span><span class="en">A reversible execution plan designed for Patrick, not a prescription from Seth.</span></p></div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="badge-row"><span class="badge source">PRIMARY SOURCE</span></div>
+            <h3><span class="zh">视频与章节</span><span class="en">Video and chapters</span></h3>
+            <p><a href="https://www.youtube.com/watch?v=g7AxxkywiFI" target="_blank" rel="noopener">The Diary Of A CEO · Seth Godin interview ↗</a></p>
+            <p><span class="zh">标题：The Quitting Expert: Quit NOW Before AI Makes The Choice For You, This Is a Superpower!</span><span class="en">Title: The Quitting Expert: Quit NOW Before AI Makes The Choice For You, This Is a Superpower!</span></p>
+            <p><span class="zh">长度 1:53:06；发布日期 2026-08-10；本页章节时间采用视频说明。</span><span class="en">Duration 1:53:06; published 2026-08-10; chapter times in this page follow the description.</span></p>
+          </article>
+          <article class="card">
+            <div class="badge-row"><span class="badge external">EXTERNAL CHECK</span></div>
+            <h3><span class="zh">人物与延伸资料</span><span class="en">Names and related material</span></h3>
+            <p><a href="https://www.sethgodin.com/" target="_blank" rel="noopener">Seth Godin · official site ↗</a></p>
+            <p><a href="https://nzhistory.govt.nz/people/whina-cooper" target="_blank" rel="noopener">NZHistory · Dame Whina Cooper ↗</a></p>
+            <p><a href="https://tim.blog/2017/07/23/when-to-quit/" target="_blank" rel="noopener">Tim Ferriss #254 · When to Quit ↗</a></p>
+          </article>
+        </div>
+        <h3 style="margin:38px 0 15px"><span class="zh">字幕与名称校订</span><span class="en">Caption and name normalization</span></h3>
+        <table class="evidence-table">
+          <thead><tr><th><span class="zh">自动字幕形态</span><span class="en">Auto-caption form</span></th><th><span class="zh">本页校订</span><span class="en">Normalized here</span></th><th><span class="zh">处理方式</span><span class="en">Treatment</span></th></tr></thead>
+          <tbody>
+            <tr><td>Seth Golden</td><td>Seth Godin</td><td><span class="zh">说话者与公开视频元数据校订。</span><span class="en">Normalized from speaker identity and public video metadata.</span></td></tr>
+            <tr><td>Burden's donkey</td><td>Buridan's ass</td><td><span class="zh">常见典故名称校订。</span><span class="en">Normalized to the known philosophical reference.</span></td></tr>
+            <tr><td>Lee Kraner</td><td>Lee Krasner</td><td><span class="zh">人名拼写校订。</span><span class="en">Person-name spelling correction.</span></td></tr>
+            <tr><td>Steve Presfield</td><td>Steven Pressfield</td><td><span class="zh">作者名校订。</span><span class="en">Author-name correction.</span></td></tr>
+            <tr><td>Dame Fina Cooper</td><td>Dame Whina Cooper</td><td><span class="zh">参考 NZHistory 的人名校订。</span><span class="en">Name correction checked against NZHistory.</span></td></tr>
+            <tr><td>Sam Alman</td><td>Sam Altman</td><td><span class="zh">人名拼写校订。</span><span class="en">Person-name spelling correction.</span></td></tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <strong><span class="zh">已知限制</span><span class="en">Known limitations</span></strong>
+          <p><span class="zh">英文文本来自平台自动字幕，没有人工字幕；中文为机器辅助翻译后编辑，只用于理解。短引文已做原文包含检查，但访谈中的语气、停顿和视觉语境仍应回到视频确认。Patrick 资产只验证了路径与部分脚本存在性，没有运行外部认证或生产发布。</span><span class="en">English text comes from platform auto-captions; no manual captions were available. Chinese was machine-assisted and edited for comprehension. Short quotes passed exact transcript inclusion checks, but tone, pauses, and visual context should still be confirmed in the video. Patrick assets were checked for paths and selected scripts only; external authentication and production publishing were not run.</span></p>
+        </div>
+        <div class="card accent">
+          <div class="badge-row"><span class="badge">METHOD</span></div>
+          <h3><span class="zh">核验顺序</span><span class="en">Verification order</span></h3>
+          <p><span class="zh">视频元数据 → 英文自动字幕 → 时间锚点 → 原文短句包含检查 → 双语释义 → Patrick 本地路径与脚本检查 → 行动护栏。</span><span class="en">Video metadata → English auto-captions → timestamp anchors → exact short-quote inclusion checks → bilingual interpretation → Patrick local path and script checks → action guardrails.</span></p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <strong>UNTIE THE KNOT · VIDEO KNOWLEDGE DASHBOARD</strong><br>
+        <span class="zh">基于公开访谈整理；原始内容版权归各自权利人。页面不构成职业、财务或心理健康建议。</span>
+        <span class="en">Prepared from a public interview; source rights remain with their owners. This page is not career, financial, or mental-health advice.</span>
+      </div>
+      <div><a href="https://www.youtube.com/watch?v=g7AxxkywiFI" target="_blank" rel="noopener">YouTube source ↗</a><br>Generated 2026-08-10 · Asia/Shanghai</div>
+    </footer>
+  </div>
+
+  <script>
+    var pageSlug = "g7AxxkywiFI-seth-godin-knot";
+    var langKey = pageSlug + "-lang";
+    var tabKey = pageSlug + "-tab";
+    var tocKey = pageSlug + "-toc-collapsed";
+    var actionsKey = pageSlug + "-actions";
+    var languageMap = { zh: "zh-CN", en: "en", bi: "zh-Hans" };
+
+    function all(selector, root) {
+      return Array.prototype.slice.call((root || document).querySelectorAll(selector));
+    }
+
+    function setLanguage(mode) {
+      if (!languageMap[mode]) return;
+      document.documentElement.lang = languageMap[mode];
+      document.documentElement.dataset.lang = mode;
+      all("[data-lang-mode]").forEach(function (button) {
+        button.setAttribute("aria-pressed", button.dataset.langMode === mode ? "true" : "false");
+      });
+      try { localStorage.setItem(langKey, mode); } catch (error) {}
+    }
+
+    function currentLanguage() {
+      return document.documentElement.dataset.lang || "zh";
+    }
+
+    function localizedText(container, mode) {
+      if (!container) return "";
+      var zh = container.querySelector(".zh");
+      var en = container.querySelector(".en");
+      var zhText = zh ? zh.textContent.trim() : container.textContent.trim();
+      var enText = en ? en.textContent.trim() : container.textContent.trim();
+      if (mode === "en") return enText;
+      if (mode === "bi") return zhText + " / " + enText;
+      return zhText;
+    }
+
+    function updateTocActive(tabId) {
+      all(".toc-link").forEach(function (link) {
+        link.classList.toggle("active", link.dataset.tabTarget === tabId);
+      });
+    }
+
+    function scrollPanelIntoView(target, behavior) {
+      if (!target) return;
+      var topbar = document.querySelector(".topbar");
+      var tabsWrap = document.querySelector(".tabs-wrap");
+      var offset = (topbar ? topbar.offsetHeight : 0) + (tabsWrap ? tabsWrap.offsetHeight : 0) + 10;
+      var targetTop = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, targetTop), behavior: behavior || "smooth" });
+    }
+
+    function activateTab(tabId, updateHash, moveFocus) {
+      var panel = document.querySelector('[data-tab-content="' + tabId + '"]');
+      var button = document.querySelector('[data-tab="' + tabId + '"]');
+      if (!panel || !button) return;
+      all("[data-tab-content]").forEach(function (item) {
+        var active = item.dataset.tabContent === tabId;
+        item.hidden = !active;
+        item.classList.toggle("active", active);
+      });
+      all("[data-tab]").forEach(function (item) {
+        var active = item.dataset.tab === tabId;
+        item.classList.toggle("active", active);
+        item.setAttribute("aria-selected", active ? "true" : "false");
+        item.tabIndex = active ? 0 : -1;
+      });
+      updateTocActive(tabId);
+      try { localStorage.setItem(tabKey, tabId); } catch (error) {}
+      if (updateHash) {
+        history.pushState(null, "", "#tab-" + tabId);
+      }
+      if (moveFocus) button.focus();
+    }
+
+    function navFromToc(link) {
+      var tabId = link.dataset.tabTarget;
+      var targetId = link.getAttribute("href");
+      activateTab(tabId, false, false);
+      if (window.innerWidth <= 900) closeMobileToc();
+      window.setTimeout(function () {
+        var target = document.querySelector(targetId);
+        scrollPanelIntoView(target, "smooth");
+        history.pushState(null, "", targetId);
+      }, 80);
+    }
+
+    function setDesktopToc(collapsed) {
+      document.body.classList.toggle("toc-collapsed", collapsed);
+      var expanded = collapsed ? "false" : "true";
+      document.getElementById("tocButton").setAttribute("aria-expanded", expanded);
+      document.getElementById("tocEdgeToggle").setAttribute("aria-expanded", expanded);
+      try { localStorage.setItem(tocKey, collapsed ? "1" : "0"); } catch (error) {}
+    }
+
+    function closeMobileToc() {
+      document.body.classList.remove("mobile-toc-open");
+      document.getElementById("tocButton").setAttribute("aria-expanded", "false");
+    }
+
+    function toggleToc() {
+      if (window.innerWidth <= 900) {
+        var open = document.body.classList.toggle("mobile-toc-open");
+        document.getElementById("tocButton").setAttribute("aria-expanded", open ? "true" : "false");
+        return;
+      }
+      setDesktopToc(!document.body.classList.contains("toc-collapsed"));
+    }
+
+    function loadActionState() {
+      var state = {};
+      try { state = JSON.parse(localStorage.getItem(actionsKey) || "{}"); } catch (error) { state = {}; }
+      all(".action-card").forEach(function (card) {
+        var checked = Boolean(state[card.dataset.actionId]);
+        var input = card.querySelector(".action-check");
+        input.checked = checked;
+        card.classList.toggle("completed", checked);
+      });
+      updateActionProgress();
+    }
+
+    function saveActionState() {
+      var state = {};
+      all(".action-card").forEach(function (card) {
+        state[card.dataset.actionId] = card.querySelector(".action-check").checked;
+        card.classList.toggle("completed", state[card.dataset.actionId]);
+      });
+      try { localStorage.setItem(actionsKey, JSON.stringify(state)); } catch (error) {}
+      updateActionProgress();
+    }
+
+    function updateActionProgress() {
+      var cards = all(".action-card");
+      var complete = cards.filter(function (card) { return card.querySelector(".action-check").checked; }).length;
+      var percentage = cards.length ? (complete / cards.length) * 100 : 0;
+      document.getElementById("actionProgressBar").style.width = percentage + "%";
+      document.getElementById("actionProgressText").textContent = complete + " / " + cards.length;
+    }
+
+    function resetActions() {
+      try { localStorage.removeItem(actionsKey); } catch (error) {}
+      all(".action-check").forEach(function (input) { input.checked = false; });
+      saveActionState();
+    }
+
+    function buildPlanMarkdown() {
+      var mode = currentLanguage();
+      var lines = [];
+      var pageTitle = mode === "en" ? "Untie the Knot — Patrick Action Plan" : mode === "bi" ? "解开结 / Untie the Knot — Patrick Action Plan" : "解开结 — Patrick 行动计划";
+      lines.push("# " + pageTitle, "", "Source: https://www.youtube.com/watch?v=g7AxxkywiFI", "Generated: 2026-08-10", "");
+      all(".action-card").forEach(function (card) {
+        var checked = card.querySelector(".action-check").checked ? "x" : " ";
+        var title = localizedText(card.querySelector(".action-title"), mode);
+        var description = localizedText(card.querySelector(".action-desc"), mode);
+        var priority = card.dataset.priority;
+        lines.push("- [" + checked + "] **" + priority + " — " + title + "**", "  - " + description);
+        all(".action-field").forEach(function (field) {
+          var label = localizedText(field.querySelector("strong"), mode);
+          var value = localizedText(field.querySelector("p"), mode);
+          lines.push("  - " + label + ": " + value);
+        });
+        lines.push("");
+      });
+      lines.push("---", "Patrick Lens / Personal Synthesis. Not source-video wording.");
+      return lines.join("\n");
+    }
+
+    function fallbackCopy(textValue) {
+      var area = document.createElement("textarea");
+      area.value = textValue;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+    }
+
+    function copyPlan() {
+      var textValue = buildPlanMarkdown();
+      var status = document.getElementById("copyStatus");
+      var copyPromise;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        copyPromise = navigator.clipboard.writeText(textValue);
+      } else {
+        fallbackCopy(textValue);
+        copyPromise = Promise.resolve();
+      }
+      copyPromise.then(function () {
+        status.textContent = "OK";
+        window.setTimeout(function () { status.textContent = ""; }, 1800);
+      }).catch(function () {
+        fallbackCopy(textValue);
+        status.textContent = "OK";
+        window.setTimeout(function () { status.textContent = ""; }, 1800);
+      });
+    }
+
+    function downloadNote() {
+      var blob = new Blob([buildPlanMarkdown()], { type: "text/markdown;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = url;
+      link.download = "2026-08-10-seth-godin-knot-patrick-actions.md";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function initialTab() {
+      var hash = window.location.hash;
+      if (hash && hash.indexOf("#tab-") === 0) return hash.replace("#tab-", "");
+      try { return localStorage.getItem(tabKey) || "overview"; } catch (error) { return "overview"; }
+    }
+
+    all("[data-lang-mode]").forEach(function (button) {
+      button.addEventListener("click", function () { setLanguage(button.dataset.langMode); });
+    });
+
+    all("[data-tab]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        activateTab(button.dataset.tab, true, false);
+        scrollPanelIntoView(document.getElementById("tab-" + button.dataset.tab), "smooth");
+      });
+      button.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        var tabs = all("[data-tab]");
+        var index = tabs.indexOf(button);
+        var nextIndex = event.key === "ArrowRight" ? (index + 1) % tabs.length : (index - 1 + tabs.length) % tabs.length;
+        event.preventDefault();
+        activateTab(tabs[nextIndex].dataset.tab, true, true);
+      });
+    });
+
+    all(".toc-link").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        navFromToc(link);
+      });
+    });
+
+    all("[data-jump-tab]").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        var tabId = link.dataset.jumpTab;
+        activateTab(tabId, false, false);
+        window.setTimeout(function () {
+          var target = document.getElementById("tab-" + tabId);
+          scrollPanelIntoView(target, "smooth");
+          history.pushState(null, "", "#tab-" + tabId);
+        }, 80);
+      });
+    });
+
+    document.getElementById("tocButton").addEventListener("click", toggleToc);
+    document.getElementById("tocEdgeToggle").addEventListener("click", toggleToc);
+    document.getElementById("tocScrim").addEventListener("click", closeMobileToc);
+    document.getElementById("copyPlanButton").addEventListener("click", copyPlan);
+    document.getElementById("downloadPlanButton").addEventListener("click", downloadNote);
+    document.getElementById("resetActionsButton").addEventListener("click", resetActions);
+    all(".action-check").forEach(function (input) { input.addEventListener("change", saveActionState); });
+
+    window.addEventListener("hashchange", function () {
+      if (window.location.hash.indexOf("#tab-") === 0) {
+        activateTab(window.location.hash.replace("#tab-", ""), false, false);
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 900) document.body.classList.remove("mobile-toc-open");
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeMobileToc();
+    });
+
+    try {
+      setDesktopToc(localStorage.getItem(tocKey) === "1");
+    } catch (error) {
+      setDesktopToc(false);
+    }
+    setLanguage(currentLanguage());
+    var startingTab = initialTab();
+    activateTab(startingTab, false, false);
+    if (window.location.hash.indexOf("#tab-") === 0) {
+      window.addEventListener("load", function () {
+        window.setTimeout(function () {
+          scrollPanelIntoView(document.getElementById("tab-" + startingTab), "auto");
+        }, 40);
+      }, { once: true });
+    }
+    loadActionState();
+  </script>
+</body>
+</html>

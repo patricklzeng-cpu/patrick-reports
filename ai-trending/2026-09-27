@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>AI Trending · 2026-09-27</title>
+<style>body{font-family:-apple-system,"PingFang SC",sans-serif;background:#0d1117;color:#e6edf3;padding:24px;max-width:980px;margin:0 auto;}
+h1{font-size:22px;margin-bottom:6px;}.sub{color:#8b949e;font-size:12px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:15px;}
+.src{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#21262d;color:#58a6ff;font-weight:700;margin-bottom:5px;}
+a{color:#58a6ff;text-decoration:none;font-weight:600;font-size:14px;}
+a:hover{text-decoration:underline;}.desc{color:#8b949e;font-size:12px;margin-top:4px;line-height:1.55;}.meta{color:#8b949e;font-size:11px;margin-top:6px;font-family:Menlo,monospace;}
+.nav{margin-top:18px;}.b{font-size:18px;margin:30px 0 12px;color:#58a6ff;}</style></head><body>
+<h1>🔥 AI Trending · 2026-09-27</h1><div class="sub">生成时间 2026-09-27T00:03:04.326292Z · 共 35 items · 来源 2 · envelope_version=1 · v2 (search_lib refactor 2026-07-06)</div>
+<div class='nav'><b>35</b> items · github=17 · hackernews=18</div>
+<div class='b'>github (17)</div><div class='grid'>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/affaan-m/ECC' target='_blank'>affaan-m/ECC</a>
+<div class='desc'>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</div>
+<div class='meta'>267955⭐ 0💬 impact=2269205 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/huggingface/transformers' target='_blank'>huggingface/transformers</a>
+<div class='desc'>🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. </div>
+<div class='meta'>166698⭐ 0💬 impact=1901148 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langgenius/dify' target='_blank'>langgenius/dify</a>
+<div class='desc'>Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without reb</div>
+<div class='meta'>157285⭐ 0💬 impact=1396935 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langchain-ai/langchain' target='_blank'>langchain-ai/langchain</a>
+<div class='desc'>The agent engineering platform.</div>
+<div class='meta'>147117⭐ 0💬 impact=1378167 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/f/prompts.chat' target='_blank'>f/prompts.chat</a>
+<div class='desc'>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.</div>
+<div class='meta'>171342⭐ 0💬 impact=1271192 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/ollama/ollama' target='_blank'>ollama/ollama</a>
+<div class='desc'>Get up and running with Kimi, GLM, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</div>
+<div class='meta'>181775⭐ 0💬 impact=1082425 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/Graphify-Labs/graphify' target='_blank'>Graphify-Labs/graphify</a>
+<div class='desc'>Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, e</div>
+<div class='meta'>121672⭐ 0💬 impact=707272 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//paperclipai/paperclip' target='_blank'>paperclipai/paperclip</a>
+<div class='desc'>The open-source app everyone uses to manage agents at work</div>
+<div class='meta'>87254⭐ 0💬 impact=87754 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//wshobson/agents' target='_blank'>wshobson/agents</a>
+<div class='desc'>Multi-harness agentic plugin marketplace for Claude Code, Codex, Cursor, OpenCode, GitHub Copilot, Google Antigravity, and Pi</div>
+<div class='meta'>40005⭐ 0💬 impact=40505 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//PostHog/posthog' target='_blank'>PostHog/posthog</a>
+<div class='desc'>🦔 PostHog is the leading platform for building self-driving products. Our developer tools – AI observability, analytics, session replay, flags, experiments, error tracking, logs, and more – capture al</div>
+<div class='meta'>39949⭐ 0💬 impact=40449 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//zhaoxuya520/reverse-skill' target='_blank'>zhaoxuya520/reverse-skill</a>
+<div class='desc'>Reverse Engineering / Authorized Penetration Testing / Security Research Skill Router Pack AI-powered routing + On-demand toolchain bootstrapping + Self-evolving knowledge base Supports Claude Code, K</div>
+<div class='meta'>37998⭐ 0💬 impact=38498 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//anthropics/claude-plugins-official' target='_blank'>anthropics/claude-plugins-official</a>
+<div class='desc'>Official, Anthropic-managed directory of high quality Claude Code Plugins.</div>
+<div class='meta'>37055⭐ 0💬 impact=37555 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//vectorize-io/hindsight' target='_blank'>vectorize-io/hindsight</a>
+<div class='desc'>Hindsight: Agent Memory That Learns</div>
+<div class='meta'>32147⭐ 0💬 impact=32647 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//dream-num/univer' target='_blank'>dream-num/univer</a>
+<div class='desc'>The Office Harness for AI Agents — Spreadsheets, Docs, Slides, Canvas, Relational Tables, and PDF in one runtime.</div>
+<div class='meta'>19198⭐ 0💬 impact=19698 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//anthropics/claude-code-action' target='_blank'>anthropics/claude-code-action</a>
+<div class='desc'></div>
+<div class='meta'>9086⭐ 0💬 impact=9586 </div></div>
+</div>
+<div class='b'>hackernews (18)</div><div class='grid'>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.anthropic.com/claude-opus-5-5' target='_blank'>Claude Opus 5.5</a>
+<div class='desc'></div>
+<div class='meta'>1801⭐ 1126💬 impact=7431 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.cryptocellar.org/bgac/the-mvueh-break.html' target='_blank'>OpenAI GPT–6 Astra breaks Enigma message that has resisted solution since 2005</a>
+<div class='desc'></div>
+<div class='meta'>734⭐ 444💬 impact=2954 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://swarmtraces.org/' target='_blank'>Revealing the details of how OpenAI agents hacked Hugging Face</a>
+<div class='desc'></div>
+<div class='meta'>700⭐ 443💬 impact=2915 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://blog.szypowi.cz/p/claude-code-reads-agents.md-only-when-telemetry-is-on/' target='_blank'>Claude Code reads AGENTS.md only when telemetry is on [fixed]</a>
+<div class='desc'></div>
+<div class='meta'>485⭐ 284💬 impact=1905 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.bbc.com/news/live/cvgl73pxgndwt' target='_blank'>OpenAI agent hacked Australian government website, PM says</a>
+<div class='desc'></div>
+<div class='meta'>254⭐ 198💬 impact=1244 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://discourse.haskell.org/t/how-to-keep-enjoying-programming-in-a-world-of-llms/14705' target='_blank'>How to keep enjoying programming in a world of LLMs</a>
+<div class='desc'></div>
+<div class='meta'>142⭐ 199💬 impact=1137 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://artificialanalysis.ai/models/claude-opus-5-5' target='_blank'>Claude Opus 5.5 Intelligence, Performance and Price Analysis (Max)</a>
+<div class='desc'></div>
+<div class='meta'>333⭐ 106💬 impact=863 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.lasso.security/blog/the-provenance-tax-understanding-the-impact-of-llm-watermarking-on-ai-agent-behavior' target='_blank'>Understanding the Impact of LLM Watermarking on AI Agent Behavior</a>
+<div class='desc'></div>
+<div class='meta'>56⭐ 70💬 impact=406 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.anthropic.com/claude-opus-5-5' target='_blank'>Claude Opus 5.5</a>
+<div class='desc'></div>
+<div class='meta'>273⭐ 2💬 impact=283 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.channelnewsasia.com/world/australia-openai-agent-breach-government-portal-6406411' target='_blank'>Australia says OpenAI agent hacked into government website</a>
+<div class='desc'></div>
+<div class='meta'>121⭐ 3💬 impact=136 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.tomshardware.com/tech-industry/big-tech/anthropic-openai-spacexai-and-google-face-antitrust-lawsuit-for-agreeing-to-slow-ai-development-plaintiffs-say-plan-has-been-in-motion-for-months-before-calls-agreement-self-serving' target='_blank'>Anthropic, OpenAI et al. face antitrust suit for agreeing to slow AI development</a>
+<div class='desc'></div>
+<div class='meta'>32⭐ 11💬 impact=87 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.ft.com/content/456884ea-2558-4648-8036-a77b73733430' target='_blank'>The cheap new AI model taking aim at OpenAI and Anthropic</a>
+<div class='desc'></div>
+<div class='meta'>13⭐ 5💬 impact=38 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://twitter.com/i/status/2103026209361719406' target='_blank'>GPT-6 Sol is like GPT-5.6 Terra, GPT-6 Luna is like GPT-5.6 Asteroid</a>
+<div class='desc'></div>
+<div class='meta'>18⭐ 1💬 impact=23 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://eval.raycaster.ai/benchmarks/biopharma-bench/' target='_blank'>DeepSeek beats GPT-6 Sol in autonomous drug development</a>
+<div class='desc'></div>
+<div class='meta'>4⭐ 1💬 impact=9 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://jadidbourbaki.github.io/blog/prompt-lookup-llama-cpp/' target='_blank'>42x faster prompt lookup drafting in llama.cpp</a>
+<div class='desc'></div>
+<div class='meta'>4⭐ 0💬 impact=4 </div></div>
+</div></body></html>

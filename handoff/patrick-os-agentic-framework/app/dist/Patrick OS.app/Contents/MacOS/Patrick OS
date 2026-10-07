@@ -1,0 +1,5 @@
+#!/bin/bash
+# Patrick OS launcher — runs when the user double-clicks Patrick OS.app.
+# Forwards to the .command launcher so the user sees live logs.
+DIR="$(cd "$(dirname "$0")" && pwd)"
+exec bash "$DIR/Patrick OS.command"

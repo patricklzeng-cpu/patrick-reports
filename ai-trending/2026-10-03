@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>AI Trending · 2026-10-03</title>
+<style>body{font-family:-apple-system,"PingFang SC",sans-serif;background:#0d1117;color:#e6edf3;padding:24px;max-width:980px;margin:0 auto;}
+h1{font-size:22px;margin-bottom:6px;}.sub{color:#8b949e;font-size:12px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:15px;}
+.src{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#21262d;color:#58a6ff;font-weight:700;margin-bottom:5px;}
+a{color:#58a6ff;text-decoration:none;font-weight:600;font-size:14px;}
+a:hover{text-decoration:underline;}.desc{color:#8b949e;font-size:12px;margin-top:4px;line-height:1.55;}.meta{color:#8b949e;font-size:11px;margin-top:6px;font-family:Menlo,monospace;}
+.nav{margin-top:18px;}.b{font-size:18px;margin:30px 0 12px;color:#58a6ff;}</style></head><body>
+<h1>🔥 AI Trending · 2026-10-03</h1><div class="sub">生成时间 2026-10-03T00:42:04.027399Z · 共 59 items · 来源 3 · envelope_version=1 · v2 (search_lib refactor 2026-07-06)</div>
+<div class='nav'><b>59</b> items · github=18 · hackernews=21 · arxiv=20</div>
+<div class='b'>github (18)</div><div class='grid'>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/affaan-m/ECC' target='_blank'>affaan-m/ECC</a>
+<div class='desc'>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</div>
+<div class='meta'>271336⭐ 0💬 impact=2297886 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/huggingface/transformers' target='_blank'>huggingface/transformers</a>
+<div class='desc'>🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. </div>
+<div class='meta'>166905⭐ 0💬 impact=1903905 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langgenius/dify' target='_blank'>langgenius/dify</a>
+<div class='desc'>Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without reb</div>
+<div class='meta'>157731⭐ 0💬 impact=1402181 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langchain-ai/langchain' target='_blank'>langchain-ai/langchain</a>
+<div class='desc'>The agent engineering platform.</div>
+<div class='meta'>147389⭐ 0💬 impact=1381689 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/open-webui/open-webui' target='_blank'>open-webui/open-webui</a>
+<div class='desc'>User-friendly AI Interface (Supports Ollama, OpenAI API, ...)</div>
+<div class='meta'>153813⭐ 0💬 impact=1278063 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/f/prompts.chat' target='_blank'>f/prompts.chat</a>
+<div class='desc'>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.</div>
+<div class='meta'>171873⭐ 0💬 impact=1272773 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/ollama/ollama' target='_blank'>ollama/ollama</a>
+<div class='desc'>Get up and running with Kimi, GLM, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</div>
+<div class='meta'>182067⭐ 0💬 impact=1086317 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/Graphify-Labs/graphify' target='_blank'>Graphify-Labs/graphify</a>
+<div class='desc'>Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, e</div>
+<div class='meta'>123339⭐ 0💬 impact=717689 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//mattpocock/skills' target='_blank'>mattpocock/skills</a>
+<div class='desc'>Skills for Real Engineers. Straight from my .agents directory.</div>
+<div class='meta'>274704⭐ 0💬 impact=275204 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//DietrichGebert/ponytail' target='_blank'>DietrichGebert/ponytail</a>
+<div class='desc'>Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.</div>
+<div class='meta'>151800⭐ 0💬 impact=152300 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//Panniantong/Agent-Reach' target='_blank'>Panniantong/Agent-Reach</a>
+<div class='desc'>Give your AI agent eyes to see the entire internet. Read &amp;amp; search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.</div>
+<div class='meta'>88625⭐ 0💬 impact=89125 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//ComposioHQ/awesome-claude-skills' target='_blank'>ComposioHQ/awesome-claude-skills</a>
+<div class='desc'>A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows</div>
+<div class='meta'>76370⭐ 0💬 impact=76870 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//PostHog/posthog' target='_blank'>PostHog/posthog</a>
+<div class='desc'>🦔 PostHog is the leading platform for building self-driving products. Our developer tools – AI observability, analytics, session replay, flags, experiments, error tracking, logs, and more – capture al</div>
+<div class='meta'>40112⭐ 0💬 impact=40612 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//NVIDIA/SkillSpector' target='_blank'>NVIDIA/SkillSpector</a>
+<div class='desc'>Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and supply-chain risks in Claude Code, Codex, and MCP skills befo</div>
+<div class='meta'>19113⭐ 0💬 impact=19613 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//NVIDIA/OpenShell' target='_blank'>NVIDIA/OpenShell</a>
+<div class='desc'>OpenShell is the safe, private runtime for autonomous AI agents.</div>
+<div class='meta'>14431⭐ 0💬 impact=14931 </div></div>
+</div>
+<div class='b'>hackernews (21)</div><div class='grid'>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5' target='_blank'>Prompting Claude Opus 5.5</a>
+<div class='desc'></div>
+<div class='meta'>207⭐ 225💬 impact=1332 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.cnbc.com/2026/09/30/ftc-ai-probe-openai-anthropic.html' target='_blank'>FTC is investigating OpenAI, Anthropic and other AI companies over product risks</a>
+<div class='desc'></div>
+<div class='meta'>207⭐ 159💬 impact=1002 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/magnitudedev/magnitude' target='_blank'>Launch HN: Magnitude (YC S25) – Self-optimizing inference engine for agents</a>
+<div class='desc'></div>
+<div class='meta'>194⭐ 97💬 impact=679 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.theguardian.com/technology/2026/sep/27/openai-halts-training-of-latest-models-as-reports-mount-of-ai-agents-going-rogue' target='_blank'>OpenAI halts training of latest models as reports mount of AI agents going rogue</a>
+<div class='desc'></div>
+<div class='meta'>59⭐ 118💬 impact=649 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.nytimes.com/2026/09/28/technology/openai-astra-safety.html' target='_blank'>OpenAI Says It Will Not Release Newest A.I. Model Over Safety Concerns</a>
+<div class='desc'></div>
+<div class='meta'>62⭐ 100💬 impact=562 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://swarmcha.se/posts/openai-unctad' target='_blank'>OpenAI agents tried to bruteforce a UN website&#x27;s API fields</a>
+<div class='desc'></div>
+<div class='meta'>85⭐ 87💬 impact=520 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://agent-wow.sh/gpt-6-astra-plays-world-of-warcraft-for-the-first-time-with-agent-wow/' target='_blank'>GPT-6 Astra plays World of Warcraft for the first time with agent-wow</a>
+<div class='desc'></div>
+<div class='meta'>70⭐ 55💬 impact=345 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://news.ycombinator.com/item?id=49861047' target='_blank'>OpenAI Codex agents go rogue and consumes USD 78,000 without authorization</a>
+<div class='desc'></div>
+<div class='meta'>82⭐ 36💬 impact=262 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://jadidbourbaki.github.io/blog/prompt-lookup-llama-cpp/' target='_blank'>Faster prompt lookup drafting in llama.cpp</a>
+<div class='desc'></div>
+<div class='meta'>89⭐ 12💬 impact=149 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.reuters.com/business/ftc-opens-probe-into-ai-giants-including-anthropic-openai-new-york-post-reports-2026-09-30/' target='_blank'>FTC opens probe into AI giants including Anthropic and OpenAI</a>
+<div class='desc'></div>
+<div class='meta'>36⭐ 2💬 impact=46 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://thezvi.substack.com/p/claude-opus-55-should-raise-your' target='_blank'>Claude Opus 5.5 Should Raise Your Ambitions</a>
+<div class='desc'></div>
+<div class='meta'>10⭐ 5💬 impact=35 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.axios.com/2026/09/28/ai-domyn-uljan-sharka-openai-anthropic-safety-lying' target='_blank'>Domyn&#x27;s CEO says OpenAI, Anthropic are lying about safety</a>
+<div class='desc'></div>
+<div class='meta'>14⭐ 1💬 impact=19 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://runtimewire.com/article/wsj-reports-openai-scrapped-gpt-6-1-astra-over-safety-concerns' target='_blank'>WSJ reports OpenAI scrapped GPT-6.1 Astra over safety concerns</a>
+<div class='desc'></div>
+<div class='meta'>3⭐ 3💬 impact=18 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://claudevcodex.com/' target='_blank'>Show HN: A never-ending chess match between Claude and Codex</a>
+<div class='desc'></div>
+<div class='meta'>6⭐ 1💬 impact=11 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.llamaindex.ai/blog/introducing-extract-v2-5' target='_blank'>Extract v2.5: Rebuilding extraction agents on LlamaParse</a>
+<div class='desc'></div>
+<div class='meta'>5⭐ 0💬 impact=5 </div></div>
+</div>
+<div class='b'>arxiv (20)</div><div class='grid'>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02207v1' target='_blank'>One Basis to Animate Them All: Gaussian Blendshape Distillation for Real-Time Av</a>
+<div class='desc'>3D Gaussian avatars support fast rendering, however, their real-time animation is often challenged by the costly neural inference. We address this bottleneck and show that the animation of pretrained </div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02206v1' target='_blank'>KaliBench: A Fine-Grained Benchmark for Cybersecurity Tool Use on Kali Linux wit</a>
+<div class='desc'>LLMs are increasingly applied to cybersecurity workflows, where they are expected to translate analysts&#x27; intent into tool invocations. However, existing evaluations focus on knowledge-based asses</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02204v1' target='_blank'>Reconstruct, Practice, Go Real: Guided Self-Improvement for Embodied Agents</a>
+<div class='desc'>Building reliable robot capabilities across diverse tasks requires substantial human effort to develop and maintain skills, design rewards, and integrate perception with control. We present Reconstruc</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02202v1' target='_blank'>ScholarCatalyst: A Benchmark for Retrieving Papers That Inspire New Research</a>
+<div class='desc'>What makes great scientists great? Even as AI systems start to make progress on open problems, scientists remain far ahead of them at sensing which prior idea, buried in an ever-growing archive of res</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02201v1' target='_blank'>SILSA: Sliding-Window Slice Latents for Topology-Preserving High-Resolution 3D G</a>
+<div class='desc'>High-resolution 3D generation increasingly relies on voxel latents and multi-stage pipelines that first predict active structure and then synthesize local geometry. While effective, this design fragme</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02200v1' target='_blank'>VISTA: A Visual Harness for Reasoning in an Interactive World</a>
+<div class='desc'>We show that multimodal models possess strong reasoning abilities and that an appropriate harness can unlock their potential to solve tasks across diverse interactive environments. We introduce VISTA,</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02198v1' target='_blank'>FERPO: Forward Entropy-Regularized Policy Optimization</a>
+<div class='desc'>Several state-of-the-art methods for online reinforcement learning in continuous control improve policies using action gradients of a learned critic. However, critics are typically trained to predict </div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02193v1' target='_blank'>Hierarchical Continuous Diffusion Language Models</a>
+<div class='desc'>Discrete diffusion language models offer a compelling alternative to autoregressive generation for tasks demanding bidirectional reasoning and global constraint satisfaction. Yet they share a structur</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02188v1' target='_blank'>DMAD: Distribution Matching as Adversarial Distillation for Fast Visual Generati</a>
+<div class='desc'>Distribution Matching Distillation (DMD) trains a few-step student from the difference between separately estimated target and student scores, so it must keep an auxiliary diffusion model fitted to th</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02186v1' target='_blank'>Higher-Order Molecular Grammars for Generative and Foundation Models in Chemistr</a>
+<div class='desc'>Molecular learning models are strongly shaped by their underlying representations. Yet standard sequential and graph formalisms struggle to explicitly encode higher-order topology, such as ring system</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02182v1' target='_blank'>SoftServe: A Scalable Quasi-Newton Method for Deep Learning</a>
+<div class='desc'>Quasi-Newton (QN) methods have long been among the most effective methods for large-scale unconstrained convex optimization. Two obstacles have limited their use in deep learning: non-convexity and en</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02180v1' target='_blank'>Generative Cinematographer: Composing Camera and Object Motion in 3D</a>
+<div class='desc'>Current controllable video generation systems often rely on 2D motion trajectories or sparse drag signals for object motion. These controls are ambiguous because the same 2D trajectory can correspond </div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02170v1' target='_blank'>Watch, Infer, Coordinate: Inferring Robot Partner Constraints for Zero-Shot Coor</a>
+<div class='desc'>Robots operating in the physical world will increasingly need to coordinate with other robots, particularly in manipulation tasks where an object may be too large or heavy for a single robot to carry </div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02161v1' target='_blank'>DuoMind: Enabling Distributed Multi-Robot Coordination with Semantic Communicati</a>
+<div class='desc'>Vision-language models (VLMs) and vision-language-action models (VLAs) have recently driven rapid progress in general-purpose robots, yet most progress has focused on single-robot settings. Extending </div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2610.02150v1' target='_blank'>From Knowledge Access to Source Learning: Developing Source-Specific Competence</a>
+<div class='desc'>Large language model (LLM) agents increasingly rely on persistent external sources to solve sequences of knowledge-intensive tasks. Existing methods improve how source content is accessed and organize</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+</div></body></html>

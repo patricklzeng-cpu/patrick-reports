@@ -1,0 +1,1810 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="从9岁出发，面向中国孩子的国际数学竞赛与奥林匹克能力成长系统：官方路径、阶段地图、12周计划、家庭训练协议与权威资源。">
+  <title>Mathcraft 9｜数学奥林匹克远征系统</title>
+  <style>
+    :root {
+      --bg: #071018;
+      --bg-deep: #04090f;
+      --panel: #0d1923;
+      --panel-2: #112330;
+      --panel-3: #172d3a;
+      --paper: #f2ead9;
+      --ink: #10202b;
+      --text: #f5f0e6;
+      --muted: #a8b5b9;
+      --faint: #71858c;
+      --line: rgba(237, 240, 224, .14);
+      --line-strong: rgba(237, 240, 224, .28);
+      --gold: #f6c85f;
+      --coral: #ff745f;
+      --mint: #5bd6c0;
+      --violet: #a592ff;
+      --blue: #66b7ff;
+      --green: #8bd17c;
+      --red: #ff796f;
+      --shadow: 0 28px 80px rgba(0, 0, 0, .34);
+      --radius: 24px;
+      --content: 1240px;
+      --progress: 0deg;
+    }
+
+    html[data-theme="light"] {
+      --bg: #eee7d8;
+      --bg-deep: #e5dccb;
+      --panel: #fbf7ee;
+      --panel-2: #f0e8d9;
+      --panel-3: #e8decd;
+      --paper: #10202b;
+      --ink: #f6f0e4;
+      --text: #12232d;
+      --muted: #5f6f72;
+      --faint: #7f8b8c;
+      --line: rgba(16, 32, 43, .13);
+      --line-strong: rgba(16, 32, 43, .24);
+      --shadow: 0 24px 66px rgba(65, 51, 35, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% -4%, rgba(91, 214, 192, .12), transparent 30rem),
+        radial-gradient(circle at 93% 6%, rgba(165, 146, 255, .11), transparent 29rem),
+        linear-gradient(180deg, var(--bg), var(--bg-deep));
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { color: #071018; background: var(--gold); }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    img { max-width: 100%; }
+
+    .reading-progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 1000;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--coral), var(--gold), var(--mint));
+      box-shadow: 0 0 14px rgba(246, 200, 95, .55);
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .18;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18) 0 .6px, transparent .8px),
+        radial-gradient(circle at 75% 60%, rgba(255,255,255,.12) 0 .5px, transparent .75px);
+      background-size: 9px 9px, 13px 13px;
+    }
+
+    .shell {
+      width: min(calc(100% - 36px), var(--content));
+      margin: 0 auto;
+    }
+
+    .topbar-wrap {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      padding-top: 12px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 58px;
+      padding: 8px 10px 8px 17px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--panel) 84%, transparent);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, .18);
+      backdrop-filter: blur(18px) saturate(135%);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: max-content;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: -.025em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      color: #071018;
+      border-radius: 11px;
+      background: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 20px;
+      transform: rotate(-4deg);
+      box-shadow: 0 7px 18px rgba(246, 200, 95, .2);
+    }
+
+    .brand small {
+      display: block;
+      margin-top: -3px;
+      color: var(--faint);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav a {
+      padding: 8px 10px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--text);
+      background: var(--panel-3);
+    }
+
+    .top-actions { display: flex; align-items: center; gap: 7px; }
+    .icon-btn,
+    .btn,
+    .choice,
+    .hint-btn,
+    .week-check {
+      appearance: none;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .icon-btn {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      color: var(--text);
+      background: var(--panel-2);
+    }
+
+    .icon-btn:hover,
+    .btn:hover,
+    .choice:hover,
+    .hint-btn:hover { transform: translateY(-2px); border-color: var(--line-strong); }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(340px, .8fr);
+      grid-template-areas:
+        "copy mission"
+        "stats stats";
+      gap: 28px;
+      min-height: auto;
+      align-items: center;
+      padding: 110px 0 84px;
+    }
+
+    .hero-copy { position: relative; z-index: 2; grid-area: copy; }
+    .kicker,
+    .section-kicker,
+    .mono-label {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 11px;
+      color: var(--mint);
+      border: 1px solid rgba(91, 214, 192, .28);
+      border-radius: 999px;
+      background: rgba(91, 214, 192, .07);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 0 5px rgba(91, 214, 192, .1);
+      animation: pulse 2.2s ease infinite;
+    }
+
+    @keyframes pulse {
+      50% { box-shadow: 0 0 0 10px rgba(91, 214, 192, 0); }
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 23px 0 24px;
+      font-size: clamp(54px, 7.6vw, 104px);
+      line-height: .91;
+      letter-spacing: -.072em;
+    }
+
+    h1 .soft { color: var(--muted); }
+    h1 .gold {
+      color: var(--gold);
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -.065em;
+    }
+
+    .hero-lead {
+      max-width: 700px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(17px, 1.8vw, 21px);
+    }
+
+    .hero-lead strong { color: var(--text); }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 14px;
+      color: var(--text);
+      background: var(--panel-2);
+      font-size: 13px;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .btn.primary {
+      color: #071018;
+      border-color: var(--gold);
+      background: var(--gold);
+      box-shadow: 0 13px 30px rgba(246, 200, 95, .2);
+    }
+
+    .btn.ghost { background: transparent; }
+    .btn.small { min-height: 40px; padding: 0 13px; font-size: 11px; }
+
+    .hero-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      max-width: 650px;
+      margin-top: 22px;
+      color: var(--faint);
+      font-size: 12px;
+    }
+
+    .hero-note b { color: var(--coral); }
+
+    .mission-card {
+      position: relative;
+      grid-area: mission;
+      overflow: hidden;
+      min-height: 580px;
+      padding: 24px;
+      border: 1px solid var(--line-strong);
+      border-radius: 32px;
+      background:
+        linear-gradient(145deg, rgba(91, 214, 192, .08), transparent 44%),
+        linear-gradient(330deg, rgba(165, 146, 255, .09), transparent 45%),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .mission-card::before {
+      content: "9 → ∞";
+      position: absolute;
+      right: -5px;
+      top: -28px;
+      color: color-mix(in srgb, var(--text) 4%, transparent);
+      font: 900 118px/1 ui-monospace, monospace;
+      letter-spacing: -.1em;
+      transform: rotate(7deg);
+    }
+
+    .mission-head {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mission-id { color: var(--gold); font-size: 10px; }
+    .mission-status { color: var(--mint); font-size: 10px; }
+
+    .orbit {
+      position: relative;
+      display: grid;
+      place-items: center;
+      height: 312px;
+      margin-top: 9px;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+
+    .orbit-ring.r1 { width: 90px; height: 90px; border-color: rgba(246, 200, 95, .42); }
+    .orbit-ring.r2 { width: 165px; height: 165px; border-style: dashed; animation: spin 28s linear infinite; }
+    .orbit-ring.r3 { width: 250px; height: 250px; animation: spinBack 38s linear infinite; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spinBack { to { transform: rotate(-360deg); } }
+
+    .orbit-core {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      color: #071018;
+      background: var(--gold);
+      box-shadow: 0 0 50px rgba(246, 200, 95, .27);
+      font: 900 20px/1 ui-monospace, monospace;
+    }
+
+    .planet {
+      position: absolute;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      min-width: 44px;
+      height: 28px;
+      padding: 0 8px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--panel-2);
+      box-shadow: 0 7px 18px rgba(0, 0, 0, .22);
+      font: 800 9px/1 ui-monospace, monospace;
+    }
+
+    .planet.p1 { transform: translate(0, -82px); color: var(--mint); }
+    .planet.p2 { transform: translate(105px, 39px); color: var(--violet); }
+    .planet.p3 { transform: translate(-105px, 56px); color: var(--coral); }
+    .planet.p4 { transform: translate(0, 132px); color: var(--blue); }
+
+    .mission-route { display: grid; gap: 9px; }
+    .route-row {
+      display: grid;
+      grid-template-columns: 36px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: color-mix(in srgb, var(--panel-2) 65%, transparent);
+    }
+
+    .route-no {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      color: var(--faint);
+      background: var(--panel-3);
+      font: 800 10px/1 ui-monospace, monospace;
+    }
+
+    .route-row.current .route-no { color: #071018; background: var(--mint); }
+    .route-title { font-size: 12px; font-weight: 850; }
+    .route-sub { color: var(--faint); font-size: 9px; }
+    .route-time { color: var(--muted); font: 800 9px/1 ui-monospace, monospace; }
+
+    .hero-stats {
+      position: relative;
+      grid-area: stats;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      margin-top: 2px;
+    }
+
+    .hero-stat {
+      min-height: 105px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--panel) 70%, transparent);
+    }
+
+    .hero-stat b {
+      display: block;
+      color: var(--gold);
+      font: 800 clamp(23px, 3vw, 34px)/1 ui-monospace, monospace;
+      letter-spacing: -.06em;
+    }
+
+    .hero-stat span { display: block; margin-top: 9px; color: var(--muted); font-size: 10px; }
+
+    main { overflow: hidden; }
+    section {
+      position: relative;
+      padding: 106px 0;
+      scroll-margin-top: 88px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(300px, .45fr);
+      gap: 42px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .section-kicker { color: var(--mint); font-size: 10px; font-weight: 800; }
+    h2 {
+      max-width: 800px;
+      margin: 12px 0 0;
+      font-size: clamp(38px, 5.3vw, 70px);
+      line-height: 1.01;
+      letter-spacing: -.055em;
+    }
+
+    .section-desc { margin: 0; color: var(--muted); font-size: 14px; }
+    .section-index {
+      position: absolute;
+      top: 62px;
+      right: max(18px, calc((100vw - var(--content)) / 2));
+      color: color-mix(in srgb, var(--text) 5%, transparent);
+      font: 900 clamp(90px, 13vw, 170px)/1 ui-monospace, monospace;
+      letter-spacing: -.1em;
+      pointer-events: none;
+    }
+
+    .truth-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr .85fr;
+      gap: 14px;
+    }
+
+    .truth-card,
+    .info-card,
+    .stage-card,
+    .metric-card,
+    .resource-card,
+    .parent-card,
+    .lab-card,
+    .planner-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 18px 58px rgba(0, 0, 0, .12);
+    }
+
+    .truth-card { min-height: 320px; padding: 26px; }
+    .truth-card.featured {
+      color: var(--ink);
+      border-color: transparent;
+      background: var(--paper);
+      transform: rotate(-.55deg);
+    }
+
+    .truth-card .card-no { color: var(--faint); font: 800 10px/1 ui-monospace, monospace; }
+    .truth-card.featured .card-no { color: rgba(16, 32, 43, .5); }
+    .truth-card h3 { margin: 52px 0 13px; font-size: 27px; line-height: 1.06; letter-spacing: -.04em; }
+    .truth-card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .truth-card.featured p { color: rgba(16, 32, 43, .68); }
+    .truth-card .big-word {
+      display: block;
+      margin-top: 27px;
+      color: var(--gold);
+      font: 500 italic 42px/1 Georgia, serif;
+    }
+
+    .truth-card.featured .big-word { color: #d75f4d; }
+
+    .signal-strip {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin-top: 14px;
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 116, 95, .24);
+      border-radius: 17px;
+      background: rgba(255, 116, 95, .07);
+    }
+
+    .signal-strip .signal { color: var(--coral); font: 900 11px/1 ui-monospace, monospace; }
+    .signal-strip p { margin: 0; color: var(--muted); font-size: 12px; }
+    .signal-strip b { color: var(--text); }
+    .signal-strip .date { color: var(--faint); font: 700 9px/1 ui-monospace, monospace; }
+
+    .ladder {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .ladder::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 37px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--mint), var(--gold), var(--coral));
+      opacity: .48;
+    }
+
+    .ladder-step {
+      position: relative;
+      z-index: 1;
+      min-height: 245px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 21px;
+      background: var(--panel);
+    }
+
+    .ladder-dot {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      margin-bottom: 43px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      color: var(--mint);
+      background: var(--panel-2);
+      font: 900 10px/1 ui-monospace, monospace;
+    }
+
+    .ladder-step:last-child .ladder-dot { color: #071018; border-color: var(--gold); background: var(--gold); }
+    .ladder-step h3 { margin: 0 0 7px; font-size: 16px; line-height: 1.15; letter-spacing: -.025em; }
+    .ladder-step p { margin: 0; color: var(--muted); font-size: 11px; }
+    .ladder-step .gate {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 5px 7px;
+      border-radius: 6px;
+      color: var(--faint);
+      background: var(--panel-3);
+      font: 700 8px/1 ui-monospace, monospace;
+      letter-spacing: .05em;
+    }
+
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .info-card { padding: 24px; }
+    .track-tag {
+      display: inline-flex;
+      padding: 6px 8px;
+      border-radius: 7px;
+      color: #071018;
+      background: var(--mint);
+      font: 900 8px/1 ui-monospace, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .track-grid .info-card:nth-child(2) .track-tag { background: var(--violet); }
+    .track-grid .info-card:nth-child(3) .track-tag { background: var(--gold); }
+    .info-card h3 { margin: 20px 0 8px; font-size: 22px; letter-spacing: -.035em; }
+    .info-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .info-card ul { display: grid; gap: 9px; margin: 20px 0 0; padding: 0; list-style: none; }
+    .info-card li { display: flex; gap: 8px; color: var(--muted); font-size: 11px; }
+    .info-card li::before { content: "↳"; color: var(--mint); }
+    .info-card .warning { display: block; margin-top: 18px; color: var(--coral); font-size: 10px; font-weight: 700; }
+
+    .matrix-wrap {
+      overflow-x: auto;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+    }
+
+    table { width: 100%; border-collapse: collapse; min-width: 780px; }
+    th, td { padding: 17px 18px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { color: var(--faint); font: 800 9px/1.2 ui-monospace, monospace; letter-spacing: .09em; text-transform: uppercase; }
+    td { color: var(--muted); font-size: 11px; vertical-align: top; }
+    td strong { display: block; margin-bottom: 3px; color: var(--text); font-size: 13px; }
+    tr:last-child td { border-bottom: 0; }
+    .status-pill { display: inline-flex; padding: 5px 8px; border-radius: 999px; font: 800 8px/1 ui-monospace, monospace; }
+    .status-pill.green { color: var(--mint); background: rgba(91, 214, 192, .1); }
+    .status-pill.yellow { color: var(--gold); background: rgba(246, 200, 95, .1); }
+    .status-pill.red { color: var(--coral); background: rgba(255, 116, 95, .1); }
+
+    .stage-list { display: grid; gap: 12px; }
+    .stage-card {
+      display: grid;
+      grid-template-columns: 155px 1.1fr 1fr 180px;
+      gap: 24px;
+      align-items: start;
+      padding: 25px;
+    }
+
+    .stage-age { color: var(--gold); font: 900 35px/1 ui-monospace, monospace; letter-spacing: -.08em; }
+    .stage-age span { display: block; margin-top: 9px; color: var(--faint); font: 700 9px/1.4 ui-monospace, monospace; letter-spacing: .05em; }
+    .stage-card h3 { margin: 0 0 8px; font-size: 20px; letter-spacing: -.03em; }
+    .stage-card p { margin: 0; color: var(--muted); font-size: 11px; }
+    .stage-card ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    .stage-card li { color: var(--muted); font-size: 10px; }
+    .stage-card li::before { content: "+ "; color: var(--mint); font-weight: 900; }
+    .promotion { padding: 14px; border-radius: 15px; background: var(--panel-2); }
+    .promotion b { display: block; margin-bottom: 8px; color: var(--mint); font: 800 8px/1 ui-monospace, monospace; letter-spacing: .08em; }
+    .promotion span { color: var(--muted); font-size: 10px; }
+    .stage-card:first-child { border-color: rgba(91, 214, 192, .38); }
+    .stage-card:first-child .stage-age { color: var(--mint); }
+
+    .os-grid {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .thinking-loop {
+      position: relative;
+      min-height: 600px;
+      padding: 30px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--panel);
+    }
+
+    .thinking-loop h3 { margin: 0; font-size: 27px; letter-spacing: -.04em; }
+    .thinking-loop > p { max-width: 430px; margin: 9px 0 0; color: var(--muted); font-size: 12px; }
+    .loop-viz { position: relative; display: grid; place-items: center; height: 420px; margin-top: 18px; }
+    .loop-circle { position: absolute; border: 1px solid var(--line); border-radius: 50%; }
+    .loop-circle.c1 { width: 305px; height: 305px; }
+    .loop-circle.c2 { width: 220px; height: 220px; border-style: dashed; }
+    .loop-center {
+      display: grid;
+      place-items: center;
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      color: #071018;
+      background: var(--gold);
+      text-align: center;
+      font: 900 12px/1.3 ui-monospace, monospace;
+      box-shadow: 0 0 70px rgba(246, 200, 95, .18);
+    }
+
+    .loop-node {
+      position: absolute;
+      min-width: 90px;
+      padding: 10px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: var(--panel-2);
+      text-align: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .loop-node small { display: block; margin-top: 3px; color: var(--faint); font-size: 8px; font-weight: 600; }
+    .loop-node.n1 { transform: translate(0, -178px); color: var(--mint); }
+    .loop-node.n2 { transform: translate(166px, -55px); color: var(--blue); }
+    .loop-node.n3 { transform: translate(104px, 150px); color: var(--violet); }
+    .loop-node.n4 { transform: translate(-106px, 150px); color: var(--coral); }
+    .loop-node.n5 { transform: translate(-166px, -55px); color: var(--gold); }
+
+    .capability-stack { display: grid; gap: 10px; }
+    .capability {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 82px 1fr auto;
+      gap: 18px;
+      align-items: center;
+      min-height: 112px;
+      padding: 19px 21px;
+      border: 1px solid var(--line);
+      border-radius: 21px;
+      background: var(--panel);
+    }
+
+    .capability::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: var(--fill, 50%);
+      opacity: .055;
+      background: var(--tone, var(--mint));
+      pointer-events: none;
+    }
+
+    .cap-no { color: var(--tone, var(--mint)); font: 900 25px/1 ui-monospace, monospace; }
+    .capability h3 { margin: 0 0 4px; font-size: 16px; }
+    .capability p { margin: 0; color: var(--muted); font-size: 10px; }
+    .cap-check { color: var(--faint); font: 800 9px/1 ui-monospace, monospace; text-align: right; }
+    .cap-check b { display: block; margin-bottom: 5px; color: var(--text); font-size: 12px; }
+
+    .planner-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 15px;
+      align-items: start;
+    }
+
+    .planner-card { padding: 25px; }
+    .planner-controls { position: sticky; top: 88px; }
+    .planner-card h3 { margin: 0 0 7px; font-size: 24px; letter-spacing: -.04em; }
+    .planner-card > p { margin: 0; color: var(--muted); font-size: 11px; }
+    .control-group { margin-top: 25px; }
+    .control-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: var(--muted); font-size: 10px; font-weight: 800; }
+    .control-label output { color: var(--gold); font: 900 12px/1 ui-monospace, monospace; }
+    .choice-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .choice {
+      min-height: 62px;
+      padding: 8px 6px;
+      border-radius: 12px;
+      color: var(--muted);
+      background: var(--panel-2);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .choice small { display: block; margin-top: 4px; color: var(--faint); font-size: 8px; font-weight: 600; }
+    .choice.active { color: #071018; border-color: var(--gold); background: var(--gold); }
+    .choice.active small { color: rgba(7, 16, 24, .65); }
+    input[type="range"] { width: 100%; accent-color: var(--gold); cursor: pointer; }
+
+    .plan-snapshot {
+      display: grid;
+      grid-template-columns: 94px 1fr;
+      gap: 13px;
+      align-items: center;
+      margin-top: 26px;
+      padding: 16px;
+      border-radius: 17px;
+      background: var(--panel-2);
+    }
+
+    .progress-orb {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      background: conic-gradient(var(--mint) var(--progress), var(--panel-3) 0);
+    }
+
+    .progress-orb::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: var(--panel-2); }
+    .progress-orb strong { position: relative; color: var(--text); font: 900 17px/1 ui-monospace, monospace; }
+    .snapshot-text b { display: block; font-size: 12px; }
+    .snapshot-text span { display: block; margin-top: 4px; color: var(--faint); font-size: 9px; }
+    .planner-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 18px; }
+
+    .plan-output { display: grid; gap: 14px; }
+    .week-rhythm {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--panel);
+    }
+
+    .day-card { padding: 14px; border-radius: 15px; background: var(--panel-2); }
+    .day-card b { display: block; color: var(--mint); font: 900 10px/1 ui-monospace, monospace; }
+    .day-card strong { display: block; margin-top: 11px; font-size: 12px; }
+    .day-card span { display: block; margin-top: 5px; color: var(--faint); font-size: 9px; }
+
+    .season-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 22px 22px 0 0;
+      background: var(--panel);
+    }
+
+    .season-head h3 { margin: 0; font-size: 20px; }
+    .season-head p { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
+    .season-code { color: var(--gold); font: 800 9px/1 ui-monospace, monospace; }
+    .week-list { display: grid; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 22px 22px; overflow: hidden; }
+    .week-row {
+      display: grid;
+      grid-template-columns: 60px 1.05fr 1fr 44px;
+      gap: 15px;
+      align-items: center;
+      min-height: 94px;
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .week-row:last-child { border-bottom: 0; }
+    .week-row.done { background: color-mix(in srgb, var(--mint) 5%, var(--panel)); }
+    .week-no { color: var(--faint); font: 900 11px/1 ui-monospace, monospace; }
+    .week-no b { display: block; margin-top: 7px; color: var(--gold); font-size: 18px; }
+    .week-focus strong { display: block; font-size: 13px; }
+    .week-focus span { display: block; margin-top: 4px; color: var(--muted); font-size: 9px; }
+    .week-mission { color: var(--muted); font-size: 10px; }
+    .week-mission b { color: var(--text); }
+    .week-check {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      color: var(--faint);
+      background: var(--panel-2);
+      font-size: 16px;
+    }
+
+    .week-check[aria-pressed="true"] { color: #071018; border-color: var(--mint); background: var(--mint); }
+    .pace-warning { display: none; margin-top: 12px; padding: 12px; border-radius: 12px; color: var(--coral); background: rgba(255, 116, 95, .08); font-size: 9px; }
+    .pace-warning.show { display: block; }
+
+    .lab-layout { display: grid; grid-template-columns: 1fr .72fr; gap: 15px; }
+    .lab-card { padding: 28px; }
+    .problem-tag { color: var(--mint); font: 800 9px/1 ui-monospace, monospace; letter-spacing: .08em; }
+    .problem-text { margin: 19px 0 0; font-size: clamp(25px, 3.3vw, 40px); line-height: 1.25; letter-spacing: -.045em; }
+    .problem-text em { color: var(--gold); font-family: Georgia, serif; }
+    .problem-ask { margin-top: 16px; color: var(--muted); font-size: 12px; }
+    .hint-stack { display: grid; gap: 8px; margin-top: 24px; }
+    .hint-btn {
+      width: 100%;
+      padding: 13px 15px;
+      border-radius: 13px;
+      color: var(--muted);
+      background: var(--panel-2);
+      text-align: left;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .hint-btn.revealed { color: var(--text); border-color: rgba(91, 214, 192, .28); background: rgba(91, 214, 192, .07); }
+    .hint-btn .hidden-copy { display: none; margin-top: 8px; color: var(--muted); font-weight: 500; }
+    .hint-btn.revealed .hidden-copy { display: block; }
+
+    .method-card {
+      display: grid;
+      gap: 10px;
+      height: 100%;
+      padding: 28px;
+      border-radius: var(--radius);
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .method-card h3 { margin: 0; font-size: 24px; letter-spacing: -.04em; }
+    .method-card p { margin: 0 0 9px; color: color-mix(in srgb, var(--ink) 68%, transparent); font-size: 11px; }
+    .pass-row { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; padding: 11px 0; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); }
+    .pass-row b { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; color: #071018; background: var(--gold); font: 900 9px/1 ui-monospace, monospace; }
+    .pass-row strong { display: block; font-size: 12px; }
+    .pass-row span { display: block; margin-top: 3px; color: color-mix(in srgb, var(--ink) 63%, transparent); font-size: 9px; }
+
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .metric-card { min-height: 228px; padding: 22px; }
+    .metric-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; color: #071018; background: var(--mint); font: 900 13px/1 ui-monospace, monospace; }
+    .metric-card:nth-child(2) .metric-icon { background: var(--gold); }
+    .metric-card:nth-child(3) .metric-icon { background: var(--violet); }
+    .metric-card:nth-child(4) .metric-icon { background: var(--coral); }
+    .metric-card h3 { margin: 31px 0 7px; font-size: 17px; }
+    .metric-card p { margin: 0; color: var(--muted); font-size: 10px; }
+    .metric-card .measure { display: block; margin-top: 15px; color: var(--faint); font: 700 8px/1.4 ui-monospace, monospace; }
+
+    .zone-bar {
+      display: grid;
+      grid-template-columns: 7fr 2fr 1fr;
+      gap: 4px;
+      margin-top: 14px;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+    }
+
+    .zone { min-height: 86px; padding: 15px; border-radius: 12px; color: #071018; }
+    .zone b { display: block; font: 900 24px/1 ui-monospace, monospace; }
+    .zone span { display: block; margin-top: 8px; font-size: 9px; font-weight: 750; }
+    .zone.z1 { background: var(--mint); }
+    .zone.z2 { background: var(--gold); }
+    .zone.z3 { background: var(--coral); }
+
+    .parent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .parent-card { padding: 25px; }
+    .parent-card .quote-mark { color: var(--gold); font: 500 47px/1 Georgia, serif; }
+    .parent-card h3 { margin: 18px 0 8px; font-size: 18px; }
+    .parent-card p { margin: 0; color: var(--muted); font-size: 11px; }
+    .say-this { margin-top: 20px; padding: 12px; border-radius: 12px; color: var(--text); background: var(--panel-2); font-size: 10px; }
+    .say-this b { color: var(--mint); }
+
+    .traffic-lights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+    .traffic { min-height: 130px; padding: 17px; border: 1px solid var(--line); border-radius: 17px; background: var(--panel); }
+    .traffic-dot { width: 11px; height: 11px; border-radius: 50%; margin-bottom: 17px; }
+    .traffic.green .traffic-dot { background: var(--green); box-shadow: 0 0 16px rgba(139, 209, 124, .5); }
+    .traffic.yellow .traffic-dot { background: var(--gold); box-shadow: 0 0 16px rgba(246, 200, 95, .5); }
+    .traffic.red .traffic-dot { background: var(--red); box-shadow: 0 0 16px rgba(255, 121, 111, .5); }
+    .traffic b { display: block; font-size: 12px; }
+    .traffic span { display: block; margin-top: 7px; color: var(--muted); font-size: 9px; }
+
+    .resource-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; }
+    .resource-card { position: relative; min-height: 255px; padding: 22px; color: inherit; text-decoration: none; transition: transform .2s ease, border-color .2s ease; }
+    .resource-card:hover { transform: translateY(-4px); border-color: var(--line-strong); }
+    .resource-card .source-type { color: var(--mint); font: 800 8px/1 ui-monospace, monospace; letter-spacing: .08em; }
+    .resource-card h3 { margin: 47px 0 8px; font-size: 18px; line-height: 1.15; }
+    .resource-card p { margin: 0; color: var(--muted); font-size: 10px; }
+    .resource-card .resource-use { position: absolute; left: 22px; right: 22px; bottom: 20px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--faint); font-size: 9px; }
+    .resource-card .arrow { position: absolute; top: 18px; right: 18px; color: var(--faint); font-size: 16px; }
+
+    .principles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .principle {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+    }
+
+    .principle b { display: block; color: var(--gold); font-size: 12px; }
+    .principle p { margin: 8px 0 0; color: var(--muted); font-size: 10px; }
+
+    .final-cta {
+      position: relative;
+      overflow: hidden;
+      margin: 50px 0 0;
+      padding: clamp(34px, 7vw, 76px);
+      border: 1px solid var(--line-strong);
+      border-radius: 34px;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    .final-cta::after {
+      content: "∴";
+      position: absolute;
+      right: 5%;
+      bottom: -35px;
+      color: color-mix(in srgb, var(--ink) 8%, transparent);
+      font: 900 190px/1 Georgia, serif;
+      transform: rotate(-8deg);
+    }
+
+    .final-cta h2 { position: relative; z-index: 1; max-width: 850px; margin: 0; }
+    .final-cta p { position: relative; z-index: 1; max-width: 680px; margin: 19px 0 0; color: color-mix(in srgb, var(--ink) 68%, transparent); font-size: 13px; }
+    .final-cta .btn { position: relative; z-index: 1; margin-top: 27px; color: var(--ink); border-color: color-mix(in srgb, var(--ink) 20%, transparent); background: transparent; }
+
+    .sources {
+      margin-top: 34px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .sources h3 { margin: 0 0 15px; font-size: 14px; }
+    .source-list { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 20px; counter-reset: refs; }
+    .source-list a {
+      color: var(--muted);
+      font-size: 9px;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .source-list a::before { counter-increment: refs; content: "[" counter(refs) "] "; color: var(--mint); font-family: ui-monospace, monospace; }
+    .source-list a:hover { color: var(--text); }
+    .source-note { margin: 17px 0 0; color: var(--faint); font-size: 9px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 35px 0 48px;
+      color: var(--faint);
+      font: 700 9px/1.6 ui-monospace, monospace;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1000;
+      max-width: 320px;
+      padding: 13px 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 13px;
+      color: var(--text);
+      background: var(--panel-2);
+      box-shadow: var(--shadow);
+      font-size: 11px;
+      opacity: 0;
+      transform: translateY(15px);
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1050px) {
+      .nav { display: none; }
+      .hero {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "copy"
+          "mission"
+          "stats";
+        min-height: auto;
+        padding-bottom: 76px;
+      }
+      .mission-card { min-height: 560px; }
+      .truth-grid { grid-template-columns: 1fr 1fr; }
+      .truth-card.featured { grid-column: 1 / -1; }
+      .ladder { grid-template-columns: repeat(3, 1fr); }
+      .ladder::before { display: none; }
+      .track-grid { grid-template-columns: 1fr; }
+      .stage-card { grid-template-columns: 130px 1fr 1fr; }
+      .promotion { grid-column: 2 / -1; }
+      .os-grid, .planner-layout, .lab-layout { grid-template-columns: 1fr; }
+      .planner-controls { position: static; }
+      .metrics-grid, .resource-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .shell { width: min(calc(100% - 22px), var(--content)); }
+      .topbar { padding-left: 11px; }
+      .brand small { display: none; }
+      .top-actions .print-top { display: none; }
+      .hero { padding-top: 76px; padding-bottom: 58px; }
+      h1 { font-size: clamp(49px, 15vw, 76px); }
+      .hero-lead { font-size: 16px; }
+      .mission-card { min-height: 560px; padding: 17px; }
+      .orbit { height: 300px; transform: scale(.88); }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
+      .hero-stat { min-height: 84px; }
+      section { padding: 78px 0; }
+      .section-head { grid-template-columns: 1fr; gap: 16px; }
+      .section-index { top: 35px; }
+      .truth-grid, .metrics-grid, .parent-grid, .resource-grid, .principles { grid-template-columns: 1fr; }
+      .truth-card.featured { grid-column: auto; }
+      .signal-strip { grid-template-columns: 1fr; gap: 7px; }
+      .ladder { grid-template-columns: 1fr; }
+      .ladder-step { min-height: auto; }
+      .ladder-dot { margin-bottom: 24px; }
+      .stage-card { grid-template-columns: 1fr; gap: 16px; }
+      .promotion { grid-column: auto; }
+      .thinking-loop { min-height: 580px; padding: 20px; }
+      .loop-viz { transform: scale(.75); margin-left: -40px; margin-right: -40px; }
+      .capability { grid-template-columns: 52px 1fr; }
+      .cap-check { grid-column: 2; text-align: left; }
+      .week-rhythm { grid-template-columns: 1fr 1fr; }
+      .week-row { grid-template-columns: 48px 1fr 40px; gap: 9px; }
+      .week-mission { grid-column: 2; }
+      .zone-bar, .traffic-lights { grid-template-columns: 1fr; }
+      .source-list { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+
+    @media print {
+      :root, html[data-theme="light"] {
+        --bg: #fff; --bg-deep: #fff; --panel: #fff; --panel-2: #f4f2ec; --panel-3: #ece8de;
+        --text: #111; --muted: #444; --faint: #666; --line: rgba(0,0,0,.16); --line-strong: rgba(0,0,0,.28);
+      }
+      .noise, .reading-progress, .topbar-wrap, .hero-actions, .hint-stack, .planner-actions, .toast { display: none !important; }
+      body { background: #fff; }
+      .hero { min-height: auto; padding: 40px 0 20px; grid-template-columns: 1fr; }
+      .mission-card { min-height: 480px; break-inside: avoid; }
+      .hero-stats { position: static; margin-top: 14px; }
+      section { padding: 42px 0; break-before: auto; }
+      .section-index { display: none; }
+      .planner-layout, .os-grid, .lab-layout { grid-template-columns: 1fr; }
+      .planner-controls { position: static; }
+      .truth-card, .stage-card, .week-row, .metric-card, .resource-card, .parent-card { break-inside: avoid; box-shadow: none; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <div class="topbar-wrap shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark">∑</span>
+        <span>MATHCRAFT 9<small>Olympiad Flight System</small></span>
+      </a>
+      <nav class="nav" aria-label="页面导航">
+        <a href="#truth">真相</a>
+        <a href="#route">赛道</a>
+        <a href="#roadmap">路线</a>
+        <a href="#system">能力</a>
+        <a href="#plan">首季</a>
+        <a href="#parents">家长</a>
+      </nav>
+      <div class="top-actions">
+        <button class="icon-btn print-top" id="printTop" type="button" aria-label="打印学习手册" title="打印学习手册">⌁</button>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">☼</button>
+      </div>
+    </header>
+  </div>
+
+  <main id="top">
+    <div class="shell">
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <span class="kicker"><span class="live-dot"></span> Age 9 · China · Mission ready</span>
+          <h1 id="heroTitle">不要更早刷题。<br><span class="soft">要更早学会</span><br><span class="gold">像数学家一样想。</span></h1>
+          <p class="hero-lead">
+            一套为中国孩子设计的 <strong>9→18 岁数学远征系统</strong>：从喜欢谜题、画图表达和讲清思路开始，逐步长出数论、几何、组合、代数与证明能力；把竞赛当作测量仪，而不是童年的方向盘。
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#plan">生成第一季计划 <span aria-hidden="true">↘</span></a>
+            <a class="btn ghost" href="#route">先看官方路径 <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-note"><b>重要：</b><span>这是“金牌能力”的训练路线，不是金牌承诺。孩子的热爱、成熟节奏、健康与长期选择永远拥有否决权。</span></div>
+        </div>
+
+        <aside class="mission-card" aria-label="成长轨道概览">
+          <div class="mission-head">
+            <span class="mission-id mono-label">MISSION / CN-09</span>
+            <span class="mission-status mono-label">● System online</span>
+          </div>
+          <div class="orbit" aria-hidden="true">
+            <span class="orbit-ring r3"></span>
+            <span class="orbit-ring r2"></span>
+            <span class="orbit-ring r1"></span>
+            <span class="orbit-core">THINK</span>
+            <span class="planet p1">数论</span>
+            <span class="planet p2">几何</span>
+            <span class="planet p3">组合</span>
+            <span class="planet p4">代数</span>
+          </div>
+          <div class="mission-route">
+            <div class="route-row current">
+              <span class="route-no">01</span><span><span class="route-title">点燃好奇</span><span class="route-sub">图形 · 游戏 · 说理</span></span><span class="route-time">9–10</span>
+            </div>
+            <div class="route-row">
+              <span class="route-no">02</span><span><span class="route-title">搭建工具</span><span class="route-sub">模型 · 策略 · 迁移</span></span><span class="route-time">10–12</span>
+            </div>
+            <div class="route-row">
+              <span class="route-no">03</span><span><span class="route-title">进入证明</span><span class="route-sub">严谨 · 反例 · 改题</span></span><span class="route-time">12–14</span>
+            </div>
+            <div class="route-row">
+              <span class="route-no">04</span><span><span class="route-title">挑战选拔</span><span class="route-sub">联赛 · CMO · 国家队</span></span><span class="route-time">14–18</span>
+            </div>
+          </div>
+        </aside>
+
+        <div class="hero-stats" aria-label="IMO关键数据">
+          <div class="hero-stat"><b>6</b><span>每个受邀国家/地区至多 6 名选手</span></div>
+          <div class="hero-stat"><b>2×3</b><span>两天，每天 3 题；每场 4.5 小时</span></div>
+          <div class="hero-stat"><b>42</b><span>满分；每题 7 分，重完整证明</span></div>
+          <div class="hero-stat"><b>≈1/12</b><span>金牌约占选手总数十二分之一</span></div>
+        </div>
+      </section>
+    </div>
+
+    <section id="truth">
+      <span class="section-index" aria-hidden="true">01</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">01 / THE HONEST START</span><h2>先把三个真相<br>放在桌面上。</h2></div>
+          <p class="section-desc">专业的路线，第一步不是加速，而是去掉误解。9 岁时最值得抢跑的不是高中知识，而是观察、表示、猜想、解释和复盘。</p>
+        </div>
+        <div class="truth-grid">
+          <article class="truth-card featured">
+            <span class="card-no">TRUTH / 01</span>
+            <h3>“全球最大”与“全球最高水平”不是同一场比赛。</h3>
+            <p>袋鼠数学以大众参与和趣味见长；IMO 是受邀国家队体系的顶峰。前者适合点火，后者检验多年积累。不要拿入口赛的奖牌，误当成国家队通行证。</p>
+            <span class="big-word">Scale ≠ Prestige</span>
+          </article>
+          <article class="truth-card">
+            <span class="card-no">TRUTH / 02</span>
+            <h3>IMO 没有个人报名入口。</h3>
+            <p>官方规则要求选手由本国数学奥林匹克或等效选拔体系产生；每队至多 6 人。对中国大陆学生，主航线是高中联赛 → CMO/冬令营 → 国家集训队 → 国家队。</p>
+            <span class="big-word">Selection</span>
+          </article>
+          <article class="truth-card">
+            <span class="card-no">TRUTH / 03</span>
+            <h3>9 岁的 KPI 不是名次。</h3>
+            <p>看孩子是否愿意多想五分钟、能否画图、能否说出为什么、隔周能否迁移。名次波动很大；可复用的思维习惯才会复利。</p>
+            <span class="big-word">Compounding</span>
+          </article>
+        </div>
+        <div class="signal-strip">
+          <span class="signal">NO SHORTCUT</span>
+          <p><b>任何宣称“某国际赛获奖即可直通 IMO / 国家队”的宣传都应核验。</b> 中国数学会也明确提醒辨别冒用其名义的竞赛与培训。</p>
+          <span class="date">VERIFIED · 2026.08</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="route">
+      <span class="section-index" aria-hidden="true">02</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">02 / COMPETITION MAP</span><h2>一条主航线，<br>两条辅助轨道。</h2></div>
+          <p class="section-desc">把赛事按“功能”而非广告热度分类：官方选拔负责通往 IMO；国际标尺负责测量；低龄入口负责保持好奇。</p>
+        </div>
+
+        <div class="ladder" aria-label="中国学生通往IMO的官方主航线">
+          <article class="ladder-step"><span class="ladder-dot">01</span><h3>全国高中数学联赛</h3><p>中国数学会主办；一试考校内知识的高阶方法，二试衔接平面几何、代数、数论、组合。</p><span class="gate">高中阶段官方入口</span></article>
+          <article class="ladder-step"><span class="ladder-dot">02</span><h3>省级赛区一等奖</h3><p>各赛区名额与当年规则为准；优秀选手进入全国决赛/冬令营候选范围。</p><span class="gate">年度规则会变化</span></article>
+          <article class="ladder-step"><span class="ladder-dot">03</span><h3>CMO · 冬令营</h3><p>全国中学生数学奥林匹克决赛。顶尖选手进入中国国家集训队。</p><span class="gate">完整证明 · 高强度</span></article>
+          <article class="ladder-step"><span class="ladder-dot">04</span><h3>国家集训队 / 选拔</h3><p>多轮训练与选拔，最终产生 6 名中国国家队队员；不存在商业机构“保送”。</p><span class="gate">国家体系内选拔</span></article>
+          <article class="ladder-step"><span class="ladder-dot">IMO</span><h3>国际数学奥林匹克</h3><p>受邀国家队顶峰：两天 6 题、总分 42。奖牌只属于现场表现，能力属于整个成长过程。</p><span class="gate">North Star</span></article>
+        </div>
+
+        <div class="track-grid">
+          <article class="info-card">
+            <span class="track-tag">ON-RAMP · 点火轨</span>
+            <h3>Math Kangaroo / 趣味挑战</h3>
+            <p>适合 9 岁体验：视觉、逻辑、模式、短题。AKSF 的宗旨就是广泛激发兴趣，而非国家选拔或国家间排名。</p>
+            <ul><li>一次只把它当“数学节日”</li><li>赛后挑 3 题画出第二种解法</li><li>不把低龄奖项转换成身份压力</li></ul>
+            <span class="warning">报名与中国区承办信息必须逐年核验。</span>
+          </article>
+          <article class="info-card">
+            <span class="track-tag">BENCHMARK · 国际标尺</span>
+            <h3>AMC / CEMC / UKMT 真题</h3>
+            <p>用成熟题目测量速度、准确率和策略广度。AMC 8 适用八年级及以下且未满 15.5 岁；但中国孩子能否正式参赛取决于当年授权考点与资格。</p>
+            <ul><li>9–11 岁先做选题，不做整卷排名</li><li>12 岁后用限时卷建立稳定性</li><li>美国 USA(J)MO 路线不等于中国选拔线</li></ul>
+            <span class="warning">无法正式参赛时，真题仍是很好的公开基准。</span>
+          </article>
+          <article class="info-card">
+            <span class="track-tag">SELECTION · 中国主航线</span>
+            <h3>联赛 → CMO → 国家队</h3>
+            <p>这是中国大陆学生通向 IMO 的唯一可信主线。9 岁不需要“预演集训队”，需要为未来的完整证明和四大领域打地基。</p>
+            <ul><li>小学：思维语言与丰富表征</li><li>初中：进入证明与专题系统</li><li>高中：视意愿进入官方选拔</li></ul>
+            <span class="warning">以中国数学会与各省级组织当年通知为准。</span>
+          </article>
+        </div>
+
+        <div class="matrix-wrap" role="region" aria-label="赛事功能比较表" tabindex="0">
+          <table>
+            <thead><tr><th>赛事 / 资源</th><th>真正用途</th><th>9岁怎么用</th><th>能否直通IMO</th><th>判断</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Math Kangaroo</strong>大众趣味竞赛</td><td>点燃兴趣、练视觉与逻辑短题</td><td>低压力参赛；赛后一题多解</td><td>不能</td><td><span class="status-pill green">推荐作入口</span></td></tr>
+              <tr><td><strong>NRICH / CEMC 题库</strong>公开学习资源</td><td>建立丰富问题经验与迁移</td><td>每周 1–2 道深做，不追数量</td><td>不能</td><td><span class="status-pill green">长期燃料</span></td></tr>
+              <tr><td><strong>AMC 8 → AMC 10/12 → AIME</strong>美国竞赛体系</td><td>国际基准；在美国体系内继续选拔</td><td>先作题库；资格与考点逐年查</td><td>对中国主线不能</td><td><span class="status-pill yellow">标尺而非通道</span></td></tr>
+              <tr><td><strong>全国高中数学联赛 → CMO</strong>中国数学会体系</td><td>中国国家集训队官方选拔</td><td>现在不抢跑；以能力里程碑倒推</td><td>是，仍需多轮选拔</td><td><span class="status-pill yellow">未来主航线</span></td></tr>
+              <tr><td><strong>IMO</strong>国际数学奥林匹克</td><td>国家队级个人竞赛顶峰</td><td>只做北极星，不做童年KPI</td><td>终点本身</td><td><span class="status-pill red">受邀国家队</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <span class="section-index" aria-hidden="true">03</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">03 / 9-YEAR FLIGHT PLAN</span><h2>不按年龄拔高，<br>按成熟度升级。</h2></div>
+          <p class="section-desc">以下年龄只是导航，不是截止线。晋级条件看连续 4–8 周的能力证据；如果孩子仍需大量提示，就停在当前阶段继续玩深。</p>
+        </div>
+        <div class="stage-list">
+          <article class="stage-card">
+            <div class="stage-age">9–10<span>STAGE 01 · IGNITE<br>建议 2–4 小时 / 周</span></div>
+            <div><h3>好奇引擎</h3><p>保护“我想知道为什么”。用积木、剪纸、棋盘、数轴和故事把抽象关系变成可见对象；把口头解释放在答案之前。</p></div>
+            <ul><li>数感、奇偶、因倍数直觉</li><li>列表、画图、倒推、分类</li><li>图形分割、对称、周长面积</li><li>每题至少一种可视化</li></ul>
+            <div class="promotion"><b>升级信号</b><span>能独立专注 30–45 分钟；能复述题意；能解释一个关键“为什么”；遇到难题仍愿意再试。</span></div>
+          </article>
+          <article class="stage-card">
+            <div class="stage-age">10–12<span>STAGE 02 · EXPLORE<br>建议 4–6 小时 / 周</span></div>
+            <div><h3>策略工坊</h3><p>从“会一道”转向“认出一类”。建立错因标签和策略卡：尝试小例、极端、倒推、分类讨论、不变量、构造。</p></div>
+            <ul><li>四大领域轮转，不偏科</li><li>开始做完整短卷与赛后重做</li><li>同题变条件、换数字、造反例</li><li>逐步搭建双语数学词汇</li></ul>
+            <div class="promotion"><b>升级信号</b><span>陌生题能主动选择表示法；一周后可无提示重做；能比较两种方法的优劣。</span></div>
+          </article>
+          <article class="stage-card">
+            <div class="stage-age">12–14<span>STAGE 03 · PROVE<br>建议 6–9 小时 / 周</span></div>
+            <div><h3>证明桥梁</h3><p>把“看起来对”写成“为什么必然对”。系统进入同余、组合计数、几何证明、代数变形；练定义、充分必要和反例。</p></div>
+            <ul><li>每周至少 2 份完整书面解答</li><li>口述 → 草图 → 证明 → 精简</li><li>混合卷与专题学习并行</li><li>逐渐适应 90–150 分钟专注</li></ul>
+            <div class="promotion"><b>升级信号</b><span>证明链条无关键跳步；能自查边界条件；对中档题形成稳定得分而非偶然灵感。</span></div>
+          </article>
+          <article class="stage-card">
+            <div class="stage-age">14–16<span>STAGE 04 · SELECT<br>建议 8–14 小时 / 周*</span></div>
+            <div><h3>选拔能力</h3><p>在孩子明确自驱的前提下进入联赛与 CMO 型训练：专题深挖、长时证明、模拟赛、阅卷标准和赛季化恢复。</p></div>
+            <ul><li>联赛一试稳定性 + 二试证明</li><li>四域短板季度轮换补强</li><li>赛后 48 小时结构化复盘</li><li>建立教练与同伴讨论环境</li></ul>
+            <div class="promotion"><b>升级信号</b><span>成绩曲线稳定上升；训练量不伤睡眠与学校生活；主动要求更难的问题，而非被家长推着走。</span></div>
+          </article>
+          <article class="stage-card">
+            <div class="stage-age">16–18<span>STAGE 05 · SUMMIT<br>个体化国家队级训练*</span></div>
+            <div><h3>巅峰表现</h3><p>围绕 CMO、国家集训队和最终选拔进行高度个体化训练：难题取舍、9 小时双日模拟、证明表达与心理恢复同等重要。</p></div>
+            <ul><li>高质量 shortlist 与国家队题目</li><li>弱域微周期 + 全卷宏周期</li><li>睡眠、体能、压力监控</li><li>学术兴趣不被赛制吞没</li></ul>
+            <div class="promotion"><b>真正终点</b><span>即使没有那枚奖牌，仍保留对数学的长期兴趣、严谨思考与自主学习能力。</span></div>
+          </article>
+        </div>
+        <p class="source-note">* 高阶段时长是进入高水平选拔后的参考上限，不是年龄任务，更不包含学校日常学习。任何加量都必须以自驱、睡眠、情绪和专业指导为前提。</p>
+      </div>
+    </section>
+
+    <section id="system">
+      <span class="section-index" aria-hidden="true">04</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">04 / THE MATHCRAFT OS</span><h2>金牌能力，运行在<br>同一个思考循环上。</h2></div>
+          <p class="section-desc">题目会变，循环不变：先看见结构，再选择表示，提出猜想，给出理由，最后迁移。训练不是收藏技巧，而是让循环越来越快、越来越深。</p>
+        </div>
+        <div class="os-grid">
+          <article class="thinking-loop">
+            <h3>一题五遍 · One problem, five passes</h3>
+            <p>9 岁时每周真正吃透 3–5 道题，往往胜过匆忙刷完 50 道。每道题都走完整循环。</p>
+            <div class="loop-viz" aria-label="观察、表示、猜想、证明、迁移五步循环">
+              <span class="loop-circle c1"></span><span class="loop-circle c2"></span>
+              <span class="loop-center">ONE<br>RICH<br>PROBLEM</span>
+              <span class="loop-node n1">观察 Notice<small>条件与结构</small></span>
+              <span class="loop-node n2">表示 Model<small>图、表、式、物</small></span>
+              <span class="loop-node n3">猜想 Conjecture<small>试小例与规律</small></span>
+              <span class="loop-node n4">证明 Prove<small>为何必然成立</small></span>
+              <span class="loop-node n5">迁移 Transfer<small>改条件再挑战</small></span>
+            </div>
+          </article>
+
+          <div class="capability-stack" aria-label="五层能力栈">
+            <article class="capability" style="--tone:var(--mint);--fill:96%"><span class="cap-no">01</span><div><h3>数学语言 · Language</h3><p>复述题意、定义对象、辨认条件，能把“我觉得”改写成清楚句子。</p></div><span class="cap-check"><b>CHECK</b>讲给家长听懂</span></article>
+            <article class="capability" style="--tone:var(--blue);--fill:86%"><span class="cap-no">02</span><div><h3>表示能力 · Representation</h3><p>在实物、图、表、数轴、方程之间来回翻译；找到最省脑的视角。</p></div><span class="cap-check"><b>CHECK</b>同题两种表示</span></article>
+            <article class="capability" style="--tone:var(--gold);--fill:73%"><span class="cap-no">03</span><div><h3>策略库 · Heuristics</h3><p>小例、倒推、极端、分类、不变量、构造；知道何时尝试，而非背暗号。</p></div><span class="cap-check"><b>CHECK</b>说出选择理由</span></article>
+            <article class="capability" style="--tone:var(--violet);--fill:58%"><span class="cap-no">04</span><div><h3>证明力 · Proof</h3><p>每一步都有依据，主动查遗漏、边界和反例；从口头说理逐步走向书面证明。</p></div><span class="cap-check"><b>CHECK</b>读者无需猜步</span></article>
+            <article class="capability" style="--tone:var(--coral);--fill:44%"><span class="cap-no">05</span><div><h3>赛场表现 · Performance</h3><p>选题、时间、检查、情绪恢复。它位于最上层，绝不反过来压垮前四层。</p></div><span class="cap-check"><b>CHECK</b>稳定而非偶然</span></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <span class="section-index" aria-hidden="true">05</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">05 / SEASON ONE GENERATOR</span><h2>先跑 12 周，<br>再谈未来九年。</h2></div>
+          <p class="section-desc">选择孩子目前状态和每周时间。系统会生成适合 9 岁的第一季节奏，并在本机保存完成进度。默认方案刻意留白：真正的成长需要休息。</p>
+        </div>
+
+        <div class="planner-layout">
+          <aside class="planner-card planner-controls">
+            <h3>任务参数</h3>
+            <p>不是给孩子贴等级，而是选择第一季的起始坡度。</p>
+
+            <div class="control-group">
+              <div class="control-label"><span>目前状态</span><output id="profileOutput">喜欢谜题</output></div>
+              <div class="choice-row" role="group" aria-label="选择孩子目前状态">
+                <button class="choice active" type="button" data-profile="curious" aria-pressed="true">喜欢谜题<small>尚未系统学</small></button>
+                <button class="choice" type="button" data-profile="steady" aria-pressed="false">校内扎实<small>能独立思考</small></button>
+                <button class="choice" type="button" data-profile="experienced" aria-pressed="false">已有竞赛<small>需要升级方法</small></button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-label"><span>每周数学远征时间</span><output id="hoursOutput">3.0 h</output></div>
+              <input id="hoursRange" type="range" min="2" max="6" step="0.5" value="3" aria-label="每周训练小时数">
+              <div class="pace-warning" id="paceWarning">超过 4.5 小时只建议用于高度自驱的孩子；请先确认睡眠、户外、自由玩耍与家庭关系都没有被挤压。</div>
+            </div>
+
+            <div class="control-group">
+              <div class="control-label"><span>数学语言</span><output id="languageOutput">中文主导</output></div>
+              <div class="choice-row two" role="group" aria-label="选择数学语言方式" style="grid-template-columns:1fr 1fr">
+                <button class="choice active" type="button" data-language="cn" aria-pressed="true">中文主导<small>术语附英文</small></button>
+                <button class="choice" type="button" data-language="bi" aria-pressed="false">双语桥接<small>20–30%英文题</small></button>
+              </div>
+            </div>
+
+            <div class="plan-snapshot">
+              <div class="progress-orb" id="progressOrb"><strong id="planProgress">0%</strong></div>
+              <div class="snapshot-text"><b id="snapshotTitle">第一季尚未起飞</b><span id="snapshotCopy">完成任意一周，就会留下本机进度。</span></div>
+            </div>
+            <div class="planner-actions">
+              <button class="btn small" id="printPlan" type="button">打印手册</button>
+              <button class="btn small ghost" id="resetPlan" type="button">重置进度</button>
+            </div>
+          </aside>
+
+          <div class="plan-output">
+            <div class="week-rhythm" id="weekRhythm" aria-label="每周训练节奏"></div>
+            <div>
+              <div class="season-head"><div><h3>SEASON 01 · 会思考的十二周</h3><p id="seasonSub">目标：建立表示、策略、解释与复盘的最小闭环。</p></div><span class="season-code">LOCAL SAVE / ON</span></div>
+              <div class="week-list" id="weekList" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="lab">
+      <span class="section-index" aria-hidden="true">06</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">06 / LIVE PROBLEM LAB</span><h2>一道题，示范<br>什么叫“练能力”。</h2></div>
+          <p class="section-desc">不要先看答案。先给孩子筹码或画一条路线，让他真正试。提示一次只开一层；“不会”是信息，不是评价。</p>
+        </div>
+        <div class="lab-layout">
+          <article class="lab-card">
+            <span class="problem-tag">MISSION / BASELINE & INVARIANT · AGE 9+</span>
+            <p class="problem-text">一只机器人从 <em>0</em> 出发，每次只能前进 <em>2</em> 格或 <em>5</em> 格。它恰好跳 <em>7</em> 次到达 <em>26</em>。</p>
+            <p class="problem-ask">问：它跳了多少次 5 格？你能不用列方程解释吗？完成后，把终点改成 27：还可能到达吗？</p>
+            <div class="hint-stack">
+              <button class="hint-btn" type="button" aria-expanded="false">提示 1 · 先选一个最简单的世界<span class="hidden-copy">假设 7 次全部只跳 2 格，会到哪里？距离 26 还差多少？</span></button>
+              <button class="hint-btn" type="button" aria-expanded="false">提示 2 · 看一次替换改变了什么<span class="hidden-copy">把一次“2 格”换成“5 格”，总路程会增加 3。需要增加多少个 3？</span></button>
+              <button class="hint-btn" type="button" aria-expanded="false">解答 · 在解释后再打开<span class="hidden-copy">全跳 2 格会到 14；距离 26 还差 12。每把一次 2 换成 5，就多 3 格，所以要换 12÷3=4 次。即 4 次跳 5 格、3 次跳 2 格。若终点是 27，需要在 14 的基础上增加 13，但 13 不是 3 的倍数，因此不可能。</span></button>
+            </div>
+          </article>
+          <aside class="method-card">
+            <h3>这题真正训练什么？</h3>
+            <p>答案只有一个数字，能力却藏在五次加工里。</p>
+            <div class="pass-row"><b>1</b><span><strong>具体化</strong><span>用 7 枚筹码表示 7 次跳跃，先都写成 2。</span></span></div>
+            <div class="pass-row"><b>2</b><span><strong>建立基线</strong><span>先算“全是 2”的最简单情况，再看差值。</span></span></div>
+            <div class="pass-row"><b>3</b><span><strong>发现不变量</strong><span>每次替换只让总和增加 3；可达终点受到模 3 约束。</span></span></div>
+            <div class="pass-row"><b>4</b><span><strong>解释而非报数</strong><span>让孩子用筹码、图、口述、算式中任两种方式讲明白。</span></span></div>
+            <div class="pass-row"><b>5</b><span><strong>变式迁移</strong><span>把 26 改成 27、29、32；让孩子设计一个“一定到不了”的终点。</span></span></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="measure">
+      <span class="section-index" aria-hidden="true">07</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">07 / MEASUREMENT</span><h2>少看排名，<br>多看四条成长曲线。</h2></div>
+          <p class="section-desc">每月一次小体检，记录趋势而非打分。升阶段前至少连续观察 4 周；一次比赛的高低不改变孩子的身份。</p>
+        </div>
+        <div class="metrics-grid">
+          <article class="metric-card"><span class="metric-icon">A</span><h3>启动自主度</h3><p>读完题后，能否自己画图、试小例或列清单，而不是第一句就问“怎么做”？</p><span class="measure">记录：首次有效动作所需提示数<br>目标：提示逐月减少</span></article>
+          <article class="metric-card"><span class="metric-icon">E</span><h3>解释清晰度</h3><p>能否说出关键一步为什么成立，并让一个没做过题的人听懂？</p><span class="measure">0 报答案 · 1 讲步骤 · 2 讲理由 · 3 能答追问</span></article>
+          <article class="metric-card"><span class="metric-icon">T</span><h3>迁移距离</h3><p>改数字、换问法或隔一周重做时，能否认出同一结构并选择合适策略？</p><span class="measure">记录：近变式 / 远变式 / 延时重做<br>目标：策略不依赖题面记忆</span></article>
+          <article class="metric-card"><span class="metric-icon">❤</span><h3>情绪恢复力</h3><p>卡住后能否休息、换表示再回来？训练结束后是否仍愿意谈论这道题？</p><span class="measure">1 抗拒 · 3 可恢复 · 5 主动再挑战<br>低于 3：立刻降量</span></article>
+        </div>
+        <div class="zone-bar" aria-label="题目难度配比">
+          <div class="zone z1"><b>70%</b><span>可独立进入 · 建立流畅与信心</span></div>
+          <div class="zone z2"><b>20%</b><span>需要拉伸 · 学新策略</span></div>
+          <div class="zone z3"><b>10%</b><span>惊叹题 · 允许不会</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="parents">
+      <span class="section-index" aria-hidden="true">08</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">08 / PARENT PROTOCOL</span><h2>家长不是第二位老师，<br>是思考环境的设计师。</h2></div>
+          <p class="section-desc">最值钱的帮助不是讲解更快，而是守住思考时间、提出好问题、帮助孩子把挫折变成可观察的信息。</p>
+        </div>
+        <div class="parent-grid">
+          <article class="parent-card"><span class="quote-mark">“</span><h3>先问：你看见了什么？</h3><p>把注意力拉回条件、数量关系和图形结构。避免“这题很简单”“你应该会”的评价。</p><div class="say-this"><b>可以说：</b> 你能把题目画成一张图吗？哪条信息还没有用到？</div></article>
+          <article class="parent-card"><span class="quote-mark">“</span><h3>再问：还能怎么表示？</h3><p>如果一种表示卡住，换成实物、列表、数轴、树状图或方程。不要直接透露那一步。</p><div class="say-this"><b>可以说：</b> 假如数字变得很小，会发生什么？我们先试三个例子。</div></article>
+          <article class="parent-card"><span class="quote-mark">“</span><h3>最后问：为什么一定对？</h3><p>答案正确只是开始。邀请孩子解释、找反例、改条件；把“证明”变成自然对话。</p><div class="say-this"><b>可以说：</b> 你怎么让一个不相信的人相信？有没有漏掉一种情况？</div></article>
+        </div>
+
+        <div class="traffic-lights" aria-label="训练负荷信号灯">
+          <div class="traffic green"><span class="traffic-dot"></span><b>GREEN · 继续</b><span>主动拿题、会谈方法、卡住能恢复、睡眠与户外正常。</span></div>
+          <div class="traffic yellow"><span class="traffic-dot"></span><b>YELLOW · 减量 30%</b><span>连续两周拖延、只关心名次、频繁哭闹、错误明显来自疲劳。</span></div>
+          <div class="traffic red"><span class="traffic-dot"></span><b>RED · 暂停 2 周</b><span>睡眠受损、持续躯体不适、强烈自我否定、亲子冲突围绕数学升级。</span></div>
+        </div>
+        <div class="signal-strip">
+          <span class="signal" style="color:var(--mint)">HEALTH GATE</span>
+          <p><b>训练不能借用睡眠和运动的时间。</b> 6–12 岁通常每 24 小时需要 9–12 小时睡眠；5–17 岁儿童青少年应平均每天至少 60 分钟中高强度身体活动。</p>
+          <span class="date">NON-NEGOTIABLE</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources">
+      <span class="section-index" aria-hidden="true">09</span>
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">09 / RESOURCE STACK</span><h2>四层资源，<br>先免费、后购买。</h2></div>
+          <p class="section-desc">先用公开资源跑完 8–12 周，再决定是否购买课程。选择老师时看他是否重视表示、追问、证明、错因与情绪，而不是只看奖牌墙。</p>
+        </div>
+        <div class="resource-grid">
+          <a class="resource-card" href="https://nrich.maths.org/thinking-mathematically-primary-students" target="_blank" rel="noopener"><span class="source-type">FREE · CAMBRIDGE</span><span class="arrow">↗</span><h3>NRICH 小学数学思考</h3><p>5–11 岁的观察、系统枚举、猜想、可视化、解释与证明任务。</p><span class="resource-use">用法：每周 1 道丰富问题，做 45–90 分钟。</span></a>
+          <a class="resource-card" href="https://cemc.uwaterloo.ca/resources/past-contests" target="_blank" rel="noopener"><span class="source-type">FREE · WATERLOO</span><span class="arrow">↗</span><h3>CEMC 历年题与解答</h3><p>成熟、分层、带官方解答；Gauss 等题目可作为后续国际标尺。</p><span class="resource-use">用法：先按题选做，12 岁后再逐步整卷。</span></a>
+          <a class="resource-card" href="https://artofproblemsolving.com/store" target="_blank" rel="noopener"><span class="source-type">OPTIONAL · AoPS</span><span class="arrow">↗</span><h3>Beast Academy / AoPS</h3><p>漫画化小学体系与中学竞赛教材；英文要求和节奏需先试读。</p><span class="resource-use">用法：只选略高于当前水平的一条主教材。</span></a>
+          <a class="resource-card" href="https://www.imo-official.org/problems.aspx" target="_blank" rel="noopener"><span class="source-type">ARCHIVE · IMO</span><span class="arrow">↗</span><h3>IMO 官方题目档案</h3><p>不是 9 岁题库，而是家长和未来阶段理解“终点长什么样”的窗口。</p><span class="resource-use">用法：13–14 岁后由教练精选，不按年份硬刷。</span></a>
+        </div>
+
+        <div class="principles">
+          <article class="principle"><b>中国孩子的语言策略</b><p>小学阶段以中文完成深度理解；每周只引入 5–8 个英文数学词。先让概念长牢，再把同一道题读成英文，避免把语言负担误判为数学能力。</p></article>
+          <article class="principle"><b>教材组合上限</b><p>任何阶段只保留“一条主线教材 + 一个公开题库 + 一本错题/发现本”。资源越多，复盘越浅；学习系统的瓶颈通常不是缺题，而是缺少深加工。</p></article>
+        </div>
+
+        <div class="final-cta">
+          <h2>真正的第一步：<br>今晚一起解决一道漂亮的题。</h2>
+          <p>不计时，不排名，不告诉答案。准备纸、彩笔和一些可以移动的小物件；最后让孩子把最喜欢的想法写进“数学发现本”。连续做 12 周，再决定下一段路。</p>
+          <a class="btn" href="#plan">回到第一季计划 →</a>
+        </div>
+
+        <div class="sources">
+          <h3>权威依据与核验入口</h3>
+          <div class="source-list">
+            <a href="https://www.imo-official.org/assets/documents/imo-general-regulations.pdf" target="_blank" rel="noopener">IMO General Regulations：受邀参赛、每队至多6人、国家选拔、赛制与奖牌比例</a>
+            <a href="https://www.cms.org.cn/en/Home/notices/notices_details/197.html" target="_blank" rel="noopener">中国数学会：全国高中数学联赛、CMO与国家集训队路径说明</a>
+            <a href="https://www.cms.org.cn/Home/comp/comp.html" target="_blank" rel="noopener">中国数学会数学竞赛官方栏目：当年名单与通知</a>
+            <a href="https://www.cms.org.cn/Home/comp/comp_details/id/172.html" target="_blank" rel="noopener">中国数学会声明：谨防冒用名义的竞赛与培训</a>
+            <a href="https://maa.org/student-programs/amc/maa-american-mathematics-competitions-policies/" target="_blank" rel="noopener">MAA AMC Policies：AMC 8/10/12 年级与年龄条件、考点政策</a>
+            <a href="https://www.aksf.org/documents/KSF-Internal-Regulations-English.pdf" target="_blank" rel="noopener">AKSF Internal Regulations：袋鼠数学的大众普及定位与非国家选拔属性</a>
+            <a href="https://www.hkmkc.org/" target="_blank" rel="noopener">香港袋鼠数学官方组织：2024全球参与规模统计（6,099,274人，104个国家和地区）</a>
+            <a href="https://ies.ed.gov/ncee/WWC/PracticeGuide/16/Published" target="_blank" rel="noopener">IES / What Works Clearinghouse：4–8年级数学问题解决教学建议</a>
+            <a href="https://nrich.maths.org/thinking-mathematically-primary-students" target="_blank" rel="noopener">剑桥 NRICH：小学阶段观察、猜想、表示、解释与证明框架</a>
+            <a href="https://cemc.uwaterloo.ca/resources/past-contests" target="_blank" rel="noopener">滑铁卢大学 CEMC：免费历年竞赛、解答与题目生成器</a>
+            <a href="https://aasm.org/recharge-with-sleep-pediatric-sleep-recommendations-promoting-optimal-health/" target="_blank" rel="noopener">美国睡眠医学会 AASM：儿童睡眠时长建议</a>
+            <a href="https://www.who.int/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener">世界卫生组织 WHO：儿童与青少年身体活动建议</a>
+          </div>
+          <p class="source-note">资料核验日期：2026-08-10。赛事名称、报名资格、考点、选拔办法与竞赛政策可能按年度调整；正式行动前请以主办方和学校的当年通知为准。本页面不隶属于或代表任何赛事组织。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>MATHCRAFT 9 / BUILT FOR A LONG CHILDHOOD</span>
+    <span>ABILITY FIRST · MEDALS SECOND · CURIOSITY ALWAYS</span>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = 'mathcraft9-season-one-v1';
+      const root = document.documentElement;
+      const toast = document.getElementById('toast');
+      const profileNames = { curious: '喜欢谜题', steady: '校内扎实', experienced: '已有竞赛' };
+      const languageNames = { cn: '中文主导', bi: '双语桥接' };
+      let state = { profile: 'curious', hours: 3, language: 'cn', completed: [] };
+
+      const weeks = [
+        { sprint: 'SCAN', title: '先看孩子如何想', focus: '无计时基线 · 表示偏好', base: '选择 6 道图形、数感、逻辑题；只记录孩子如何开始，不纠正风格。', curious: '把最喜欢的一题做成卡片。', steady: '同一道题画图与列表示范。', experienced: '给旧题写一份无跳步解答。' },
+        { sprint: 'NOTICE', title: '数感侦探', focus: '奇偶 · 因倍数 · 估算', base: '用筹码和数轴研究奇偶变化；每题先预测，再验证。', curious: '找家中物品设计奇偶游戏。', steady: '总结 3 条奇偶规律。', experienced: '为每条规律找反例或证明。' },
+        { sprint: 'ORGANIZE', title: '不重不漏', focus: '列表 · 分类 · 树状图', base: '解决穿衣搭配、路线与数字排列问题，比较三种记录方式。', curious: '用彩笔画完整选择树。', steady: '解释怎样保证没有遗漏。', experienced: '把问题改成一般的 n 种情况。' },
+        { sprint: 'SHOW', title: '第一次数学展览', focus: '复述 · 重做 · 讲解', base: '从前三周挑 3 题：一题重做、一题改编、一题讲给家人听。', curious: '家人只提问题，不给分。', steady: '录一段 3 分钟讲解。', experienced: '比较两种方法的效率。' },
+        { sprint: 'SEE', title: '剪出来的几何', focus: '分割 · 对称 · 面积', base: '用方格纸与剪纸研究拼合、周长和面积；每次先动手再抽象。', curious: '做一幅对称拼图。', steady: '找两个同面积不同周长图形。', experienced: '证明一个面积关系。' },
+        { sprint: 'REVERSE', title: '倒着走更容易', focus: '逆运算 · 倒推 · 还原', base: '玩数字机器与路线还原；把每一步写成可逆箭头。', curious: '设计一台三步数字机器。', steady: '从结果倒推所有可能输入。', experienced: '讨论哪些操作不可逆。' },
+        { sprint: 'BASELINE', title: '先造最简单世界', focus: '极端 · 基线 · 差值', base: '用“全都一样”的基线解鸡兔、跳跃与分配型问题。', curious: '用筹码演示替换。', steady: '不用方程讲清差值法。', experienced: '再写代数解并比较。' },
+        { sprint: 'TRANSFER', title: '迁移检查站', focus: '延时重做 · 改条件', base: '不看笔记重做第 2、3、6 周各一题，再各改一个条件。', curious: '为家长出一道相似题。', steady: '标注认出结构的线索。', experienced: '设计一个会让旧方法失效的变式。' },
+        { sprint: 'COUNT', title: '组合实验室', focus: '乘法原理 · 有序枚举', base: '用路径、握手、选菜单等情境练计数；先小规模试验。', curious: '画图找到全部答案。', steady: '同时用树状图和表格。', experienced: '寻找递推或一般公式。' },
+        { sprint: 'REMAINDER', title: '余数守门员', focus: '周期 · 整除 · 不变量', base: '研究星期、循环灯与跳格问题；发现“变化后什么没变”。', curious: '用彩色循环做星期谜题。', steady: '用余数解释不可达。', experienced: '尝试模 2、3、5 分类证明。' },
+        { sprint: 'MIX', title: '陌生题导航', focus: '选策略 · 卡住后切换', base: '做一组跨四领域混合题；每题先写“我准备尝试___，因为___”。', curious: '允许一题只探索不解决。', steady: '为每题标注主策略。', experienced: '设定一次 60 分钟微型挑战。' },
+        { sprint: 'FESTIVAL', title: '数学发现节', focus: '作品 · 复盘 · 下一季', base: '选 5 页做成发现册：最美解法、最大错误、最好问题、最强进步、下季愿望。', curious: '庆祝坚持与好问题。', steady: '用四条成长曲线自评。', experienced: '提出下一季一个能力目标。' }
+      ];
+
+      const rhythms = [
+        { day: 'TUE', ratio: .18, title: '热身游戏', copy: '口算不超过 10 分钟；其余做模式或视觉谜题。' },
+        { day: 'THU', ratio: .24, title: '丰富问题', copy: '一题深做：实物 → 图 → 解释。' },
+        { day: 'SAT', ratio: .44, title: '主题实验室', copy: '本周主课；中间休息，完成变式。' },
+        { day: 'SUN', ratio: .14, title: '数学对话', copy: '重做、讲解、写发现本，不学新招。' }
+      ];
+
+      function loadState() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (saved && typeof saved === 'object') state = { ...state, ...saved };
+        } catch (_) {}
+        state.completed = Array.isArray(state.completed) ? state.completed.filter(n => Number.isInteger(n) && n >= 0 && n < 12) : [];
+      }
+
+      function saveState() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+      }
+
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove('show'), 2200);
+      }
+
+      function durationLabel(hours, ratio) {
+        const minutes = Math.max(20, Math.round(hours * 60 * ratio / 5) * 5);
+        return minutes + ' MIN';
+      }
+
+      function renderRhythm() {
+        const container = document.getElementById('weekRhythm');
+        container.innerHTML = rhythms.map(r => `
+          <div class="day-card">
+            <b>${r.day} · ${durationLabel(state.hours, r.ratio)}</b>
+            <strong>${r.title}</strong>
+            <span>${r.copy}</span>
+          </div>`).join('');
+      }
+
+      function languageNote() {
+        return state.language === 'bi'
+          ? '每周任选 1 题先中文解决，再读英文题面并收录 5 个术语。'
+          : '全部用中文深做；只在发现本边栏附 3–5 个英文术语。';
+      }
+
+      function renderWeeks() {
+        const container = document.getElementById('weekList');
+        container.innerHTML = weeks.map((w, i) => {
+          const done = state.completed.includes(i);
+          return `<article class="week-row${done ? ' done' : ''}">
+            <span class="week-no">WEEK<b>${String(i + 1).padStart(2, '0')}</b></span>
+            <span class="week-focus"><strong>${w.title}</strong><span>${w.sprint} / ${w.focus}</span></span>
+            <span class="week-mission">${w.base} <b>${w[state.profile]}</b>${i === 0 ? ' ' + languageNote() : ''}</span>
+            <button class="week-check" type="button" data-week="${i}" aria-label="标记第${i + 1}周完成" aria-pressed="${done}">${done ? '✓' : '○'}</button>
+          </article>`;
+        }).join('');
+
+        container.querySelectorAll('.week-check').forEach(button => {
+          button.addEventListener('click', () => {
+            const week = Number(button.dataset.week);
+            state.completed = state.completed.includes(week)
+              ? state.completed.filter(n => n !== week)
+              : [...state.completed, week].sort((a, b) => a - b);
+            saveState();
+            renderWeeks();
+            renderProgress();
+            showToast(state.completed.includes(week) ? `第 ${week + 1} 周完成：记录的不是打卡，是一次真实思考。` : `已取消第 ${week + 1} 周完成标记。`);
+          });
+        });
+      }
+
+      function renderProgress() {
+        const count = state.completed.length;
+        const percent = Math.round(count / 12 * 100);
+        root.style.setProperty('--progress', `${percent * 3.6}deg`);
+        document.getElementById('planProgress').textContent = percent + '%';
+        document.getElementById('snapshotTitle').textContent = count === 0 ? '第一季尚未起飞' : count === 12 ? '第一季完成 · 可以庆祝' : `已完成 ${count} / 12 周`;
+        document.getElementById('snapshotCopy').textContent = count === 0
+          ? '完成任意一周，就会留下本机进度。'
+          : count === 12
+            ? '先做一周轻松复盘，再决定第二季。'
+            : `还剩 ${12 - count} 周；稳定比赶进度更重要。`;
+      }
+
+      function syncControls() {
+        document.querySelectorAll('[data-profile]').forEach(b => {
+          const selected = b.dataset.profile === state.profile;
+          b.classList.toggle('active', selected);
+          b.setAttribute('aria-pressed', String(selected));
+        });
+        document.querySelectorAll('[data-language]').forEach(b => {
+          const selected = b.dataset.language === state.language;
+          b.classList.toggle('active', selected);
+          b.setAttribute('aria-pressed', String(selected));
+        });
+        document.getElementById('profileOutput').textContent = profileNames[state.profile];
+        document.getElementById('languageOutput').textContent = languageNames[state.language];
+        document.getElementById('hoursRange').value = state.hours;
+        document.getElementById('hoursOutput').textContent = Number(state.hours).toFixed(1) + ' h';
+        document.getElementById('paceWarning').classList.toggle('show', state.hours > 4.5);
+        const mix = state.profile === 'curious' ? '70% 游戏探索 / 20% 拉伸 / 10% 惊叹题' : state.profile === 'steady' ? '60% 独立题 / 30% 拉伸 / 10% 惊叹题' : '50% 稳定题 / 35% 拉伸 / 15% 证明挑战';
+        document.getElementById('seasonSub').textContent = `目标：建立表示、策略、解释与复盘闭环。难度配比：${mix}。`;
+      }
+
+      function renderAll() {
+        syncControls();
+        renderRhythm();
+        renderWeeks();
+        renderProgress();
+      }
+
+      loadState();
+
+      document.querySelectorAll('[data-profile]').forEach(button => {
+        button.addEventListener('click', () => {
+          state.profile = button.dataset.profile;
+          saveState();
+          renderAll();
+          showToast(`起始坡度已切换为：${profileNames[state.profile]}`);
+        });
+      });
+
+      document.querySelectorAll('[data-language]').forEach(button => {
+        button.addEventListener('click', () => {
+          state.language = button.dataset.language;
+          saveState();
+          renderAll();
+          showToast(`数学语言已切换为：${languageNames[state.language]}`);
+        });
+      });
+
+      document.getElementById('hoursRange').addEventListener('input', event => {
+        state.hours = Number(event.target.value);
+        saveState();
+        syncControls();
+        renderRhythm();
+      });
+
+      document.getElementById('resetPlan').addEventListener('click', () => {
+        if (!state.completed.length || confirm('确定清除这台设备上的 12 周完成记录吗？')) {
+          state.completed = [];
+          saveState();
+          renderAll();
+          showToast('第一季进度已重置，计划参数仍保留。');
+        }
+      });
+
+      document.querySelectorAll('#printPlan, #printTop').forEach(button => button.addEventListener('click', () => window.print()));
+
+      document.querySelectorAll('.hint-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          button.classList.toggle('revealed');
+          button.setAttribute('aria-expanded', String(button.classList.contains('revealed')));
+        });
+      });
+
+      const storedTheme = (() => { try { return localStorage.getItem('mathcraft9-theme'); } catch (_) { return null; } })();
+      if (storedTheme) root.dataset.theme = storedTheme;
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem('mathcraft9-theme', root.dataset.theme); } catch (_) {}
+      });
+
+      const sections = [...document.querySelectorAll('main section[id]')];
+      const navLinks = [...document.querySelectorAll('.nav a')];
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+        });
+      }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+      sections.forEach(section => observer.observe(section));
+
+      function updateReadingProgress() {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = scrollable > 0 ? window.scrollY / scrollable * 100 : 0;
+        document.getElementById('readingProgress').style.width = Math.min(100, Math.max(0, percent)) + '%';
+      }
+      window.addEventListener('scroll', updateReadingProgress, { passive: true });
+      updateReadingProgress();
+      renderAll();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>AI Frontier Radar · 人工智能前沿实时雷达</title>
+  <meta name="description" content="实时、双语、证据分级的全球人工智能进度雷达：模型、智能体、世界模型、VLA、机器人、科学、安全与算力。">
+  <meta name="theme-color" content="#071914">
+  <meta name="ai-frontier-live-endpoint" content="/api/ai-frontier-live">
+  <link rel="canonical" href="https://2017zyl.xyz/daily-reports/ai-frontier-radar-live">
+  <meta property="og:title" content="AI Frontier Radar · 人工智能前沿实时雷达">
+  <meta property="og:description" content="实时、双语、证据分级的全球人工智能进度雷达：模型、智能体、世界模型、VLA、机器人、科学、安全与算力。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://2017zyl.xyz/daily-reports/ai-frontier-radar-live">
+  <style>:root {
+  --paper: #f2f0e8;
+  --paper-2: #e8e5da;
+  --ink: #071914;
+  --ink-soft: #42504a;
+  --line: rgba(7, 25, 20, 0.18);
+  --line-strong: rgba(7, 25, 20, 0.55);
+  --lime: #dfff45;
+  --cyan: #59e6d5;
+  --blue: #79a9ff;
+  --orange: #ff784f;
+  --violet: #b99cff;
+  --yellow: #ffd84f;
+  --mint: #8ee6a5;
+  --red: #ff6b70;
+  --white: #fbfaf5;
+  --mono: var(--font-geist-mono), "SFMono-Regular", Consolas, monospace;
+  --sans: var(--font-geist-sans), "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input { font: inherit; }
+
+button,
+a { -webkit-tap-highlight-color: transparent; }
+
+a { color: inherit; }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--lime);
+}
+
+.site-root {
+  min-width: 320px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, transparent calc(25% - 1px), rgba(7, 25, 20, 0.055) 25%, transparent calc(25% + 1px), transparent calc(50% - 1px), rgba(7, 25, 20, 0.055) 50%, transparent calc(50% + 1px), transparent calc(75% - 1px), rgba(7, 25, 20, 0.055) 75%, transparent calc(75% + 1px)),
+    var(--paper);
+}
+
+.pair {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22em;
+}
+
+.pair-zh { line-height: 1.55; }
+.pair-en {
+  font-family: var(--mono);
+  font-size: 0.78em;
+  line-height: 1.42;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.language-zh .pair-en { display: none; }
+.language-en .pair-zh { display: none; }
+
+.topbar {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
+  align-items: center;
+  padding: 0 2.4vw;
+  color: var(--paper);
+  background: rgba(7, 25, 20, 0.96);
+  border-bottom: 1px solid rgba(223, 255, 69, 0.35);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  width: fit-content;
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.08em;
+}
+
+.brand b {
+  margin-left: 0.1em;
+  color: var(--lime);
+  font-size: 1.55em;
+  line-height: 0;
+}
+
+.topbar nav {
+  display: flex;
+  justify-content: center;
+  gap: clamp(18px, 4vw, 58px);
+}
+
+.topbar nav a {
+  color: rgba(251, 250, 245, 0.66);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.topbar nav a:hover { color: var(--lime); }
+
+.top-actions,
+.language-switch,
+.live-pill {
+  display: flex;
+  align-items: center;
+}
+
+.top-actions { gap: 14px; }
+
+.live-pill {
+  gap: 7px;
+  color: var(--white);
+  font-family: var(--mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.08em;
+}
+
+.live-pill i,
+.status-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 0 4px rgba(255, 216, 79, 0.12);
+}
+
+.live-pill.state-ready i,
+.status-dot.state-ready { background: var(--lime); animation: pulse 2s infinite; }
+.live-pill.state-error i,
+.status-dot.state-error { background: var(--red); }
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(223, 255, 69, 0.13); }
+  50% { box-shadow: 0 0 0 8px rgba(223, 255, 69, 0); }
+}
+
+.language-switch {
+  padding: 3px;
+  border: 1px solid rgba(251, 250, 245, 0.25);
+  border-radius: 2px;
+}
+
+.language-switch button {
+  min-width: 34px;
+  padding: 5px 7px;
+  color: rgba(251, 250, 245, 0.58);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+}
+
+.language-switch button.active {
+  color: var(--ink);
+  background: var(--lime);
+}
+
+.hero {
+  position: relative;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 86% 18%, rgba(89, 230, 213, 0.12), transparent 28%),
+    linear-gradient(115deg, rgba(223, 255, 69, 0.05), transparent 38%),
+    var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.11;
+  background-image:
+    linear-gradient(rgba(255,255,255,.17) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.17) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+.hero-kicker,
+.hero-grid,
+.truth-strip,
+.coverage-ribbon {
+  position: relative;
+  z-index: 1;
+  width: min(1500px, 100%);
+  margin: 0 auto;
+}
+
+.hero-kicker {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 2.4vw;
+  color: rgba(251, 250, 245, 0.48);
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(251, 250, 245, 0.15);
+}
+
+.hero-grid {
+  min-height: 660px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(380px, 0.72fr);
+  align-items: stretch;
+  padding: 0 2.4vw;
+}
+
+.hero-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 72px 4vw 82px 0;
+  border-right: 1px solid rgba(251, 250, 245, 0.17);
+}
+
+.eyebrow,
+.section-index,
+.micro-label,
+.editorial-index,
+.original-note {
+  font-family: var(--mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.12em;
+}
+
+.eyebrow { margin: 0 0 34px; color: var(--lime); }
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(4.5rem, 10vw, 10.8rem);
+  font-weight: 760;
+  line-height: 0.86;
+  letter-spacing: -0.09em;
+}
+
+.hero h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(251, 250, 245, 0.9);
+}
+
+.hero-en {
+  margin: 40px 0 0;
+  color: rgba(251, 250, 245, 0.55);
+  font-family: var(--mono);
+  font-size: clamp(0.9rem, 1.35vw, 1.35rem);
+  line-height: 1.12;
+  letter-spacing: 0.06em;
+}
+
+.position-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 52px 0 82px 4vw;
+}
+
+.position-card::before {
+  content: "NOW";
+  position: absolute;
+  top: 62px;
+  right: 0;
+  color: var(--lime);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+}
+
+.position-score {
+  display: flex;
+  align-items: baseline;
+  color: var(--lime);
+}
+
+.position-score strong {
+  font-size: clamp(5.5rem, 9vw, 9.5rem);
+  font-weight: 450;
+  line-height: 0.8;
+  letter-spacing: -0.09em;
+}
+
+.position-score span {
+  margin-left: 0.25em;
+  font-family: var(--mono);
+  font-size: 1rem;
+}
+
+.position-label {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(251, 250, 245, 0.22);
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+
+.position-label .pair-en { color: rgba(251, 250, 245, 0.65); }
+
+.position-thesis {
+  margin: 28px 0 22px;
+  max-width: 38rem;
+  color: rgba(251, 250, 245, 0.85);
+  font-size: 1rem;
+}
+
+.position-thesis .pair-en { color: rgba(251, 250, 245, 0.48); }
+.editorial-index { color: rgba(251, 250, 245, 0.35); }
+
+.truth-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(251, 250, 245, 0.2);
+  border-bottom: 1px solid rgba(251, 250, 245, 0.2);
+}
+
+.truth-strip > div {
+  min-height: 122px;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 2.4vw;
+  border-right: 1px solid rgba(251, 250, 245, 0.2);
+}
+
+.truth-strip > div:last-child { border-right: 0; }
+.truth-strip b { color: var(--lime); font-family: var(--mono); font-size: 0.67rem; }
+.truth-strip .pair-zh { font-size: 1.08rem; font-weight: 650; }
+.truth-strip .pair-en { color: rgba(251, 250, 245, 0.52); }
+
+.coverage-ribbon {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.coverage-ribbon > div {
+  min-height: 98px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 2.4vw;
+  border-right: 1px solid rgba(7, 25, 20, 0.25);
+}
+
+.coverage-ribbon > div:last-child { border-right: 0; }
+.coverage-ribbon strong { font-size: 1.65rem; letter-spacing: -0.05em; }
+.coverage-ribbon .pair { font-size: 0.75rem; }
+.coverage-ribbon .pair-en { color: rgba(7, 25, 20, 0.62); }
+
+.progress-section,
+.maturity-section,
+.reality-check,
+.signal-desk,
+.sources-section,
+.glossary-section {
+  width: min(1500px, 100%);
+  margin: 0 auto;
+  padding: 112px 2.4vw;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.section-heading {
+  margin-bottom: 52px;
+}
+
+.section-index {
+  margin: 0 0 20px;
+  color: var(--ink-soft);
+}
+
+.section-heading h2 {
+  margin: 0;
+  max-width: 1040px;
+  font-size: clamp(2.3rem, 5.2vw, 5.6rem);
+  font-weight: 680;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+}
+
+.section-heading h2 .pair-en {
+  margin-top: 0.32em;
+  font-size: 0.23em;
+  letter-spacing: 0.07em;
+}
+
+.split-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.55fr);
+  align-items: end;
+  gap: 6vw;
+}
+
+.heading-note {
+  margin: 0;
+  padding: 18px 0 0 20px;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line-strong);
+  border-left: 4px solid var(--lime);
+  font-size: 0.85rem;
+}
+
+.stage-line {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.stage {
+  position: relative;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  overflow: hidden;
+}
+
+.stage::after {
+  content: "";
+  position: absolute;
+  right: -34px;
+  bottom: -34px;
+  width: 76px;
+  height: 76px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.22;
+}
+
+.stage-now { background: var(--lime); }
+.stage-next { background: rgba(89, 230, 213, 0.18); }
+.stage-future { color: var(--paper); background: var(--ink); }
+.stage-future .pair-en { color: rgba(242, 240, 232, 0.54); }
+
+.stage-top {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+}
+
+.stage-top b { font-weight: 500; color: var(--ink-soft); }
+.stage-future .stage-top b { color: rgba(242, 240, 232, 0.45); }
+.stage-title { margin-top: auto; font-size: 1.22rem; font-weight: 690; }
+.stage-title .pair-en { font-size: 0.62em; }
+.stage-copy { margin-top: 15px; font-size: 0.82rem; }
+
+.maturity-section { background: var(--paper-2); }
+
+.maturity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.maturity-card {
+  --tone: var(--lime);
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--paper);
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.tone-lime { --tone: var(--lime); }
+.tone-cyan { --tone: var(--cyan); }
+.tone-blue { --tone: var(--blue); }
+.tone-orange { --tone: var(--orange); }
+.tone-violet { --tone: var(--violet); }
+.tone-yellow { --tone: var(--yellow); }
+.tone-mint { --tone: var(--mint); }
+.tone-red { --tone: var(--red); }
+
+.maturity-card::before,
+.signal-card::before,
+.live-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 6px;
+  background: var(--tone);
+}
+
+.maturity-number {
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+}
+
+.maturity-head {
+  min-height: 78px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 30px;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.maturity-head .pair-en { font-size: 0.66em; }
+
+.velocity {
+  height: fit-content;
+  padding: 5px 7px;
+  white-space: nowrap;
+  background: var(--tone);
+  font-family: var(--mono);
+  font-size: 0.59rem;
+  font-weight: 600;
+}
+
+.score-row { display: flex; align-items: baseline; }
+.score-row strong { font-size: 4.4rem; font-weight: 460; line-height: 1; letter-spacing: -0.085em; }
+.score-row span { margin-left: 7px; color: var(--ink-soft); font-family: var(--mono); font-size: 0.72rem; }
+
+.score-track {
+  height: 8px;
+  margin: 17px 0 30px;
+  background: rgba(7, 25, 20, 0.11);
+}
+
+.score-track i { display: block; width: var(--score); height: 100%; background: var(--tone); }
+
+.maturity-copy {
+  display: grid;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+}
+
+.micro-label {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--ink-soft);
+  font-size: 0.56rem;
+}
+
+.maturity-copy .pair-en { font-size: 0.74em; }
+
+.source-link {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 24px;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  text-decoration: none;
+}
+
+.source-link:hover { color: var(--ink); }
+
+.reality-check {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.reality-check .section-index { color: var(--lime); }
+.reality-check .section-heading h2 .pair-en { color: rgba(242, 240, 232, 0.45); }
+
+.reality-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(242, 240, 232, 0.42);
+  border-left: 1px solid rgba(242, 240, 232, 0.42);
+}
+
+.reality-grid article {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border-right: 1px solid rgba(242, 240, 232, 0.42);
+  border-bottom: 1px solid rgba(242, 240, 232, 0.42);
+}
+
+.reality-grid article > .pair:last-child { margin-top: auto; font-size: 0.9rem; }
+.reality-grid .pair-en { color: rgba(242, 240, 232, 0.55); }
+.reality-here { background: rgba(223, 255, 69, 0.09); }
+.reality-emerging { background: rgba(89, 230, 213, 0.08); }
+.reality-not-here { background: rgba(255, 107, 112, 0.09); }
+
+.reality-state {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+
+.reality-here .reality-state { color: var(--lime); }
+.reality-emerging .reality-state { color: var(--cyan); }
+.reality-not-here .reality-state { color: var(--red); }
+
+.reality-title {
+  margin-top: 38px;
+  font-size: clamp(1.6rem, 2.8vw, 3rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.reality-title .pair-en { font-size: 0.35em; }
+
+.signal-desk { background: var(--paper); }
+.desk-heading { margin-bottom: 42px; }
+
+.desk-status {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 14px;
+  align-items: start;
+  padding-top: 17px;
+  border-top: 1px solid var(--line-strong);
+  font-size: 0.78rem;
+}
+
+.desk-status button {
+  grid-column: 2;
+  width: fit-content;
+  padding: 0;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.61rem;
+}
+
+.desk-status button:disabled { opacity: 0.35; cursor: wait; }
+
+.desk-controls {
+  display: grid;
+  grid-template-columns: 1fr minmax(230px, 330px);
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 16px;
+}
+
+.view-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.view-tabs button {
+  min-height: 66px;
+  padding: 10px 16px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.view-tabs button.active { color: var(--ink); background: var(--lime); }
+.view-tabs .pair-zh { font-weight: 650; }
+.view-tabs .pair-en { font-size: 0.62rem; }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border: 1px solid var(--ink);
+}
+
+.search-box span { font-size: 1.3rem; }
+.search-box input { width: 100%; color: var(--ink); background: transparent; border: 0; outline: 0; font-family: var(--mono); font-size: 0.75rem; }
+.search-box input::placeholder { color: rgba(7, 25, 20, 0.45); }
+
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.category-filter button {
+  padding: 8px 11px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.category-filter button:hover,
+.category-filter button.active { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.category-filter .pair { display: inline-flex; flex-direction: row; align-items: baseline; gap: 6px; font-size: 0.67rem; }
+.category-filter .pair-en { font-size: 0.72em; }
+
+.desk-note {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 18px;
+  padding: 20px 0 30px;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.desk-note > span { font-family: var(--mono); font-size: 0.64rem; }
+
+.signal-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.signal-card,
+.live-card {
+  --tone: var(--lime);
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: var(--white);
+}
+
+.live-card { min-height: 350px; }
+
+.signal-meta {
+  min-height: 30px;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: start;
+  gap: 9px;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+}
+
+.signal-source { color: var(--ink); font-weight: 650; }
+.evidence,
+.kind-chip {
+  justify-self: start;
+  padding: 4px 7px;
+  color: var(--ink);
+  background: var(--tone);
+  font-size: 0.54rem;
+  letter-spacing: 0.04em;
+}
+
+.evidence-independent,
+.evidence-production { background: var(--cyan); }
+.evidence-shipped,
+.evidence-open { background: var(--lime); }
+.evidence-paper { background: var(--blue); }
+.evidence-demo,
+.evidence-preview { background: var(--orange); }
+.evidence-vendor { background: var(--yellow); }
+
+.save-button {
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.save-button.is-saved { color: var(--ink); background: var(--lime); border-color: var(--ink); }
+
+.signal-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 36px 0 34px;
+  color: var(--ink);
+  font-size: clamp(1.35rem, 2.25vw, 2.35rem);
+  font-weight: 670;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-decoration: none;
+}
+
+.signal-title:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.signal-title > span:last-child { flex: 0 0 auto; font-size: 0.7em; }
+.signal-title .pair-en { margin-top: 0.3em; font-size: 0.39em; }
+
+.signal-columns {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 30px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+}
+
+.signal-columns .pair-en { font-size: 0.72em; }
+.limit-copy { color: var(--ink-soft); }
+
+.magnitude {
+  display: flex;
+  gap: 4px;
+  margin-top: 24px;
+}
+
+.magnitude i { width: 16px; height: 4px; background: rgba(7, 25, 20, 0.12); }
+.magnitude i.on { background: var(--tone); }
+
+.authors,
+.model-metrics {
+  margin: -20px 0 22px;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+}
+
+.model-metrics {
+  width: fit-content;
+  padding: 6px 8px;
+  color: var(--ink);
+  background: var(--mint);
+}
+
+.live-context {
+  margin-top: auto;
+  padding: 20px;
+  background: color-mix(in srgb, var(--tone) 22%, transparent);
+  font-size: 0.8rem;
+}
+
+.live-summary {
+  margin: 18px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.original-note { margin-top: 18px; color: var(--ink-soft); font-size: 0.55rem; }
+
+.empty-state {
+  grid-column: 1 / -1;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+  text-align: center;
+}
+
+.loader {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--line);
+  border-top-color: var(--ink);
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.sources-section { background: var(--paper-2); }
+
+.health-score {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.health-score strong { font-size: 3.6rem; font-weight: 500; line-height: 0.86; letter-spacing: -0.08em; }
+.health-score .pair { font-size: 0.68rem; }
+
+.source-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 38px;
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.source-summary > div {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-right: 1px solid rgba(242, 240, 232, 0.25);
+}
+
+.source-summary > div:last-child { border-right: 0; }
+.source-summary > div > span { color: var(--lime); font-family: var(--mono); font-size: 0.62rem; }
+.source-summary strong { margin: 18px 0 4px; font-size: 3rem; font-weight: 470; line-height: 1; }
+.source-summary .pair { font-size: 0.7rem; }
+.source-summary .pair-en { color: rgba(242, 240, 232, 0.45); }
+
+.source-table {
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.source-row {
+  display: grid;
+  grid-template-columns: 120px 1.25fr 100px 1fr 80px;
+  align-items: center;
+  min-height: 58px;
+  color: var(--ink-soft);
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  text-decoration: none;
+  font-size: 0.72rem;
+}
+
+.source-row > * { height: 100%; display: flex; align-items: center; padding: 12px 16px; border-right: 1px solid var(--line); }
+.source-row > *:last-child { border-right: 0; justify-content: space-between; }
+.source-row strong { color: var(--ink); font-size: 0.82rem; }
+.source-row:not(.source-head):hover { color: var(--ink); background: var(--white); }
+
+.source-head {
+  min-height: 38px;
+  color: var(--paper);
+  background: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+}
+
+.source-head > * { border-color: rgba(242, 240, 232, 0.2); }
+
+.source-dot {
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.source-live { background: #7cf08d; box-shadow: 0 0 0 3px rgba(124, 240, 141, 0.14); }
+.source-down { background: var(--red); }
+.source-watch { background: transparent; border: 1px solid var(--ink-soft); }
+
+.coverage-warning {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 28px;
+  margin-top: 38px;
+  padding: 28px;
+  color: var(--paper);
+  background: var(--orange);
+}
+
+.coverage-warning > span { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; }
+.coverage-warning .pair { max-width: 980px; font-size: 0.85rem; }
+.coverage-warning .pair-en { color: rgba(7, 25, 20, 0.63); }
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.glossary-grid article {
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.glossary-grid article > span:first-child { color: var(--ink-soft); font-family: var(--mono); font-size: 0.62rem; }
+.glossary-grid h3 { margin: 34px 0 10px; font-family: var(--mono); font-size: 1.05rem; letter-spacing: -0.04em; }
+.glossary-name { margin-bottom: auto; font-weight: 650; }
+.glossary-name .pair-en { font-size: 0.65em; }
+.glossary-grid article > .pair:last-child { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.77rem; }
+
+footer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1fr;
+  gap: 5vw;
+  padding: 70px 2.4vw 46px;
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.footer-mark { color: var(--lime); font-family: var(--mono); font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 800; letter-spacing: -0.1em; }
+.footer-thesis { align-self: center; font-size: clamp(1.25rem, 2.3vw, 2.4rem); font-weight: 630; letter-spacing: -0.04em; }
+.footer-thesis .pair-en { color: rgba(242, 240, 232, 0.45); font-size: 0.43em; }
+.footer-meta { display: flex; flex-direction: column; gap: 10px; align-self: center; color: rgba(242, 240, 232, 0.48); font-family: var(--mono); font-size: 0.62rem; }
+.footer-disclaimer { grid-column: 2 / -1; margin: 16px 0 0; padding-top: 22px; color: rgba(242, 240, 232, 0.58); border-top: 1px solid rgba(242, 240, 232, 0.2); font-size: 0.72rem; }
+.footer-disclaimer .pair-en { color: rgba(242, 240, 232, 0.35); }
+
+@media (max-width: 1120px) {
+  .topbar { grid-template-columns: 110px 1fr auto; }
+  .topbar nav { gap: 20px; }
+  .hero-grid { grid-template-columns: 1.35fr 0.75fr; min-height: 590px; }
+  .hero h1 { font-size: clamp(4.4rem, 9.5vw, 7.4rem); }
+  .maturity-grid { grid-template-columns: repeat(2, 1fr); }
+  .stage-line { grid-template-columns: repeat(3, 1fr); }
+  .source-row { grid-template-columns: 105px 1.15fr 85px 1fr 70px; }
+  .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 820px) {
+  .topbar { min-height: 58px; grid-template-columns: 80px 1fr; padding: 0 18px; }
+  .topbar nav { display: none; }
+  .top-actions { justify-self: end; gap: 8px; }
+  .live-pill { font-size: 0.58rem; }
+  .language-switch button { min-width: 30px; padding: 5px; }
+  .hero-kicker span:nth-child(2) { display: none; }
+  .hero-grid { min-height: auto; grid-template-columns: 1fr; padding: 0 18px; }
+  .hero-copy { min-height: 540px; padding: 70px 0; border-right: 0; border-bottom: 1px solid rgba(251, 250, 245, 0.17); }
+  .hero h1 { font-size: clamp(4.2rem, 18vw, 7.2rem); }
+  .position-card { min-height: 480px; padding: 70px 0; }
+  .truth-strip { grid-template-columns: 1fr; }
+  .truth-strip > div { min-height: 90px; border-right: 0; border-bottom: 1px solid rgba(251, 250, 245, 0.2); }
+  .truth-strip > div:last-child { border-bottom: 0; }
+  .coverage-ribbon { grid-template-columns: repeat(2, 1fr); }
+  .coverage-ribbon > div:nth-child(2) { border-right: 0; }
+  .coverage-ribbon > div:nth-child(-n+2) { border-bottom: 1px solid rgba(7, 25, 20, 0.25); }
+  .progress-section, .maturity-section, .reality-check, .signal-desk, .sources-section, .glossary-section { padding: 82px 18px; }
+  .split-heading { grid-template-columns: 1fr; gap: 30px; }
+  .stage-line { grid-template-columns: repeat(2, 1fr); }
+  .stage { min-height: 240px; }
+  .reality-grid { grid-template-columns: 1fr; }
+  .reality-grid article { min-height: 300px; }
+  .desk-controls { grid-template-columns: 1fr; }
+  .search-box { min-height: 54px; }
+  .signal-list { grid-template-columns: 1fr; }
+  .signal-card, .live-card { min-height: 0; }
+  .source-summary { grid-template-columns: repeat(2, 1fr); }
+  .source-summary > div:nth-child(2) { border-right: 0; }
+  .source-summary > div:nth-child(-n+2) { border-bottom: 1px solid rgba(242, 240, 232, 0.25); }
+  .source-table { overflow-x: auto; }
+  .source-row { min-width: 760px; }
+  .coverage-warning { grid-template-columns: 1fr; gap: 14px; }
+  footer { grid-template-columns: 1fr 2fr; }
+  .footer-meta { grid-column: 2; }
+  .footer-disclaimer { grid-column: 2; }
+}
+
+@media (max-width: 560px) {
+  .hero-kicker { padding: 18px; font-size: 0.54rem; }
+  .hero-kicker span:last-child { text-align: right; }
+  .hero-copy { min-height: 500px; }
+  .hero h1 { font-size: clamp(3.8rem, 19vw, 5.6rem); }
+  .position-score strong { font-size: 7rem; }
+  .coverage-ribbon { grid-template-columns: 1fr; }
+  .coverage-ribbon > div { min-height: 78px; border-right: 0; border-bottom: 1px solid rgba(7, 25, 20, 0.25); }
+  .section-heading { margin-bottom: 38px; }
+  .section-heading h2 { font-size: clamp(2.2rem, 11vw, 3.6rem); }
+  .stage-line, .maturity-grid, .glossary-grid { grid-template-columns: 1fr; }
+  .maturity-card { min-height: 510px; }
+  .view-tabs { grid-template-columns: repeat(2, 1fr); }
+  .category-filter { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 14px; }
+  .category-filter button { flex: 0 0 auto; }
+  .desk-note { grid-template-columns: 1fr; gap: 8px; }
+  .signal-card, .live-card { padding: 24px 20px; }
+  .signal-meta { grid-template-columns: auto 1fr auto; }
+  .signal-meta .evidence, .signal-meta .kind-chip { grid-column: 1 / 3; grid-row: 2; }
+  .signal-meta .save-button { grid-column: 3; grid-row: 1 / 3; }
+  .signal-title { margin-top: 30px; font-size: 1.48rem; }
+  .signal-columns { grid-template-columns: 1fr; gap: 22px; }
+  .source-summary { grid-template-columns: 1fr 1fr; }
+  .source-summary > div { min-height: 135px; }
+  .health-score { align-items: center; }
+  footer { grid-template-columns: 1fr; padding: 56px 18px 40px; }
+  .footer-thesis, .footer-meta, .footer-disclaimer { grid-column: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+  [hidden]{display:none!important}.source-row[data-source-id]{cursor:pointer}
+  .live-card .signal-title{overflow-wrap:anywhere}.desk-status .pair{min-width:0}
+  </style>
+</head>
+<body>
+<main class="site-root language-both"><header class="topbar"><a class="brand" href="#top" aria-label="AI Frontier Radar home"><span>AFR</span><b>∞</b></a><nav aria-label="Primary navigation"><a href="#map">进度 / PROGRESS</a><a href="#desk">信号 / SIGNALS</a><a href="#sources">来源 / SOURCES</a></nav><div class="top-actions"><span class="live-pill state-loading"><i></i>SYNC</span><div class="language-switch" aria-label="Language display"><button class="active">中+EN</button><button class="">中</button><button class="">EN</button></div></div></header><section class="hero" id="top"><div class="hero-kicker"><span>FIELD REPORT 08.26.2026</span><span>CHINA STANDARD TIME · UTC+8</span><span>OFFICIAL SOURCES + PAPERS</span></div><div class="hero-grid"><div class="hero-copy"><p class="eyebrow">人工智能前沿雷达 · AI FRONTIER RADAR</p><h1><span>人工智能</span><br/>走到哪了？</h1><p class="hero-en">WHERE INTELLIGENCE<br/>ACTUALLY STANDS.</p></div><aside class="position-card"><div class="position-score"><strong>3.3</strong><span>/ 5</span></div><span class="pair position-label"><span class="pair-zh">有限自主阶段</span><span class="pair-en">BOUNDED AUTONOMY</span></span><p class="position-thesis pair"><span class="pair-zh">AI 已跨过“会回答”进入“能完成限定任务”；真正的瓶颈不再只是智力，而是可靠性、验证和控制。</span><span class="pair-en">AI has crossed from answering into completing bounded work. The frontier bottleneck is no longer intelligence alone—it is reliability, verification, and control.</span></p><span class="editorial-index">EDITORIAL SYNTHESIS · 非基准均值</span></aside></div><div class="truth-strip" aria-label="Frontier status at a glance"><div><b>01</b><span class="pair "><span class="pair-zh">数字智能：可投入工作</span><span class="pair-en">DIGITAL: OPERATIONAL</span></span></div><div><b>02</b><span class="pair "><span class="pair-zh">物理智能：可演示</span><span class="pair-en">PHYSICAL: DEMONSTRABLE</span></span></div><div><b>03</b><span class="pair "><span class="pair-zh">长期自治：未解决</span><span class="pair-en">AUTONOMY: UNSOLVED</span></span></div></div><div class="coverage-ribbon"><div><strong>26</strong><span class="pair "><span class="pair-zh">官方观察源</span><span class="pair-en">OFFICIAL WATCH SOURCES</span></span></div><div><strong>15</strong><span class="pair "><span class="pair-zh">自动数据管线</span><span class="pair-en">LIVE DATA PIPELINES</span></span></div><div><strong>—</strong><span class="pair "><span class="pair-zh">本轮实时条目</span><span class="pair-en">LIVE ITEMS THIS CYCLE</span></span></div><div><strong>15 MIN</strong><span class="pair "><span class="pair-zh">目标刷新间隔</span><span class="pair-en">TARGET REFRESH</span></span></div></div></section><section class="progress-section" id="map"><div class="section-heading"><p class="section-index">01 / TRAJECTORY</p><h2><span class="pair "><span class="pair-zh">从识别到行动，下一关是持续可靠</span><span class="pair-en">FROM PERCEPTION TO ACTION. NEXT: PERSISTENCE.</span></span></h2></div><div class="stage-line"><article class="stage stage-past"><div class="stage-top"><span>01</span><b>2012–2017</b></div><span class="pair stage-title"><span class="pair-zh">识别</span><span class="pair-en">PERCEIVE</span></span><span class="pair stage-copy"><span class="pair-zh">看懂图像、语音和结构化模式</span><span class="pair-en">Recognize images, speech, and patterns</span></span></article><article class="stage stage-past"><div class="stage-top"><span>02</span><b>2018–2022</b></div><span class="pair stage-title"><span class="pair-zh">生成</span><span class="pair-en">GENERATE</span></span><span class="pair stage-copy"><span class="pair-zh">写作、作图、翻译和代码补全</span><span class="pair-en">Write, create, translate, and complete code</span></span></article><article class="stage stage-now"><div class="stage-top"><span>03</span><b>2023–2026</b></div><span class="pair stage-title"><span class="pair-zh">推理与行动</span><span class="pair-en">REASON + ACT</span></span><span class="pair stage-copy"><span class="pair-zh">调用工具、运行代码、操作软件并完成任务</span><span class="pair-en">Use tools, run code, operate software, finish tasks</span></span></article><article class="stage stage-next"><div class="stage-top"><span>04</span><b>EMERGING</b></div><span class="pair stage-title"><span class="pair-zh">持续自治</span><span class="pair-en">PERSIST</span></span><span class="pair stage-copy"><span class="pair-zh">跨天工作、自我恢复、低监督协作</span><span class="pair-en">Work for days, recover, collaborate with low oversight</span></span></article><article class="stage stage-future"><div class="stage-top"><span>05</span><b>UNSOLVED</b></div><span class="pair stage-title"><span class="pair-zh">广义具身智能</span><span class="pair-en">GENERALIZE</span></span><span class="pair stage-copy"><span class="pair-zh">在开放数字与物理世界中可靠泛化</span><span class="pair-en">Generalize reliably across open digital and physical worlds</span></span></article></div></section><section class="maturity-section"><div class="section-heading split-heading"><div><p class="section-index">02 / CAPABILITY MAP</p><h2><span class="pair "><span class="pair-zh">八条前沿，成熟度并不同步</span><span class="pair-en">EIGHT FRONTIERS. UNEVEN MATURITY.</span></span></h2></div><p class="heading-note pair"><span class="pair-zh">0–5 是编辑判断：综合可用性、独立证据、失败率与部署广度，不是把各家基准混成一个分数。</span><span class="pair-en">0–5 is an editorial judgment across availability, independent evidence, failures, and deployment—not an average of incompatible benchmarks.</span></p></div><div class="maturity-grid"><article class="maturity-card tone-lime"><div class="maturity-number">01</div><div class="maturity-head"><span class="pair "><span class="pair-zh">推理与编程</span><span class="pair-en">Reasoning + coding</span></span><span class="velocity">+0.6 / yr</span></div><div class="score-row"><strong>4.4</strong><span>/ 5</span></div><div class="score-track"><i style="--score:88%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">能在真实代码库、终端和专业资料上完成困难任务，多个旗舰已广泛可用。</span><span class="pair-en">Can complete difficult work in real codebases, terminals, and professional material; several flagships are broadly available.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">仍会自信地犯错；验证成本、隐藏边界条件和评测不可比性是主要障碍。</span><span class="pair-en">Confident errors persist; verification cost, hidden edge cases, and incomparable evals remain the blockers.</span></span></div></div><a class="source-link" href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article><article class="maturity-card tone-lime"><div class="maturity-number">02</div><div class="maturity-head"><span class="pair "><span class="pair-zh">多模态感知</span><span class="pair-en">Multimodal perception</span></span><span class="velocity">+0.5 / yr</span></div><div class="score-row"><strong>4.2</strong><span>/ 5</span></div><div class="score-track"><i style="--score:84%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">文字、图像、音频、视频和超长上下文已成为旗舰模型标配，并开始下沉到设备端。</span><span class="pair-en">Text, image, audio, video, and very long context are standard at the frontier and are moving on-device.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">长视频记忆、时间因果、视觉细节和现实世界接地仍然不稳定。</span><span class="pair-en">Long-video memory, temporal causality, visual detail, and real-world grounding remain uneven.</span></span></div></div><a class="source-link" href="https://deepmind.google/models/model-cards/gemini-3-7-flash/" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article><article class="maturity-card tone-cyan"><div class="maturity-number">03</div><div class="maturity-head"><span class="pair "><span class="pair-zh">工具型智能体</span><span class="pair-en">Tool-using agents</span></span><span class="velocity">+0.9 / yr</span></div><div class="score-row"><strong>3.8</strong><span>/ 5</span></div><div class="score-track"><i style="--score:76%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">能浏览、写代码、操作电脑、调用工具和分派子代理；人负责规划，AI 越来越多负责执行。</span><span class="pair-en">Can browse, code, operate computers, call tools, and delegate; people still plan while AI increasingly executes.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">复杂企业自动化成功率仍低；权限、恢复、记忆和长期判断很脆弱。</span><span class="pair-en">Complex enterprise automation still has low success; permissions, recovery, memory, and long-horizon judgment are brittle.</span></span></div></div><a class="source-link" href="https://www.anthropic.com/research/claude-code-expertise" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article><article class="maturity-card tone-blue"><div class="maturity-number">04</div><div class="maturity-head"><span class="pair "><span class="pair-zh">科学发现</span><span class="pair-en">Scientific discovery</span></span><span class="velocity">+0.7 / yr</span></div><div class="score-row"><strong>3.5</strong><span>/ 5</span></div><div class="score-track"><i style="--score:70%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">可生成假设、现代化科研软件，并在少数数学问题上给出经专家验证的新结果。</span><span class="pair-en">Can generate hypotheses, modernize scientific software, and contribute expert-validated results on selected math problems.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">新颖性、实验验证、可追溯性和与真实实验室的闭环仍依赖科学家。</span><span class="pair-en">Novelty, experimental validation, provenance, and lab closure still depend on scientists.</span></span></div></div><a class="source-link" href="https://deepmind.google/blog/co-scientist-a-multi-agent-ai-partner-to-accelerate-research/" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article><article class="maturity-card tone-orange"><div class="maturity-number">05</div><div class="maturity-head"><span class="pair "><span class="pair-zh">世界模型</span><span class="pair-en">World models</span></span><span class="velocity">+0.8 / yr</span></div><div class="score-row"><strong>3.1</strong><span>/ 5</span></div><div class="score-track"><i style="--score:62%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">可生成可探索 3D 世界和实时交互画面；渲染器已商业化，模拟器与规划器开始融合。</span><span class="pair-en">Can create explorable 3D worlds and real-time interactive frames; renderers are commercial while simulators and planners converge.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">看起来真实不等于物理正确；几何、因果、材料动力学和 sim-to-real 仍是核心难题。</span><span class="pair-en">Looking real is not being physically correct; geometry, causality, material dynamics, and sim-to-real remain core problems.</span></span></div></div><a class="source-link" href="https://www.worldlabs.ai/blog/taxonomy-of-world-models" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article><article class="maturity-card tone-violet"><div class="maturity-number">06</div><div class="maturity-head"><span class="pair "><span class="pair-zh">VLA 与通用机器人</span><span class="pair-en">VLA + general robotics</span></span><span class="velocity">+0.7 / yr</span></div><div class="score-row"><strong>2.7</strong><span>/ 5</span></div><div class="score-track"><i style="--score:54%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">单一策略可跨本体、完成数分钟全身任务并进行多机器人协作。</span><span class="pair-en">Single policies can cross embodiments, run whole-body tasks for minutes, and coordinate multiple robots.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">多指灵巧仍常低于 50%；公开综合锚点显示真实家务任务成功率约 12%。</span><span class="pair-en">Multi-finger dexterity is often below 50%; a public aggregate anchor puts real household-task success near 12%.</span></span></div></div><a class="source-link" href="https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article><article class="maturity-card tone-yellow"><div class="maturity-number">07</div><div class="maturity-head"><span class="pair "><span class="pair-zh">算力与端侧部署</span><span class="pair-en">Compute + edge deployment</span></span><span class="velocity">+0.6 / yr</span></div><div class="score-row"><strong>4.1</strong><span>/ 5</span></div><div class="score-track"><i style="--score:82%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">训练和推理已用不同专用芯片；MoE、KV cache、每瓦任务吞吐正在重塑硬件。</span><span class="pair-en">Training and inference now use specialized chips; MoE, KV cache, and task throughput per watt are reshaping hardware.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">电力、资本开支、供应集中和厂商自选基准限制了真实可比性。</span><span class="pair-en">Power, capex, supply concentration, and vendor-selected benchmarks limit real comparability.</span></span></div></div><a class="source-link" href="https://mlcommons.org/2026/06/mlperf-training-v6-0-results/" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article><article class="maturity-card tone-red"><div class="maturity-number">08</div><div class="maturity-head"><span class="pair "><span class="pair-zh">安全与可控性</span><span class="pair-en">Safety + control</span></span><span class="velocity">+0.3 / yr</span></div><div class="score-row"><strong>2.3</strong><span>/ 5</span></div><div class="score-track"><i style="--score:46%"></i></div><div class="maturity-copy"><div><span class="micro-label">NOW / 已经能</span><span class="pair "><span class="pair-zh">已有系统卡、外部评估、运行时监控和初步因果可解释性；风险阈值开始影响训练节奏。</span><span class="pair-en">System cards, external evaluation, runtime monitoring, and early causal interpretability exist; risk thresholds now affect training pace.</span></span></div><div><span class="micro-label">GAP / 还不能</span><span class="pair "><span class="pair-zh">真实评估环境曾被突破；关键网络能力逼近阈值，透明度与通用保证落后。</span><span class="pair-en">A real evaluation environment was breached; critical cyber capability is near while transparency and general assurance lag.</span></span></div></div><a class="source-link" href="https://openai.com/index/pacing-model-development-cyber-capabilities/" target="_blank" rel="noreferrer">PRIMARY ANCHOR <span aria-hidden="true">↗</span></a></article></div></section><section class="reality-check"><div class="section-heading"><p class="section-index">03 / REALITY CHECK</p><h2><span class="pair "><span class="pair-zh">不要把三种状态混成一个未来</span><span class="pair-en">DO NOT CONFUSE THREE DIFFERENT STATES.</span></span></h2></div><div class="reality-grid"><article class="reality-here"><span class="reality-state">HERE / 已到达</span><span class="pair reality-title"><span class="pair-zh">副驾驶式数字工作</span><span class="pair-en">COPILOT DIGITAL WORK</span></span><span class="pair "><span class="pair-zh">代码、研究、内容与软件操作已能在明确边界内交付成果。人仍需定目标、授权与验收。</span><span class="pair-en">Coding, research, content, and software operation can deliver inside clear boundaries. People still set goals, permissions, and acceptance.</span></span></article><article class="reality-emerging"><span class="reality-state">EMERGING / 正形成</span><span class="pair reality-title"><span class="pair-zh">跨工具、跨小时的智能体</span><span class="pair-en">MULTI-TOOL, MULTI-HOUR AGENTS</span></span><span class="pair "><span class="pair-zh">能分解复杂任务、调用子代理并从错误中恢复，但成功率随任务长度迅速下降。</span><span class="pair-en">They decompose complex work, delegate, and recover—but success still decays quickly with task length.</span></span></article><article class="reality-not-here"><span class="reality-state">NOT HERE / 尚未到达</span><span class="pair reality-title"><span class="pair-zh">可信的开放世界自治</span><span class="pair-en">TRUSTED OPEN-WORLD AUTONOMY</span></span><span class="pair "><span class="pair-zh">没有系统能在陌生数字与物理环境中长期、低监督、可证明安全地泛化。</span><span class="pair-en">No system reliably generalizes for long periods in unfamiliar digital and physical worlds with low supervision and provable safety.</span></span></article></div></section><section class="signal-desk" id="desk"><div class="section-heading split-heading desk-heading"><div><p class="section-index">04 / SIGNAL DESK</p><h2><span class="pair "><span class="pair-zh">证据优先，不追热搜</span><span class="pair-en">EVIDENCE FIRST. NOT A HYPE FEED.</span></span></h2></div><div class="desk-status"><span class="status-dot state-loading"></span><span class="pair "><span class="pair-zh">正在同步官方来源</span><span class="pair-en">Syncing official sources</span></span><button disabled="">REFRESH ↻</button></div></div><div class="desk-controls"><div class="view-tabs" role="tablist" aria-label="Signal desk view"><button role="tab" aria-selected="true" class="active"><span class="pair "><span class="pair-zh">编辑精选</span><span class="pair-en">EDITORIAL</span></span></button><button role="tab" aria-selected="false" class=""><span class="pair "><span class="pair-zh">官方实时</span><span class="pair-en">LIVE OFFICIAL</span></span></button><button role="tab" aria-selected="false" class=""><span class="pair "><span class="pair-zh">前沿论文</span><span class="pair-en">PAPERS</span></span></button><button role="tab" aria-selected="false" class=""><span class="pair "><span class="pair-zh">开放生态</span><span class="pair-en">OPEN STACK</span></span></button></div><label class="search-box"><span>⌕</span><input placeholder="搜索 / SEARCH" aria-label="Search signals" value=""/></label></div><div class="category-filter" aria-label="Filter by category"><button class="active"><span class="pair "><span class="pair-zh">全部</span><span class="pair-en">ALL</span></span></button><button class=""><span class="pair "><span class="pair-zh">基础模型</span><span class="pair-en">FOUNDATION MODELS</span></span></button><button class=""><span class="pair "><span class="pair-zh">智能体</span><span class="pair-en">AGENTS</span></span></button><button class=""><span class="pair "><span class="pair-zh">科学智能</span><span class="pair-en">AI FOR SCIENCE</span></span></button><button class=""><span class="pair "><span class="pair-zh">世界模型</span><span class="pair-en">WORLD MODELS</span></span></button><button class=""><span class="pair "><span class="pair-zh">VLA 与机器人</span><span class="pair-en">VLA + ROBOTICS</span></span></button><button class=""><span class="pair "><span class="pair-zh">算力与效率</span><span class="pair-en">COMPUTE + EFFICIENCY</span></span></button><button class=""><span class="pair "><span class="pair-zh">开放生态</span><span class="pair-en">OPEN ECOSYSTEM</span></span></button><button class=""><span class="pair "><span class="pair-zh">安全与治理</span><span class="pair-en">SAFETY + GOVERNANCE</span></span></button></div><div class="desk-note"><span>25<!-- --> ENTRIES</span><span class="pair "><span class="pair-zh">每条均标注证据层级、真正信号与已知边界。</span><span class="pair-en">Every item separates evidence level, actual signal, and known limit.</span></span></div><div class="signal-list" role="tabpanel"><article class="signal-card tone-yellow" data-kind="curated" data-id="jalapeno-results" data-category="infra" data-search="首款自研推理芯片 jalapeño 公布在硅结果 jalapeño posts its first measured silicon results openai 报告在 gpt‑oss、deepseek r1 与 kimi k2.5 上实现 1.5–1.9× 每瓦工作量和 1.7–3.6× 更低端到端延迟。 openai reports 1.5–1.9× more work per watt and 1.7–3.6× lower end-to-end latency across gpt‑oss, deepseek r1, and kimi k2.5. openai"><div class="signal-meta"><span>2026-08-25</span><span class="signal-source">OpenAI</span><span class="evidence evidence-vendor">厂商实测<!-- --> · <!-- -->VENDOR TEST</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://openai.com/index/jalapeno-first-results/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">首款自研推理芯片 Jalapeño 公布在硅结果</span><span class="pair-en">Jalapeño posts its first measured silicon results</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">OpenAI 报告在 GPT‑OSS、DeepSeek R1 与 Kimi K2.5 上实现 1.5–1.9× 每瓦工作量和 1.7–3.6× 更低端到端延迟。</span><span class="pair-en">OpenAI reports 1.5–1.9× more work per watt and 1.7–3.6× lower end-to-end latency across GPT‑OSS, DeepSeek R1, and Kimi K2.5.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">厂商测量，比较系统与运行点由 OpenAI 选择；尚未形成独立、多供应商同条件复核。</span><span class="pair-en">Vendor-measured with OpenAI-selected systems and operating points; not yet an independent like-for-like review.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-yellow" data-kind="curated" data-id="rubin-agents" data-category="infra" data-search="rubin 把硬件指标改写成“每瓦完成多少代理工作” rubin reframes hardware around agent work per watt nvidia 报告 vera rubin nvl72 在代理式编码轨迹上相对 gb300 nvl72 达到最高 30× 吞吐/mw，显示长上下文和 kv cache 正主导芯片设计。 nvidia reports up to 30× throughput per mw versus gb300 nvl72 on agentic coding traces, showing long context and kv cache now shape silicon. nvidia"><div class="signal-meta"><span>2026-08-24</span><span class="signal-source">NVIDIA</span><span class="evidence evidence-vendor">厂商实测<!-- --> · <!-- -->VENDOR TEST</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://blogs.nvidia.com/blog/vera-rubin-nvl72-efficiency-ai-agents/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Rubin 把硬件指标改写成“每瓦完成多少代理工作”</span><span class="pair-en">Rubin reframes hardware around agent work per watt</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">NVIDIA 报告 Vera Rubin NVL72 在代理式编码轨迹上相对 GB300 NVL72 达到最高 30× 吞吐/MW，显示长上下文和 KV cache 正主导芯片设计。</span><span class="pair-en">NVIDIA reports up to 30× throughput per MW versus GB300 NVL72 on agentic coding traces, showing long context and KV cache now shape silicon.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">结果由 NVIDIA 测量，且审核、任务质量和所有权总成本需要独立验证。</span><span class="pair-en">NVIDIA measured the result; review, task quality, and total ownership cost need independent verification.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-violet" data-kind="curated" data-id="waymo-compute" data-category="robotics" data-search="waymo 第六代车载计算栈进入真实无人驾驶规模 waymo details its sixth-generation onboard stack 基于超过 2 亿英里完全无人驾驶里程迭代，自研 5nm asic 前端超过 1,000 tops，端侧在毫秒内完成像素到动作。 iterated over 200m+ fully autonomous miles, its custom 5nm asic front end exceeds 1,000 tops and closes pixel-to-action onboard in milliseconds. waymo"><div class="signal-meta"><span>2026-08-20</span><span class="signal-source">Waymo</span><span class="evidence evidence-production">生产遥测<!-- --> · <!-- -->PRODUCTION DATA</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://waymo.com/blog/2026/08/look-under-our-trunk/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Waymo 第六代车载计算栈进入真实无人驾驶规模</span><span class="pair-en">Waymo details its sixth-generation onboard stack</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">基于超过 2 亿英里完全无人驾驶里程迭代，自研 5nm ASIC 前端超过 1,000 TOPS，端侧在毫秒内完成像素到动作。</span><span class="pair-en">Iterated over 200M+ fully autonomous miles, its custom 5nm ASIC front end exceeds 1,000 TOPS and closes pixel-to-action onboard in milliseconds.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">TOPS 和里程不是模型安全质量；功耗、接管率和同条件事故数据未在该页面披露。</span><span class="pair-en">TOPS and miles are not safety quality; power, intervention rate, and comparable incident data are not disclosed there.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-cyan" data-kind="curated" data-id="agentic-search" data-category="agents" data-search="agentic search 将检索从一次查询变成多步验证循环 agentic search turns retrieval into a verification loop mistral 将查找、检查、核对企业资料的多步检索层投入产品，反映智能体竞争正在从“大模型”扩展到可靠工具栈。 mistral shipped a multi-step layer for finding, inspecting, and verifying enterprise material—evidence that agent competition now includes the tool stack. mistral"><div class="signal-meta"><span>2026-08-20</span><span class="signal-source">Mistral</span><span class="evidence evidence-shipped">已上线<!-- --> · <!-- -->SHIPPED</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://mistral.ai/news/agentic-search/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Agentic Search 将检索从一次查询变成多步验证循环</span><span class="pair-en">Agentic Search turns retrieval into a verification loop</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Mistral 将查找、检查、核对企业资料的多步检索层投入产品，反映智能体竞争正在从“大模型”扩展到可靠工具栈。</span><span class="pair-en">Mistral shipped a multi-step layer for finding, inspecting, and verifying enterprise material—evidence that agent competition now includes the tool stack.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">厂商基准不能直接证明跨组织数据质量或端到端业务成功。</span><span class="pair-en">Vendor benchmarks do not establish cross-organization data quality or end-to-end business success.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 1 of 3"><i class="on"></i><i class=""></i><i class=""></i></div></article><article class="signal-card tone-violet" data-kind="curated" data-id="skild-s1" data-category="robotics" data-search="s1 用一段人类视频示范适配新机器人任务 s1 adapts to new robot tasks from one human video skild 展示无需微调、只看一次视频即可执行最长十分钟的新任务，从示范到自主执行最快约 11 分钟。 skild demos previously unseen tasks lasting up to ten minutes from one video, with the fastest demonstration-to-autonomy cycle around 11 minutes. skild ai"><div class="signal-meta"><span>2026-08-18</span><span class="signal-source">Skild AI</span><span class="evidence evidence-demo">受控演示<!-- --> · <!-- -->CONTROLLED DEMO</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://www.skild.ai/blogs/s1" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">S1 用一段人类视频示范适配新机器人任务</span><span class="pair-en">S1 adapts to new robot tasks from one human video</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Skild 展示无需微调、只看一次视频即可执行最长十分钟的新任务，从示范到自主执行最快约 11 分钟。</span><span class="pair-en">Skild demos previously unseen tasks lasting up to ten minutes from one video, with the fastest demonstration-to-autonomy cycle around 11 minutes.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">没有论文、权重、失败分布或第三方验证；这是大规模预训练后的上下文适配，不是从零学习。</span><span class="pair-en">No paper, weights, failure distribution, or third-party validation; this is in-context adaptation on a pretrained system, not learning from scratch.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-red" data-kind="curated" data-id="astra-pacing" data-category="safety" data-search="潜在 critical 网络能力首次公开影响模型训练节奏 potential critical cyber capability alters model development pace openai 称无法排除尚未公开模型 astra 达到 critical 网络阈值，并披露暂停最新模型 rl 两周以加固研究环境和监控。 openai says it cannot rule out astra reaching its critical cyber threshold and paused frontier rl for two weeks to harden research environments and monitoring. openai"><div class="signal-meta"><span>2026-08-18</span><span class="signal-source">OpenAI</span><span class="evidence evidence-preview">预览 / 草案<!-- --> · <!-- -->PREVIEW / DRAFT</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://openai.com/index/pacing-model-development-cyber-capabilities/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">潜在 Critical 网络能力首次公开影响模型训练节奏</span><span class="pair-en">Potential critical cyber capability alters model development pace</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">OpenAI 称无法排除尚未公开模型 Astra 达到 Critical 网络阈值，并披露暂停最新模型 RL 两周以加固研究环境和监控。</span><span class="pair-en">OpenAI says it cannot rule out Astra reaching its Critical cyber threshold and paused frontier RL for two weeks to harden research environments and monitoring.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">Astra 尚未公开，无公开分数或测试集；阈值和结论由公司自行定义。</span><span class="pair-en">Astra is unreleased, with no public score or test set; the company defines both the threshold and assessment.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-mint" data-kind="curated" data-id="glm-53" data-category="open" data-search="glm‑5.3 只靠后训练大幅抬升编码与网络能力 glm‑5.3 lifts coding and cyber through post-training alone 在不更换 5.2 基座的情况下，z.ai 报告 terminal‑bench 3 从 4.6 升至 28.3、deepswe 至 66.9；api 已上线。 without changing the 5.2 base, z.ai reports terminal-bench 3 rising from 4.6 to 28.3 and deepswe reaching 66.9; the api is live. z.ai"><div class="signal-meta"><span>2026-08-14</span><span class="signal-source">Z.ai</span><span class="evidence evidence-shipped">已上线<!-- --> · <!-- -->SHIPPED</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://z.ai/blog/glm-5.3" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">GLM‑5.3 只靠后训练大幅抬升编码与网络能力</span><span class="pair-en">GLM‑5.3 lifts coding and cyber through post-training alone</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">在不更换 5.2 基座的情况下，Z.ai 报告 Terminal‑Bench 3 从 4.6 升至 28.3、DeepSWE 至 66.9；API 已上线。</span><span class="pair-en">Without changing the 5.2 base, Z.ai reports Terminal-Bench 3 rising from 4.6 to 28.3 and DeepSWE reaching 66.9; the API is live.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">多数评测由厂商运行；截至研究截点，权重仍只是承诺两周后开放。</span><span class="pair-en">Most evals are vendor-run; at the research cut, weights were promised in two weeks but not yet released.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-mint" data-kind="curated" data-id="open-models-2026" data-category="open" data-search="开放模型数量暴涨，但真实使用极度集中 open models explode in count while usage concentrates hugging face 报告 2026 年前七个月公开模型仓库从 243 万增至 296 万，但 1.5% 仓库占 99.2% 下载，小模型与 gguf 才是普及层。 hugging face reports public repos growing from 2.43m to 2.96m in seven months, while 1.5% capture 99.2% of downloads; small models and gguf dominate access. hugging face"><div class="signal-meta"><span>2026-08-14</span><span class="signal-source">Hugging Face</span><span class="evidence evidence-production">生产遥测<!-- --> · <!-- -->PRODUCTION DATA</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://huggingface.co/blog/state-of-open-models-summer-2026" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">开放模型数量暴涨，但真实使用极度集中</span><span class="pair-en">Open models explode in count while usage concentrates</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Hugging Face 报告 2026 年前七个月公开模型仓库从 243 万增至 296 万，但 1.5% 仓库占 99.2% 下载，小模型与 GGUF 才是普及层。</span><span class="pair-en">Hugging Face reports public repos growing from 2.43M to 2.96M in seven months, while 1.5% capture 99.2% of downloads; small models and GGUF dominate access.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">下载不等于使用、质量或商业部署；这是单个平台的一方遥测。</span><span class="pair-en">Downloads are not usage, quality, or deployment; this is first-party telemetry from one platform.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-lime" data-kind="curated" data-id="gemini-37" data-category="models" data-search="gemini 3.7 flash 把前沿代理能力压进“工作马”价位 gemini 3.7 flash pushes agent capability into a workhorse tier 已进入 api 与多款产品；google 报告 deepswe 65.3、automationbench 30.4、1m 输入上下文与可调推理。 now in the api and multiple products; google reports deepswe 65.3, automationbench 30.4, 1m input context, and configurable reasoning. google deepmind"><div class="signal-meta"><span>2026-08-13</span><span class="signal-source">Google DeepMind</span><span class="evidence evidence-shipped">已上线<!-- --> · <!-- -->SHIPPED</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://deepmind.google/models/model-cards/gemini-3-7-flash/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Gemini 3.7 Flash 把前沿代理能力压进“工作马”价位</span><span class="pair-en">Gemini 3.7 Flash pushes agent capability into a workhorse tier</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">已进入 API 与多款产品；Google 报告 DeepSWE 65.3、AutomationBench 30.4、1M 输入上下文与可调推理。</span><span class="pair-en">Now in the API and multiple products; Google reports DeepSWE 65.3, AutomationBench 30.4, 1M input context, and configurable reasoning.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">30.4% 的复杂自动化成功率本身说明离可靠自治仍远；横向数字来自不同评测设置。</span><span class="pair-en">A 30.4% complex-automation score itself shows reliable autonomy is distant; cross-model figures use different setups.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-mint" data-kind="curated" data-id="qwen-38" data-category="open" data-search="qwen 首次开放 max 级 2.4t 参数权重 qwen opens its first max-class 2.4t-parameter weights qwen3.8‑2.4t‑a95b 以 95b 激活参数提供原生 262k 上下文，并可扩至约 1m，把超大代理基座带入开放权重层。 qwen3.8-2.4t-a95b activates 95b parameters, offers native 262k context, and can extend near 1m—bringing a giant agentic base to open weights. qwen"><div class="signal-meta"><span>2026-08-12</span><span class="signal-source">Qwen</span><span class="evidence evidence-open">开放产物<!-- --> · <!-- -->OPEN ARTIFACT</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Qwen 首次开放 Max 级 2.4T 参数权重</span><span class="pair-en">Qwen opens its first Max-class 2.4T-parameter weights</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Qwen3.8‑2.4T‑A95B 以 95B 激活参数提供原生 262K 上下文，并可扩至约 1M，把超大代理基座带入开放权重层。</span><span class="pair-en">Qwen3.8-2.4T-A95B activates 95B parameters, offers native 262K context, and can extend near 1M—bringing a giant agentic base to open weights.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">仅文本、必须开启 thinking，部署成本巨大；开放权重不等于公开训练数据与完整配方。</span><span class="pair-en">Text-only, thinking-required, and extremely costly to serve; open weights do not include training data or a full recipe.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-cyan" data-kind="curated" data-id="grok-46" data-category="agents" data-search="grok 4.6 全面转向长程代理与可视化工作 grok 4.6 pivots toward long-running agents and visual work api、grok build 与开发工具已上线；官方重点从聊天转向跨代码库、研究和应用构建的多步执行。 live in the api, grok build, and developer tools; its center of gravity moves from chat to multi-step work across codebases, research, and app creation. spacexai"><div class="signal-meta"><span>2026-08-12</span><span class="signal-source">SpaceXAI</span><span class="evidence evidence-shipped">已上线<!-- --> · <!-- -->SHIPPED</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://x.ai/news/grok-4-6" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Grok 4.6 全面转向长程代理与可视化工作</span><span class="pair-en">Grok 4.6 pivots toward long-running agents and visual work</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">API、Grok Build 与开发工具已上线；官方重点从聊天转向跨代码库、研究和应用构建的多步执行。</span><span class="pair-en">Live in the API, Grok Build, and developer tools; its center of gravity moves from chat to multi-step work across codebases, research, and app creation.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">自报横向分数混合不同厂商最佳设置；Terminal‑Bench 3 绝对表现仍低。</span><span class="pair-en">Self-reported comparisons mix vendors&#x27; best settings; absolute Terminal-Bench 3 performance remains low.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-violet" data-kind="curated" data-id="robotics-2" data-category="robotics" data-search="gemini robotics 2 从“手臂”扩展到全身、多本体与多机器人 gemini robotics 2 expands to whole-body, cross-embodiment, multi-robot work 同一 vla checkpoint 控制多种机器人；er 2 可规划数分钟、数百次决策，并在 ai studio 公开预览。 one vla checkpoint controls multiple robots; er 2 plans across minutes and hundreds of decisions and is in public ai studio preview. google deepmind"><div class="signal-meta"><span>2026-07-30</span><span class="signal-source">Google DeepMind</span><span class="evidence evidence-preview">预览 / 草案<!-- --> · <!-- -->PREVIEW / DRAFT</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Gemini Robotics 2 从“手臂”扩展到全身、多本体与多机器人</span><span class="pair-en">Gemini Robotics 2 expands to whole-body, cross-embodiment, multi-robot work</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">同一 VLA checkpoint 控制多种机器人；ER 2 可规划数分钟、数百次决策，并在 AI Studio 公开预览。</span><span class="pair-en">One VLA checkpoint controls multiple robots; ER 2 plans across minutes and hundreds of decisions and is in public AI Studio preview.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">多指系袋、拉链等公开成功率约 32–44%；低层 VLA 不公开，仍不能代表家庭可靠性。</span><span class="pair-en">Published multi-finger tasks such as bag tying and ziplocks are around 32–44%; low-level VLA is closed and household reliability is unproven.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-orange" data-kind="curated" data-id="r2s2r" data-category="worlds" data-search="世界模型开始直接生成训练机器人的模拟器 world models begin generating simulators that train robots world labs 展示从真实任务构建仿真、完全在仿真中训练策略，再迁移到多种真实机器人的 real-to-sim-to-real 闭环。 world labs demos a real-to-sim-to-real loop: build a simulator from a real task, train the policy in simulation, then transfer to multiple real robots. world labs / scenix"><div class="signal-meta"><span>2026-07-28</span><span class="signal-source">World Labs / SceniX</span><span class="evidence evidence-demo">受控演示<!-- --> · <!-- -->CONTROLLED DEMO</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://www.worldlabs.ai/blog/real-to-sim-to-real" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">世界模型开始直接生成训练机器人的模拟器</span><span class="pair-en">World models begin generating simulators that train robots</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">World Labs 展示从真实任务构建仿真、完全在仿真中训练策略，再迁移到多种真实机器人的 real-to-sim-to-real 闭环。</span><span class="pair-en">World Labs demos a real-to-sim-to-real loop: build a simulator from a real task, train the policy in simulation, then transfer to multiple real robots.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">“零真机训练数据”不代表零真实捕获；系统私有，无论文、代码或跨客户复现。</span><span class="pair-en">‘Zero real-world policy data’ does not mean zero real capture; the system is private with no paper, code, or cross-customer replication.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-cyan" data-kind="curated" data-id="kimi-k3-eval" data-category="safety" data-search="政府联合评估：开放模型已能完成小型企业攻击链 government evaluation: an open model can complete a small enterprise attack chain kimi k3 在模拟企业攻击中平均走到 32 步中的第 17 步，并在 10 次中完整攻破 1 次；表现仍显著落后最强闭源模型。 kimi k3 averaged step 17 of a 32-step simulated corporate attack and completed it once in ten attempts, still well below the strongest closed models. nist caisi + uk aisi"><div class="signal-meta"><span>2026-07-24</span><span class="signal-source">Anthropic</span><span class="evidence evidence-shipped">已上线<!-- --> · <!-- -->SHIPPED</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://www.anthropic.com/news/claude-opus-5" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Claude Opus 5 将长运行代理带入日常主力档</span><span class="pair-en">Claude Opus 5 moves long-running agents into the everyday tier</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Anthropic 将代码、专业工作、记忆管理和长期多步执行作为主轴，并在 API 与各产品全面上线。</span><span class="pair-en">Anthropic centers coding, professional work, memory management, and long multi-step execution, with broad API and product availability.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">关键长程案例多来自客户引语或厂商评测，缺少跨平台持续运行的失败分布。</span><span class="pair-en">Key long-horizon evidence is mostly customer testimony or vendor evaluation, without cross-platform failure distributions.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-red" data-kind="curated" data-id="kimi-k3" data-category="open" data-search="kimi k3 将 2.8t 级多模态代理模型开放权重 kimi k3 brings a 2.8t-class multimodal agent model to open weights 104b 激活、1m 上下文、原生图像输入，网页、应用、code 与 api 可用；官方还展示 24–48 小时工程任务。 104b active parameters, 1m context, native vision, and availability across web, app, code, api, and weights; demos include 24–48 hour engineering runs. moonshot ai"><div class="signal-meta"><span>2026-07-23</span><span class="signal-source">NIST CAISI + UK AISI</span><span class="evidence evidence-independent">独立实测<!-- --> · <!-- -->INDEPENDENT TEST</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://www.nist.gov/news-events/news/2026/07/uk-aisi-caisi-preliminary-assessment-kimi-k3s-cyber-capabilities" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">政府联合评估：开放模型已能完成小型企业攻击链</span><span class="pair-en">Government evaluation: an open model can complete a small enterprise attack chain</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Kimi K3 在模拟企业攻击中平均走到 32 步中的第 17 步，并在 10 次中完整攻破 1 次；表现仍显著落后最强闭源模型。</span><span class="pair-en">Kimi K3 averaged step 17 of a 32-step simulated corporate attack and completed it once in ten attempts, still well below the strongest closed models.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">环境无主动防守、有预设攻击路径且 token 预算巨大；不能直接外推真实世界攻击率。</span><span class="pair-en">The range has no active defenders, an intentional path, and a huge token budget; it cannot be mapped directly to real-world attack rates.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-mint" data-kind="curated" data-id="opus-5" data-category="agents" data-search="claude opus 5 将长运行代理带入日常主力档 claude opus 5 moves long-running agents into the everyday tier anthropic 将代码、专业工作、记忆管理和长期多步执行作为主轴，并在 api 与各产品全面上线。 anthropic centers coding, professional work, memory management, and long multi-step execution, with broad api and product availability. anthropic"><div class="signal-meta"><span>2026-07-17</span><span class="signal-source">Moonshot AI</span><span class="evidence evidence-open">开放产物<!-- --> · <!-- -->OPEN ARTIFACT</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://www.kimi.com/news/kimi-k3" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Kimi K3 将 2.8T 级多模态代理模型开放权重</span><span class="pair-en">Kimi K3 brings a 2.8T-class multimodal agent model to open weights</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">104B 激活、1M 上下文、原生图像输入，网页、应用、Code 与 API 可用；官方还展示 24–48 小时工程任务。</span><span class="pair-en">104B active parameters, 1M context, native vision, and availability across web, app, Code, API, and weights; demos include 24–48 hour engineering runs.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">长程成果为厂商精选案例，部署门槛极高；许可证与完整训练可复现性有限。</span><span class="pair-en">Long-horizon results are selected vendor cases, serving is extremely demanding, and licensing/full training reproducibility are limited.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-cyan" data-kind="curated" data-id="gpt-56" data-category="agents" data-search="gpt‑5.6 把推理、电脑使用和多代理编排合为生产模型族 gpt‑5.6 unifies reasoning, computer use, and multi-agent orchestration sol/terra/luna 全面可用；sol 报告 osworld 62.6%、browsecomp 92.2%，ultra 默认协调四个并行代理。 sol, terra, and luna are ga; sol reports 62.6% on osworld and 92.2% on browsecomp, while ultra coordinates four agents by default. openai"><div class="signal-meta"><span>2026-07-09</span><span class="signal-source">OpenAI</span><span class="evidence evidence-shipped">已上线<!-- --> · <!-- -->SHIPPED</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">GPT‑5.6 把推理、电脑使用和多代理编排合为生产模型族</span><span class="pair-en">GPT‑5.6 unifies reasoning, computer use, and multi-agent orchestration</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Sol/Terra/Luna 全面可用；Sol 报告 OSWorld 62.6%、BrowseComp 92.2%，ultra 默认协调四个并行代理。</span><span class="pair-en">Sol, Terra, and Luna are GA; Sol reports 62.6% on OSWorld and 92.2% on BrowseComp, while ultra coordinates four agents by default.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">AutomationBench 仅 18.1%、ARC‑AGI‑3 仅 7.78%，说明能力强但跨环境泛化远未解决。</span><span class="pair-en">AutomationBench is only 18.1% and ARC-AGI-3 only 7.78%, showing strong capability without solved cross-environment generalization.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-cyan" data-kind="curated" data-id="muse-11" data-category="agents" data-search="muse spark 1.1 让 meta 进入闭源代理平台竞争 muse spark 1.1 moves meta into closed agent platforms 1m 上下文、电脑操作、工具调用、上下文压缩和子代理委派进入 model api 公测与 meta ai 产品。 1m context, computer use, tool calling, compaction, and subagent delegation enter the model api preview and meta ai products. meta"><div class="signal-meta"><span>2026-07-09</span><span class="signal-source">Meta</span><span class="evidence evidence-preview">预览 / 草案<!-- --> · <!-- -->PREVIEW / DRAFT</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Muse Spark 1.1 让 Meta 进入闭源代理平台竞争</span><span class="pair-en">Muse Spark 1.1 moves Meta into closed agent platforms</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">1M 上下文、电脑操作、工具调用、上下文压缩和子代理委派进入 Model API 公测与 Meta AI 产品。</span><span class="pair-en">1M context, computer use, tool calling, compaction, and subagent delegation enter the Model API preview and Meta AI products.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">无开放权重，核心编码结果包含内部评测；行动功能分地区逐步推出。</span><span class="pair-en">No open weights, core coding results include internal evals, and action features roll out by market.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-violet" data-kind="curated" data-id="robostral" data-category="robotics" data-search="8b 单摄像头模型把自然语言变成机器人导航 an 8b single-camera model turns language into robot navigation robostral navigate 只用普通 rgb 相机，在官方 r2r‑ce unseen 验证集报告 76.6%，并公开技术报告。 robostral navigate uses one ordinary rgb camera and reports 76.6% on r2r-ce validation-unseen, with a technical report. mistral"><div class="signal-meta"><span>2026-07-08</span><span class="signal-source">Mistral</span><span class="evidence evidence-paper">论文 / 方法<!-- --> · <!-- -->PAPER / METHOD</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://mistral.ai/news/robostral-navigate/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">8B 单摄像头模型把自然语言变成机器人导航</span><span class="pair-en">An 8B single-camera model turns language into robot navigation</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">Robostral Navigate 只用普通 RGB 相机，在官方 R2R‑CE unseen 验证集报告 76.6%，并公开技术报告。</span><span class="pair-en">Robostral Navigate uses one ordinary RGB camera and reports 76.6% on R2R-CE validation-unseen, with a technical report.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">基准与精选办公路线不等于开放世界导航；缺少独立真机规模评估。</span><span class="pair-en">A benchmark and selected office routes are not open-world navigation; independent real-robot scale evaluation is missing.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-cyan" data-kind="curated" data-id="claude-code-telemetry" data-category="agents" data-search="40 万真实会话显示：人做规划，ai 做执行 400k real sessions show humans plan while ai executes 人在典型会话中做约 70% 规划决定，claude 做约 80% 执行决定；跨职业编码任务的至少部分成功率接近。 people make roughly 70% of planning decisions while claude makes about 80% of execution decisions; partial success is similar across occupations. anthropic"><div class="signal-meta"><span>2026-06-16</span><span class="signal-source">Anthropic</span><span class="evidence evidence-production">生产遥测<!-- --> · <!-- -->PRODUCTION DATA</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://www.anthropic.com/research/claude-code-expertise" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">40 万真实会话显示：人做规划，AI 做执行</span><span class="pair-en">400k real sessions show humans plan while AI executes</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">人在典型会话中做约 70% 规划决定，Claude 做约 80% 执行决定；跨职业编码任务的至少部分成功率接近。</span><span class="pair-en">People make roughly 70% of planning decisions while Claude makes about 80% of execution decisions; partial success is similar across occupations.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">一方用户样本，看不到代码是否最终采用或带来真实经济结果。</span><span class="pair-en">A first-party user sample that cannot observe whether code was ultimately adopted or produced economic value.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-yellow" data-kind="curated" data-id="mlperf-v6" data-category="infra" data-search="稀疏 moe 正式进入主流训练系统基准 sparse moe enters mainstream training-system measurement mlperf training v6.0 新增 deepseek‑v3 与 gpt‑oss moe，包含 95 种系统、13 类加速器和 24 家提交方。 mlperf training v6.0 adds deepseek-v3 and gpt-oss moe workloads across 95 systems, 13 accelerator types, and 24 submitters. mlcommons"><div class="signal-meta"><span>2026-06-16</span><span class="signal-source">MLCommons</span><span class="evidence evidence-independent">独立实测<!-- --> · <!-- -->INDEPENDENT TEST</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://mlcommons.org/2026/06/mlperf-training-v6-0-results/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">稀疏 MoE 正式进入主流训练系统基准</span><span class="pair-en">Sparse MoE enters mainstream training-system measurement</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">MLPerf Training v6.0 新增 DeepSeek‑V3 与 GPT‑OSS MoE，包含 95 种系统、13 类加速器和 24 家提交方。</span><span class="pair-en">MLPerf Training v6.0 adds DeepSeek-V3 and GPT-OSS MoE workloads across 95 systems, 13 accelerator types, and 24 submitters.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">高度调优的 time-to-quality 片段不等于完整训练成本或最终模型质量。</span><span class="pair-en">Highly tuned time-to-quality slices are not total training cost or final model quality.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-orange" data-kind="curated" data-id="cosmos-3" data-category="worlds" data-search="cosmos 3 把文字、视频、音频与动作纳入同一物理 ai 家族 cosmos 3 unifies text, video, audio, and action for physical ai 开放 edge 4b、nano 16b、super 64b checkpoint；edge 可在 jetson 上本地生成连续动作块。 open edge 4b, nano 16b, and super 64b checkpoints; edge can generate continuous action chunks locally on jetson. nvidia"><div class="signal-meta"><span>2026-06-01</span><span class="signal-source">NVIDIA</span><span class="evidence evidence-open">开放产物<!-- --> · <!-- -->OPEN ARTIFACT</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://research.nvidia.com/labs/cosmos-lab/cosmos3/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Cosmos 3 把文字、视频、音频与动作纳入同一物理 AI 家族</span><span class="pair-en">Cosmos 3 unifies text, video, audio, and action for physical AI</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">开放 Edge 4B、Nano 16B、Super 64B checkpoint；Edge 可在 Jetson 上本地生成连续动作块。</span><span class="pair-en">Open Edge 4B, Nano 16B, and Super 64B checkpoints; Edge can generate continuous action chunks locally on Jetson.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">公开闭环 RoboLab 成功率仅 22.9%，且训练复现成本极高。</span><span class="pair-en">Published closed-loop RoboLab success is only 22.9%, and reproduction cost is extremely high.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-blue" data-kind="curated" data-id="co-scientist" data-category="science" data-search="co‑scientist 用多代理辩论生成并筛选科研假设 co-scientist uses multi-agent debate to evolve research hypotheses 研究发表于 nature，并通过 hypothesis generation 实验工具向研究者开放，标志科学 ai 从问答走向结构化假设循环。 published in nature and exposed through an experimental researcher tool, it moves science ai from q&amp;a toward structured hypothesis loops. google deepmind"><div class="signal-meta"><span>2026-05-19</span><span class="signal-source">Google DeepMind</span><span class="evidence evidence-paper">论文 / 方法<!-- --> · <!-- -->PAPER / METHOD</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://deepmind.google/blog/co-scientist-a-multi-agent-ai-partner-to-accelerate-research/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Co‑Scientist 用多代理辩论生成并筛选科研假设</span><span class="pair-en">Co-Scientist uses multi-agent debate to evolve research hypotheses</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">研究发表于 Nature，并通过 Hypothesis Generation 实验工具向研究者开放，标志科学 AI 从问答走向结构化假设循环。</span><span class="pair-en">Published in Nature and exposed through an experimental researcher tool, it moves science AI from Q&amp;A toward structured hypothesis loops.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">生成好假设不等于完成发现；实验设计、数据与现实验证仍由研究团队负责。</span><span class="pair-en">A good hypothesis is not a completed discovery; experiment design, data, and real validation remain with research teams.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article><article class="signal-card tone-yellow" data-kind="curated" data-id="tpu8" data-category="infra" data-search="tpu 8 首次按训练与推理拆成两种芯片 tpu 8 splits training and inference into distinct chips tpu 8t 面向超大训练，8i 面向推理与 rl，配置 288gb hbm 和更大 sram/kv cache，反映代理负载直接塑造架构。 tpu 8t targets giant training while 8i targets inference and rl with 288gb hbm and larger sram/kv cache—agent workloads now shape architecture. google cloud"><div class="signal-meta"><span>2026-04-22</span><span class="signal-source">Google Cloud</span><span class="evidence evidence-vendor">厂商实测<!-- --> · <!-- -->VENDOR TEST</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/eighth-generation-tpu-agentic-era/" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">TPU 8 首次按训练与推理拆成两种芯片</span><span class="pair-en">TPU 8 splits training and inference into distinct chips</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">TPU 8t 面向超大训练，8i 面向推理与 RL，配置 288GB HBM 和更大 SRAM/KV cache，反映代理负载直接塑造架构。</span><span class="pair-en">TPU 8t targets giant training while 8i targets inference and RL with 288GB HBM and larger SRAM/KV cache—agent workloads now shape architecture.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">仍属厂商规格和预 GA 数据，缺少统一第三方测量。</span><span class="pair-en">Still vendor specifications and pre-GA data without unified third-party measurement.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 2 of 3"><i class="on"></i><i class="on"></i><i class=""></i></div></article><article class="signal-card tone-violet" data-kind="curated" data-id="helix-02" data-category="robotics" data-search="helix 02 用一个神经系统完成四分钟全身任务 helix 02 runs a four-minute whole-body task with one neural system 从像素直接控制行走、平衡和操作，连续完成洗碗机流程；展示 61 个全身动作且无人工干预。 pixels directly control walking, balance, and manipulation through a continuous dishwasher workflow with 61 actions and no human intervention. figure"><div class="signal-meta"><span>2026-01-27</span><span class="signal-source">Figure</span><span class="evidence evidence-demo">受控演示<!-- --> · <!-- -->CONTROLLED DEMO</span><button class="save-button " aria-label="收藏此条">○</button></div><a class="signal-title" href="https://www.figure.ai/news/helix-02" target="_blank" rel="noreferrer"><span class="pair "><span class="pair-zh">Helix 02 用一个神经系统完成四分钟全身任务</span><span class="pair-en">Helix 02 runs a four-minute whole-body task with one neural system</span></span> <span aria-hidden="true">↗</span></a><div class="signal-columns"><div><span class="micro-label">SIGNAL / 信号</span><span class="pair "><span class="pair-zh">从像素直接控制行走、平衡和操作，连续完成洗碗机流程；展示 61 个全身动作且无人工干预。</span><span class="pair-en">Pixels directly control walking, balance, and manipulation through a continuous dishwasher workflow with 61 actions and no human intervention.</span></span></div><div class="limit-copy"><span class="micro-label">LIMIT / 边界</span><span class="pair "><span class="pair-zh">精选单次演示没有失败率、跨家庭测试或长期运行数据。</span><span class="pair-en">A selected demonstration provides no failure distribution, cross-home trial, or long-duration operating data.</span></span></div></div><div class="magnitude" aria-label="signal magnitude 3 of 3"><i class="on"></i><i class="on"></i><i class="on"></i></div></article></div></section><section class="sources-section" id="sources"><div class="section-heading split-heading"><div><p class="section-index">05 / SOURCE CONTROL</p><h2><span class="pair "><span class="pair-zh">雷达也必须暴露自己的盲区</span><span class="pair-en">THE RADAR MUST SHOW ITS OWN BLIND SPOTS.</span></span></h2></div><div class="health-score"><strong>—</strong><span class="pair "><span class="pair-zh">自动管线在线率</span><span class="pair-en">PIPELINE AVAILABILITY</span></span></div></div><div class="source-summary"><div><span>WATCH UNIVERSE</span><strong>26</strong><span class="pair "><span class="pair-zh">纳入官方源</span><span class="pair-en">official sources</span></span></div><div><span>AUTOMATED</span><strong>15</strong><span class="pair "><span class="pair-zh">机器可读管线</span><span class="pair-en">machine-readable pipelines</span></span></div><div><span>HEALTHY NOW</span><strong>—</strong><span class="pair "><span class="pair-zh">本轮成功</span><span class="pair-en">successful this cycle</span></span></div><div><span>DEGRADED</span><strong>—</strong><span class="pair "><span class="pair-zh">暂时不可用</span><span class="pair-en">temporarily unavailable</span></span></div></div><div class="source-table" role="table" aria-label="Source coverage catalog"><div class="source-row source-head" role="row"><span>STATUS</span><span>SOURCE</span><span>MODE</span><span>LANE</span><span>ITEMS</span></div><a class="source-row" role="row" href="https://openai.com/news/rss.xml" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>OpenAI News</strong><span>RSS</span><span>Models · agents · safety</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://deepmind.google/blog/rss.xml" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>Google DeepMind</strong><span>RSS</span><span>Models · science · robotics</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://blog.google/innovation-and-ai/rss/" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>Google AI</strong><span>RSS</span><span>Products · research · compute</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://machinelearning.apple.com/rss.xml" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>Apple ML Research</strong><span>RSS</span><span>On-device · multimodal</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.microsoft.com/en-us/research/feed/" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>Microsoft Research</strong><span>RSS</span><span>Research · science</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.amazon.science/index.rss" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>Amazon Science</strong><span>RSS</span><span>Research · agents</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://nvidianews.nvidia.com/rss.xml" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>NVIDIA Newsroom</strong><span>RSS</span><span>Compute · physical AI</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://ir.amd.com/news-events/press-releases/rss" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>AMD Newsroom</strong><span>RSS</span><span>Compute · systems</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://about.fb.com/feed/" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>Meta Newsroom</strong><span>RSS</span><span>Models · products</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://github.blog/changelog/feed/" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>GitHub Changelog</strong><span>RSS</span><span>Agents · open tooling</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.nist.gov/news-events/information%20technology/rss.xml" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>NIST IT</strong><span>RSS</span><span>Evals · safety · standards</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://digital-strategy.ec.europa.eu/en/rss.xml" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>EU Digital Strategy</strong><span>RSS</span><span>Governance · AI Act</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://export.arxiv.org/api/query" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>arXiv frontier query</strong><span>ATOM</span><span>Papers · preprints</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://huggingface.co/models" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>Hugging Face Models</strong><span>API</span><span>Open model attention</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://github.com" target="_blank" rel="noreferrer"><span><i class="source-dot source-sync"></i>SYNC</span><strong>GitHub Releases</strong><span>API</span><span>Open tooling · robotics</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.anthropic.com/news" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Anthropic News + Research</strong><span>WATCH</span><span>Models · agents · safety</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://mistral.ai/news/" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Mistral News</strong><span>WATCH</span><span>Open · agents · robotics</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://x.ai/news" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>SpaceXAI News</strong><span>WATCH</span><span>Models · agents</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://qwenlm.github.io/blog/" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Qwen</strong><span>WATCH</span><span>Open frontier models</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://api-docs.deepseek.com/news/news0725" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>DeepSeek</strong><span>WATCH</span><span>Models · open</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.kimi.com/news" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Moonshot AI / Kimi</strong><span>WATCH</span><span>Open · agents</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://z.ai/blog" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Z.ai</strong><span>WATCH</span><span>Open · coding · agents</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.worldlabs.ai/blog" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>World Labs</strong><span>WATCH</span><span>World models · robotics</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.figure.ai/news" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Figure</strong><span>WATCH</span><span>Humanoids · VLA</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://www.pi.website/blog" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Physical Intelligence</strong><span>WATCH</span><span>VLA · robot learning</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a><a class="source-row" role="row" href="https://wayve.ai/thinking/" target="_blank" rel="noreferrer"><span><i class="source-dot source-watch"></i>WATCH</span><strong>Wayve</strong><span>WATCH</span><span>Driving · world models</span><span>—<!-- --> <span aria-hidden="true">↗</span></span></a></div><div class="coverage-warning"><span>IMPORTANT / 重要</span><span class="pair "><span class="pair-zh">“全网”在实践中只能是高覆盖雷达，不可能证明穷尽。没有稳定机器接口的来源进入人工观察池；任何断流都会显示为降级，而不是被静默删除。</span><span class="pair-en">“The whole web” can only mean high-coverage radar, never provable completeness. Sources without stable machine interfaces stay in the watch pool; feed failures surface as degraded instead of disappearing silently.</span></span></div></section><section class="glossary-section"><div class="section-heading"><p class="section-index">06 / FIELD GUIDE</p><h2><span class="pair "><span class="pair-zh">八个词，看懂前沿讨论</span><span class="pair-en">EIGHT TERMS TO READ THE FRONTIER.</span></span></h2></div><div class="glossary-grid"><article><span>01</span><h3>LLM</h3><span class="pair glossary-name"><span class="pair-zh">语言模型</span><span class="pair-en">Language model</span></span><span class="pair "><span class="pair-zh">从大量文本与代码中学习模式，核心输出是下一段 token。</span><span class="pair-en">Learns patterns from text and code; its core output is the next token sequence.</span></span></article><article><span>02</span><h3>VLM</h3><span class="pair glossary-name"><span class="pair-zh">视觉语言模型</span><span class="pair-en">Vision-language model</span></span><span class="pair "><span class="pair-zh">同时理解图像/视频和语言，但通常不直接控制机器。</span><span class="pair-en">Understands images/video with language but usually does not directly control machines.</span></span></article><article><span>03</span><h3>VLA</h3><span class="pair glossary-name"><span class="pair-zh">视觉-语言-动作模型</span><span class="pair-en">Vision-language-action model</span></span><span class="pair "><span class="pair-zh">把看到的场景和语言目标直接变成机器人动作。</span><span class="pair-en">Turns perceived scenes and language goals directly into robot actions.</span></span></article><article><span>04</span><h3>AGENT</h3><span class="pair glossary-name"><span class="pair-zh">智能体</span><span class="pair-en">Agent</span></span><span class="pair "><span class="pair-zh">让模型反复观察、计划、调用工具并根据结果继续行动的系统。</span><span class="pair-en">A system that repeatedly observes, plans, calls tools, and acts on results.</span></span></article><article><span>05</span><h3>WORLD MODEL</h3><span class="pair glossary-name"><span class="pair-zh">世界模型</span><span class="pair-en">World model</span></span><span class="pair "><span class="pair-zh">学习空间、时间和动作后果；可能是渲染器、模拟器或规划器。</span><span class="pair-en">Learns space, time, and action consequences; may be a renderer, simulator, or planner.</span></span></article><article><span>06</span><h3>OPEN WEIGHTS</h3><span class="pair glossary-name"><span class="pair-zh">开放权重</span><span class="pair-en">Open weights</span></span><span class="pair "><span class="pair-zh">可下载模型参数；不代表训练数据、代码和配方也开放。</span><span class="pair-en">Downloadable parameters; it does not mean training data, code, or recipes are open.</span></span></article><article><span>07</span><h3>CONTEXT</h3><span class="pair glossary-name"><span class="pair-zh">上下文窗口</span><span class="pair-en">Context window</span></span><span class="pair "><span class="pair-zh">一次能读入的信息上限；容量大不等于长期记忆可靠。</span><span class="pair-en">How much can be read at once; more capacity is not reliable long-term memory.</span></span></article><article><span>08</span><h3>MoE</h3><span class="pair glossary-name"><span class="pair-zh">混合专家</span><span class="pair-en">Mixture of experts</span></span><span class="pair "><span class="pair-zh">每个 token 只激活部分参数，以较低计算运行更大的模型。</span><span class="pair-en">Activates only part of a model per token, running larger systems with less compute.</span></span></article></div></section><footer><div class="footer-mark">AFR∞</div><div class="footer-thesis"><span class="pair "><span class="pair-zh">看能力，也看证据；看突破，也看失败。</span><span class="pair-en">TRACK CAPABILITY. TRACK EVIDENCE. TRACK FAILURE.</span></span></div><div class="footer-meta"><span>RESEARCH CUT · 2026-08-26</span><span>LIVE LAYER · 15 MIN TARGET</span><span>LOCAL BOOKMARKS · NO ACCOUNT</span></div><p class="footer-disclaimer pair"><span class="pair-zh">本页面用于技术态势理解，不构成投资、采购或安全认证。厂商数字保留厂商证据标签；不同评测设置不得直接横比。</span><span class="pair-en">This radar is for technical situational awareness, not investment, procurement, or safety certification. Vendor figures remain labeled; results from different evaluation setups are not treated as directly comparable.</span></p></footer></main>
+<script>window.AFR_BOOTSTRAP={"categories":{"models":{"zh":"基础模型","en":"Foundation models","color":"lime"},"agents":{"zh":"智能体","en":"Agents","color":"cyan"},"science":{"zh":"科学智能","en":"AI for science","color":"blue"},"worlds":{"zh":"世界模型","en":"World models","color":"orange"},"robotics":{"zh":"VLA 与机器人","en":"VLA + robotics","color":"violet"},"infra":{"zh":"算力与效率","en":"Compute + efficiency","color":"yellow"},"open":{"zh":"开放生态","en":"Open ecosystem","color":"mint"},"safety":{"zh":"安全与治理","en":"Safety + governance","color":"red"}},"categoryOrder":["all","models","agents","science","worlds","robotics","infra","open","safety"],"sourceCatalog":[{"id":"openai","name":"OpenAI News","type":"RSS","lane":"Models · agents · safety","href":"https://openai.com/news/rss.xml","live":true},{"id":"deepmind","name":"Google DeepMind","type":"RSS","lane":"Models · science · robotics","href":"https://deepmind.google/blog/rss.xml","live":true},{"id":"google-ai","name":"Google AI","type":"RSS","lane":"Products · research · compute","href":"https://blog.google/innovation-and-ai/rss/","live":true},{"id":"apple-ml","name":"Apple ML Research","type":"RSS","lane":"On-device · multimodal","href":"https://machinelearning.apple.com/rss.xml","live":true},{"id":"microsoft-research","name":"Microsoft Research","type":"RSS","lane":"Research · science","href":"https://www.microsoft.com/en-us/research/feed/","live":true},{"id":"amazon-science","name":"Amazon Science","type":"RSS","lane":"Research · agents","href":"https://www.amazon.science/index.rss","live":true},{"id":"nvidia","name":"NVIDIA Newsroom","type":"RSS","lane":"Compute · physical AI","href":"https://nvidianews.nvidia.com/rss.xml","live":true},{"id":"amd","name":"AMD Newsroom","type":"RSS","lane":"Compute · systems","href":"https://ir.amd.com/news-events/press-releases/rss","live":true},{"id":"meta","name":"Meta Newsroom","type":"RSS","lane":"Models · products","href":"https://about.fb.com/feed/","live":true},{"id":"github","name":"GitHub Changelog","type":"RSS","lane":"Agents · open tooling","href":"https://github.blog/changelog/feed/","live":true},{"id":"nist","name":"NIST IT","type":"RSS","lane":"Evals · safety · standards","href":"https://www.nist.gov/news-events/information%20technology/rss.xml","live":true},{"id":"eu","name":"EU Digital Strategy","type":"RSS","lane":"Governance · AI Act","href":"https://digital-strategy.ec.europa.eu/en/rss.xml","live":true},{"id":"arxiv","name":"arXiv frontier query","type":"ATOM","lane":"Papers · preprints","href":"https://export.arxiv.org/api/query","live":true},{"id":"hf-models","name":"Hugging Face Models","type":"API","lane":"Open model attention","href":"https://huggingface.co/models","live":true},{"id":"github-releases","name":"GitHub Releases","type":"API","lane":"Open tooling · robotics","href":"https://github.com","live":true},{"id":"anthropic","name":"Anthropic News + Research","type":"WATCH","lane":"Models · agents · safety","href":"https://www.anthropic.com/news","live":false},{"id":"mistral","name":"Mistral News","type":"WATCH","lane":"Open · agents · robotics","href":"https://mistral.ai/news/","live":false},{"id":"xai","name":"SpaceXAI News","type":"WATCH","lane":"Models · agents","href":"https://x.ai/news","live":false},{"id":"qwen","name":"Qwen","type":"WATCH","lane":"Open frontier models","href":"https://qwenlm.github.io/blog/","live":false},{"id":"deepseek","name":"DeepSeek","type":"WATCH","lane":"Models · open","href":"https://api-docs.deepseek.com/news/news0725","live":false},{"id":"kimi","name":"Moonshot AI / Kimi","type":"WATCH","lane":"Open · agents","href":"https://www.kimi.com/news","live":false},{"id":"zai","name":"Z.ai","type":"WATCH","lane":"Open · coding · agents","href":"https://z.ai/blog","live":false},{"id":"worldlabs","name":"World Labs","type":"WATCH","lane":"World models · robotics","href":"https://www.worldlabs.ai/blog","live":false},{"id":"figure","name":"Figure","type":"WATCH","lane":"Humanoids · VLA","href":"https://www.figure.ai/news","live":false},{"id":"physical-intelligence","name":"Physical Intelligence","type":"WATCH","lane":"VLA · robot learning","href":"https://www.pi.website/blog","live":false},{"id":"wayve","name":"Wayve","type":"WATCH","lane":"Driving · world models","href":"https://wayve.ai/thinking/","live":false}],"endpoint":"/api/ai-frontier-live","refreshMs":900000,"liveContext":{"models":{"zh":"观察模型能力、效率与产品可用性的真实变化。","en":"Watch for real changes in capability, efficiency, and availability."},"agents":{"zh":"关键不是会不会演示，而是复杂任务能否稳定完成。","en":"The question is not whether it demos, but whether complex work finishes reliably."},"science":{"zh":"把新颖性、实验闭环与专家复核分开看。","en":"Separate novelty, experimental closure, and expert verification."},"worlds":{"zh":"画面逼真不等于物理、几何和因果正确。","en":"Visual realism is not physical, geometric, or causal correctness."},"robotics":{"zh":"优先寻找失败率、跨场景泛化和真实运行时长。","en":"Look first for failure rates, cross-scene generalization, and real runtime."},"infra":{"zh":"关注每瓦完成的有效工作，而不只看峰值算力。","en":"Track useful work per watt, not peak compute alone."},"open":{"zh":"开放权重不等于训练数据、代码与配方完全开放。","en":"Open weights do not imply open data, code, or a complete recipe."},"safety":{"zh":"能力阈值正在逼近，通用保证与透明度仍然滞后。","en":"Capability thresholds are nearing while general assurance and transparency lag."}}};(function clientRuntime(config) {
+  const root = document.querySelector(".site-root");
+  const livePill = document.querySelector(".live-pill");
+  const list = document.querySelector(".signal-list");
+  const curatedMarkup = list.innerHTML;
+  const viewButtons = [...document.querySelectorAll(".view-tabs button")];
+  const categoryButtons = [...document.querySelectorAll(".category-filter button")];
+  const languageButtons = [...document.querySelectorAll(".language-switch button")];
+  const searchInput = document.querySelector(".search-box input");
+  const refreshButton = document.querySelector(".desk-status button");
+  const sourceRows = [...document.querySelectorAll(".source-table .source-row:not(.source-head)")];
+  let state = { language: "both", view: "curated", category: "all", query: "", live: null, loading: false };
+
+  viewButtons.forEach((button, index) => { button.dataset.view = ["curated", "live", "papers", "open"][index]; });
+  categoryButtons.forEach((button, index) => { button.dataset.category = config.categoryOrder[index]; });
+  languageButtons.forEach((button, index) => { button.dataset.language = ["both", "zh", "en"][index]; });
+  sourceRows.forEach((row, index) => { if (config.sourceCatalog[index]) row.dataset.sourceId = config.sourceCatalog[index].id; });
+
+  const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+  const validUrl = (value) => { try { const url = new URL(value, location.origin); return /^https?:$/.test(url.protocol) ? url.href : "#"; } catch { return "#"; } };
+  const formatDate = (value) => { const date = new Date(value); return Number.isNaN(date.getTime()) ? "DATE UNKNOWN" : new Intl.DateTimeFormat(state.language === "en" ? "en-GB" : "zh-CN", { year: "numeric", month: "short", day: "2-digit" }).format(date); };
+  const savedIds = () => { try { return JSON.parse(localStorage.getItem("afr-saved-signals") || "[]"); } catch { return []; } };
+  const toggleSave = (id) => { const current = savedIds(); const next = current.includes(id) ? current.filter((value) => value !== id) : [...current, id]; try { localStorage.setItem("afr-saved-signals", JSON.stringify(next)); } catch {} render(); };
+
+  function wireSaveButtons() {
+    document.querySelectorAll(".save-button").forEach((button) => {
+      const card = button.closest("article");
+      const id = card?.dataset.id;
+      if (!id) return;
+      const active = savedIds().includes(id);
+      button.textContent = active ? "●" : "○";
+      button.classList.toggle("is-saved", active);
+      button.onclick = () => toggleSave(id);
+    });
+  }
+
+  function liveCard(item) {
+    const category = config.categories[item.category] || config.categories.models;
+    const context = config.liveContext[item.category] || config.liveContext.models;
+    const saved = savedIds().includes(item.id);
+    return `<article class="live-card tone-${escapeHtml(category.color)}" data-id="${escapeHtml(item.id)}" data-category="${escapeHtml(item.category)}">
+      <div class="signal-meta"><span>${escapeHtml(formatDate(item.publishedAt))}</span><span class="signal-source">${escapeHtml(item.source)}</span><span class="kind-chip">${escapeHtml(String(item.kind).toUpperCase())}</span><button class="save-button ${saved ? "is-saved" : ""}" aria-label="收藏此条">${saved ? "●" : "○"}</button></div>
+      <a class="signal-title" href="${escapeHtml(validUrl(item.url))}" target="_blank" rel="noreferrer">${escapeHtml(item.title)} <span aria-hidden="true">↗</span></a>
+      ${item.authors ? `<p class="authors">${escapeHtml(item.authors)}</p>` : ""}
+      ${item.metrics ? `<p class="model-metrics">${escapeHtml(item.metrics)}</p>` : ""}
+      <div class="live-context"><span class="pair"><span class="pair-zh">${escapeHtml(context.zh)}</span><span class="pair-en">${escapeHtml(context.en)}</span></span></div>
+      ${item.summary ? `<p class="live-summary">${escapeHtml(item.summary)}</p>` : ""}
+      <span class="original-note">OFFICIAL ORIGINAL · 官方原文</span></article>`;
+  }
+
+  function updateHealth() {
+    if (!state.live) return;
+    const coverage = state.live.coverage;
+    const thirdCounter = document.querySelector(".coverage-ribbon > div:nth-child(3) strong");
+    if (thirdCounter) thirdCounter.textContent = coverage.items;
+    const healthScore = document.querySelector(".health-score strong");
+    if (healthScore) healthScore.textContent = `${Math.round(coverage.live / coverage.configured * 100)}%`;
+    const sourceSummary = document.querySelectorAll(".source-summary strong");
+    if (sourceSummary[1]) sourceSummary[1].textContent = coverage.configured;
+    if (sourceSummary[2]) sourceSummary[2].textContent = coverage.live;
+    if (sourceSummary[3]) sourceSummary[3].textContent = coverage.degraded;
+    const healthById = new Map(state.live.health.map((item) => [item.id, item]));
+    sourceRows.forEach((row) => {
+      const item = healthById.get(row.dataset.sourceId);
+      if (!item) return;
+      const cell = row.children[0];
+      cell.innerHTML = `<i class="source-dot source-${item.ok ? "live" : "down"}"></i>${item.ok ? "LIVE" : "DOWN"}`;
+      const itemCell = row.children[4];
+      if (itemCell) itemCell.innerHTML = `${item.itemCount} <span aria-hidden="true">↗</span>`;
+    });
+  }
+
+  function updateDeskStatus(kind) {
+    livePill.className = `live-pill state-${kind}`;
+    livePill.innerHTML = `<i></i>${kind === "ready" ? "LIVE" : kind === "error" ? "DEGRADED" : "SYNC"}`;
+    const pair = document.querySelector(".desk-status .pair");
+    if (!pair) return;
+    const zh = pair.querySelector(".pair-zh");
+    const en = pair.querySelector(".pair-en");
+    if (kind === "ready") {
+      zh.textContent = `实时源 ${state.live.coverage.live}/${state.live.coverage.configured} 正常`;
+      en.textContent = `${state.live.coverage.live}/${state.live.coverage.configured} live pipelines healthy`;
+    } else if (kind === "error") {
+      zh.textContent = "实时源暂时降级，精选内容仍可用";
+      en.textContent = "Live sources degraded; editorial desk remains available";
+    } else {
+      zh.textContent = "正在同步官方来源";
+      en.textContent = "Syncing official sources";
+    }
+  }
+
+  function render() {
+    root.classList.remove("language-both", "language-zh", "language-en");
+    root.classList.add(`language-${state.language}`);
+    languageButtons.forEach((button) => button.classList.toggle("active", button.dataset.language === state.language));
+    viewButtons.forEach((button) => { const active = button.dataset.view === state.view; button.classList.toggle("active", active); button.setAttribute("aria-selected", String(active)); });
+    categoryButtons.forEach((button) => button.classList.toggle("active", button.dataset.category === state.category));
+
+    if (state.view === "curated") {
+      list.innerHTML = curatedMarkup;
+      const needle = state.query.trim().toLowerCase();
+      [...list.querySelectorAll(".signal-card")].forEach((card) => {
+        const visible = (state.category === "all" || card.dataset.category === state.category) && (!needle || (card.dataset.search || "").includes(needle));
+        card.hidden = !visible;
+      });
+    } else if (!state.live && state.loading) {
+      list.innerHTML = `<div class="empty-state"><span class="loader"></span><span class="pair"><span class="pair-zh">正在连接官方新闻、论文与开放仓库…</span><span class="pair-en">Connecting official news, papers, and open repositories…</span></span></div>`;
+    } else {
+      const needle = state.query.trim().toLowerCase();
+      const items = (state.live?.items || []).filter((item) => {
+        const viewMatch = state.view === "live" ? item.kind === "news" : state.view === "papers" ? item.kind === "paper" : item.kind === "model" || item.kind === "release";
+        return viewMatch && (state.category === "all" || item.category === state.category) && (!needle || `${item.title} ${item.summary || ""} ${item.source}`.toLowerCase().includes(needle));
+      });
+      list.innerHTML = items.length ? items.map(liveCard).join("") : `<div class="empty-state"><span class="pair"><span class="pair-zh">当前筛选没有结果。尝试切换分类或清空搜索。</span><span class="pair-en">No result for this filter. Try another category or clear search.</span></span></div>`;
+    }
+    const visible = [...list.querySelectorAll("article")].filter((item) => !item.hidden).length;
+    const count = document.querySelector(".desk-note > span");
+    if (count) count.textContent = `${String(visible).padStart(2, "0")} ENTRIES`;
+    wireSaveButtons();
+  }
+
+  async function refresh() {
+    if (state.loading) return;
+    state.loading = true;
+    refreshButton.disabled = true;
+    updateDeskStatus("loading");
+    if (state.view !== "curated") render();
+    try {
+      const response = await fetch(`${config.endpoint}?v=${Date.now()}`, { headers: { accept: "application/json" } });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload = await response.json();
+      if (!payload?.coverage || !Array.isArray(payload.items) || !Array.isArray(payload.health)) throw new Error("Invalid live envelope");
+      state.live = payload;
+      updateDeskStatus("ready");
+      updateHealth();
+    } catch (error) {
+      console.warn("AI Frontier live layer degraded", error);
+      updateDeskStatus("error");
+    } finally {
+      state.loading = false;
+      refreshButton.disabled = false;
+      render();
+    }
+  }
+
+  languageButtons.forEach((button) => button.addEventListener("click", () => { state.language = button.dataset.language; render(); }));
+  viewButtons.forEach((button) => button.addEventListener("click", () => { state.view = button.dataset.view; render(); if (!state.live) refresh(); }));
+  categoryButtons.forEach((button) => button.addEventListener("click", () => { state.category = button.dataset.category; render(); }));
+  searchInput.addEventListener("input", () => { state.query = searchInput.value; render(); });
+  refreshButton.addEventListener("click", refresh);
+  render();
+  refresh();
+  window.setInterval(refresh, config.refreshMs);
+})(window.AFR_BOOTSTRAP);</script>
+</body>
+</html>

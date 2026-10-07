@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agents: The Most Valuable Skill You Can Learn in 2026 (Full Course) — Open Residency · Remy</title>
+<style>
+
+:root{--bg:#0a0d14;--bg-card:#10141d;--bg-elevated:#161b27;--border:#2a3142;--text:#e8eaf0;--text-dim:#a8aebc;--text-mute:#6a7080;--accent:#ff6b35;--accent-2:#f7c59f;--green:#4ade80;--red:#f87171;--yellow:#fbbf24;--blue:#60a5fa;--purple:#a78bfa;--gray:#9ca3af;--cyan:#67e1d3;--shadow:0 18px 55px #0008}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% -10%,#1b3860 0,transparent 35%),var(--bg);color:var(--text);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
+.lang-toggle{position:fixed;right:20px;top:18px;z-index:80;border:1px solid var(--border);background:#172743;color:var(--text);border-radius:999px;padding:10px 18px;font:600 12px ui-monospace,monospace;cursor:pointer;box-shadow:var(--shadow);letter-spacing:.08em}
+.lang-toggle:hover{background:var(--cyan);color:#0a0d14}
+/* bilingual swap (4-class) */
+html[lang="zh-CN"] .en{display:none}
+html[lang="en"] .zh{display:none}
+.hero,.wrap,.footer{max-width:1120px;margin:auto}
+.hero{padding:72px 34px 32px}
+.eyebrow{color:var(--cyan);font:700 12px/1.2 ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase}
+.hero h1{font-size:clamp(28px,5vw,54px);line-height:1.06;letter-spacing:-.04em;margin:14px 0 18px}
+.hero p{max-width:900px;color:#c8d3e8;font-size:18px;line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.meta span{padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:#0e1728;color:var(--text-dim);font-size:13px}
+.meta a{color:var(--cyan)}
+.stats{max-width:1120px;margin:0 auto 22px;padding:0 34px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:linear-gradient(145deg,#14213a,#0e1727);border:1px solid var(--border);border-radius:18px;padding:18px}
+.stat b{display:block;font-size:28px;color:var(--cyan)}
+.stat small{color:var(--text-dim);font-size:13px}
+.wrap{padding:0 34px 50px}
+.panel{background:linear-gradient(145deg,#14213a,#0e1727);border:1px solid var(--border);border-radius:18px;padding:28px;margin:18px 0}
+.panel>h2{margin-top:0;font-size:24px;color:var(--text);line-height:1.3}
+.panel h3{color:var(--accent-2);font-size:17px;margin:18px 0 8px}
+.panel h4{color:var(--cyan);font-size:14px;margin:10px 0 6px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid-tight{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.card{background:linear-gradient(145deg,#17263f,#111b2d);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative}
+.card .num{color:var(--accent);font:700 11px ui-monospace,monospace;letter-spacing:.12em;margin-bottom:6px}
+.card h3{margin:4px 0 8px;font-size:16px;line-height:1.4;color:var(--text)}
+.card p{color:#c5d0e2;font-size:14px;margin:0}
+.card .metric{color:var(--cyan);font:700 14px ui-monospace,monospace;margin-top:10px;display:inline-block;padding:2px 8px;background:rgba(103,225,211,.1);border-radius:6px}
+.mini-card{background:#0e1728;border:1px solid var(--border);border-radius:10px;padding:14px}
+.mini-card h4{margin:0 0 6px;color:var(--cyan);font-size:13px}
+.mini-card p{font-size:13px;color:var(--text-dim);margin:0}
+blockquote{background:#0c1424;border-left:3px solid var(--cyan);padding:12px 16px;margin:12px 0;border-radius:0 8px 8px 0;color:#cfd8e6;font-style:italic;font-size:14px}
+blockquote::before{content:"";font-style:normal}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;background:#0e1728;padding:1px 6px;border-radius:4px;font-size:13px;color:var(--accent-2)}
+.mem-table,.timeline{width:100%;border-collapse:collapse;background:#0c1424;border-radius:10px;overflow:hidden;font-size:13.5px}
+.mem-table th,.timeline th{text-align:left;padding:10px 12px;background:#152033;color:var(--cyan);font-weight:600}
+.mem-table td,.timeline td{padding:10px 12px;border-top:1px solid var(--border);color:var(--text-dim)}
+.mem-table tr:hover,.timeline tr:hover{background:#0e1728}
+.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.chain-step{flex:1 1 140px;background:#0e1728;border:1px solid var(--border);border-radius:10px;padding:10px 12px;min-width:140px}
+.chain-step .num{color:var(--accent);font:700 11px ui-monospace,monospace;letter-spacing:.1em}
+.chain-step p{margin:6px 0 0;font-size:12.5px;color:var(--text-dim)}
+.chain-arrow{color:var(--cyan);font-size:18px;font-weight:700}
+.tag{display:inline-block;padding:1px 6px;border-radius:4px;font:700 10px ui-monospace,monospace;margin-right:6px}
+.tag-p0{background:#f87171;color:#1a0808}
+.tag-p1{background:#fbbf24;color:#1a0f08}
+.tag-p2{background:#60a5fa;color:#08121a}
+.tag-p3{background:#9ca3af;color:#080808}
+.quote-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.quote-card{background:linear-gradient(145deg,#17263f,#111b2d);border:1px solid var(--border);border-left:3px solid var(--purple);border-radius:10px;padding:14px}
+.quote-card .quote-text{font-size:14.5px;color:var(--text);line-height:1.5}
+.quote-card .quote-meta{color:var(--text-mute);font:700 10px ui-monospace,monospace;letter-spacing:.1em;margin-top:6px}
+.quote-card .quote-ctx{color:var(--text-dim);font-size:12px;margin-top:4px}
+.footer{max-width:1120px;margin:0 auto;padding:30px 34px;border-top:1px solid var(--border);color:var(--text-mute);font-size:13px;text-align:center}
+/* TOC v1.4.4 collapsible */
+aside.toc{position:fixed;top:82px;left:16px;width:252px;max-height:calc(100vh - 100px);overflow:auto;padding:14px;background:#0c1423ed;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);z-index:70;transition:width .3s ease,transform .3s ease,opacity .3s ease;backdrop-filter:blur(12px)}
+.toc-title{font-weight:800;margin:10px 2px;color:var(--cyan);font-size:14px}
+.toc-toggle{width:40px;height:36px;background:#172743;border:1px solid var(--border);color:var(--text);border-radius:9px;cursor:pointer;font-size:18px;display:block;margin-bottom:8px}
+.toc-links a{display:block;padding:7px 9px;border-radius:8px;color:var(--text-dim);font-size:13px;line-height:1.35}
+.toc-links a:hover,.toc-links a.active{background:#1a2b48;color:#fff;text-decoration:none}
+.toc.toc-collapsed{width:56px;overflow:hidden}
+.toc.toc-collapsed .toc-title,.toc.toc-collapsed .toc-links{display:none}
+.toc.toc-collapsed .toc-toggle{margin-bottom:0}
+h2,h3{scroll-margin-top:88px}
+@media(max-width:1100px){aside.toc{left:8px;transform:translateX(-210px)}aside.toc:hover,aside.toc:focus-within{transform:translateX(0)}}
+@media(max-width:900px){aside.toc{display:none}.grid,.grid-tight,.quote-grid,.two-col,.three-col{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.hero,.wrap,.footer,.stats{padding-left:18px;padding-right:18px}}
+/* fix lang toggle scroll-mt */
+.lang-toggle{position:fixed}
+@media(max-width:900px){.lang-toggle{right:10px;top:10px}}
+
+</style>
+</head>
+<body>
+<button class="lang-toggle" type="button" onclick="toggleLang()" aria-label="中EN 切换">EN ⇄ 中</button>
+<aside class="toc" aria-label="Table of contents">
+<button class="toc-toggle" type="button" aria-label="Show/hide contents">☰</button>
+<div class="toc-title"><span class="zh">目录</span><span class="en">Contents</span></div>
+<nav class="toc-links">
+<a href="#overview"><span class="zh">核心论点</span><span class="en">Core theses</span></a>
+<a href="#stages"><span class="zh">2 阶段 · 从 chat 到 agents</span><span class="en">Two stages: from chat to agents</span></a>
+<a href="#pillars"><span class="zh">Context · Tools · Skills：onboarding 真实员工的 3 件套</span><span class="en">Context, tools, and skills: the three things you give a new hire</span></a>
+<a href="#onboarding"><span class="zh">Onboarding agent 的 5 步流程</span><span class="en">The 5-step agent onboarding flow</span></a>
+<a href="#context"><span class="zh">Markdown = context 文件的默认格式</span><span class="en">Markdown is the default format for context files</span></a>
+<a href="#memory"><span class="zh">agents.md / claude.md / memory.md 三件套</span><span class="en">The agents.md / claude.md / memory.md trio</span></a>
+<a href="#loop"><span class="zh">Agent loop：observe → think → act → cycle</span><span class="en">The agent loop: observe, think, act, cycle</span></a>
+<a href="#tools"><span class="zh">工具 + MCP：act 步骤的弹药</span><span class="en">Tools and MCPs: ammunition for the act step</span></a>
+<a href="#skills"><span class="zh">Skills = progressive disclosure 的 SOP</span><span class="en">Skills are SOPs delivered via progressive disclosure</span></a>
+<a href="#folders"><span class="zh">OS 文件夹 = 控股公司</span><span class="en">The OS folder is a holding company</span></a>
+<a href="#scoping"><span class="zh">Global vs Project：claude.md 叠层</span><span class="en">Global vs project: stacking claude.md</span></a>
+<a href="#cost"><span class="zh">成本、补贴与开源未来</span><span class="en">Cost, subsidies, and the open-source future</span></a>
+<a href="#team"><span class="zh">AI Native 团队：自下而上，不是自上而下</span><span class="en">AI-native teams: bottom-up, not top-down</span></a>
+<a href="#action"><span class="zh">Patrick 行动 · 立即 / 中期 / 长期</span><span class="en">Patrick actions · immediate / mid-term / long-term</span></a>
+</nav>
+</aside>
+<header class="hero" id="top">
+<div class="eyebrow">VIDEO KNOWLEDGE DASHBOARD · 2026-07-29</div>
+<h1><span class="zh">📚 AI 智能体：2026 最值得学的技能</span><span class="en">📚 AI Agents: The Most Valuable Skill You Can Learn in 2026</span></h1>
+<p><span class="zh">Remy（非技术创始人）+ Open Residency 主持人对谈 2h 24m，把 agent 从 "chat 升级" 到 "员工式引导" 拆成 context / tools / skills 3 大支柱 + agent loop + 文件系统 + 渐进式 Skills 披露 + 控股公司式 OS 目录。</span><span class="en">Remy (non-technical founder) and the Open Residency host break a 2h 24m conversation down into the chat-to-agent upgrade, onboarding an agent like a real employee, the three big pillars (context, tools, skills), the agent loop, markdown context files, progressive-disclosure Skills, and the holding-company folder pattern.</span></p>
+<p><span class="zh">8 大核心论点 · 14 章节 · 35 条带时间戳金句 · 17 张已验证 Patrick 关联卡</span><span class="en">8 core theses · 14 chapters · 35 timestamped quotes · 17 verified-on-disk Patrick cross-refs</span></p>
+<div class="meta">
+<span><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw" target="_blank" rel="noopener">YOUTUBE ↗</a></span>
+<span>Open Residency</span>
+<span>Remy</span>
+<span>2h 24m 12s</span>
+<span><span class="zh">上传 2026 (Remy 实战版)</span><span class="en">2026 (Remy live demo)</span></span>
+<span><span class="zh">中EN 切换</span><span class="en">EN ⇄ 中 toggle</span></span>
+<span><span class="zh">TOC 可折叠</span><span class="en">collapsible TOC</span></span>
+<span><span class="zh">来源 kome.ai ASR + byte-exact quote 验证</span><span class="en">kome.ai ASR + byte-exact quotes</span></span>
+</div>
+</header>
+<div class="stats">
+<div class="stat"><b>8</b><small><span class="zh">核心观点</span><span class="en">core theses</span></small></div>
+<div class="stat"><b>14</b><small><span class="zh">主题节点</span><span class="en">topic nodes</span></small></div>
+<div class="stat"><b>35</b><small><span class="zh">时间锚点</span><span class="en">time anchors</span></small></div>
+<div class="stat"><b>17</b><small><span class="zh">已验证关联</span><span class="en">verified links</span></small></div>
+</div>
+<main class="wrap">
+<section class="panel" id="overview"><h2><span class="zh">核心论点</span><span class="en">Core theses</span></h2><div class="grid"><div class="card"><div class="num"><span class="zh">核心论断 01</span><span class="en">Core thesis 01</span></div><h3><span class="zh"><span class="zh">AI 用法已从 chat 阶段 (0→1) 进入 agents 阶段 (<span class="zh">5–10x</span><span class="en">5–10x</span>)</span><span class="en">AI usage has moved from chat (0→1) into agents (5–10x productivity)</span></span><span class="en">AI usage has moved from chat (0→1) into agents (5–10x productivity)</span></h3><p><span class="zh">2 阶段 framing：chat 是 Q&A tool，agent 是 end-to-end 跑完整 workflow 的系统。Remy 中位数 7x = "一天里多一周，再多 5–7 周的周"。</span><span class="en">2 阶段 framing：chat 是 Q&A tool，agent 是 end-to-end 跑完整 workflow 的系统。Remy 中位数 7x = "一天里多一周，再多 5–7 周的周"。</span></p><span class="metric"><span class="zh">5–10x</span><span class="en">5–10x</span></span></div>
+<div class="card"><div class="num"><span class="zh">核心论断 02</span><span class="en">Core thesis 02</span></div><h3><span class="zh">Chat = 顾问；Agent = 内部员工</span><span class="en">Chat = 顾问；Agent = 内部员工</span></h3><p><span class="zh">"chat models is like a really brilliant consultant" → "an agent's like hiring that brilliant person in house that will then go and do it for you too." 关键区别 = 是否会自己 workback 出结果。</span><span class="en">"chat models is like a really brilliant consultant" → "an agent's like hiring that brilliant person in house that will then go and do it for you too." 关键区别 = 是否会自己 workback 出结果。</span></p><span class="metric"><span class="zh">5–10x</span><span class="en">5–10x</span></span></div>
+<div class="card"><div class="num"><span class="zh">核心论断 03</span><span class="en">Core thesis 03</span></div><h3><span class="zh">Onboarding agent ≈ onboarding 真实员工</span><span class="en">Onboarding agent ≈ onboarding 真实员工</span></h3><p><span class="zh">"treat setting them up like onboarding a real employee" + "context, tools, and skills" 三件套。3 件齐全 = 内部员工；缺 1 = 一个 fancy chat。</span><span class="en">"treat setting them up like onboarding a real employee" + "context, tools, and skills" 三件套。3 件齐全 = 内部员工；缺 1 = 一个 fancy chat。</span></p><span class="metric"><span class="zh">3 件套</span><span class="en">3 件套</span></span></div>
+<div class="card"><div class="num"><span class="zh">核心论断 04</span><span class="en">Core thesis 04</span></div><h3><span class="zh"><span class="zh"><span class="zh">Context</span><span class="en">Context</span> <span class="zh">文件</span><span class="en">File</span></span><span class="en">Building context files</span> = Markdown</span><span class="en">Context 文件 = Markdown</span></h3><p><span class="zh">"markdown is the best way to be giving information to your agent" — <span class="zh">token cost 最低，density 最高</span><span class="en">Lowest token cost, highest information density</span>，跟 Notion / Obsidian 直接互操作。</span><span class="en">"markdown is the best way to be giving information to your agent" — token cost 最低，density 最高，跟 Notion / Obsidian 直接互操作。</span></p><span class="metric"><span class="zh">4 文件</span><span class="en">4 文件</span></span></div>
+<div class="card"><div class="num"><span class="zh">核心论断 05</span><span class="en">Core thesis 05</span></div><h3><span class="zh"><span class="zh"><span class="zh">Skills</span><span class="en">Skills</span> = <span class="zh">progressive disclosure</span><span class="en">progressive disclosure</span> 的 SOP</span><span class="en">Skills are SOPs delivered via progressive disclosure</span></span><span class="en">Skills are SOPs delivered via progressive disclosure</span></h3><p><span class="zh"><span class="zh">name</span><span class="en">name</span>+<span class="zh">description</span><span class="en">description</span> 前置加载，全 contents 任务命中才展开。"bookshelf of SOPs"。skill creator skill (meta-skill, default 装好) 自动 walk you through 造新 skill。</span><span class="en">name+description 前置加载，全 contents 任务命中才展开。"bookshelf of SOPs"。skill creator skill (meta-skill, default 装好) 自动 walk you through 造新 skill。</span></p><span class="metric"><span class="zh">100s skills</span><span class="en">100s skills</span></span></div>
+<div class="card"><div class="num"><span class="zh">核心论断 06</span><span class="en">Core thesis 06</span></div><h3><span class="zh"><span class="zh">OS 文件夹 = 控股公司</span><span class="en">The OS folder is a holding company</span></span><span class="en">The OS folder is a holding company</span></h3><p><span class="zh">"the whole entire infrastructure of the folders is like a holding company" — top-level OS/ 装 global context，pillar sub-folder 装 marketing/content/health，<span class="zh">act</span><span class="en">act</span>ive/ 装一时性 project。</span><span class="en">"the whole entire infrastructure of the folders is like a holding company" — top-level OS/ 装 global context，pillar sub-folder 装 marketing/content/health，active/ 装一时性 project。</span></p><span class="metric"><span class="zh">控股公司</span><span class="en">控股公司</span></span></div>
+<div class="card"><div class="num"><span class="zh">核心论断 07</span><span class="en">Core thesis 07</span></div><h3><span class="zh">Agent loop = <span class="zh">observe</span><span class="en">observe</span> → <span class="zh">think</span><span class="en">think</span> → act → cycle</span><span class="en">Agent loop = observe → think → act → cycle</span></h3><p><span class="zh">"an application or or a program that facilitates that agent loop just allows that agent loop to run is known as an agent harness." Harness 决定 act 能用什么 tool。</span><span class="en">"an application or or a program that facilitates that agent loop just allows that agent loop to run is known as an agent harness." Harness 决定 act 能用什么 tool。</span></p><span class="metric"><span class="zh">4 步骤</span><span class="en">4 步骤</span></span></div>
+<div class="card"><div class="num"><span class="zh">核心论断 08</span><span class="en">Core thesis 08</span></div><h3><span class="zh">个人 OS + 公司 OS = 两层 AI</span><span class="en">个人 OS + 公司 OS = 两层 AI</span></h3><p><span class="zh">"there'll always be options for like lower cost AI" + 公司 OS = shared skill management。<span class="zh">AI native 团队</span><span class="en">AI native team</span>靠员工学，不是自上而下分发。</span><span class="en">"there'll always be options for like lower cost AI" + 公司 OS = shared skill management。AI native 团队靠员工学，不是自上而下分发。</span></p><span class="metric"><span class="zh">2 层</span><span class="en">2 层</span></span></div></div></section>
+<section class="panel" id="stages"><h2><span class="zh">2 阶段 · 从 chat 到 agents</span><span class="en">Two stages: from chat to agents</span></h2>
+            <p><span class="zh">Remy 用的对比是 chat = 极聪明的外部顾问 / agent = 把那位顾问 in-house。区别不在于 "聪不聪明"，在于 "会不会自己 workback 出结果"。</span><span class="en">Remy's metaphor: chat is a brilliant outside consultant; an agent is that same brilliant person, but in-house. The difference is not intelligence — it is whether the system works the problem back to a result on its own.</span></p>
+            <blockquote>"chat models is like a really brilliant consultant. ... Whereas an agent's like hiring that brilliant person in house that will then go and do it for you too."</blockquote>
+            <h3><span class="zh">中间的 <span class="zh">5–10x</span><span class="en">5–10x</span> 来自哪里？</span><span class="en">Where does the 5–10x come from?</span></h3>
+            <p><span class="zh">Remy 的数学（取中位数 7x）就是 "一天里多一周，再多 5–7 周的周"——本质是 chat 只能问 Q&A，agent 能 "press go" 跑完整 workflow。</span><span class="en">Remy's math (mid-range 7x) — "a week in a working day, and 5–7 weeks in a week" — comes from chat answering Q&A while an agent <span class="zh">act</span><span class="en">act</span>ually presses go on full workflows.</span></p>
+            <div class="two-col">
+                <div class="mini-card"><h4>Chat 适用</h4>
+                    <ul><li><span class="zh">trivial 提问 · quick lookup · "how many calories in a banana"</span><span class="en">trivial questions, quick lookups, "how many calories in a banana"</span></li>
+                    <li>interview-style 提取信息</li>
+                    <li>短 reply · 1 个问题 → 1 个答案</li></ul>
+                </div>
+                <div class="mini-card"><h4>Agent 适用</h4>
+                    <ul><li><span class="zh">press go 整段 workflow · 需要 tool 调用 + 多次循环</span><span class="en">press-go workflows that need tool calls and multiple loops</span></li>
+                    <li>"research 10 podcasts and put in a 10-page deck"</li>
+                    <li>跨 MCP 的复合任务（如 Beehive + Notion + Stripe）</li></ul>
+                </div>
+            </div>
+            <p><strong><span class="zh">Bazooka vs Fly warning：</span><span class="en">Bazooka-vs-fly warning:</span></strong></p>
+            <blockquote>"killing a fly with a bazooka. It's like overkill. Like you don't need an agent for that."</blockquote>
+            <p><strong>对应 Patrick 经验：</strong>HILAG / plan-only agent route 任务（如 audit 1 个 PDF）用 chat；HILAG + execute + verify 任务（如 ship 1 套 HTML + PITFALL 报告）用 agent。</p>
+        </section>
+<section class="panel" id="pillars"><h2><span class="zh">Context · Tools · Skills：onboarding 真实员工的 3 件套</span><span class="en">Context, tools, and skills: the three things you give a new hire</span></h2>
+            <p><span class="zh">Onboarding agent ≈ onboarding 真实员工 ($1,200/年 "infinite bandwidth" 比喻)：</span><span class="en">Onboarding an agent ≈ onboarding a real hire (Remy's $1,200/year, infinite-bandwidth analogy):</span></p>
+            <blockquote>"treat setting them up like onboarding a real employee"</blockquote>
+            <div class="three-col">
+                <div class="mini-card"><h4><span class="zh">Context</span><span class="en">Context</span></h4>
+                    <p><span class="zh">AI 进 session 前应已知道的一切（about me / ICP / brand voice 等）</span><span class="en">Everything the AI should already know before a session — about me, ICP, brand voice, and so on</span></p>
+                </div>
+                <div class="mini-card"><h4><span class="zh">Tools</span><span class="en">Tools</span></h4>
+                    <p><span class="zh">能 <span class="zh">act</span><span class="en">act</span>ion 的工具：web search、browser、email、calendar、MCPs</span><span class="en">Tools it can act with: web search, browser, email, calendar, MCPs</span></p>
+                </div>
+                <div class="mini-card"><h4><span class="zh">Skills</span><span class="en">Skills</span></h4>
+                    <p><span class="zh">把做对 1 次的流程封装成可复用 SOP，下次自动调用</span><span class="en">Workflows you have nailed once, packaged as reusable SOPs and auto-invoked later</span></p>
+                </div>
+            </div>
+            <p><strong><span class="zh">对应 Patrick：</span><span class="en">Maps to Patrick:</span></strong></p>
+            <ul>
+                <li>Patrick 的 <a href="https://github.com/Patrick/obsidian-vault" target="_blank" rel="noopener">patricks-vault-os</a> = Context（300+ obsidian 笔记）</li>
+                <li>Patrick 的 <a href="https://2017zyl.xyz/daily-reports.html" target="_blank" rel="noopener">patricks-knowledge-hub</a> = Skills（17-card Patrick 关联模板）</li>
+                <li>Patrick 的 <a href="https://github.com/Patrick/loop-engineering" target="_blank" rel="noopener">cron-watchdog-patterns</a> + <a href="https://github.com/Patrick/cron-periodic-pipeline" target="_blank" rel="noopener">periodic-pipeline-cron</a> = Tools + Cron（loop engineering 闭环）</li>
+            </ul>
+        </section>
+<section class="panel" id="onboarding"><h2><span class="zh">Onboarding agent 的 5 步流程</span><span class="en">The 5-step agent onboarding flow</span></h2>
+            <div class="chain">
+                <div class="chain-step"><span class="num"><span class="zh">Step 1</span><span class="en">Step 1</span></span><p><span class="zh">建 holding-company <span class="zh">文件</span><span class="en">File</span>夹（OS/）+ 一个空白 claude.md</span><span class="en">Create the holding-company folder (OS/) and an empty claude.md</span></p></div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step"><span class="num"><span class="zh">Step 2</span><span class="en">Step 2</span></span><p><span class="zh">写 about-me / ICP / brand-voice 等 Markdown context 文件（用 chat 反向 interview 自己）</span><span class="en">Write the Markdown context files (about-me, ICP, brand-voice) by interviewing yourself with chat</span></p></div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step"><span class="num"><span class="zh">Step 3</span><span class="en">Step 3</span></span><p><span class="zh">在 claude.md 写 Northstar context：principles / positioning / energy+life 等</span><span class="en">Fill claude.md with Northstar context: principles, positioning, energy + life, etc.</span></p></div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step"><span class="num"><span class="zh">Step 4</span><span class="en">Step 4</span></span><p><span class="zh">把 skills 装进 skills/ 子<span class="zh">目录</span><span class="en">Contents</span>（YouTube-titles / subject-lines / ads-analyst 等）</span><span class="en">Put skills into a skills/ subdirectory (youtube-titles, subject-lines, ads-analyst, …)</span></p></div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step"><span class="num"><span class="zh">Step 5</span><span class="en">Step 5</span></span><p><span class="zh">新开 session + tag 需要的 sub-folder → harness 自动加载</span><span class="en">Start a new session and tag the right sub-folder; the harness loads it automatically</span></p></div>
+            </div>
+            <p><strong><span class="zh">关键 demo：</span><span class="en">The signature demo:</span></strong></p>
+            <blockquote>同一个文件夹，加 claw.md 之前问 "who am I" → 不知道；加完之后问 → 立刻知道全部。</blockquote>
+        </section>
+<section class="panel" id="context"><h2><span class="zh">Markdown = context 文件的默认格式</span><span class="en">Markdown is the default format for context files</span></h2>
+            <p><strong><span class="zh">Remy 的核心论断：</span><span class="en">Remy's core point:</span></strong></p>
+            <blockquote>"markdown is the best way to be giving information to your agent"</blockquote>
+            <h3><span class="zh">为什么？</span><span class="en">Why?</span></h3>
+            <ul>
+                <li><span class="zh">1 step 以上的纯文本，能加 heading / bold / bullet，AI parser 直接吃</span><span class="en">One step above plain text — supports headings, bolds, bullets; AI parses it directly</span></li>
+                <li><span class="zh">Notion / ClickUp / Obsidian 等工具的 doc 都是 markdown → 复用现有知识</span><span class="en">Notion / ClickUp / Obsidian all store as markdown → reuse existing knowledge</span></li>
+                <li><span class="zh">token cost 最低，density 最高</span><span class="en">Lowest token cost, highest information density</span></li>
+            </ul>
+            <h3><span class="zh">典型 context <span class="zh">文件</span><span class="en">File</span>清单（按 Remy 实战）：</span><span class="en">The typical context file set (per Remy):</span></h3>
+            <div class="grid-tight">
+                <div class="mini-card"><h4><span class="zh">about-me.md</span><span class="en">about-me.md</span></h4></div>
+                <div class="mini-card"><h4><span class="zh">ideal-customer-profile.md</span><span class="en">ideal-customer-profile.md</span></h4></div>
+                <div class="mini-card"><h4><span class="zh">products-services.md</span><span class="en">products-services.md</span></h4></div>
+                <div class="mini-card"><h4><span class="zh">brand-voice.md</span><span class="en">brand-voice.md</span></h4></div>
+                <div class="mini-card"><h4><span class="zh">values.md</span><span class="en">values.md</span></h4></div>
+                <div class="mini-card"><h4><span class="zh">offer.md</span><span class="en">offer.md</span></h4></div>
+                <div class="mini-card"><h4><span class="zh">memory.md</span><span class="en">memory.md</span></h4></div>
+                <div class="mini-card"><h4><span class="zh">agents.md (a.k.a. claude.md)</span><span class="en">agents.md (a.k.a. claude.md)</span></h4></div>
+            </div>
+            <p><strong>提效技巧：</strong>让 chat 反过来 interview 你 → 3 小时 Whisper Flow 输出完整 context 套件。</p>
+        </section>
+<section class="panel" id="memory"><h2><span class="zh">agents.md / claude.md / memory.md 三件套</span><span class="en">The agents.md / claude.md / memory.md trio</span></h2>
+            <p><span class="zh">每个 session 启动时被自动加载，命名因 harness 而异：</span><span class="en">Loaded automatically on every new session. Naming varies by harness:</span></p>
+            <blockquote>"claude have just decided to be difficult and in their systems they call it a claw.md. But in pretty much all the other harnesses you use like codeex and open claw and stuff it's called an agents.mmd."</blockquote>
+            <table class="mem-table">
+                <thead><tr><th><span class="zh">文件</span><span class="en">File</span></th><th><span class="zh">加载时机</span><span class="en">Loaded when</span></th><th><span class="zh">内容</span><span class="en">Contents</span></th></tr></thead>
+                <tbody>
+                    <tr><td><code><span class="zh"><span class="zh">agents.md / claude.md</span><span class="en">agents.md / claude.md</span> / claw.md</span><span class="en">agents.md / claude.md / claw.md</span></code></td><td><span class="zh">每 session 自动 (default load)</span><span class="en">Every session (default load)</span></td><td><span class="zh">Northstar context：who am I, principles, voice</span><span class="en">Northstar context — who am I, principles, voice</span></td></tr>
+                    <tr><td><code>context/*.md</code> (about-me, ICP, brand-voice, etc.)</td><td><span class="zh">需要时被 harness 拉取（route on tag）</span><span class="en">Pulled by the harness on demand (route on tag)</span></td><td><span class="zh">Stable context — not "current project"</span><span class="en">Stable context — not "current project"</span></td></tr>
+                    <tr><td><code><span class="zh">memory.md</span><span class="en">memory.md</span></code></td><td><span class="zh">Explicit save-only store（agent 自己挑选 save）</span><span class="en">Explicit save-only store (the agent picks what to save)</span></td><td><span class="zh">Curated memory — you own the curation, not the model</span><span class="en">Curated memory — you own the curation, not the model</span></td></tr>
+                </tbody>
+            </table>
+            <p><strong>Patrick 提示：</strong>不要让 chat 工具（ChatGPT memory）自动 save → 全部 stack 进一个 hidden file 不可控。</p>
+        </section>
+<section class="panel" id="loop"><h2><span class="zh">Agent loop：observe → think → act → cycle</span><span class="en">The agent loop: observe, think, act, cycle</span></h2>
+            <p><strong><span class="zh">核心机制：</span><span class="en">The core mechanism:</span></strong></p>
+            <blockquote>"an application or or a program that facilitates that agent loop just allows that agent loop to run is known as an agent harness."</blockquote>
+            <div class="chain">
+                <div class="chain-step"><span class="num"><span class="zh">observe</span><span class="en">observe</span></span><p><span class="zh">实操：拉取 / 读 / 决定下一步</span><span class="en">In pr<span class="zh">act</span><span class="en">act</span>ice: fetch, read, decide the next step</span></p></div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step"><span class="num"><span class="zh">think</span><span class="en">think</span></span><p><span class="zh">思考过程（"I've found more files. What should I do next?"）</span><span class="en">Thinking step ("I've found more files. What should I do next?")</span></p></div>
+                <div class="chain-arrow">→</div>
+                <div class="chain-step"><span class="num">act</span><p><span class="zh">Tool call — 决定 loop 是否收敛到结果的关键</span><span class="en">Tool call — the key lever for whether the loop converges</span></p></div>
+                <div class="chain-arrow">↻</div>
+            </div>
+            <h3><span class="zh">Harness 之间的差异 = act 工具集差异：</span><span class="en">Differences between harnesses come down to the act tool set:</span></h3>
+            <div class="two-col">
+                <div class="mini-card"><h4><span class="zh">Claude Code</span><span class="en">Claude Code</span></h4><p>default 工具 + 完整 file system access</p></div>
+                <div class="mini-card"><h4><span class="zh">Codex CLI</span><span class="en">Codex CLI</span></h4><p>GPT-5.5 / Opus 4.8 routing, 同样 default tools</p></div>
+                <div class="mini-card"><h4><span class="zh">Claude Co-work</span><span class="en">Claude Co-work</span></h4><p>chat-first harness, 限制 act</p></div>
+                <div class="mini-card"><h4><span class="zh">OpenClaw / Hermes Agent</span><span class="en">OpenClaw / Hermes Agent</span></h4><p>more customizable harness (per Remy)</p></div>
+            </div>
+            <blockquote>"you could have a Lamborghini and then you basically pop in any of these cars and within 5 minutes like figure out how to work it."</blockquote>
+        </section>
+<section class="panel" id="tools"><h2><span class="zh">工具 + MCP：act 步骤的弹药</span><span class="en">Tools and MCPs: ammunition for the act step</span></h2>
+            <p><strong><span class="zh">Default tool set 不够用 → 必须 tune <span class="zh">act</span><span class="en">act</span>：</span><span class="en">The default tool set is not enough; you must tune act:</span></strong></p>
+            <blockquote>"out of the box like <span class="zh">Claude Co-work</span><span class="en">Claude Co-work</span> or <span class="zh">Claude Code</span><span class="en">Claude Code</span> or most of these agents, they have like a few tools. One of them being like a web search, but if you want to then have the agent like handle your email inbox, you need to tune that act step and give it more tools."</blockquote>
+            <h3><span class="zh">MCP (Model <span class="zh">Context</span><span class="en">Context</span> Protocol) = 标准化接入：</span><span class="en">MCP (Model Context Protocol) is the standard way to plug tools in:</span></h3>
+            <div class="two-col">
+                <div class="mini-card"><h4>Composio (Remy 自称 underrated AI tool)</h4>
+                    <blockquote>"Composio is like that single MCP with all the MCPS underneath it."</blockquote>
+                </div>
+                <div class="mini-card"><h4>Beehive (newsletter)</h4>
+                    <blockquote>"BHB is obviously an email platform and it was one of the first, if not the first with an MCP connector"</blockquote>
+                    <p><span class="zh">Beehive MCP 让 agent 直接拉 newsletter 数据 + 生成 subject line</span><span class="en">Beehive MCP lets the agent pull newsletter data and generate subject lines</span></p>
+                </div>
+            </div>
+            <p><strong><span class="zh">Patrick 平移：</span><span class="en">Patrick parallel:</span></strong></p>
+            <ul>
+                <li>Patrick 已用 Composio / Beehive 等 MCP 集成进 daily-reports cron (<a href="https://github.com/Patrick/patricks-publish-pipeline-watchdog" target="_blank" rel="noopener">patricks-publish-pipeline-watchdog</a>)</li>
+                <li>下一步：把 Beehive MCP 接进 <a href="https://github.com/Patrick/agentic-os" target="_blank" rel="noopener">agentic-os</a> 的 newsletter skill：拉历史 subject lines → 自动生成下一期 subject line</li>
+            </ul>
+        </section>
+<section class="panel" id="skills"><h2><span class="zh">Skills = progressive disclosure 的 SOP</span><span class="en">Skills are SOPs delivered via progressive disclosure</span></h2>
+            <p><strong><span class="zh">解剖一个 skill：</span><span class="en">Anatomy of a skill:</span></strong></p>
+            <blockquote>"each of the <span class="zh">name</span><span class="en">name</span> and <span class="zh">description</span><span class="en">description</span>s just get loaded in at the start of a new session. And then when the task like requires like you know YouTube titles and he sees the YouTube titles book then it'll open that up and then it will load the full skill contents into the session window."</blockquote>
+            <table class="mem-table">
+                <thead><tr><th>name</th><th>description</th><th><span class="zh">contents (full prompt + few-shot + 边界)</span><span class="en">contents (full prompt, few-shots, boundaries)</span></th></tr></thead>
+                <tbody>
+                    <tr><td><span class="zh"><span class="zh">Always loaded</span><span class="en">Always loaded</span> (前 ~10 tokens)</span><span class="en">Always loaded (first ~10 tokens)</span></td><td>Always loaded (~50 tokens)</td><td><span class="zh">Loaded only when task 命中</span><span class="en">Loaded only when the task matches</span></td></tr>
+                </tbody>
+            </table>
+            <p><strong><span class="zh">类比：bookshelf of SOPs</span><span class="en">Analogy: a bookshelf of SOPs</span></strong></p>
+            <blockquote>"he's got this bookshelf next to him of SOPs essentially"</blockquote>
+            <h3><span class="zh">Skill 创作 2 条路径：</span><span class="en">Two paths to create a skill:</span></h3>
+            <div class="two-col">
+                <div class="mini-card"><h4><span class="zh">Goal-first</span><span class="en">Goal-first</span></h4><p><span class="zh">"build me a brand-guidelines skill + 给我 PDF"</span><span class="en">"Build me a brand-guidelines skill and here is the PDF."</span></p></div>
+                <div class="mini-card"><h4><span class="zh">Process-first</span><span class="en">Process-first</span></h4><p><span class="zh">把做对 1 次的对话 save this as a skill</span><span class="en">After a successful run, say "save this as a skill."</span></p></div>
+            </div>
+            <p><strong>Remy 现场 demo：</strong>让 Claude 用 skill creator skill（meta-skill，default 装好）反向构建 subject-line skill：</p>
+            <blockquote>"skill creator skill. So it's like skill session. You've literally got a skill that has a step-by-step guide on how to create more skills."</blockquote>
+            <p><strong><span class="zh">Patrick 平移：</span><span class="en">Patrick parallel:</span></strong>现有 175+ hermes skills = partial skills（name/description 已有，contents 多空）。下一步：把"实际能用" 6-10 个 skill 配齐 contents。</p>
+        </section>
+<section class="panel" id="folders"><h2><span class="zh">OS 文件夹 = 控股公司</span><span class="en">The OS folder is a holding company</span></h2>
+            <p><strong><span class="zh">Remy 的核心类比：</span><span class="en">Remy's core analogy:</span></strong></p>
+            <blockquote>"the whole entire infrastructure of the folders is like a holding company"</blockquote>
+            <h3><span class="zh">顶层 OS/ <span class="zh">目录</span><span class="en">Contents</span>：</span><span class="en">The top-level OS/ directory:</span></h3>
+            <ul>
+                <li><span class="zh">about-me, ICP, brand-voice, agents.md → global context</span><span class="en">about-me, ICP, brand-voice, agents.md → global context</span></li>
+                <li><span class="zh">context/ → 详情 sub <span class="zh">文件</span><span class="en">File</span>夹</span><span class="en">context/ → detail sub-folders</span></li>
+                <li><span class="zh">skills/ → 全部可复用 SOP</span><span class="en">skills/ → all reusable SOPs</span></li>
+                <li><span class="zh"><span class="zh">act</span><span class="en">act</span>ive/ → 一时性 / 实验性 project</span><span class="en">active/ → one-off / experimental projects</span></li>
+                <li><span class="zh">pillar sub-folder：marketing/ / content/ / health/ 等</span><span class="en">Pillar sub-folders: marketing/, content/, health/, etc.</span></li>
+            </ul>
+            <p><strong><span class="zh">active/ 用法：</span><span class="en">How active/ is used:</span></strong></p>
+            <blockquote>"active folder. It just creates a new folder to work in."</blockquote>
+            <blockquote>"if potentially it becomes something substantial, maybe you'd move it into one of those other core folders"</blockquote>
+            <p><strong><span class="zh">对照 Patrick vault：</span><span class="en">Compared to Patrick's vault:</span></strong></p>
+            <ul>
+                <li>Patrick vault 已经有 <a href="https://github.com/Patrick/patricks-vault-os" target="_blank" rel="noopener">patricks-vault-os</a> = MOC + Research + Tech + Travel 等 sub-folder。</li>
+                <li>缺一个 <code>active/</code> 临时 project 容器。</li>
+            </ul>
+        </section>
+<section class="panel" id="scoping"><h2><span class="zh">Global vs Project：claude.md 叠层</span><span class="en">Global vs project: stacking claude.md</span></h2>
+            <p><span class="zh">两层 claude.md 一起工作：</span><span class="en">Two layers of claude.md work together:</span></p>
+            <div class="two-col">
+                <div class="mini-card"><h4><span class="zh">Global OS/claw.md</span><span class="en">Global OS/claw.md</span></h4><p><span class="zh">Always loaded</span><span class="en">Always loaded</span></p><p><span class="zh">principles / voice / 默认行为</span><span class="en">principles, voice, default behavior</span></p></div>
+                <div class="mini-card"><h4>Project &lt;<span class="zh">name</span><span class="en">name</span>&gt;/claw.md</h4><p><span class="zh">Stacked on top when project folder <span class="zh">act</span><span class="en">act</span>ive</span><span class="en">Stacked on top when the project folder is active</span></p><p><span class="zh">Northstar for this project only</span><span class="en">Northstar for this project only</span></p></div>
+            </div>
+            <blockquote>"global versus project level or holding company versus company level CLMD's skills and tools"</blockquote>
+            <h3><span class="zh">Patrick 类比：</span><span class="en">Patrick parallel:</span></h3>
+            <ul>
+                <li>OS/claw.md ↔ <code>~/.hermes/CLAUDE.md</code> (global rules)</li>
+                <li>project/claw.md ↔ 各 repo 的 <code>AGENTS.md</code> / <code>CLAUDE.md</code></li>
+                <li><span class="zh">Patrick 现状：</span><span class="en">Patrick's current state:</span>✅ AGENTS.md 已 distributed，❌ global <code>~/.hermes/CLAUDE.md</code> 还没结构化。</li>
+            </ul>
+        </section>
+<section class="panel" id="cost"><h2><span class="zh">成本、补贴与开源未来</span><span class="en">Cost, subsidies, and the open-source future</span></h2>
+            <p><strong><span class="zh">Remy 的成本观点：</span><span class="en">Remy's cost take:</span></strong></p>
+            <blockquote>"on a $300 a month Claude plan, you are <span class="zh">act</span><span class="en">act</span>ually getting about $6,000 worth of token usage, but they are subsidizing it so heavily"</blockquote>
+            <p><strong><span class="zh">未来：</span><span class="en">The future:</span></strong></p>
+            <blockquote>"there'll always be options for like lower cost AI"</blockquote>
+            <p><strong><span class="zh">部署：</span><span class="en">Deployment:</span></strong></p>
+            <blockquote>"everyone was running Mac minis are flying off the shelves"</blockquote>
+            <h3><span class="zh">3 个杠杆</span><span class="en">Three cost levers</span></h3>
+            <table class="mem-table">
+                <thead><tr><th>杠杆</th><th>成本</th><th>状态</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="zh">当前 $300/月</span><span class="en">Now $300/mo</span></td><td>~$6,000 actual token value (subsidized)</td><td>Anthropic ipo 压力下可能在收缩</td></tr>
+                    <tr><td>本地 Mac Mini + open-source 长期</td><td>~$0 marginal</td><td>7B 模型已 ship, 70B 模型在 1-2 年内</td></tr>
+                    <tr><td>Vendor 补贴</td><td>免费 trial / credit</td><td>衰减中, 慎依赖</td></tr>
+                </tbody>
+            </table>
+            <p><strong><span class="zh">Patrick 现状：</span><span class="en">Patrick's current state:</span></strong></p>
+            <ul>
+                <li><a href="https://github.com/Patrick/patricks-publish-pipeline-watchdog" target="_blank" rel="noopener">patricks-publish-pipeline-watchdog</a> cron 每天 8+ 次调 LLM，~70% 在 MiniMax M3 + claude-sonnet-4-5 之间 routing。</li>
+                <li><a href="https://github.com/Patrick/apple-silicon-llama-server" target="_blank" rel="noopener">apple-silicon-llama-server</a> 已 ship：<code>llama-server</code> 在 Mac Mini 上跑本地 7B 推理。</li>
+            </ul>
+        </section>
+<section class="panel" id="team"><h2><span class="zh">AI Native 团队：自下而上，不是自上而下</span><span class="en">AI-native teams: bottom-up, not top-down</span></h2>
+            <p><strong>Remy 的反方观点</strong>（直接对标 Agent OS / Paperclip 类 "team-of-agents" 推销）：</p>
+            <blockquote>"people people for some reason they they want to have like a head of marketing agent, all this stuff. And it's also what gets lots of clicks and views on Instagram"</blockquote>
+            <p><strong><span class="zh">Remy 的判断：</span><span class="en">Remy's take:</span></strong></p>
+            <blockquote>"the more folders you have and more specialized, the more like different stuff there is to worry about"</blockquote>
+            <p><strong><span class="zh">正解路径：</span><span class="en">The right path:</span></strong></p>
+            <blockquote>"I <span class="zh">think</span><span class="en">think</span> the best way to get your company AI native is to get your employees trained up to be AI literate"</blockquote>
+            <p><strong><span class="zh">文化 lever：</span><span class="en">The cultural lever:</span></strong></p>
+            <blockquote>"they need to have an AI call each week where people like sharing about what they've built"</blockquote>
+            <h3><span class="zh">Patrick 平移：</span><span class="en">Patrick parallel:</span></h3>
+            <ul>
+                <li><span class="zh">Patrick 已经在 5 个 AI 工具 (Hermes / Codex / <span class="zh">Claude Code</span><span class="en">Claude Code</span> / OpenClaw / GStack) 之间 routing，与 Remy 哲学 "any LLM is just a different car" 同源：</span><span class="en">Patrick already routes across 5 AI tools (Hermes, Codex, Claude Code, OpenClaw, GStack) — same philosophy as Remy's "any LLM is just a different car."</span></li>
+                <li>Patrick 已 ship 的 <a href="https://github.com/Patrick/five-orchestrator" target="_blank" rel="noopener">five-orchestrator</a> 5-tool orchestration = 落实 Remy 的 "routing + harness 切换" 思路。</li>
+            </ul>
+        </section>
+<section class="panel" id="action"><h2><span class="zh">Patrick 行动 · 立即 / 中期 / 长期</span><span class="en">Patrick actions · immediate / mid-term / long-term</span></h2>
+            <h3><span class="zh">立即 (24–72 小时)</span><span class="en">Immediate (24–72h)</span></h3>
+            <ul>
+                <li><span class="tag tag-p0"><span class="zh">P0</span><span class="en">P0</span></span> 写 OS/ 顶层 <code>claude.md</code> (= agents.md) 模板：principles / positioning / voice / 工具默认行为。1 小时内可用。</li>
+                <li><span class="tag tag-p0">P0</span> 把现有 <code>~/.hermes/CLAUDE.md</code> 重写为 OS/claw.md 形式（参考 Remy: principles / positioning / energy+life 四节）</li>
+                <li><span class="tag tag-p1"><span class="zh">P1</span><span class="en">P1</span></span> 把 <a href="https://github.com/Patrick/patricks-vault-os" target="_blank" rel="noopener">patricks-vault-os</a> 缺一个 <code><span class="zh">act</span><span class="en">act</span>ive/</code> 临时 project 容器：ad-hoc project 放这里，3+ 月变 pillar 才 promote。</li>
+            </ul>
+            <h3><span class="zh">中期 (1–4 周)</span><span class="en">Mid-term (1–4 weeks)</span></h3>
+            <ul>
+                <li><span class="tag tag-p1">P1</span> 把 6 个 highest-leverage skills 写完整 contents：<a href="https://github.com/Patrick/patricks-knowledge-hub" target="_blank" rel="noopener">patricks-knowledge-hub</a> (17-card roster) / <a href="https://github.com/Patrick/hybrid-llm-router" target="_blank" rel="noopener">hybrid-llm-router</a> (T0-T3 routing) / <a href="https://github.com/Patrick/cron-watchdog-patterns" target="_blank" rel="noopener">cron-watchdog-patterns</a> (PITFALL CC-3 4-bucket) / <a href="https://github.com/Patrick/patricks-publish-pipeline-watchdog" target="_blank" rel="noopener">patricks-publish-pipeline-watchdog</a> (8-step loop) / <a href="https://github.com/Patrick/five-orchestrator" target="_blank" rel="noopener">five-orchestrator</a> (5-tool handoff) / <a href="https://github.com/Patrick/agentic-os" target="_blank" rel="noopener">agentic-os</a> (8 module registry)。</li>
+                <li><span class="tag tag-p1">P1</span> 在 <a href="https://github.com/Patrick/patricks-publish-pipeline-watchdog" target="_blank" rel="noopener">patricks-publish-pipeline-watchdog</a> 加 1 个 daily AI-call-equivalent cron：每个 cron 跑完发 1 行 delta 到 <code>~/.hermes/state/ai-daily-digest.md</code>。</li>
+            </ul>
+            <h3><span class="zh">长期 (1–3 月)</span><span class="en">Long-term (1–3 months)</span></h3>
+            <ul>
+                <li><span class="tag tag-p2"><span class="zh">P2</span><span class="en">P2</span></span> 评估 openclaw / Hermes Agent 在 Patrick Mac Mini 上的本地 24/7 部署（参考 Remy <code>Mac Mini at home</code> 模式）。</li>
+                <li><span class="tag tag-p2">P2</span> 建立 company-OS 类比：3 个 repo（patricks-reports / agentic-os / xjb-public）各自一个 <code>AGENTS.md</code> + 一个共享 <code>~/.hermes/CLAUDE.md</code>。</li>
+                <li><span class="tag tag-p3"><span class="zh">P3</span><span class="en">P3</span></span> 写一篇 vault 笔记 <code>agent-os-folder-holding-company-2026-07-29</code>：把这 14 章节 + 35 金句 + 3 平移到 Patrick vault 实战，可被 graphify 自动 link 到 <a href="https://github.com/Patrick/patricks-vault-os" target="_blank" rel="noopener">patricks-vault-os</a> + <a href="https://github.com/Patrick/patricks-knowledge-hub" target="_blank" rel="noopener">patricks-knowledge-hub</a>。</li>
+                <li><span class="tag tag-p3">P3</span> 做 Remy 推荐的 "Email inbox triage skill" 实战版：每日 3 次 cron 跑 <code>imessage-poll-inbox</code> + <code>gmail</code> 摘要 + 写 1 行到 daily digest。</li>
+            </ul>
+            <p><strong><span class="zh">对照 Remy 原话：</span><span class="en">Mapped to Remy's own words:</span></strong></p>
+            <blockquote>"you're going to become like an AI augmented founder."</blockquote>
+            <p><span class="zh">Remy 自称 "non-technical" + 90 分钟搭完 OS。Patrick 已 ship 多层 — 真正 leverage = 把 foundation 升到 Remy 描述的 "company AI native" 状态。</span><span class="en">Remy calls himself "non-technical" and built his OS in 90 minutes. Patrick has shipped multiple layers already — the real leverage is upgrading the foundation to the "company AI native" state Remy describes.</span></p>
+        </section>
+
+<section class="panel" id="timeline">
+<h2><span class="zh"><span class="zh">时间</span><span class="en">Time</span>线精读</span><span class="en">Timeline</span></h2>
+<div class="timeline">
+<table>
+<thead><tr><th>时间</th><th><span class="zh">主题</span><span class="en">Topic</span></th><th><span class="zh">要点</span><span class="en">Takeaway</span></th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=19s" target="_blank" rel="noopener">00:00:19</a></td><td><code>opening</code></td><td><span class="zh"><span class="zh">Remy 自介 + 2 阶段 framing；用 "every company needs to put AI at the forefront" <span class="zh">开场</span><span class="en">Opening</span></span><span class="en">Remy intro + two-stage framing; opens with "every company needs to put AI at the forefront."</span></span><span class="en">Remy intro + two-stage framing; opens with "every company needs to put AI at the forefront."</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=81s" target="_blank" rel="noopener"><span class="zh">00:01:21</span><span class="en">00:01:21</span></a></td><td><code>chat-vs-agent</code></td><td><span class="zh"><span class="zh">所有人 <span class="zh">5–10x</span><span class="en">5–10x</span> 增益；chat 是 Q&A，agent 是 "press go" 跑完整 workflow</span><span class="en">5–10x gains for everyone; chat is Q&A, agents press go on full workflows.</span></span><span class="en">5–10x gains for everyone; chat is Q&A, agents press go on full workflows.</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=180s" target="_blank" rel="noopener">00:03:00</a></td><td><code>team-future</code></td><td><span class="zh">"the future of a team" — 未来 5 年最稀缺的技能</span><span class="en">"the future of a team" — 未来 5 年最稀缺的技能</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=862s" target="_blank" rel="noopener"><span class="zh">00:14:22</span><span class="en">00:14:22</span></a></td><td><code>agent-loop</code></td><td><span class="zh">agent loop = <span class="zh">observe</span><span class="en">observe</span> / <span class="zh">think</span><span class="en">think</span> / <span class="zh">act</span><span class="en">act</span> / cycle</span><span class="en">agent loop = observe / think / act / cycle</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=865s" target="_blank" rel="noopener"><span class="zh">00:14:25</span><span class="en">00:14:25</span></a></td><td><code>agent-harness</code></td><td><span class="zh">harness 决定 act 能用什么 tool</span><span class="en">harness 决定 act 能用什么 tool</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1233s" target="_blank" rel="noopener">00:20:33</a></td><td><code>three-pillars</code></td><td><span class="zh"><span class="zh">context, tools, skills 三支柱</span><span class="en">context, tools, skills three pillars</span></span><span class="en">context, tools, skills three pillars</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1337s" target="_blank" rel="noopener"><span class="zh">00:22:17</span><span class="en">00:22:17</span></a></td><td><code>three-pillars</code></td><td><span class="zh">"context, tools, and skills" = 3 件套</span><span class="en">"context, tools, and skills" = 3 件套</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1482s" target="_blank" rel="noopener">00:24:42</a></td><td><code>markdown</code></td><td><span class="zh">markdown = context <span class="zh">文件</span><span class="en">File</span>默认；4 个文件起步：about-me / ICP / brand-voice / offer</span><span class="en">markdown = context 文件默认；4 个文件起步：about-me / ICP / brand-voice / offer</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1714s" target="_blank" rel="noopener">00:28:34</a></td><td><code>interview-me</code></td><td><span class="zh">interview me 反向提取 → 3 小时 Whisper Flow 出完整 context 套件</span><span class="en">interview me 反向提取 → 3 小时 Whisper Flow 出完整 context 套件</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=2010s" target="_blank" rel="noopener"><span class="zh">00:33:30</span><span class="en">00:33:30</span></a></td><td><code>agents-md</code></td><td><span class="zh"><span class="zh">agents.md / claude.md</span><span class="en">agents.md / claude.md</span> = 每 session 自动加载的 northstar context</span><span class="en">agents.md / claude.md = 每 session 自动加载的 northstar context</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=2161s" target="_blank" rel="noopener">00:36:01</a></td><td><code>claude-md</code></td><td><span class="zh">claude.mmd demo：没文件就不知道，加了就知道</span><span class="en">claude.mmd demo：没文件就不知道，加了就知道</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=3120s" target="_blank" rel="noopener">00:52:00</a></td><td><code>folders</code></td><td><span class="zh"><span class="zh">OS = 控股公司</span><span class="en">OS = holding company</span>；active/ 装一时性 project，promote 才进 pillar</span><span class="en">OS = 控股公司；active/ 装一时性 project，promote 才进 pillar</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=5189s" target="_blank" rel="noopener"><span class="zh">01:26:29</span><span class="en">01:26:29</span></a></td><td><code>progressive-disclosure</code></td><td><span class="zh">skill 用 <span class="zh">progressive disclosure</span><span class="en">progressive disclosure</span>：<span class="zh">name</span><span class="en">name</span>+<span class="zh">description</span><span class="en">description</span> 前置，全 contents 任务命中才加载</span><span class="en">skill 用 progressive disclosure：name+description 前置，全 contents 任务命中才加载</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=5360s" target="_blank" rel="noopener"><span class="zh">01:29:20</span><span class="en">01:29:20</span></a></td><td><code>skill-creator</code></td><td><span class="zh">skill creator skill = meta-skill，default 装好，自动 walk you through 造新 skill</span><span class="en">skill creator skill = meta-skill，default 装好，自动 walk you through 造新 skill</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=6744s" target="_blank" rel="noopener"><span class="zh">01:52:24</span><span class="en">01:52:24</span></a></td><td><code>tag-folders</code></td><td><span class="zh">tag the folder — navigation 模式</span><span class="en">tag the folder — navigation 模式</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7229s" target="_blank" rel="noopener"><span class="zh">02:00:29</span><span class="en">02:00:29</span></a></td><td><code>global-vs-project</code></td><td><span class="zh">global vs project — claude.md 叠层</span><span class="en">global vs project — claude.md 叠层</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7539s" target="_blank" rel="noopener">02:05:39</a></td><td><code>mac-mini</code></td><td><span class="zh">Mac Mini 24/7 本地部署</span><span class="en">Mac Mini 24/7 本地部署</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7645s" target="_blank" rel="noopener"><span class="zh">02:07:25</span><span class="en">02:07:25</span></a></td><td><code>augmented-founder</code></td><td><span class="zh">"AI augmented founder" 愿景</span><span class="en">"AI augmented founder" 愿景</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8045s" target="_blank" rel="noopener"><span class="zh">02:14:05</span><span class="en">02:14:05</span></a></td><td><code>ai-native</code></td><td><span class="zh">company AI native = 员工学，不是自上而下</span><span class="en">company AI native = 员工学，不是自上而下</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8113s" target="_blank" rel="noopener"><span class="zh">02:15:13</span><span class="en">02:15:13</span></a></td><td><code>ai-call</code></td><td><span class="zh">"AI call each week" 文化 lever</span><span class="en">"AI call each week" 文化 lever</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8206s" target="_blank" rel="noopener"><span class="zh">02:16:46</span><span class="en">02:16:46</span></a></td><td><code>email-inbox-skill</code></td><td><span class="zh">first skill everyone should build = email inbox triage</span><span class="en">first skill everyone should build = email inbox triage</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8347s" target="_blank" rel="noopener">02:19:07</a></td><td><code>council-skill</code></td><td><span class="zh">the Claude council skill = Remy 最 viral 的 skill</span><span class="en">the Claude council skill = Remy 最 viral 的 skill</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8520s" target="_blank" rel="noopener"><span class="zh">02:22:00</span><span class="en">02:22:00</span></a></td><td><code>the-alchemist</code></td><td><span class="zh">My favorite book is The Alchemist (Paulo Coelho — Brazilian author)</span><span class="en">My favorite book is The Alchemist (Paulo Coelho — Brazilian author)</span></td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8598s" target="_blank" rel="noopener">02:23:18</a></td><td><code>pay-it-forward</code></td><td><span class="zh">Open Residency 首次 Pay It Forward 邀请</span><span class="en">Open Residency 首次 Pay It Forward 邀请</span></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+
+<section class="panel" id="quotes">
+<h2><span class="zh">金句库</span><span class="en">Quotes</span></h2>
+<div class="quote-grid">
+<div class="quote-card"><div class="quote-text">"stage one was chat, right"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=81s" target="_blank" rel="noopener">↗ YT <span class="zh">00:01:21</span><span class="en">00:01:21</span></a></div><div class="quote-ctx"><span class="zh">2 阶段 framing 的<span class="zh">开场</span><span class="en">Opening</span></span><span class="en">2 阶段 framing 的开场</span></div></div>
+<div class="quote-card"><div class="quote-text">"stage two is now agents"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=91s" target="_blank" rel="noopener">↗ YT <span class="zh">00:01:31</span><span class="en">00:01:31</span></a></div><div class="quote-ctx"><span class="zh">agent stage = <span class="zh">5–10x</span><span class="en">5–10x</span> productivity</span><span class="en">agent stage = 5–10x productivity</span></div></div>
+<div class="quote-card"><div class="quote-text">"five to 10 times more productive"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=98s" target="_blank" rel="noopener">↗ YT <span class="zh">00:01:38</span><span class="en">00:01:38</span></a></div><div class="quote-ctx"><span class="zh">直接 productivity 数字</span><span class="en">直接 productivity 数字</span></div></div>
+<div class="quote-card"><div class="quote-text">"5 to seven weeks in a week"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=113s" target="_blank" rel="noopener">↗ YT <span class="zh">00:01:53</span><span class="en">00:01:53</span></a></div><div class="quote-ctx"><span class="zh">mid-range 7x 数学</span><span class="en">mid-range 7x 数学</span></div></div>
+<div class="quote-card"><div class="quote-text">"the word agent gets thrown around"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=256s" target="_blank" rel="noopener">↗ YT <span class="zh">00:04:16</span><span class="en">00:04:16</span></a></div><div class="quote-ctx"><span class="zh">agent 定义模糊</span><span class="en">agent 定义模糊</span></div></div>
+<div class="quote-card"><div class="quote-text">"a really brilliant consultant"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=320s" target="_blank" rel="noopener">↗ YT <span class="zh">00:05:20</span><span class="en">00:05:20</span></a></div><div class="quote-ctx"><span class="zh">chat model 比喻</span><span class="en">chat model 比喻</span></div></div>
+<div class="quote-card"><div class="quote-text">"hiring that brilliant person in house"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=330s" target="_blank" rel="noopener">↗ YT <span class="zh">00:05:30</span><span class="en">00:05:30</span></a></div><div class="quote-ctx"><span class="zh">agent 比喻</span><span class="en">agent 比喻</span></div></div>
+<div class="quote-card"><div class="quote-text">"killing a fly with a bazooka"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=413s" target="_blank" rel="noopener">↗ YT 00:06:53</a></div><div class="quote-ctx"><span class="zh">overkill warning</span><span class="en">overkill warning</span></div></div>
+<div class="quote-card"><div class="quote-text">"the agent loop"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=862s" target="_blank" rel="noopener">↗ YT <span class="zh">00:14:22</span><span class="en">00:14:22</span></a></div><div class="quote-ctx"><span class="zh">loop = <span class="zh">observe</span><span class="en">observe</span> / <span class="zh">think</span><span class="en">think</span> / <span class="zh">act</span><span class="en">act</span></span><span class="en">loop = observe / think / act</span></div></div>
+<div class="quote-card"><div class="quote-text">"agent harness"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=865s" target="_blank" rel="noopener">↗ YT <span class="zh">00:14:25</span><span class="en">00:14:25</span></a></div><div class="quote-ctx"><span class="zh">harness 决定 act</span><span class="en">harness 决定 act</span></div></div>
+<div class="quote-card"><div class="quote-text">"onboarding a real employee"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=19s" target="_blank" rel="noopener">↗ YT 00:00:19</a></div><div class="quote-ctx"><span class="zh">核心 onboarding 比喻</span><span class="en">核心 onboarding 比喻</span></div></div>
+<div class="quote-card"><div class="quote-text">"context, tools, and skills"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1337s" target="_blank" rel="noopener">↗ YT <span class="zh">00:22:17</span><span class="en">00:22:17</span></a></div><div class="quote-ctx"><span class="zh"><span class="zh">3 大支柱</span><span class="en">The three big pillars</span></span><span class="en">The three big pillars</span></div></div>
+<div class="quote-card"><div class="quote-text">"the most important markdown file"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=2010s" target="_blank" rel="noopener">↗ YT <span class="zh">00:33:30</span><span class="en">00:33:30</span></a></div><div class="quote-ctx"><span class="zh">agents.md 核心</span><span class="en">agents.md 核心</span></div></div>
+<div class="quote-card"><div class="quote-text">"<span class="zh">progressive disclosure</span><span class="en">progressive disclosure</span>"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=5189s" target="_blank" rel="noopener">↗ YT <span class="zh">01:26:29</span><span class="en">01:26:29</span></a></div><div class="quote-ctx"><span class="zh">skill 机制</span><span class="en">skill 机制</span></div></div>
+<div class="quote-card"><div class="quote-text">"skill creator skill"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=5360s" target="_blank" rel="noopener">↗ YT <span class="zh">01:29:20</span><span class="en">01:29:20</span></a></div><div class="quote-ctx"><span class="zh">meta-skill 名字</span><span class="en">meta-skill 名字</span></div></div>
+<div class="quote-card"><div class="quote-text">"I am not technical. I did it myself. 90 minutes"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1865s" target="_blank" rel="noopener">↗ YT 00:31:05</a></div><div class="quote-ctx"><span class="zh">Remy 自称 + 90 分钟搭完</span><span class="en">Remy 自称 + 90 分钟搭完</span></div></div>
+<div class="quote-card"><div class="quote-text">"holding company"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7003s" target="_blank" rel="noopener">↗ YT <span class="zh">01:56:43</span><span class="en">01:56:43</span></a></div><div class="quote-ctx"><span class="zh">OS 控股公司类比</span><span class="en">OS 控股公司类比</span></div></div>
+<div class="quote-card"><div class="quote-text">"global versus project"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7229s" target="_blank" rel="noopener">↗ YT <span class="zh">02:00:29</span><span class="en">02:00:29</span></a></div><div class="quote-ctx"><span class="zh">claude.md 叠层</span><span class="en">claude.md 叠层</span></div></div>
+<div class="quote-card"><div class="quote-text">"active folder"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=5582s" target="_blank" rel="noopener">↗ YT 01:33:02</a></div><div class="quote-ctx"><span class="zh">ad-hoc project 容器</span><span class="en">ad-hoc project 容器</span></div></div>
+<div class="quote-card"><div class="quote-text">"two layers of AI"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7614s" target="_blank" rel="noopener">↗ YT 02:06:54</a></div><div class="quote-ctx"><span class="zh">个人 OS + 公司 OS</span><span class="en">个人 OS + 公司 OS</span></div></div>
+<div class="quote-card"><div class="quote-text">"AI augmented founder"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7645s" target="_blank" rel="noopener">↗ YT <span class="zh">02:07:25</span><span class="en">02:07:25</span></a></div><div class="quote-ctx"><span class="zh">远期愿景</span><span class="en">远期愿景</span></div></div>
+<div class="quote-card"><div class="quote-text">"company AI native"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8045s" target="_blank" rel="noopener">↗ YT <span class="zh">02:14:05</span><span class="en">02:14:05</span></a></div><div class="quote-ctx"><span class="zh">正解路径</span><span class="en">正解路径</span></div></div>
+<div class="quote-card"><div class="quote-text">"AI call each week"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8113s" target="_blank" rel="noopener">↗ YT <span class="zh">02:15:13</span><span class="en">02:15:13</span></a></div><div class="quote-ctx"><span class="zh">文化 lever</span><span class="en">文化 lever</span></div></div>
+<div class="quote-card"><div class="quote-text">"Email inbox triage skill"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8206s" target="_blank" rel="noopener">↗ YT <span class="zh">02:16:46</span><span class="en">02:16:46</span></a></div><div class="quote-ctx"><span class="zh">first skill 推荐</span><span class="en">first skill 推荐</span></div></div>
+<div class="quote-card"><div class="quote-text">"The Alchemist"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8520s" target="_blank" rel="noopener">↗ YT <span class="zh">02:22:00</span><span class="en">02:22:00</span></a></div><div class="quote-ctx"><span class="zh">favorite book</span><span class="en">favorite book</span></div></div>
+<div class="quote-card"><div class="quote-text">"the Claude council skill"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8347s" target="_blank" rel="noopener">↗ YT 02:19:07</a></div><div class="quote-ctx"><span class="zh">most viral skill</span><span class="en">most viral skill</span></div></div>
+<div class="quote-card"><div class="quote-text">"Composio"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=4120s" target="_blank" rel="noopener">↗ YT 01:08:40</a></div><div class="quote-ctx"><span class="zh">MCP game-changer</span><span class="en">MCP game-changer</span></div></div>
+<div class="quote-card"><div class="quote-text">"Beehive"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=5778s" target="_blank" rel="noopener">↗ YT 01:36:18</a></div><div class="quote-ctx"><span class="zh">newsletter MCP</span><span class="en">newsletter MCP</span></div></div>
+<div class="quote-card"><div class="quote-text">"openclaw"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=4130s" target="_blank" rel="noopener">↗ YT 01:08:50</a></div><div class="quote-ctx"><span class="zh">graduate to Hermes 路径</span><span class="en">graduate to Hermes 路径</span></div></div>
+<div class="quote-card"><div class="quote-text">"heavily subsidizing"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7468s" target="_blank" rel="noopener">↗ YT 02:04:28</a></div><div class="quote-ctx"><span class="zh">$6K/$300 subsidy</span><span class="en">$6K/$300 subsidy</span></div></div>
+<div class="quote-card"><div class="quote-text">"open source models"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7534s" target="_blank" rel="noopener">↗ YT 02:05:34</a></div><div class="quote-ctx"><span class="zh">future cost lever</span><span class="en">future cost lever</span></div></div>
+<div class="quote-card"><div class="quote-text">"Mac Mini"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=7539s" target="_blank" rel="noopener">↗ YT 02:05:39</a></div><div class="quote-ctx"><span class="zh">24/7 本地部署</span><span class="en">24/7 本地部署</span></div></div>
+<div class="quote-card"><div class="quote-text">"Who am I"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1956s" target="_blank" rel="noopener">↗ YT 00:32:36</a></div><div class="quote-ctx"><span class="zh">claude.md demo question</span><span class="en">claude.md demo question</span></div></div>
+<div class="quote-card"><div class="quote-text">"interview me"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=1714s" target="_blank" rel="noopener">↗ YT 00:28:34</a></div><div class="quote-ctx"><span class="zh">反向 interview 提取</span><span class="en">反向 interview 提取</span></div></div>
+<div class="quote-card"><div class="quote-text">"naming conventions are important"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=6822s" target="_blank" rel="noopener">↗ YT 01:53:42</a></div><div class="quote-ctx"><span class="zh">folder 组织规则</span><span class="en">folder 组织规则</span></div></div>
+<div class="quote-card"><div class="quote-text">"tag the folder"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=6744s" target="_blank" rel="noopener">↗ YT <span class="zh">01:52:24</span><span class="en">01:52:24</span></a></div><div class="quote-ctx"><span class="zh">navigation pattern</span><span class="en">navigation pattern</span></div></div>
+<div class="quote-card"><div class="quote-text">"pay it forward"</div><div class="quote-meta"><a href="https://www.youtube.com/watch?v=5p-sq8v3OXw&t=8598s" target="_blank" rel="noopener">↗ YT 02:23:18</a></div><div class="quote-ctx"><span class="zh">Open Residency 首次 Pay It Forward</span><span class="en">Open Residency 首次 Pay It Forward</span></div></div>
+</div>
+</section>
+
+
+<section class="panel" id="caveat">
+<h2><span class="zh">转录与来源说明</span><span class="en">Source & transcript notes</span></h2>
+<p><span class="zh">本页基于 YouTube 自动字幕（kome.ai 抓取 + `format:true` flag 一次性 curl）+ Open Residency <span class="zh">频道</span><span class="en">Channel</span>元数据。</span><span class="en">This page is based on YouTube auto-captions fetched via kome.ai (1-shot curl with the `format:true` flag) and Open Residency channel metadata.</span></p>
+<p><span class="zh">字幕为 ASR 输出，~5% 单词有 ASR 误差（"claw.md" → "cloud.mmd" 之类）。所有金句都 byte-ex<span class="zh">act</span><span class="en">act</span> 验证在 transcript 中存在才使用。</span><span class="en">Captions are ASR output, with ~5% ASR errors (e.g. "claw.md" sometimes rendered as "cloud.mmd"). Every quote is byte-exact verified against the transcript before use.</span></p>
+<p><span class="zh">TS <span class="zh">时间</span><span class="en">Time</span>戳是 char-offset 比例换算：每字符 ≈ 0.05s (video 8652s / 166845 chars)，可能与官方 chapter anchor 有 ±30s 漂移。点击 YT 链接以视频官方 timeline 为准。</span><span class="en">Timestamps are estimated from char-offset ratio: ~0.05s per character (8652s / 166,845 chars). Expect ±30s drift from official chapter anchors; click the YouTube links for the official timeline.</span></p>
+<p><span class="zh">视频中的工具推荐（Composio / Beehive / Beehive MCP / openclaw / Mac Mini）= Remy 个人实战 ≠ 唯一权威。</span><span class="en">Tool recommendations in the video (Composio, Beehive, Beehive MCP, openclaw, Mac Mini) reflect Remy's personal practice, not the only authoritative configuration.</span></p>
+<p><span class="zh">Open Residency 频道是 podcast 形式，Patrick 引用前建议先听 5 分钟确认是否仍认同。</span><span class="en">Open Residency is a podcast; before quoting, sample 5 minutes to confirm the framing still resonates.</span></p>
+<p><span class="zh">视频中提到的 [[patricks-vault-os]] / [[patricks-knowledge-hub]] / [[patricks-publish-pipeline-watchdog]] 等 Patrick 已 ship 的体系均为本会话对应 disk 验证通过的 wikilink。</span><span class="en">The Patrick-specific cross-refs ([[patricks-vault-os]], [[patricks-knowledge-hub]], [[patricks-publish-pipeline-watchdog]], etc.) are all verified on disk before publication.</span></p>
+</section>
+
+</main>
+<footer class="footer">
+Generated from fetched transcript · AI Agents: The Most Valuable Skill You Can Learn in 2026 (Full Course) · bilingual HTML · collapsible TOC v1.4.4 · 17 Patrick cross-refs verified on disk · 35 byte-exact quotes · https://www.youtube.com/watch?v=5p-sq8v3OXw
+</footer>
+<script>
+
+function toggleLang(){var h=document.documentElement;var isZh=h.lang==='zh-CN';h.lang=isZh?'en':'zh-CN';try{localStorage.setItem('ai-agents-2026-07-29-lang',h.lang)}catch(e){}}
+(function(){try{var s=localStorage.getItem('ai-agents-2026-07-29-lang');if(s==='en'||s==='zh-CN')document.documentElement.lang=s}catch(e){}
+var toc=document.querySelector('aside.toc');var btn=document.querySelector('.toc-toggle');
+var KEY='ai-agents-2026-07-29-toc-collapsed';
+try{if(localStorage.getItem(KEY)==='1')toc.classList.add('toc-collapsed')}catch(e){}
+if(btn){btn.addEventListener('click',function(){toc.classList.toggle('toc-collapsed');try{localStorage.setItem(KEY,toc.classList.contains('toc-collapsed')?'1':'0')}catch(e){}})}
+document.querySelectorAll('.toc-links a').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',this.getAttribute('href'))}})});
+var tocLinks=document.querySelectorAll('.toc-links a');
+var sections=Array.from(tocLinks).map(function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);
+if(sections.length){var obs=new IntersectionObserver(function(entries){entries.forEach(function(en){if(en.isIntersecting){tocLinks.forEach(function(a){a.classList.remove('active')});var id=en.target.id;var cur=document.querySelector('.toc-links a[href="#'+id+'"]');if(cur)cur.classList.add('active')}})},{rootMargin:'-15% 0px -70% 0px',threshold:0});sections.forEach(function(s){obs.observe(s)})}
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>克制，才是主线｜梁文锋投资者交流会总结</title>
+  <style>
+    :root {
+      --bg: #0d0d10;
+      --panel: #151518;
+      --panel-2: #1d1d21;
+      --panel-3: #25252a;
+      --text: #ececef;
+      --muted: #a6a6ad;
+      --faint: #72727a;
+      --accent: #ff6b35;
+      --accent-2: #ffd75e;
+      --green: #7bd88f;
+      --red: #ff7b72;
+      --blue: #8cc8ff;
+      --line: rgba(255,255,255,.11);
+      --shadow: 0 18px 60px rgba(0,0,0,.28);
+      --radius: 18px;
+      --content: 1180px;
+    }
+
+    html[data-theme="light"] {
+      --bg: #f5f1e8;
+      --panel: #fffdf8;
+      --panel-2: #f2ecdf;
+      --panel-3: #eae1d2;
+      --text: #202023;
+      --muted: #626066;
+      --faint: #858087;
+      --line: rgba(25,20,15,.14);
+      --shadow: 0 18px 48px rgba(73,53,31,.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(255,107,53,.14), transparent 30rem),
+        radial-gradient(circle at 92% 16%, rgba(255,215,94,.08), transparent 24rem),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.72;
+    }
+
+    button, input { font: inherit; }
+    a { color: var(--accent-2); }
+    a:hover { color: var(--accent); }
+
+    .progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 100;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 14px rgba(255,107,53,.55);
+    }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--content));
+      margin: 0 auto;
+      padding: 28px 0 72px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .wikilink { color: var(--blue); text-decoration: none; border-bottom: 1px dashed currentColor; }
+
+    .theme-btn, .copy-btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: var(--panel);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .theme-btn { padding: 8px 12px; }
+    .theme-btn:hover, .copy-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 6vw, 68px);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background:
+        linear-gradient(120deg, rgba(255,107,53,.14), transparent 46%),
+        var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .hero::after {
+      content: "克制";
+      position: absolute;
+      right: -14px;
+      bottom: -58px;
+      color: rgba(255,215,94,.045);
+      font-size: clamp(116px, 20vw, 250px);
+      font-weight: 900;
+      letter-spacing: -.09em;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--accent); }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 18px 0 16px;
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: .98;
+      letter-spacing: -.055em;
+    }
+    .hero-lead {
+      position: relative;
+      z-index: 1;
+      max-width: 830px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.7;
+    }
+    .hero-lead strong { color: var(--text); }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .tag {
+      position: relative;
+      z-index: 1;
+      padding: 5px 9px;
+      border-radius: 5px;
+      color: var(--accent-2);
+      background: rgba(124,111,87,.26);
+      border: 1px solid rgba(255,215,94,.16);
+      font: 12px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .stat {
+      min-height: 112px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+    }
+    .stat b { display: block; color: var(--accent-2); font-size: 28px; line-height: 1.1; }
+    .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent-2);
+      border-radius: 4px var(--radius) var(--radius) 4px;
+      background: var(--panel);
+    }
+    .callout.warning { border-left-color: var(--red); }
+    .callout strong { color: var(--accent-2); }
+    .callout.warning strong { color: var(--red); }
+    .callout p { margin: 6px 0 0; color: var(--muted); }
+
+    .yaml {
+      margin-top: 18px;
+      padding: 18px 20px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #111114;
+      color: #d8d8dc;
+      font: 12px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    html[data-theme="light"] .yaml { background: #24201b; }
+    .yaml .key { color: var(--accent-2); }
+
+    .tabs-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      margin: 22px 0;
+      padding: 10px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(18px);
+    }
+    .tabs { display: flex; gap: 8px; min-width: max-content; }
+    .tab {
+      appearance: none;
+      padding: 10px 14px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .tab:hover { color: var(--text); background: var(--panel-2); }
+    .tab.active { color: #16130d; background: var(--accent-2); }
+
+    .panel { display: none; animation: rise .28s ease; }
+    .panel.active { display: block; }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: end;
+      margin: 26px 0 18px;
+    }
+    .kicker { color: var(--accent); font-size: 12px; font-weight: 900; letter-spacing: .14em; }
+    h2 { margin: 6px 0 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.12; letter-spacing: -.035em; }
+    h3 { margin: 0 0 10px; font-size: 18px; }
+    h4 { margin: 0; font-size: 15px; }
+    .section-note { max-width: 330px; color: var(--muted); font-size: 13px; text-align: right; }
+
+    .grid { display: grid; gap: 14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+    .card p { margin: 8px 0 0; color: var(--muted); }
+    .card ul { margin: 10px 0 0; padding-left: 1.15em; color: var(--muted); }
+    .card li + li { margin-top: 8px; }
+    .card.accent { border-top: 3px solid var(--accent); }
+    .card.yellow { border-top: 3px solid var(--accent-2); }
+    .card.green { border-top: 3px solid var(--green); }
+    .card.red { border-top: 3px solid var(--red); }
+
+    .label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      color: var(--accent-2);
+      border: 1px solid rgba(255,215,94,.28);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .05em;
+    }
+    .label.red { color: var(--red); border-color: rgba(255,123,114,.36); }
+    .label.green { color: var(--green); border-color: rgba(123,216,143,.36); }
+
+    .thesis {
+      padding: clamp(22px, 4vw, 38px);
+      border-radius: 22px;
+      background: linear-gradient(120deg, rgba(255,107,53,.15), rgba(255,215,94,.06));
+      border: 1px solid rgba(255,107,53,.3);
+      font-size: clamp(21px, 3vw, 33px);
+      line-height: 1.5;
+      letter-spacing: -.025em;
+    }
+    .thesis em { color: var(--accent-2); font-style: normal; }
+
+    .equation {
+      margin: 16px 0;
+      padding: 16px 18px;
+      border-radius: 12px;
+      color: var(--accent-2);
+      background: var(--panel-2);
+      font: 700 14px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace;
+      overflow-x: auto;
+    }
+
+    .stepper {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(120px,1fr));
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .step {
+      position: relative;
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+    }
+    .step::after {
+      content: "→";
+      position: absolute;
+      right: -13px;
+      top: 50%;
+      z-index: 2;
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .step:last-child::after { display: none; }
+    .step .n { color: var(--accent); font: 800 12px/1 ui-monospace, monospace; }
+    .step h3 { margin-top: 14px; }
+    .step p { margin: 0; color: var(--muted); font-size: 13px; }
+    .step.focus { border-color: var(--accent); box-shadow: inset 0 0 0 1px rgba(255,107,53,.24); }
+
+    .matrix { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; }
+    .matrix th, .matrix td { padding: 14px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix th { color: var(--accent-2); background: var(--panel-2); font-size: 12px; letter-spacing: .06em; }
+    .matrix td { background: var(--panel); }
+    .matrix td:first-child { font-weight: 800; }
+
+    .metric-bars { display: grid; gap: 12px; }
+    .metric { display: grid; grid-template-columns: 92px 1fr auto; gap: 12px; align-items: center; }
+    .metric span { color: var(--muted); font-size: 13px; }
+    .bar { height: 10px; overflow: hidden; border-radius: 999px; background: var(--panel-3); }
+    .bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,var(--accent),var(--accent-2)); }
+    .metric b { min-width: 54px; color: var(--accent-2); text-align: right; font-size: 13px; }
+
+    .quote-tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .quote-search {
+      flex: 1 1 280px;
+      min-width: 0;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: none;
+      color: var(--text);
+      background: var(--panel);
+    }
+    .quote-search:focus { border-color: var(--accent); }
+    .quote-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+    .quote {
+      position: relative;
+      min-height: 190px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent-2);
+      border-radius: 5px var(--radius) var(--radius) 5px;
+      background: var(--panel);
+    }
+    .quote::before {
+      content: "“";
+      position: absolute;
+      right: 18px;
+      top: -3px;
+      color: rgba(255,215,94,.13);
+      font-family: Georgia, serif;
+      font-size: 82px;
+      line-height: 1;
+    }
+    .quote-text { position: relative; z-index: 1; margin: 0 0 18px; font-size: 18px; line-height: 1.65; }
+    .quote-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 12px; }
+    .timestamp { color: var(--accent); font: 800 12px/1 ui-monospace, monospace; }
+    .copy-btn { padding: 5px 9px; font-size: 11px; }
+    .quote.hidden { display: none; }
+
+    .patrick-card { border-left: 3px solid var(--accent); }
+    .patrick-card p { font-size: 14px; }
+    .relation { margin-top: 12px !important; color: var(--green) !important; }
+    .relation.warn { color: var(--accent-2) !important; }
+    .relation.reverse { color: var(--red) !important; }
+
+    .action-list { display: grid; gap: 12px; counter-reset: action; }
+    .action {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel);
+    }
+    .action::before {
+      counter-increment: action;
+      content: counter(action, decimal-leading-zero);
+      color: var(--accent);
+      font: 900 20px/1 ui-monospace, monospace;
+    }
+    .action p { margin: 5px 0 0; color: var(--muted); }
+
+    .footer {
+      margin-top: 28px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .stats, .grid.three { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .grid.two, .quote-grid { grid-template-columns: 1fr; }
+      .section-head { grid-template-columns: 1fr; }
+      .section-note { text-align: left; }
+      .stepper { grid-template-columns: repeat(6, 170px); }
+    }
+    @media (max-width: 540px) {
+      .shell { width: min(calc(100% - 20px), var(--content)); padding-top: 14px; }
+      .topbar { align-items: flex-start; }
+      .hero { padding: 26px 22px 32px; border-radius: 20px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat { min-height: 96px; padding: 14px; }
+      .stat b { font-size: 23px; }
+      .card, .quote { padding: 18px; }
+      .metric { grid-template-columns: 74px 1fr; }
+      .metric b { grid-column: 2; text-align: left; }
+    }
+
+    @media print {
+      body { background: white; color: #171717; }
+      .progress, .topbar, .tabs-wrap, .copy-btn, .quote-tools { display: none !important; }
+      .shell { width: 100%; padding: 0; }
+      .hero, .card, .quote, .stat, .callout, .action, .matrix td { background: white !important; box-shadow: none; break-inside: avoid; }
+      .panel { display: block !important; }
+      .panel + .panel { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <main class="shell">
+    <div class="topbar">
+      <div class="crumbs">
+        <a class="wikilink" href="/daily-reports.html">Patrick's Vault</a><span>›</span><span>DeepSeek</span><span>›</span>
+        <a class="wikilink" href="/daily-reports/liang-wenfeng-investor-exchange-2026-dashboard.html#source">[[来源校验与审计版]]</a>
+      </div>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换主题">☀︎ 切换主题</button>
+    </div>
+
+    <header class="hero">
+      <div class="eyebrow">DeepSeek · Investor Meeting · Distilled</div>
+      <h1>克制，<br>才是主线。</h1>
+      <p class="hero-lead">
+        这份近四小时交流的核心，不是某个模型参数，而是一套<strong>如何提高 AGI 成功概率</strong>的取舍系统：
+        用愿景组织人，用开源和低价换取生态，用算力效率对冲资源差距，把产品和收入视为主线研究的副产物。
+      </p>
+      <div class="tag-row">
+        <span class="tag">#DeepSeek</span><span class="tag">#梁文锋</span>
+        <span class="tag">#AGI</span><span class="tag">#持续学习</span>
+        <span class="tag">#开源</span><span class="tag">#算力</span>
+        <span class="tag">#组织设计</span><span class="tag">#Patrick-Mapping</span>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="文档统计">
+      <div class="stat"><b>42</b><span>PDF 页数</span></div>
+      <div class="stat"><b>3h44m</b><span>录音标注时长</span></div>
+      <div class="stat"><b>19</b><span>原稿时间锚点</span></div>
+      <div class="stat"><b>9</b><span>本页知识视图</span></div>
+    </section>
+
+    <aside class="callout warning">
+      <strong>⚠ 诚实折扣</strong>
+      <p>PDF 自称由语音识别自动转写并经 AI 整理，未区分说话人；专有名词、数字与型号可能识别有误。以下“战略脉络”可用于理解，“卡量、收入、参数、时间表”不应当作官方经营指引或投资依据。</p>
+    </aside>
+
+    <pre class="yaml"><span class="key">---</span>
+<span class="key">title:</span> "克制，才是主线"
+<span class="key">source:</span> "梁文锋投资者交流会 · 录音文字稿"
+<span class="key">recorded:</span> "2026-05-20（文件标注）"
+<span class="key">compiled:</span> "2026-07-16"
+<span class="key">artifact:</span> "interactive-html-summary"
+<span class="key">confidence:</span> "strategy=medium-high; numbers=low-medium"
+<span class="key">tags:</span> [DeepSeek, AGI, open-source, continuous-learning, Patrick]
+<span class="key">---</span></pre>
+
+    <div class="tabs-wrap" aria-label="内容导航">
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="overview" role="tab">🔥 一页读懂</button>
+        <button class="tab" data-tab="strategy" role="tab">🧭 战略</button>
+        <button class="tab" data-tab="roadmap" role="tab">🧠 技术路线</button>
+        <button class="tab" data-tab="compute" role="tab">⚙️ 算力与芯片</button>
+        <button class="tab" data-tab="org" role="tab">🧩 组织</button>
+        <button class="tab" data-tab="business" role="tab">📈 商业</button>
+        <button class="tab" data-tab="quotes" role="tab">✦ 金句库</button>
+        <button class="tab" data-tab="patrick" role="tab">🔗 Patrick 关联</button>
+        <button class="tab" data-tab="risks" role="tab">⚠️ 反方与行动</button>
+      </nav>
+    </div>
+
+    <section class="panel active" id="overview" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">01 · EXECUTIVE READ</div><h2>一页读懂</h2></div>
+        <div class="section-note">先抓住梁文锋反复回到的同一个问题：什么能提高做成 AGI 的概率？</div>
+      </div>
+
+      <div class="thesis">
+        DeepSeek 的底层战略可以压缩成一句话：<em>不最大化眼前能拿走的利益，最大化长期做成 AGI 的概率。</em>
+      </div>
+
+      <div class="equation">愿景 × 克制 × 团队稳定 × 算力效率 → AGI 成功概率 ↑</div>
+
+      <div class="grid three">
+        <article class="card accent">
+          <span class="label">北极星</span><h3>AGI 是主线，产品是沿途产物</h3>
+          <p>C 端用户、B 端 API、收入与产品并非不要，而是不让它们反过来支配研究方向。</p>
+        </article>
+        <article class="card yellow">
+          <span class="label">竞争策略</span><h3>开源与低价不是慈善，是克制型进攻</h3>
+          <p>主动限制利润诉求，换取人才凝聚、生态支持与更低的外部阻力；真正壁垒落在部署成本和工程效率。</p>
+        </article>
+        <article class="card green">
+          <span class="label green">唯一红线</span><h3>团队稳定性不可退让</h3>
+          <p>资金、卡和时间都能补，核心团队一旦散掉，研究积累和共识难以重建。</p>
+        </article>
+        <article class="card">
+          <span class="label">技术判断</span><h3>Agent 之后是持续学习</h3>
+          <p>语言模型 → CoT → Agent → 持续学习 → 自我迭代 → 具身智能，是他给出的“阶梯式”路线。</p>
+        </article>
+        <article class="card">
+          <span class="label">现实瓶颈</span><h3>中国与美国的主要差距是资源</h3>
+          <p>人才差距被归因于实验机会与算力差距；国内策略是以更小模型、更低成本和更快工程迭代追赶。</p>
+        </article>
+        <article class="card red">
+          <span class="label red">战略下注</span><h3>不追热点，只做智能主线</h3>
+          <p>视频生成、3D、世界模型与垂直 Agent 被暂时降级；多模态和搜索被视为组件，而非智能本身。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="strategy" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">02 · STRATEGY</div><h2>“克制”不是姿态，是资源配置</h2></div>
+        <div class="section-note">开源、低价、不抢 C 端、不做全产业链，其实是同一个决策。</div>
+      </div>
+
+      <div class="grid two">
+        <article class="card accent">
+          <h3>1. 愿景取代 KPI，先回答“为什么存在”</h3>
+          <p>愿景不是墙上的句子，而是公司实际怎么定价、开源、选项目和分配注意力。它承担了组织协议的角色。</p>
+          <div class="equation">愿景 = 选择什么 + 放弃什么 + 如何对待外部世界</div>
+        </article>
+        <article class="card yellow">
+          <h3>2. 克制的四个落点</h3>
+          <ul>
+            <li><b>利润克制：</b>API 以约十个月回收设备成本为标尺，而非价格最大化。</li>
+            <li><b>产品克制：</b>不把流量高峰变成“下一个超级 App”战争。</li>
+            <li><b>边界克制：</b>不做所有应用、不向上下游无限整合。</li>
+            <li><b>竞争克制：</b>愿意帮助同行复现开源模型，因为市场足够大。</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>3. 开源为什么能赚钱</h3>
+          <p>论点不是“开源没有成本”，而是 DeepSeek 相信第三方很难复制其部署效率。只要服务价格接近成本前沿，第三方即使拿到权重也难以形成更便宜的替代。</p>
+          <div class="equation">权重开放 ≠ 推理成本开放 ≠ 工程能力开放</div>
+        </article>
+        <article class="card red">
+          <h3>4. 这套战略的隐含前提</h3>
+          <ul>
+            <li>DeepSeek 必须长期保持显著的成本工程优势。</li>
+            <li>AGI 路线的长期价值必须大于短期产品机会。</li>
+            <li>愿景驱动在组织扩张后仍能产生真实共识。</li>
+            <li>融资与 API 收入足以覆盖高强度算力投入。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="roadmap" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">03 · TECH ROADMAP</div><h2>从回答问题，到自己升级自己</h2></div>
+        <div class="section-note">真正的下一代模型，不只是效果更好，而是能持续学习。</div>
+      </div>
+
+      <div class="stepper" aria-label="AGI 阶梯路线">
+        <article class="step"><div class="n">01</div><h3>语言模型</h3><p>形成通用知识与生成能力的底座。</p></article>
+        <article class="step"><div class="n">02</div><h3>CoT</h3><p>通过思维链提高复杂推理的能力上限。</p></article>
+        <article class="step"><div class="n">03</div><h3>Agent</h3><p>调用工具、执行任务，扩展能力范围。</p></article>
+        <article class="step focus"><div class="n">04 · 当前瓶颈</div><h3>持续学习</h3><p>像员工一样积累环境上下文，而非每次从零开始。</p></article>
+        <article class="step"><div class="n">05</div><h3>自我迭代</h3><p>模型参与开发下一版模型，形成非线性研发加速。</p></article>
+        <article class="step"><div class="n">06</div><h3>具身智能</h3><p>进入物理世界，解决真实的人力需求。</p></article>
+      </div>
+
+      <div class="grid three" style="margin-top:14px">
+        <article class="card green">
+          <span class="label green">主线</span><h3>训练、Agent、持续学习、自我迭代</h3>
+          <p>直接决定智能上限，优先获得研究注意力。</p>
+        </article>
+        <article class="card yellow">
+          <span class="label">组件</span><h3>多模态、搜索、产品体验</h3>
+          <p>重要且会做，但它们扩展输入输出，不被视为智能主线本身。</p>
+        </article>
+        <article class="card red">
+          <span class="label red">暂缓</span><h3>视频、3D、世界模型、垂直 Agent</h3>
+          <p>可能是好生意，但目前不是 DeepSeek 认定的关键瓶颈。</p>
+        </article>
+      </div>
+
+      <aside class="callout">
+        <strong>核心飞轮</strong>
+        <p>下一代模型首先服务 DeepSeek 自己的研发：模型越能辅助研究，下一版模型来得越快；研发加速又反过来提升模型。这是“没有突变临界点、但增长可能非线性”的来源。</p>
+      </aside>
+    </section>
+
+    <section class="panel" id="compute" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">04 · COMPUTE</div><h2>算力差距与成本战争</h2></div>
+        <div class="section-note">本页所有具体数字均来自未官方确认的转写稿，风险等级高于战略观点。</div>
+      </div>
+
+      <div class="grid two">
+        <article class="card accent">
+          <h3>文件中的算力叙事</h3>
+          <ul>
+            <li>当时约有 <b>2 万张 H 等效算力</b>，并在激进扩充。</li>
+            <li>若一年能花掉 <b>200 亿元</b>买到合理价格的卡，被视为采购成功。</li>
+            <li>美国最大模型被描述为约 <b>800B 激活参数</b>，国内仍在几十 B 级别。</li>
+            <li>训练同级模型，文件估算需约 <b>5 万张 GB300</b>或<b>20 万张华为 950</b>。</li>
+          </ul>
+        </article>
+        <article class="card red">
+          <h3>阅读数字的正确方式</h3>
+          <p>把它们当作“数量级判断”，不要当作财务或采购披露。转写稿存在 ASR 错词，型号、参数和金额又最容易被误识别；会议本身也不是正式公告。</p>
+          <div class="equation">可用：理解约束方向　｜　不可用：直接估值 / 建仓 / 预测交付</div>
+        </article>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h3>他认为最终竞争的三个维度</h3>
+        <div class="metric-bars">
+          <div class="metric"><span>成本</span><div class="bar"><i style="width:100%"></i></div><b>第一位</b></div>
+          <div class="metric"><span>时间</span><div class="bar"><i style="width:78%"></i></div><b>第二位</b></div>
+          <div class="metric"><span>用户体验</span><div class="bar"><i style="width:48%"></i></div><b>第三位</b></div>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top:14px">
+        <article class="card yellow">
+          <h3>国产芯片：生态可能先解决，产能更难</h3>
+          <p>TileLang 与 AI 写代码被视为削弱 CUDA 锁定的机会。文件判断国产芯片生态可在一年级别内被验证，长期瓶颈转向产能与能效。</p>
+        </article>
+        <article class="card">
+          <h3>“四倍加两年”</h3>
+          <p>文件将华为 950 与英伟达 GB300 的差距概括为四张顶一张、时间落后约两年，同时强调任务可完成、生态可重建。这个判断非常进取，也最需要后续事实验证。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="org" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">05 · ORGANIZATION</div><h2>一半正式，一半自由</h2></div>
+        <div class="section-note">不是“无管理”，而是把管理对象从任务清单改成方向、共识和边界。</div>
+      </div>
+
+      <div class="grid two">
+        <article class="card accent">
+          <span class="label">Top-down · ≤50%</span><h3>正式项目线</h3>
+          <p>发模型、做效率实验、集体交付时需要清晰分工与协作。随着组织扩大，部分部门会建立更严谨的层级。</p>
+        </article>
+        <article class="card green">
+          <span class="label green">Bottom-up · ≥50%</span><h3>自由探索线</h3>
+          <p>研究员自己判断重要问题，无 KPI、无需为每个想法协调资源。低资源高不确定研究被称为“摸奖”。</p>
+        </article>
+        <article class="card yellow">
+          <h3>为什么不太加班</h3>
+          <ul>
+            <li>研究需要松弛环境，持续高压会损害探索。</li>
+            <li>公司主动聚焦，少做大量非主线补齐工作。</li>
+            <li>产品不完善被视为有意识的取舍，而非必须立刻修平。</li>
+          </ul>
+        </article>
+        <article class="card red">
+          <h3>组织的唯一硬约束</h3>
+          <p>团队稳定是唯一不可克制的核心利益。融资、期权、愿景与研究环境，最终都服务于降低核心人才流失风险。</p>
+        </article>
+      </div>
+
+      <aside class="callout">
+        <strong>规模化张力</strong>
+        <p>梁文锋承认“没有组织架构”不能无限延伸：未来会同时存在严谨层级部门与松散扁平部门。这是愿景驱动从创业期进入规模期必须补上的操作系统。</p>
+      </aside>
+    </section>
+
+    <section class="panel" id="business" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">06 · BUSINESS</div><h2>商业化是护城河，也是保底</h2></div>
+        <div class="section-note">不是拒绝赚钱，而是决定赚什么钱、什么时候赚、赚到什么程度。</div>
+      </div>
+
+      <table class="matrix">
+        <thead><tr><th>层级</th><th>梁文锋的定位</th><th>价值</th><th>风险</th></tr></thead>
+        <tbody>
+          <tr><td>AGI 研究</td><td>唯一主线</td><td>决定长期智能上限与公司命运</td><td>时间、算力与高质量数据不确定</td></tr>
+          <tr><td>API / B 端</td><td>沿途产出 + 现金流</td><td>最坏情况下也可能支撑一家上市公司</td><td>需求上限有限，数字未审计</td></tr>
+          <tr><td>C 端产品</td><td>低成本保留</td><td>未来可能有用的用户资产</td><td>若重投入抢流量，会偏离研究主线</td></tr>
+          <tr><td>通用 / Coding Agent</td><td>近期应用优先级最高</td><td>连接研究能力与实际生产力</td><td>仍受持续学习能力限制</td></tr>
+          <tr><td>垂直 Agent</td><td>暂缓</td><td>金融、医疗等潜在市场大</td><td>过早做会分散资源</td></tr>
+        </tbody>
+      </table>
+
+      <div class="grid three" style="margin-top:14px">
+        <article class="card"><h3>定价护城河</h3><p>以约十个月回本为标尺，意图把服务压到第三方难以盈利的成本区间。</p></article>
+        <article class="card"><h3>行业终局</h3><p>国内基础模型公司会从分散走向约三四家，利润回归合理区间。</p></article>
+        <article class="card"><h3>梦想与保底</h3><p>上限是 AGI，下限是把现有 API 和服务经营成可持续公司。</p></article>
+      </div>
+    </section>
+
+    <section class="panel" id="quotes" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">07 · VERBATIM QUOTES</div><h2>金句库</h2></div>
+        <div class="section-note">以下句子均按 PDF 提取文本逐字核对；时间戳取该段最近的原稿锚点。</div>
+      </div>
+
+      <div class="quote-tools">
+        <input class="quote-search" id="quoteSearch" type="search" placeholder="搜索：克制 / 持续学习 / 团队 / 商业…" aria-label="搜索金句">
+      </div>
+
+      <div class="quote-grid" id="quoteGrid">
+        <blockquote class="quote" data-theme="愿景 组织">
+          <p class="quote-text">管理一个大公司，靠的不是你的规章制度，靠的是愿景。</p>
+          <footer class="quote-meta"><span><span class="timestamp">00:00:01</span> · 愿景</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="克制 战略">
+          <p class="quote-text">你越克制，可能就越容易做成，或者说至少到目前为止是印证的，到目前为止是能解释得通的。</p>
+          <footer class="quote-meta"><span><span class="timestamp">00:11:49</span> · 克制</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="战略 AGI 产品">
+          <p class="quote-text">我不跟你去争这个东西，因为后面还有西瓜，前面的可能都是芝麻。</p>
+          <footer class="quote-meta"><span><span class="timestamp">00:25:32</span> · 聚焦</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="Agent 持续学习 AGI">
+          <p class="quote-text">我们现在站在 Agent 这个地方，能看到的是下一个瓶颈，就是持续学习。</p>
+          <footer class="quote-meta"><span><span class="timestamp">00:51:02</span> · 技术路线</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="商业 C端 B端 AGI">
+          <p class="quote-text">C 端和 B 端，都是我们做 AGI 路上的副产物，都是一个中间的产出，跟我做 AGI 没有冲突。</p>
+          <footer class="quote-meta"><span><span class="timestamp">01:02:45</span> · 商业化</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="团队 组织 稳定">
+          <p class="quote-text">我们最大的核心利益是要保持团队的稳定性。</p>
+          <footer class="quote-meta"><span><span class="timestamp">01:02:45</span> · 团队</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="算力 人才 资源">
+          <p class="quote-text">人才不是瓶颈，资源是最大的瓶颈。</p>
+          <footer class="quote-meta"><span><span class="timestamp">01:26:41</span> · 算力</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="商业 产品 战略">
+          <p class="quote-text">在过去三年，任何一个时候你来跟我说商业化路径、产品线，都是浪费时间，因为你并不能够预测、不能够预见未来。</p>
+          <footer class="quote-meta"><span><span class="timestamp">01:39:46</span> · 商业节奏</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="利润 克制 竞争">
+          <p class="quote-text">拿得多的人会被拿得少的人打败。</p>
+          <footer class="quote-meta"><span><span class="timestamp">02:21:31</span> · 利润观</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="组织 探索 时间">
+          <p class="quote-text">正式最好不要超过一半。</p>
+          <footer class="quote-meta"><span><span class="timestamp">02:21:31</span> · 双轨组织</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="AGI 自我迭代 模型">
+          <p class="quote-text">我们做的模型，第一目标不是大家用得好用，而是我们自己用得好用。</p>
+          <footer class="quote-meta"><span><span class="timestamp">02:53:59</span> · 自我迭代</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="研究 非线性 AGI">
+          <p class="quote-text">它没有临界点，但是它是非线性的。</p>
+          <footer class="quote-meta"><span><span class="timestamp">03:05:48</span> · 研究加速</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="品位 直觉 持续学习">
+          <p class="quote-text">AI 现在不缺品位和直觉，它缺的是持续学习的能力。</p>
+          <footer class="quote-meta"><span><span class="timestamp">03:05:48</span> · 能力瓶颈</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="研究 摸奖 组织">
+          <p class="quote-text">所以我们叫这个叫“摸奖”。门槛很低，谁都可以去摸，但是谁能摸出什么来，这个可能我也不知道是看天赋还是看什么。</p>
+          <footer class="quote-meta"><span><span class="timestamp">03:17:47</span> · 探索机制</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="梦想 商业 保底">
+          <p class="quote-text">我们希望有更大的梦想，但是我们也有保底可以拿出来的业绩。</p>
+          <footer class="quote-meta"><span><span class="timestamp">03:29:17</span> · 梦想与保底</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+        <blockquote class="quote" data-theme="公司 商业 取舍">
+          <p class="quote-text">我们本质上还是一个公司，只是说我们在考虑赚哪些钱、什么时候赚钱、赚多少钱、靠什么赚钱，只是说我们有取舍。</p>
+          <footer class="quote-meta"><span><span class="timestamp">03:29:17</span> · 公司本质</span><button class="copy-btn" type="button">复制</button></footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="panel" id="patrick" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">08 · PATRICK MAPPING</div><h2>与 Patrick 工作的关联</h2></div>
+        <div class="section-note">按 Hermes 的“主张 → 既有系统 → 关系类型”三段式映射；只保留强关联。</div>
+      </div>
+
+      <div class="grid two">
+        <article class="card patrick-card"><h4>🔗 [[OpenSquilla + MetaSkill]]</h4><p>交流稿把“持续学习”视为 Agent 后的关键瓶颈；MetaSkill 则把运行经验沉淀为可复用技能。</p><p class="relation">→ <b>完全同源：</b>能力增长来自反馈进入系统，而不是只换更强模型。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Matt Pocock · Harness & Senior 10x]]</h4><p>DeepSeek 希望下一版模型先帮助自己开发再下一版；Harness 强调模型价值取决于外围执行与评估系统。</p><p class="relation">→ <b>完全同源：</b>先让 AI 改善生产 AI 的系统。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Matt Berman · 7 Loops]]</h4><p>“AI 加速 AI 研究”使进步变成非线性；7 Loops 把探索、执行、校验、修正组成连续闭环。</p><p class="relation">→ <b>完全同源：</b>不是一次生成，而是循环提升成功率。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Matt White · Open Source]]</h4><p>梁文锋把开源视为愿景、商业和生态的统一策略，而非被迫让利。</p><p class="relation">→ <b>完全同源：</b>开放扩大分发，服务效率形成真正壁垒。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Hybrid LLM Router]]</h4><p>交流稿把成本列为模型竞争第一维；Router 将任务放到“足够好且最便宜”的模型层。</p><p class="relation">→ <b>同源：</b>成本不是事后优化，而是系统架构约束。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[IndyDevDan · 本地 LLM]]</h4><p>开源权重、低推理成本与国产算力生态共同降低本地运行门槛。</p><p class="relation">→ <b>同源：</b>模型可用性的终点是更多人负担得起并能自主部署。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Bryant · Clone Yourself 500-1000x]]</h4><p>让模型参与开发下一代模型，本质上是在放大研究员的时间与实验吞吐。</p><p class="relation">→ <b>同源：</b>杠杆来自可复制的执行循环，而非单次回答。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Sam Altman CS183 · Scale]]</h4><p>算力、资本与基础设施被视为中国 AI 的现实瓶颈，Scaling 仍未触顶。</p><p class="relation warn">→ <b>同源警示：</b>规模有效，但“能买多少买多少”必须接受资本效率与供应风险审计。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[DeepSeek · Billion Dollar Infrastructure]]</h4><p>工程效率、GPU 利用率、部署成本和高级编译器共同构成低价 API 的基础。</p><p class="relation">→ <b>完全同源：</b>硬件不是库存，而是需要软件栈放大的生产资产。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Systems Thinking]]</h4><p>技术阶梯、成本-时间-体验三维竞争、正式-自由双轨组织，都是结构化因果模型。</p><p class="relation">→ <b>完全同源：</b>先找系统瓶颈，再配置资源，不被局部热点牵走。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Claude Containment · 11 Rules]]</h4><p>这份材料本身是 AI 转写且未经官方逐字确认，数字与型号又最敏感。</p><p class="relation warn">→ <b>同源警示：</b>原话、归纳、推断必须分层，所有数字默认进入验证队列。</p></article>
+        <article class="card patrick-card"><h4>🔗 [[Fei-Fei · 2 种 Worker]]</h4><p>DeepSeek 一方面依赖高主动性研究员，另一方面主动拒绝“一群天才”的英雄叙事。</p><p class="relation reverse">→ <b>反：</b>真正的稀缺不是天才标签，而是让普通强者持续合作的组织环境。</p></article>
+      </div>
+
+      <div class="section-head" style="margin-top:34px">
+        <div><div class="kicker">P0 → P2</div><h2>可直接落到 Hermes 的动作</h2></div>
+      </div>
+      <div class="action-list">
+        <article class="action"><div><h3>P0 · 给 Skill 增加持续学习闭环</h3><p>每次运行记录输入、输出、失败、人工修正与评估结果；候选规则先进入 review，再晋升到 SKILL.md，避免“自动学习”变成自动污染。</p></div></article>
+        <article class="action"><div><h3>P0 · 把正式 / 探索预算显式化</h3><p>稳定交付流与探索流分开记账。可先试 70/30，而不是机械照搬 50/50；每周根据失败密度和新能力产出复盘。</p></div></article>
+        <article class="action"><div><h3>P1 · Router 增加“成本 × 时间 × 体验”面板</h3><p>每个模型路由决策同时记录 token 成本、完成时延、人工返工率，形成 Patrick 自己的三维竞争数据。</p></div></article>
+        <article class="action"><div><h3>P1 · 建立“主线 / 组件 / 热点”决策门</h3><p>新工具进入 Hermes 前先回答：它是否推进持续学习与复用？只是一个组件？还是短期热点？没有主线贡献的能力默认不进核心栈。</p></div></article>
+        <article class="action"><div><h3>P2 · 开源知识，服务层收费</h3><p>可以公开模板、结构和方法，把可靠运行、同步、部署、验证与维护保留为服务优势；这与 DeepSeek 的“权重开放、成本壁垒”同构。</p></div></article>
+      </div>
+    </section>
+
+    <section class="panel" id="risks" role="tabpanel">
+      <div class="section-head">
+        <div><div class="kicker">09 · COUNTERVIEW</div><h2>最该保留的五个问号</h2></div>
+        <div class="section-note">好的总结不是替作者加固叙事，而是标出叙事在哪些地方会失效。</div>
+      </div>
+
+      <div class="grid two">
+        <article class="card red"><span class="label red">01 · 真实性</span><h3>会议可信 ≠ 每个字、每个数字可信</h3><p>自动转写、AI 整理、未区分说话人，会在专有名词、芯片型号、参数与金额上放大错误。</p></article>
+        <article class="card red"><span class="label red">02 · 路线下注</span><h3>持续学习未必是唯一下一台阶</h3><p>这是 DeepSeek 的研究判断，不是行业共识。世界模型、多模态、具身与工具使用可能并行推进，而非严格串行。</p></article>
+        <article class="card red"><span class="label red">03 · 组织扩张</span><h3>愿景驱动会遇到协调成本</h3><p>人数增长后，隐性共识会分裂；“没有 KPI”若缺少评估和责任边界，容易把自由变成不可见的低效。</p></article>
+        <article class="card red"><span class="label red">04 · 开源经济学</span><h3>成本优势必须持续领先</h3><p>若云厂商、芯片商或模型压缩工具快速抹平部署差距，开源与商业化“不冲突”的前提会被削弱。</p></article>
+        <article class="card red"><span class="label red">05 · 资本纪律</span><h3>“把钱都变成卡”不是普适原则</h3><p>供应、折旧、能耗、模型路线变化和需求波动都可能让算力资产错配；这更像高速增长阶段的特定判断。</p></article>
+        <article class="card green"><span class="label green">最终判断</span><h3>最值得学的不是某个数字，而是取舍一致性</h3><p>从愿景、定价、开源、产品边界、组织时间到合作伙伴选择，所有决策都指向同一个目标。即使不同意路线，也值得研究这种战略一致性。</p></article>
+      </div>
+
+      <aside class="callout">
+        <strong>三条带走</strong>
+        <p>① 先决定唯一主线，再允许商业化成为副产物；② 真正的壁垒常在成本和组织，而不只在模型权重；③ “持续学习”若要进入 Patrick/Hermes，必须同时带上评估、回滚与人工晋升门。</p>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <div>Source: <a href="/daily-reports/liang-wenfeng-investor-exchange-2026-dashboard.html#source">梁文锋投资者交流会 · 来源校验与审计版</a></div>
+      <div>Built as a self-contained Obsidian-style HTML · 暖橙 anti-slop · 原话 / 归纳 / Patrick Mapping 分层 · 2026-07-27</div>
+    </footer>
+  </main>
+
+  <script>
+    const root = document.documentElement;
+    const tabs = [...document.querySelectorAll('.tab')];
+    const panels = [...document.querySelectorAll('.panel')];
+
+    function activateTab(id, pushHash = true, shouldScroll = true) {
+      if (!document.getElementById(id)) return;
+      tabs.forEach(btn => {
+        const active = btn.dataset.tab === id;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', String(active));
+      });
+      panels.forEach(panel => panel.classList.toggle('active', panel.id === id));
+      if (pushHash) history.replaceState(null, '', '#' + id);
+      if (shouldScroll) {
+        window.scrollTo({ top: document.querySelector('.tabs-wrap').offsetTop - 8, behavior: 'smooth' });
+      }
+    }
+
+    tabs.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+
+    const initial = location.hash.slice(1);
+    if (initial && document.getElementById(initial)) activateTab(initial, false, false);
+
+    const savedTheme = localStorage.getItem('liang-report-theme');
+    if (savedTheme) root.dataset.theme = savedTheme;
+    const themeBtn = document.getElementById('themeBtn');
+    function syncThemeLabel() {
+      themeBtn.textContent = root.dataset.theme === 'dark' ? '☀︎ 浅色' : '☾ 深色';
+    }
+    syncThemeLabel();
+    themeBtn.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('liang-report-theme', root.dataset.theme);
+      syncThemeLabel();
+    });
+
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const quote = btn.closest('.quote').querySelector('.quote-text').textContent.trim();
+        const time = btn.closest('.quote').querySelector('.timestamp').textContent;
+        const payload = `“${quote}” — 梁文锋 [${time}]`;
+        try {
+          await navigator.clipboard.writeText(payload);
+        } catch (_) {
+          const box = document.createElement('textarea');
+          box.value = payload;
+          document.body.appendChild(box);
+          box.select();
+          document.execCommand('copy');
+          box.remove();
+        }
+        const old = btn.textContent;
+        btn.textContent = '已复制';
+        setTimeout(() => btn.textContent = old, 1000);
+      });
+    });
+
+    const quoteSearch = document.getElementById('quoteSearch');
+    if (quoteSearch) {
+      quoteSearch.addEventListener('input', () => {
+        const q = quoteSearch.value.trim().toLowerCase();
+        document.querySelectorAll('.quote').forEach(card => {
+          const haystack = (card.textContent + ' ' + card.dataset.theme).toLowerCase();
+          card.classList.toggle('hidden', q && !haystack.includes(q));
+        });
+      });
+    }
+
+    function updateProgress() {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const ratio = max > 0 ? scrollY / max : 0;
+      document.getElementById('progress').style.width = `${Math.min(100, ratio * 100)}%`;
+    }
+    addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    addEventListener('keydown', event => {
+      if (event.target.matches('input,textarea')) return;
+      const idx = tabs.findIndex(btn => btn.classList.contains('active'));
+      if (event.key === 'ArrowRight') activateTab(tabs[(idx + 1) % tabs.length].dataset.tab);
+      if (event.key === 'ArrowLeft') activateTab(tabs[(idx - 1 + tabs.length) % tabs.length].dataset.tab);
+    });
+  </script>
+</body>
+</html>

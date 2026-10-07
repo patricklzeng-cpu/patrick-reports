@@ -1,0 +1,15 @@
+{
+  "id": "7e37657d-9c81-4808-ace8-68c6203b676a",
+  "name": "test-output.txt",
+  "uri": "/Users/zl/patricks-reports/handoff/patrick-os-agentic-framework/data/artifacts/mission-education-demo-001/test-output.txt/v25.txt",
+  "checksum": "16cd58239962a36a63b9b3a0cdee32b39dda78bd4d8a70bbdc6ae4f54031cbbd",
+  "mimeType": "text/plain",
+  "version": 25,
+  "provenance": {
+    "missionId": "mission-education-demo-001",
+    "taskId": "task-web",
+    "runId": "06c71f55-e7cb-4d51-b569-aa89af5354ba",
+    "actor": "pi",
+    "savedAt": "2026-07-16T12:01:55.398Z"
+  }
+}

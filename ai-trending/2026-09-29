@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>AI 热门日报 / AI Trending</title>
+<style>body{font-family:-apple-system,"PingFang SC",sans-serif;background:#0d1117;color:#e6edf3;padding:24px;max-width:980px;margin:0 auto;}
+h1{font-size:22px;margin-bottom:6px;}.sub{color:#8b949e;font-size:12px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:15px;}
+.src{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#21262d;color:#58a6ff;font-weight:700;margin-bottom:5px;}
+a{color:#58a6ff;text-decoration:none;font-weight:600;font-size:14px;}
+a:hover{text-decoration:underline;}.desc{color:#8b949e;font-size:12px;margin-top:4px;line-height:1.55;}.meta{color:#8b949e;font-size:11px;margin-top:6px;font-family:Menlo,monospace;}
+.nav{margin-top:18px;}.b{font-size:18px;margin:30px 0 12px;color:#58a6ff;}
+.lang-toggle{cursor:pointer;background:rgba(20,30,40,.85);border:1px solid var(--accent,#58a6ff);color:var(--accent,#58a6ff);border-radius:999px;padding:6px 14px;font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.05em;transition:.18s;backdrop-filter:blur(8px)}.lang-toggle:hover{background:var(--accent,#58a6ff);color:#0a0e1a;box-shadow:0 0 18px rgba(91,141,239,.35)}.en{display:none}.zh{display:inline}html[lang="en"] .en{display:inline}html[lang="en"] .zh{display:none}html[lang="zh-CN"] .en{display:none}html[lang="zh-CN"] .zh{display:inline}
+</style></head><body><div id="langBar" style="position:sticky;top:0;z-index:50;display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;background:rgba(10,14,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(91,141,239,.18)"><button class="lang-toggle" id="langBtn" type="button" onclick="toggleLang()" aria-label="Toggle language">EN ⇄ 中</button></div>
+<h1><span class="zh">🔥 AI 热门动态 · 2026-09-29</span><span class="en">🔥 AI Trending · 2026-09-29</span></h1><div class="sub"><span class="zh">生成时间 2026-09-29T00:01:23.354454Z · 共 54 items · 来源 3 · envelope_version=1 · v2 (search_lib refactor 2026-07-06)</span><span class="en">生成时间 2026-09-29T00:01:23.354454Z · 共 54 items · 来源 3 · envelope_version=1 · v2 (search_lib refactor 2026-07-06)</span></div>
+<div class='nav'><span class="zh">54 items · github=17 · hackernews=22 · arxiv=15</span><span class="en">&lt;b&gt;54&lt;/b&gt; items · github=17 · hackernews=22 · arxiv=15</span></div>
+<div class='b'>github (17)</div><div class='grid'>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com/affaan-m/ECC" target="_blank"><span class="zh">affaan-m/ECC</span><span class="en">affaan-m/ECC</span></a>
+<div class="desc"><span class="zh">智能体编排框架性能优化系统。提供技能、直觉、记忆、安全和以研究为先的开发，面向 Claude Code、Codex、Opencode、Cursor 等工具。</span><span class="en">The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">268977⭐ 0💬 impact=2278027</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com/huggingface/transformers" target="_blank"><span class="zh">huggingface/transformers</span><span class="en">huggingface/transformers</span></a>
+<div class="desc"><span class="zh">🤗 Transformers：用于文本、视觉、音频和多模态领域最先进机器学习模型的模型定义框架，同时支持推理与训练。</span><span class="en">🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">166770⭐ 0💬 impact=1902170</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com/langgenius/dify" target="_blank"><span class="zh">langgenius/dify</span><span class="en">langgenius/dify</span></a>
+<div class="desc"><span class="zh">在一个协作工作区中构建智能体工作流和 RAG 流水线，并提供丰富的 AI 模型与工具支持。可部署在云端、VPC 或自托管环境，帮助团队从原型快速走向生产，无需重构。</span><span class="en">Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without reb</span></div>
+<div class="meta"><span class="zh"></span><span class="en">157431⭐ 0💬 impact=1397681</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com/langchain-ai/langchain" target="_blank"><span class="zh">langchain-ai/langchain</span><span class="en">langchain-ai/langchain</span></a>
+<div class="desc"><span class="zh">智能体工程平台。</span><span class="en">The agent engineering platform.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">147212⭐ 0💬 impact=1379412</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com/f/prompts.chat" target="_blank"><span class="zh">f/prompts.chat</span><span class="en">f/prompts.chat</span></a>
+<div class="desc"><span class="zh">原名 Awesome ChatGPT Prompts。从社区中分享、发现和收藏提示词。免费且开源——支持自托管，确保组织的完全隐私。</span><span class="en">f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">171507⭐ 0💬 impact=1271857</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com/ollama/ollama" target="_blank"><span class="zh">ollama/ollama</span><span class="en">ollama/ollama</span></a>
+<div class="desc"><span class="zh">快速上手 Kimi、GLM、MiniMax、DeepSeek、gpt-oss、Qwen、Gemma 等模型。</span><span class="en">Get up and running with Kimi, GLM, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">181870⭐ 0💬 impact=1083470</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com/Graphify-Labs/graphify" target="_blank"><span class="zh">Graphify-Labs/graphify</span><span class="en">Graphify-Labs/graphify</span></a>
+<div class="desc"><span class="zh">将任何代码库及其文档、SQL schema、配置文件和 PDF 转换为可查询的知识图谱。为 Claude Code、Cursor、Codex 和 Gemini CLI 提供 /graphify 技能：本地确定性 AST 解析、e……</span><span class="en">Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, e</span></div>
+<div class="meta"><span class="zh"></span><span class="en">122154⭐ 0💬 impact=710604</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//paperclipai/paperclip" target="_blank"><span class="zh">paperclipai/paperclip</span><span class="en">paperclipai/paperclip</span></a>
+<div class="desc"><span class="zh">人人都在用的开源智能体办公管理应用。</span><span class="en">The open-source app everyone uses to manage agents at work</span></div>
+<div class="meta"><span class="zh"></span><span class="en">92739⭐ 0💬 impact=93239</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//vectorize-io/hindsight" target="_blank"><span class="zh">vectorize-io/hindsight</span><span class="en">vectorize-io/hindsight</span></a>
+<div class="desc"><span class="zh">Hindsight：会学习的智能体记忆。</span><span class="en">Hindsight: Agent Memory That Learns</span></div>
+<div class="meta"><span class="zh"></span><span class="en">40929⭐ 0💬 impact=41429</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//topoteretes/cognee" target="_blank"><span class="zh">topoteretes/cognee</span><span class="en">topoteretes/cognee</span></a>
+<div class="desc"><span class="zh">Cognee 是面向智能体的开源 AI 记忆平台。为你的 AI 智能体提供持久的长期记忆，小模型即可免费使用。</span><span class="en">Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory with small models for free</span></div>
+<div class="meta"><span class="zh"></span><span class="en">31149⭐ 0💬 impact=31649</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//alirezarezvani/claude-skills" target="_blank"><span class="zh">alirezarezvani/claude-skills</span><span class="en">alirezarezvani/claude-skills</span></a>
+<div class="desc"><span class="zh">380 个 Claude Code 技能 &amp;amp;amp; 智能体技能 &amp;amp;amp; 插件（30+ 智能体、70+ 自定义命令、380+ 技能、可自定义参考与脚本），支持 Claude Code、Codex、Gemini CLI、Cursor 以及另外 8 种客户端……</span><span class="en">380 Claude Code skills &amp;amp;amp; agent skills &amp;amp;amp; plugins (30+ Agents, 70+ custom commands, 380+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more c</span></div>
+<div class="meta"><span class="zh"></span><span class="en">26774⭐ 0💬 impact=27274</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//agent0ai/agent-zero" target="_blank"><span class="zh">agent0ai/agent-zero</span><span class="en">agent0ai/agent-zero</span></a>
+<div class="desc"><span class="zh">Agent Zero AI 框架。</span><span class="en">Agent Zero AI framework</span></div>
+<div class="meta"><span class="zh"></span><span class="en">19331⭐ 0💬 impact=19831</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//microsoft/SkillOpt" target="_blank"><span class="zh">microsoft/SkillOpt</span><span class="en">microsoft/SkillOpt</span></a>
+<div class="desc"><span class="zh">SkillOpt 是一个文本空间优化器，通过基于轨迹的编辑、验证门控更新以及可部署的 best_skill.md 工件，为冻结的 LLM 智能体训练可复用的自然语言技能。</span><span class="en">SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">17801⭐ 0💬 impact=18301</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//0x4m4/hexstrike-ai" target="_blank"><span class="zh">0x4m4/hexstrike-ai</span><span class="en">0x4m4/hexstrike-ai</span></a>
+<div class="desc"><span class="zh">HexStrike AI MCP Agents 是一个高级 MCP 服务器，让 AI 智能体（Claude、GPT、Copilot 等）自主运行 150+ 网络安全工具，实现自动化渗透测试、漏洞发现、漏洞赏金</span><span class="en">HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug boun</span></div>
+<div class="meta"><span class="zh"></span><span class="en">12218⭐ 0💬 impact=12718</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">github</span><span class="en">github</span></span>
+<a href="https://github.com//samugit83/redamon" target="_blank"><span class="zh">samugit83/redamon</span><span class="en">samugit83/redamon</span></a>
+<div class="desc"><span class="zh">一个由 AI 驱动的智能体化红队框架，可自动化从侦察到漏洞利用再到后渗透的攻击性安全操作，全程无需人工干预。</span><span class="en">An AI-powered agentic red team framework that automates offensive security operations, from reconnaissance to exploitation to post-exploitation, with zero human intervention.</span></div>
+<div class="meta"><span class="zh"></span><span class="en">2748⭐ 0💬 impact=3248</span></div>
+</div>
+</div>
+<div class='b'>hackernews (22)</div><div class='grid'>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.anthropic.com/claude-opus-5-5" target="_blank"><span class="zh">Claude Opus 5.5</span><span class="en">Claude Opus 5.5</span></a>
+<div class="meta"><span class="zh"></span><span class="en">1804⭐ 1129💬 impact=7449</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://swarmtraces.org/" target="_blank"><span class="zh">揭示 OpenAI 智能体如何入侵 Hugging Face 的细节</span><span class="en">Revealing the details of how OpenAI agents hacked Hugging Face</span></a>
+<div class="meta"><span class="zh"></span><span class="en">747⭐ 468💬 impact=3087</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.cryptocellar.org/bgac/the-mvueh-break.html" target="_blank"><span class="zh">OpenAI GPT–6 Astra 破解自 2005 年以来一直未能破译的 Enigma 密文</span><span class="en">OpenAI GPT–6 Astra breaks Enigma message that has resisted solution since 2005</span></a>
+<div class="meta"><span class="zh"></span><span class="en">736⭐ 447💬 impact=2971</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://discourse.haskell.org/t/how-to-keep-enjoying-programming-in-a-world-of-llms/14705" target="_blank"><span class="zh">在 LLM 时代如何持续享受编程的乐趣</span><span class="en">How to keep enjoying programming in a world of LLMs</span></a>
+<div class="meta"><span class="zh"></span><span class="en">342⭐ 342💬 impact=2052</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://blog.szypowi.cz/p/claude-code-reads-agents.md-only-when-telemetry-is-on/" target="_blank"><span class="zh">Claude Code 仅在遥测开启时才读取 AGENTS.md [已修复]</span><span class="en">Claude Code reads AGENTS.md only when telemetry is on [fixed]</span></a>
+<div class="meta"><span class="zh"></span><span class="en">485⭐ 284💬 impact=1905</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5" target="_blank"><span class="zh">Claude Opus 5.5 的提示工程</span><span class="en">Prompting Claude Opus 5.5</span></a>
+<div class="meta"><span class="zh"></span><span class="en">195⭐ 218💬 impact=1285</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.bbc.com/news/live/cvgl73pxgndwt" target="_blank"><span class="zh">OpenAI 智能体入侵澳大利亚政府网站，澳总理表示</span><span class="en">OpenAI agent hacked Australian government website, PM says</span></a>
+<div class="meta"><span class="zh"></span><span class="en">255⭐ 198💬 impact=1245</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://artificialanalysis.ai/models/claude-opus-5-5" target="_blank"><span class="zh">Claude Opus 5.5 智能、性能与价格分析（Max）</span><span class="en">Claude Opus 5.5 Intelligence, Performance and Price Analysis (Max)</span></a>
+<div class="meta"><span class="zh"></span><span class="en">333⭐ 106💬 impact=863</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.lasso.security/blog/the-provenance-tax-understanding-the-impact-of-llm-watermarking-on-ai-agent-behavior" target="_blank"><span class="zh">理解 LLM 水印对 AI 智能体行为的影响</span><span class="en">Understanding the Impact of LLM Watermarking on AI Agent Behavior</span></a>
+<div class="meta"><span class="zh"></span><span class="en">58⭐ 72💬 impact=418</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.anthropic.com/claude-opus-5-5" target="_blank"><span class="zh">Claude Opus 5.5</span><span class="en">Claude Opus 5.5</span></a>
+<div class="meta"><span class="zh"></span><span class="en">273⭐ 2💬 impact=283</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://jadidbourbaki.github.io/blog/prompt-lookup-llama-cpp/" target="_blank"><span class="zh">llama.cpp 中更快的 prompt 查找式草稿生成</span><span class="en">Faster prompt lookup drafting in llama.cpp</span></a>
+<div class="meta"><span class="zh"></span><span class="en">83⭐ 12💬 impact=143</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.ft.com/content/456884ea-2558-4648-8036-a77b73733430" target="_blank"><span class="zh">瞄准 OpenAI 和 Anthropic 的廉价新 AI 模型</span><span class="en">The cheap new AI model taking aim at OpenAI and Anthropic</span></a>
+<div class="meta"><span class="zh"></span><span class="en">13⭐ 5💬 impact=38</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://twitter.com/i/status/2103026209361719406" target="_blank"><span class="zh">GPT-6 Sol 像 GPT-5.6 Terra，GPT-6 Luna 像 GPT-5.6 Asteroid</span><span class="en">GPT-6 Sol is like GPT-5.6 Terra, GPT-6 Luna is like GPT-5.6 Asteroid</span></a>
+<div class="meta"><span class="zh"></span><span class="en">18⭐ 1💬 impact=23</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://www.axios.com/2026/09/28/ai-domyn-uljan-sharka-openai-anthropic-safety-lying" target="_blank"><span class="zh">Domyn&amp;#x27; 的 CEO 称 OpenAI、Anthropic 在安全问题上撒谎</span><span class="en">Domyn&amp;#x27;s CEO says OpenAI, Anthropic are lying about safety</span></a>
+<div class="meta"><span class="zh"></span><span class="en">14⭐ 1💬 impact=19</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">hackernews</span><span class="en">hackernews</span></span>
+<a href="https://eval.raycaster.ai/benchmarks/biopharma-bench/" target="_blank"><span class="zh">DeepSeek 在自主药物研发中击败 GPT-6 Sol</span><span class="en">DeepSeek beats GPT-6 Sol in autonomous drug development</span></a>
+<div class="meta"><span class="zh"></span><span class="en">5⭐ 2💬 impact=15</span></div>
+</div>
+</div>
+<div class='b'>arxiv (15)</div><div class='grid'>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31619v1" target="_blank"><span class="zh">Learning to Stop without Learning to Stop: Self-Supervised Confidence Training I</span><span class="en">Learning to Stop without Learning to Stop: Self-Supervised Confidence Training I</span></a>
+<div class="desc"><span class="zh">推理模型常常生成很长的推理链，导致推理计算开销巨大。现有方法通常通过推理时的提前停止机制、提示缓存以及推测性解码来提升效率。然而，这些机制并未让模型学会判断何时可以停止思考，因此难以泛化到不同任务上。本文提出了一种新范式：通过自监督置信度训练，让模型在不需要外部 oracle 的情况下识别何时已生成足够多的 token。我们提出的置信度训练方法在推理时不需要辅助模型或额外前向/反向传播，并以 token 粒度运行。</span><span class="en">Reasoning models often generate very long reasoning traces, making inference computationally expensive. Existing approaches typically improve efficiency either through inference-time early-stopping me</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31607v1" target="_blank"><span class="zh">Statistical attribute alignment for black-box generative AI via output post-proc</span><span class="en">Statistical attribute alignment for black-box generative AI via output post-proc</span></a>
+<div class="desc"><span class="zh">生成式 AI 系统的使用日益广泛，但使其输出对齐用户需求仍是一项持续性挑战。本研究的目标是：对于黑盒生成式 AI 所生成样本的某个属性，确保其经验分布与目标分布对齐。我们从分布对齐的角度重新审视该任务，将其视为一个最优传输问题，并提出一种仅需黑盒访问、无需微调模型的输出后处理方法。</span><span class="en">Generative AI systems are increasingly used, but aligning their outputs with user requirements poses a continuing challenge. Here, we aim to ensure that the distribution of an attribute of an AI-gener</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31587v1" target="_blank"><span class="zh">Compact Documentation for Coding Agents: A Benchmark, an Optimizer, and Why It D</span><span class="en">Compact Documentation for Coding Agents: A Benchmark, an Optimizer, and Why It D</span></a>
+<div class="desc"><span class="zh">我们研究自然语言文档是否有助于编码智能体解决软件问题，并构建了用于构造与评估此类文档的工具。我们提出了一个往返基准，用于对紧凑文档的质量进行打分，方式是将文档喂给一个冻结的编码智能体，再由该智能体反向生成文档，并衡量两者的一致程度。</span><span class="en">We investigate whether natural-language documentation helps coding agents resolve software issues, and we build the tools to construct and evaluate it. We introduce a roundtrip benchmark that scores c</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31568v1" target="_blank"><span class="zh">DeepEdu-v1: Efficient and Scalable Agentic LLMs for Vietnamese Education</span><span class="en">DeepEdu-v1: Efficient and Scalable Agentic LLMs for Vietnamese Education</span></a>
+<div class="desc"><span class="zh">AI 辅导有望显著改善越南等发展中地区学生的学习效果，但两条显而易见的路径都存在不足。ChatGPT 等云端助手会将敏感的学生数据路由到境外数据中心，引发隐私担忧；而直接训练本地模型又受限于稀缺的本地算力和标注数据。</span><span class="en">AI tutoring could markedly improve learning outcomes for students in developing regions such as Vietnam, yet the two obvious paths both fall short. Cloud assistants such as ChatGPT route sensitive stu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31563v1" target="_blank"><span class="zh">Multi-agent Scaling Across Disjunctive and Compensatory Tasks</span><span class="en">Multi-agent Scaling Across Disjunctive and Compensatory Tasks</span></a>
+<div class="desc"><span class="zh">多智能体 LLM 系统通常被认为会随着团队规模增大而表现更好，但这种缩放行为可能取决于任务结构。我们的核心贡献是引入 Steiner 的任务分类法——将任务划分为析取式与补偿式两类——并证明现有的多智能体缩放结果需要在这种区分下重新审视。</span><span class="en">Multi-agent LLM systems are often expected to improve as team size increases, yet the scaling behavior may depend on task structure. Our central contribution is to introduce Steiner&amp;#x27;s taxonomy of</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31540v1" target="_blank"><span class="zh">Can You Check That? The Checkability Boundary for Local LLM Network Automation</span><span class="en">Can You Check That? The Checkability Boundary for Local LLM Network Automation</span></a>
+<div class="desc"><span class="zh">将每一个网络自动化输入都发送给第三方前沿 LLM，会外泄生产配置、网络拓扑和日志等敏感资产。在本地查询小型语言模型（SLMs）可避免这种数据外泄，但会带来准确性与可信度上的挑战——人类运维人员必须能核查小型模型的输出。</span><span class="en">Sending every network-automation input to a third-party frontier LLM exports sensitive artifacts such as production configurations, topologies, and logs. Querying small language models (SLMs) locally</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31506v1" target="_blank"><span class="zh">评估大语言模型对海地克里奥尔语的文化意识</span><span class="en">Evaluating Cultural Awareness of LLMs for Haitian Creole</span></a>
+<div class="desc"><span class="zh">大语言模型（LLMs）在高资源与低资源语言之间表现出显著的性能差距。除了任务表现较低之外，它们常常无法捕捉文化规范和价值</span><span class="en">Large language models (LLMs) exhibit substantial performance disparities between high- and low-resource languages. Beyond lower task performance, they often fail to capture the cultural norms and valu</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31505v1" target="_blank"><span class="zh">提示最小化：在不牺牲输出保真度的前提下减少输入冗余</span><span class="en">Prompt Minimization: Reducing Input Redundancy Without Sacrificing Output Fideli</span></a>
+<div class="desc"><span class="zh">尽管大语言模型（LLMs）的能力不断增强，提示设计在很大程度上仍然是启发式和临时的。本项目将探讨 $\textit{提示最小化}$，即减少</span><span class="en">Despite the growing capabilities of large language models (LLMs), prompt design remains largely heuristic and ad hoc. This project will explore $\textit{prompt minimization}$, the process of reducing</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31491v1" target="_blank"><span class="zh">UQ-LOB：不确定性感知的限价订单簿中间价预测</span><span class="en">UQ-LOB: Uncertainty-Aware Limit Order Book Mid-Price Forecasting</span></a>
+<div class="desc"><span class="zh">从限价订单簿（LOB）数据预测短期中间价变动是算法交易的核心，但大多数深度 LOB 预测器都是点预测器：它们输出方向或位移</span><span class="en">Forecasting short-horizon mid-price movements from limit order book (LOB) data is central to algorithmic trading, yet most deep LOB forecasters are point predictors: they output a direction or a displ</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31482v1" target="_blank"><span class="zh">&amp;quot;AI 的确（或并非）新的……&amp;quot;：用于诊断生成式 AI&amp;#x27;s Cul 的类比框架</span><span class="en">&amp;quot;AI is (not) the new...&amp;quot;: A Diagnostic Analogy Framework for Generative AI&amp;#x27;s Cul</span></a>
+<div class="desc"><span class="zh">生成式 AI 正在重塑知识发现、合成与问责的文化基础设施。为了理解这一转变，学者和政策制定者会援引历史</span><span class="en">Generative AI is reshaping the cultural infrastructures through which knowledge is found, synthesized, and held accountable. To make sense of this shift, scholars and policymakers reach for historical</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31473v1" target="_blank"><span class="zh">Game Arena：竞争环境中的战略 LLM 评估</span><span class="en">Game Arena: Strategic LLM Evaluation in Competitive Environments</span></a>
+<div class="desc"><span class="zh">我们推出 Kaggle Game Arena，一个开放且不断扩展的平台，通过竞技游戏评估大语言模型（LLMs）。不同于静态基准，game arena 使模型能够 p</span><span class="en">We introduce Kaggle Game Arena, an open and ever-expanding platform to evaluate large language models (LLMs) through competitive games. Different from static benchmarks, game arena enables models to p</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31468v1" target="_blank"><span class="zh">PriceBench：用于价格、质量和品牌偏好的诊断基准</span><span class="en">PriceBench: A Diagnostic Benchmark for Price, Quality, and Brand Preferences in</span></a>
+<div class="desc"><span class="zh">大语言模型正越来越多地充当采购代理，这使得决策权从用户转移到了 LLM 本身：它的偏好悄无声息地决定了购买什么以及成本</span><span class="en">LLMs increasingly act as purchasing agents, which makes the LLM, not the user, the one choosing among the options that satisfy a request; its preferences quietly fix what gets bought and what it costs</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31463v1" target="_blank"><span class="zh">用于婴儿运动分析的不确定性感知联邦学习</span><span class="en">Uncertainty-Aware Federated Learning for Infant Movement Analysis</span></a>
+<div class="desc"><span class="zh">婴儿运动分析为神经发育障碍的早期识别提供了宝贵的生物标志物。深度学习的最新进展使得婴儿运动的自动分析成为可能</span><span class="en">Infant movement analysis provides valuable biomarkers for the early identification of neurodevelopmental disorders. Recent advances in deep learning have enabled automated analysis of infant movements</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31460v1" target="_blank"><span class="zh">用于改进数据探索和资源利用的分段级智能体主题建模</span><span class="en">Segment-Level Agentic Topic Modeling for Improved Data Exploration and Resource</span></a>
+<div class="desc"><span class="zh">主题建模是一种有效发现文档中隐藏主题的技术，广泛应用于各种行业的文本挖掘和数据分析中。最近，大语言模型</span><span class="en">Topic modeling is an effective technique for discovering hidden themes within documents and is widely used in text mining and data analysis across a variety of industry sectors. Recently, large langua</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+<div class="card">
+<span class="tag accent"><span class="zh">arxiv</span><span class="en">arxiv</span></span>
+<a href="https://arxiv.org/abs/2609.31450v1" target="_blank"><span class="zh">从奖励信号到视觉效用：医学 VLM 后训练的受控审计</span><span class="en">From Reward Signal to Visual Utility: A Controlled Audit of Medical VLM Post-Tra</span></a>
+<div class="desc"><span class="zh">医学视觉-语言模型（VLM）的后训练通常通过答案准确率来评估。我们考察准确率和训练目标的变化如何与受控环境中的图像条件决策相关</span><span class="en">Medical vision-language model (VLM) post-training is commonly evaluated through answer accuracy. We examine how changes in accuracy and training objectives relate to image-conditioned decisions in a c</span></div>
+<div class="meta"><span class="zh"></span><span class="en">0⭐ 0💬 impact=50</span></div>
+</div>
+</div><script>(function(){var k="ai-ai-trending-lang";function apply(l){document.documentElement.lang=l;try{localStorage.setItem(k,l);}catch(e){}}try{var saved=localStorage.getItem(k);if(saved==='en'||saved==='zh-CN')apply(saved);}catch(e){}window.toggleLang=function(){apply(document.documentElement.lang==='zh-CN'?'en':'zh-CN');};})();</script></body></html>

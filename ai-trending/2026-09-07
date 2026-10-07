@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>AI Trending · 2026-09-07</title>
+<style>body{font-family:-apple-system,"PingFang SC",sans-serif;background:#0d1117;color:#e6edf3;padding:24px;max-width:980px;margin:0 auto;}
+h1{font-size:22px;margin-bottom:6px;}.sub{color:#8b949e;font-size:12px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:15px;}
+.src{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#21262d;color:#58a6ff;font-weight:700;margin-bottom:5px;}
+a{color:#58a6ff;text-decoration:none;font-weight:600;font-size:14px;}
+a:hover{text-decoration:underline;}.desc{color:#8b949e;font-size:12px;margin-top:4px;line-height:1.55;}.meta{color:#8b949e;font-size:11px;margin-top:6px;font-family:Menlo,monospace;}
+.nav{margin-top:18px;}.b{font-size:18px;margin:30px 0 12px;color:#58a6ff;}</style></head><body>
+<h1>🔥 AI Trending · 2026-09-07</h1><div class="sub">生成时间 2026-09-07T00:01:38.842697Z · 共 60 items · 来源 3 · envelope_version=1 · v2 (search_lib refactor 2026-07-06)</div>
+<div class='nav'><b>60</b> items · github=22 · hackernews=21 · arxiv=17</div>
+<div class='b'>github (22)</div><div class='grid'>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/affaan-m/ECC' target='_blank'>affaan-m/ECC</a>
+<div class='desc'>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</div>
+<div class='meta'>251278⭐ 0💬 impact=2140078 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/huggingface/transformers' target='_blank'>huggingface/transformers</a>
+<div class='desc'>🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. </div>
+<div class='meta'>164911⭐ 0💬 impact=1888861 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langgenius/dify' target='_blank'>langgenius/dify</a>
+<div class='desc'>Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without reb</div>
+<div class='meta'>154647⭐ 0💬 impact=1376547 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langchain-ai/langchain' target='_blank'>langchain-ai/langchain</a>
+<div class='desc'>The agent engineering platform.</div>
+<div class='meta'>145807⭐ 0💬 impact=1363807 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/multica-ai/andrej-karpathy-skills' target='_blank'>multica-ai/andrej-karpathy-skills</a>
+<div class='desc'>A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy&#x27;s observations on LLM coding pitfalls.</div>
+<div class='meta'>210602⭐ 0💬 impact=1281102 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/f/prompts.chat' target='_blank'>f/prompts.chat</a>
+<div class='desc'>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.</div>
+<div class='meta'>169511⭐ 0💬 impact=1259661 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/open-webui/open-webui' target='_blank'>open-webui/open-webui</a>
+<div class='desc'>User-friendly AI Interface (Supports Ollama, OpenAI API, ...)</div>
+<div class='meta'>151140⭐ 0💬 impact=1255990 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/ollama/ollama' target='_blank'>ollama/ollama</a>
+<div class='desc'>Get up and running with Kimi-K2.6, GLM-5.2, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</div>
+<div class='meta'>180306⭐ 0💬 impact=1066756 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/Graphify-Labs/graphify' target='_blank'>Graphify-Labs/graphify</a>
+<div class='desc'>Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, e</div>
+<div class='meta'>115350⭐ 0💬 impact=675550 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/farion1231/cc-switch' target='_blank'>farion1231/cc-switch</a>
+<div class='desc'>A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build &amp; Hermes Agent. Only official website: ccswitch.io</div>
+<div class='meta'>131360⭐ 0💬 impact=583810 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//mattpocock/skills' target='_blank'>mattpocock/skills</a>
+<div class='desc'>Skills for Real Engineers. Straight from my .agents directory.</div>
+<div class='meta'>254494⭐ 0💬 impact=254994 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langchain4j/langchain4j' target='_blank'>langchain4j/langchain4j</a>
+<div class='desc'>LangChain4j is an idiomatic, open-source Java library for building LLM-powered applications on the JVM. It offers a unified API over popular LLM providers and vector stores, and makes implementing too</div>
+<div class='meta'>13030⭐ 0💬 impact=139530 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//browser-use/browser-use' target='_blank'>browser-use/browser-use</a>
+<div class='desc'>🌐 Make websites accessible for AI agents. Automate tasks online with ease.</div>
+<div class='meta'>112701⭐ 0💬 impact=113201 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//openai/whisper' target='_blank'>openai/whisper</a>
+<div class='desc'>Robust Speech Recognition via Large-Scale Weak Supervision</div>
+<div class='meta'>108622⭐ 0💬 impact=109122 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/Orchestra-Research/AI-Research-SKILLs' target='_blank'>Orchestra-Research/AI-Research-SKILLs</a>
+<div class='desc'>Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. </div>
+<div class='meta'>12366⭐ 0💬 impact=57116 </div></div>
+</div>
+<div class='b'>hackernews (21)</div><div class='grid'>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://collusion.wiki/' target='_blank'>Discovery of a new OpenAI agent message board</a>
+<div class='desc'></div>
+<div class='meta'>2264⭐ 1579💬 impact=10159 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://news.ycombinator.com/item?id=49551096' target='_blank'>Ask HN: Why were OpenAI, Claude, and Grok simultaneously down?</a>
+<div class='desc'></div>
+<div class='meta'>400⭐ 703💬 impact=3915 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html' target='_blank'>OpenAI begins rolling out GPT-6 Astra</a>
+<div class='desc'></div>
+<div class='meta'>277⭐ 253💬 impact=1542 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://mvakde.github.io/blog/44-on-arc-1/' target='_blank'>I trained a small transformer in 1.5hrs and it beats many LLMs</a>
+<div class='desc'></div>
+<div class='meta'>668⭐ 166💬 impact=1498 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://armature.tech/blog/which-tools-coding-agents-install' target='_blank'>Which tools do Claude, Codex and Cursor choose? We measured 17k runs to find out</a>
+<div class='desc'></div>
+<div class='meta'>296⭐ 149💬 impact=1041 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://arcprize.org/blog/astra' target='_blank'>OpenAI&#x27;s GPT-6 Astra on ARC-AGI-3</a>
+<div class='desc'></div>
+<div class='meta'>237⭐ 155💬 impact=1012 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://embracethered.com/blog/posts/2026/breaking-claude-code-opus-5-and-automode/' target='_blank'>Breaking Claude Code Opus 5 Auto Mode</a>
+<div class='desc'></div>
+<div class='meta'>399⭐ 121💬 impact=1004 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://simonwillison.net/2026/Sep/2/claudes-new-system-prompt/' target='_blank'>Claude&#x27;s new system prompt doesn&#x27;t want to reproduce song lyrics</a>
+<div class='desc'></div>
+<div class='meta'>69⭐ 106💬 impact=599 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://aisle.com/blog/aisle-discovered-six-curl-cves-after-openai-and-anthropic-found-zero' target='_blank'>Six curl CVEs after OpenAI and Anthropic came back with zero</a>
+<div class='desc'></div>
+<div class='meta'>182⭐ 66💬 impact=512 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/' target='_blank'>The efficient frontier of LLM inference</a>
+<div class='desc'></div>
+<div class='meta'>154⭐ 46💬 impact=384 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://claude.com/blog/claude-for-commerce-agents' target='_blank'>Claude for Commerce Agents</a>
+<div class='desc'></div>
+<div class='meta'>61⭐ 61💬 impact=366 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/mlc-ai/web-llm' target='_blank'>WebLLM: high-performance in-browser LLM inference engine</a>
+<div class='desc'></div>
+<div class='meta'>145⭐ 25💬 impact=270 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.wired.com/story/nobody-is-saying-why-openai-and-anthropic-had-outages-today/' target='_blank'>Nobody is saying why OpenAI and Anthropic had outages</a>
+<div class='desc'></div>
+<div class='meta'>206⭐ 4💬 impact=226 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://twitter.com/ggerganov/status/2095897173376618881' target='_blank'>Georgi Gerganov on llama.cpp/ggml future after Nvidia acquisition of HuggingFace</a>
+<div class='desc'></div>
+<div class='meta'>76⭐ 27💬 impact=211 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.effort.news/revelation' target='_blank'>Anthropic &amp; friends caught paying religious NGO&#x27;s 3.3M for propaganda</a>
+<div class='desc'></div>
+<div class='meta'>60⭐ 27💬 impact=195 </div></div>
+</div>
+<div class='b'>arxiv (17)</div><div class='grid'>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04199v1' target='_blank'>Compile by Training: Turning Natural-Language Specifications into Local Neural F</a>
+<div class='desc'>Many recurring text functions are easy to describe but difficult to implement with rules, while calling a large remote model for every input introduces repeated cost, latency, and dependency on a prov</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04198v1' target='_blank'>Clean Engineering, Unstable Measurement: A Preregistered Reliability Failure of </a>
+<div class='desc'>Language-model judges now gate training data, score generations, and drive leaderboards. The judge is then a measurement instrument, resting on one rarely stated assumption: the same request, sent to </div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04197v1' target='_blank'>ESPO: Error-Structured Prompt Optimization via Diagnose, Diversify, and Stabiliz</a>
+<div class='desc'>Evolutionary prompt optimizers such as GEPA suffer from prompt bloat: each iteration appends rules and caveats, producing prompts up to 3$\times$ longer yet no more accurate. We trace this to three de</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04190v1' target='_blank'>One Editor, Many Edits: A Unified Training-Free Framework for Diverse Video Edit</a>
+<div class='desc'>Video editing spans diverse editing paradigms, yet achieving high-quality instruction-guided and subject-guided editing within a single unified framework remains challenging. We introduce EditVid, a t</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04183v1' target='_blank'>Seeing Before Synthesizing: VLM-Guided Transition Event Discovery for Weakly-Sup</a>
+<div class='desc'>Weakly-Supervised Dense Video Captioning aims to localize and describe multiple events in untrimmed videos given only an ordered set of event-level captions per video. Recent work synthesizes auxiliar</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04180v1' target='_blank'>Knowledge Acquisition During Pre-training? Large Language Models Learn Better Wi</a>
+<div class='desc'>Gaps remain in our understanding of how large language models (LLMs) acquire knowledge during pre-training. We posit that auxiliary views, reformulations of knowledge, are causally helpful for learnin</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04172v1' target='_blank'>Rethinking On-Policy Distillation of Large Language Models II: One Training Exam</a>
+<div class='desc'>On-policy distillation (OPD) combines student-generated rollouts with dense token-level supervision from a teacher. Existing work has mainly studied its algorithmic behavior, leaving the role of train</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04170v1' target='_blank'>A Case Study on Emergent Cheating and Whistleblowing in Autonomous Research Swar</a>
+<div class='desc'>Multi-agent AI science ecosystems rely on agents possessing tools that allow them to communicate, coordinate, and build on each other&#x27;s work. Yet this shared infrastructure can also introduce vul</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04167v1' target='_blank'>SWE-Gate: Passing Functional Tests Is Not Enough for Software Engineering Agents</a>
+<div class='desc'>Repository-level software engineering benchmarks have significantly advanced the evaluation of coding agents, but existing benchmarks primarily measure whether generated patches pass functional tests </div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04159v1' target='_blank'>SENTINEL-RL: Offloading Topological Reasoning from LLM Agents in the Security Op</a>
+<div class='desc'>Large language model (LLM) agents are increasingly proposed as autonomous SOC analysts, but two limitations make them unreliable at enterprise scale: a finite context window cannot hold a multi-thousa</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04148v1' target='_blank'>Terminal-Universe: Turning Agent Trajectories into Scalable Terminal Environment</a>
+<div class='desc'>As terminal-based code agents become prevalent, agent trajectories have accumulated at scale, while realistic, executable environments remain scarce. However, environments are what agent post-training</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04141v1' target='_blank'>Efficient Test-Time Adaptation through Human-AI Interaction</a>
+<div class='desc'>AI agents are trained on population-scale data to encode broad capabilities spanning those of many practitioners. Yet the artifacts they produce rarely meet the personal bar professionals need to stak</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04135v1' target='_blank'>The Natural Language Interaction Protocol and Standard for AI Agents</a>
+<div class='desc'>AI agents are increasingly being developed and deployed across organizations using heterogeneous agent-development frameworks, AI models, tool interfaces, protocols, and execution environments. To rea</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04128v1' target='_blank'>Environment Evolution for Terminal Agents</a>
+<div class='desc'>Scaling interactive and verifiable environments is critical for training terminal agents. As frontier models become more capable, environments synthesized from scratch become less challenging and thus</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+<div class='card'><span class='src'>arxiv</span>
+<a href='https://arxiv.org/abs/2609.04127v1' target='_blank'>Epistemic Warrant for LLM Recommendations: Characterizing the Basis for Reliance</a>
+<div class='desc'>Large language models are increasingly used to support organizational decisions, yet users often lack a principled basis for assessing whether to rely on a specific recommendation. Existing approaches</div>
+<div class='meta'>0⭐ 0💬 impact=50 </div></div>
+</div></body></html>

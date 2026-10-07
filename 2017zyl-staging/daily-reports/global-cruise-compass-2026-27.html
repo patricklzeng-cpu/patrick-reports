@@ -1,0 +1,2464 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="2026–2027 全球邮轮排期、价格、服务与情侣、三口之家、带老人需求的中英文决策台。">
+  <meta name="theme-color" content="#071a28">
+  <link rel="icon" type="image/jpeg" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Geirangerfjorden_%2813%29.jpg/1280px-Geirangerfjorden_%2813%29.jpg">
+  <title>全球邮轮罗盘 2026–27 · Global Cruise Compass</title>
+  <style>
+    :root {
+      --ink: #10212a;
+      --muted: #5c6c73;
+      --navy: #071a28;
+      --navy-2: #0d2d3c;
+      --paper: #f5f1e8;
+      --paper-2: #ebe5d9;
+      --white: #fffdf8;
+      --aqua: #13a7a1;
+      --aqua-soft: #d7efea;
+      --coral: #f36f56;
+      --coral-soft: #fde2da;
+      --gold: #d8ab57;
+      --gold-soft: #f5e9cd;
+      --blue: #4a7ca8;
+      --green: #2d856e;
+      --red: #ad4438;
+      --line: rgba(16, 33, 42, .15);
+      --shadow: 0 18px 48px rgba(7, 26, 40, .12);
+      --shadow-sm: 0 8px 24px rgba(7, 26, 40, .08);
+      --radius: 22px;
+      --max: 1220px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 30%, rgba(19, 167, 161, .08), transparent 30rem),
+        linear-gradient(180deg, var(--paper) 0%, #f8f5ee 40%, var(--paper) 100%);
+      font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(7, 26, 40, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 26, 40, .025) 1px, transparent 1px);
+      background-size: 28px 28px;
+      z-index: -1;
+    }
+
+    a { color: inherit; }
+    button, select, input { font: inherit; }
+    button { cursor: pointer; }
+    img { max-width: 100%; }
+    [hidden] { display: none !important; }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 1000;
+      transform: translateY(-150%);
+      padding: 10px 14px;
+      color: white;
+      background: var(--navy);
+      border-radius: 8px;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .reading-progress {
+      position: fixed;
+      z-index: 300;
+      inset: 0 0 auto;
+      height: 3px;
+      background: rgba(255,255,255,.1);
+    }
+    .reading-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--aqua), var(--gold), var(--coral));
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      color: #fff;
+      background: rgba(7, 26, 40, .92);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(18px);
+    }
+    .topbar-inner {
+      width: min(calc(100% - 36px), var(--max));
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 22px;
+    }
+    .brand small {
+      display: block;
+      color: rgba(255,255,255,.58);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .topnav a {
+      color: rgba(255,255,255,.76);
+      text-decoration: none;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .topnav a:hover { color: white; }
+    .language-toggle {
+      display: inline-flex;
+      padding: 3px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+    }
+    .language-toggle button {
+      min-width: 43px;
+      padding: 6px 9px;
+      border: 0;
+      border-radius: 999px;
+      color: rgba(255,255,255,.65);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .language-toggle button[aria-pressed="true"] {
+      color: var(--navy);
+      background: var(--white);
+    }
+
+    .hero {
+      min-height: 690px;
+      position: relative;
+      display: grid;
+      align-items: end;
+      color: white;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(3, 16, 26, .94) 0%, rgba(3, 16, 26, .72) 48%, rgba(3, 16, 26, .2) 100%),
+        linear-gradient(0deg, rgba(3, 16, 26, .88), transparent 48%),
+        url("https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Geirangerfjorden_%2813%29.jpg/1280px-Geirangerfjorden_%2813%29.jpg") center 51% / cover no-repeat;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 120px;
+      background: linear-gradient(transparent, rgba(7,26,40,.88));
+      pointer-events: none;
+    }
+    .hero-inner {
+      width: min(calc(100% - 36px), var(--max));
+      margin: 0 auto;
+      padding: 112px 0 82px;
+      position: relative;
+      z-index: 2;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      color: var(--aqua-soft);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--gold);
+    }
+    .hero h1 {
+      max-width: 820px;
+      margin: 0;
+      font-family: Georgia, "Songti SC", serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 500;
+      line-height: .98;
+      letter-spacing: -.045em;
+      text-wrap: balance;
+    }
+    .hero h1 em {
+      display: block;
+      margin-top: 12px;
+      color: var(--gold);
+      font-size: .36em;
+      font-style: normal;
+      letter-spacing: .06em;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+    .hero-lede {
+      max-width: 710px;
+      margin: 28px 0 0;
+      color: rgba(255,255,255,.78);
+      font-size: clamp(16px, 2vw, 20px);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+    .button.primary { color: var(--navy); background: var(--gold); }
+    .button.ghost { color: white; border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.06); }
+    .button:hover { transform: translateY(-1px); }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      max-width: 780px;
+      margin-top: 52px;
+      border-top: 1px solid rgba(255,255,255,.18);
+      border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+    .hero-stat { padding: 18px 22px 18px 0; }
+    .hero-stat strong {
+      display: block;
+      color: white;
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: 500;
+    }
+    .hero-stat span {
+      display: block;
+      color: rgba(255,255,255,.56);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .evidence-strip {
+      color: white;
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .evidence-strip-inner {
+      width: min(calc(100% - 36px), var(--max));
+      margin: 0 auto;
+      padding: 16px 0;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+    }
+    .live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #bdece5;
+      font-weight: 800;
+    }
+    .live-dot::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ad5b7;
+      box-shadow: 0 0 0 5px rgba(74,213,183,.12);
+    }
+    .evidence-strip p { margin: 0; color: rgba(255,255,255,.62); }
+    .evidence-strip time { color: rgba(255,255,255,.8); font-weight: 700; white-space: nowrap; }
+
+    main { overflow: clip; }
+    .shell {
+      width: min(calc(100% - 36px), var(--max));
+      margin: 0 auto;
+    }
+    .section {
+      padding: 96px 0;
+      position: relative;
+    }
+    .section.compact { padding: 72px 0; }
+    .section.dark {
+      color: white;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(19,167,161,.14), transparent 34rem),
+        var(--navy);
+    }
+    .section.coral-wash {
+      background: linear-gradient(135deg, rgba(243,111,86,.08), rgba(216,171,87,.07));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, .68fr) minmax(280px, .32fr);
+      gap: 48px;
+      align-items: end;
+      margin-bottom: 38px;
+    }
+    .kicker {
+      margin: 0 0 10px;
+      color: var(--aqua);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    .dark .kicker { color: #75d9ce; }
+    .section h2 {
+      margin: 0;
+      font-family: Georgia, "Songti SC", serif;
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -.03em;
+      text-wrap: balance;
+    }
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .dark .section-header p { color: rgba(255,255,255,.62); }
+
+    .quick-answer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .persona-card {
+      min-height: 370px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,253,248,.84);
+      box-shadow: var(--shadow-sm);
+    }
+    .persona-card::before {
+      content: attr(data-number);
+      position: absolute;
+      top: -40px;
+      right: 12px;
+      color: rgba(7,26,40,.045);
+      font-family: Georgia, serif;
+      font-size: 150px;
+      line-height: 1;
+    }
+    .persona-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .persona-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      color: var(--navy);
+      background: var(--gold-soft);
+      font-size: 22px;
+      font-weight: 900;
+    }
+    .persona-card:nth-child(2) .persona-icon { background: var(--aqua-soft); }
+    .persona-card:nth-child(3) .persona-icon { background: var(--coral-soft); }
+    .persona-card h3 { margin: 22px 0 8px; font-size: 23px; }
+    .persona-card > p { margin: 0 0 20px; color: var(--muted); font-size: 14px; }
+    .rank-list { margin: 0; padding: 0; list-style: none; }
+    .rank-list li {
+      display: grid;
+      grid-template-columns: 25px 1fr;
+      gap: 8px;
+      padding: 8px 0;
+      border-top: 1px dashed var(--line);
+      font-size: 13px;
+    }
+    .rank-list strong { color: var(--aqua); }
+    .persona-select {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--navy);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .decision-board {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+    .filter-panel {
+      position: sticky;
+      top: 92px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,253,248,.9);
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-panel h3 { margin: 0 0 4px; font-size: 17px; }
+    .filter-panel > p { margin: 0 0 18px; color: var(--muted); font-size: 12px; }
+    .field { margin-top: 14px; }
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .field select, .field input {
+      width: 100%;
+      min-height: 43px;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--ink);
+      background: var(--white);
+    }
+    .filter-reset {
+      width: 100%;
+      margin-top: 18px;
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 10px;
+      color: var(--navy);
+      background: var(--paper-2);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .filter-note {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .result-toolbar {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .result-toolbar h3 { margin: 0; font-size: 22px; }
+    .result-count { color: var(--muted); font-size: 12px; }
+    .result-count strong { color: var(--aqua); font-size: 20px; }
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .route-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 420px;
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--white);
+      box-shadow: 0 7px 22px rgba(7,26,40,.06);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .route-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+    .route-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .route-brand {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .grade {
+      flex: none;
+      padding: 4px 8px;
+      border: 1px solid rgba(45,133,110,.25);
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(45,133,110,.08);
+      font-size: 10px;
+      font-weight: 900;
+    }
+    .grade.b { color: #8a681e; border-color: rgba(138,104,30,.25); background: var(--gold-soft); }
+    .route-card h4 {
+      margin: 12px 0 6px;
+      font-family: Georgia, "Songti SC", serif;
+      font-size: 25px;
+      font-weight: 500;
+      line-height: 1.18;
+    }
+    .route-meta {
+      min-height: 42px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .price-row {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 19px 0 15px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .price strong {
+      display: block;
+      color: var(--navy);
+      font-family: Georgia, serif;
+      font-size: 29px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .price span, .date-chip span { display: block; color: var(--muted); font-size: 10px; }
+    .date-chip { text-align: right; font-size: 12px; font-weight: 800; }
+    .fit-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .fit-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: #175f5b;
+      background: var(--aqua-soft);
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .fit-pill.best { color: #7c381f; background: var(--coral-soft); }
+    .route-copy {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .route-caveat {
+      margin: auto 0 14px;
+      padding: 11px 12px;
+      border-left: 3px solid var(--gold);
+      color: #5f553f;
+      background: #faf3e4;
+      font-size: 11px;
+    }
+    .route-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .route-link:hover { color: var(--aqua); }
+    .empty-results {
+      padding: 44px;
+      border: 1px dashed var(--line);
+      border-radius: 18px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .season-card {
+      padding: 28px;
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.045);
+    }
+    .season-grid {
+      min-width: 900px;
+      display: grid;
+      grid-template-columns: 170px repeat(12, 1fr);
+      gap: 7px;
+      align-items: center;
+    }
+    .season-head {
+      color: rgba(255,255,255,.48);
+      font-size: 10px;
+      font-weight: 900;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .season-label { padding: 9px 0; color: white; font-size: 12px; font-weight: 800; }
+    .season-cell {
+      height: 29px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 8px;
+      background: rgba(255,255,255,.035);
+    }
+    .season-cell.best { background: #3ab4a8; border-color: #70d9d0; }
+    .season-cell.good { background: rgba(216,171,87,.72); border-color: rgba(245,218,165,.7); }
+    .season-cell.risk {
+      background: repeating-linear-gradient(135deg, rgba(243,111,86,.26) 0 5px, rgba(243,111,86,.08) 5px 10px);
+      border-color: rgba(243,111,86,.32);
+    }
+    .season-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 20px;
+      color: rgba(255,255,255,.62);
+      font-size: 11px;
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      margin-right: 6px;
+      border-radius: 3px;
+      vertical-align: -1px;
+      background: #3ab4a8;
+    }
+    .legend-dot.good { background: rgba(216,171,87,.72); }
+    .legend-dot.risk { background: rgba(243,111,86,.45); }
+    .season-disclaimer { margin: 16px 0 0; color: rgba(255,255,255,.46); font-size: 11px; }
+
+    .calculator-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap: 26px;
+    }
+    .calculator-form, .calculator-result {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,253,248,.88);
+      box-shadow: var(--shadow-sm);
+    }
+    .calculator-form h3, .calculator-result h3 { margin: 0 0 5px; font-size: 19px; }
+    .calculator-form > p, .calculator-result > p { margin: 0 0 20px; color: var(--muted); font-size: 12px; }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .calc-grid .wide { grid-column: span 2; }
+    .calc-grid label {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .calc-grid input, .calc-grid select {
+      width: 100%;
+      min-height: 42px;
+      margin-top: 5px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      background: var(--white);
+    }
+    .calc-note {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 11px;
+      color: #765125;
+      background: var(--gold-soft);
+      font-size: 11px;
+    }
+    .total-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .total-number {
+      margin: 8px 0 4px;
+      color: var(--navy);
+      font-family: Georgia, serif;
+      font-size: clamp(45px, 6vw, 70px);
+      line-height: 1;
+    }
+    .uplift { color: var(--red); font-size: 12px; font-weight: 800; }
+    .cost-stack {
+      display: flex;
+      height: 13px;
+      margin: 24px 0 18px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--paper-2);
+    }
+    .cost-stack span { min-width: 0; transition: width .25s ease; }
+    .cost-stack .fare { background: var(--navy); }
+    .cost-stack .tax { background: var(--blue); }
+    .cost-stack .tips { background: var(--gold); }
+    .cost-stack .extras { background: var(--coral); }
+    .cost-stack .travel { background: var(--aqua); }
+    .breakdown { margin: 0; padding: 0; list-style: none; }
+    .breakdown li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .breakdown strong { color: var(--ink); }
+
+    .matrix-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .brand-table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .brand-table th, .brand-table td {
+      padding: 15px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .brand-table th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      color: rgba(255,255,255,.72);
+      background: var(--navy);
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .brand-table tr:last-child td { border-bottom: 0; }
+    .brand-table tbody tr:hover { background: rgba(19,167,161,.045); }
+    .brand-name { min-width: 126px; font-weight: 900; }
+    .brand-name span { display: block; color: var(--muted); font-size: 10px; font-weight: 500; }
+    .yes { color: var(--green); font-weight: 900; }
+    .partial { color: #92701d; font-weight: 900; }
+    .extra { color: var(--red); font-weight: 900; }
+
+    .mobility-layout {
+      display: grid;
+      grid-template-columns: .76fr 1.24fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .mobility-manifesto {
+      padding: 32px;
+      border-radius: var(--radius);
+      color: white;
+      background:
+        linear-gradient(145deg, rgba(19,167,161,.2), rgba(7,26,40,.1)),
+        var(--navy);
+      box-shadow: var(--shadow);
+    }
+    .mobility-manifesto .big-rule {
+      margin: 16px 0 18px;
+      color: var(--gold);
+      font-family: Georgia, "Songti SC", serif;
+      font-size: clamp(30px, 4vw, 45px);
+      line-height: 1.08;
+    }
+    .mobility-manifesto p { color: rgba(255,255,255,.68); font-size: 13px; }
+    .mobility-manifesto a { color: white; font-weight: 800; }
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .check-card {
+      padding: 19px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+    }
+    .check-card strong { display: block; margin-bottom: 5px; font-size: 14px; }
+    .check-card span { color: var(--muted); font-size: 11px; }
+    .check-card strong::before {
+      content: "✓";
+      display: inline-grid;
+      place-items: center;
+      width: 23px;
+      height: 23px;
+      margin-right: 8px;
+      border-radius: 8px;
+      color: var(--green);
+      background: var(--aqua-soft);
+      font-size: 12px;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .risk-card {
+      min-height: 235px;
+      padding: 22px;
+      border: 1px solid rgba(243,111,86,.2);
+      border-radius: 18px;
+      background: rgba(255,253,248,.88);
+    }
+    .risk-number {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: var(--red);
+      background: var(--coral-soft);
+      font-family: Georgia, serif;
+      font-size: 18px;
+    }
+    .risk-card h3 { margin: 15px 0 6px; font-size: 16px; }
+    .risk-card p { margin: 0; color: var(--muted); font-size: 12px; }
+    .risk-card a { color: var(--aqua); font-weight: 800; text-decoration: none; }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .video-card {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.045);
+    }
+    .video-cover {
+      aspect-ratio: 16 / 9;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 70% 30%, rgba(216,171,87,.3), transparent 30%),
+        linear-gradient(135deg, #19455a, #0c2532);
+    }
+    .video-cover img { width: 100%; height: 100%; object-fit: cover; opacity: .72; transition: transform .3s ease; }
+    .video-card:hover img { transform: scale(1.035); }
+    .video-cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(7,26,40,.7), transparent 70%);
+    }
+    .play {
+      position: absolute;
+      z-index: 2;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 50%;
+      color: var(--navy);
+      background: rgba(255,255,255,.92);
+      font-size: 17px;
+      box-shadow: 0 7px 24px rgba(0,0,0,.25);
+    }
+    .cover-monogram {
+      position: absolute;
+      z-index: 1;
+      color: rgba(255,255,255,.12);
+      font-family: Georgia, serif;
+      font-size: 80px;
+    }
+    .platform-tag {
+      position: absolute;
+      z-index: 3;
+      top: 12px;
+      left: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: white;
+      background: rgba(7,26,40,.76);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .video-body { padding: 17px; }
+    .video-type { color: #7bd9cf; font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .video-body h3 { min-height: 46px; margin: 7px 0 7px; font-size: 15px; line-height: 1.38; }
+    .video-body p { margin: 0; color: rgba(255,255,255,.54); font-size: 11px; }
+    .video-button {
+      width: 100%;
+      margin-top: 14px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 10px;
+      color: white;
+      background: rgba(255,255,255,.04);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .video-button:hover { background: rgba(255,255,255,.1); }
+    .video-disclaimer {
+      margin-top: 20px;
+      color: rgba(255,255,255,.46);
+      font-size: 11px;
+    }
+
+    dialog {
+      width: min(920px, calc(100% - 28px));
+      padding: 0;
+      border: 0;
+      border-radius: 18px;
+      color: white;
+      background: var(--navy);
+      box-shadow: 0 30px 100px rgba(0,0,0,.5);
+    }
+    dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(6px); }
+    .dialog-top { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px; }
+    .dialog-top strong { font-size: 13px; }
+    .dialog-close { border: 0; color: white; background: transparent; font-size: 22px; }
+    .video-frame { aspect-ratio: 16/9; background: #000; }
+    .video-frame iframe { width: 100%; height: 100%; border: 0; }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      counter-reset: steps;
+    }
+    .plan-card {
+      counter-increment: steps;
+      min-height: 260px;
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+    }
+    .plan-card::before {
+      content: "0" counter(steps);
+      color: var(--coral);
+      font-family: Georgia, serif;
+      font-size: 27px;
+    }
+    .plan-card h3 { margin: 16px 0 7px; font-size: 16px; }
+    .plan-card p { margin: 0; color: var(--muted); font-size: 11px; }
+    .rfq-box {
+      margin-top: 20px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      border-radius: 18px;
+      color: white;
+      background: var(--navy);
+    }
+    .rfq-box h3 { margin: 0 0 5px; }
+    .rfq-box p { margin: 0; color: rgba(255,255,255,.62); font-size: 12px; }
+    .copy-button {
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--navy);
+      background: var(--gold);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .source-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .source-stat {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--white);
+    }
+    .source-stat strong { display: block; font-family: Georgia, serif; font-size: 30px; font-weight: 500; }
+    .source-stat span { color: var(--muted); font-size: 10px; text-transform: uppercase; }
+    .source-group {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255,253,248,.7);
+    }
+    .source-group summary {
+      padding: 16px 18px;
+      cursor: pointer;
+      font-weight: 900;
+      list-style: none;
+    }
+    .source-group summary::-webkit-details-marker { display: none; }
+    .source-group summary::after { content: "+"; float: right; color: var(--aqua); font-size: 20px; }
+    .source-group[open] summary::after { content: "−"; }
+    .source-list {
+      margin: 0;
+      padding: 0 18px 18px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 22px;
+      list-style: none;
+    }
+    .source-list li {
+      padding: 10px 0;
+      border-top: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .source-list a { color: var(--ink); font-weight: 800; text-decoration: none; }
+    .source-list a:hover { color: var(--aqua); }
+    .source-grade { color: var(--green); font-size: 9px; font-weight: 900; }
+    .method-note {
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 4px solid var(--aqua);
+      color: var(--muted);
+      background: var(--aqua-soft);
+      font-size: 11px;
+    }
+
+    .footer {
+      color: rgba(255,255,255,.6);
+      background: #04121b;
+    }
+    .footer-inner {
+      width: min(calc(100% - 36px), var(--max));
+      margin: 0 auto;
+      padding: 48px 0;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: end;
+    }
+    .footer strong { color: white; font-family: Georgia, serif; font-size: 22px; font-weight: 500; }
+    .footer p { max-width: 760px; margin: 8px 0 0; font-size: 11px; }
+    .footer a { color: rgba(255,255,255,.82); }
+    .footer-stamp { text-align: right; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+
+    .floating-toc {
+      position: fixed;
+      z-index: 100;
+      left: max(12px, calc((100vw - var(--max)) / 2 - 74px));
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      gap: 7px;
+      padding: 10px;
+      border: 1px solid rgba(7,26,40,.08);
+      border-radius: 999px;
+      background: rgba(255,253,248,.82);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(12px);
+    }
+    .floating-toc a {
+      width: 8px;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 50%;
+      color: transparent;
+      background: rgba(7,26,40,.18);
+      text-decoration: none;
+      transition: transform .2s, background .2s;
+    }
+    .floating-toc a:hover, .floating-toc a.active { transform: scale(1.45); background: var(--aqua); }
+
+    .source-tooltip {
+      text-decoration: underline dotted;
+      text-underline-offset: 3px;
+      cursor: help;
+    }
+    :focus-visible { outline: 3px solid rgba(19,167,161,.42); outline-offset: 3px; }
+
+    @media (max-width: 1080px) {
+      .floating-toc { display: none; }
+      .topnav a { display: none; }
+      .quick-answer, .risk-grid { grid-template-columns: 1fr 1fr; }
+      .persona-card:last-child, .risk-card:last-child { grid-column: 1 / -1; }
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+      .plan-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 820px) {
+      .hero { min-height: 650px; background-position: 57% center; }
+      .hero-inner { padding-bottom: 58px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .hero-stat:nth-child(2) { padding-left: 12px; border-left: 1px solid rgba(255,255,255,.15); }
+      .hero-stat:nth-child(4) { padding-left: 12px; border-left: 1px solid rgba(255,255,255,.15); }
+      .section { padding: 72px 0; }
+      .section-header { grid-template-columns: 1fr; gap: 14px; }
+      .decision-board { grid-template-columns: 1fr; }
+      .filter-panel { position: static; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .filter-panel h3, .filter-panel > p, .filter-note { grid-column: 1 / -1; }
+      .field { margin-top: 0; }
+      .filter-reset { margin-top: 20px; }
+      .calculator-layout, .mobility-layout { grid-template-columns: 1fr; }
+      .source-summary { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 620px) {
+      .topbar-inner { width: min(calc(100% - 24px), var(--max)); }
+      .brand > span:last-child { font-size: 13px; }
+      .brand small { display: none; }
+      .hero-inner, .shell, .evidence-strip-inner, .footer-inner { width: min(calc(100% - 28px), var(--max)); }
+      .hero { min-height: 690px; }
+      .hero h1 { font-size: clamp(46px, 15vw, 67px); }
+      .hero-lede { font-size: 15px; }
+      .hero-stats { margin-top: 36px; }
+      .hero-stat strong { font-size: 25px; }
+      .evidence-strip-inner { grid-template-columns: 1fr auto; }
+      .evidence-strip p { grid-column: 1 / -1; grid-row: 2; }
+      .quick-answer, .route-grid, .risk-grid, .video-grid, .check-grid, .plan-grid, .source-list { grid-template-columns: 1fr; }
+      .persona-card:last-child, .risk-card:last-child { grid-column: auto; }
+      .persona-card { min-height: auto; }
+      .filter-panel { grid-template-columns: 1fr; }
+      .filter-panel h3, .filter-panel > p, .filter-note { grid-column: auto; }
+      .result-toolbar { align-items: flex-start; }
+      .route-card { min-height: 0; }
+      .calc-grid { grid-template-columns: repeat(2, 1fr); }
+      .calc-grid .wide { grid-column: span 2; }
+      .source-summary { grid-template-columns: 1fr 1fr; }
+      .rfq-box, .footer-inner { grid-template-columns: 1fr; }
+      .footer-stamp { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+
+    @media print {
+      .topbar, .floating-toc, .video-button, .hero-actions, .filter-panel, dialog { display: none !important; }
+      .hero { min-height: 420px; }
+      .section { padding: 40px 0; break-inside: avoid; }
+      .decision-board { display: block; }
+      .route-grid, .risk-grid, .video-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-zh="跳到正文" data-en="Skip to content">跳到正文</a>
+  <div class="reading-progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>全球邮轮罗盘<small>Global Cruise Compass · 2026–27</small></span>
+      </a>
+      <nav class="topnav" aria-label="Primary navigation">
+        <a href="#matcher" data-zh="选船" data-en="Match">选船</a>
+        <a href="#seasons" data-zh="航季" data-en="Seasons">航季</a>
+        <a href="#cost" data-zh="真总价" data-en="True cost">真总价</a>
+        <a href="#service" data-zh="服务" data-en="Services">服务</a>
+        <a href="#videos" data-zh="视频" data-en="Videos">视频</a>
+        <a href="#sources" data-zh="证据" data-en="Evidence">证据</a>
+        <div class="language-toggle" aria-label="Language">
+          <button type="button" id="zhButton" aria-pressed="true">中</button>
+          <button type="button" id="enButton" aria-pressed="false">EN</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <aside class="floating-toc" aria-label="Section navigation">
+    <a href="#answer" title="Quick answer">1</a>
+    <a href="#matcher" title="Voyage matcher">2</a>
+    <a href="#seasons" title="Season atlas">3</a>
+    <a href="#cost" title="True cost">4</a>
+    <a href="#service" title="Service matrix">5</a>
+    <a href="#mobility" title="Accessibility">6</a>
+    <a href="#risks" title="Risks">7</a>
+    <a href="#videos" title="Videos">8</a>
+    <a href="#plan" title="Action plan">9</a>
+    <a href="#sources" title="Evidence">10</a>
+  </aside>
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <p class="eyebrow" data-zh="2026–27 · 全球航线决策特刊" data-en="2026–27 · Global voyage decision edition">2026–27 · 全球航线决策特刊</p>
+      <h1>
+        <span data-zh="不是选一艘船，" data-en="Do not choose a ship.">不是选一艘船，</span>
+        <span data-zh="是选对一种旅行。" data-en="Choose the right kind of journey.">是选对一种旅行。</span>
+        <em>Global Cruise Compass</em>
+      </h1>
+      <p class="hero-lede" data-zh="从上海、日本到阿拉斯加、地中海、加勒比与南极：把动态排期、官网价、服务边界、适老性和真实落地成本放进同一个可比框架。" data-en="From Shanghai and Japan to Alaska, the Mediterranean, Caribbean and Antarctica: live schedules, official price anchors, service boundaries, accessibility and landed cost in one comparable framework.">从上海、日本到阿拉斯加、地中海、加勒比与南极：把动态排期、官网价、服务边界、适老性和真实落地成本放进同一个可比框架。</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#matcher" data-zh="开始匹配航线 →" data-en="Match my voyage →">开始匹配航线 →</a>
+        <a class="button ghost" href="#cost" data-zh="先算真总价" data-en="Calculate landed cost">先算真总价</a>
+      </div>
+      <div class="hero-stats" aria-label="Dashboard scope">
+        <div class="hero-stat"><strong>16</strong><span data-zh="可比航次样本" data-en="Comparable sailings">可比航次样本</span></div>
+        <div class="hero-stat"><strong>12</strong><span data-zh="品牌服务画像" data-en="Brand profiles">品牌服务画像</span></div>
+        <div class="hero-stat"><strong>8</strong><span data-zh="全球航区" data-en="World regions">全球航区</span></div>
+        <div class="hero-stat"><strong>3</strong><span data-zh="家庭决策场景" data-en="Travel profiles">家庭决策场景</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="evidence-strip">
+    <div class="evidence-strip-inner">
+      <span class="live-dot" data-zh="价格快照已核验" data-en="Price snapshots verified">价格快照已核验</span>
+      <p data-zh="A = 邮轮公司官网实时页 · A− = 官网条款/PDF · B = 官方公告或大型预订平台。所有价格会动态变化，不构成锁价。" data-en="A = live cruise-line page · A− = official policy/PDF · B = official release or major booking platform. Prices move dynamically and are not held quotes.">A = 邮轮公司官网实时页 · A− = 官网条款/PDF · B = 官方公告或大型预订平台。所有价格会动态变化，不构成锁价。</p>
+      <time datetime="2026-09-02">2026.09.02</time>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="section" id="answer">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="先给答案" data-en="The answer first">先给答案</p>
+            <h2 data-zh="同一艘大船，不会同时满足所有人。" data-en="One big ship cannot be perfect for everyone.">同一艘大船，不会同时满足所有人。</h2>
+          </div>
+          <p data-zh="先按旅伴结构排除错误答案，再谈船新不新。这里的排名综合了节奏、餐饮、儿童项目、安静度、岸上强度和费用透明度。" data-en="Eliminate the wrong answers by party composition before chasing the newest ship. Rankings combine pace, dining, kids programs, quiet space, shore intensity and fee transparency.">先按旅伴结构排除错误答案，再谈船新不新。这里的排名综合了节奏、餐饮、儿童项目、安静度、岸上强度和费用透明度。</p>
+        </div>
+
+        <div class="quick-answer">
+          <article class="persona-card" data-number="01">
+            <div class="persona-icon" aria-hidden="true">♡</div>
+            <h3 data-zh="情侣 / Couple" data-en="Couple">情侣 / Couple</h3>
+            <p data-zh="优先私密度、餐饮与停港质量；避开把全天水上乐园当核心卖点的选择。" data-en="Prioritize privacy, dining and port quality; avoid paying mainly for all-day water-park energy.">优先私密度、餐饮与停港质量；避开把全天水上乐园当核心卖点的选择。</p>
+            <ol class="rank-list">
+              <li><strong>1</strong><span data-zh="Virgin：成人限定，餐饮与健身强" data-en="Virgin: adults-only, strong dining and fitness">Virgin：成人限定，餐饮与健身强</span></li>
+              <li><strong>2</strong><span data-zh="Celebrity / MSC Yacht Club：现代、安静" data-en="Celebrity / MSC Yacht Club: modern and calmer">Celebrity / MSC Yacht Club：现代、安静</span></li>
+              <li><strong>3</strong><span data-zh="Cunard / Viking：仪式感与目的地" data-en="Cunard / Viking: ceremony and destination depth">Cunard / Viking：仪式感与目的地</span></li>
+            </ol>
+            <button class="persona-select" type="button" data-profile="couple" data-zh="按情侣偏好筛选航次" data-en="Filter for couples">按情侣偏好筛选航次</button>
+          </article>
+
+          <article class="persona-card" data-number="02">
+            <div class="persona-icon" aria-hidden="true">3</div>
+            <h3 data-zh="全家三口 / Family of 3" data-en="Family of three">全家三口 / Family of 3</h3>
+            <p data-zh="孩子年龄是第一变量：3–10 岁看托管内容，青少年看船上活动，婴幼儿看付费托儿与如厕规则。" data-en="The child’s age is the first variable: programs for ages 3–10, activities for teens, and nursery/toilet rules for toddlers.">孩子年龄是第一变量：3–10 岁看托管内容，青少年看船上活动，婴幼儿看付费托儿与如厕规则。</p>
+            <ol class="rank-list">
+              <li><strong>1</strong><span data-zh="Disney：低龄内容完成度最高" data-en="Disney: best-integrated younger-child experience">Disney：低龄内容完成度最高</span></li>
+              <li><strong>2</strong><span data-zh="Royal：高能亲子与青少年活动最强" data-en="Royal: strongest for active families and teens">Royal：高能亲子与青少年活动最强</span></li>
+              <li><strong>3</strong><span data-zh="MSC / Carnival：预算效率更高" data-en="MSC / Carnival: stronger budget efficiency">MSC / Carnival：预算效率更高</span></li>
+            </ol>
+            <button class="persona-select" type="button" data-profile="family" data-zh="按三口之家筛选航次" data-en="Filter for families">按三口之家筛选航次</button>
+          </article>
+
+          <article class="persona-card" data-number="03">
+            <div class="persona-icon" aria-hidden="true">∞</div>
+            <h3 data-zh="带老人 / With seniors" data-en="With seniors">带老人 / With seniors</h3>
+            <p data-zh="品牌不是第一筛选器。先确认往返母港、无障碍舱、接驳艇、码头距离与医疗保障。" data-en="Brand is not the first filter. Check roundtrip homeport, accessible cabin, tenders, pier distance and medical cover first.">品牌不是第一筛选器。先确认往返母港、无障碍舱、接驳艇、码头距离与医疗保障。</p>
+            <ol class="rank-list">
+              <li><strong>1</strong><span data-zh="HAL / Princess：阿拉斯加节奏成熟" data-en="HAL / Princess: mature Alaska operations">HAL / Princess：阿拉斯加节奏成熟</span></li>
+              <li><strong>2</strong><span data-zh="Celebrity / Viking：服务与空间更从容" data-en="Celebrity / Viking: calmer service and space">Celebrity / Viking：服务与空间更从容</span></li>
+              <li><strong>3</strong><span data-zh="NCL：自由用餐易协调三代作息" data-en="NCL: flexible dining eases multigenerational timing">NCL：自由用餐易协调三代作息</span></li>
+            </ol>
+            <button class="persona-select" type="button" data-profile="senior" data-zh="按适老偏好筛选航次" data-en="Filter for seniors">按适老偏好筛选航次</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section coral-wash" id="matcher">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="航次匹配器" data-en="Voyage matcher">航次匹配器</p>
+            <h2 data-zh="16 个真实价格锚点，先排雷，再心动。" data-en="16 real price anchors. De-risk first, dream second.">16 个真实价格锚点，先排雷，再心动。</h2>
+          </div>
+          <p data-zh="下列是检索日可见的代表性航次，不是库存清单。系统按你的旅伴场景、航区、月份与预算层级重新排序。" data-en="These are representative sailings visible on the research date, not an inventory feed. Re-rank them by party, region, month and budget tier.">下列是检索日可见的代表性航次，不是库存清单。系统按你的旅伴场景、航区、月份与预算层级重新排序。</p>
+        </div>
+
+        <div class="decision-board">
+          <aside class="filter-panel" aria-label="Voyage filters">
+            <h3 data-zh="你的旅行设定" data-en="Your trip setup">你的旅行设定</h3>
+            <p data-zh="每个选择都会即时重排结果。" data-en="Every choice instantly re-ranks the results.">每个选择都会即时重排结果。</p>
+            <div class="field">
+              <label for="profileFilter" data-zh="旅伴" data-en="Party">旅伴</label>
+              <select id="profileFilter">
+                <option value="all" data-zh="不限" data-en="Any">不限</option>
+                <option value="couple" data-zh="情侣" data-en="Couple">情侣</option>
+                <option value="family" data-zh="全家三口" data-en="Family of 3">全家三口</option>
+                <option value="senior" data-zh="带老人 / 三代" data-en="With seniors">带老人 / 三代</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="regionFilter" data-zh="航区" data-en="Region">航区</label>
+              <select id="regionFilter">
+                <option value="all" data-zh="全球" data-en="Worldwide">全球</option>
+                <option value="asia" data-zh="亚洲 / 中国母港" data-en="Asia / China homeports">亚洲 / 中国母港</option>
+                <option value="alaska" data-zh="阿拉斯加" data-en="Alaska">阿拉斯加</option>
+                <option value="med" data-zh="地中海" data-en="Mediterranean">地中海</option>
+                <option value="caribbean" data-zh="加勒比 / 巴哈马" data-en="Caribbean / Bahamas">加勒比 / 巴哈马</option>
+                <option value="northern" data-zh="北欧 / 跨大西洋" data-en="Northern Europe / Atlantic">北欧 / 跨大西洋</option>
+                <option value="oceania" data-zh="澳新" data-en="Australia / New Zealand">澳新</option>
+                <option value="polar" data-zh="极地 / 挪威海岸" data-en="Polar / Norwegian coast">极地 / 挪威海岸</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="monthFilter" data-zh="出发月" data-en="Departure month">出发月</label>
+              <select id="monthFilter">
+                <option value="all" data-zh="任意月份" data-en="Any month">任意月份</option>
+                <option value="1">01</option><option value="2">02</option><option value="3">03</option>
+                <option value="4">04</option><option value="5">05</option><option value="6">06</option>
+                <option value="7">07</option><option value="8">08</option><option value="9">09</option>
+                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="budgetFilter" data-zh="票价层级 / 人" data-en="Fare tier / person">票价层级 / 人</label>
+              <select id="budgetFilter">
+                <option value="all" data-zh="不限" data-en="Any">不限</option>
+                <option value="entry" data-zh="入门 · 约 US$900 内" data-en="Entry · about US$900 or less">入门 · 约 US$900 内</option>
+                <option value="mid" data-zh="中档 · 约 US$900–2,000" data-en="Mid · about US$900–2,000">中档 · 约 US$900–2,000</option>
+                <option value="premium" data-zh="高端 · US$2,000+" data-en="Premium · US$2,000+">高端 · US$2,000+</option>
+                <option value="expedition" data-zh="探险 · US$8,000+" data-en="Expedition · US$8,000+">探险 · US$8,000+</option>
+              </select>
+            </div>
+            <button type="button" class="filter-reset" id="resetFilters" data-zh="重置全部筛选" data-en="Reset all filters">重置全部筛选</button>
+            <div class="filter-note" data-zh="币种未按实时汇率换算；预算层级仅用于粗排。点进官网后务必保持同一销售地区、人数和舱型比较。" data-en="Currencies are not converted at live FX. Budget tiers are directional only. Keep sales region, party size and cabin type identical when comparing checkout totals.">币种未按实时汇率换算；预算层级仅用于粗排。点进官网后务必保持同一销售地区、人数和舱型比较。</div>
+          </aside>
+
+          <div>
+            <div class="result-toolbar">
+              <div>
+                <h3 id="resultTitle" data-zh="全部代表航次" data-en="All representative sailings">全部代表航次</h3>
+                <span class="result-count"><strong id="resultCount">16</strong> <span data-zh="个结果" data-en="results">个结果</span></span>
+              </div>
+              <span class="result-count" data-zh="按场景适配度排序" data-en="Sorted by profile fit">按场景适配度排序</span>
+            </div>
+            <div class="route-grid" id="routeGrid" aria-live="polite"></div>
+            <div class="empty-results" id="emptyResults" hidden>
+              <strong data-zh="没有同时满足全部条件的样本。" data-en="No sample matches every filter.">没有同时满足全部条件的样本。</strong>
+              <div data-zh="放宽月份或预算层级再试一次。" data-en="Try widening month or budget tier.">放宽月份或预算层级再试一次。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="seasons">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="全球航季地图" data-en="Global season atlas">全球航季地图</p>
+            <h2 data-zh="最便宜的月份，常常是在和天气交换。" data-en="The cheapest month often trades against the weather.">最便宜的月份，常常是在和天气交换。</h2>
+          </div>
+          <p data-zh="绿色是主航季；金色是肩季或仍可考虑；斜纹提示天气、海况或部署不稳定。它是选月工具，不是气象承诺。" data-en="Green marks the core season; gold marks shoulder or workable months; stripes flag weather, sea-state or deployment uncertainty. This is a planning aid, not a weather guarantee.">绿色是主航季；金色是肩季或仍可考虑；斜纹提示天气、海况或部署不稳定。它是选月工具，不是气象承诺。</p>
+        </div>
+        <div class="season-card">
+          <div class="season-grid" id="seasonGrid"></div>
+          <div class="season-legend">
+            <span><i class="legend-dot"></i><span data-zh="主航季 / 最稳妥" data-en="Core season / strongest fit">主航季 / 最稳妥</span></span>
+            <span><i class="legend-dot good"></i><span data-zh="肩季 / 性价比" data-en="Shoulder / value window">肩季 / 性价比</span></span>
+            <span><i class="legend-dot risk"></i><span data-zh="天气或部署风险" data-en="Weather or deployment risk">天气或部署风险</span></span>
+          </div>
+          <p class="season-disclaimer" data-zh="经验规则：阿拉斯加多为 5–9 月；南极多为 11–3 月；地中海 4–6 月和 9–10 月温度与人流更均衡；加勒比全年可航但 6–11 月需把热带风暴纳入改港预期。" data-en="Planning rules: Alaska generally runs May–September; Antarctica November–March; the Mediterranean is more balanced in April–June and September–October; the Caribbean sails year-round, with tropical-storm disruption risk from June–November.">经验规则：阿拉斯加多为 5–9 月；南极多为 11–3 月；地中海 4–6 月和 9–10 月温度与人流更均衡；加勒比全年可航但 6–11 月需把热带风暴纳入改港预期。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cost">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="真总价实验室" data-en="Landed-cost lab">真总价实验室</p>
+            <h2 data-zh="“$719 起”只是门票，不是这次旅行。" data-en="“From $719” is an entry ticket, not the trip.">“$719 起”只是门票，不是这次旅行。</h2>
+          </div>
+          <p data-zh="把税港费、小费、酒水/网络、岸上游、机票和前后住宿拉回同一个账单。预设只是演示，可替换成你的结账页数字。" data-en="Bring taxes, gratuities, drinks/Wi-Fi, excursions, flights and pre/post hotels into one bill. Presets are demonstrations—replace them with checkout numbers.">把税港费、小费、酒水/网络、岸上游、机票和前后住宿拉回同一个账单。预设只是演示，可替换成你的结账页数字。</p>
+        </div>
+
+        <div class="calculator-layout">
+          <form class="calculator-form" id="costForm">
+            <h3 data-zh="输入同一销售地区的报价" data-en="Enter one sales-region quote">输入同一销售地区的报价</h3>
+            <p data-zh="不做汇率转换；所有输入必须使用同一币种。" data-en="No FX conversion; use one currency for every input.">不做汇率转换；所有输入必须使用同一币种。</p>
+            <div class="calc-grid">
+              <label class="wide"><span data-zh="演示预设" data-en="Demo preset">演示预设</span>
+                <select id="calcPreset">
+                  <option value="royal" data-zh="皇家加勒比 · 7 晚西加勒比 · 2 成人" data-en="Royal · 7-night West Caribbean · 2 adults">皇家加勒比 · 7 晚西加勒比 · 2 成人</option>
+                  <option value="ncl" data-zh="NCL · 9 晚阿拉斯加 · 2 成人" data-en="NCL · 9-night Alaska · 2 adults">NCL · 9 晚阿拉斯加 · 2 成人</option>
+                  <option value="blank" data-zh="空白 · 三口之家询价模板" data-en="Blank · family-of-three quote">空白 · 三口之家询价模板</option>
+                </select>
+              </label>
+              <label><span data-zh="币种" data-en="Currency">币种</span>
+                <select id="currency"><option>USD</option><option>CNY</option><option>EUR</option><option>GBP</option><option>AUD</option><option>CAD</option></select>
+              </label>
+              <label><span data-zh="成人数" data-en="Adults">成人数</span><input id="adults" type="number" min="1" max="10" step="1" value="2"></label>
+              <label><span data-zh="儿童数" data-en="Children">儿童数</span><input id="children" type="number" min="0" max="8" step="1" value="0"></label>
+              <label><span data-zh="晚数" data-en="Nights">晚数</span><input id="nights" type="number" min="1" max="180" step="1" value="7"></label>
+              <label><span data-zh="成人票价 / 人" data-en="Adult fare / person">成人票价 / 人</span><input id="adultFare" type="number" min="0" step="1" value="719"></label>
+              <label><span data-zh="儿童/第三人票价 / 人" data-en="Child/3rd guest fare">儿童/第三人票价 / 人</span><input id="childFare" type="number" min="0" step="1" value="0"></label>
+              <label><span data-zh="税港费 / 人" data-en="Taxes & fees / person">税港费 / 人</span><input id="taxes" type="number" min="0" step="1" value="0"></label>
+              <label><span data-zh="每日小费 / 人" data-en="Gratuity / person / day">每日小费 / 人</span><input id="tips" type="number" min="0" step=".5" value="18.5"></label>
+              <label><span data-zh="酒水 + 网络 + 特色餐" data-en="Drinks + Wi-Fi + dining">酒水 + 网络 + 特色餐</span><input id="packages" type="number" min="0" step="10" value="400"></label>
+              <label><span data-zh="岸上游 / 人" data-en="Excursions / person">岸上游 / 人</span><input id="excursions" type="number" min="0" step="10" value="200"></label>
+              <label><span data-zh="机票 + 酒店 + 接送" data-en="Flights + hotels + transfers">机票 + 酒店 + 接送</span><input id="travel" type="number" min="0" step="10" value="1200"></label>
+            </div>
+            <div class="calc-note" data-zh="三口之家警告：第三位并不等于“成人起价”。舱房是否允许 3 人、儿童促销、税费与第 3/4 人定价都可能非线性；必须输入真实结账页数字。" data-en="Family-of-three warning: the third guest does not equal the advertised adult fare. Cabin occupancy, child promotions, taxes and 3rd/4th guest pricing are nonlinear—use the actual checkout quote.">三口之家警告：第三位并不等于“成人起价”。舱房是否允许 3 人、儿童促销、税费与第 3/4 人定价都可能非线性；必须输入真实结账页数字。</div>
+          </form>
+
+          <div class="calculator-result" aria-live="polite">
+            <h3 data-zh="预计落地总成本" data-en="Estimated landed trip cost">预计落地总成本</h3>
+            <p data-zh="旅行级预算，不是邮轮公司报价。" data-en="Trip-level budget, not a cruise-line quote.">旅行级预算，不是邮轮公司报价。</p>
+            <span class="total-label" data-zh="全团合计" data-en="Party total">全团合计</span>
+            <div class="total-number" id="totalNumber">$3,697</div>
+            <div class="uplift" id="upliftText">比标题票价高 157%</div>
+            <div class="cost-stack" aria-hidden="true">
+              <span class="fare" id="fareBar"></span>
+              <span class="tax" id="taxBar"></span>
+              <span class="tips" id="tipsBar"></span>
+              <span class="extras" id="extrasBar"></span>
+              <span class="travel" id="travelBar"></span>
+            </div>
+            <ul class="breakdown">
+              <li><span data-zh="基础票价" data-en="Base fare">基础票价</span><strong id="fareValue">$1,438</strong></li>
+              <li><span data-zh="税费" data-en="Taxes & fees">税费</span><strong id="taxValue">$0</strong></li>
+              <li><span data-zh="小费 / 服务费" data-en="Gratuities / service fees">小费 / 服务费</span><strong id="tipsValue">$259</strong></li>
+              <li><span data-zh="套餐 + 岸上游" data-en="Packages + excursions">套餐 + 岸上游</span><strong id="extrasValue">$800</strong></li>
+              <li><span data-zh="机酒接送" data-en="Flights, hotel & transfers">机酒接送</span><strong id="travelValue">$1,200</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact coral-wash" id="service">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="品牌服务光谱" data-en="Brand service spectrum">品牌服务光谱</p>
+            <h2 data-zh="真正的差价，藏在“包含什么”里。" data-en="The real price gap hides in what is included.">真正的差价，藏在“包含什么”里。</h2>
+          </div>
+          <p data-zh="“全包”没有行业统一定义。下表按基础票价与当前官网政策整理；促销包、套房等级和销售地区会改变结果。" data-en="“All-inclusive” has no universal industry definition. This table reflects base fares and current official policies; promotions, suite tiers and sales regions can change the result.">“全包”没有行业统一定义。下表按基础票价与当前官网政策整理；促销包、套房等级和销售地区会改变结果。</p>
+        </div>
+
+        <div class="matrix-wrap">
+          <table class="brand-table">
+            <thead>
+              <tr>
+                <th data-zh="品牌" data-en="Brand">品牌</th>
+                <th data-zh="基础餐饮" data-en="Base dining">基础餐饮</th>
+                <th data-zh="酒水 / Wi‑Fi" data-en="Drinks / Wi-Fi">酒水 / Wi‑Fi</th>
+                <th data-zh="小费口径" data-en="Gratuity basis">小费口径</th>
+                <th data-zh="儿童项目" data-en="Kids program">儿童项目</th>
+                <th data-zh="最适合" data-en="Best for">最适合</th>
+                <th data-zh="一句排雷" data-en="Watch-out">一句排雷</th>
+              </tr>
+            </thead>
+            <tbody id="brandTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mobility">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="带老人 / 行动便利" data-en="Seniors / mobility">带老人 / 行动便利</p>
+            <h2 data-zh="适老，不是有电梯就够了。" data-en="Accessible means far more than having elevators.">适老，不是有电梯就够了。</h2>
+          </div>
+          <p data-zh="接驳艇、舷梯角度、码头到景点距离、长走廊和单程航线，往往比船龄更影响体验。无障碍舱数量有限，先锁舱再买机票。" data-en="Tenders, gangway slope, pier distance, long corridors and one-way itineraries often matter more than ship age. Accessible cabins are scarce—secure one before flights.">接驳艇、舷梯角度、码头到景点距离、长走廊和单程航线，往往比船龄更影响体验。无障碍舱数量有限，先锁舱再买机票。</p>
+        </div>
+
+        <div class="mobility-layout">
+          <article class="mobility-manifesto">
+            <span class="kicker" data-zh="黄金筛选顺序" data-en="Golden filter order">黄金筛选顺序</span>
+            <div class="big-rule" data-zh="往返母港 → 少接驳艇 → 无障碍舱 → 近电梯 → 低强度岸上游" data-en="Roundtrip port → fewer tenders → accessible cabin → near elevator → low-intensity shore days">往返母港 → 少接驳艇 → 无障碍舱 → 近电梯 → 低强度岸上游</div>
+            <p data-zh="官方政策普遍不承诺轮椅可上接驳艇；NCL 也明确日常轮椅不供全程借用。需要协助时，要在付款前向 Special Needs 部门取得书面确认。" data-en="Official policies generally do not guarantee wheelchairs on tenders; NCL also states onboard wheelchairs are not for continuous loan. Obtain written confirmation from Special Needs before payment.">官方政策普遍不承诺轮椅可上接驳艇；NCL 也明确日常轮椅不供全程借用。需要协助时，要在付款前向 Special Needs 部门取得书面确认。</p>
+            <a href="https://www.royalcaribbean.com/resources/guest-special-needs" target="_blank" rel="noopener" data-zh="查看皇家加勒比 Special Needs 说明 ↗" data-en="Royal Caribbean Special Needs policy ↗">查看皇家加勒比 Special Needs 说明 ↗</a>
+          </article>
+          <div class="check-grid">
+            <article class="check-card"><strong data-zh="确认接驳艇港" data-en="Identify tender ports">确认接驳艇港</strong><span data-zh="圣托里尼、米科诺斯等热门港常用接驳艇；动力轮椅通常不能保证登艇。" data-en="Popular ports such as Santorini and Mykonos often use tenders; powered-chair access cannot be guaranteed.">圣托里尼、米科诺斯等热门港常用接驳艇；动力轮椅通常不能保证登艇。</span></article>
+            <article class="check-card"><strong data-zh="锁定具体无障碍舱号" data-en="Secure an exact accessible cabin">锁定具体无障碍舱号</strong><span data-zh="不要只备注“需要方便”；确认门宽、无门槛淋浴、扶手、阳台坡道与床位配置。" data-en="Do not merely add a note; confirm doorway, roll-in shower, grab bars, balcony ramp and bed layout.">不要只备注“需要方便”；确认门宽、无门槛淋浴、扶手、阳台坡道与床位配置。</span></article>
+            <article class="check-card"><strong data-zh="减少船内日步数" data-en="Reduce daily onboard steps">减少船内日步数</strong><span data-zh="选中部、近主电梯但不正对电梯厅；避开剧院、泳池甲板和夜店上下层。" data-en="Choose midship near—but not facing—the main lifts; avoid decks above/below theatre, pool and club.">选中部、近主电梯但不正对电梯厅；避开剧院、泳池甲板和夜店上下层。</span></article>
+            <article class="check-card"><strong data-zh="设计恢复日" data-en="Build recovery days">设计恢复日</strong><span data-zh="连续三天靠港会透支体力；优先海上日穿插，岸上游选择小团、少台阶、可随时返回。" data-en="Three consecutive port days can exhaust energy. Prefer interspersed sea days and small-group, low-step excursions with easy return.">连续三天靠港会透支体力；优先海上日穿插，岸上游选择小团、少台阶、可随时返回。</span></article>
+            <article class="check-card"><strong data-zh="医疗与保险分开核验" data-en="Verify medical and insurance separately">医疗与保险分开核验</strong><span data-zh="船上医疗贵，常需先付；慢病药物、氧气、透析、撤离与既往症必须书面确认。" data-en="Shipboard medicine is costly and often pay-first. Confirm medication, oxygen, dialysis, evacuation and pre-existing conditions in writing.">船上医疗贵，常需先付；慢病药物、氧气、透析、撤离与既往症必须书面确认。</span></article>
+            <article class="check-card"><strong data-zh="给异地登离船留缓冲" data-en="Buffer open-jaw travel">给异地登离船留缓冲</strong><span data-zh="阿拉斯加南北向、跨洋等单程航线增加异地航班、行李与转运复杂度。" data-en="One-way Alaska and transoceanic sailings add open-jaw flights, luggage handling and transfer complexity.">阿拉斯加南北向、跨洋等单程航线增加异地航班、行李与转运复杂度。</span></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section coral-wash" id="risks">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="六张反证卡" data-en="Six counter-evidence cards">六张反证卡</p>
+            <h2 data-zh="漂亮的卖点，必须经得起不漂亮的问题。" data-en="Beautiful claims must survive uncomfortable questions.">漂亮的卖点，必须经得起不漂亮的问题。</h2>
+          </div>
+          <p data-zh="这是为了对抗“只看船图、只看起价、只看博主一天高光”的决策偏差。每张卡都对应一个付款前问题。" data-en="These cards counter the bias of judging by ship photos, headline fares or one creator’s highlight day. Each ends with a pre-payment question.">这是为了对抗“只看船图、只看起价、只看博主一天高光”的决策偏差。每张卡都对应一个付款前问题。</p>
+        </div>
+        <div class="risk-grid">
+          <article class="risk-card">
+            <span class="risk-number">1</span>
+            <h3 data-zh="起价不是落地价" data-en="Headline fare is not landed cost">起价不是落地价</h3>
+            <p data-zh="税港费、小费、Wi‑Fi、酒水、特色餐和岸上游可能把票价抬高 30%–100% 以上。付款前问：最终结账总额里逐项包含什么？" data-en="Taxes, gratuities, Wi-Fi, drinks, dining and excursions can lift the fare by 30%–100%+. Ask: what exactly is in the final checkout total?">税港费、小费、Wi‑Fi、酒水、特色餐和岸上游可能把票价抬高 30%–100% 以上。付款前问：最终结账总额里逐项包含什么？</p>
+          </article>
+          <article class="risk-card">
+            <span class="risk-number">2</span>
+            <h3 data-zh="第三人价格非线性" data-en="Third-guest pricing is nonlinear">第三人价格非线性</h3>
+            <p data-zh="“每人起”通常按双人舱；三人舱库存、儿童促销、上铺和税费会重算。付款前问：同一舱号 2 成人 + 1 儿童的总价是多少？" data-en="“From” usually assumes double occupancy. Triple inventory, child offers, berths and taxes reprice the room. Ask: what is the exact total for 2 adults + 1 child in this cabin?">“每人起”通常按双人舱；三人舱库存、儿童促销、上铺和税费会重算。付款前问：同一舱号 2 成人 + 1 儿童的总价是多少？</p>
+          </article>
+          <article class="risk-card">
+            <span class="risk-number">3</span>
+            <h3 data-zh="“靠港”不等于能下船" data-en="A port call does not guarantee access">“靠港”不等于能下船</h3>
+            <p data-zh="接驳艇、海况和潮位可能让行动受限者留在船上。付款前问：哪些港口靠接驳艇？我的轮椅/助行器是否获书面接受？" data-en="Tendering, sea state and tides may keep mobility-limited guests onboard. Ask: which ports tender, and is my device accepted in writing?">接驳艇、海况和潮位可能让行动受限者留在船上。付款前问：哪些港口靠接驳艇？我的轮椅/助行器是否获书面接受？</p>
+          </article>
+          <article class="risk-card">
+            <span class="risk-number">4</span>
+            <h3 data-zh="风景航线也会改道" data-en="Scenic routes can change">风景航线也会改道</h3>
+            <p><span data-zh="冰况、天气、港口容量甚至山体滑坡都可能改港。2026 年多家阿拉斯加邮轮因 2025 年滑坡避开 Tracy Arm。付款前问：替代景观和取消条款是什么？" data-en="Ice, weather, berth capacity and landslides can reroute ships. In 2026 several Alaska lines avoided Tracy Arm after a 2025 slide. Ask: what is the substitute and cancellation remedy?">冰况、天气、港口容量甚至山体滑坡都可能改港。2026 年多家阿拉斯加邮轮因 2025 年滑坡避开 Tracy Arm。付款前问：替代景观和取消条款是什么？</span> <a href="https://apnews.com/article/b7d5171aed649de82b52bf4138a69919" target="_blank" rel="noopener" data-zh="AP 报道 ↗" data-en="AP report ↗">AP 报道 ↗</a></p>
+          </article>
+          <article class="risk-card">
+            <span class="risk-number">5</span>
+            <h3 data-zh="营销页可能落后于合同" data-en="Marketing can lag the contract">营销页可能落后于合同</h3>
+            <p><span data-zh="Virgin 的“包含项”仍强调高价值，但合同写明 2025-10-07 后新预订的小费不再包含。付款前问：以哪一版合同与确认单为准？" data-en="Virgin promotes high-value inclusions, while its contract says gratuities are no longer included for new bookings after 7 Oct 2025. Ask: which contract and confirmation govern?">Virgin 的“包含项”仍强调高价值，但合同写明 2025-10-07 后新预订的小费不再包含。付款前问：以哪一版合同与确认单为准？</span> <a href="https://www.virginvoyages.com/ticket-contract" target="_blank" rel="noopener" data-zh="查看合同 ↗" data-en="See contract ↗">查看合同 ↗</a></p>
+          </article>
+          <article class="risk-card">
+            <span class="risk-number">6</span>
+            <h3 data-zh="视频是体验证据，不是政策" data-en="Video proves experience, not policy">视频是体验证据，不是政策</h3>
+            <p data-zh="博主舱型、礼遇、天气和拍摄航次都可能与你不同。付款前问：视频里的每项福利，能否在我的舱等与确认单中找到？" data-en="A creator’s cabin, perks, weather and sailing may differ from yours. Ask: is every shown benefit listed for my fare and cabin in the confirmation?">博主舱型、礼遇、天气和拍摄航次都可能与你不同。付款前问：视频里的每项福利，能否在我的舱等与确认单中找到？</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="videos">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="视频观察舱" data-en="Video observation deck">视频观察舱</p>
+            <h2 data-zh="先看空间与动线，再看海景滤镜。" data-en="Watch space and flow before the sea-view filter.">先看空间与动线，再看海景滤镜。</h2>
+          </div>
+          <p data-zh="官方视频适合确认产品设计；旅游博主适合观察拥挤、餐饮、动线和真实支出。两者都不能替代当前合同与结账页。" data-en="Official video confirms product design; creators reveal crowds, food, flow and real spending. Neither replaces the current contract or checkout page.">官方视频适合确认产品设计；旅游博主适合观察拥挤、餐饮、动线和真实支出。两者都不能替代当前合同与结账页。</p>
+        </div>
+        <div class="video-grid" id="videoGrid"></div>
+        <p class="video-disclaimer" data-zh="外部视频版权归原作者/平台；本页仅提供跳转或隐私增强嵌入。Bilibili 视频在新标签页打开。" data-en="External videos belong to their creators/platforms; this page only links or uses privacy-enhanced embeds. Bilibili opens in a new tab.">外部视频版权归原作者/平台；本页仅提供跳转或隐私增强嵌入。Bilibili 视频在新标签页打开。</p>
+      </div>
+    </section>
+
+    <section class="section" id="plan">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="四步下单法" data-en="Four-step booking method">四步下单法</p>
+            <h2 data-zh="从“喜欢”到“敢付款”，只差一张同口径报价单。" data-en="From “I love it” to “I can book it” takes one comparable quote.">从“喜欢”到“敢付款”，只差一张同口径报价单。</h2>
+          </div>
+          <p data-zh="不要同时比较不同币种、不同销售地区、不同人数和不同舱型。先固定需求，再让官网或代理逐项回答。" data-en="Do not compare different currencies, sales regions, party sizes or cabin types. Freeze the brief first, then make the line or agent answer item by item.">不要同时比较不同币种、不同销售地区、不同人数和不同舱型。先固定需求，再让官网或代理逐项回答。</p>
+        </div>
+        <div class="plan-grid">
+          <article class="plan-card"><h3 data-zh="锁定两条航线，不锁品牌" data-en="Shortlist two routes, not brands">锁定两条航线，不锁品牌</h3><p data-zh="确定月份、飞行时长、是否往返母港、最多连续靠港天数和必须去的景点。把品牌放到第二层。" data-en="Fix month, flight tolerance, roundtrip preference, maximum consecutive port days and must-see sights. Put brand second.">确定月份、飞行时长、是否往返母港、最多连续靠港天数和必须去的景点。把品牌放到第二层。</p></article>
+          <article class="plan-card"><h3 data-zh="固定人数与舱型询真价" data-en="Quote the exact party and cabin">固定人数与舱型询真价</h3><p data-zh="填写国籍/居住地、成人和儿童出生日期、同一舱号、是否无障碍。截图最后付款页，不只截搜索结果。" data-en="Enter nationality/residency, all birth dates, the same cabin number and accessibility needs. Capture the final checkout, not just search results.">填写国籍/居住地、成人和儿童出生日期、同一舱号、是否无障碍。截图最后付款页，不只截搜索结果。</p></article>
+          <article class="plan-card"><h3 data-zh="做 48 小时可取消占舱" data-en="Use a reversible cabin hold">做 48 小时可取消占舱</h3><p data-zh="在可行时先占舱，再核对机票、签证、保险、接驳艇和无障碍书面确认；确认退订时点与押金规则。" data-en="Where available, hold the cabin while checking flights, visas, insurance, tenders and written accessibility. Confirm cancellation deadline and deposit terms.">在可行时先占舱，再核对机票、签证、保险、接驳艇和无障碍书面确认；确认退订时点与押金规则。</p></article>
+          <article class="plan-card"><h3 data-zh="只比落地总价与坏情景" data-en="Compare landed cost and downside">只比落地总价与坏情景</h3><p data-zh="把改港、晕船、儿童不进托管、老人无法下接驳艇等坏情景写出来；仍然满意，才是正确的船。" data-en="Write down rerouting, seasickness, a child refusing kids club, or a senior unable to tender. If the trip still works, it is the right ship.">把改港、晕船、儿童不进托管、老人无法下接驳艇等坏情景写出来；仍然满意，才是正确的船。</p></article>
+        </div>
+        <div class="rfq-box">
+          <div>
+            <h3 data-zh="一键复制中英文询价清单" data-en="Copy a bilingual quote checklist">一键复制中英文询价清单</h3>
+            <p data-zh="包含人数、舱型、税费、小费、儿童规则、接驳艇、无障碍和取消条款。" data-en="Includes party, cabin, taxes, gratuities, child rules, tenders, accessibility and cancellation terms.">包含人数、舱型、税费、小费、儿童规则、接驳艇、无障碍和取消条款。</p>
+          </div>
+          <button class="copy-button" type="button" id="copyRfq" data-zh="复制询价模板" data-en="Copy RFQ template">复制询价模板</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact coral-wash" id="sources">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <p class="kicker" data-zh="来源与方法" data-en="Sources & method">来源与方法</p>
+            <h2 data-zh="每个数字都有出处，每个出处都有边界。" data-en="Every number has a source—and every source has limits.">每个数字都有出处，每个出处都有边界。</h2>
+          </div>
+          <p data-zh="优先使用邮轮公司官网航次页、价目页、服务条款与无障碍政策；B 级来源只用于补充中国母港在售快照或事件背景。" data-en="Priority goes to cruise-line sailing pages, fare pages, terms and accessibility policies. Grade B sources only supplement China-homeport sale snapshots or event context.">优先使用邮轮公司官网航次页、价目页、服务条款与无障碍政策；B 级来源只用于补充中国母港在售快照或事件背景。</p>
+        </div>
+        <div class="source-summary">
+          <div class="source-stat"><strong>40+</strong><span data-zh="核验链接" data-en="Verified links">核验链接</span></div>
+          <div class="source-stat"><strong>31</strong><span data-zh="官方一手来源" data-en="Primary official sources">官方一手来源</span></div>
+          <div class="source-stat"><strong>10</strong><span data-zh="视频观察样本" data-en="Video observations">视频观察样本</span></div>
+          <div class="source-stat"><strong>2026.09.02</strong><span data-zh="检索日" data-en="Research date">检索日</span></div>
+        </div>
+
+        <details class="source-group" open>
+          <summary data-zh="A 级 · 航次排期与价格页" data-en="Grade A · sailing and price pages">A 级 · 航次排期与价格页</summary>
+          <ul class="source-list">
+            <li><span class="source-grade">A</span> <a href="https://www.royalcaribbean.com/cruises/itinerary/8-night-kobe-tokyo-overnights-cruise-from-shanghai-baoshan-on-spectrum/SC08BAO-924364793" target="_blank" rel="noopener">Royal · Spectrum 上海 8 晚 / Shanghai 8 nights</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.royalcaribbean.com/cruises/itinerary/7-night-western-caribbean-from-galveston-on-symphony/SY07GAL-3851841824?country=USA&amp;currency=USD&amp;sail-date=2027-01-24" target="_blank" rel="noopener">Royal · Symphony 西加勒比 / West Caribbean</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.royalcaribbean.com/cruises/itinerary/7-night-northbound-alaska-hubbard-glacier-from-vancouver-on-anthem/AN07YVR-4066772602?currency=USD&amp;sail-date=2027-06-11" target="_blank" rel="noopener">Royal · Anthem 阿拉斯加 / Alaska</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.carnival.com/en/cruise-to/bahamas-cruises" target="_blank" rel="noopener">Carnival · 巴哈马价格页 / Bahamas fares</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.ncl.com/no/en/vacations?cruise-destination=alaska" target="_blank" rel="noopener">NCL · 2027 阿拉斯加 / Alaska</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.msccruises.ca/our-cruises/ships/msc-world-europa" target="_blank" rel="noopener">MSC · World Europa 2026–27</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.celebritycruises.com/itinerary-details/7-night-alaska-dawes-glacier-cruise-from-seattle-washington?cCD=CO&amp;packageID=EG07A396&amp;sDT=2026-05-29" target="_blank" rel="noopener">Celebrity Edge · 阿拉斯加 / Alaska</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.celebritycruises.com/itinerary/10-night-new-zealand-from-auckland-on-edge-EG10K189?country=AUS&amp;groupId=EG10AKL-1974054347&amp;packageCode=EG10K189&amp;sailDate=2027-11-21" target="_blank" rel="noopener">Celebrity Edge · 新西兰 / New Zealand</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?currencyCode=USD" target="_blank" rel="noopener">Virgin Voyages · 航次搜索 / Voyage planner</a></li>
+            <li><span class="source-grade">A−</span> <a href="https://www.cunard.com/content/dam/cunard/cunard-asset/au-launch-fares/Fares-Winter-Summer-2026-Programme-Release-AUD.pdf" target="_blank" rel="noopener">Cunard · 2026 launch fares PDF</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.vikingcruises.com/oceans/search-cruises/index.html?Regions=Mediterranean" target="_blank" rel="noopener">Viking · 地中海航次 / Mediterranean</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.hurtigruten.com/en-us/cruises" target="_blank" rel="noopener">Hurtigruten · 挪威海岸 / Norway coast</a></li>
+            <li><span class="source-grade">A</span> <a href="https://b2c-prod.travelhx.com/en-us/destinations/antarctica-cruises/" target="_blank" rel="noopener">HX · 南极探险 / Antarctica</a></li>
+            <li><span class="source-grade">A</span> <a href="https://disneycruise.disney.go.com/en-my/ships/adventure/" target="_blank" rel="noopener">Disney Adventure · 新加坡 / Singapore</a></li>
+            <li><span class="source-grade">B</span> <a href="https://cruise.ctrip.com/newpackage/search/c140-973.html" target="_blank" rel="noopener">携程 · 爱达魔都号在售快照 / Adora sale snapshot</a></li>
+          </ul>
+        </details>
+
+        <details class="source-group">
+          <summary data-zh="A 级 · 服务、费用与“全包”边界" data-en="Grade A · services, fees and inclusion boundaries">A 级 · 服务、费用与“全包”边界</summary>
+          <ul class="source-list">
+            <li><span class="source-grade">A</span> <a href="https://www.royalcaribbean.com/faq/questions/cruise-vacation-price" target="_blank" rel="noopener">Royal · 票价包含项 / fare inclusions</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.royalcaribbean.com/faq/questions/onboard-service-gratuity-expense" target="_blank" rel="noopener">Royal · 小费 / gratuities</a></li>
+            <li><span class="source-grade">A</span> <a href="https://help.carnival.com/app/answers/detail/a_id/3861/" target="_blank" rel="noopener">Carnival · 票价包含项 / inclusions</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.ncl.com/faq/cruise-fare-inclusions" target="_blank" rel="noopener">NCL · 基础票价 / base fare</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.ncl.com/faq/what-is-included-in-free-at-sea" target="_blank" rel="noopener">NCL · Free at Sea 细则 / terms</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.msccruises.com/int/manage-booking/before-you-go/hotel-service-charge" target="_blank" rel="noopener">MSC · 酒店服务费 / hotel service charge</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.msccruises.ca/plan-a-cruise/new-msc-yacht-club" target="_blank" rel="noopener">MSC Yacht Club · 包含项 / inclusions</a></li>
+            <li><span class="source-grade">A</span> <a href="https://disneycruise.disney.go.com/en-gb/faq/ships-cruises/included-in-cruise-price/" target="_blank" rel="noopener">Disney · 票价包含项 / inclusions</a></li>
+            <li><span class="source-grade">A</span> <a href="https://disneycruise.disney.go.com/en-gb/faq/onboard-services/gratuities/" target="_blank" rel="noopener">Disney · 小费 / gratuities</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.virginvoyages.com/whats-included" target="_blank" rel="noopener">Virgin · 包含项 / inclusions</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.virginvoyages.com/ticket-contract" target="_blank" rel="noopener">Virgin · 船票合同 / ticket contract</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.vikingcruises.com/oceans/why-viking/viking-difference/viking-inclusive-value.html" target="_blank" rel="noopener">Viking · Inclusive Value</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.oceaniacruises.com/your-world-included" target="_blank" rel="noopener">Oceania · Your World Included</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.rssc.com/cruises/NAV260611/summary?source=specials&amp;sp=upgrade-your-horizon" target="_blank" rel="noopener">Regent · 全包内容 / all-inclusive</a></li>
+          </ul>
+        </details>
+
+        <details class="source-group">
+          <summary data-zh="A / B 级 · 无障碍、航季与事件背景" data-en="Grade A / B · accessibility, seasons and context">A / B 级 · 无障碍、航季与事件背景</summary>
+          <ul class="source-list">
+            <li><span class="source-grade">A</span> <a href="https://www.royalcaribbean.com/resources/guest-special-needs" target="_blank" rel="noopener">Royal · Guest Special Needs</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.ncl.com/cruise-preparation/accessibility/mobility-challenges" target="_blank" rel="noopener">NCL · Mobility Challenges</a></li>
+            <li><span class="source-grade">A</span> <a href="https://www.msccruises.com/int/manage-booking/accessibility-medical" target="_blank" rel="noopener">MSC · Accessibility & Medical</a></li>
+            <li><span class="source-grade">A</span> <a href="https://disneycruise.disney.go.com/en/faq/guests-with-disabilities/wheelchair-accessible-staterooms/" target="_blank" rel="noopener">Disney · Accessible Staterooms</a></li>
+            <li><span class="source-grade">A−</span> <a href="https://www.hollandamerica.com/content/dam/hal/marketing-assets/cruise-planning/2027-hal-alaska-planner.pdf" target="_blank" rel="noopener">Holland America · 2027 Alaska planner</a></li>
+            <li><span class="source-grade">A−</span> <a href="https://www.princess.com/content/dam/princess/princess-cruises-brochures/sg/2026-Alaska.pdf" target="_blank" rel="noopener">Princess · 2026 Alaska planner</a></li>
+            <li><span class="source-grade">B</span> <a href="https://apnews.com/article/b7d5171aed649de82b52bf4138a69919" target="_blank" rel="noopener">AP · Tracy Arm landslide routing impact</a></li>
+            <li><span class="source-grade">B</span> <a href="https://www.shanghai.gov.cn/nw4411/20260609/6181b23a610b4ff6bd3a685f063ce418.html" target="_blank" rel="noopener">上海市政府 · 爱达无目的地航次 / Adora no-port cruises</a></li>
+          </ul>
+        </details>
+
+        <div class="method-note">
+          <strong data-zh="方法边界：" data-en="Method boundary:">方法边界：</strong>
+          <span data-zh="本页是 2026-09-02 的研究快照，不抓取实时库存，也不替你判断签证、健康或保险适用性。价格按页面原币种保留；“税费已含/另付”只在来源明确时标注。推荐分数是编辑型启发式模型，不是邮轮公司评级。" data-en="This is a 2 Sep 2026 research snapshot, not a live inventory feed, and it does not decide visa, health or insurance eligibility. Prices retain source currency; tax treatment is shown only when explicit. Fit scores are editorial heuristics, not cruise-line ratings.">本页是 2026-09-02 的研究快照，不抓取实时库存，也不替你判断签证、健康或保险适用性。价格按页面原币种保留；“税费已含/另付”只在来源明确时标注。推荐分数是编辑型启发式模型，不是邮轮公司评级。</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <strong>Global Cruise Compass · 2026–27</strong>
+        <p data-zh="研究、策展与交互设计：本地双语决策台。封面图：Palickap，Geirangerfjorden (13)，2018，CC BY-SA 4.0；本页裁切并叠加色彩处理。" data-en="Research, curation and interaction design: local bilingual decision dashboard. Hero image: Palickap, Geirangerfjorden (13), 2018, CC BY-SA 4.0; cropped and color-treated here.">研究、策展与交互设计：本地双语决策台。封面图：Palickap，Geirangerfjorden (13)，2018，CC BY-SA 4.0；本页裁切并叠加色彩处理。</p>
+        <p><a href="https://commons.wikimedia.org/wiki/File:Geirangerfjorden_(13).jpg" target="_blank" rel="noopener">Image source &amp; license ↗</a></p>
+      </div>
+      <div class="footer-stamp"><span data-zh="离线可打开 · 外链需联网" data-en="Works offline · links need internet">离线可打开 · 外链需联网</span><br>Research snapshot 2026.09.02</div>
+    </div>
+  </footer>
+
+  <dialog id="videoDialog">
+    <div class="dialog-top">
+      <strong id="dialogTitle">Video</strong>
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="video-frame" id="videoFrame"></div>
+  </dialog>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var state = {
+        lang: localStorage.getItem("cruiseCompassLang") || "zh",
+        profile: localStorage.getItem("cruiseCompassProfile") || "all"
+      };
+
+      var routes = [
+        {
+          id: "spectrum-tokyo",
+          brand: "Royal Caribbean · Spectrum of the Seas",
+          titleZh: "上海 → 神户过夜 → 东京过夜",
+          titleEn: "Shanghai → Kobe overnight → Tokyo overnight",
+          metaZh: "8 晚 · 上海宝山往返 · 2 个日本过夜港",
+          metaEn: "8 nights · roundtrip Shanghai Baoshan · two Japan overnights",
+          region: "asia", months: [3], tier: "mid", price: "US$1,589", date: "2027-03-29",
+          priceNoteZh: "每人起 · 税费已含；双人舱 US$3,177",
+          priceNoteEn: "from per person · taxes included; US$3,177 per double room",
+          copyZh: "少飞行、中文环境友好，东京与神户过夜减少“到港即走”的匆忙；适合第一次带父母尝试长一点的亚洲航次。",
+          copyEn: "Low flight burden and a China-homeport setting; overnight calls make Tokyo and Kobe less rushed—strong for a first longer trip with parents.",
+          caveatZh: "船大、步行多；日本岸上行程仍需评估台阶与巴士上下车。",
+          caveatEn: "Large ship means long walks; Japanese shore days still require step and coach-access checks.",
+          profiles: {couple: 8, family: 9, senior: 8}, best: ["family", "senior"], grade: "A",
+          url: "https://www.royalcaribbean.com/cruises/itinerary/8-night-kobe-tokyo-overnights-cruise-from-shanghai-baoshan-on-spectrum/SC08BAO-924364793"
+        },
+        {
+          id: "spectrum-short",
+          brand: "Royal Caribbean · Spectrum of the Seas",
+          titleZh: "上海 → 福冈 · 短线试水",
+          titleEn: "Shanghai → Fukuoka · short sampler",
+          metaZh: "4 晚 · 上海宝山往返 · 多个 2026 航次",
+          metaEn: "4 nights · roundtrip Shanghai Baoshan · multiple 2026 sailings",
+          region: "asia", months: [6,7,8,9,10,11,12], tier: "entry", price: "US$451", date: "2026–27",
+          priceNoteZh: "官网船舶页代表起价 / 人；日期与库存动态",
+          priceNoteEn: "representative ship-page from fare / person; date and inventory move",
+          copyZh: "低时间成本验证家人是否晕船、是否喜欢船上节奏；儿童活动丰富，适合第一次邮轮。",
+          copyEn: "A low-time-cost test of seasickness and shipboard rhythm, with strong kids activities for a first cruise.",
+          caveatZh: "短航次海上时间占比高，单港天气变化会显著影响目的地体验。",
+          caveatEn: "Short itinerary has a high sea-day share; one weather-affected port can reshape the trip.",
+          profiles: {couple: 6, family: 9, senior: 7}, best: ["family"], grade: "A",
+          url: "https://www.royalcaribbean.com/aus/en/cruise-ships/spectrum-of-the-seas?bvstate=pg%3A215%2Fct%3Ar"
+        },
+        {
+          id: "adora",
+          brand: "Adora Cruises · Adora Magic City",
+          titleZh: "上海 → 冲绳 → 济州 → 上海",
+          titleEn: "Shanghai → Okinawa → Jeju → Shanghai",
+          metaZh: "6 天 5 晚 · 中国母港 · 携程在售样本",
+          metaEn: "5 nights · China homeport · Ctrip sale snapshot",
+          region: "asia", months: [12], tier: "entry", price: "¥2,050", date: "2026-12-06",
+          priceNoteZh: "每人起 · B 级二级市场快照；以最终确认单为准",
+          priceNoteEn: "from per person · Grade B marketplace snapshot; verify final confirmation",
+          copyZh: "中文服务、本地支付与上海往返对带老人和多代家庭最省心，适合预算敏感的首次体验。",
+          copyEn: "Mandarin service, local payment and roundtrip Shanghai reduce friction for seniors and multigenerational families.",
+          caveatZh: "二级平台起价不能替代同舱真实总价；口岸、签证与靠港安排需复核。",
+          caveatEn: "Marketplace “from” fare is not the cabin total; reconfirm immigration, visa and port arrangements.",
+          profiles: {couple: 6, family: 8, senior: 9}, best: ["senior"], grade: "B",
+          url: "https://cruise.ctrip.com/newpackage/search/c140-973.html"
+        },
+        {
+          id: "disney-adventure",
+          brand: "Disney Cruise Line · Disney Adventure",
+          titleZh: "新加坡往返 · 海上目的地",
+          titleEn: "Singapore roundtrip · the ship is the destination",
+          metaZh: "3 / 4 晚 · 不停港设计 · 2026–28 分批开放",
+          metaEn: "3 / 4 nights · no-port format · 2026–28 releases",
+          region: "asia", months: [1,2,3,4,5,9,10,11,12], tier: "premium", price: "Quote", date: "2026–28",
+          priceNoteZh: "部分 2026 秋冬航次官网优惠最高 20%；需实时询价",
+          priceNoteEn: "selected late-2026 sailings advertised up to 20% off; live quote required",
+          copyZh: "3–10 岁儿童内容密度最高，餐饮、软饮、角色与主秀整合度强；无需为靠港赶行程。",
+          copyEn: "Exceptional content density for ages 3–10, with dining, soft drinks, characters and shows tightly integrated—and no rushed port days.",
+          caveatZh: "船就是目的地，不适合把“看多个城市”作为核心诉求；婴幼儿托儿收费。",
+          caveatEn: "The ship is the destination, so it is weak for city-count travelers; nursery care costs extra.",
+          profiles: {couple: 5, family: 10, senior: 7}, best: ["family"], grade: "A",
+          url: "https://disneycruise.disney.go.com/en-my/ships/adventure/"
+        },
+        {
+          id: "symphony-caribbean",
+          brand: "Royal Caribbean · Symphony of the Seas",
+          titleZh: "加尔维斯顿 → 罗阿坦 → 墨西哥",
+          titleEn: "Galveston → Roatán → Mexican Caribbean",
+          metaZh: "7 晚 · 西加勒比 · 加尔维斯顿往返",
+          metaEn: "7 nights · Western Caribbean · roundtrip Galveston",
+          region: "caribbean", months: [1], tier: "entry", price: "US$719", date: "2027-01-24",
+          priceNoteZh: "每人起 · 税费已含；双人舱 US$1,438",
+          priceNoteEn: "from per person · taxes included; US$1,438 per double room",
+          copyZh: "大型娱乐硬件、儿童项目与多种餐饮兼顾三代；冬季加勒比天气窗口更稳。",
+          copyEn: "Mega-ship entertainment, kids programs and dining breadth suit three generations; January is a stronger Caribbean weather window.",
+          caveatZh: "基础价外的小费、Wi‑Fi、酒水、岸上游会明显抬高总成本。",
+          caveatEn: "Gratuities, Wi-Fi, drinks and shore days can materially lift the base fare.",
+          profiles: {couple: 6, family: 10, senior: 6}, best: ["family"], grade: "A",
+          url: "https://www.royalcaribbean.com/cruises/itinerary/7-night-western-caribbean-from-galveston-on-symphony/SY07GAL-3851841824?country=USA&currency=USD&sail-date=2027-01-24"
+        },
+        {
+          id: "carnival-bahamas",
+          brand: "Carnival Cruise Line",
+          titleZh: "迈阿密 → 巴哈马 · 入门短线",
+          titleEn: "Miami → Bahamas · entry sampler",
+          metaZh: "4 天代表样本 · 迈阿密往返 · 官网平均起价",
+          metaEn: "representative 4-day sample · roundtrip Miami · official average from fare",
+          region: "caribbean", months: [1,2,3,4,5,6,7,8,9,10,11,12], tier: "entry", price: "US$207", date: "2026–27",
+          priceNoteZh: "官网航区页平均每人起价；具体船期需重查",
+          priceNoteEn: "official destination-page average from fare; recheck the exact sailing",
+          copyZh: "用最低时间与票价门槛尝试加勒比邮轮，气氛热闹，2–17 岁项目覆盖广。",
+          copyEn: "A low time-and-fare threshold for trying the Caribbean, with lively energy and programs spanning ages 2–17.",
+          caveatZh: "“平均起价”不是某一舱号；基础价外费用多，情侣若求安静需慎选航次。",
+          caveatEn: "An average “from” fare is not a cabin quote; many extras apply and quiet-seeking couples should choose carefully.",
+          profiles: {couple: 5, family: 8, senior: 5}, best: ["family"], grade: "A",
+          url: "https://www.carnival.com/en/cruise-to/bahamas-cruises"
+        },
+        {
+          id: "msc-europa",
+          brand: "MSC Cruises · MSC World Europa",
+          titleZh: "那不勒斯 → 西地中海环线",
+          titleEn: "Naples → Western Mediterranean loop",
+          metaZh: "7 晚 · 世界欧罗巴号 · 多港上下船",
+          metaEn: "7 nights · MSC World Europa · interporting itinerary",
+          region: "med", months: [11], tier: "entry", price: "CA$837", date: "2026-11-02",
+          priceNoteZh: "每人起 · 加拿大官网快照；确认销售区与服务费",
+          priceNoteEn: "from per person · Canadian-site snapshot; verify sales region and service fee",
+          copyZh: "新船硬件与欧洲航线密度的性价比强；家庭预算友好，升级 Yacht Club 后适合重视私密度的情侣。",
+          copyEn: "Strong value for new-ship hardware and dense European routing; family-friendly at base, couple-friendly in Yacht Club.",
+          caveatZh: "普通舱酒水、Wi‑Fi、特色餐多为额外；多港上客会让船上节奏更复杂。",
+          caveatEn: "Drinks, Wi-Fi and specialty dining are often extra at base; interporting creates a busier onboard rhythm.",
+          profiles: {couple: 8, family: 9, senior: 6}, best: ["couple", "family"], grade: "A",
+          url: "https://www.msccruises.ca/our-cruises/ships/msc-world-europa"
+        },
+        {
+          id: "virgin-med",
+          brand: "Virgin Voyages",
+          titleZh: "罗马 → 雅典 · 成人限定",
+          titleEn: "Rome → Athens · adults only",
+          metaZh: "5 晚 · 地中海单程 · 18+",
+          metaEn: "5 nights · one-way Mediterranean · 18+",
+          region: "med", months: [9], tier: "entry", price: "US$745", date: "2026-09-14",
+          priceNoteZh: "航次规划器展示起价；付款前核对计价单位",
+          priceNoteEn: "voyage-planner displayed from fare; verify pricing unit at checkout",
+          copyZh: "无儿童、20+ 餐厅、团体健身、基础 Wi‑Fi 与软饮的组合对情侣很有吸引力。",
+          copyEn: "No children, 20+ eateries, group fitness, basic Wi-Fi and soft drinks form a compelling couple package.",
+          caveatZh: "2025-10-07 后新预订小费不再包含；单程航线增加异地机票复杂度。",
+          caveatEn: "Gratuities are no longer included for new bookings after 7 Oct 2025; one-way routing adds open-jaw flight complexity.",
+          profiles: {couple: 10, family: 0, senior: 6}, best: ["couple"], grade: "A",
+          url: "https://www.virginvoyages.com/book/voyage-planner/find-a-voyage?currencyCode=USD"
+        },
+        {
+          id: "celebrity-alaska",
+          brand: "Celebrity Cruises · Celebrity Edge",
+          titleZh: "西雅图 → 道斯冰川 → 阿拉斯加",
+          titleEn: "Seattle → Dawes Glacier → Alaska",
+          metaZh: "7 晚 · 西雅图往返 · Ketchikan / Juneau / Skagway",
+          metaEn: "7 nights · roundtrip Seattle · Ketchikan / Juneau / Skagway",
+          region: "alaska", months: [9], tier: "mid", price: "US$1,003", date: "2027-09-10",
+          priceNoteZh: "每人起 · 税费已含；双人舱 US$2,005",
+          priceNoteEn: "from per person · taxes included; US$2,005 per double room",
+          copyZh: "现代设计、餐饮与相对从容的船上氛围，适合情侣和身体状况良好的父母；西雅图往返降低转运难度。",
+          copyEn: "Modern design, dining and a calmer onboard feel work for couples and mobile parents; roundtrip Seattle reduces logistics.",
+          caveatZh: "9 月肩季日照与天气更不稳定；冰川与靠港安排不保证。",
+          caveatEn: "September shoulder season brings less predictable daylight and weather; glacier and port access are never guaranteed.",
+          profiles: {couple: 9, family: 7, senior: 9}, best: ["couple", "senior"], grade: "A",
+          url: "https://www.celebritycruises.com/itinerary-details/7-night-alaska-dawes-glacier-cruise-from-seattle-washington?cCD=CO&packageID=EG07A396&sDT=2026-05-29"
+        },
+        {
+          id: "ncl-alaska",
+          brand: "Norwegian Cruise Line · Norwegian Joy",
+          titleZh: "西雅图 → 冰川湾 → 阿拉斯加",
+          titleEn: "Seattle → Glacier Bay → Alaska",
+          metaZh: "9 天 · 西雅图往返 · 2027 多个 5–9 月航次",
+          metaEn: "9 days · roundtrip Seattle · multiple May–Sep 2027 departures",
+          region: "alaska", months: [5,6,8,9], tier: "mid", price: "US$1,539", date: "2027 May–Sep",
+          priceNoteZh: "每人起 + US$370 税港费；Free at Sea 细则另核",
+          priceNoteEn: "from per person + US$370 taxes/fees; verify Free at Sea terms",
+          copyZh: "冰川湾、自由用餐与较长航程兼顾景观和三代作息；不固定餐次对家庭协调友好。",
+          copyEn: "Glacier Bay, flexible dining and a longer itinerary balance scenery and multigenerational schedules.",
+          caveatZh: "每日服务费、套餐小费和岸上游可大幅抬高总价；轮椅需自带或预租。",
+          caveatEn: "Daily service charges, package gratuities and excursions materially increase cost; bring or rent mobility equipment.",
+          profiles: {couple: 8, family: 8, senior: 9}, best: ["senior"], grade: "A",
+          url: "https://www.ncl.com/no/en/vacations?cruise-destination=alaska"
+        },
+        {
+          id: "royal-alaska",
+          brand: "Royal Caribbean · Anthem of the Seas",
+          titleZh: "温哥华 → 哈伯德冰川 → 苏厄德",
+          titleEn: "Vancouver → Hubbard Glacier → Seward",
+          metaZh: "7 晚 · 阿拉斯加北向单程",
+          metaEn: "7 nights · northbound one-way Alaska",
+          region: "alaska", months: [6], tier: "mid", price: "US$929", date: "2027-06-11",
+          priceNoteZh: "每人起 · 税费已含；双人舱 US$1,858",
+          priceNoteEn: "from per person · taxes included; US$1,858 per double room",
+          copyZh: "哈伯德冰川景观与大型船活动兼得，6 月日照长；适合能处理异地交通的高能家庭。",
+          copyEn: "Hubbard Glacier and big-ship activities with long June daylight—strong for active families comfortable with open-jaw travel.",
+          caveatZh: "苏厄德离船增加异地航班/陆路转运；对行动受限老人不如往返航线省心。",
+          caveatEn: "Seward disembarkation adds open-jaw flight/land transfer complexity, less senior-friendly than roundtrip.",
+          profiles: {couple: 8, family: 9, senior: 6}, best: ["family"], grade: "A",
+          url: "https://www.royalcaribbean.com/cruises/itinerary/7-night-northbound-alaska-hubbard-glacier-from-vancouver-on-anthem/AN07YVR-4066772602?currency=USD&sail-date=2027-06-11"
+        },
+        {
+          id: "cunard-atlantic",
+          brand: "Cunard · Queen Mary 2",
+          titleZh: "纽约 → 南安普敦 · 经典横渡",
+          titleEn: "New York → Southampton · classic crossing",
+          metaZh: "7 晚 · 无密集靠港 · 远洋客轮体验",
+          metaEn: "7 nights · no port rush · ocean-liner experience",
+          region: "northern", months: [10], tier: "mid", price: "AU$1,499", date: "2026-10-30",
+          priceNoteZh: "官方发布时内舱起价；当前动态价格需重查",
+          priceNoteEn: "official launch inside fare; recheck current dynamic pricing",
+          copyZh: "海上日、正装夜、讲座和仪式感适合慢旅行情侣，也让不想频繁上下船的老人更从容。",
+          copyEn: "Sea days, gala nights, lectures and ceremony suit slow-travel couples and seniors who prefer not to disembark daily.",
+          caveatZh: "北大西洋海况与单程机票是主要变量；传统氛围不适合追求水上乐园的孩子。",
+          caveatEn: "North Atlantic sea state and open-jaw flights are major variables; traditional ambience is weak for water-park-seeking children.",
+          profiles: {couple: 9, family: 4, senior: 8}, best: ["couple", "senior"], grade: "A−",
+          url: "https://www.cunard.com/content/dam/cunard/cunard-asset/au-launch-fares/Fares-Winter-Summer-2026-Programme-Release-AUD.pdf"
+        },
+        {
+          id: "viking-med",
+          brand: "Viking Ocean Cruises",
+          titleZh: "巴塞罗那 → 罗马 · 西地中海",
+          titleEn: "Barcelona → Rome · Western Mediterranean",
+          metaZh: "8 天 · 5 个导览 · 4 国 · 成人导向",
+          metaEn: "8 days · 5 guided tours · 4 countries · adult-oriented",
+          region: "med", months: [1,2,3,4,5,6,7,8,9,10,11,12], tier: "premium", price: "US$2,599", date: "2026–28",
+          priceNoteZh: "官网航区页每人起价；一港一项导览、Wi‑Fi 等包含",
+          priceNoteEn: "official region-page from fare; one excursion per port, Wi-Fi and more included",
+          copyZh: "包含一港一游、Wi‑Fi、用餐酒水、特色餐与小费式服务价值，适合重目的地的情侣与父母。",
+          copyEn: "One included tour per port, Wi-Fi, meal-time drinks and specialty dining fit destination-led couples and parents.",
+          caveatZh: "成人导向且票价高；密集文化港仍需评估步行和台阶。",
+          caveatEn: "Adult-oriented and premium-priced; culture-heavy ports still require walking and step checks.",
+          profiles: {couple: 9, family: 1, senior: 9}, best: ["couple", "senior"], grade: "A",
+          url: "https://www.vikingcruises.com/oceans/search-cruises/index.html?Regions=Mediterranean"
+        },
+        {
+          id: "hurtigruten",
+          brand: "Hurtigruten · Coastal Express",
+          titleZh: "卑尔根 → 挪威海岸 34 港 → 卑尔根",
+          titleEn: "Bergen → 34 Norwegian coastal calls → Bergen",
+          metaZh: "12 天 · 全程餐食 · 邮轮与沿海交通混合体验",
+          metaEn: "12 days · full board · hybrid cruise and coastal-service experience",
+          region: "polar", months: [1,2,3,4,5,6,7,8,9,10,11,12], tier: "mid", price: "US$1,995", date: "2026–27",
+          priceNoteZh: "官网促销起价（原 US$2,850）；舱型与日期动态",
+          priceNoteEn: "official promotional from fare (was US$2,850); cabin and date move",
+          copyZh: "挪威海岸真实运营节奏、短停靠和四季景观，适合重风景而非大型娱乐的情侣。",
+          copyEn: "Authentic Norwegian coastal rhythm, short calls and four-season scenery suit landscape-led couples over resort entertainment.",
+          caveatZh: "大量短停靠不是传统“全天岸上游”；冬季海况、寒冷与湿滑对老人要求高。",
+          caveatEn: "Many short calls are not full excursion days; winter sea state, cold and slippery surfaces challenge seniors.",
+          profiles: {couple: 9, family: 4, senior: 6}, best: ["couple"], grade: "A",
+          url: "https://www.hurtigruten.com/en-us/cruises"
+        },
+        {
+          id: "hx-antarctica",
+          brand: "HX Expeditions",
+          titleZh: "布宜诺斯艾利斯 → 南极亮点",
+          titleEn: "Buenos Aires → Highlights of Antarctica",
+          metaZh: "12 天 · 机票衔接 + 探险队 · 2026-10 至 2028-03",
+          metaEn: "12 days · connecting flights + expedition team · Oct 2026–Mar 2028",
+          region: "polar", months: [1,2,3,10,11,12], tier: "expedition", price: "US$10,024", date: "2026–28",
+          priceNoteZh: "每人促销起价（原 US$10,938）；33 个出发日",
+          priceNoteEn: "promotional from fare per person (was US$10,938); 33 departures",
+          copyZh: "探险队、登陆与极地知识是核心价值，适合预算充足、行动能力好、把南极当人生目标的旅客。",
+          copyEn: "Expedition team, landings and polar interpretation are the value core—for well-funded, mobile travelers treating Antarctica as a life goal.",
+          caveatZh: "登陆受海况与体能影响；保险、医疗撤离与防晕船准备不可省。",
+          caveatEn: "Landings depend on sea state and fitness; insurance, medical evacuation and seasickness planning are essential.",
+          profiles: {couple: 10, family: 2, senior: 4}, best: ["couple"], grade: "A",
+          url: "https://b2c-prod.travelhx.com/en-us/destinations/antarctica-cruises/"
+        },
+        {
+          id: "celebrity-nz",
+          brand: "Celebrity Cruises · Celebrity Edge",
+          titleZh: "奥克兰 → 新西兰 → 悉尼",
+          titleEn: "Auckland → New Zealand → Sydney",
+          metaZh: "10 晚 · 澳新单程 · 峡湾与城市组合",
+          metaEn: "10 nights · one-way Australasia · fjords and cities",
+          region: "oceania", months: [11], tier: "premium", price: "AU$3,340", date: "2027-11-21",
+          priceNoteZh: "每人起 · 税费已含；澳大利亚销售区",
+          priceNoteEn: "from per person · taxes included; Australian sales region",
+          copyZh: "新船设计、海上日与新西兰自然景观平衡，适合长假情侣和能承受长途飞行的父母。",
+          copyEn: "New-ship design, sea days and New Zealand scenery balance well for long-holiday couples and parents comfortable with long-haul flights.",
+          caveatZh: "中国出发长途机票与异地进出显著增加预算和体力负担；部分港口可能接驳。",
+          caveatEn: "Long-haul flights and open-jaw routing materially add cost and fatigue; some ports may tender.",
+          profiles: {couple: 9, family: 6, senior: 7}, best: ["couple"], grade: "A",
+          url: "https://www.celebritycruises.com/itinerary/10-night-new-zealand-from-auckland-on-edge-EG10K189?country=AUS&groupId=EG10AKL-1974054347&packageCode=EG10K189&sailDate=2027-11-21"
+        }
+      ];
+
+      var brandRows = [
+        {
+          name: "Royal Caribbean", sub: "主流大型 / contemporary",
+          diningZh: "主餐厅、自助餐与部分小食", diningEn: "main dining, buffet, selected snacks",
+          drinksZh: "基础饮品含；酒水/Wi‑Fi 另付", drinksEn: "basic drinks included; alcohol/Wi-Fi extra",
+          tipsZh: "普通舱 US$18.50/人/晚；套房 US$21", tipsEn: "US$18.50 pp/day standard; US$21 suite",
+          kidsZh: "强 · 3–12 岁 + 青少年", kidsEn: "strong · ages 3–12 + teens",
+          bestZh: "高能亲子、多代", bestEn: "active families, multigen",
+          watchZh: "大船步行多，硬件项目常排队", watchEn: "long walks; headline attractions can queue"
+        },
+        {
+          name: "Disney Cruise Line", sub: "家庭主题 / family premium",
+          diningZh: "餐饮、软饮、角色与主秀整合度高", diningEn: "dining, soft drinks, characters and shows tightly integrated",
+          drinksZh: "软饮含；酒精与真正上网另付", drinksEn: "soft drinks included; alcohol/internet extra",
+          tipsZh: "US$16/人/晚；Concierge US$27.25", tipsEn: "US$16 pp/day; Concierge US$27.25",
+          kidsZh: "顶级 · 3–10 岁；婴儿托儿收费", kidsEn: "excellent · ages 3–10; nursery extra",
+          bestZh: "低龄三口之家", bestEn: "families with younger children",
+          watchZh: "婴幼儿也计小费；品牌溢价高", watchEn: "gratuity applies to infants; premium pricing"
+        },
+        {
+          name: "Norwegian NCL", sub: "自由式 / freestyle",
+          diningZh: "免费餐厅 + 自由用餐", diningEn: "included venues + freestyle dining",
+          drinksZh: "基础外多另付；Free at Sea 需看细则", drinksEn: "most extras; inspect Free at Sea terms",
+          tipsZh: "普通 US$20；Haven/套房 US$25/人/晚", tipsEn: "US$20 standard; US$25 Haven/suite pp/day",
+          kidsZh: "强 · 3–17 岁；Spirit 例外", kidsEn: "strong · ages 3–17; Spirit exception",
+          bestZh: "作息不同的三代", bestEn: "multigen with different schedules",
+          watchZh: "套餐“免费”仍可能预付小费", watchEn: "“free” packages may still carry gratuity"
+        },
+        {
+          name: "MSC Cruises", sub: "欧洲主流 / European contemporary",
+          diningZh: "主餐厅、自助餐与基础自助饮品", diningEn: "main dining, buffet and basic station drinks",
+          drinksZh: "酒水/Wi‑Fi 通常另付；Yacht Club 含更多", drinksEn: "drinks/Wi-Fi usually extra; more in Yacht Club",
+          tipsZh: "按航区列入总价；地中海普通舱成人约 €12/晚", tipsEn: "built into total by region; Med standard adult about €12/day",
+          kidsZh: "强 · 3–17 岁；Baby Care 限额收费", kidsEn: "strong · ages 3–17; limited paid Baby Care",
+          bestZh: "预算家庭；Yacht Club 情侣", bestEn: "value families; Yacht Club couples",
+          watchZh: "多港上客与销售区口径复杂", watchEn: "interporting and sales-region rules add complexity"
+        },
+        {
+          name: "Carnival", sub: "热闹入门 / lively value",
+          diningZh: "主餐、自助与部分休闲餐", diningEn: "main dining, buffet and selected casual venues",
+          drinksZh: "基础饮品含；酒水/Wi‑Fi 另付", drinksEn: "basic drinks included; alcohol/Wi-Fi extra",
+          tipsZh: "普通 US$17；套房 US$19/人/晚", tipsEn: "US$17 standard; US$19 suite pp/day",
+          kidsZh: "广 · 2–17 岁", kidsEn: "broad · ages 2–17",
+          bestZh: "预算型亲子、朋友", bestEn: "value families, friends",
+          watchZh: "氛围偏热闹，短线周末更明显", watchEn: "lively ambience, especially short weekends"
+        },
+        {
+          name: "Celebrity Cruises", sub: "现代高端 / premium contemporary",
+          diningZh: "基础餐饮较精致；特色餐另付", diningEn: "refined base dining; specialty extra",
+          drinksZh: "视 All Included 方案；基础价另付", drinksEn: "depends on All Included; extra on base fare",
+          tipsZh: "按当前方案与确认单", tipsEn: "per current package and confirmation",
+          kidsZh: "有，但不是产品中心", kidsEn: "available, not product center",
+          bestZh: "情侣、年轻父母", bestEn: "couples, younger parents",
+          watchZh: "Edge 无限阳台偏好两极", watchEn: "Edge Infinite Veranda is polarizing"
+        },
+        {
+          name: "Virgin Voyages", sub: "成人限定 / adults only",
+          diningZh: "20+ 餐厅多数含", diningEn: "20+ eateries mostly included",
+          drinksZh: "基础 Wi‑Fi、软饮含；酒精另付", drinksEn: "basic Wi-Fi and soft drinks included; alcohol extra",
+          tipsZh: "2025-10-07 后新预订不再包含", tipsEn: "not included for new bookings after 7 Oct 2025",
+          kidsZh: "无 · 18+", kidsEn: "none · 18+",
+          bestZh: "情侣、朋友", bestEn: "couples, friends",
+          watchZh: "营销页与合同必须交叉核对", watchEn: "cross-check marketing against contract"
+        },
+        {
+          name: "Princess / HAL", sub: "目的地传统 / destination classic",
+          diningZh: "传统主餐、自助与舒适服务", diningEn: "classic dining, buffet and comfortable service",
+          drinksZh: "基础价多另付；套餐可打包", drinksEn: "mostly extra at base; bundles available",
+          tipsZh: "按品牌/套餐/确认单", tipsEn: "by brand, bundle and confirmation",
+          kidsZh: "有；密度低于大型亲子船", kidsEn: "available; less dense than mega-family ships",
+          bestZh: "阿拉斯加、父母、多代", bestEn: "Alaska, parents, multigen",
+          watchZh: "传统船体验，刺激项目少", watchEn: "classic ship experience, fewer thrill attractions"
+        },
+        {
+          name: "Cunard", sub: "远洋客轮 / ocean liner",
+          diningZh: "按舱等分餐厅；英式传统", diningEn: "restaurant by cabin grade; British tradition",
+          drinksZh: "酒水/Wi‑Fi 通常另付或套餐", drinksEn: "drinks/Wi-Fi usually extra or bundled",
+          tipsZh: "按当前航次确认", tipsEn: "verify on current sailing",
+          kidsZh: "有，但非核心", kidsEn: "available, not the core",
+          bestZh: "横渡、慢旅行情侣、父母", bestEn: "crossings, slow-travel couples, parents",
+          watchZh: "正装夜与海况都需接受", watchEn: "embrace gala dress and ocean motion"
+        },
+        {
+          name: "Viking Ocean", sub: "目的地全包 / destination inclusive",
+          diningZh: "全餐饮、特色餐、客房餐含", diningEn: "all dining, specialty and room service included",
+          drinksZh: "Wi‑Fi；午晚餐啤酒/葡萄酒/软饮含", drinksEn: "Wi-Fi; beer/wine/soft drinks at lunch/dinner",
+          tipsZh: "价值包透明度高；以销售区确认", tipsEn: "strong bundle transparency; verify sales region",
+          kidsZh: "成人导向", kidsEn: "adult-oriented",
+          bestZh: "文化情侣、行动良好父母", bestEn: "culture-led couples, mobile parents",
+          watchZh: "岸上文化游可能步行密集", watchEn: "culture excursions can be walking-heavy"
+        },
+        {
+          name: "Oceania / Regent", sub: "小型奢华 / small-ship luxury",
+          diningZh: "特色餐与精致餐饮高含量", diningEn: "specialty and fine dining highly included",
+          drinksZh: "Oceania Wi‑Fi/餐酒；Regent 饮品全包", drinksEn: "Oceania Wi-Fi/meal drinks; Regent broader beverages",
+          tipsZh: "Oceania 船上小费含；Regent 预付小费", tipsEn: "Oceania ship gratuity included; Regent prepaid",
+          kidsZh: "Oceania 2026 起 18+；Regent 非亲子核心", kidsEn: "Oceania 18+ from 2026; Regent not family-led",
+          bestZh: "美食情侣、预算充足父母", bestEn: "food-led couples, affluent parents",
+          watchZh: "小船稳定器也不能消除海况", watchEn: "small-ship stabilizers cannot remove sea state"
+        },
+        {
+          name: "Hurtigruten / HX", sub: "海岸与探险 / coastal & expedition",
+          diningZh: "按产品全餐或全包；重目的地解释", diningEn: "full board or inclusive by product; strong interpretation",
+          drinksZh: "按航次；探险产品通常含更多", drinksEn: "by voyage; expedition products often include more",
+          tipsZh: "按确认单；勿类比主流邮轮", tipsEn: "per confirmation; do not assume mainstream rules",
+          kidsZh: "非儿童度假产品中心", kidsEn: "not centered on children",
+          bestZh: "风景情侣、极地目标旅客", bestEn: "scenery couples, polar-goal travelers",
+          watchZh: "登陆、天气、体能与保险是核心", watchEn: "landings, weather, fitness and insurance are central"
+        }
+      ];
+
+      var seasons = [
+        {zh: "亚洲 / 中国母港", en: "Asia / China homeports", cells: ["best","best","good","good","","","risk","risk","risk","good","best","best"]},
+        {zh: "加勒比 / 巴哈马", en: "Caribbean / Bahamas", cells: ["best","best","best","best","good","risk","risk","risk","risk","risk","risk","good"]},
+        {zh: "地中海", en: "Mediterranean", cells: ["","","","good","best","best","good","good","best","best","good",""]},
+        {zh: "阿拉斯加", en: "Alaska", cells: ["","","","","good","best","best","best","good","","",""]},
+        {zh: "北欧 / 峡湾", en: "Northern Europe / fjords", cells: ["","","","","good","best","best","best","good","","",""]},
+        {zh: "澳大利亚 / 新西兰", en: "Australia / New Zealand", cells: ["best","best","good","","","","","","","good","best","best"]},
+        {zh: "南极", en: "Antarctica", cells: ["best","best","good","","","","","","","good","best","best"]},
+        {zh: "跨大西洋", en: "Transatlantic", cells: ["","","","good","best","","","","","best","good",""]}
+      ];
+
+      var videos = [
+        {
+          platform: "YouTube", typeZh: "旅游博主 · 全船导览", typeEn: "Creator · full ship tour",
+          titleZh: "Icon of the Seas 2026：1 小时全船细节", titleEn: "Icon of the Seas 2026: 1-hour complete tour",
+          noteZh: "Royal Caribbean Blog · 看动线、房型与高能亲子设施", noteEn: "Royal Caribbean Blog · flow, cabins and active-family hardware",
+          id: "e8Sn705J0YY", url: "https://www.youtube.com/watch?v=e8Sn705J0YY"
+        },
+        {
+          platform: "YouTube", typeZh: "官方 · 目的地", typeEn: "Official · destination",
+          titleZh: "NCL 阿拉斯加：冰川与港口预览", titleEn: "NCL Alaska: glaciers and port preview",
+          noteZh: "Norwegian Cruise Line · 用官方片理解产品承诺", noteEn: "Norwegian Cruise Line · understand the official destination promise",
+          id: "Ah6DrqKa8y8", url: "https://www.youtube.com/watch?v=Ah6DrqKa8y8"
+        },
+        {
+          platform: "YouTube", typeZh: "旅游博主 · 新船", typeEn: "Creator · new ship",
+          titleZh: "Disney Adventure 新加坡完整船览", titleEn: "Disney Adventure Singapore complete tour",
+          noteZh: "观察无靠港航次如何把船本身变成目的地", noteEn: "See how a no-port voyage turns the ship into the destination",
+          id: "dA3clKO6qeY", url: "https://www.youtube.com/watch?v=dA3clKO6qeY"
+        },
+        {
+          platform: "YouTube", typeZh: "旅游博主 · 经典船", typeEn: "Creator · classic liner",
+          titleZh: "Queen Mary 2：完整远洋客轮导览", titleEn: "Queen Mary 2: complete ocean-liner tour",
+          noteZh: "看横渡氛围、公共空间与传统仪式感", noteEn: "Crossing ambience, public rooms and traditional ceremony",
+          id: "JpSWy2ZrqMc", url: "https://www.youtube.com/watch?v=JpSWy2ZrqMc"
+        },
+        {
+          platform: "Bilibili", typeZh: "旅游博主 · 欧洲", typeEn: "Creator · Europe",
+          titleZh: "MSC World Europa 沉浸式全船体验", titleEn: "MSC World Europa immersive ship experience",
+          noteZh: "FBC 旅行游记 · 看大船拥挤度与欧洲航线节奏", noteEn: "FBC Travel · crowding and European itinerary rhythm",
+          monogram: "MSC", url: "https://www.bilibili.com/video/BV1zz421C7t5/"
+        },
+        {
+          platform: "Bilibili", typeZh: "旅游博主 · 阿拉斯加", typeEn: "Creator · Alaska",
+          titleZh: "NCL Encore 阿拉斯加：费用与体验", titleEn: "NCL Encore Alaska: cost and experience",
+          noteZh: "大白小宇 · 用实际支出补足官方“起价”", noteEn: "Creator spend details that complete the official headline fare",
+          monogram: "AK", url: "https://www.bilibili.com/video/BV1e7aezDE7y/"
+        },
+        {
+          platform: "Bilibili", typeZh: "旅游博主 · 中国母港", typeEn: "Creator · China homeport",
+          titleZh: "海洋光谱号：上海出发真实体验", titleEn: "Spectrum of the Seas from Shanghai",
+          noteZh: "看中文环境、餐饮、亲子设施与日本靠港", noteEn: "Mandarin setting, dining, family hardware and Japan call",
+          monogram: "RC", url: "https://www.bilibili.com/video/BV1QkQAYaEa8/"
+        },
+        {
+          platform: "Bilibili", typeZh: "旅游博主 · 三代/低龄", typeEn: "Creator · multigen/toddler",
+          titleZh: "爱达魔都号：70 岁父母 + 1 岁宝宝", titleEn: "Adora Magic City: parents aged 70 + one-year-old",
+          noteZh: "最接近“带老人又带娃”的观察样本", noteEn: "Closest observation sample to seniors plus a toddler",
+          monogram: "3G", url: "https://www.bilibili.com/video/BV1B33BzUE9P/"
+        },
+        {
+          platform: "Bilibili", typeZh: "旅游博主 · 反面样本", typeEn: "Creator · critical view",
+          titleZh: "爱达魔都号：优点之外的真实问题", titleEn: "Adora Magic City: problems beyond the highlights",
+          noteZh: "把排队、服务与动线抱怨当作反证，而非单一结论", noteEn: "Use queue, service and flow complaints as counter-evidence, not a verdict",
+          monogram: "!", url: "https://www.bilibili.com/video/BV1vQ4y1j76R/"
+        },
+        {
+          platform: "Bilibili", typeZh: "旅游博主 · 新手问答", typeEn: "Creator · first-timer Q&A",
+          titleZh: "MSC 邮轮新手 33 问", titleEn: "33 questions for an MSC first-timer",
+          noteZh: "集中看餐饮、网络、房型与收费盲点", noteEn: "Dining, Wi-Fi, cabin and fee blind spots in one place",
+          monogram: "33", url: "https://www.bilibili.com/video/BV16NgDzEEg1/"
+        }
+      ];
+
+      var symbols = {USD: "$", CNY: "¥", EUR: "€", GBP: "£", AUD: "A$", CAD: "C$"};
+      var calcPresets = {
+        royal: {currency: "USD", adults: 2, children: 0, nights: 7, adultFare: 719, childFare: 0, taxes: 0, tips: 18.5, packages: 400, excursions: 200, travel: 1200},
+        ncl: {currency: "USD", adults: 2, children: 0, nights: 9, adultFare: 1539, childFare: 0, taxes: 370, tips: 20, packages: 700, excursions: 350, travel: 1800},
+        blank: {currency: "CNY", adults: 2, children: 1, nights: 5, adultFare: 0, childFare: 0, taxes: 0, tips: 0, packages: 0, excursions: 0, travel: 0}
+      };
+
+      function t(zh, en) { return state.lang === "zh" ? zh : en; }
+
+      function applyLanguage() {
+        document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
+        document.querySelectorAll("[data-zh][data-en]").forEach(function (node) {
+          node.textContent = state.lang === "zh" ? node.getAttribute("data-zh") : node.getAttribute("data-en");
+        });
+        document.getElementById("zhButton").setAttribute("aria-pressed", state.lang === "zh" ? "true" : "false");
+        document.getElementById("enButton").setAttribute("aria-pressed", state.lang === "en" ? "true" : "false");
+        document.title = state.lang === "zh" ? "全球邮轮罗盘 2026–27 · Global Cruise Compass" : "Global Cruise Compass 2026–27";
+        renderRoutes();
+        renderSeasonGrid();
+        renderBrandTable();
+        renderVideos();
+        calculateCost();
+      }
+
+      function fitLabels(route) {
+        var labels = {couple: [ "情侣", "Couple" ], family: [ "三口之家", "Family" ], senior: [ "带老人", "Seniors" ]};
+        return Object.keys(route.profiles).filter(function (key) { return route.profiles[key] >= 7; }).map(function (key) {
+          var bestClass = route.best.indexOf(key) > -1 ? " best" : "";
+          return '<span class="fit-pill' + bestClass + '">' + labels[key][state.lang === "zh" ? 0 : 1] + " " + route.profiles[key] + "/10</span>";
+        }).join("");
+      }
+
+      function renderRoutes() {
+        var profile = document.getElementById("profileFilter").value;
+        var region = document.getElementById("regionFilter").value;
+        var month = document.getElementById("monthFilter").value;
+        var tier = document.getElementById("budgetFilter").value;
+        var filtered = routes.filter(function (route) {
+          return (region === "all" || route.region === region) &&
+            (month === "all" || route.months.indexOf(Number(month)) > -1) &&
+            (tier === "all" || route.tier === tier) &&
+            (profile === "all" || route.profiles[profile] > 0);
+        });
+        filtered.sort(function (a, b) {
+          var aScore = profile === "all" ? Math.max(a.profiles.couple, a.profiles.family, a.profiles.senior) : a.profiles[profile];
+          var bScore = profile === "all" ? Math.max(b.profiles.couple, b.profiles.family, b.profiles.senior) : b.profiles[profile];
+          return bScore - aScore;
+        });
+
+        var grid = document.getElementById("routeGrid");
+        grid.innerHTML = filtered.map(function (route) {
+          var gradeClass = route.grade.charAt(0) === "B" ? " b" : "";
+          return '<article class="route-card">' +
+            '<div class="route-top"><span class="route-brand">' + route.brand + '</span><span class="grade' + gradeClass + '">Evidence ' + route.grade + '</span></div>' +
+            '<h4>' + t(route.titleZh, route.titleEn) + '</h4>' +
+            '<p class="route-meta">' + t(route.metaZh, route.metaEn) + '</p>' +
+            '<div class="price-row"><div class="price"><strong>' + route.price + '</strong><span>' + t(route.priceNoteZh, route.priceNoteEn) + '</span></div><div class="date-chip">' + route.date + '<span>' + t("出发 / 窗口", "departure / window") + '</span></div></div>' +
+            '<div class="fit-row">' + fitLabels(route) + '</div>' +
+            '<p class="route-copy">' + t(route.copyZh, route.copyEn) + '</p>' +
+            '<p class="route-caveat"><strong>' + t("注意：", "Watch: ") + '</strong>' + t(route.caveatZh, route.caveatEn) + '</p>' +
+            '<a class="route-link" href="' + route.url + '" target="_blank" rel="noopener">' + t("打开来源页 ↗", "Open source ↗") + '</a>' +
+          '</article>';
+        }).join("");
+
+        document.getElementById("resultCount").textContent = filtered.length;
+        document.getElementById("emptyResults").hidden = filtered.length !== 0;
+        grid.hidden = filtered.length === 0;
+        var profileNames = {
+          all: ["全部代表航次", "All representative sailings"],
+          couple: ["情侣优先航次", "Best-matched for couples"],
+          family: ["三口之家优先航次", "Best-matched for families"],
+          senior: ["适老优先航次", "Best-matched for seniors"]
+        };
+        document.getElementById("resultTitle").textContent = profileNames[profile][state.lang === "zh" ? 0 : 1];
+      }
+
+      function renderSeasonGrid() {
+        var grid = document.getElementById("seasonGrid");
+        var monthNames = state.lang === "zh" ? ["航区","1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"] : ["Region","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        var html = monthNames.map(function (m, i) {
+          return '<div class="' + (i === 0 ? "season-label" : "season-head") + '">' + m + '</div>';
+        }).join("");
+        seasons.forEach(function (row) {
+          html += '<div class="season-label">' + t(row.zh, row.en) + '</div>';
+          row.cells.forEach(function (cell, idx) {
+            var descriptor = cell === "best" ? t("主航季", "core season") : cell === "good" ? t("肩季", "shoulder season") : cell === "risk" ? t("风险窗口", "risk window") : t("非主力部署", "limited deployment");
+            html += '<div class="season-cell ' + cell + '" title="' + (idx + 1) + ' · ' + descriptor + '" aria-label="' + descriptor + '"></div>';
+          });
+        });
+        grid.innerHTML = html;
+      }
+
+      function renderBrandTable() {
+        document.getElementById("brandTableBody").innerHTML = brandRows.map(function (row) {
+          return '<tr>' +
+            '<td class="brand-name">' + row.name + '<span>' + row.sub + '</span></td>' +
+            '<td>' + t(row.diningZh, row.diningEn) + '</td>' +
+            '<td>' + t(row.drinksZh, row.drinksEn) + '</td>' +
+            '<td>' + t(row.tipsZh, row.tipsEn) + '</td>' +
+            '<td>' + t(row.kidsZh, row.kidsEn) + '</td>' +
+            '<td><span class="yes">' + t(row.bestZh, row.bestEn) + '</span></td>' +
+            '<td>' + t(row.watchZh, row.watchEn) + '</td>' +
+          '</tr>';
+        }).join("");
+      }
+
+      function renderVideos() {
+        document.getElementById("videoGrid").innerHTML = videos.map(function (video, index) {
+          var cover = video.id
+            ? '<img loading="lazy" src="https://i.ytimg.com/vi/' + video.id + '/hqdefault.jpg" alt="">'
+            : '<span class="cover-monogram">' + video.monogram + '</span>';
+          return '<article class="video-card">' +
+            '<div class="video-cover">' + cover + '<span class="platform-tag">' + video.platform + '</span><span class="play" aria-hidden="true">▶</span></div>' +
+            '<div class="video-body"><span class="video-type">' + t(video.typeZh, video.typeEn) + '</span><h3>' + t(video.titleZh, video.titleEn) + '</h3><p>' + t(video.noteZh, video.noteEn) + '</p>' +
+            '<button type="button" class="video-button" data-video-index="' + index + '">' + t("观看视频 ↗", "Watch video ↗") + '</button></div>' +
+          '</article>';
+        }).join("");
+        document.querySelectorAll("[data-video-index]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            openVideo(videos[Number(button.getAttribute("data-video-index"))]);
+          });
+        });
+      }
+
+      function openVideo(video) {
+        if (!video.id) {
+          window.open(video.url, "_blank", "noopener");
+          return;
+        }
+        var dialog = document.getElementById("videoDialog");
+        document.getElementById("dialogTitle").textContent = t(video.titleZh, video.titleEn);
+        document.getElementById("videoFrame").innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + video.id + '?autoplay=1" title="' + t(video.titleZh, video.titleEn) + '" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        if (typeof dialog.showModal === "function") dialog.showModal();
+        else window.open(video.url, "_blank", "noopener");
+      }
+
+      function numeric(id) {
+        var value = Number(document.getElementById(id).value);
+        return Number.isFinite(value) ? value : 0;
+      }
+
+      function formatMoney(value) {
+        var currency = document.getElementById("currency").value;
+        var symbol = symbols[currency] || currency + " ";
+        return symbol + Math.round(value).toLocaleString(state.lang === "zh" ? "zh-CN" : "en-US");
+      }
+
+      function calculateCost() {
+        var adults = numeric("adults");
+        var children = numeric("children");
+        var guests = adults + children;
+        var nights = numeric("nights");
+        var fare = adults * numeric("adultFare") + children * numeric("childFare");
+        var tax = guests * numeric("taxes");
+        var tips = guests * nights * numeric("tips");
+        var extras = numeric("packages") + guests * numeric("excursions");
+        var travel = numeric("travel");
+        var total = fare + tax + tips + extras + travel;
+        var uplift = fare > 0 ? Math.round((total / fare - 1) * 100) : 0;
+        document.getElementById("totalNumber").textContent = formatMoney(total);
+        document.getElementById("fareValue").textContent = formatMoney(fare);
+        document.getElementById("taxValue").textContent = formatMoney(tax);
+        document.getElementById("tipsValue").textContent = formatMoney(tips);
+        document.getElementById("extrasValue").textContent = formatMoney(extras);
+        document.getElementById("travelValue").textContent = formatMoney(travel);
+        document.getElementById("upliftText").textContent = fare > 0
+          ? t("比标题票价高 " + uplift + "%", uplift + "% above headline fare")
+          : t("等待输入真实票价", "Enter a real fare to compare");
+        var parts = {fare: fare, tax: tax, tips: tips, extras: extras, travel: travel};
+        Object.keys(parts).forEach(function (key) {
+          document.getElementById(key + "Bar").style.width = total > 0 ? (parts[key] / total * 100) + "%" : "0%";
+        });
+      }
+
+      function applyPreset(name) {
+        var preset = calcPresets[name];
+        Object.keys(preset).forEach(function (key) {
+          var node = document.getElementById(key);
+          if (node) node.value = preset[key];
+        });
+        calculateCost();
+      }
+
+      function copyRfq() {
+        var textZh = "邮轮同口径询价 / Cruise RFQ\n\n" +
+          "1. 航次与日期 / Sailing & date:\n" +
+          "2. 旅客 / Guests: 2 成人 + 1 儿童（请填出生日期）/ 2 adults + 1 child (DOBs)\n" +
+          "3. 同一舱号与舱型 / Exact cabin number & category:\n" +
+          "4. 最终含税总价 / Final total incl. taxes & port fees:\n" +
+          "5. 每日小费或服务费是否已含 / Are gratuities or service charges included?\n" +
+          "6. 酒水、Wi-Fi、特色餐与岸上游各包含什么 / Exact drinks, Wi-Fi, dining and excursion inclusions:\n" +
+          "7. 儿童俱乐部年龄、如厕与开放规则 / Kids-club age, toilet and opening rules:\n" +
+          "8. 哪些港口使用接驳艇 / Which ports use tenders?\n" +
+          "9. 无障碍舱、轮椅与上下船书面确认 / Written accessible cabin, mobility and embarkation confirmation:\n" +
+          "10. 押金、改期、取消与价格保护截止日 / Deposit, change, cancellation and price-protection deadlines:\n" +
+          "11. 签证、护照有效期与多次入境要求 / Visa, passport validity and multiple-entry requirements:\n" +
+          "12. 请把所有回答写入预订确认单 / Please add every answer to the booking confirmation.";
+        navigator.clipboard.writeText(textZh).then(function () {
+          var button = document.getElementById("copyRfq");
+          button.textContent = t("已复制 ✓", "Copied ✓");
+          setTimeout(function () { button.textContent = t("复制询价模板", "Copy RFQ template"); }, 1800);
+        }).catch(function () {
+          window.prompt(t("请手动复制：", "Copy manually:"), textZh);
+        });
+      }
+
+      document.getElementById("zhButton").addEventListener("click", function () {
+        state.lang = "zh";
+        localStorage.setItem("cruiseCompassLang", state.lang);
+        applyLanguage();
+      });
+      document.getElementById("enButton").addEventListener("click", function () {
+        state.lang = "en";
+        localStorage.setItem("cruiseCompassLang", state.lang);
+        applyLanguage();
+      });
+
+      ["profileFilter", "regionFilter", "monthFilter", "budgetFilter"].forEach(function (id) {
+        document.getElementById(id).addEventListener("change", function () {
+          if (id === "profileFilter") {
+            state.profile = this.value;
+            localStorage.setItem("cruiseCompassProfile", state.profile);
+          }
+          renderRoutes();
+        });
+      });
+
+      document.querySelectorAll(".persona-select").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var profile = button.getAttribute("data-profile");
+          document.getElementById("profileFilter").value = profile;
+          state.profile = profile;
+          localStorage.setItem("cruiseCompassProfile", profile);
+          renderRoutes();
+          document.getElementById("matcher").scrollIntoView({behavior: "smooth"});
+        });
+      });
+
+      document.getElementById("resetFilters").addEventListener("click", function () {
+        document.getElementById("profileFilter").value = "all";
+        document.getElementById("regionFilter").value = "all";
+        document.getElementById("monthFilter").value = "all";
+        document.getElementById("budgetFilter").value = "all";
+        state.profile = "all";
+        localStorage.setItem("cruiseCompassProfile", "all");
+        renderRoutes();
+      });
+
+      document.getElementById("costForm").addEventListener("input", calculateCost);
+      document.getElementById("calcPreset").addEventListener("change", function () { applyPreset(this.value); });
+      document.getElementById("copyRfq").addEventListener("click", copyRfq);
+      document.getElementById("dialogClose").addEventListener("click", function () { document.getElementById("videoDialog").close(); });
+      document.getElementById("videoDialog").addEventListener("close", function () { document.getElementById("videoFrame").innerHTML = ""; });
+
+      window.addEventListener("scroll", function () {
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        document.getElementById("progressBar").style.width = (h > 0 ? window.scrollY / h * 100 : 0) + "%";
+      }, {passive: true});
+
+      var sections = Array.prototype.slice.call(document.querySelectorAll("main section[id]"));
+      var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".floating-toc a"));
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              tocLinks.forEach(function (link) {
+                link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+              });
+            }
+          });
+        }, {rootMargin: "-40% 0px -55% 0px"});
+        sections.forEach(function (section) { observer.observe(section); });
+      }
+
+      if (state.profile !== "all") document.getElementById("profileFilter").value = state.profile;
+      applyLanguage();
+    })();
+  </script>
+</body>
+</html>

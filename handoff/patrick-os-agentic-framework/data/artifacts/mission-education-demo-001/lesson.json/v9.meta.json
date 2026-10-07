@@ -1,0 +1,15 @@
+{
+  "id": "fb980098-7685-4bee-b1af-a33a5573d022",
+  "name": "lesson.json",
+  "uri": "/Users/zl/patricks-reports/handoff/patrick-os-agentic-framework/data/artifacts/mission-education-demo-001/lesson.json/v9.json",
+  "checksum": "85832078c61fa69943189e79e96de2293333ffa1338421a79e5cce4ecf62a5f0",
+  "mimeType": "application/json",
+  "version": 9,
+  "provenance": {
+    "missionId": "mission-education-demo-001",
+    "taskId": "command-1784199965191-4a6e1bdd-execute",
+    "runId": "51750c27-b6ab-4ca4-bb2a-81a72e5efcad",
+    "actor": "pi",
+    "savedAt": "2026-07-16T11:06:05.398Z"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "schema": "patrick-os/lesson/v1",
+  "id": "mission-education-demo-001",
+  "seed": 2427,
+  "title": {
+    "en": "Our Solar System",
+    "zh": "我们的太阳系"
+  },
+  "subtitle": {
+    "en": "Explore the eight planets, their orbits, and how our solar system works.",
+    "zh": "探索八大行星、它们的轨道，以及太阳系如何运转。"
+  },
+  "planets": [
+    {
+      "id": "mercury",
+      "color": "#9aa1a8",
+      "name": {
+        "en": "Mercury",
+        "zh": "水星"
+      },
+      "description": {
+        "en": "The smallest planet, closest to the Sun.",
+        "zh": "离太阳最近的最小行星。"
+      },
+      "orbitRadius": 127
+    },
+    {
+      "id": "venus",
+      "color": "#d4a373",
+      "name": {
+        "en": "Venus",
+        "zh": "金星"
+      },
+      "description": {
+        "en": "The hottest planet, with a thick atmosphere.",
+        "zh": "大气层浓厚，是最炽热的行星。"
+      },
+      "orbitRadius": 177
+    },
+    {
+      "id": "earth",
+      "color": "#4a90e2",
+      "name": {
+        "en": "Earth",
+        "zh": "地球"
+      },
+      "description": {
+        "en": "Our home — the only known planet with life.",
+        "zh": "我们的家园——已知唯一有生命的行星。"
+      },
+      "orbitRadius": 227
+    },
+    {
+      "id": "mars",
+      "color": "#c1573f",
+      "name": {
+        "en": "Mars",
+        "zh": "火星"
+      },
+      "description": {
+        "en": "The red planet, target of many missions.",
+        "zh": "红色星球，许多探测任务的目标。"
+      },
+      "orbitRadius": 277
+    },
+    {
+      "id": "jupiter",
+      "color": "#c9a37a",
+      "name": {
+        "en": "Jupiter",
+        "zh": "木星"
+      },
+      "description": {
+        "en": "The largest planet, a gas giant.",
+        "zh": "太阳系最大的行星，属气体巨星。"
+      },
+      "orbitRadius": 327
+    },
+    {
+      "id": "saturn",
+      "color": "#d9b46a",
+      "name": {
+        "en": "Saturn",
+        "zh": "土星"
+      },
+      "description": {
+        "en": "Famous for its bright ring system.",
+        "zh": "以明亮的光环著称。"
+      },
+      "orbitRadius": 377
+    },
+    {
+      "id": "uranus",
+      "color": "#7ecbd1",
+      "name": {
+        "en": "Uranus",
+        "zh": "天王星"
+      },
+      "description": {
+        "en": "An ice giant that rotates on its side.",
+        "zh": "侧身自转的冰巨星。"
+      },
+      "orbitRadius": 427
+    },
+    {
+      "id": "neptune",
+      "color": "#3a5fcd",
+      "name": {
+        "en": "Neptune",
+        "zh": "海王星"
+      },
+      "description": {
+        "en": "The windiest planet, deep blue.",
+        "zh": "深蓝色的多风行星。"
+      },
+      "orbitRadius": 477
+    }
+  ],
+  "languages": [
+    "en",
+    "zh"
+  ],
+  "generatedBy": "pi-adapter (real)"
+}

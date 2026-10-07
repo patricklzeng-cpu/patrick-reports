@@ -1,0 +1,20 @@
+{
+  "name": "patrick-os",
+  "version": "0.1.0",
+  "description": "Patrick OS — unified Agentic OS coordinating OpenAI, Hermes, Open Swarm, and Pi via an Event-Store-of-truth mission control plane with an Artifact Room UI.",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test --test-concurrency=1 test/*.test.js",
+    "smoke": "node scripts/smoke-mission.js",
+    "build:dmg": "node scripts/build-dmg.js",
+    "build:app": "node scripts/build-app-bundle.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

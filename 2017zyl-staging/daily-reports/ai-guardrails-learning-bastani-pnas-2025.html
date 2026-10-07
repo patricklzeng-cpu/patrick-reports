@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="A bilingual visual deep read of Generative AI Without Guardrails Can Harm Learning.">
+  <meta name="color-scheme" content="light dark">
+  <title>援手还是拐杖？｜AI Guardrails & Learning</title>
+  <style>
+    :root {
+      --bg: #f2efe6;
+      --surface: #fffdf7;
+      --surface-2: #e9e5da;
+      --ink: #0d1c2b;
+      --muted: #5b6872;
+      --faint: #7c858b;
+      --line: #cfcbc0;
+      --navy: #071a2e;
+      --navy-2: #0c2d4a;
+      --blue: #2d68c4;
+      --cyan: #2bd7c5;
+      --cyan-dark: #0c8e86;
+      --coral: #e35f54;
+      --coral-dark: #a73e38;
+      --amber: #d69327;
+      --green: #16886f;
+      --green-soft: #d7f0e8;
+      --red-soft: #f8ded9;
+      --blue-soft: #dce8fb;
+      --amber-soft: #f7e9cc;
+      --shadow: 0 18px 50px rgba(15, 28, 43, .10);
+      --radius: 18px;
+      --toc-width: 272px;
+      --max: 1160px;
+    }
+
+    html[data-theme="dark"] {
+      --bg: #07111d;
+      --surface: #0d1d2b;
+      --surface-2: #132535;
+      --ink: #f4f1e8;
+      --muted: #b3c0ca;
+      --faint: #8ea0ae;
+      --line: #294052;
+      --navy: #050d16;
+      --navy-2: #102f49;
+      --blue: #72a8ff;
+      --cyan: #48e1d1;
+      --cyan-dark: #5bd8ce;
+      --coral: #ff7a6f;
+      --coral-dark: #ff9b92;
+      --amber: #f2b94b;
+      --green: #5bd2b5;
+      --green-soft: #123a33;
+      --red-soft: #44231f;
+      --blue-soft: #172f51;
+      --amber-soft: #3b301c;
+      --shadow: 0 24px 60px rgba(0, 0, 0, .34);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(43, 215, 197, .08), transparent 28rem),
+        linear-gradient(180deg, var(--bg), var(--bg));
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+
+    .skip-link {
+      position: fixed; top: 8px; left: 8px; z-index: 9999;
+      transform: translateY(-150%); padding: 8px 12px;
+      color: #071a2e; background: #fff; border-radius: 8px;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    #readingProgress {
+      position: fixed; z-index: 1000; inset: 0 auto auto 0;
+      width: 0; height: 4px; background: linear-gradient(90deg, var(--cyan), var(--coral));
+      box-shadow: 0 0 14px rgba(43, 215, 197, .45);
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: var(--toc-width) minmax(0, 1fr);
+      min-height: 100vh;
+      transition: grid-template-columns .25s ease;
+    }
+
+    body.toc-collapsed { --toc-width: 78px; }
+
+    .toc-shell {
+      position: sticky; top: 0; height: 100vh; z-index: 80;
+      color: #dfeaf2;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), transparent 24%),
+        var(--navy);
+      border-right: 1px solid rgba(255,255,255,.10);
+      overflow: hidden;
+    }
+
+    .toc-inner { display: flex; flex-direction: column; height: 100%; padding: 20px 16px 18px; }
+    .toc-brand { display: flex; align-items: center; gap: 11px; min-height: 42px; }
+    .brand-mark {
+      flex: 0 0 auto; display: grid; place-items: center; width: 40px; height: 40px;
+      border-radius: 12px; color: var(--navy); background: var(--cyan); font-weight: 900;
+      letter-spacing: -.04em;
+    }
+    .brand-copy { white-space: nowrap; overflow: hidden; }
+    .brand-copy strong { display: block; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+    .brand-copy span { display: block; font-size: 11px; color: #8fa6b8; }
+
+    .toc-collapse {
+      margin: 18px 0 14px; display: flex; align-items: center; gap: 10px;
+      width: 100%; min-height: 36px; padding: 7px 10px; color: #b9c8d4;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10);
+      border-radius: 10px; cursor: pointer;
+    }
+    .toc-collapse:hover { background: rgba(255,255,255,.09); color: #fff; }
+    .toc-collapse .chev { display: inline-block; transition: transform .2s ease; }
+    body.toc-collapsed .toc-collapse .chev { transform: rotate(180deg); }
+    body.toc-collapsed .brand-copy,
+    body.toc-collapsed .toc-collapse .collapse-copy,
+    body.toc-collapsed .toc-link-copy,
+    body.toc-collapsed .toc-footer-copy { display: none; }
+    body.toc-collapsed .toc-collapse { justify-content: center; }
+    body.toc-collapsed .toc-brand { justify-content: center; }
+
+    .toc-nav { overflow-y: auto; padding: 4px 1px 20px; scrollbar-width: thin; }
+    .toc-nav a {
+      display: grid; grid-template-columns: 30px 1fr; gap: 7px; align-items: center;
+      min-height: 46px; padding: 6px 8px; margin: 3px 0;
+      color: #9eb0bf; text-decoration: none; border-radius: 10px;
+      transition: color .18s ease, background .18s ease;
+    }
+    .toc-nav a:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .toc-nav a.active { color: #fff; background: rgba(43,215,197,.13); }
+    .toc-nav a.active .toc-num { color: var(--cyan); }
+    .toc-num { font: 700 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: #688095; }
+    .toc-link-copy { min-width: 0; }
+    .toc-link-copy .zh { display: block; font-size: 13px; color: currentColor; }
+    .toc-link-copy .en { display: block; font-size: 10px; color: #71899c; line-height: 1.25; }
+    body.toc-collapsed .toc-nav a { grid-template-columns: 1fr; text-align: center; }
+
+    .toc-footer {
+      margin-top: auto; padding: 12px 8px 0; border-top: 1px solid rgba(255,255,255,.09);
+      color: #6f8799; font-size: 10px; line-height: 1.5;
+    }
+
+    .main { min-width: 0; overflow: clip; }
+    .control-dock {
+      position: fixed; z-index: 90; top: 16px; right: 18px;
+      display: flex; gap: 8px; align-items: center;
+      padding: 6px; color: var(--ink); background: color-mix(in srgb, var(--surface) 90%, transparent);
+      border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 10px 34px rgba(10,20,32,.13);
+      backdrop-filter: blur(14px);
+    }
+    .control-dock button {
+      min-width: 34px; height: 32px; padding: 0 9px; border: 0; border-radius: 8px;
+      color: var(--muted); background: transparent; cursor: pointer;
+    }
+    .control-dock button:hover { color: var(--ink); background: var(--surface-2); }
+    .control-dock button[aria-pressed="true"] { color: #071a2e; background: var(--cyan); font-weight: 800; }
+    .control-divider { width: 1px; height: 20px; background: var(--line); }
+    #menuToggle { display: none; }
+
+    body[data-lang="zh"] .en { display: none !important; }
+    body[data-lang="en"] .zh { display: none !important; }
+    body[data-lang="en"] .block-en { margin-top: 0; color: inherit; }
+    .block-en { display: block; margin-top: .42rem; color: var(--muted); }
+    h1 .block-en, h2 .block-en { color: inherit; opacity: .76; }
+
+    .hero {
+      position: relative; isolation: isolate; min-height: 720px;
+      color: #f4f7f7; background:
+        radial-gradient(circle at 78% 22%, rgba(43,215,197,.18), transparent 24rem),
+        radial-gradient(circle at 28% 82%, rgba(227,95,84,.14), transparent 26rem),
+        linear-gradient(145deg, #061423 0%, #0a2540 54%, #071725 100%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; opacity: .22;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
+    }
+    .hero::after {
+      content: ""; position: absolute; width: 360px; height: 360px; right: -120px; bottom: -110px;
+      border: 60px solid rgba(43,215,197,.10); border-radius: 50%; z-index: -1;
+    }
+    .hero-inner { max-width: var(--max); margin: 0 auto; padding: 104px 42px 76px; }
+    .eyebrow {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 9px;
+      color: #a9bdcc; font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase;
+    }
+    .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 5px rgba(43,215,197,.12); }
+    .hero h1 {
+      max-width: 920px; margin: 26px 0 20px; font-size: clamp(42px, 7vw, 86px);
+      line-height: .98; letter-spacing: -.055em; font-weight: 850;
+    }
+    .hero h1 .block-en { margin-top: 16px; font-size: .52em; line-height: 1.06; letter-spacing: -.035em; font-weight: 620; }
+    .hero-lede { max-width: 830px; margin: 0; color: #d4e0e7; font-size: clamp(18px, 2.1vw, 25px); line-height: 1.52; }
+    .hero-lede strong { color: #fff; }
+    .hero-lede .block-en { color: #8faabd; font-size: .76em; }
+    .hero-scope { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+    .hero-scope span {
+      padding:6px 9px; color:#9db4c3; background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.11); border-radius:999px;
+      font:750 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .result-matrix {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      max-width: 920px; margin-top: 42px;
+    }
+    .matrix-head {
+      display: flex; justify-content: space-between; gap: 16px; align-items: end;
+      grid-column: 1 / -1; padding: 0 4px 6px; color: #9fb2c1; font-size: 12px;
+    }
+    .result-card {
+      position: relative; min-height: 148px; padding: 20px 22px;
+      border: 1px solid rgba(255,255,255,.14); border-radius: 17px;
+      background: rgba(255,255,255,.055); backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+    .result-card::after {
+      content: ""; position: absolute; inset: auto -30px -55px auto; width: 130px; height: 130px;
+      border-radius: 50%; background: var(--glow, rgba(43,215,197,.15)); filter: blur(6px);
+    }
+    .result-card.risk { --glow: rgba(227,95,84,.20); }
+    .result-label { color: #a7bbc9; font-size: 12px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+    .result-value { margin-top: 8px; font-size: clamp(34px, 5vw, 58px); line-height: 1; font-weight: 900; letter-spacing: -.055em; }
+    .result-value.good { color: var(--cyan); }
+    .result-value.bad { color: #ff8177; }
+    .result-context { margin-top: 9px; max-width: 28rem; color: #bfd0db; font-size: 13px; line-height: 1.45; }
+    .result-context .en { color: #829bab; }
+    .hero-footnote { margin: 14px 3px 0; color: #7891a2; font-size: 11px; }
+
+    .chapter { position: relative; padding: 96px 42px; border-bottom: 1px solid var(--line); }
+    .chapter:nth-of-type(even) { background: color-mix(in srgb, var(--surface) 45%, transparent); }
+    .chapter-inner { max-width: var(--max); margin: 0 auto; }
+    .chapter-header { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 20px; align-items: start; margin-bottom: 48px; }
+    .chapter-number {
+      font: 850 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--cyan-dark); letter-spacing: .16em; padding-top: 11px;
+    }
+    .chapter h2 { margin: 0; font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -.045em; }
+    .chapter h2 .block-en { margin-top: 10px; font-size: .44em; font-weight: 620; letter-spacing: -.025em; }
+    .chapter-deck { max-width: 790px; margin: 22px 0 0; color: var(--muted); font-size: 18px; }
+    .chapter-deck .block-en { font-size: .78em; }
+    h3 { margin: 0 0 12px; font-size: 20px; line-height: 1.3; }
+    p { margin: 0 0 1rem; }
+
+    .source-chip, .evidence-tag {
+      display: inline-flex; align-items: center; gap: 6px; width: fit-content;
+      padding: 4px 8px; border-radius: 999px; font: 750 10px/1.25 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .03em; text-decoration: none;
+    }
+    .source-chip { color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); }
+    .source-chip:hover { color: var(--ink); border-color: var(--cyan-dark); }
+    .evidence-tag.causal { color: var(--green); background: var(--green-soft); }
+    .evidence-tag.suggestive { color: var(--amber); background: var(--amber-soft); }
+    .evidence-tag.boundary { color: var(--muted); background: var(--surface-2); }
+
+    .argument-path {
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin: 6px 0 44px;
+    }
+    .argument-step { position: relative; padding: 20px 22px 20px 0; }
+    .argument-step:not(:last-child)::after {
+      content: "→"; position: absolute; top: 29px; right: 6px; color: var(--line); font-size: 24px;
+    }
+    .argument-step .step-no { display: block; margin-bottom: 12px; color: var(--cyan-dark); font: 800 11px/1 ui-monospace, monospace; }
+    .argument-step strong { display: block; font-size: 15px; line-height: 1.35; }
+    .argument-step .en { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .argument-step small { display: block; margin-top: 10px; color: var(--faint); font-size: 10px; }
+
+    .thesis-callout {
+      display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start;
+      padding: 26px 28px; background: var(--navy); color: #eef6f6; border-radius: var(--radius); box-shadow: var(--shadow);
+    }
+    .thesis-callout .mark { color: var(--cyan); font: 900 42px/1 Georgia, serif; }
+    .thesis-callout strong { display: block; font-size: 21px; line-height: 1.35; }
+    .thesis-callout .block-en { color: #91a9b9; font-size: 13px; }
+
+    .study-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 32px; }
+    .fact {
+      min-height: 138px; padding: 20px; border-top: 3px solid var(--cyan-dark); background: var(--surface);
+      box-shadow: 0 10px 30px rgba(15,28,43,.055);
+    }
+    .fact strong { display: block; font-size: 32px; line-height: 1; letter-spacing: -.04em; }
+    .fact span { display: block; margin-top: 11px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .fact .en { margin-top: 4px; color: var(--faint); font-size: 10px; }
+
+    .phase-flow { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 12px; align-items: stretch; margin: 36px 0; }
+    .phase {
+      position: relative; padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    }
+    .phase.intervention { color: #eaf6f5; background: var(--navy-2); border-color: transparent; transform: translateY(-8px); box-shadow: var(--shadow); }
+    .phase .phase-no { display: block; margin-bottom: 20px; color: var(--cyan-dark); font: 800 11px/1 ui-monospace, monospace; }
+    .phase.intervention .phase-no { color: var(--cyan); }
+    .phase strong { display: block; font-size: 18px; }
+    .phase p { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .phase.intervention p { color: #9fb5c3; }
+    .phase .lock { display: inline-block; margin-top: 15px; color: var(--coral); font-size: 11px; font-weight: 800; }
+
+    .arm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 30px; }
+    .arm { position: relative; padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+    .arm.base { border-top: 5px solid var(--coral); }
+    .arm.tutor { border-top: 5px solid var(--cyan-dark); }
+    .arm.control { border-top: 5px solid var(--muted); }
+    .arm .arm-count { position: absolute; top: 20px; right: 20px; color: var(--faint); font: 750 11px/1 ui-monospace, monospace; }
+    .arm h3 { padding-right: 54px; }
+    .arm p { color: var(--muted); font-size: 13px; }
+    .arm .en { color: var(--faint); font-size: .88em; }
+
+    .method-note {
+      margin-top: 26px; padding: 18px 20px; border-left: 4px solid var(--amber); background: var(--amber-soft);
+      color: var(--ink); font-size: 13px;
+    }
+    .method-note .en { color: var(--muted); }
+
+    .prompt-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .prompt-card { overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 12px 34px rgba(15,28,43,.06); }
+    .prompt-top { display: flex; align-items: center; justify-content: space-between; padding: 17px 20px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+    .prompt-card.base .prompt-top { box-shadow: inset 0 4px 0 var(--coral); }
+    .prompt-card.tutor .prompt-top { box-shadow: inset 0 4px 0 var(--cyan-dark); }
+    .prompt-top strong { font-size: 15px; }
+    .prompt-body { padding: 22px; }
+    .chat { max-width: 88%; margin-bottom: 12px; padding: 12px 14px; border-radius: 14px; font-size: 12px; line-height: 1.5; }
+    .chat.student { margin-left: auto; background: var(--blue-soft); border-bottom-right-radius: 4px; }
+    .chat.ai { background: var(--surface-2); border-bottom-left-radius: 4px; }
+    .chat.ai.danger { background: var(--red-soft); }
+    .chat.ai.safe { background: var(--green-soft); }
+    .prompt-rules { margin: 18px 0 0; padding: 0; list-style: none; }
+    .prompt-rules li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; margin: 9px 0; color: var(--muted); font-size: 12px; }
+    .prompt-rules .tick { color: var(--green); font-weight: 900; }
+    .prompt-rules .cross { color: var(--coral); font-weight: 900; }
+    .prompt-rules .en { color: var(--faint); font-size: 10px; }
+
+    .guardrail-anatomy { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+    .guardrail { padding: 18px; border-top: 2px solid var(--cyan-dark); background: color-mix(in srgb, var(--surface) 76%, transparent); }
+    .guardrail b { display: block; font-size: 14px; }
+    .guardrail span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; }
+    .guardrail .en { color: var(--faint); font-size: 10px; }
+
+    .effect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .effect-panel { padding: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+    .effect-panel h3 { margin-bottom: 4px; }
+    .effect-panel .panel-sub { color: var(--muted); font-size: 11px; }
+    .effect-plot { margin-top: 26px; }
+    .effect-row { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 12px; align-items: center; margin: 22px 0; }
+    .effect-name strong { display: block; font-size: 13px; }
+    .effect-name span { display: block; color: var(--faint); font-size: 10px; }
+    .effect-track {
+      position: relative; height: 44px; border-bottom: 1px solid var(--line);
+      background: repeating-linear-gradient(90deg, transparent 0, transparent calc(20% - 1px), color-mix(in srgb, var(--line) 55%, transparent) 20%);
+    }
+    .effect-zero { position: absolute; left: var(--zero); top: 0; bottom: -5px; width: 2px; background: var(--ink); opacity: .45; }
+    .effect-fill { position: absolute; left: var(--fill-left); top: 16px; width: var(--fill-width); height: 10px; background: var(--series); opacity: .42; }
+    .effect-ci { position: absolute; left: var(--lo); top: 20px; width: calc(var(--hi) - var(--lo)); height: 2px; background: var(--series); }
+    .effect-ci::before, .effect-ci::after { content: ""; position: absolute; top: -5px; width: 2px; height: 12px; background: var(--series); }
+    .effect-ci::before { left: 0; } .effect-ci::after { right: 0; }
+    .effect-dot { position: absolute; left: var(--point); top: 14px; width: 14px; height: 14px; transform: translateX(-50%); border-radius: 50%; background: var(--series); box-shadow: 0 0 0 3px var(--surface); }
+    .effect-row.ns .effect-dot { background: var(--surface); border: 3px solid var(--series); }
+    .effect-value { position: absolute; left: var(--point); top: -8px; transform: translateX(-50%); white-space: nowrap; color: var(--series); font: 850 11px/1 ui-monospace, monospace; }
+    .effect-row.base { --series: var(--coral); }
+    .effect-row.tutor { --series: var(--cyan-dark); }
+    .effect-axis { position: relative; height: 25px; margin-left: 128px; color: var(--faint); font: 700 9px/1 ui-monospace, monospace; }
+    .effect-axis span { position: absolute; transform: translateX(-50%); }
+    .effect-axis span:first-child { transform: none; }
+    .effect-axis span:last-child { transform: translateX(-100%); }
+    .effect-foot { margin-top: 17px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+
+    .stat-translation { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: center; margin: 22px 0 0; padding: 22px; background: var(--navy); color: #eef6f6; border-radius: 16px; }
+    .stat-translation .big { display: block; font-size: 31px; font-weight: 900; letter-spacing: -.04em; }
+    .stat-translation .small { display: block; color: #9eb5c3; font-size: 11px; }
+    .stat-translation .arrow { color: var(--cyan); font-size: 28px; }
+
+    .hypothesis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .hypothesis { position: relative; padding: 25px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+    .hypothesis .verdict { position: absolute; top: 22px; right: 22px; }
+    .hypothesis h3 { padding-right: 120px; }
+    .hypothesis p { color: var(--muted); font-size: 13px; }
+    .hypothesis ul { margin: 16px 0 0; padding-left: 18px; color: var(--muted); font-size: 12px; }
+    .hypothesis li { margin: 8px 0; }
+
+    .error-bar-wrap { margin: 32px 0; padding: 26px; background: var(--navy); color: #edf5f5; border-radius: 18px; }
+    .error-bar-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; }
+    .error-bar-head p { margin: 0; color: #93aaba; font-size: 11px; }
+    .error-bars { display:grid; gap:12px; margin-top:22px; }
+    .error-row { display:grid; grid-template-columns:140px minmax(0,1fr) 48px; gap:12px; align-items:center; }
+    .error-row-label { color:#b5c5cf; font-size:11px; }
+    .error-track { height:18px; overflow:hidden; background:rgba(255,255,255,.08); border-radius:4px; }
+    .error-mark { display:block; height:100%; width:var(--value); background:var(--series); }
+    .error-row.correct { --series:var(--cyan); }
+    .error-row.logical { --series:var(--coral); }
+    .error-row.arithmetic { --series:var(--amber); }
+    .error-number { color:#fff; font:900 13px/1 ui-monospace,monospace; text-align:right; }
+    .error-scale { display:flex; justify-content:space-between; margin:2px 60px 0 152px; color:#748d9e; font:700 9px/1 ui-monospace,monospace; }
+    .error-legend { margin-top:15px; color:#8fa7b6; font-size:10px; }
+
+    .mechanism-coeffs { margin-top:18px; overflow:hidden; background:var(--surface); border:1px solid var(--line); border-radius:14px; }
+    .mechanism-coeffs-head, .mechanism-coeff-row { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:12px; padding:11px 16px; align-items:center; }
+    .mechanism-coeffs-head { color:var(--faint); background:var(--surface-2); font:750 10px/1.3 ui-monospace,monospace; }
+    .mechanism-coeff-row { border-top:1px solid var(--line); font-size:12px; }
+    .mechanism-coeff-row b { color:var(--coral); font-family:ui-monospace,monospace; }
+    .mechanism-coeff-row .ns-coeff { color:var(--muted); }
+    .mechanism-coeff-note { padding:0 16px 13px; color:var(--faint); font-size:10px; }
+
+    .message-evolution { margin-top: 34px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+    .message-head { padding: 22px 24px 14px; }
+    .message-head p { color: var(--muted); font-size: 12px; }
+    .message-grid { display: grid; grid-template-columns: 130px repeat(4, 1fr); border-top: 1px solid var(--line); }
+    .message-grid > div { min-height: 104px; padding: 15px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .message-grid > div:nth-child(5n) { border-right: 0; }
+    .message-grid .grid-label { display: grid; align-content: center; background: var(--surface-2); }
+    .message-grid .grid-label strong { font-size: 13px; }
+    .message-grid .session-head { min-height: auto; padding: 8px 15px; color: var(--faint); font: 750 10px/1 ui-monospace, monospace; background: var(--surface-2); }
+    .message-cell { position: relative; }
+    .message-cell .pct { display: block; color: var(--series); font: 900 22px/1 ui-monospace, monospace; }
+    .message-cell .type { display: block; margin-top: 8px; font-size: 11px; line-height: 1.3; }
+    .message-cell::after { content: ""; position: absolute; left: 15px; right: 15px; bottom: 10px; height: 4px; background: linear-gradient(90deg, var(--series) var(--pct), var(--surface-2) var(--pct)); }
+    .message-cell.base { --series: var(--coral); }
+    .message-cell.tutor { --series: var(--cyan-dark); }
+
+    .perception-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .perception-card { padding: 26px; background: var(--surface); border-radius: 18px; border: 1px solid var(--line); }
+    .perception-card.base { border-top: 5px solid var(--coral); }
+    .perception-card.tutor { border-top: 5px solid var(--cyan-dark); }
+    .reality-line { display: flex; align-items: baseline; gap: 12px; margin: 18px 0 20px; }
+    .reality-line .real { font-size: 42px; font-weight: 900; letter-spacing: -.05em; }
+    .reality-line .real.bad { color: var(--coral); }
+    .reality-line .real.neutral { color: var(--cyan-dark); }
+    .reality-line span { color: var(--muted); font-size: 11px; }
+    .belief-list { display: grid; gap: 9px; }
+    .belief-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; padding-top: 9px; border-top: 1px solid var(--line); font-size: 12px; }
+    .belief-row span { color: var(--muted); }
+    .belief-row b { font-family: ui-monospace, monospace; }
+
+    .evidence-ladder { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 12px; margin-bottom: 36px; }
+    .evidence-level { padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+    .evidence-level.strong { border-top: 5px solid var(--green); }
+    .evidence-level.medium { border-top: 5px solid var(--amber); }
+    .evidence-level.bound { border-top: 5px solid var(--muted); }
+    .evidence-level h3 { font-size: 16px; }
+    .evidence-level p { color: var(--muted); font-size: 12px; }
+
+    .forest { padding: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; }
+    .forest-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 22px; }
+    .forest-head p { margin: 0; color: var(--muted); font-size: 11px; }
+    .forest-row { display: grid; grid-template-columns: 190px minmax(0,1fr) 76px; gap: 14px; align-items: center; margin: 17px 0; }
+    .forest-label { font-size: 11px; }
+    .forest-track { position: relative; height: 24px; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, transparent 0 87.5%, color-mix(in srgb,var(--ink) 45%,transparent) 87.5% calc(87.5% + 1px), transparent calc(87.5% + 1px)); }
+    .forest-ci { position: absolute; top: 12px; left: var(--lo); width: calc(var(--hi) - var(--lo)); height: 2px; background: var(--coral); }
+    .forest-ci::before, .forest-ci::after { content:""; position:absolute; top:-4px; width:2px; height:10px; background:var(--coral); }
+    .forest-ci::before { left:0; } .forest-ci::after { right:0; }
+    .forest-dot { position:absolute; top:7px; left:var(--point); width:11px; height:11px; transform:translateX(-50%); border-radius:50%; background:var(--coral); box-shadow:0 0 0 3px var(--surface); }
+    .forest-value { color: var(--coral); font: 800 11px/1 ui-monospace, monospace; text-align: right; }
+    .forest-axis { position:relative; height:18px; margin:8px 90px 0 204px; color:var(--faint); font:700 9px/1 ui-monospace,monospace; }
+    .forest-axis span { position:absolute; transform:translateX(-50%); }
+    .forest-axis span:first-child { transform:none; }
+    .forest-axis span:last-child { transform:translateX(-100%); }
+
+    .caveat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
+    details.caveat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    details.caveat summary { list-style: none; cursor: pointer; padding: 17px 20px; font-weight: 800; font-size: 13px; }
+    details.caveat summary::-webkit-details-marker { display: none; }
+    details.caveat summary::after { content: "+"; float: right; color: var(--cyan-dark); font-size: 18px; }
+    details.caveat[open] summary::after { content: "−"; }
+    details.caveat div { padding: 0 20px 18px; color: var(--muted); font-size: 12px; }
+
+    .design-principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .principle { display: grid; grid-template-columns: 42px 1fr; gap: 15px; padding: 20px; background: var(--surface); border-bottom: 1px solid var(--line); }
+    .principle-no { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; color: #071a2e; background: var(--cyan); font: 900 12px/1 ui-monospace, monospace; }
+    .principle strong { display: block; font-size: 14px; }
+    .principle span { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; }
+    .principle .en { color: var(--faint); font-size: 10px; }
+
+    .north-star { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; margin-top: 38px; padding: 28px; color: #eaf5f4; background: var(--navy); border-radius: 18px; }
+    .north-copy p { color: #93abba; font-size: 13px; }
+    .matrix-chart { position: relative; aspect-ratio: 1.35; min-height: 280px; border-left: 1px solid #668195; border-bottom: 1px solid #668195; }
+    .matrix-chart::before, .matrix-chart::after { content:""; position:absolute; background:rgba(255,255,255,.08); }
+    .matrix-chart::before { left:50%; top:0; bottom:0; width:1px; }
+    .matrix-chart::after { left:0; right:0; top:50%; height:1px; }
+    .axis-y, .axis-x { position:absolute; color:#87a1b3; font-size:10px; }
+    .axis-y { left:-7px; top:50%; transform:translate(-100%,-50%) rotate(-90deg); white-space:nowrap; }
+    .axis-x { left:50%; bottom:-25px; transform:translateX(-50%); white-space:nowrap; }
+    .matrix-dot { position:absolute; transform:translate(-50%,-50%); padding:7px 9px; border-radius:999px; font:800 10px/1 ui-monospace,monospace; white-space:nowrap; }
+    .matrix-dot.control { left:28%; top:48%; color:#e8eef1; background:#566d7d; }
+    .matrix-dot.base { left:49%; top:73%; color:#fff; background:var(--coral); }
+    .matrix-dot.tutor { left:83%; top:49%; color:#061423; background:var(--cyan); }
+    .quad-label { position:absolute; color:#607b8e; font-size:9px; }
+    .quad-label.good { right:8px; top:8px; color:#8dcfc4; }
+    .quad-label.risk { right:8px; bottom:8px; color:#d78c86; }
+
+    .source-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 18px; }
+    .source-card { padding: 25px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+    .source-card h3 { font-size: 16px; }
+    .source-card p, .source-card li { color: var(--muted); font-size: 12px; }
+    .source-card ul { margin: 14px 0 0; padding-left: 18px; }
+    .source-card a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .source-card a:hover { color: var(--cyan-dark); }
+    .notation { display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; margin-top: 14px; font-size: 12px; }
+    .notation dt { font: 800 11px/1.5 ui-monospace, monospace; color: var(--cyan-dark); }
+    .notation dd { margin: 0; color: var(--muted); }
+
+    .footer { padding: 38px 42px 54px; color: #8093a1; background: var(--navy); }
+    .footer-inner { display:flex; justify-content:space-between; gap:24px; max-width:var(--max); margin:0 auto; font-size:11px; }
+    .footer a { color:#b9cbd5; text-underline-offset:3px; }
+
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 1080px) {
+      :root { --toc-width: 230px; }
+      .hero-inner, .chapter { padding-left: 30px; padding-right: 30px; }
+      .study-facts { grid-template-columns: repeat(2, 1fr); }
+      .guardrail-anatomy { grid-template-columns: repeat(2, 1fr); }
+      .argument-path { grid-template-columns: repeat(3, 1fr); }
+      .argument-step:nth-child(3)::after { display:none; }
+      .argument-step:nth-child(n+4) { border-top:1px solid var(--line); }
+    }
+
+    @media (max-width: 860px) {
+      .app { display:block; }
+      .toc-shell { position:fixed; inset:0 auto 0 0; width:min(82vw,310px); transform:translateX(-105%); transition:transform .25s ease; box-shadow:0 0 60px rgba(0,0,0,.35); }
+      body.toc-open .toc-shell { transform:translateX(0); }
+      body.toc-collapsed .brand-copy,
+      body.toc-collapsed .toc-collapse .collapse-copy,
+      body.toc-collapsed .toc-link-copy,
+      body.toc-collapsed .toc-footer-copy { display:block; }
+      body.toc-collapsed .toc-nav a { grid-template-columns:30px 1fr; text-align:left; }
+      .toc-collapse { display:none; }
+      #menuToggle { display:inline-grid; place-items:center; }
+      .control-dock { top:12px; right:12px; }
+      .hero-inner { padding-top:112px; }
+      .result-matrix, .effect-grid, .hypothesis-grid, .perception-grid, .source-grid, .north-star { grid-template-columns:1fr; }
+      .chapter-header { grid-template-columns:1fr; gap:8px; }
+      .chapter-number { padding-top:0; }
+      .phase-flow { grid-template-columns:1fr; }
+      .phase.intervention { transform:none; }
+      .arm-grid { grid-template-columns:1fr; }
+      .prompt-compare { grid-template-columns:1fr; }
+      .evidence-ladder { grid-template-columns:1fr; }
+      .message-grid { grid-template-columns:100px repeat(4, minmax(130px,1fr)); overflow-x:auto; }
+      .message-evolution { overflow-x:auto; }
+      .forest-row { grid-template-columns:150px minmax(250px,1fr) 64px; }
+      .forest { overflow-x:auto; }
+      .forest-axis { min-width:450px; margin-left:164px; }
+      .caveat-grid, .design-principles { grid-template-columns:1fr; }
+      .north-star { padding-bottom:48px; }
+    }
+
+    @media (max-width: 560px) {
+      .hero { min-height:auto; }
+      .hero-inner, .chapter { padding-left:20px; padding-right:20px; }
+      .hero-inner { padding-bottom:56px; }
+      .hero h1 { font-size:46px; }
+      .hero h1 .block-en { font-size:.48em; }
+      .result-matrix { grid-template-columns:1fr; }
+      .matrix-head { display:none; }
+      .chapter { padding-top:70px; padding-bottom:70px; }
+      .chapter h2 { font-size:38px; }
+      .study-facts { grid-template-columns:1fr 1fr; }
+      .fact { min-height:128px; padding:16px; }
+      .fact strong { font-size:27px; }
+      .argument-path { grid-template-columns:1fr; }
+      .argument-step { padding-right:0; border-top:1px solid var(--line); }
+      .argument-step:not(:last-child)::after { display:none; }
+      .thesis-callout { grid-template-columns:1fr; gap:4px; }
+      .guardrail-anatomy { grid-template-columns:1fr; }
+      .effect-panel { padding:20px 14px; }
+      .effect-row { grid-template-columns:92px minmax(0,1fr); gap:6px; }
+      .effect-axis { margin-left:98px; }
+      .stat-translation { grid-template-columns:1fr; }
+      .stat-translation .arrow { transform:rotate(90deg); }
+      .hypothesis .verdict { position:static; margin-bottom:12px; }
+      .hypothesis h3 { padding-right:0; }
+      .mechanism-coeffs-head, .mechanism-coeff-row { grid-template-columns:1fr; gap:5px; }
+      .error-bar-wrap { padding:20px 14px; }
+      .error-row { grid-template-columns:100px minmax(0,1fr) 42px; gap:8px; }
+      .error-scale { margin-left:108px; margin-right:50px; }
+      .caveat-grid { grid-template-columns:1fr; }
+      .footer { padding-left:20px; padding-right:20px; }
+      .footer-inner { flex-direction:column; }
+      .control-dock { gap:2px; padding:4px; }
+      .control-dock button { min-width:30px; padding:0 7px; }
+      #langBoth { display:none; }
+    }
+
+    @media print {
+      .toc-shell, .control-dock, #readingProgress { display:none !important; }
+      .app { display:block; }
+      .hero, .chapter { break-inside:avoid; }
+      .reveal { opacity:1 !important; transform:none !important; }
+      a { text-decoration:none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto !important; transition:none !important; }
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body data-lang="both">
+  <a class="skip-link" href="#mainContent">跳到正文 / Skip to content</a>
+  <div id="readingProgress" aria-hidden="true"></div>
+  <div class="app">
+    <aside class="toc-shell" id="tocShell" aria-label="论文目录 / Paper table of contents">
+      <div class="toc-inner">
+        <div class="toc-brand">
+          <div class="brand-mark" aria-hidden="true">AI</div>
+          <div class="brand-copy">
+            <strong>Guardrails × Learning</strong>
+            <span>Visual paper deep read · 2025</span>
+          </div>
+        </div>
+        <button class="toc-collapse" id="tocCollapse" type="button" aria-expanded="true" aria-label="折叠目录 / Collapse table of contents">
+          <span class="chev" aria-hidden="true">‹</span>
+          <span class="collapse-copy">收起目录 / Collapse</span>
+        </button>
+        <nav class="toc-nav" id="tocNav">
+          <a href="#thesis"><span class="toc-num">00</span><span class="toc-link-copy"><span class="zh">核心结论</span><span class="en">The thesis</span></span></a>
+          <a href="#argument"><span class="toc-num">01</span><span class="toc-link-copy"><span class="zh">论证地图</span><span class="en">Argument map</span></span></a>
+          <a href="#experiment"><span class="toc-num">02</span><span class="toc-link-copy"><span class="zh">实验如何做</span><span class="en">Experiment</span></span></a>
+          <a href="#guardrails"><span class="toc-num">03</span><span class="toc-link-copy"><span class="zh">护栏是什么</span><span class="en">Guardrail anatomy</span></span></a>
+          <a href="#results"><span class="toc-num">04</span><span class="toc-link-copy"><span class="zh">主结果</span><span class="en">Main results</span></span></a>
+          <a href="#mechanism"><span class="toc-num">05</span><span class="toc-link-copy"><span class="zh">“拐杖”机制</span><span class="en">The crutch mechanism</span></span></a>
+          <a href="#perception"><span class="toc-num">06</span><span class="toc-link-copy"><span class="zh">感知与现实</span><span class="en">Perception gap</span></span></a>
+          <a href="#audit"><span class="toc-num">07</span><span class="toc-link-copy"><span class="zh">证据审计</span><span class="en">Evidence audit</span></span></a>
+          <a href="#implications"><span class="toc-num">08</span><span class="toc-link-copy"><span class="zh">设计启示</span><span class="en">Design implications</span></span></a>
+          <a href="#sources"><span class="toc-num">09</span><span class="toc-link-copy"><span class="zh">方法与来源</span><span class="en">Methods & sources</span></span></a>
+        </nav>
+        <div class="toc-footer">
+          <span class="toc-footer-copy">PNAS 122(26) · e2422633122<br>68-page paper + appendix</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main" id="mainContent">
+      <div class="control-dock" aria-label="阅读设置 / Reading controls">
+        <button id="menuToggle" type="button" aria-label="打开目录 / Open contents" aria-expanded="false">☰</button>
+        <button id="langZh" type="button" aria-pressed="false" aria-label="仅中文">中</button>
+        <button id="langEn" type="button" aria-pressed="false" aria-label="English only">EN</button>
+        <button id="langBoth" type="button" aria-pressed="true" aria-label="中英双语">中·EN</button>
+        <span class="control-divider" aria-hidden="true"></span>
+        <button id="themeToggle" type="button" aria-pressed="false" aria-label="切换深浅主题 / Toggle theme">◐</button>
+      </div>
+
+      <section class="hero" id="thesis" data-section>
+        <div class="hero-inner">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> PNAS · Randomized field experiment · 2025</div>
+          <h1>
+            <span class="zh">援手，还是拐杖？</span>
+            <span class="en block-en" lang="en">A helping hand—or a crutch?</span>
+          </h1>
+          <p class="hero-lede">
+            <span class="zh">AI 能把<strong>眼前的练习成绩</strong>推高，也可能让学生在 AI 被撤走后<strong>独立作答更差</strong>。决定结果的，不只是模型能力，而是界面是否迫使学习发生。</span>
+            <span class="en block-en" lang="en">AI can lift <strong>performance while assistance is present</strong> yet leave students <strong>worse off once it disappears</strong>. The interface is not neutral: it can either preserve effort or automate it away.</span>
+          </p>
+          <div class="hero-scope" aria-label="研究范围 / Study scope"><span>TURKEY · ONE HIGH SCHOOL</span><span>FALL 2023</span><span>GPT-4-0613</span><span>SHORT-RUN NEAR TRANSFER</span></div>
+
+          <div class="result-matrix" aria-label="核心结果 / Headline results">
+            <div class="matrix-head"><span>WITH AI · 有 AI 练习</span><span>AI REMOVED · 撤掉 AI 考试</span></div>
+            <article class="result-card">
+              <div class="result-label">GPT Base · 无护栏</div>
+              <div class="result-value good">+48%</div>
+              <div class="result-context"><span class="zh">练习相对提升（+13.7 个百分点）</span><span class="en block-en">practice lift vs control (+13.7 pp)</span></div>
+            </article>
+            <article class="result-card risk">
+              <div class="result-label">GPT Base · 无护栏</div>
+              <div class="result-value bad">−17%</div>
+              <div class="result-context"><span class="zh">无辅助考试相对下降（−5.4 个百分点）</span><span class="en block-en">unassisted exam decline vs control (−5.4 pp)</span></div>
+            </article>
+            <article class="result-card">
+              <div class="result-label">GPT Tutor · 教学护栏</div>
+              <div class="result-value good">+127%</div>
+              <div class="result-context"><span class="zh">练习相对提升（+36.1 个百分点）</span><span class="en block-en">practice lift vs control (+36.1 pp)</span></div>
+            </article>
+            <article class="result-card">
+              <div class="result-label">GPT Tutor · 教学护栏</div>
+              <div class="result-value">≈ 0</div>
+              <div class="result-context"><span class="zh">考试与对照组无显著差异（−0.4 个百分点，n.s.）</span><span class="en block-en">no detectable exam effect (−0.4 pp, n.s.)</span></div>
+            </article>
+          </div>
+          <p class="hero-footnote">Relative % = treatment coefficient ÷ control mean. pp = percentage points. Main ITT estimates, Table 1, PDF p.10.</p>
+        </div>
+      </section>
+
+      <section class="chapter" id="argument" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">01 / ARGUMENT</div>
+            <div>
+              <h2><span class="zh">论文不是在问“AI 好不好”</span><span class="en block-en">The paper is not asking whether AI is “good”</span></h2>
+              <p class="chapter-deck"><span class="zh">它把“有 AI 时做得更好”与“没有 AI 后真的学会”拆成两个结果，再用受控设计比较两种截然不同的 AI 交互方式。</span><span class="en block-en">It separates assisted performance from independent learning, then tests whether two interface designs produce different transfer outcomes.</span></p>
+            </div>
+          </header>
+
+          <div class="argument-path reveal" aria-label="论文论证链 / Paper argument chain">
+            <div class="argument-step"><span class="step-no">01</span><strong class="zh">先拆开两个目标</strong><strong class="en">Separate outcomes</strong><span class="en">Performance now ≠ skill later</span><small>Introduction · pp.2–4</small></div>
+            <div class="argument-step"><span class="step-no">02</span><strong class="zh">随机分配三种环境</strong><strong class="en">Randomize 3 arms</strong><span class="en">Control / Base / Tutor</span><small>Design · pp.5–9</small></div>
+            <div class="argument-step"><span class="step-no">03</span><strong class="zh">撤掉 AI 做近迁移测试</strong><strong class="en">Withdraw AI</strong><span class="en">Closed-book, closed-laptop exam</span><small>Main result · pp.9–12</small></div>
+            <div class="argument-step"><span class="step-no">04</span><strong class="zh">排查错误与行为机制</strong><strong class="en">Probe mechanisms</strong><span class="en">Errors vs “crutch” use</span><small>Mechanism · pp.13–18</small></div>
+            <div class="argument-step"><span class="step-no">05</span><strong class="zh">把结论落到设计</strong><strong class="en">Translate to design</strong><span class="en">Guardrails mitigate harm</span><small>Discussion · pp.19–20</small></div>
+          </div>
+
+          <div class="thesis-callout reveal">
+            <div class="mark" aria-hidden="true">“</div>
+            <div>
+              <strong><span class="zh">真正的结论：无护栏 AI 的“生产力增益”可能是借来的成绩；GPT Tutor 证明设计可以消除伤害，但还没有证明 AI 能提升独立学习。</span><span class="en block-en">The real conclusion: some “productivity” gains are borrowed performance. Guardrails can remove the measured harm, but this study does not show a positive gain in independent learning.</span></strong>
+              <div style="margin-top:14px"><span class="evidence-tag causal">CAUSAL OUTCOME</span> <span class="evidence-tag suggestive">MECHANISM SUGGESTIVE</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="experiment" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">02 / EXPERIMENT</div>
+            <div>
+              <h2><span class="zh">实验的关键，是“撤掉工具”</span><span class="en block-en">The decisive move is taking the tool away</span></h2>
+              <p class="chapter-deck"><span class="zh">四次 90 分钟课堂把教学、带资源练习、无资源考试串在同一节课里。只有中间练习阶段因随机分组而不同。</span><span class="en block-en">Four 90-minute sessions place instruction, resource-assisted practice, and an unassisted exam back-to-back. Only the practice environment varies by assignment.</span></p>
+            </div>
+          </header>
+
+          <div class="study-facts reveal">
+            <div class="fact"><strong>839</strong><span class="zh">主分析学生<br>对照 320 / Base 242 / Tutor 277</span><span class="en">main-sample students</span></div>
+            <div class="fact"><strong>≈50</strong><span class="zh">9–11 年级班级<br>课堂层级分配</span><span class="en">grade 9–11 classes</span></div>
+            <div class="fact"><strong>4 × 90′</strong><span class="zh">四次课堂实验<br>覆盖约 15% 学期数学课程</span><span class="en">sessions, ~15% of term curriculum</span></div>
+            <div class="fact"><strong>2,848</strong><span class="zh">学生–场次观测<br>不是 2,848 名独立学生</span><span class="en">student-session observations</span></div>
+          </div>
+
+          <div class="phase-flow reveal" aria-label="课堂三阶段 / Three-part session flow">
+            <article class="phase"><span class="phase-no">PART 1</span><strong><span class="zh">教师复习</span> / <span class="en">Teacher review</span></strong><p><span class="zh">讲解已学主题与例题；三组完全一致。</span><span class="en block-en">Previously taught topic + worked examples; identical across arms.</span></p></article>
+            <article class="phase intervention"><span class="phase-no">PART 2 · RANDOMIZED</span><strong><span class="zh">辅助练习</span> / <span class="en">Assisted practice</span></strong><p><span class="zh">学生可用课本与笔记；按班级随机获得无 AI、GPT Base 或 GPT Tutor。交卷后，教师向所有组简短讲解正确答案。</span><span class="en block-en">Textbook and notes for all; AI access depends on assigned arm. After submission, every arm receives a brief answer review.</span></p></article>
+            <article class="phase"><span class="phase-no">PART 3</span><strong><span class="zh">独立考试</span> / <span class="en">Unassisted exam</span></strong><p><span class="zh">闭卷、关电脑、无资源；题目与练习概念上高度对应。</span><span class="en block-en">Closed book, closed laptop; near-transfer problems match practice concepts.</span></p><span class="lock">AI OFF · RESOURCES OFF</span></article>
+          </div>
+
+          <div class="arm-grid reveal">
+            <article class="arm control"><span class="arm-count">n=320</span><h3>Control / 对照组</h3><p><span class="zh">常规自习：课本 + 笔记，无设备。</span><span class="en block-en">Business as usual: books and notes, no device.</span></p></article>
+            <article class="arm base"><span class="arm-count">n=242</span><h3>GPT Base / 无护栏</h3><p><span class="zh">类似 ChatGPT 的界面；系统提示只要求 GPT-4 帮学生解题，通常会直接给完整答案。</span><span class="en block-en">A ChatGPT-like tutor prompt that helps solve the problem and often yields full solutions.</span></p></article>
+            <article class="arm tutor"><span class="arm-count">n=277</span><h3>GPT Tutor / 教学护栏</h3><p><span class="zh">同一 GPT-4 与聊天界面，但要求先看学生过程、逐步提示、拒绝完整答案，并注入教师答案与常见错误。</span><span class="en block-en">Same model and interface, plus work-first hints and teacher-authored solutions/misconceptions.</span></p></article>
+          </div>
+
+          <div class="method-note reveal">
+            <strong><span class="zh">为什么这个设计有说服力：</span><span class="en">Why this design is persuasive:</span></strong>
+            <span class="zh"> 普通班学生由学校随机分班；处理在班级层级分配，标准误也按班级聚类；试卷统一纸笔提交，由不知道处理组的独立评分员按教师量表评分；主要的无辅助考试比较已预注册。</span>
+            <span class="en block-en"> Regular-class students were randomly placed into classes; treatment is assigned and errors clustered at the class level; all work is submitted on paper and graded blind by independent graders; the unassisted exam comparison was preregistered.</span>
+            <div style="margin-top:10px"><a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=8" target="_blank" rel="noopener">PDF pp.8–10 · Table 1</a> <a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=25" target="_blank" rel="noopener">PDF p.25 · GPT-4-0613</a> <a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=33" target="_blank" rel="noopener">PDF p.33 · Table 3</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="guardrails" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">03 / GUARDRAILS</div>
+            <div>
+              <h2><span class="zh">“护栏”不是一句温柔的提示词</span><span class="en block-en">A guardrail is more than a polite prompt</span></h2>
+              <p class="chapter-deck"><span class="zh">GPT Tutor 同时改变回答策略与知识底座：它限制直接给答案，还获得教师为每道题准备的正确解、解题步骤、常见误区和提示。</span><span class="en block-en">GPT Tutor changes both response policy and grounding: it withholds full answers while receiving teacher-authored solutions, steps, common errors, and hints for each problem.</span></p>
+            </div>
+          </header>
+
+          <div class="prompt-compare reveal">
+            <article class="prompt-card base">
+              <div class="prompt-top"><strong>GPT Base</strong><span class="evidence-tag boundary">LOW FRICTION</span></div>
+              <div class="prompt-body">
+                <div class="chat student"><span class="zh">“答案是什么？”</span><span class="en block-en">“What is the answer?”</span></div>
+                <div class="chat ai danger"><span class="zh">给出完整计算与最终答案。</span><span class="en block-en">Returns a full derivation and final answer.</span></div>
+                <ul class="prompt-rules">
+                  <li><span class="cross">×</span><span><span class="zh">不要求先展示思路</span><span class="en block-en">No work-first requirement</span></span></li>
+                  <li><span class="cross">×</span><span><span class="zh">没有教师验证答案</span><span class="en block-en">No teacher-verified grounding</span></span></li>
+                  <li><span class="cross">×</span><span><span class="zh">优化的是任务完成</span><span class="en block-en">Optimizes task completion</span></span></li>
+                </ul>
+              </div>
+            </article>
+            <article class="prompt-card tutor">
+              <div class="prompt-top"><strong>GPT Tutor</strong><span class="evidence-tag causal">LEARNING FRICTION</span></div>
+              <div class="prompt-body">
+                <div class="chat student"><span class="zh">“答案是什么？”</span><span class="en block-en">“What is the answer?”</span></div>
+                <div class="chat ai safe"><span class="zh">“先把你做到哪一步、卡在哪里告诉我。”</span><span class="en block-en">“Show me what you have tried and where you are stuck.”</span></div>
+                <ul class="prompt-rules">
+                  <li><span class="tick">✓</span><span><span class="zh">从最少信息开始，逐级提示</span><span class="en block-en">Minimal-to-progressive hints</span></span></li>
+                  <li><span class="tick">✓</span><span><span class="zh">永不直接给完整解答</span><span class="en block-en">Never reveal the full solution</span></span></li>
+                  <li><span class="tick">✓</span><span><span class="zh">可检查答案，但要求解释</span><span class="en block-en">Checks answers, then asks for reasoning</span></span></li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="guardrail-anatomy reveal">
+            <div class="guardrail"><b>1 · Attempt first</b><span class="zh">先让学生暴露当前思路与卡点。</span><span class="en">Elicit the learner’s current state.</span></div>
+            <div class="guardrail"><b>2 · Hint ladder</b><span class="zh">从最小提示开始，挣扎后再加信息。</span><span class="en">Reveal help progressively.</span></div>
+            <div class="guardrail"><b>3 · No full solution</b><span class="zh">拒绝角色扮演、越权或索要完整答案。</span><span class="en">Resist answer extraction.</span></div>
+            <div class="guardrail"><b>4 · Teacher grounding</b><span class="zh">注入正确解、常见错误与针对性反馈。</span><span class="en">Ground feedback in verified pedagogy.</span></div>
+          </div>
+
+          <div class="method-note reveal">
+            <strong><span class="zh">重要的可扩展性代价：</span><span class="en">A real scalability cost:</span></strong>
+            <span class="zh"> 论文明确说，逐题构建这些教师输入很费工；研究团队兼职雇了两位数学教师。换言之，这不是只靠一条通用 system prompt 就能复制的效果。</span>
+            <span class="en block-en"> The problem-specific inputs were labor-intensive and produced with two part-time math teachers. This is not merely a reusable one-line system prompt.</span>
+            <div style="margin-top:10px"><a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=6" target="_blank" rel="noopener">PDF pp.6–7 · Figure 1</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="results" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">04 / RESULTS</div>
+            <div>
+              <h2><span class="zh">成绩上去了，学习却没有同步</span><span class="en block-en">Performance rises; learning does not follow</span></h2>
+              <p class="chapter-deck"><span class="zh">下图画的是相对对照组的处理效应，而不是原始组均值。点为回归系数，横线为按 1.96×SE 计算的近似 95% 置信区间。</span><span class="en block-en">These are treatment effects relative to control, not raw arm means. Dots are regression coefficients; whiskers are approximate 95% intervals using 1.96×SE.</span></p>
+            </div>
+          </header>
+
+          <div class="effect-grid reveal">
+            <figure class="effect-panel" style="margin:0">
+              <h3><span class="zh">有 AI 的练习阶段</span> / <span class="en">Assisted practice</span></h3>
+              <div class="panel-sub">Control mean 28.4% · positive = higher score</div>
+              <div class="effect-plot" data-min="-0.05" data-max="0.45">
+                <div class="effect-row base" data-est="0.137" data-se="0.031" aria-label="GPT Base effect plus 13.7 percentage points, standard error 3.1">
+                  <div class="effect-name"><strong>GPT Base</strong><span>+48% relative</span></div>
+                  <div class="effect-track"><span class="effect-zero"></span><span class="effect-fill"></span><span class="effect-ci"></span><span class="effect-dot"></span><span class="effect-value">+13.7 pp**</span></div>
+                </div>
+                <div class="effect-row tutor" data-est="0.361" data-se="0.032" aria-label="GPT Tutor effect plus 36.1 percentage points, standard error 3.2">
+                  <div class="effect-name"><strong>GPT Tutor</strong><span>+127% relative</span></div>
+                  <div class="effect-track"><span class="effect-zero"></span><span class="effect-fill"></span><span class="effect-ci"></span><span class="effect-dot"></span><span class="effect-value">+36.1 pp**</span></div>
+                </div>
+              </div>
+              <div class="effect-axis"><span style="left:0">−5</span><span style="left:10%">0</span><span style="left:40%">+15</span><span style="left:70%">+30</span><span style="left:100%">+45 pp</span></div>
+              <figcaption class="effect-foot"><span class="zh">两种 AI 都显著提升带辅助练习；Tutor 的增益更大，部分来自可核对答案与更可靠的题目特定输入。</span><span class="en block-en">Both tools improve assisted work; Tutor’s larger gain may partly reflect answer checking and reliable problem-specific grounding.</span></figcaption>
+            </figure>
+
+            <figure class="effect-panel" style="margin:0">
+              <h3><span class="zh">撤掉 AI 的考试阶段</span> / <span class="en">Unassisted exam</span></h3>
+              <div class="panel-sub">Control mean 32.1% · negative = worse independent score</div>
+              <div class="effect-plot" data-min="-0.12" data-max="0.06">
+                <div class="effect-row base" data-est="-0.054" data-se="0.022" aria-label="GPT Base effect minus 5.4 percentage points, standard error 2.2">
+                  <div class="effect-name"><strong>GPT Base</strong><span>−17% relative</span></div>
+                  <div class="effect-track"><span class="effect-zero"></span><span class="effect-fill"></span><span class="effect-ci"></span><span class="effect-dot"></span><span class="effect-value">−5.4 pp*</span></div>
+                </div>
+                <div class="effect-row tutor ns" data-est="-0.004" data-se="0.013" aria-label="GPT Tutor effect minus 0.4 percentage points, not statistically significant">
+                  <div class="effect-name"><strong>GPT Tutor</strong><span>not significant</span></div>
+                  <div class="effect-track"><span class="effect-zero"></span><span class="effect-fill"></span><span class="effect-ci"></span><span class="effect-dot"></span><span class="effect-value">−0.4 pp n.s.</span></div>
+                </div>
+              </div>
+              <div class="effect-axis"><span style="left:0">−12</span><span style="left:33.33%">−6</span><span style="left:66.67%">0</span><span style="left:100%">+6 pp</span></div>
+              <figcaption class="effect-foot"><span class="zh">无护栏 Base 显著降低随后独立考试成绩；Tutor 把负效应压到统计上不可区分于 0，但没有形成正向学习增益。</span><span class="en block-en">Unguided Base harms the next independent exam. Tutor removes the detectable harm, but does not create a positive learning effect.</span></figcaption>
+            </figure>
+          </div>
+
+          <div class="stat-translation reveal">
+            <div><span class="big">+48%</span><span class="small"><span class="zh">相对提升听起来很大</span><span class="en block-en">sounds dramatic</span></span></div>
+            <div class="arrow" aria-hidden="true">→</div>
+            <div><span class="big">+13.7 pp</span><span class="small"><span class="zh">这是同一结果的绝对尺度：0–1 评分上的 +0.137</span><span class="en block-en">the same result on the 0–1 grade scale</span></span></div>
+          </div>
+
+          <div class="method-note reveal">
+            <strong><span class="zh">读图纪律：</span><span class="en">Reading discipline:</span></strong>
+            <span class="zh"> “control mean + 系数”可用来直观估算尺度，但不是论文报告的原始组均值；练习与考试题难度不同，也不应该把两阶段的绝对分数连成“个人下降曲线”。真正可比的是每一阶段中各处理组相对对照组的差异。</span>
+            <span class="en block-en"> Control mean + coefficient is only a scale illustration, not a reported raw arm mean. Practice and exam difficulty differ; the defensible comparison is each treatment-control gap within each stage.</span>
+            <div style="margin-top:10px"><a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=10" target="_blank" rel="noopener">PDF p.10 · Table 1</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="mechanism" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">05 / MECHANISM</div>
+            <div>
+              <h2><span class="zh">是 AI 教错了，还是学生没在学？</span><span class="en block-en">Did AI teach the wrong thing—or replace the learning?</span></h2>
+              <p class="chapter-deck"><span class="zh">作者比较两个候选机制：错误答案是否误导了学生，或学生是否把 GPT Base 当成复制答案的“拐杖”。证据更支持后者，但机制分析不是随机化中介实验。</span><span class="en block-en">The authors pit error transmission against cognitive offloading. Evidence favors the “crutch” account, though the mechanism itself is not randomized.</span></p>
+            </div>
+          </header>
+
+          <div class="hypothesis-grid reveal">
+            <article class="hypothesis">
+              <span class="verdict evidence-tag boundary">LESS SUPPORTED</span>
+              <h3>H1 · <span class="zh">错误被带进考试</span> / <span class="en">Error spillover</span></h3>
+              <p><span class="zh">如果学生认真读了错误解法并内化，练习题上错误率更高的题，应该在对应考试题上留下负面痕迹。</span><span class="en block-en">If students internalized wrong reasoning, error-prone practice problems should damage their matched exam problems.</span></p>
+              <ul><li><span class="zh">错误率显著伤害当下练习成绩。</span> / <span class="en">Errors hurt practice scores.</span></li><li><span class="zh">但错误率 × GPT Base 在对应考试题上的交互不显著。</span> / <span class="en">No significant matched-exam spillover.</span></li></ul>
+            </article>
+            <article class="hypothesis">
+              <span class="verdict evidence-tag suggestive">BETTER SUPPORTED</span>
+              <h3>H2 · <span class="zh">复制替代了思考</span> / <span class="en">Crutch use</span></h3>
+              <p><span class="zh">GPT Base 学生更少互动，最常直接索要答案；算术错误与逻辑错误对练习同样破坏，暗示学生甚至没有检查容易发现的错误。</span><span class="en block-en">Base users interact less and often request answers; arithmetic and logic errors harm practice similarly, consistent with copying rather than checking.</span></p>
+              <ul><li><span class="zh">Base 首轮第一场的浅层首消息达 67%，Tutor 为 37%。</span></li><li><span class="zh">Tutor 学生平均多花 2.046 分钟，即 +13%。</span></li></ul>
+            </article>
+          </div>
+
+          <div class="mechanism-coeffs reveal" role="table" aria-label="GPT Base error-rate interaction coefficients">
+            <div class="mechanism-coeffs-head" role="row"><span>GPT BASE × ERROR RATE</span><span>PRACTICE / 练习</span><span>EXAM / 考试</span></div>
+            <div class="mechanism-coeff-row" role="row"><span><span class="zh">逻辑错误率</span> / Logical</span><b>−0.448** (0.036)</b><b class="ns-coeff">−0.029 n.s. (0.040)</b></div>
+            <div class="mechanism-coeff-row" role="row"><span><span class="zh">算术错误率</span> / Arithmetic</span><b>−0.492** (0.117)</b><b class="ns-coeff">−0.099 n.s. (0.056)</b></div>
+            <div class="mechanism-coeff-note"><span class="zh">系数表示错误率从 0 到 1 的交互斜率；括号为 SE。考试区间仍容许负效应，所以“不显著”不是排除错误影响。</span><span class="en block-en">Interaction slopes are per 0→1 change in error rate; SE in parentheses. Wide exam intervals do not rule out some negative spillover.</span></div>
+          </div>
+
+          <div class="error-bar-wrap reveal">
+            <div class="error-bar-head"><div><h3>GPT Base answer reliability · GPT Base 回答可靠性</h3><p>57 practice problems × 10 repeated “What is the answer?” queries</p></div><span class="evidence-tag suggestive">ROUNDING → 101%</span></div>
+            <div class="error-bars" role="img" aria-label="GPT Base answers were 51 percent correct, 42 percent had logical errors, and 8 percent had arithmetic errors">
+              <div class="error-row correct"><span class="error-row-label"><span class="zh">正确</span> / Correct</span><span class="error-track"><span class="error-mark" style="--value:51%"></span></span><span class="error-number">51%</span></div>
+              <div class="error-row logical"><span class="error-row-label"><span class="zh">逻辑错误</span> / Logical</span><span class="error-track"><span class="error-mark" style="--value:42%"></span></span><span class="error-number">42%</span></div>
+              <div class="error-row arithmetic"><span class="error-row-label"><span class="zh">算术错误</span> / Arithmetic</span><span class="error-track"><span class="error-mark" style="--value:8%"></span></span><span class="error-number">8%</span></div>
+            </div>
+            <div class="error-scale"><span>0</span><span>50%</span><span>100%</span></div>
+            <div class="error-legend">Independent bars share a 0–100% scale. Reported rounded averages sum to 101%; they are intentionally not forced into a 100% stack.</div>
+          </div>
+
+          <div class="message-evolution reveal">
+            <div class="message-head"><h3><span class="zh">每场最常见的“第一条消息”</span> / <span class="en">Most common first-message type by session</span></h3><p><span class="zh">Base 长期围绕“复述题目/索要答案”；Tutor 从复述题目转向求助，最后转向主动尝试答案。</span><span class="en block-en">Base remains answer-seeking; Tutor shifts from repeating prompts to asking for help, then attempting answers.</span></p></div>
+            <div class="message-grid" role="table" aria-label="Top first-message type across four sessions">
+              <div class="session-head">ARM</div><div class="session-head">SESSION 1</div><div class="session-head">SESSION 2</div><div class="session-head">SESSION 3</div><div class="session-head">SESSION 4</div>
+              <div class="grid-label"><strong>GPT Base</strong><span class="en">no guardrails</span></div>
+              <div class="message-cell base" style="--pct:38%"><span class="pct">38%</span><span class="type"><span class="zh">复述题目</span><span class="en block-en">Repeat question</span></span></div>
+              <div class="message-cell base" style="--pct:35%"><span class="pct">35%</span><span class="type"><span class="zh">索要答案</span><span class="en block-en">Ask for answer</span></span></div>
+              <div class="message-cell base" style="--pct:25%"><span class="pct">25%</span><span class="type"><span class="zh">索要答案</span><span class="en block-en">Ask for answer</span></span></div>
+              <div class="message-cell base" style="--pct:36%"><span class="pct">36%</span><span class="type"><span class="zh">索要答案</span><span class="en block-en">Ask for answer</span></span></div>
+              <div class="grid-label"><strong>GPT Tutor</strong><span class="en">with guardrails</span></div>
+              <div class="message-cell tutor" style="--pct:31%"><span class="pct">31%</span><span class="type"><span class="zh">复述题目</span><span class="en block-en">Repeat question</span></span></div>
+              <div class="message-cell tutor" style="--pct:37%"><span class="pct">37%</span><span class="type"><span class="zh">请求提示</span><span class="en block-en">Ask for help</span></span></div>
+              <div class="message-cell tutor" style="--pct:25%"><span class="pct">25%</span><span class="type"><span class="zh">请求提示</span><span class="en block-en">Ask for help</span></span></div>
+              <div class="message-cell tutor" style="--pct:24%"><span class="pct">24%</span><span class="type"><span class="zh">尝试答案</span><span class="en block-en">Attempt answer</span></span></div>
+            </div>
+          </div>
+
+          <div class="method-note reveal">
+            <strong><span class="zh">机制证据的边界：</span><span class="en">Mechanism boundary:</span></strong>
+            <span class="zh"> 消息聚类使用 BERT 主题模型并结合人工标签；错误率与消息行为并未被随机分配，因此能解释“更像什么”，不能单独证明完整因果中介链。GPT Tutor 还同时减少幻觉与限制给答案，两个成分也没有被拆开随机测试。并且练习后教师会统一讲解正确答案，这可能削弱具体错误向考试的传播。</span>
+            <span class="en block-en"> Message clusters combine a BERT-based topic model with manual labels. Neither message behavior nor problem error rate is randomized, and Tutor bundles answer withholding with verified grounding, so component-level causality remains unresolved. The brief answer review after practice may also attenuate specific error spillover into the exam.</span>
+            <div style="margin-top:10px"><a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=14" target="_blank" rel="noopener">PDF pp.14–18 · Tables 2, Figures 2–3</a> <a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=48" target="_blank" rel="noopener">PDF p.48 · Figure 7</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="perception" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">06 / PERCEPTION</div>
+            <div>
+              <h2><span class="zh">最危险的错觉：流畅感被误认成掌握</span><span class="en block-en">The fluency illusion: ease feels like mastery</span></h2>
+              <p class="chapter-deck"><span class="zh">GPT Base 学生实际考得更差，却没有觉得自己学得更少或表现更差；Tutor 学生独立成绩并未提高，却更相信自己表现更好。</span><span class="en block-en">Base users underperform without perceiving a deficit; Tutor users show no exam gain yet report higher perceived performance.</span></p>
+            </div>
+          </header>
+
+          <div class="perception-grid reveal">
+            <article class="perception-card base">
+              <h3>GPT Base · <span class="zh">现实下滑，感知无警报</span><span class="en block-en">Real decline, no perceived alarm</span></h3>
+              <div class="reality-line"><span class="real bad">−5.4 pp*</span><span><span class="zh">真实无辅助考试效应</span><span class="en block-en">actual exam effect</span></span></div>
+              <div class="belief-list">
+                <div class="belief-row"><span><span class="zh">感知学习</span> / perceived learning</span><b>−0.078 n.s.</b></div>
+                <div class="belief-row"><span><span class="zh">感知考试表现</span> / perceived performance</span><b>−0.022 n.s.</b></div>
+                <div class="belief-row"><span><span class="zh">愿牺牲考试时间换 AI</span></span><b>+2.245 min**</b></div>
+              </div>
+            </article>
+            <article class="perception-card tutor">
+              <h3>GPT Tutor · <span class="zh">现实持平，信心上升</span><span class="en block-en">No exam gain, higher confidence</span></h3>
+              <div class="reality-line"><span class="real neutral">−0.4 pp</span><span><span class="zh">真实考试效应，n.s.</span><span class="en block-en">actual exam effect, n.s.</span></span></div>
+              <div class="belief-list">
+                <div class="belief-row"><span><span class="zh">感知考试表现</span> / perceived performance</span><b>+0.130*</b></div>
+                <div class="belief-row"><span><span class="zh">感知练习价值</span> / practice value</span><b>+0.271**</b></div>
+                <div class="belief-row"><span><span class="zh">愿牺牲考试时间换 AI</span></span><b>+3.710 min**</b></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="method-note reveal">
+            <strong><span class="zh">不要把量尺混在一起：</span><span class="en">Do not mix scales:</span></strong>
+            <span class="zh"> 感知学习、感知表现与练习价值采用有序 Probit，系数不是百分点；只有真实考试成绩是 0–1 评分上的处理效应，时间权衡则以分钟计。这里比较的是方向、显著性与“现实—感知”是否一致。Table 10 仅对分钟型问题 (3)、(5) 使用班级聚类标准误，感知类显著性需更谨慎。</span>
+            <span class="en block-en"> Perception outcomes use ordered probit, exam scores use a 0–1 grade scale, and time trade-off is measured in minutes. The comparison is directional, not a common-axis magnitude comparison. Table 10 clusters standard errors by class only for minute outcomes (3) and (5), so perception significance warrants extra caution.</span>
+            <div style="margin-top:10px"><a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=39" target="_blank" rel="noopener">PDF pp.39–40 · Table 10</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="audit" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">07 / EVIDENCE AUDIT</div>
+            <div>
+              <h2><span class="zh">哪些结论很硬，哪些还只是线索</span><span class="en block-en">What is established—and what remains a clue</span></h2>
+              <p class="chapter-deck"><span class="zh">最强的是短期课堂部署对随后的无辅助近迁移考试的因果效应；越往长期、跨学科、具体心理机制外推，证据就越弱。</span><span class="en block-en">The strongest claim is causal and local: the deployment changed an immediate unassisted near-transfer exam. Long-run, cross-domain, and psychological extrapolations are weaker.</span></p>
+            </div>
+          </header>
+
+          <div class="evidence-ladder reveal">
+            <article class="evidence-level strong"><h3><span class="zh">强：短期处理效应</span> / Strong</h3><p><span class="zh">无护栏 Base 降低随后的无辅助考试成绩；Tutor 与对照无显著差异。课堂层级随机、预注册、盲评、ITT。</span><span class="en block-en">Base harms the next unassisted exam; Tutor is statistically neutral. Class assignment, preregistration, blind grading, ITT.</span></p></article>
+            <article class="evidence-level medium"><h3><span class="zh">中：拐杖机制</span> / Suggestive</h3><p><span class="zh">错误溢出不显著、浅层消息更多、互动更少，共同指向复制答案；但中介行为并未随机化。</span><span class="en block-en">Behavior and error patterns align with copying, but the mediator is observational.</span></p></article>
+            <article class="evidence-level bound"><h3><span class="zh">弱：广泛与长期外推</span> / Unresolved</h3><p><span class="zh">不能据此断言所有 AI、所有学科、长期记忆或现代模型都会产生相同结果。</span><span class="en block-en">This does not establish effects for all AI systems, subjects, long-term retention, or newer models.</span></p></article>
+          </div>
+
+          <div class="forest reveal">
+            <div class="forest-head"><div><h3><span class="zh">GPT Base 考试负效应在多种规格下保持</span> / <span class="en">Base exam effect across specifications</span></h3><p>Dots: estimate · whiskers: approximate 95% CI · zero at vertical line</p></div><span class="evidence-tag causal">ROBUSTNESS</span></div>
+            <div class="forest-row" data-est="-0.054" data-se="0.022"><div class="forest-label"><span class="zh">主规格</span> / Main</div><div class="forest-track"><span class="forest-ci"></span><span class="forest-dot"></span></div><div class="forest-value">−5.4 pp*</div></div>
+            <div class="forest-row" data-est="-0.064" data-se="0.026"><div class="forest-label"><span class="zh">纳入荣誉班</span> / Include honors</div><div class="forest-track"><span class="forest-ci"></span><span class="forest-dot"></span></div><div class="forest-value">−6.4 pp*</div></div>
+            <div class="forest-row" data-est="-0.069" data-se="0.027"><div class="forest-label"><span class="zh">纳入未填基线问卷者</span> / Non-survey</div><div class="forest-track"><span class="forest-ci"></span><span class="forest-dot"></span></div><div class="forest-value">−6.9 pp**</div></div>
+            <div class="forest-row" data-est="-0.041" data-se="0.021"><div class="forest-label"><span class="zh">加入问卷控制变量</span> / Survey controls</div><div class="forest-track"><span class="forest-ci"></span><span class="forest-dot"></span></div><div class="forest-value">−4.1 pp*</div></div>
+            <div class="forest-row" data-est="-0.054" data-se="0.018"><div class="forest-label"><span class="zh">学生层聚类 SE</span> / Student SE</div><div class="forest-track"><span class="forest-ci"></span><span class="forest-dot"></span></div><div class="forest-value">−5.4 pp**</div></div>
+            <div class="forest-axis"><span style="left:0">−14 pp</span><span style="left:43.75%">−7 pp</span><span style="left:87.5%">0</span><span style="left:100%">+2 pp</span></div>
+          </div>
+
+          <div class="caveat-grid reveal">
+            <details class="caveat" open><summary><span class="zh">学习的定义很近、很短</span> / Near and short</summary><div><span class="zh">考试紧接练习，且题目与练习概念上高度相似。这是短期近迁移，不是延迟记忆、远迁移或长期技能。</span><span class="en block-en">The exam immediately follows practice and uses conceptually similar problems: short-run near transfer, not delayed retention or far transfer.</span></div></details>
+            <details class="caveat"><summary><span class="zh">外部效度有限</span> / One context</summary><div><span class="zh">单所土耳其高中、数学、9–11 年级、2023 秋季、GPT-4-0613。模型能力与用户习惯都已变化。</span><span class="en block-en">One Turkish high school, mathematics, grades 9–11, Fall 2023, GPT-4-0613. Models and user familiarity have since changed.</span></div></details>
+            <details class="caveat"><summary><span class="zh">处理是一个“部署包”</span> / Treatment bundle</summary><div><span class="zh">对照组无设备，而 GPT 组有笔记本、介绍视频和工具。Control 对 GPT 的比较识别的是完整部署包；Base 对 Tutor 才更直接回答界面设计差异。</span><span class="en block-en">Control has no device while GPT arms receive laptops, onboarding video, and the tool. Control comparisons estimate a deployment bundle; Base–Tutor more directly isolates design.</span></div></details>
+            <details class="caveat"><summary><span class="zh">护栏成分没有拆开</span> / Bundled guardrails</summary><div><span class="zh">Tutor 同时拒绝完整答案、要求展示过程、逐步提示，并注入教师答案与错误库。论文无法判断哪一项贡献最大。</span><span class="en block-en">Tutor combines work-first interaction, no full solutions, progressive hints, and teacher grounding. Component contributions are not separately identified.</span></div></details>
+            <details class="caveat"><summary><span class="zh">预注册有证据层级</span> / Preregistration tiers</summary><div><span class="zh">无辅助考试是预注册主要结果；感知、异质性与对话定性分析属于预注册次要分析。带辅助练习、题目层回归、成绩分散与 GPT 错误率分析为探索性。</span><span class="en block-en">The unassisted exam is the preregistered primary outcome. Perception, heterogeneity, and qualitative dialogue analysis are secondary; assisted practice, problem-level, dispersion, and error-rate analyses are exploratory.</span></div></details>
+            <details class="caveat"><summary><span class="zh">五个班级场次未按处理执行</span> / Noncompliance</summary><div><span class="zh">因电脑迟到、教师误解或界面技术故障，有五个场次转成对照。主分析保留 ITT；剔除后结果几乎相同。</span><span class="en block-en">Five class-sessions switched to control for logistical reasons. ITT preserves randomization; excluding them yields near-identical estimates.</span></div></details>
+            <details class="caveat"><summary><span class="zh">“没有显著差异”不等于完全相同</span> / Null ≠ equality</summary><div><span class="zh">Tutor 考试点估计 −0.004、SE 0.013，说明在本研究精度下无法检测到差异；它不是数学意义上的“证明完全无效应”。</span><span class="en block-en">Tutor’s −0.004 estimate (SE 0.013) is statistically indistinguishable from zero at this precision; it does not prove exact equality.</span></div></details>
+          </div>
+          <div style="margin-top:18px"><a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=36" target="_blank" rel="noopener">PDF pp.36–38 · Tables 7–9</a> <a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=20" target="_blank" rel="noopener">PDF p.20 · Limitations</a></div>
+        </div>
+      </section>
+
+      <section class="chapter" id="implications" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">08 / DESIGN</div>
+            <div>
+              <h2><span class="zh">如果目标是学习，摩擦就是功能</span><span class="en block-en">If learning matters, friction is a feature</span></h2>
+              <p class="chapter-deck"><span class="zh">产品不能只优化“完成率”或“当下正确率”。它必须保留生成性努力，并在撤掉工具后测量独立迁移。</span><span class="en block-en">Do not optimize only completion or assisted accuracy. Preserve generative effort and test transfer after the tool is removed.</span></p>
+            </div>
+          </header>
+
+          <div class="design-principles reveal">
+            <div class="principle"><span class="principle-no">01</span><div><strong><span class="zh">先作答，再求助</span> / Attempt before assistance</strong><span><span class="zh">先捕捉学生思路、置信度与卡点。</span><span class="en block-en">Elicit work, confidence, and the point of confusion.</span></span></div></div>
+            <div class="principle"><span class="principle-no">02</span><div><strong><span class="zh">最小充分提示</span> / Minimal sufficient hint</strong><span><span class="zh">把答案拆成提示阶梯；挣扎后才升级信息。</span><span class="en block-en">Escalate help only after productive struggle.</span></span></div></div>
+            <div class="principle"><span class="principle-no">03</span><div><strong><span class="zh">验证知识底座</span> / Verified grounding</strong><span><span class="zh">使用教师答案、评分标准与常见误区，降低幻觉反馈。</span><span class="en block-en">Ground feedback in solutions, rubrics, and misconceptions.</span></span></div></div>
+            <div class="principle"><span class="principle-no">04</span><div><strong><span class="zh">把“解释”变成验收条件</span> / Require explanation</strong><span><span class="zh">即使答案正确，也要求学生说明为什么。</span><span class="en block-en">A correct answer is not done until reasoning is articulated.</span></span></div></div>
+            <div class="principle"><span class="principle-no">05</span><div><strong><span class="zh">双指标看板</span> / Dual-metric dashboard</strong><span><span class="zh">同时追踪带辅助表现与无辅助迁移，警惕“借来的进步”。</span><span class="en block-en">Track assisted performance and independent transfer together.</span></span></div></div>
+            <div class="principle"><span class="principle-no">06</span><div><strong><span class="zh">周期性撤掉 AI</span> / Withdrawal tests</strong><span><span class="zh">用延迟、无工具、变式题检验是否真正掌握。</span><span class="en block-en">Use delayed, tool-free, variant problems to measure retention.</span></span></div></div>
+          </div>
+
+          <div class="north-star reveal">
+            <div class="north-copy">
+              <h3><span class="zh">真正的北极星不是“AI 使用量”</span><span class="en block-en">The north star is not AI usage</span></h3>
+              <p><span class="zh">理想产品位于右上角：有 AI 时表现更好，撤掉 AI 后也更强。本研究中 Tutor 向右走得很远，却没有向上；Base 向右、同时向下。</span><span class="en block-en">The ideal system improves both assisted performance and independent transfer. Here, Tutor moves strongly right but not up; Base moves right and down.</span></p>
+              <span class="evidence-tag boundary">CONCEPTUAL MAP · NOT A SHARED-SCALE PLOT</span>
+            </div>
+            <div class="matrix-chart" role="img" aria-label="Conceptual matrix of assisted performance versus independent learning">
+              <span class="axis-y">Independent transfer / 独立迁移 ↑</span><span class="axis-x">Assisted performance / 带辅助表现 →</span>
+              <span class="quad-label good">Target / 目标</span><span class="quad-label risk">Borrowed performance / 借来的表现</span>
+              <span class="matrix-dot control">CONTROL</span><span class="matrix-dot base">GPT BASE</span><span class="matrix-dot tutor">GPT TUTOR</span>
+            </div>
+          </div>
+
+          <div class="method-note reveal">
+            <strong><span class="zh">最值得带走的一句：</span><span class="en">The one-line takeaway:</span></strong>
+            <span class="zh"> 当独立能力重要时，先问“没有 AI，他还会不会？”——而不是只问“有 AI，他能不能更快？”</span>
+            <span class="en block-en"> When independent capability matters, ask “Can the user still do it without AI?”—not only “Can AI make them faster now?”</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter" id="sources" data-section>
+        <div class="chapter-inner">
+          <header class="chapter-header reveal">
+            <div class="chapter-number">09 / METHODS & SOURCES</div>
+            <div>
+              <h2><span class="zh">数字从哪里来，应该怎样读</span><span class="en block-en">Where the numbers come from—and how to read them</span></h2>
+              <p class="chapter-deck"><span class="zh">本页以用户提供的 68 页论文 PDF 为主要依据，并用 PNAS 正式文章页与作者公开数据/代码仓库核对元数据与可复现性来源。</span><span class="en block-en">This dashboard is grounded in the supplied 68-page PDF, with publication metadata and reproducibility links checked against the PNAS record and authors’ public repository.</span></p>
+            </div>
+          </header>
+
+          <div class="source-grid reveal">
+            <article class="source-card">
+              <h3>Primary sources / 一手来源</h3>
+              <ul>
+                <li><a href="https://hamsabastani.github.io/education_llm.pdf" target="_blank" rel="noopener">Author-hosted 68-page PDF</a> — <span class="zh">正文、附录、表图与方法</span> / paper + appendix.</li>
+                <li><a href="https://doi.org/10.1073/pnas.2422633122" target="_blank" rel="noopener">PNAS 122(26), e2422633122</a> — published June 25, 2025.</li>
+                <li><a href="https://github.com/obastani/GenAICanHarmLearning" target="_blank" rel="noopener">Authors’ data and code repository</a> — regressions, perception, attendance, messages, GPT errors.</li>
+                <li><a href="https://aspredicted.org/4DL_Q3J" target="_blank" rel="noopener">Preregistration</a> — primary unassisted-exam comparison.</li>
+              </ul>
+            </article>
+            <article class="source-card">
+              <h3>Notation / 统计记号</h3>
+              <dl class="notation">
+                <dt>pp</dt><dd><span class="zh">百分点；+13.7 pp = 0–1 分数提高 0.137。</span> / percentage points.</dd>
+                <dt>* / **</dt><dd>p&lt;.05 / p&lt;.01, with class-clustered robust SE in the main model.</dd>
+                <dt>n.s.</dt><dd><span class="zh">统计上不显著；不是“证明完全相同”。</span> / not statistically significant.</dd>
+                <dt>ITT</dt><dd><span class="zh">按原始随机分组分析，即便少数场次未实际执行处理。</span> / intention-to-treat.</dd>
+                <dt>95% CI</dt><dd><span class="zh">本页图中用估计值 ± 1.96×SE 近似计算。</span> / approximated here as estimate ± 1.96×SE.</dd>
+              </dl>
+            </article>
+            <article class="source-card">
+              <h3>Main model / 主回归</h3>
+              <p><span class="zh">因变量是每名学生每场的标准化练习或考试得分（0–1）。模型控制上一年 GPA，并加入场次、评分员、年级、教师固定效应；标准误按随机化单位——班级——聚类。</span><span class="en block-en">The 0–1 student-session outcome is regressed on treatment indicators and prior GPA, with session, grader, grade, and teacher fixed effects; standard errors cluster by class.</span></p>
+              <a class="source-chip" href="https://hamsabastani.github.io/education_llm.pdf#page=9" target="_blank" rel="noopener">Equation 1 · PDF pp.9–10</a>
+            </article>
+            <article class="source-card">
+              <h3>Editorial lens / 本页编辑原则</h3>
+              <p><span class="zh">所有“因果”标签只用于随机化处理的短期结果；消息、错误与心理机制标为提示性；所有外推均单独列入边界。英文是忠实概述而非逐句翻译。</span><span class="en block-en">“Causal” is reserved for randomized short-run treatment effects. Behavioral mechanisms are labeled suggestive, and extrapolations are separated as boundaries. English is a faithful synthesis, not a line-by-line translation.</span></p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="footer-inner"><span>Bilingual visual deep read · Generative AI Without Guardrails Can Harm Learning</span><span><a href="#thesis">Back to top / 返回顶部 ↑</a></span></div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const body = document.body;
+      const root = document.documentElement;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const storage = {
+        get(key) { try { return window.localStorage.getItem(key); } catch (_) { return null; } },
+        set(key, value) { try { window.localStorage.setItem(key, value); } catch (_) {} }
+      };
+      const storedLang = storage.get('education-llm-lang') || 'both';
+      const storedTheme = storage.get('education-llm-theme');
+      const storedToc = storage.get('education-llm-toc');
+
+      function setLanguage(lang) {
+        body.dataset.lang = lang;
+        storage.set('education-llm-lang', lang);
+        document.getElementById('langZh').setAttribute('aria-pressed', String(lang === 'zh'));
+        document.getElementById('langEn').setAttribute('aria-pressed', String(lang === 'en'));
+        document.getElementById('langBoth').setAttribute('aria-pressed', String(lang === 'both'));
+      }
+      setLanguage(['zh','en','both'].includes(storedLang) ? storedLang : 'both');
+      document.getElementById('langZh').addEventListener('click', () => setLanguage('zh'));
+      document.getElementById('langEn').addEventListener('click', () => setLanguage('en'));
+      document.getElementById('langBoth').addEventListener('click', () => setLanguage('both'));
+
+      const initialTheme = storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      root.dataset.theme = initialTheme;
+      const themeButton = document.getElementById('themeToggle');
+      themeButton.setAttribute('aria-pressed', String(initialTheme === 'dark'));
+      themeButton.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        storage.set('education-llm-theme', next);
+        themeButton.setAttribute('aria-pressed', String(next === 'dark'));
+      });
+
+      if (storedToc === 'collapsed' && window.innerWidth > 860) body.classList.add('toc-collapsed');
+      const tocCollapse = document.getElementById('tocCollapse');
+      tocCollapse.addEventListener('click', () => {
+        body.classList.toggle('toc-collapsed');
+        const expanded = !body.classList.contains('toc-collapsed');
+        tocCollapse.setAttribute('aria-expanded', String(expanded));
+        storage.set('education-llm-toc', expanded ? 'expanded' : 'collapsed');
+      });
+
+      const menuToggle = document.getElementById('menuToggle');
+      menuToggle.addEventListener('click', () => {
+        body.classList.toggle('toc-open');
+        menuToggle.setAttribute('aria-expanded', String(body.classList.contains('toc-open')));
+      });
+      document.querySelectorAll('#tocNav a').forEach(link => link.addEventListener('click', () => {
+        body.classList.remove('toc-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }));
+
+      function pct(value, min, max) { return Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100)); }
+      document.querySelectorAll('.effect-plot').forEach(plot => {
+        const min = Number(plot.dataset.min); const max = Number(plot.dataset.max); const zero = pct(0, min, max);
+        plot.querySelectorAll('.effect-row').forEach(row => {
+          const est = Number(row.dataset.est); const se = Number(row.dataset.se);
+          const point = pct(est, min, max); const lo = pct(est - 1.96 * se, min, max); const hi = pct(est + 1.96 * se, min, max);
+          row.style.setProperty('--zero', zero + '%'); row.style.setProperty('--point', point + '%');
+          row.style.setProperty('--lo', lo + '%'); row.style.setProperty('--hi', hi + '%');
+          row.style.setProperty('--fill-left', Math.min(zero, point) + '%'); row.style.setProperty('--fill-width', Math.abs(point - zero) + '%');
+        });
+      });
+
+      document.querySelectorAll('.forest-row').forEach(row => {
+        const min = -0.14, max = 0.02, est = Number(row.dataset.est), se = Number(row.dataset.se);
+        row.style.setProperty('--point', pct(est,min,max) + '%');
+        row.style.setProperty('--lo', pct(est - 1.96 * se,min,max) + '%');
+        row.style.setProperty('--hi', pct(est + 1.96 * se,min,max) + '%');
+      });
+
+      const sections = [...document.querySelectorAll('[data-section]')];
+      const navLinks = [...document.querySelectorAll('#tocNav a')];
+      const activeObserver = new IntersectionObserver(entries => {
+        const visible = entries.filter(e => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + visible.target.id));
+      }, { rootMargin: '-18% 0px -66% 0px', threshold: [0, .1, .3] });
+      sections.forEach(section => activeObserver.observe(section));
+
+      const revealItems = document.querySelectorAll('.reveal');
+      if (prefersReduced) revealItems.forEach(el => el.classList.add('visible'));
+      else {
+        const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+        }), { threshold: .08 });
+        revealItems.forEach(el => revealObserver.observe(el));
+      }
+
+      const progress = document.getElementById('readingProgress');
+      const updateProgress = () => {
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (height > 0 ? Math.min(100, Math.max(0, window.scrollY / height * 100)) : 0) + '%';
+      };
+      updateProgress();
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 860) { body.classList.remove('toc-open'); menuToggle.setAttribute('aria-expanded','false'); }
+        updateProgress();
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

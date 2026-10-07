@@ -1,0 +1,5 @@
+{
+  "provider": "minimax",
+  "endpoint": "https://api.minimax.io/v1/chat/completions",
+  "model": "MiniMax-M2.7"
+}

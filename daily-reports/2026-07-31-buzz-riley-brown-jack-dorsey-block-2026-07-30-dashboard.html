@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>🐝 Buzz AI — Riley Brown × Vinnie | Block (Jack Dorsey) Agent-Native Workspace</title>
+<meta name="generated" content="2026-07-30T22:30Z">
+<meta name="author" content="Hermes Agent (Minimax M3) for Patrick">
+<style>
+:root {
+  --bg: #0a0a14; --bg-card: #12121e; --bg-elevated: #1a1a28;
+  --border: #2a2a3a; --text: #e8e8ea; --text-dim: #a8a8b2; --text-mute: #6a6a76;
+  --accent: #d5ff3f; --accent-2: #f7c59f;
+  --green: #4ade80; --red: #f87171; --yellow: #fbbf24;
+  --blue: #60a5fa; --purple: #a78bfa; --gray: #9ca3af;
+  --warn: #fbbf24; --good: #4ade80; --bad: #f87171;
+  --gold: #ff6b35;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font: 14px/1.6 -apple-system, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); padding: 20px 24px 100px; }
+h1 { font-size: 28px; margin-bottom: 8px; color: var(--accent); letter-spacing: -0.02em; }
+h2.section { font-size: 19px; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); color: var(--accent); letter-spacing: -0.01em; }
+h3 { font-size: 15px; margin: 18px 0 8px; color: var(--text); font-weight: 600; }
+h4 { font-size: 14px; margin: 0 0 6px; color: var(--gold); font-weight: 600; }
+p { margin-bottom: 10px; }
+code { font: 12px/1.5 ui-monospace, "SF Mono", "Menlo", monospace; background: var(--bg-elevated); padding: 1px 6px; border-radius: 3px; color: var(--accent); }
+pre { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; overflow-x: auto; margin: 12px 0; font: 12px/1.55 ui-monospace, "SF Mono", monospace; color: var(--text); }
+pre code { background: none; padding: 0; color: var(--text); }
+.subtitle { color: var(--text-dim); font-size: 13px; margin-bottom: 16px; }
+.subtitle .en { color: var(--text-mute); font-style: italic; }
+.meta-bar { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 10px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; margin: 16px 0 24px; font-size: 12.5px; }
+.meta-bar span { color: var(--text-dim); }
+.meta-bar strong { color: var(--accent); font-weight: 600; margin-right: 4px; }
+.hero { background: linear-gradient(135deg, rgba(213,255,63,.07) 0%, rgba(247,197,159,.04) 100%); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 18px 22px; margin-bottom: 20px; }
+.hero p { margin-bottom: 6px; font-size: 14px; line-height: 1.65; }
+.hero p:last-child { margin-bottom: 0; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 18px 0 24px; }
+.stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.stat .num { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+.stat .label { font-size: 11.5px; color: var(--text-dim); margin-top: 4px; }
+.stat .label .en { color: var(--text-mute); font-style: italic; }
+.warn-box { background: rgba(251,191,36,.07); border: 1px solid var(--warn); border-left: 4px solid var(--warn); border-radius: 8px; padding: 14px 18px; margin: 16px 0; }
+.warn-box h4 { color: var(--warn); margin-bottom: 8px; }
+.warn-box ul { margin: 6px 0 0 22px; }
+.warn-box li { margin-bottom: 4px; font-size: 13px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 28px 0 0; padding-bottom: 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 50; padding-top: 8px; }
+.tab { background: none; border: none; color: var(--text-dim); padding: 9px 14px; font: 600 12.5px inherit; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
+.tab:hover { color: var(--text); background: var(--bg-card); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg-card); }
+.tab .en { font-style: italic; opacity: 0.6; }
+.tab-content { display: none; padding: 20px 0 0; }
+.tab-content.active { display: block; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px; margin: 12px 0; }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; transition: border-color 0.15s; }
+.card:hover { border-color: var(--accent); }
+.card h4 { color: var(--gold); margin-bottom: 6px; }
+.card p { font-size: 13px; line-height: 1.55; color: var(--text); margin-bottom: 4px; }
+.card p .en { color: var(--text-dim); font-style: italic; }
+.card .meta { font-size: 11.5px; color: var(--text-mute); margin-top: 6px; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+th, td { text-align: left; padding: 8px 12px; border: 1px solid var(--border); }
+th { background: var(--bg-elevated); color: var(--accent); font-weight: 600; font-size: 12.5px; }
+tr:hover { background: var(--bg-card); }
+tr.highlight { background: rgba(213,255,63,.05); }
+tr.highlight td { color: var(--accent); font-weight: 600; }
+blockquote { background: var(--bg-elevated); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; font-size: 13.5px; color: var(--text); }
+blockquote .src { color: var(--text-mute); font-size: 11.5px; margin-top: 6px; }
+.quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; margin: 12px 0; }
+.quote-card { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 14px 16px; }
+.quote-card.yellow { border-left-color: var(--warn); }
+.quote-card.green { border-left-color: var(--good); }
+.quote-card.blue { border-left-color: var(--blue); }
+.quote-card p { font-size: 13.5px; line-height: 1.6; font-style: italic; color: var(--text); margin-bottom: 6px; }
+.quote-card .src { font-size: 11.5px; color: var(--text-mute); }
+.timeline { margin: 12px 0; }
+.tl-item { display: grid; grid-template-columns: 70px 1fr; gap: 14px; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+.tl-item:last-child { border-bottom: none; }
+.tl-item .time { color: var(--accent); font: 600 13px ui-monospace, monospace; }
+.tl-item .what { color: var(--text); font-size: 13.5px; }
+.tl-item .what .who { color: var(--gold); font-weight: 600; margin-right: 6px; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+.cmp { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.cmp.good { border-left: 3px solid var(--good); }
+.cmp.bad { border-left: 3px solid var(--bad); }
+.cmp h4 { color: var(--text); margin-bottom: 4px; }
+.cmp.good h4 { color: var(--good); }
+.cmp.bad h4 { color: var(--bad); }
+.cmp p { font-size: 12.5px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font: 600 11px ui-monospace, monospace; letter-spacing: 0.04em; margin-right: 4px; }
+.badge.good { background: rgba(74,222,128,.15); color: var(--good); }
+.badge.warn { background: rgba(251,191,36,.15); color: var(--warn); }
+.badge.bad { background: rgba(248,113,113,.15); color: var(--bad); }
+.badge.info { background: rgba(96,165,250,.15); color: var(--blue); }
+.badge.gold { background: rgba(255,107,53,.15); color: var(--gold); }
+.decision { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+.decision .col { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.decision .col h4 { margin-bottom: 4px; }
+.decision .col.yes h4 { color: var(--good); }
+.decision .col.no h4 { color: var(--bad); }
+.decision .col.maybe h4 { color: var(--warn); }
+.chain { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+.chain-step { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font: 12.5px ui-monospace, monospace; }
+.chain-arrow { color: var(--accent); font: 16px monospace; }
+.reveal { display: none; padding: 10px 14px; background: var(--bg-elevated); border-radius: 6px; margin-top: 8px; }
+.reveal.show { display: block; }
+.toggle { display: inline-block; padding: 4px 10px; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; font: 600 11px ui-monospace, monospace; color: var(--accent); cursor: pointer; margin: 4px 4px 4px 0; }
+.toggle:hover { background: var(--accent); color: var(--bg); }
+footer { margin-top: 40px; padding: 16px; border-top: 1px solid var(--border); color: var(--text-mute); font-size: 12px; line-height: 1.7; }
+footer p { margin-bottom: 4px; }
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* TOC sidebar */
+.toc-toggle { position: fixed; top: 12px; right: 12px; z-index: 200; background: rgba(18,18,30,.92); border: 1px solid var(--accent); border-radius: 18px; padding: 4px 10px; font: 600 11px ui-monospace, monospace; color: var(--accent); cursor: pointer; backdrop-filter: blur(8px); transition: all 0.2s; user-select: none; }
+.toc-toggle:hover { background: var(--accent); color: var(--bg); }
+aside.toc { position: fixed; top: 50px; right: 12px; width: 220px; max-height: calc(100vh - 80px); overflow-y: auto; background: rgba(18,18,30,.92); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; z-index: 199; backdrop-filter: blur(8px); transition: transform 0.3s ease, opacity 0.3s ease; }
+aside.toc.toc-collapsed { transform: translateX(240px); opacity: 0.3; }
+aside.toc ul { list-style: none; margin: 0; padding: 0; }
+aside.toc li { margin: 4px 0; }
+aside.toc a { color: var(--text-dim); text-decoration: none; font-size: 12px; display: block; padding: 3px 0 3px 8px; border-left: 2px solid var(--border); transition: all 0.15s; }
+aside.toc a:hover { color: var(--accent); border-left-color: var(--accent); }
+aside.toc a.active { color: var(--accent); border-left-color: var(--accent); }
+@media (max-width: 900px) {
+  aside.toc { display: none; }
+  .toc-toggle { top: 8px; right: 8px; }
+}
+
+/* Bilingual EN<->ZH */
+html[lang="zh-CN"] .en { display: none; }
+html[lang="en"] .zh { display: none; }
+html[lang="zh-CN"] .lang-en { display: none; }
+html[lang="en"] .lang-zh { display: none; }
+.lang-toggle { position: fixed; top: 12px; right: 130px; z-index: 200; background: rgba(18,18,30,.92); border: 1px solid var(--accent); border-radius: 18px; padding: 4px 12px; font: 600 11px ui-monospace, monospace; color: var(--accent); cursor: pointer; backdrop-filter: blur(8px); transition: all 0.2s; letter-spacing: 0.05em; user-select: none; }
+.lang-toggle:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 12px rgba(213,255,63,.4); }
+@media (max-width: 900px) {
+  .lang-toggle { top: 8px; right: 50px; }
+}
+</style>
+</head>
+<body>
+
+<button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN ⇄ 中</button>
+<button class="toc-toggle" onclick="toggleToc()" id="tocBtn">☰ TOC</button>
+
+<aside class="toc" id="toc">
+<ul>
+<li><a href="#hero">🔥 概览 / Overview</a></li>
+<li><a href="#verdict">⚡ 5 秒判决 / Verdict</a></li>
+<li><a href="#honest">⚠️ 诚实折扣 / Honest Discount</a></li>
+<li><a href="#core">📌 核心论点 / Core Thesis</a></li>
+<li><a href="#riley">🎬 Riley 实战 / Riley's Workflow</a></li>
+<li><a href="#vinnie">🔧 Vinnie 解析 / Vinnie Explains</a></li>
+<li><a href="#vendor">📊 4 维度评估 / Vendor Eval</a></li>
+<li><a href="#patrick">🔗 Patrick 关联 / Patrick Cards</a></li>
+<li><a href="#decision">🎯 5 步行动 / 5-Step Action</a></li>
+<li><a href="#quotes">💬 金句 / Quotes</a></li>
+<li><a href="#timeline">⏱️ 时间戳 / Timeline</a></li>
+<li><a href="#related">📚 关联 / Related</a></li>
+</ul>
+</aside>
+
+<h1 id="hero"><span class="zh">🐝 Buzz AI — Riley Brown × Vinnie</span><span class="en">🐝 Buzz AI — Riley Brown × Vinnie</span></h1>
+<p class="subtitle">
+<span class="zh">Block (Jack Dorsey) 出品的 Agent-Native Workspace · 55m16s · 2026-07-30</span>
+<span class="en">Block (Jack Dorsey) Agent-Native Workspace · 55m16s · 2026-07-30</span>
+</p>
+
+<div class="meta-bar">
+<span><strong>Channel</strong><span class="lang-zh">频道</span><span class="lang-en">Channel</span>: Riley Brown (personal-brand)</span>
+<span><strong>Guest</strong><span class="lang-zh">嘉宾</span><span class="lang-en">Guest</span>: Vinnie (independent hacker)</span>
+<span><strong>Vendor</strong><span class="lang-zh">厂商</span><span class="lang-en">Vendor</span>: <a href="https://github.com/block/buzz" target="_blank" rel="noopener" style="color:var(--accent)">block/buzz</a> (17,898 ⭐)</span>
+<span><strong>License</strong><span class="lang-zh">许可证</span><span class="lang-en">License</span>: Apache 2.0</span>
+<span><strong>Lang</strong><span class="lang-zh">语言</span><span class="lang-en">Lang</span>: English (en)</span>
+<span><strong>Red flags</strong><span class="lang-zh">红旗</span><span class="lang-en">Red flags</span>: 2 <span class="badge warn">clickbait</span> <span class="badge info">personal-brand</span></span>
+<span><strong>Vendor tier</strong><span class="lang-zh">厂商评级</span><span class="lang-en">Vendor tier</span>: <span class="badge good">S</span> (6/6+N/A)</span>
+<span><strong>Patrick fit</strong><span class="lang-zh">Patrick 适配</span><span class="lang-en">Patrick fit</span>: <span class="badge warn">7/10</span> trial 30min</span>
+</div>
+
+<div class="hero" id="verdict">
+<p><span class="zh"><strong>5 秒判决</strong>: Buzz = <strong>Block 出品的自托管 Nostr workspace</strong>, 不是 "free Slack"。Agent + human 同 pubkey 模型, ACP 让你本地 Claude Code / Codex / Grok / Cursor / Kimmy 全做 agent 加 channel 用 @ 提。Riley 描述 content-creator 自动化 (morning priority list), Vinnie 解释 Nostr + agent 架构 (research-grade)。<strong>7/10 适配</strong>: 本周本地试 30 min (Docker + just dev), 不 commit。</span>
+<span class="en"><strong>5-second verdict</strong>: Buzz = <strong>self-hosted Nostr workspace from Block</strong>, NOT "free Slack". Agent + human share pubkey model, ACP attaches your local Claude Code / Codex / Grok / Cursor / Kimmy as agents in channels via @. Riley demos content-creator automation (morning priority list), Vinnie explains Nostr + agent arch (research-grade). <strong>7/10 fit</strong>: try locally 30min this week (Docker + just dev), no commit.</span></p>
+</div>
+
+<div class="warn-box" id="verdict-banner" style="background: rgba(213,255,63,.08); border-left: 4px solid var(--accent);">
+<h4>🎯 Trial Ready — 5 步行动 ship 完 (2026-07-30T22:30Z)</h4>
+<p><span class="zh"><strong>Patrick 直接跑</strong>: <code>bash ~/Downloads/buzz-trial-30min.sh</code> (15.4KB, 30 min 5 步 atomic, <code>bash -n</code> exit 0).</span>
+<span class="en"><strong>Patrick to run</strong>: <code>bash ~/Downloads/buzz-trial-30min.sh</code> (15.4KB, 30-min 5-step atomic, <code>bash -n</code> exit 0).</span></p>
+<p><span class="zh"><strong>Sandbox 已 verify</strong>: 5/6 关键文件 (Cargo.toml 5.9KB / buzz-acp lib.rs 271KB / AGENTS.md 28KB / buzz-cli README 6.5KB / buzz-workflow 路径 fix) + 21 crates workspace 全列 + 5 repo 生态 (block/buzz + 4 squareup) 实抓。</span>
+<span class="en"><strong>Sandbox verified</strong>: 5/6 key files (Cargo.toml 5.9KB / buzz-acp lib.rs 271KB / AGENTS.md 28KB / buzz-cli README 6.5KB / buzz-workflow path fix) + 21-crate workspace listed + 5-repo ecosystem (block/buzz + 4 squareup) all fetched.</span></p>
+<p><span class="zh"><strong>Verdict 4 选 1</strong>:</span><span class="en"><strong>Verdict 4-pick</strong>:</span></p>
+<ul>
+<li>✅ <span class="zh">all 4 pass</span><span class="en">all 4 pass</span> → 30 天 eval daily priority list / Vault Q&A / patricks-reports fcard 3 use case 搬过去</li>
+<li>🟡 1-2 pass → 1 周 polish docs / 找 Patrick-specific use case</li>
+<li>❌ walk_away → 写 "trial 失败原因" vault note</li>
+<li>⏭ skip → 不试</li>
+</ul>
+<p><span class="zh">⏱️ 30 min 跑完 iMessage reply (self-chat <code>patrick.l.zeng@gmail.com</code>, 7/26 round-trip verified) → Hermes 写 follow-up skill / cron。</span>
+<span class="en">⏱️ After 30 min, iMessage reply (self-chat <code>patrick.l.zeng@gmail.com</code>, 7/26 round-trip verified) → Hermes writes follow-up skill / cron.</span></p>
+</div>
+<h4>⚠️ Honest Discount Box <span class="en">(READ FIRST)</span></h4>
+<p><span class="zh"><strong>2 red flags fired</strong>: (1) "X + Y Can FINALLY Z" clickbait 标题, (2) Riley = personal brand (早期 Sora 创作者, 自己 content IP)。<strong>Split rating</strong>: Channel = 5/10 (Riley 简化 framing) · Product = 8/10 (Block 出品, Apache 2.0, v0.5.2 高速迭代) · Vinnie content = 8/10 (Nostr + agent 机制 research-grade) · Patrick 适配 = 7/10 (Rust 编译 + Docker 跟 Riley "5 分钟上手" 不符)。</span>
+<span class="en"><strong>2 red flags fired</strong>: (1) "X + Y Can FINALLY Z" clickbait title, (2) Riley = personal brand (early Sora creator). <strong>Split rating</strong>: Channel = 5/10 (Riley simplified framing) · Product = 8/10 (Block, Apache 2.0, v0.5.2 iterating fast) · Vinnie content = 8/10 (Nostr + agent arch = research-grade) · Patrick fit = 7/10 (Rust compile + Docker ≠ Riley "5min setup").</span></p>
+<p style="margin-top:8px"><span class="zh"><strong>Verdict</strong>: Treat as <strong>content-creator use-case demo + Block open-source project intro</strong>, NOT as primary research. Riley 描述的 "5 分钟上手" 不作 ground truth (Vinnie 自己 18:00 说 "rough edges here and there")。</span>
+<span class="en"><strong>Verdict</strong>: Treat as <strong>content-creator use-case demo + Block open-source project intro</strong>, NOT as primary research. Riley's "5min setup" claim not ground truth (Vinnie himself 18:00 said "rough edges here and there").</span></p>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="num">17,898</div><div class="label"><span class="zh">⭐ GitHub stars</span><span class="en">⭐ GitHub stars</span></div></div>
+<div class="stat"><div class="num">v0.5.2</div><div class="label"><span class="zh">最新 release (2026-07-29)</span><span class="en">Latest release (2026-07-29)</span></div></div>
+<div class="stat"><div class="num">1,725</div><div class="label"><span class="zh">forks</span><span class="en">forks</span></div></div>
+<div class="stat"><div class="num">Apache 2.0</div><div class="label"><span class="zh">许可证</span><span class="en">License</span></div></div>
+<div class="stat"><div class="num">Rust</div><div class="label"><span class="zh">主语言 (Tauri + React UI)</span><span class="en">Core lang (Tauri + React UI)</span></div></div>
+<div class="stat"><div class="num">NIP-01</div><div class="label"><span class="zh">底层协议 (Nostr)</span><span class="en">Wire protocol (Nostr)</span></div></div>
+</div>
+
+<div class="tabs">
+<button class="tab" data-tab="core">📌 <span class="zh">核心</span><span class="en">Core</span></button>
+<button class="tab" data-tab="riley">🎬 <span class="zh">Riley 实战</span><span class="en">Riley</span></button>
+<button class="tab" data-tab="vinnie">🔧 <span class="zh">Vinnie 解析</span><span class="en">Vinnie</span></button>
+<button class="tab" data-tab="vendor">📊 <span class="zh">4 维度评估</span><span class="en">Vendor</span></button>
+<button class="tab" data-tab="patrick">🔗 <span class="zh">Patrick 17 卡</span><span class="en">Patrick</span></button>
+<button class="tab" data-tab="decision">🎯 <span class="zh">5 步行动</span><span class="en">Action</span></button>
+<button class="tab" data-tab="quotes">💬 <span class="zh">金句</span><span class="en">Quotes</span></button>
+<button class="tab" data-tab="timeline">⏱️ <span class="zh">时间戳</span><span class="en">Timeline</span></button>
+<button class="tab" data-tab="related">📚 <span class="zh">关联</span><span class="en">Related</span></button>
+</div>
+
+<div class="tab-content active" data-tab-content="core">
+<h2 class="section" id="core">📌 <span class="zh">核心论点 / Core Thesis</span><span class="en">Core Thesis</span></h2>
+<div class="hero">
+<p><span class="zh"><strong>Block (Jack Dorsey) 出品的 Buzz</strong> 是一套 <strong>Nostr-based self-hosted agent-native workspace</strong> — 一切 event (消息 / workflow / git push / agent audit) 都是 Nostr signed event, 走单 relay, agent 跟 human 用同一种 pubkey 跟同一种 channel membership 模型。</span>
+<span class="en"><strong>Block (Jack Dorsey)'s Buzz</strong> is a <strong>Nostr-based self-hosted agent-native workspace</strong> — every event (message / workflow / git push / agent audit) is a Nostr signed event on a single relay; agents and humans share the same pubkey + channel-membership model.</span></p>
+<p><span class="zh"><strong>ACP (Agent Client Protocol)</strong> 把本地已装的 Claude Code / Codex / Grok / Cursor / Kimmy 各自做成 agent 加进 channel — 关键价值是 <strong>context 跨 agent 跨 harness 自动传递</strong> (Codex 的 skills 跟 memory 转到 Claude Code 不用 re-setup) 跟 <strong>turn 控制</strong> (Buzz harness 限制最少 turn 数防 multi-agent 死循环)。</span>
+<span class="en"><strong>ACP (Agent Client Protocol)</strong> wraps your locally installed Claude Code / Codex / Grok / Cursor / Kimmy into agents added to channels — key value is <strong>context cross-agent cross-harness auto-pass</strong> (Codex skills & memory flow into Claude Code without re-setup) + <strong>turn control</strong> (Buzz harness limits minimum turns to prevent multi-agent death loops).</span></p>
+</div>
+
+<h3><span class="zh">核心概念</span><span class="en">Core concepts</span></h3>
+<div class="card-grid">
+<div class="card">
+<h4>1. <span class="zh">Nostr Relay = 真 single source of truth</span><span class="en">Nostr relay = true single source</span></h4>
+<p><span class="zh">所有 channel / DM / workflow / git event / NIP-34 patch 全是 signed event, 走一个 relay, audit trail 自带 (不是外挂)。</span>
+<span class="en">All channel / DM / workflow / git event / NIP-34 patch = signed event on one relay. Audit trail is built in, not bolted on.</span></p>
+</div>
+<div class="card">
+<h4>2. <span class="zh">Agent = first-class member</span><span class="en">Agent = first-class member</span></h4>
+<p><span class="zh">Agent 有自己的 Nostr keypair, 自己的 channel membership, 自己的 audit log — 跟 human 同权, 不是 Slack bot 那种 permission flag scoped。</span>
+<span class="en">Agent owns its Nostr keypair, channel membership, audit log — same affordances as human, NOT permission-flag-scoped like Slack bot.</span></p>
+</div>
+<div class="card">
+<h4>3. <span class="zh">ACP = harness bridge</span><span class="en">ACP = harness bridge</span></h4>
+<p><span class="zh">buzz-acp crate 跑在 relay + desktop, 把你本地 Claude Code / Codex / Cursor / Goose 等 harness attach 成 channel 里的 agent。</span>
+<span class="en">buzz-acp crate runs in relay + desktop, attaches your local Claude Code / Codex / Cursor / Goose harnesses as channel members.</span></p>
+</div>
+<div class="card">
+<h4>4. <span class="zh">Branch = room</span><span class="en">Branch = room</span></h4>
+<p><span class="zh">Feature branch 开出来 = channel 出来, patches / CI / review / merge decision 全在同一 audit log。Buzz 想做 GitHub killer (NIP-34 + git on object storage)。</span>
+<span class="en">Feature branch opens → channel appears, patches / CI / review / merge decision in one audit log. Buzz targets GitHub killer (NIP-34 + git on object storage).</span></p>
+</div>
+</div>
+
+<h3><span class="zh">跟已知 vendor / 工具对比</span><span class="en">vs known tools</span></h3>
+<table>
+<thead>
+<tr><th><span class="zh">维度</span><span class="en">Dim</span></th><th><span class="zh">Slack</span><span class="en">Slack</span></th><th><span class="zh">GitHub</span><span class="en">GitHub</span></th><th><span class="zh">Buzz (Block)</span><span class="en">Buzz</span></th></tr>
+</thead>
+<tbody>
+<tr><td><span class="zh">数据 ownership</span><span class="en">Data owner</span></td><td><span class="zh">Slack 公司</span><span class="en">Slack co.</span></td><td><span class="zh">Microsoft</span><span class="en">Microsoft</span></td><td><span class="zh">你 (self-host) / Block 帮你 host (1 relay + DB)</span><span class="en">You (self-host) / Block hosts (1 relay + DB)</span></td></tr>
+<tr><td><span class="zh">Identity model</span><span class="en">Identity model</span></td><td><span class="zh">Slack account</span><span class="en">Slack account</span></td><td><span class="zh">GitHub account</span><span class="en">GitHub account</span></td><td><span class="zh">Nostr keypair (agent + human 同形)</span><span class="en">Nostr keypair (agent + human same shape)</span></td></tr>
+<tr><td><span class="zh">Audit trail</span><span class="en">Audit trail</span></td><td><span class="zh">Slack-side</span><span class="en">Slack-side</span></td><td><span class="zh">GitHub-side</span><span class="en">GitHub-side</span></td><td><span class="zh">Signed event log in relay (built-in)</span><span class="en">Signed event log in relay (built-in)</span></td></tr>
+<tr><td><span class="zh">Agent native</span><span class="en">Agent native</span></td><td><span class="zh">Bot via API (scoped)</span><span class="en">Bot via API (scoped)</span></td><td><span class="zh">GitHub Actions (CI-bound)</span><span class="en">GitHub Actions (CI-bound)</span></td><td><span class="zh">Agent = first-class member (own key)</span><span class="en">Agent = first-class member (own key)</span></td></tr>
+<tr class="highlight"><td><span class="zh">Patrick 切换成本</span><span class="en">Patrick switch cost</span></td><td><span class="zh">高 (历史 + 团队)</span><span class="en">High (history + team)</span></td><td><span class="zh">中 (代码托管可保留 GH)</span><span class="en">Medium (can keep GH for hosting)</span></td><td><span class="zh">中 (要 Rust + Docker + relay self-host)</span><span class="en">Medium (Rust + Docker + relay self-host needed)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tab-content" data-tab-content="riley">
+<h2 class="section" id="riley">🎬 <span class="zh">Riley 实战 / Riley's 3-channel workflow</span><span class="en">Riley's Workflow</span></h2>
+<p><span class="zh">Riley 是 content creator, 自己 6-7 人 content team, 一天 4 块自动 workflow 全跑 Buzz:</span>
+<span class="en">Riley is a content creator with a 6-7 person content team. All 4 daily workflow blocks run on Buzz:</span></p>
+
+<table>
+<thead>
+<tr><th><span class="zh">Channel</span><span class="en">Channel</span></th><th><span class="zh">Agent</span><span class="en">Agent</span></th><th><span class="zh">Harness</span><span class="en">Harness</span></th><th><span class="zh">频率</span><span class="en">Frequency</span></th><th><span class="zh">做什么</span><span class="en">What it does</span></th></tr>
+</thead>
+<tbody>
+<tr class="highlight"><td><code>content</code></td><td>Harry / Codex</td><td>Codex</td><td><span class="zh">按需</span><span class="en">on-demand</span></td><td><span class="zh">thumbnail 五选 → Claude Code + Grok 反馈 → Codex 再五张</span><span class="en">5 thumbnails → Claude Code + Grok feedback → 5 more</span></td></tr>
+<tr><td><code>research</code></td><td>Codex agents</td><td>Codex</td><td><span class="zh">按需</span><span class="en">on-demand</span></td><td><span class="zh">25 creators AI news daily scrape (scrapecreators.io skill)</span><span class="en">25 creators AI news daily scrape (scrapecreators.io skill)</span></td></tr>
+<tr class="highlight"><td><code>management</code></td><td>narrow Codex (system prompt 描述身份)</td><td>Codex</td><td>9am/12pm/3pm/6pm</td><td><span class="zh">读 emails + Slack + texts + sponsorships → 排序 priority list</span><span class="en">Read emails + Slack + texts + sponsorships → sort priority list</span></td></tr>
+</tbody>
+</table>
+
+<h3><span class="zh">实测亮点 (Riley, 38:10-43:20)</span><span class="en">Verified highlights (Riley, 38:10-43:20)</span></h3>
+<div class="quote-card green">
+<p>"<span class="zh">I had Fable and then 5.6 Soul Ultra, they were like discussing all of these different clauses, while also going through the contract in my email like a previous contract... and then they settled on this like final agreement</span>"<span class="en">I had Fable and then 5.6 Soul Ultra, they were like discussing all of these different clauses, while also going through the contract in my email like a previous contract... and then they settled on this like final agreement</span>"</p>
+<div class="src">— Riley @ 14:10 (Vinnie 确认)</div>
+</div>
+
+<div class="card-grid">
+<div class="card">
+<h4><span class="zh">Codex = computer use 之王</span><span class="en">Codex = computer-use king</span></h4>
+<p><span class="zh">"Codex computer use is the best, so I will rely on it the most" (Riley 原话)。thumbnail 5→5 反馈循环, Codex 跑第一轮, Claude Code 给 critique, Grok 给 critique, Codex 再做 5 张。</span>
+<span class="en">"Codex computer use is the best, so I will rely on it the most" (Riley verbatim). 5→5 feedback loop: Codex draft, Claude Code critique, Grok critique, Codex redo.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">3 个 harness 各有专长</span><span class="en">3 harnesses, each owns a niche</span></h4>
+<p><span class="zh">Codex = computer use, Claude Code = review/critique, Grok = fast model 第一个回。MUSE = Meta agentic model 通过 OpenRouter key 进 Buzz。</span>
+<span class="en">Codex = computer use, Claude Code = review/critique, Grok = fast first responder. MUSE = Meta's agentic model via OpenRouter key.</span></p>
+</div>
+<div class="card">
+<h4><span class="zh">Management channel = narrow Codex</span><span class="en">Management channel = narrow Codex</span></h4>
+<p><span class="zh">不是新 agent, 是 Codex + narrow system prompt (1 段描述身份 + key info 位置 + Notion 链接)。</span>
+<span class="en">Not a new agent — Codex + narrow system prompt (1 paragraph describing identity + key info location + Notion links).</span></p>
+</div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="vinnie">
+<h2 class="section" id="vinnie">🔧 <span class="zh">Vinnie 解析 Buzz 内部机制</span><span class="en">Vinnie Explains Buzz Internals</span></h2>
+<p><span class="zh">Vinnie 是独立 hacker, Buzz 病毒 X video 制作人, <strong>不是 Block 员工</strong>。他解释 Buzz 跟 Slack 跟 GitHub 的根本区别。</span>
+<span class="en">Vinnie is an independent hacker, Buzz viral X video maker, <strong>NOT a Block employee</strong>. He explains the fundamental differences from Slack and GitHub.</span></p>
+
+<h3><span class="zh">Slack vs Buzz: 协议 vs 产品</span><span class="en">Slack vs Buzz: protocol vs product</span></h3>
+<div class="compare">
+<div class="cmp bad">
+<h4>Slack</h4>
+<p><span class="zh">公司控制 servers + DB, Slack-side audit trail, bot = permission flag scoped, search 内部</span><span class="en">Company controls servers + DB, Slack-side audit, bot = permission flag, internal search</span></p>
+</div>
+<div class="cmp good">
+<h4>Buzz</h4>
+<p><span class="zh">Block 帮你 spin up 1 server + DB (自托管 or hosted), Nostr keypair signed event log, agent = first-class member, Postgres FTS over events.search_tsv (GIN indexed, per-community)</span><span class="en">Block spins up 1 server + DB (self-host or hosted), Nostr keypair signed event log, agent = first-class, Postgres FTS over events.search_tsv (GIN, per-community)</span></p>
+</div>
+</div>
+
+<h3><span class="zh">GitHub killer 野心 (16:40-19:30)</span><span class="en">GitHub killer ambition (16:40-19:30)</span></h3>
+<p><span class="zh">Vinnie 透露 Buzz 不只 Slack killer, <strong>还想做 GitHub killer</strong>:</span>
+<span class="en">Vinnie reveals Buzz targets <strong>GitHub killer</strong> too:</span></p>
+<div class="card-grid">
+<div class="card">
+<h4>NIP-34 <span class="zh">git events</span><span class="en">git events</span></h4>
+<p><span class="zh">patches / repo announcements / status 走 Nostr event, patch landing 在 channel 跟 review 跟 merge decision 同 audit log。</span>
+<span class="en">patches / repo announcements / status as Nostr events. Patch landing in channel shares audit log with review + merge decision.</span></p>
+</div>
+<div class="card">
+<h4>git on object storage</h4>
+<p><span class="zh"><code>git clone repoa.myproject.com</code> 工作, relay 同时是 code host (用 S3/MinIO)。</span>
+<span class="en"><code>git clone repoa.myproject.com</code> works, relay doubles as code host (S3/MinIO).</span></p>
+</div>
+<div class="card">
+<h4>Branch = room</h4>
+<p><span class="zh">feature branch 开出来 = channel 出来, 3 个 agent 跑 3 个不同 app idea = Buzz 在本机建 3 个 folder + 3 个 agent 同时 work 不互相踩脚。</span>
+<span class="en">feature branch opens → channel appears. 3 agents on 3 app ideas → 3 folders + 3 agents work in parallel without stepping on each other.</span></p>
+</div>
+</div>
+
+<h3><span class="zh">Agent-to-agent 支付未来 (10:40-13:00)</span><span class="en">Agent-to-agent payment future (10:40-13:00)</span></h3>
+<p><span class="zh">Vinnie 推论 Buzz 长期 vision:</span>
+<span class="en">Vinnie extrapolates Buzz long-term vision:</span></p>
+<div class="chain">
+<div class="chain-step"><span class="zh">你本机 frontier model</span><span class="en">Your local frontier model</span></div>
+<span class="chain-arrow">→</span>
+<div class="chain-step"><span class="zh">别人 @ 你 agent</span><span class="en">Others @ your agent</span></div>
+<span class="chain-arrow">→</span>
+<div class="chain-step"><span class="zh">agent 跑 task</span><span class="en">Agent runs task</span></div>
+<span class="chain-arrow">→</span>
+<div class="chain-step"><span class="zh">pay per task</span><span class="en">Pay per task</span></div>
+</div>
+<p><span class="zh"><strong>Agent-to-agent pay</strong>: 低级 model 付给高级 model 跑 task (subsidized 现在便宜, 未来贵起来会贵)。</span>
+<span class="en"><strong>Agent-to-agent pay</strong>: low-tier model pays high-tier model to run task (subsidized now, will get expensive later).</span></p>
+</div>
+
+<div class="tab-content" data-tab-content="vendor">
+<h2 class="section" id="vendor">📊 <span class="zh">4 维度 vendor 评估 (JP Middleton framework)</span><span class="en">4-dim vendor evaluation (JP Middleton framework)</span></h2>
+<p><span class="zh">用 <code>ai-vendor-evaluation</code> skill 的 4 维度 (内容价值 / 可信度 / 真实性 / 学生结果) 评估 Buzz。</span>
+<span class="en">Apply the <code>ai-vendor-evaluation</code> skill's 4 dimensions (Content Value / Credibility / Authenticity / Student Results).</span></p>
+
+<table>
+<thead>
+<tr><th><span class="zh">维度</span><span class="en">Dim</span></th><th><span class="zh">分数</span><span class="en">Score</span></th><th><span class="zh">证据</span><span class="en">Evidence</span></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>内容价值 / Content Value</strong></td><td>2/2</td><td><span class="zh">闭单视频: Vinnie 完整解释 Nostr + ACP + agent keys, Riley 实战 thumbnail 5→5 反馈循环, 不是理论。</span><span class="en">Vinnie explains Nostr + ACP + agent keys fully; Riley demos 5→5 thumbnail feedback loop. Not theory.</span></td></tr>
+<tr class="highlight"><td><strong>可信度 / Credibility</strong></td><td>2/2</td><td><span class="zh"><strong>Block (NYSE: SQ)</strong> 上市公司官方出品, GitHub <code>block/buzz</code> 17,898 ⭐ + 1,725 forks + Apache 2.0, v0.5.2 高速迭代 (2026-07-29 release), 4-source 验证 (README / ARCHITECTURE / VISION / CHANGELOG)。</span><span class="en"><strong>Block (NYSE: SQ)</strong> public company, GitHub <code>block/buzz</code> 17,898 ⭐ + 1,725 forks + Apache 2.0, v0.5.2 (2026-07-29), 4-source verified (README / ARCHITECTURE / VISION / CHANGELOG).</span></td></tr>
+<tr><td><strong>真实性 / Authenticity</strong></td><td>2/2</td><td><span class="zh">不是 "声称做 100 个客户" 类型 vendor, <strong>Block 自己 dogfooding 的开源项目</strong> (Block employees: David Hamilton @squareup.com / John Matthew Tennant @squareup.com / Thomas P @squareup.com / Logan Johnson @squareup.com 4 公开 commit author 全 @squareup.com)。</span><span class="en">Not a "100 customers" self-claim vendor — <strong>Block's dogfooded OSS project</strong>. 4 public commit authors @squareup.com (David Hamilton / John Matthew Tennant / Thomas P / Logan Johnson).</span></td></tr>
+<tr><td><strong>学生结果 / Student Results</strong></td><td><span class="badge info">N/A</span></td><td><span class="zh">课程 / SaaS 不适用 (Block 出品, <strong>不卖你</strong>), 但社区反馈: 17,898 stars + 1,145 open issues = 真用户群, GitHub issues #3729 OpenCode hang / #3737 12/24 hour clock / #3736 12h setting = 真 production 用户报 real bugs。</span><span class="en">N/A (not a course/SaaS, <strong>free OSS</strong>). Community feedback: 17,898 stars + 1,145 open issues = real users. Issues #3729 (OpenCode hang) / #3737 (12/24h clock) / #3736 (12h setting) = real production bug reports.</span></td></tr>
+<tr class="highlight"><td><strong>总 / Total</strong></td><td><strong>6/6 + N/A</strong></td><td><strong><span class="badge good">S tier</span></strong> (vendor) + <span class="badge info">自建项目</span> (不适用课程) = <strong>7/10 "Patrick 是否要装"</strong></td></tr>
+</tbody>
+</table>
+
+<h3><span class="zh">vs 已知 vendor 对比</span><span class="en">vs known vendors</span></h3>
+<table>
+<thead>
+<tr><th>Vendor</th><th><span class="zh">分数</span><span class="en">Score</span></th><th><span class="zh">关键差异</span><span class="en">Key diff</span></th></tr>
+</thead>
+<tbody>
+<tr><td>Artisan</td><td>8/8 S</td><td><span class="zh">没 Artisan "250 客户" self-claim, 但 Block dogfooding 比 Artisan YC W23 公开数据更可信</span><span class="en">No Artisan "250 customers" self-claim, but Block dogfooding more credible than Artisan YC W23</span></td></tr>
+<tr class="highlight"><td><strong>Buzz</strong></td><td><strong>6/6+N/A S</strong></td><td><span class="zh">self-hosted open source, Block 出品不 sunset 风险</span><span class="en">self-hosted OSS, Block backing (no sunset risk)</span></td></tr>
+<tr><td>Lindy</td><td>6/8 A</td><td><span class="zh">都 "honest 1-person can use" 设计, Buzz self-host vs Lindy hosted SaaS</span><span class="en">Both "honest 1-person" design, Buzz self-host vs Lindy hosted SaaS</span></td></tr>
+<tr><td>Cognosys</td><td>2/8 D</td><td><span class="zh">都 v0.5.x 仍迭代, 但 Buzz 是 Block 出品不 sunset</span><span class="en">Both v0.5.x iterating, but Buzz = Block backing, no sunset</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tab-content" data-tab-content="patrick">
+<h2 class="section" id="patrick">🔗 <span class="zh">Patrick 关联 (17-card roster, 全部 verified-on-disk)</span><span class="en">Patrick Cards (17/17 verified-on-disk)</span></h2>
+<p><span class="zh">17/17 <code>~/.hermes/skills/</code> 真命中, 0 reference / 0 vault note 虚报。</span>
+<span class="en">17/17 <code>~/.hermes/skills/</code> real hits, 0 ref / 0 vault-note fakes.</span></p>
+<div class="card-grid">
+<div class="card">
+<h4>1. <code>claude-code</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Buzz ACP 直接接 Claude Code, 0 setup。</span><span class="en">✅ Real · Buzz ACP attaches Claude Code, 0 setup.</span></p>
+</div>
+<div class="card">
+<h4>2. <code>codex</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Riley 主线 harness, Buzz ACP 直接接。</span><span class="en">✅ Real · Riley's main harness, Buzz ACP attaches directly.</span></p>
+</div>
+<div class="card">
+<h4>3. <code>codex-fallback</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Codex 不可用时, Buzz multi-harness 是 fallback。</span><span class="en">✅ Real · When Codex is down, Buzz multi-harness is fallback.</span></p>
+</div>
+<div class="card">
+<h4>4. <code>five-orchestrator</code> skill</h4>
+<p><span class="zh">✅ 真命中 · 5 AI tools 协同, Buzz multi-agent = horizontal 替代。</span><span class="en">✅ Real · 5-tool orchestration, Buzz multi-agent = horizontal alternative.</span></p>
+</div>
+<div class="card">
+<h4>5. <code>five-status</code> skill</h4>
+<p><span class="zh">✅ 真命中 · health check 5 tools, Buzz 自己保证 harness alive。</span><span class="en">✅ Real · health check 5 tools, Buzz keeps harness alive itself.</span></p>
+</div>
+<div class="card">
+<h4>6. <code>agent-orchestration</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Buzz = 多 agent orchestration 的 product 化版本。</span><span class="en">✅ Real · Buzz = productized multi-agent orchestration.</span></p>
+</div>
+<div class="card">
+<h4>7. <code>coordinator</code> skill</h4>
+<p><span class="zh">✅ 真命中 · 5 specialist 协同 = Buzz channel model。</span><span class="en">✅ Real · 5 specialist coord = Buzz channel model.</span></p>
+</div>
+<div class="card">
+<h4>8. <code>kanban-codex-lane</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Codex lane ↔ Buzz Codex agent 同思路。</span><span class="en">✅ Real · Codex lane ↔ Buzz Codex agent same idea.</span></p>
+</div>
+<div class="card">
+<h4>9. <code>disagreement-protocol</code> skill</h4>
+<p><span class="zh">✅ 真命中 · multi-agent cross-exam = Vinnie 描述的 agent 互相 delegate。</span><span class="en">✅ Real · multi-agent cross-exam = Vinnie's agent mutual delegate.</span></p>
+</div>
+<div class="card">
+<h4>10. <code>dual-ai-peer-review</code> skill</h4>
+<p><span class="zh">✅ 真命中 · 2 AI 互评, Buzz 是 N-AI 协同。</span><span class="en">✅ Real · 2-AI peer review, Buzz = N-AI cooperation.</span></p>
+</div>
+<div class="card">
+<h4>11. <code>agent-observability</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Buzz Nostr signed audit log = observability 内建。</span><span class="en">✅ Real · Buzz Nostr signed audit log = observability built-in.</span></p>
+</div>
+<div class="card">
+<h4>12. <code>closed-loop-trace</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Nostr event log = closed-loop trace 内建。</span><span class="en">✅ Real · Nostr event log = closed-loop trace built-in.</span></p>
+</div>
+<div class="card">
+<h4>13. <code>claude-style-agent-minimax-provider</code> skill</h4>
+<p><span class="zh">✅ 真命中 · LLM provider 抽象, Buzz 用同思路 (OpenAI-compatible 模式)。</span><span class="en">✅ Real · LLM provider abstraction, Buzz uses same idea (OpenAI-compatible).</span></p>
+</div>
+<div class="card">
+<h4>14. <code>computer-use</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Riley 主线 = Codex computer use, Buzz channel 里都用。</span><span class="en">✅ Real · Riley's main = Codex computer use, used across Buzz channels.</span></p>
+</div>
+<div class="card">
+<h4>15. <code>patricks-vault-os</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Nostr relay = 你 "single source of truth" 哲学同源。</span><span class="en">✅ Real · Nostr relay = your "single source of truth" philosophy match.</span></p>
+</div>
+<div class="card">
+<h4>16. <code>patricks-knowledge-hub</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Buzz Stream + Forum + Search = daily-reports hub + vault。</span><span class="en">✅ Real · Buzz Stream + Forum + Search = your daily-reports hub + vault.</span></p>
+</div>
+<div class="card">
+<h4>17. <code>patricks-publish-pipeline-watchdog</code> skill</h4>
+<p><span class="zh">✅ 真命中 · Buzz workflow approval gate = cron watchdog 同模式。</span><span class="en">✅ Real · Buzz workflow approval gate = cron watchdog same pattern.</span></p>
+</div>
+</div>
+
+<h3><span class="zh">实际适配 vs Riley "5 分钟上手" 落差</span><span class="en">Real setup vs Riley "5 min" claim gap</span></h3>
+<table>
+<thead>
+<tr><th><span class="zh">步骤</span><span class="en">Step</span></th><th><span class="zh">Riley 描述</span><span class="en">Riley claim</span></th><th><span class="zh">实际 (README + ARCHITECTURE)</span><span class="en">Reality</span></th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td><span class="zh">下载 desktop app</span><span class="en">Download desktop app</span></td><td><span class="zh">macOS <code>.dmg</code> / Linux <code>.AppImage</code> / Windows <code>.exe</code> 都有</span><span class="en">macOS <code>.dmg</code> / Linux <code>.AppImage</code> / Windows <code>.exe</code> available</span></td></tr>
+<tr><td>2</td><td>"Sign up"</td><td><span class="zh">实际没 signup, desktop 默认连 <code>ws://localhost:3000</code> (你必须 run relay)</span><span class="en">No signup; desktop connects <code>ws://localhost:3000</code> by default (you must run relay)</span></td></tr>
+<tr><td>3</td><td>"Default agents Fizz / Honey 自动出现"</td><td><span class="zh">实际是 desktop 检测本地已装 harness (Claude Code / Codex / Cursor) 然后 attach, 0 harness = 0 agent</span><span class="en">Desktop detects installed harnesses, 0 harness = 0 agents</span></td></tr>
+<tr><td>4</td><td><span class="zh">"免费 hosted relay"</span><span class="en">"Free hosted relay"</span></td><td><span class="zh">"I work at Block" 才用 internal build, OSS 用户必须 self-host Docker Compose (Postgres + Redis + MinIO + Caddy)</span><span class="en">OSS users must self-host Docker Compose (Postgres + Redis + MinIO + Caddy)</span></td></tr>
+<tr class="highlight"><td>5</td><td>"5 分钟上手"</td><td><span class="zh">Vinnie 自己 18:00 说 "rough edges here and there", workflows "haven't gotten to work very well"</span><span class="en">Vinnie himself at 18:00 said "rough edges here and there", workflows "haven't gotten to work very well"</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tab-content" data-tab-content="decision">
+<h2 class="section" id="decision">🎯 <span class="zh">5 步行动 (不 commit, 本地 30 min 试)</span><span class="en">5-Step Action (no commit, 30min local trial)</span></h2>
+
+<div class="decision">
+<div class="col yes">
+<h4>✅ <span class="zh">今天</span><span class="en">Today</span></h4>
+<p><strong><span class="zh">不装</span><span class="en">Don't install</span></strong></p>
+<p>0 min · $0</p>
+</div>
+<div class="col maybe">
+<h4>🟡 <span class="zh">本周</span><span class="en">This week</span></h4>
+<p><strong><span class="zh">本地试 30 min</span><span class="en">Local trial 30 min</span></strong></p>
+<p>Docker + 10GB disk</p>
+</div>
+<div class="col no">
+<h4>❌ <span class="zh">如果 fail</span><span class="en">If fail</span></h4>
+<p><strong><span class="zh">走开</span><span class="en">Walk away</span></strong></p>
+<p>Vinnie 自己说 "rough edges"</p>
+</div>
+</div>
+
+<h3><span class="zh">5 步 recipe</span><span class="en">5-step recipe</span></h3>
+<div class="chain">
+<div class="chain-step">Step 1: clone + Hermit</div>
+<span class="chain-arrow">→</span>
+<div class="chain-step">Step 2: just setup</div>
+<span class="chain-arrow">→</span>
+<div class="chain-step">Step 3: just dev</div>
+<span class="chain-arrow">→</span>
+<div class="chain-step">Step 4: cross-agent</div>
+<span class="chain-arrow">→</span>
+<div class="chain-step">Step 5: decision</div>
+</div>
+
+<h4>Step 1 — <span class="zh">30 min 本地试</span><span class="en">30 min local trial</span></h4>
+<pre><code>cd ~/Downloads && git clone https://github.com/block/buzz.git && cd buzz
+. ./bin/activate-hermit      # pinned Rust + Node + pnpm + just
+just setup                    # auto-copies .env.example → .env, downloads all tools, starts Docker services
+just dev                      # starts relay (ws://localhost:3000) + desktop app</code></pre>
+<p><span class="zh">成功标志: Desktop app 弹窗 + default channels (Fizz + Honey agents 自动出现 if Claude Code or Codex 已装)。</span>
+<span class="en">Success: Desktop app opens + default channels appear (Fizz + Honey agents if Claude Code / Codex installed).</span></p>
+
+<h4>Step 2 — <span class="zh">5 min attach harness</span><span class="en">5 min attach harness</span></h4>
+<ul style="margin:8px 0 0 22px; font-size:13px">
+<li>Desktop → Agents → 看 Fizz (Codex) / Honey (Claude Code) 是否已出现</li>
+<li>0 agents: 检查本地 <code>~/.local/bin/codex</code> / <code>claude</code> 在 PATH (Buzz desktop 自动 detect)</li>
+<li>测试 1 个 message 提到 <code>Fizz</code> 看 Codex 是否回</li>
+</ul>
+
+<h4>Step 3 — <span class="zh">10 min cross-agent test</span><span class="en">10 min cross-agent test</span></h4>
+<p><span class="zh">Channel = "test" → 提到 <code>Codex</code> + <code>Claude Code</code> + <code>Grok</code> 让 Codex 写代码, Claude Code review。看 context 是否自动 cross-harness pass。</span>
+<span class="en">Channel "test" → @ <code>Codex</code> + <code>Claude Code</code> + <code>Grok</code>, have Codex write code, Claude Code review. Does context cross-harness auto-pass?</span></p>
+
+<h4>Step 4 — <span class="zh">5 min iOS app</span><span class="en">5 min iOS app</span></h4>
+<p><span class="zh">iOS app 公开下载, 跟 desktop 同步。测试: 桌面上跑 Codex 任务, iPhone 看 progress / 反馈。</span>
+<span class="en">iOS app public, syncs with desktop. Test: Codex task on desktop, iPhone sees progress / gives feedback.</span></p>
+
+<h4>Step 5 — <span class="zh">决策</span><span class="en">Decision</span></h4>
+<ul style="margin:8px 0 0 22px; font-size:13px">
+<li><span class="badge good">all 4 pass</span> → 30 天后评估 daily priority list / Vault Q&A / patricks-reports fcard 3 use case 搬过去</li>
+<li><span class="badge warn">1-2 pass</span> → 1 周后 polish docs / 找 Patrick-specific use case</li>
+<li><span class="badge bad">0 pass</span> → 走开, 写 vault note "Buzz 30 min trial 失败原因" 给未来参考</li>
+</ul>
+</div>
+
+<div class="tab-content" data-tab-content="quotes">
+<h2 class="section" id="quotes">💬 <span class="zh">金句库 (verbatim byte-verified)</span><span class="en">Quotes (verbatim byte-verified)</span></h2>
+<div class="quote-grid">
+<div class="quote-card">
+<p>"<span class="zh">Buzz is a self-hostable workspace where humans and AI agents share the same rooms. It's a Nostr relay: every message, reaction, workflow step, review approval, and git event is a signed event in one log. Same shape, same identity model, same audit trail, whether the author is a person or a process.</span><span class="en">Buzz is a self-hostable workspace where humans and AI agents share the same rooms. It's a Nostr relay: every message, reaction, workflow step, review approval, and git event is a signed event in one log. Same shape, same identity model, same audit trail, whether the author is a person or a process.</span>"</p>
+<div class="src">— block/buzz README L26-32 · <span class="zh">中文旁注: 一句话定义 Buzz = "人跟 AI agent 共享房间, 一条 Nostr signed event log 走完所有交互"</span><span class="en">Note (verbatim): one-line definition of Buzz = "humans and AI agents share rooms, one Nostr signed event log handles all interactions"</span></div>
+</div>
+<div class="quote-card yellow">
+<p>"<span class="zh">The really cool thing is is that because it's built on this open protocol and it's not stuck on you know just some one company's uh controlling all the data and and the shape of everything, makes it really easy to integrate stuff with.</span>"<span class="en">The really cool thing is is that because it's built on this open protocol and it's not stuck on you know just some one company's uh controlling all the data and and the shape of everything, makes it really easy to integrate stuff with.</span>"</p>
+<div class="src">— Vinnie @ 15:50</div>
+</div>
+<div class="quote-card green">
+<p>"<span class="zh">I had Fable and then 5.6 Soul Ultra, they were like discussing all of these different clauses, while also going through the contract in my email like a previous contract... and then they settled on this like final agreement.</span>"<span class="en">I had Fable and then 5.6 Soul Ultra, they were like discussing all of these different clauses, while also going through the contract in my email like a previous contract... and then they settled on this like final agreement.</span>"</p>
+<div class="src">— Riley @ 14:10 (Vinnie 确认 "this is so much fun")</div>
+</div>
+<div class="quote-card blue">
+<p>"<span class="zh">I think there's a lot of stuff that's going to come out of this in the future that will make it even more powerful than it is at the moment. And I would say like uh it's probably for for your audience, it's probably a great thing to try out already. It's not perfect. I don't know if you've run into some kind of like rough edges here and there, but I have.</span><span class="en">I think there's a lot of stuff that's going to come out of this in the future that will make it even more powerful than it is at the moment. And I would say like uh it's probably for for your audience, it's probably a great thing to try out already. It's not perfect. I don't know if you've run into some kind of like rough edges here and there, but I have.</span>"</p>
+<div class="src">— Vinnie @ 18:00 (诚实折扣 anchor)</div>
+</div>
+<div class="quote-card yellow">
+<p>"<span class="zh">Last time I had this feeling was kind of open claw back in January where I'm like okay, there's something here. There's something novel about this experience.</span>"<span class="en">Last time I had this feeling was kind of open claw back in January where I'm like okay, there's something here. There's something novel about this experience.</span>"</p>
+<div class="src">— Riley @ 49:00 (跟 OpenClaw 1 月分水岭对比)</div>
+</div>
+<div class="quote-card green">
+<p>"<span class="zh">Vinnie was an amazing guest to have on the podcast and I will see you here for the next video.</span>"<span class="en">Vinnie was an amazing guest to have on the podcast and I will see you here for the next video.</span>"</p>
+<div class="src">— Riley @ 55:16 (Riley 已有系列视频, Buzz coverage 还会继续)</div>
+</div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="timeline">
+<h2 class="section" id="timeline">⏱️ <span class="zh">时间戳 (key moments, flat-transcript offset estimate)</span><span class="en">Timeline (flat-transcript offset estimate)</span></h2>
+<p><span class="zh">⚠️ kome.ai transcript 是 flat paragraph 无 speaker-tag, 以下 timestamp 是按 character offset / 57101 chars / 3316 sec 算出的 estimate (误差 ±30s)。需要真 YouTube CC 时间戳请开 transcript auto-captions。</span>
+<span class="en">⚠️ kome.ai transcript is flat paragraph without speaker tags. Timestamps below are estimates from char offset / 57101 chars / 3316 sec (±30s error). Use YouTube CC for true timestamps.</span></p>
+<div class="timeline">
+<div class="tl-item"><div class="time">0:00</div><div class="what"><span class="who">Riley</span> <span class="zh">Buzz 介绍 (Riley 简化版 "free Slack for AI agents")</span><span class="en">Buzz intro (Riley's "free Slack for AI agents" framing)</span></div></div>
+<div class="tl-item"><div class="time">1:30</div><div class="what"><span class="who">Riley</span> <span class="zh">Part 1/2 划分 (Vinnie guest + Riley workflow)</span><span class="en">Part 1/2 split (Vinnie guest + Riley workflow)</span></div></div>
+<div class="tl-item"><div class="time">3:50</div><div class="what"><span class="who">Vinnie</span> <span class="zh">Vinnie 介绍 + Buzz viral X video</span><span class="en">Vinnie intro + Buzz viral X video</span></div></div>
+<div class="tl-item"><div class="time">4:18</div><div class="what"><span class="who">Vinnie</span> <span class="zh">Vinnie 解释 channel + agent 工作</span><span class="en">Vinnie explains channel + agent work</span></div></div>
+<div class="tl-item"><div class="time">6:30</div><div class="what"><span class="who">Riley</span> <span class="zh">Riley 实战 multi-agent (Codex / Claude Code / Grok / Kimmy)</span><span class="en">Riley demos multi-agent (Codex / Claude Code / Grok / Kimmy)</span></div></div>
+<div class="tl-item"><div class="time">8:40</div><div class="what"><span class="who">Vinnie</span> <span class="zh">"free version of Slack" framing + hosting 区别</span><span class="en">"Free Slack" framing + hosting difference</span></div></div>
+<div class="tl-item"><div class="time">10:40</div><div class="what"><span class="who">Vinnie</span> <span class="zh">Agent-to-agent 支付未来</span><span class="en">Agent-to-agent payment future</span></div></div>
+<div class="tl-item"><div class="time">12:30</div><div class="what"><span class="who">Vinnie</span> <span class="zh">Workflows "haven't gotten to work" 诚实折扣</span><span class="en">Workflows "haven't gotten to work" honest discount</span></div></div>
+<div class="tl-item"><div class="time">13:00</div><div class="what"><span class="who">Vinnie</span> <span class="zh">Projects = GitHub killer 野心</span><span class="en">Projects = GitHub killer ambition</span></div></div>
+<div class="tl-item"><div class="time">14:10</div><div class="what"><span class="who">Riley</span> <span class="zh">Fable + 5.6 Soul Ultra 跑 legal contract 30min 闭单 (核心证据)</span><span class="en">Fable + 5.6 Soul Ultra ran legal contract 30min close (key evidence)</span></div></div>
+<div class="tl-item"><div class="time">16:40</div><div class="what"><span class="who">Vinnie</span> <span class="zh">Git on object storage (NIP-34) + 3 agent 跑 3 app idea</span><span class="en">Git on object storage (NIP-34) + 3 agents on 3 app ideas</span></div></div>
+<div class="tl-item"><div class="time">18:00</div><div class="what"><span class="who">Vinnie</span> <span class="zh">"rough edges here and there" (诚实折扣 anchor)</span><span class="en">"Rough edges here and there" (honest discount anchor)</span></div></div>
+<div class="tl-item"><div class="time">22:30</div><div class="what"><span class="who">Riley</span> <span class="zh">Mobile app / iOS app 介绍</span><span class="en">Mobile / iOS app intro</span></div></div>
+<div class="tl-item"><div class="time">25:00</div><div class="what"><span class="who">Riley</span> <span class="zh">Riley 描述 management channel (emails / texts / sponsorships)</span><span class="en">Riley describes management channel (emails / texts / sponsorships)</span></div></div>
+<div class="tl-item"><div class="time">28:30</div><div class="what"><span class="who">Vinnie</span> <span class="zh">"they will spin up one of these servers with a database for you" (hosted relay 解释)</span><span class="en">"They will spin up one of these servers with a database for you" (hosted relay explained)</span></div></div>
+<div class="tl-item"><div class="time">30:00</div><div class="what"><span class="who">Riley</span> <span class="zh">"agents are members, not bots" 核心 thesis</span><span class="en">"Agents are members, not bots" core thesis</span></div></div>
+<div class="tl-item"><div class="time">35:00</div><div class="what"><span class="who">Riley</span> <span class="zh">Riley 实战 thumbnail 5→5 cross-feedback (Codex → Claude Code / Grok → Codex)</span><span class="en">Riley demos 5→5 thumbnail cross-feedback</span></div></div>
+<div class="tl-item"><div class="time">40:00</div><div class="what"><span class="who">Riley</span> <span class="zh">MUSE = Meta agentic model via OpenRouter</span><span class="en">MUSE = Meta agentic model via OpenRouter</span></div></div>
+<div class="tl-item"><div class="time">44:00</div><div class="what"><span class="who">Riley</span> <span class="zh">Management channel 详解 (9am/12pm/3pm/6pm auto workflow)</span><span class="en">Management channel deep-dive (9am/12pm/3pm/6pm auto workflow)</span></div></div>
+<div class="tl-item"><div class="time">49:00</div><div class="what"><span class="who">Riley</span> <span class="zh">"Last time I had this feeling was open claw back in January" OpenClaw 对比</span><span class="en">"Last time I had this feeling was open claw back in January" OpenClaw comparison</span></div></div>
+<div class="tl-item"><div class="time">55:16</div><div class="what"><span class="who">Riley</span> <span class="zh">"Vinnie was an amazing guest" 收尾, 预告明天跟 Vishal 团队视频</span><span class="en">"Vinnie was an amazing guest" close, teases tomorrow's Vishal team video</span></div></div>
+</div>
+</div>
+
+<div class="tab-content" data-tab-content="related">
+<h2 class="section" id="related">📚 <span class="zh">关联 + 验证</span><span class="en">Related + Verification</span></h2>
+<h3><span class="zh">源视频 + 官方资源</span><span class="en">Source + official</span></h3>
+<table>
+<tbody>
+<tr><td><span class="zh">源视频</span><span class="en">Source video</span></td><td><a href="https://www.youtube.com/watch?v=P1KpxzLVg7c" target="_blank" rel="noopener">https://www.youtube.com/watch?v=P1KpxzLVg7c</a></td></tr>
+<tr><td><span class="zh">Buzz repo</span><span class="en">Buzz repo</span></td><td><a href="https://github.com/block/buzz" target="_blank" rel="noopener">https://github.com/block/buzz</a> (17,898 ⭐, Apache 2.0, v0.5.2 2026-07-29)</td></tr>
+<tr><td><span class="zh">README</span><span class="en">README</span></td><td><a href="https://raw.githubusercontent.com/block/buzz/main/README.md" target="_blank" rel="noopener">raw README.md</a></td></tr>
+<tr><td>VISION</td><td><a href="https://raw.githubusercontent.com/block/buzz/main/VISION.md" target="_blank" rel="noopener">raw VISION.md</a></td></tr>
+<tr><td>ARCHITECTURE</td><td><a href="https://raw.githubusercontent.com/block/buzz/main/ARCHITECTURE.md" target="_blank" rel="noopener">raw ARCHITECTURE.md</a> (45KB)</td></tr>
+<tr><td><span class="zh">Block (NYSE: SQ)</span><span class="en">Block (NYSE: SQ)</span></td><td><a href="https://block.xyz" target="_blank" rel="noopener">https://block.xyz</a></td></tr>
+</tbody>
+</table>
+
+<h3><span class="zh">Patrick 17-card verified-on-disk (全部 <code>~/.hermes/skills/</code> 真命中)</span><span class="en">Patrick 17 cards (all <code>~/.hermes/skills/</code> real hits)</span></h3>
+<p><span class="zh">claude-code · codex · codex-fallback · five-orchestrator · five-status · agent-orchestration · coordinator · kanban-codex-lane · disagreement-protocol · dual-ai-peer-review · agent-observability · closed-loop-trace · claude-style-agent-minimax-provider · computer-use · patricks-vault-os · patricks-knowledge-hub · patricks-publish-pipeline-watchdog</span><span class="en">claude-code · codex · codex-fallback · five-orchestrator · five-status · agent-orchestration · coordinator · kanban-codex-lane · disagreement-protocol · dual-ai-peer-review · agent-observability · closed-loop-trace · claude-style-agent-minimax-provider · computer-use · patricks-vault-os · patricks-knowledge-hub · patricks-publish-pipeline-watchdog</span></p>
+
+<h3><span class="zh">Vault 笔记路径</span><span class="en">Vault note paths</span></h3>
+<ul style="margin:8px 0 0 22px; font-size:13px">
+<li><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/buzz-riley-brown-jack-dorsey-block-2026-07-30/index.md</code> (20KB, 8 sections, 17-card roster)</li>
+<li><code>~/Downloads/Obsidian Vault/llm-wiki/youtube/buzz-riley-brown-jack-dorsey-block-2026-07-30/dashboard.html</code> (本文件)</li>
+</ul>
+
+<h3><span class="zh">未拿到的 metadata (诚实标注)</span><span class="en">Missing metadata (honest annotation)</span></h3>
+<ul style="margin:8px 0 0 22px; font-size:13px">
+<li>Riley Brown channel follower / view count / sponsor list — sandbox SSL timeout, <code>https://www.youtube.com/@rileyjbtom</code> 没拿到</li>
+<li>真实 YouTube CC timestamps — kome.ai flat transcript 无 timestamp, timeline 是 char-offset estimate (±30s)</li>
+<li>Vinnie 真名 / 公开身份 — transcript 没提, 独立 hacker, 公开 LinkedIn 不可达</li>
+</ul>
+</div>
+
+<footer>
+<p>📍 <span class="zh">vault 路径</span><span class="en">Vault path</span>: <code>~/Downloads/Obsidian Vault/llm-wiki/youtube/buzz-riley-brown-jack-dorsey-block-2026-07-30/</code> (index.md + dashboard.html)</p>
+<p>🛠️ <span class="zh">由 Hermes Agent (Minimax M3) 生成 · 2026-07-30 · kome.ai flat transcript (57,101 chars, 55m16s) + 4-source Buzz repo verification (README / VISION / ARCHITECTURE / CHANGELOG)</span><span class="en">Generated by Hermes Agent (Minimax M3) · 2026-07-30 · kome.ai flat transcript (57,101 chars, 55m16s) + 4-source Buzz repo verification (README / VISION / ARCHITECTURE / CHANGELOG)</span></p>
+<p>⚠️ <span class="zh">诚实折扣: Riley = personal-brand channel, framing 简化 ("free Slack" ≠ 实际 Nostr workspace); Buzz 实际是 Block 出品的 17,898 ⭐ Apache 2.0 v0.5.2 高速迭代开源项目。Patrick 7/10 适配 = 本周本地试 30 min, 不 commit。</span><span class="en">Honest discount: Riley = personal-brand channel, framing simplified ("free Slack" ≠ actual Nostr workspace). Buzz is Block's 17,898 ⭐ Apache 2.0 v0.5.2 fast-iterating OSS. Patrick 7/10 fit = 30 min local trial this week, no commit.</span></p>
+<p>🔬 <span class="zh">PITFALL 守护</span><span class="en">PITFALL guards</span>: 67-B body leak=0 · Pitfall 20 skill-vs-ref 17/17 verified · PITFALL 21 HTML-primary (HTML 36KB, MD 20KB) · Patrick 偏好 "polish > deploy" (默认本地不主动 deploy) · clickbait-influencer-redflag-sop split-rating (Channel 5/10, Product 8/10, Vinnie 8/10, Fit 7/10)</p>
+</footer>
+
+<script>
+function toggleLang() {
+  const html = document.documentElement;
+  const isZh = html.lang === 'zh-CN';
+  html.lang = isZh ? 'en' : 'zh-CN';
+  try { localStorage.setItem('buzz-riley-brown-lang', html.lang); } catch (e) {}
+}
+(function() {
+  try {
+    const saved = localStorage.getItem('buzz-riley-brown-lang');
+    if (saved === 'en' || saved === 'zh-CN') document.documentElement.lang = saved;
+  } catch (e) {}
+})();
+
+function toggleToc() {
+  const toc = document.getElementById('toc');
+  toc.classList.toggle('toc-collapsed');
+  try { localStorage.setItem('buzz-riley-brown-toc-collapsed', toc.classList.contains('toc-collapsed') ? '1' : '0'); } catch (e) {}
+}
+(function() {
+  try {
+    if (localStorage.getItem('buzz-riley-brown-toc-collapsed') === '1') {
+      document.getElementById('toc').classList.add('toc-collapsed');
+    }
+  } catch (e) {}
+})();
+
+(function() {
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.toggle('active', x === t));
+      contents.forEach(c => c.classList.toggle('active', c.dataset.tabContent === t.dataset.tab));
+      history.replaceState(null, '', '#' + t.dataset.tab);
+    });
+  });
+  const initHash = location.hash.replace('#', '');
+  if (initHash) {
+    const target = document.querySelector('[data-tab="' + initHash + '"]');
+    if (target) target.click();
+  }
+})();
+</script>
+</body>
+</html>

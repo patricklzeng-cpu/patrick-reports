@@ -1,0 +1,19 @@
+[ai-trending 08:15:10] 开始收集 2026-09-06 AI 热门 (v2: via search_lib envelope)
+[search_lib warn] GitHub q='(ai OR llm OR gpt OR agent OR transformer OR diffusion OR claude OR openai) created:>=2026-08-30' failed: HTTP Error 422: Unprocessable Entity
+[search_lib warn] GitHub q='(ai OR llm OR gpt OR agent OR transformer OR diffusion OR claude OR openai) created:>=2026-08-07' failed: HTTP Error 422: Unprocessable Entity
+[dedup_id] 50 items after id-dedup
+<stdin>:94: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+[trending] added 10 items
+[envelope] 60 items → /tmp/ai-trending-2026-09-06.jsonl
+<stdin>:120: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+[legacy] wrote legacy schema → /tmp/ai-trending-2026-09-06.json
+[ai-trending 08:15:49] Step 2/4: HTML 渲染
+[html] wrote → /tmp/ai-trending-2026-09-06.html
+[ai-trending 08:15:49] Step 3/4: 公网推送 + 双语版生成
+[ai-trending 08:15:49] 已推送 → /Users/zl/patricks-reports/ai-trending/2026-09-06.html
+[ai-trending 08:15:52] ⚠️ bilingual_inject 退出非零 (ai-trending 2026-09-06)
+[ai-owner] Notification suppressed for local retry
+[ai-trending 08:15:52] ⚠️ 双语版生成失败, 保留英文版
+[ai-trending 08:15:52] Step 4/4: archive old (>30d) JSON outputs
+[ai-trending 08:15:52] 📊 archive: 0 files
+[ai-owner] Generation complete; legacy unfiltered deployment blocked. Safe release and authenticated Pages access required.

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><title>AI Trending · 2026-09-15</title>
+<style>body{font-family:-apple-system,"PingFang SC",sans-serif;background:#0d1117;color:#e6edf3;padding:24px;max-width:980px;margin:0 auto;}
+h1{font-size:22px;margin-bottom:6px;}.sub{color:#8b949e;font-size:12px;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:15px;}
+.src{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;background:#21262d;color:#58a6ff;font-weight:700;margin-bottom:5px;}
+a{color:#58a6ff;text-decoration:none;font-weight:600;font-size:14px;}
+a:hover{text-decoration:underline;}.desc{color:#8b949e;font-size:12px;margin-top:4px;line-height:1.55;}.meta{color:#8b949e;font-size:11px;margin-top:6px;font-family:Menlo,monospace;}
+.nav{margin-top:18px;}.b{font-size:18px;margin:30px 0 12px;color:#58a6ff;}</style></head><body>
+<h1>🔥 AI Trending · 2026-09-15</h1><div class="sub">生成时间 2026-09-15T00:02:29.188441Z · 共 53 items · 来源 2 · envelope_version=1 · v2 (search_lib refactor 2026-07-06)</div>
+<div class='nav'><b>53</b> items · github=20 · hackernews=33</div>
+<div class='b'>github (20)</div><div class='grid'>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/affaan-m/ECC' target='_blank'>affaan-m/ECC</a>
+<div class='desc'>The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.</div>
+<div class='meta'>258384⭐ 0💬 impact=2190634 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/huggingface/transformers' target='_blank'>huggingface/transformers</a>
+<div class='desc'>🤗 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and training. </div>
+<div class='meta'>165958⭐ 0💬 impact=1894858 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langgenius/dify' target='_blank'>langgenius/dify</a>
+<div class='desc'>Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without reb</div>
+<div class='meta'>155728⭐ 0💬 impact=1385478 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langchain-ai/langchain' target='_blank'>langchain-ai/langchain</a>
+<div class='desc'>The agent engineering platform.</div>
+<div class='meta'>146333⭐ 0💬 impact=1368933 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/multica-ai/andrej-karpathy-skills' target='_blank'>multica-ai/andrej-karpathy-skills</a>
+<div class='desc'>A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy&#x27;s observations on LLM coding pitfalls.</div>
+<div class='meta'>213002⭐ 0💬 impact=1291902 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/f/prompts.chat' target='_blank'>f/prompts.chat</a>
+<div class='desc'>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.</div>
+<div class='meta'>170345⭐ 0💬 impact=1265945 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/open-webui/open-webui' target='_blank'>open-webui/open-webui</a>
+<div class='desc'>User-friendly AI Interface (Supports Ollama, OpenAI API, ...)</div>
+<div class='meta'>152051⭐ 0💬 impact=1264251 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/ollama/ollama' target='_blank'>ollama/ollama</a>
+<div class='desc'>Get up and running with Kimi, GLM, MiniMax, DeepSeek, gpt-oss, Qwen, Gemma and other models.</div>
+<div class='meta'>180959⭐ 0💬 impact=1074309 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/Graphify-Labs/graphify' target='_blank'>Graphify-Labs/graphify</a>
+<div class='desc'>Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, e</div>
+<div class='meta'>116741⭐ 0💬 impact=686591 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/farion1231/cc-switch' target='_blank'>farion1231/cc-switch</a>
+<div class='desc'>A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode, OpenClaw, Grok Build &amp; Hermes Agent. Only official website: ccswitch.io</div>
+<div class='meta'>132848⭐ 0💬 impact=590648 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com/langchain4j/langchain4j' target='_blank'>langchain4j/langchain4j</a>
+<div class='desc'>LangChain4j is an idiomatic, open-source Java library for building LLM-powered applications on the JVM. It offers a unified API over popular LLM providers and vector stores, and makes implementing too</div>
+<div class='meta'>13093⭐ 0💬 impact=140343 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//TauricResearch/TradingAgents' target='_blank'>TauricResearch/TradingAgents</a>
+<div class='desc'>TradingAgents: Multi-Agents LLM Financial Trading Framework</div>
+<div class='meta'>106098⭐ 0💬 impact=106598 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//Panniantong/Agent-Reach' target='_blank'>Panniantong/Agent-Reach</a>
+<div class='desc'>Give your AI agent eyes to see the entire internet. Read &amp;amp; search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.</div>
+<div class='meta'>81215⭐ 0💬 impact=81715 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//asgeirtj/system_prompts_leaks' target='_blank'>asgeirtj/system_prompts_leaks</a>
+<div class='desc'>Extracted system prompts from Anthropic - Claude Fable 5.1, Opus 5, Claude Design, Claude Code. OpenAI - ChatGPT GPT-6-Astra, Codex. Google - Gemini 3.8 Flash, 3.1 Pro, Antigravity. xAI - Grok, Grok B</div>
+<div class='meta'>66743⭐ 0💬 impact=67243 </div></div>
+<div class='card'><span class='src'>github</span>
+<a href='https://github.com//calesthio/OpenMontage' target='_blank'>calesthio/OpenMontage</a>
+<div class='desc'>World&#x27;s first open-source, agentic video production system. 12 production pipelines, 100+ tools, 700+ agent skill and production-knowledge files. Turn your AI coding assistant into a full video p</div>
+<div class='meta'>59073⭐ 0💬 impact=59573 </div></div>
+</div>
+<div class='b'>hackernews (33)</div><div class='grid'>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://yoshuabengio.org/en/publication/why-are-ai-agents-lying-cheating-and-coordinating' target='_blank'>Why are AI agents lying, cheating and coordinating?</a>
+<div class='desc'></div>
+<div class='meta'>644⭐ 682💬 impact=4054 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.rubyhack.ai/' target='_blank'>OpenAI agents carried out an undisclosed attack on RubyGems</a>
+<div class='desc'></div>
+<div class='meta'>963⭐ 603💬 impact=3978 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/ayghri/i-have-adhd' target='_blank'>I-have-ADHD: A skill to stop coding agents from burying the answer</a>
+<div class='desc'></div>
+<div class='meta'>540⭐ 372💬 impact=2400 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://twitter.com/DavidSacks/status/2098973625252708460' target='_blank'>David Sacks: OpenAI and Anthropic Don&#x27;t Need Regulations to Pace Frontier Models</a>
+<div class='desc'></div>
+<div class='meta'>321⭐ 257💬 impact=1606 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://news.ycombinator.com/item?id=49643556' target='_blank'>Tell HN: OpenAI keeps re-enabling the &#x27;allow training&#x27; setting</a>
+<div class='desc'></div>
+<div class='meta'>482⭐ 188💬 impact=1422 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and' target='_blank'>GPT-6 Astra, looped transformers, and hidden reasoning</a>
+<div class='desc'></div>
+<div class='meta'>519⭐ 162💬 impact=1329 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://developers.openai.com/api/docs/guides/agents-api/overview' target='_blank'>OpenAI Agents API</a>
+<div class='desc'></div>
+<div class='meta'>346⭐ 186💬 impact=1276 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.macrumors.com/2026/09/14/siri-can-be-swapped-out-for-chatgpt-claude/' target='_blank'>Apple&#x27;s Siri AI Can Be Swapped Out for Claude, ChatGPT, Code Shows</a>
+<div class='desc'></div>
+<div class='meta'>217⭐ 152💬 impact=977 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://gist.github.com/wsxiaoys/e0286dc6bb624ff5fdf49e7f4c528ba3' target='_blank'>Qwen 3.8 follows GPT-5.5 Pro reasoning prefills</a>
+<div class='desc'></div>
+<div class='meta'>236⭐ 93💬 impact=701 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://www.politico.eu/article/anthropic-openai-researcher-jacob-coxon-warns-ai-could-kill-humans/' target='_blank'>Gambling with our lives: AI researcher quits Anthropic with warning about safety</a>
+<div class='desc'></div>
+<div class='meta'>82⭐ 102💬 impact=592 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://entelligence.ai/blogs/gpt-5.6-luna-vs-gpt-6-astra-is-a-1.20-model-good-enough-for-code-review' target='_blank'>GPT-5.6 Luna vs. GPT-6 Astra: Is a $1.20 Model Good Enough for Code Review?</a>
+<div class='desc'></div>
+<div class='meta'>89⭐ 100💬 impact=589 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://clashreport.com/world/articles/houthis-used-claude-code-to-develop-missile-guidance-software-anthropic-s52mnx4pwpo' target='_blank'>Houthis used Claude Code to develop missile guidance software: Anthropic</a>
+<div class='desc'></div>
+<div class='meta'>101⭐ 91💬 impact=556 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://github.com/TauricResearch/TradingAgents' target='_blank'>Multi-Agents LLM Financial Trading Framework</a>
+<div class='desc'></div>
+<div class='meta'>120⭐ 81💬 impact=525 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://twitter.com/DavidAgranovich/status/2098168522862215449' target='_blank'>Moonshot serves Claude instead of Kimi and collects exchanges for model training</a>
+<div class='desc'></div>
+<div class='meta'>66⭐ 68💬 impact=406 </div></div>
+<div class='card'><span class='src'>hackernews</span>
+<a href='https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/' target='_blank'>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</a>
+<div class='desc'></div>
+<div class='meta'>108⭐ 59💬 impact=403 </div></div>
+</div></body></html>

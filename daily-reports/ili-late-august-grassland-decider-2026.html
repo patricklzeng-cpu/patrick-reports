@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08120d">
+  <title>8月下半场｜伊犁草原去留指南</title>
+  <meta name="description" content="基于2016—2025历史天气、官方资料和实拍视频的伊犁8月中下旬草原去留指南。">
+  <style>
+    :root{
+      --ink:#f3f0df;--paper:#08120d;--paper-2:#0d1a13;--panel:#122019;
+      --muted:#9aaa9d;--line:rgba(229,241,220,.16);--green:#b9ff66;
+      --orange:#ff8b4a;--blue:#82caff;--red:#ff6f6f;--gold:#e8c674;
+      --mx:50%;--my:20%;--radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper);color:var(--ink)}
+    body{margin:0;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:
+      radial-gradient(680px circle at var(--mx) var(--my),rgba(130,202,255,.08),transparent 54%),
+      linear-gradient(180deg,#08120d 0,#0a1510 42%,#07100c 100%);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;background-image:
+      repeating-radial-gradient(ellipse at 72% 8%,transparent 0 34px,rgba(255,255,255,.18) 35px 36px,transparent 37px 49px)}
+    a{color:inherit}.wrap{width:min(1200px,calc(100% - 40px));margin:auto;position:relative}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .topbar{position:fixed;z-index:20;top:0;left:0;right:0;height:58px;background:rgba(8,18,13,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .topbar .wrap{height:100%;display:flex;align-items:center;gap:22px}
+    .brand{font:700 13px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em}.brand b{color:var(--green)}
+    .topnav{display:flex;gap:18px;margin-left:auto}.topnav a{font-size:11px;color:var(--muted);text-decoration:none}.topnav a:hover{color:var(--green)}
+    .progress{position:absolute;bottom:-1px;left:0;height:2px;background:var(--green);width:0}
+    .hero{min-height:100svh;display:grid;align-items:end;padding:118px 0 62px;position:relative}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.62fr);gap:70px;align-items:end}
+    .eyebrow{display:flex;align-items:center;gap:12px;color:var(--green);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase;margin-bottom:32px}
+    .eyebrow:before{content:"";width:42px;height:1px;background:currentColor}
+    h1{font-size:clamp(64px,9.1vw,132px);line-height:.82;letter-spacing:-.078em;margin:0;font-weight:620;max-width:900px}
+    h1 em{font-style:normal;color:var(--green)}h1 .outline{-webkit-text-stroke:1px rgba(243,240,223,.68);color:transparent}
+    .hero-copy{font-size:17px;line-height:1.8;color:#bbc8bb;max-width:660px;margin:35px 0 0}
+    .hero-copy b{color:var(--ink);font-weight:620}
+    .verdict{border-top:1px solid var(--line);padding-top:24px}
+    .verdict-label{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--orange);letter-spacing:.18em;margin-bottom:12px}
+    .verdict h2{font-size:31px;line-height:1.14;letter-spacing:-.045em;margin:0 0 24px;font-weight:560}
+    .stat-strip{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    .stat{padding:16px 13px;border-right:1px solid var(--line)}.stat:last-child{border:0}
+    .stat b{font:600 24px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--green);display:block}.stat span{font-size:9px;color:var(--muted);letter-spacing:.08em}
+    .scroll-cue{position:absolute;left:0;bottom:12px;color:#627167;font:9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;writing-mode:vertical-rl}
+    section{padding:110px 0;border-top:1px solid var(--line);position:relative}
+    .section-head{display:grid;grid-template-columns:.43fr 1fr;gap:42px;align-items:start;margin-bottom:52px}
+    .section-no{color:var(--green);font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em}
+    .section-title h2{font-size:clamp(42px,5vw,70px);line-height:.95;letter-spacing:-.06em;margin:0 0 20px;font-weight:560}
+    .section-title p{color:var(--muted);font-size:15px;line-height:1.8;max-width:670px;margin:0}
+    .profile-switch,.route-tabs,.weather-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+    .chip{border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--muted);border-radius:99px;padding:10px 15px;cursor:pointer;font-size:12px;transition:.2s}
+    .chip:hover,.chip.active{border-color:var(--green);color:#09110d;background:var(--green)}
+    .decision-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .place-card{border:1px solid var(--line);border-radius:var(--radius);padding:25px;min-height:260px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.006));position:relative;overflow:hidden;transition:.3s}
+    .place-card:hover{transform:translateY(-4px);border-color:rgba(185,255,102,.42)}
+    .place-card:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;right:-80px;top:-80px;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 0 20px rgba(255,255,255,.018),0 0 0 42px rgba(255,255,255,.012)}
+    .card-top{display:flex;justify-content:space-between;align-items:start;gap:18px;margin-bottom:26px}
+    .verdict-tag{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid currentColor;border-radius:99px;padding:6px 9px;letter-spacing:.1em;color:var(--green)}
+    .verdict-tag.cond{color:var(--gold)}.score{font:600 44px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.08em}.score small{font-size:11px;color:var(--muted);letter-spacing:0}
+    .place-card h3{font-size:29px;letter-spacing:-.04em;margin:0 0 7px}.place-card .type{color:var(--blue);font:10px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.12em}
+    .place-card p{color:#a9b7aa;line-height:1.65;font-size:13px;margin:18px 0}
+    .metrics{display:flex;gap:7px;flex-wrap:wrap}.metrics span{font-size:10px;border:1px solid var(--line);border-radius:7px;padding:6px 8px;color:#c0cbc0}
+    .matrix-note{margin-top:14px;border:1px dashed rgba(255,139,74,.42);border-radius:18px;padding:20px;color:#d2c1aa;background:rgba(255,139,74,.045);line-height:1.7;font-size:13px}
+    .matrix-note b{color:var(--orange)}
+    .avoid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .avoid{border-top:3px solid var(--red);background:#111914;border-radius:4px 4px 18px 18px;padding:22px;min-height:205px}
+    .avoid .x{font:600 26px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--red)}
+    .avoid h3{font-size:20px;margin:18px 0 10px}.avoid p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}.avoid .rescue{display:block;margin-top:15px;color:var(--green);font-size:11px}
+    .data-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px}
+    .data-summary{display:grid;gap:10px}.data-box{border:1px solid var(--line);border-radius:18px;padding:19px;background:rgba(255,255,255,.018)}
+    .data-box span{color:var(--muted);font-size:10px;letter-spacing:.1em}.data-box b{display:block;font:600 36px ui-monospace,SFMono-Regular,Menlo,monospace;margin-top:8px}.data-box small{color:#718176;font-size:10px}
+    .chart-card{border:1px solid var(--line);border-radius:24px;padding:22px;background:rgba(5,13,9,.56);min-width:0}
+    .chart-head{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:18px}.chart-title{font-size:13px}.chart-legend{display:flex;gap:14px;font-size:10px;color:var(--muted)}
+    .chart-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}.chart-wrap{position:relative;height:330px}
+    canvas{width:100%;height:100%;display:block}.chart-tip{position:absolute;display:none;pointer-events:none;background:#eff6e9;color:#0a120d;border-radius:9px;padding:8px 10px;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;transform:translate(-50%,-115%);white-space:nowrap}
+    .method{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.method div{padding:17px;border:1px solid var(--line);border-radius:15px;color:var(--muted);font-size:11px;line-height:1.65}.method b{color:var(--ink)}
+    .phenology{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:24px;overflow:hidden}
+    .phase{padding:25px;border-right:1px solid var(--line);min-height:245px;position:relative}.phase:last-child{border:0}.phase:before{content:"";height:7px;position:absolute;top:0;left:0;right:0;background:var(--phase)}
+    .phase .date{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--phase);letter-spacing:.1em}.phase h3{font-size:21px;margin:22px 0 10px}.phase p{font-size:12px;color:var(--muted);line-height:1.7;margin:0}.phase strong{display:block;margin-top:20px;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink)}
+    .route-shell{border:1px solid var(--line);border-radius:26px;padding:28px;background:linear-gradient(135deg,rgba(130,202,255,.035),rgba(185,255,102,.025))}
+    .route-list{display:grid;gap:0}.route-day{display:grid;grid-template-columns:76px 1fr 130px;gap:18px;padding:18px 4px;border-bottom:1px solid var(--line);align-items:start}.route-day:last-child{border:0}
+    .day-no{font:600 12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--green)}.route-day h3{font-size:19px;margin:0 0 6px}.route-day p{font-size:12px;line-height:1.65;color:var(--muted);margin:0}.route-mode{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--blue);text-align:right}
+    .decision-tree{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}.tree-step{border:1px solid var(--line);border-radius:18px;padding:20px;position:relative}.tree-step b{color:var(--green);font-size:12px}.tree-step p{font-size:12px;line-height:1.65;color:var(--muted);margin:11px 0 0}
+    .video-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+    .video-feature{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#0a0f0c}
+    .video-frame{aspect-ratio:16/9;background:linear-gradient(140deg,#14291c,#0b1510);display:grid;place-items:center;position:relative}
+    .video-frame iframe{width:100%;height:100%;border:0}.video-meta{padding:20px}.video-meta h3{font-size:22px;margin:0 0 10px}.video-meta p{font-size:12px;color:var(--muted);line-height:1.6;margin:0}
+    .video-list{display:grid;gap:10px}.video-link{border:1px solid var(--line);border-radius:18px;padding:18px;text-decoration:none;display:block;transition:.2s;background:rgba(255,255,255,.018)}
+    .video-link:hover{border-color:var(--green);transform:translateX(4px)}.video-link span{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--orange)}.video-link h3{font-size:17px;line-height:1.35;margin:9px 0}.video-link p{font-size:11px;color:var(--muted);margin:0}
+    .packing{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pack{border:1px solid var(--line);border-radius:16px;padding:18px}.pack b{display:block;color:var(--green);font-size:12px;margin-bottom:9px}.pack span{font-size:11px;line-height:1.6;color:var(--muted)}
+    .sources{display:grid;grid-template-columns:1fr 1fr;gap:10px}.source{padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;display:grid;grid-template-columns:34px 1fr;gap:10px}.source:hover strong{color:var(--green)}.source i{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--green)}.source strong{font-size:12px;line-height:1.45}.source small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+    .footer{padding:38px 0 48px;border-top:1px solid var(--line);color:#77877b;font-size:10px;line-height:1.7}.footer .wrap{display:flex;justify-content:space-between;gap:24px}.footer b{color:var(--ink)}
+    .reveal{opacity:0;transform:translateY(20px);transition:.7s cubic-bezier(.2,.8,.2,1)}.reveal.in{opacity:1;transform:none}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:900px){
+      .hero-grid,.section-head,.data-layout,.video-grid{grid-template-columns:1fr}.hero{padding-top:110px}.hero-grid{gap:48px}
+      .decision-grid{grid-template-columns:1fr}.avoid-grid,.phenology{grid-template-columns:1fr 1fr}.phase:nth-child(2){border-right:0}.phase{border-bottom:1px solid var(--line)}
+      .route-day{grid-template-columns:58px 1fr}.route-mode{grid-column:2;text-align:left}.packing{grid-template-columns:1fr 1fr}.section-head{gap:14px}
+    }
+    @media(max-width:620px){
+      .wrap{width:min(100% - 28px,1200px)}.topnav{display:none}h1{font-size:62px}.hero-copy{font-size:15px}
+      section{padding:78px 0}.avoid-grid,.phenology,.decision-tree,.sources,.method,.packing{grid-template-columns:1fr}.phase{border-right:0}.stat b{font-size:20px}
+      .place-card{padding:20px}.chart-wrap{height:280px}.route-shell{padding:18px}.route-day{grid-template-columns:45px 1fr;gap:10px}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+    @media print{.topbar,.profile-switch,.route-tabs,.weather-tabs,.video-frame{display:none!important}body{background:#fff;color:#111}body:before{display:none}.place-card,.chart-card,.route-shell,.avoid,.phase{break-inside:avoid;border-color:#bbb;background:#fff}.muted,p,.place-card p{color:#444!important}section{padding:40px 0}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">ILI <b>/ 08.15—08.31</b></div>
+      <nav class="topnav" aria-label="页面导航">
+        <a href="#decide">去哪里</a><a href="#skip">跳过谁</a><a href="#weather">往年天气</a><a href="#route">怎么排</a><a href="#videos">看实拍</a>
+      </nav>
+      <div class="progress" id="progress"></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Late-summer decision report · 2016—2025</div>
+          <h1>别追六月的<em>绿</em><br>去看八月的<span class="outline">金</span></h1>
+          <p class="hero-copy">8 月中下旬的伊犁，不是“过季”，而是<strong>玩法换挡</strong>：花海退场、草色转黄，雪山和地形开始抢镜。你该删掉的不是伊犁，而是重复的草原和错误的期待。</p>
+        </div>
+        <aside class="verdict">
+          <div class="verdict-label">THE SHORT ANSWER / 先说结论</div>
+          <h2>喀拉峻 + 库尔德宁/恰西，选两种地貌；夏塔看天；那拉提看同行者；薰衣草直接跳过。</h2>
+          <div class="stat-strip" aria-label="研究样本">
+            <div class="stat"><b>10</b><span>完整年份</span></div>
+            <div class="stat"><b>170</b><span>天 / 点样本</span></div>
+            <div class="stat"><b>7</b><span>代表坐标</span></div>
+          </div>
+        </aside>
+      </div>
+      <div class="wrap"><div class="scroll-cue">SCROLL TO DECIDE</div></div>
+    </section>
+
+    <section id="decide">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">01 / GRASSLAND DECIDER</div>
+          <div class="section-title"><h2>先选你是谁，<br>再选草原。</h2><p>同一个地方对摄影师和亲子家庭可能是两个答案。点击偏好，评分会重排；分数衡量的是“8 月 15—31 日的投入产出比”，不是全年景区排名。</p></div>
+        </div>
+        <div class="profile-switch reveal" role="group" aria-label="选择旅行偏好">
+          <button class="chip active" data-profile="photo">摄影 / 地貌</button>
+          <button class="chip" data-profile="hike">徒步 / 野性</button>
+          <button class="chip" data-profile="easy">亲子 / 松弛</button>
+          <button class="chip" data-profile="first">第一次来</button>
+        </div>
+        <div class="decision-grid reveal" id="placeGrid"></div>
+        <div class="matrix-note reveal"><b>去重原则：</b>大草原只选一个（喀拉峻 / 那拉提），森林草甸选一个（库尔德宁 / 恰西），雪山赌局只留一个（夏塔）。把三天都排成“区间车—草坡—拍照”，会比草黄更先让你审美疲劳。</div>
+      </div>
+    </section>
+
+    <section id="skip">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">02 / HARD SKIPS</div>
+          <div class="section-title"><h2>不是景点不好，<br>是这个时间不值。</h2><p>“不值得”必须带条件。下面这些，是 8 月中下旬最常见的时间错配和动线陷阱。</p></div>
+        </div>
+        <div class="avoid-grid reveal">
+          <article class="avoid"><div class="x">× 01</div><h3>霍城薰衣草专程打卡</h3><p>主花期通常已过。把六月照片当八月底预期，现场很容易变成“找紫色残片”。</p><span class="rescue">替代 → 伊宁老城黄昏 + 河畔夜生活</span></article>
+          <article class="avoid"><div class="x">× 02</div><h3>昭苏油菜花海执念</h3><p>8 月下旬多数地块进入结籽、收割或褪色阶段。路过可以看，不建议围绕它多住一晚。</p><span class="rescue">替代 → 夏塔天气窗口 / 天马湿地</span></article>
+          <article class="avoid"><div class="x">× 03</div><h3>琼库什台当天往返</h3><p>弯路、进村和高峰拥堵会吞掉黄金光线。只到村口拍一圈，体验配不上路上的时间。</p><span class="rescue">救法 → 至少住 1 晚，最好 2 晚</span></article>
+          <article class="avoid"><div class="x">× 04</div><h3>阴雨天硬冲夏塔</h3><p>核心价值是雪峰、冰川、河谷的纵深。低云把主角遮住后，只剩长接驳和湿冷徒步。</p><span class="rescue">替代 → 库尔德宁 / 恰西的森林层次</span></article>
+          <article class="avoid"><div class="x">× 05</div><h3>那拉提 + 喀拉峻全套</h3><p>时间短时，两处都坐完整区间车的边际收益很低。景观语汇相近，交通体验却重复。</p><span class="rescue">救法 → 首次/亲子留那拉提；摄影留喀拉峻</span></article>
+          <article class="avoid"><div class="x">× 06</div><h3>“九个太阳”追拍任务</h3><p>巴音布鲁克的经典反光要吃河道角度、季节、云层与太阳高度，多条件同时成立，不该当硬指标。</p><span class="rescue">替代 → 把日落当赠品，不当 KPI</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="weather">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">03 / WEATHER LAB</div>
+          <div class="section-title"><h2>海拔一变，<br>季节就换台。</h2><p>2016—2025 每年 8 月 15—31 日，按景区代表坐标提取。切换地点，查看十年均值和逐年波动。降水日定义为 ≥0.1 mm；“好看日”定义为降水 &lt;1 mm 且日照 ≥6 小时。</p></div>
+        </div>
+        <div class="weather-tabs reveal" id="weatherTabs" role="tablist" aria-label="切换天气地点"></div>
+        <div class="data-layout reveal">
+          <div class="data-summary">
+            <div class="data-box"><span>十年平均最高温</span><b id="avgHigh">—</b><small>℃ / 景区网格</small></div>
+            <div class="data-box"><span>十年平均最低温</span><b id="avgLow">—</b><small>℃ / 不是伊宁县城</small></div>
+            <div class="data-box"><span>有降水的日子</span><b id="rainRate">—</b><small>≥0.1 mm 的样本占比</small></div>
+            <div class="data-box"><span>“好看日”概率</span><b id="scenicRate">—</b><small>用于比较，不是天气预报</small></div>
+          </div>
+          <div>
+            <div class="chart-card">
+              <div class="chart-head"><div class="chart-title"><b id="chartPlace">—</b> · 8/15—8/31 年际波动</div><div class="chart-legend"><span><i style="background:var(--orange)"></i>最高温</span><span><i style="background:var(--blue)"></i>最低温</span><span><i style="background:var(--green)"></i>雨日</span></div></div>
+              <div class="chart-wrap"><canvas id="weatherChart" aria-label="历史天气折线图"></canvas><div class="chart-tip" id="chartTip"></div></div>
+            </div>
+            <div class="method">
+              <div><b>数据性质</b><br>Open‑Meteo 历史天气再分析格点。它把观测与模型融合，适合做多年趋势和地点比较，不等同于景区气象站逐点实测。</div>
+              <div><b>使用方式</b><br>多年均值决定“带什么”；出发前 48 小时预报决定“去哪”。山谷对流和云墙无法靠十年平均替你排除。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="color">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">04 / COLOR CLOCK</div>
+          <div class="section-title"><h2>草色不是开关，<br>是渐变。</h2><p>这是一条基于官方花季描述、当地气候与历年实拍的“景观预期线”，不是卫星 NDVI 实测。不同海拔、降水和放牧强度会让同一天相差一到两周。</p></div>
+        </div>
+        <div class="phenology reveal">
+          <article class="phase" style="--phase:#78f18d"><div class="date">06.01—07.10</div><h3>花海主场</h3><p>颜色最饱和，野花和嫩草占主角；也是社交平台“神的自留地”画面的主要来源。</p><strong>关键词 / 饱和绿 · 花毯</strong></article>
+          <article class="phase" style="--phase:#b9ff66"><div class="date">07.11—08.10</div><h3>深绿尾声</h3><p>花量下降，河谷与林缘仍有层次。高温少雨年份会更早显黄。</p><strong>关键词 / 绿草 · 云杉</strong></article>
+          <article class="phase" style="--phase:#e8c674"><div class="date">08.15—08.22</div><h3>黄绿拼接</h3><p>不要再追花，改追侧光、地形阴影、河谷和马群。摄影上反而更耐看。</p><strong>关键词 / 纹理 · 长阴影</strong></article>
+          <article class="phase" style="--phase:#d18f54"><div class="date">08.23—08.31</div><h3>金色前奏</h3><p>低海拔偏干黄，高海拔仍可能有绿；一场雨后短暂回润，但不等于花季复活。</p><strong>关键词 / 金草 · 冷夜</strong></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="route">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">05 / ROUTE BUILDER</div>
+          <div class="section-title"><h2>路线要留白，<br>给天气一次改票权。</h2><p>所有版本都保留一个机动日。夏塔应是“天气触发型景点”，不是写死在日历里的景点。</p></div>
+        </div>
+        <div class="route-tabs reveal" role="group" aria-label="选择行程长度">
+          <button class="chip active" data-route="5">5 天精简</button><button class="chip" data-route="7">7 天推荐</button><button class="chip" data-route="9">9 天慢游</button>
+        </div>
+        <div class="route-shell reveal"><div class="route-list" id="routeList"></div></div>
+        <div class="decision-tree reveal">
+          <div class="tree-step"><b>T−48H · 看雪山</b><p>夏塔预报若持续低云、连续降水或大风，直接从主线移除，不赌。</p></div>
+          <div class="tree-step"><b>T−24H · 换地貌</b><p>阴天优先森林与河谷：库尔德宁 / 恰西；晴天优先大景：喀拉峻 / 夏塔。</p></div>
+          <div class="tree-step"><b>当天 07:00 · 抢光线</b><p>高海拔下午更容易起云；需要雪峰的地方，把第一段接驳尽量放早。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="videos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">06 / REAL-WORLD FOOTAGE</div>
+          <div class="section-title"><h2>先看动态，<br>再相信照片。</h2><p>视频用来判断尺度、道路、接驳和体力，不用来当今年实时草况。上传日不一定等于拍摄日，页面已把“视觉参考”和“攻略参考”分开。</p></div>
+        </div>
+        <div class="video-grid reveal">
+          <article class="video-feature">
+            <div class="video-frame"><iframe loading="lazy" src="https://player.bilibili.com/player.html?bvid=BV1PQ4y1a734&autoplay=0&high_quality=1&danmaku=0" title="伊犁15天摄影师路线实拍" allowfullscreen></iframe></div>
+            <div class="video-meta"><h3>4K · 15 天伊犁视觉比较</h3><p>琼库什台、喀拉峻、库尔德宁、夏塔同片对比。适合先建立“每种草原到底差在哪”的视觉基准。</p></div>
+          </article>
+          <div class="video-list">
+            <a class="video-link" href="https://www.bilibili.com/video/BV1cJLtzME2R/" target="_blank" rel="noopener"><span>攻略 / 18:43</span><h3>伊犁 8—10 日深度路线，信息密度高</h3><p>看动线、景区取舍与公路连接，不拿花期描述当实时状态。</p></a>
+            <a class="video-link" href="https://www.bilibili.com/video/BV1Wz4y1W7DX/" target="_blank" rel="noopener"><span>徒步 / 夏塔</span><h3>夏塔 26 km：体力和接驳到底是什么量级</h3><p>适合校准“照片很近，实际要走多久”。票务数字可能已变化。</p></a>
+            <a class="video-link" href="https://www.bilibili.com/video/BV1SX4y177yV/" target="_blank" rel="noopener"><span>无滤镜 / 7 日</span><h3>琼库什台 + 夏塔，肉眼观感参考</h3><p>低粉丝量实拍，少一点宣传片滤镜，多一点路途现场感。</p></a>
+            <a class="video-link" href="https://www.bilibili.com/video/BV1Xh411671T/" target="_blank" rel="noopener"><span>天气样本 / 夏塔</span><h3>一场雨如何把夏塔从仙境切到湿冷</h3><p>云雾、骤雨和短暂开窗的直观样本：这就是为什么要留机动日。</p></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pack">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">07 / FIELD KIT</div>
+          <div class="section-title"><h2>少带一套裙子，<br>多带一层保温。</h2><p>县城 30℃ 不代表景区。你会在一天内跨过河谷、高山草甸和风口。</p></div>
+        </div>
+        <div class="packing reveal">
+          <div class="pack"><b>保温层</b><span>抓绒或轻薄羽绒；夏塔、赛里木湖日出与喀拉峻风口都用得上。</span></div>
+          <div class="pack"><b>硬壳层</b><span>防风防雨优先于“厚”。山谷短时降水和横风比低温更折磨。</span></div>
+          <div class="pack"><b>脚下</b><span>有齿底、防滑、允许沾泥。夏塔与琼库什台下雨后不要穿城市小白鞋。</span></div>
+          <div class="pack"><b>信息层</b><span>离线地图、现金/充电、官方公告截图。山区信号和临时管制都可能变。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-no">08 / SOURCES & LIMITS</div>
+          <div class="section-title"><h2>证据放桌上，<br>结论才有边界。</h2><p>景区开放、票务、自驾政策和道路管制变化快；本页不把历史规则伪装成 2026 实时规则。出发前请以官方当天公告为准。</p></div>
+        </div>
+        <div class="sources reveal">
+          <a class="source" href="https://open-meteo.com/en/docs/historical-weather-api" target="_blank" rel="noopener"><i>01</i><span><strong>Open‑Meteo Historical Weather API</strong><small>ERA5 / ERA5‑Land 历史再分析、变量与分辨率说明</small></span></a>
+          <a class="source" href="https://www.xinyuan.gov.cn/xinyuan/c113962/202606/01a5d90c98c24896beefaf5590850482.shtml" target="_blank" rel="noopener"><i>02</i><span><strong>新源县政府 · 那拉提景区简介</strong><small>平均海拔、气候与景观资源</small></span></a>
+          <a class="source" href="https://www.zhaosu.gov.cn/zsx/c113806/202406/ccfaac56181f45408751adbc6bcf937f.shtml" target="_blank" rel="noopener"><i>03</i><span><strong>昭苏县政府 · 夏塔生态景观</strong><small>冰川、森林、草原、河流的垂直景观</small></span></a>
+          <a class="source" href="https://www.xjyl.gov.cn/xjylz/c112878/201811/6eef86ca313544c0b42a77777476006b.shtml" target="_blank" rel="noopener"><i>04</i><span><strong>伊犁州政府 · 喀拉峻简介</strong><small>高山五花草甸、海拔范围与夏季生态</small></span></a>
+          <a class="source" href="https://www.xinjiang.gov.cn/xinjiang/lytj/201705/c2b91e0216894dfaa0af2f229f175a9a.shtml" target="_blank" rel="noopener"><i>05</i><span><strong>新疆政府 · 喀拉峻与琼库什台</strong><small>8—10 月秋草泛黄与传统村落信息</small></span></a>
+          <a class="source" href="https://whc.unesco.org/uploads/nominations/1414.pdf" target="_blank" rel="noopener"><i>06</i><span><strong>UNESCO · Xinjiang Tianshan nomination</strong><small>喀拉峻山地草原的自然遗产背景</small></span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap"><span><b>伊犁 8 月下半场去留指南</b><br>研究窗口：2016—2025 · 每年 08.15—08.31</span><span class="mono">DATA, NOT POSTCARD.<br>更新：2026-07-31</span></div>
+  </footer>
+
+  <script>
+    var PLACES=[
+      {id:"kalajun",name:"喀拉峻",type:"立体草原 / 世界遗产片区",tag:"强烈推荐",kind:"go",scores:{photo:94,hike:88,easy:68,first:91},copy:"8月下旬花少，但起伏地形、雪山、云杉和侧光仍然成立。东喀拉峻比“花台执念”更重要。",metrics:["草色 黄绿→金","地形独特","建议 1天"]},
+      {id:"kurdening",name:"库尔德宁 / 恰西",type:"森林草甸 / 河谷",tag:"强烈推荐",kind:"go",scores:{photo:89,hike:80,easy:86,first:85},copy:"林地和河谷让景观不只依赖草色；阴天也有层次，是夏塔天气翻车时最稳的替补。二者选一即可。",metrics:["抗过季 强","阴天友好","建议 1天"]},
+      {id:"tangbula",name:"唐布拉",type:"百里画廊 / 河谷草原",tag:"值得绕行",kind:"go",scores:{photo:86,hike:78,easy:81,first:79},copy:"适合自驾节奏和金色草坡，不必追某个网红点。若要去孟克特，给道路与徒步完整一天。",metrics:["草色 黄绿","自由度 高","建议 1天"]},
+      {id:"sayram",name:"赛里木湖",type:"高山湖泊 / 草原边界",tag:"必须保留",kind:"go",scores:{photo:92,hike:62,easy:88,first:95},copy:"它不是靠花海成立。湖色、风、金草和果子沟提供全线最强的景观去重，晚住或早起比打卡更值。",metrics:["不吃花期","风感 强","建议 1天"]},
+      {id:"xiata",name:"夏塔",type:"冰川古道 / 天气赌局",tag:"有条件冲",kind:"cond",scores:{photo:97,hike:96,easy:52,first:84},copy:"全线最高回报，也最吃能见度。晴天是雪山压迫感；低云雨天是接驳、泥路和湿冷。必须允许临时取消。",metrics:["回报 极高","天气敏感","建议 1—2天"]},
+      {id:"qiong",name:"琼库什台",type:"传统村落 / 后山",tag:"住下才值",kind:"cond",scores:{photo:91,hike:88,easy:54,first:80},copy:"价值在清晨、黄昏和后山，不在村口。至少一晚；当天往返会把最好的光线交给盘山路。",metrics:["过夜 必须","路耗 高","建议 2天"]},
+      {id:"nalati",name:"那拉提",type:"成熟景区 / 空中草原",tag:"看同行者",kind:"cond",scores:{photo:73,hike:57,easy:94,first:88},copy:"设施成熟、低门槛，对长辈和孩子很友好；若你已去喀拉峻且追求野性，它最容易成为重复项。",metrics:["服务 完整","人流 较高","建议 半—1天"]}
+    ];
+    var WEATHER_DATA=__WEATHER_DATA__;
+    var ROUTES={
+      5:[
+        ["D1","赛里木湖 → 伊宁","湖边留到侧光，晚到伊宁；不追薰衣草。","湖泊 / 城市"],
+        ["D2","伊宁 → 特克斯","沿途慢走，把八卦城当补给站而非主景。","机动 / 补给"],
+        ["D3","喀拉峻","全天只给一个大草原，追地形与光线。","核心草原"],
+        ["D4","库尔德宁 / 恰西","二选一，用森林河谷打破重复。","森林草甸"],
+        ["D5","新源 → 返程","若同行者偏轻松，可用半日那拉提替换。","弹性退出"]
+      ],
+      7:[
+        ["D1","赛里木湖","至少跨一个日落或日出，别只环湖打卡。","湖泊"],
+        ["D2","伊宁","城市缓冲、补给；把远途后的疲劳清零。","缓冲"],
+        ["D3","昭苏 / 夏塔候场","看48小时预报，天气差就不进夏塔。","天气开关"],
+        ["D4","夏塔 or 机动替补","晴：夏塔；阴雨：昭苏湿地后转特克斯。","雪山赌局"],
+        ["D5","喀拉峻","只做东喀拉峻或一条徒步线，不贪全套。","核心草原"],
+        ["D6","库尔德宁 / 恰西","选一个，阴天也成立。","森林草甸"],
+        ["D7","那拉提 or 返程","亲子留那拉提；摄影可把时间还给前面。","弹性退出"]
+      ],
+      9:[
+        ["D1","赛里木湖","晚住，给风和光线时间。","湖泊"],
+        ["D2","伊宁","喀赞其、六星街、补给。","城市"],
+        ["D3","昭苏","天马与高原盆地，检查次日云量。","候场"],
+        ["D4","夏塔","仅天气合格时执行。","雪山古道"],
+        ["D5","特克斯 → 喀拉峻","下午侧光进入，避免赶场。","立体草原"],
+        ["D6","琼库什台","进村后住下，等人潮退。","村落"],
+        ["D7","琼库什台后山","晨雾、骑行或短徒步，不做往返工具人。","慢游"],
+        ["D8","库尔德宁 / 恰西","森林河谷恢复体力。","森林草甸"],
+        ["D9","唐布拉 or 那拉提","自驾选唐布拉；亲子/长辈选那拉提。","按人选景"]
+      ]
+    };
+
+    function renderPlaces(profile){
+      var grid=document.getElementById("placeGrid");
+      var sorted=PLACES.slice().sort(function(a,b){return b.scores[profile]-a.scores[profile]});
+      grid.innerHTML=sorted.map(function(p){
+        return '<article class="place-card" data-id="'+p.id+'"><div class="card-top"><span class="verdict-tag '+(p.kind==="cond"?"cond":"")+'">'+p.tag+'</span><div class="score">'+p.scores[profile]+'<small>/100</small></div></div><div class="type">'+p.type+'</div><h3>'+p.name+'</h3><p>'+p.copy+'</p><div class="metrics">'+p.metrics.map(function(m){return "<span>"+m+"</span>"}).join("")+'</div></article>';
+      }).join("");
+    }
+    document.querySelectorAll("[data-profile]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        document.querySelectorAll("[data-profile]").forEach(function(x){x.classList.toggle("active",x===btn)});
+        renderPlaces(btn.dataset.profile);
+      });
+    });
+    renderPlaces("photo");
+
+    function renderRoute(days){
+      document.getElementById("routeList").innerHTML=ROUTES[days].map(function(r){
+        return '<article class="route-day"><div class="day-no">'+r[0]+'</div><div><h3>'+r[1]+'</h3><p>'+r[2]+'</p></div><div class="route-mode">'+r[3]+'</div></article>';
+      }).join("");
+    }
+    document.querySelectorAll("[data-route]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        document.querySelectorAll("[data-route]").forEach(function(x){x.classList.toggle("active",x===btn)});
+        renderRoute(btn.dataset.route);
+      });
+    });
+    renderRoute("5");
+
+    var chartState={points:[],selected:null};
+    function setupWeather(){
+      var tabs=document.getElementById("weatherTabs");
+      tabs.innerHTML=WEATHER_DATA.map(function(d,i){return '<button class="chip '+(i===0?"active":"")+'" role="tab" data-weather="'+i+'">'+d.name+'</button>'}).join("");
+      tabs.querySelectorAll("[data-weather]").forEach(function(btn){
+        btn.addEventListener("click",function(){
+          tabs.querySelectorAll("[data-weather]").forEach(function(x){x.classList.toggle("active",x===btn)});
+          selectWeather(+btn.dataset.weather);
+        });
+      });
+      selectWeather(0);
+    }
+    function selectWeather(i){
+      var d=WEATHER_DATA[i];chartState.selected=d;
+      document.getElementById("avgHigh").textContent=d.hi.toFixed(1);
+      document.getElementById("avgLow").textContent=d.lo.toFixed(1);
+      document.getElementById("rainRate").textContent=d.rainPct+"%";
+      document.getElementById("scenicRate").textContent=d.scenicPct+"%";
+      document.getElementById("chartPlace").textContent=d.name+" · 网格海拔 "+d.elevation+"m";
+      drawChart(d);
+    }
+    function drawChart(d){
+      var canvas=document.getElementById("weatherChart"),box=canvas.parentElement.getBoundingClientRect(),ratio=Math.min(window.devicePixelRatio||1,2);
+      canvas.width=Math.max(1,box.width*ratio);canvas.height=Math.max(1,box.height*ratio);
+      var ctx=canvas.getContext("2d");ctx.scale(ratio,ratio);var w=box.width,h=box.height,p={l:42,r:26,t:25,b:34};
+      var years=d.yearly.map(function(x){return x.year}),vals=d.yearly.reduce(function(a,x){return a.concat([x.hi,x.lo])},[]);
+      var min=Math.floor(Math.min.apply(null,vals)-3),max=Math.ceil(Math.max.apply(null,vals)+3),x=function(i){return p.l+i*(w-p.l-p.r)/(years.length-1)},y=function(v){return p.t+(max-v)*(h-p.t-p.b)/(max-min)};
+      ctx.clearRect(0,0,w,h);ctx.font="10px ui-monospace";ctx.textAlign="right";ctx.textBaseline="middle";
+      for(var g=0;g<5;g++){var v=min+(max-min)*g/4,yy=y(v);ctx.strokeStyle="rgba(229,241,220,.10)";ctx.beginPath();ctx.moveTo(p.l,yy);ctx.lineTo(w-p.r,yy);ctx.stroke();ctx.fillStyle="#748379";ctx.fillText(v.toFixed(0)+"°",p.l-8,yy)}
+      d.yearly.forEach(function(row,i){var barH=Math.min(56,row.rainDays*5);ctx.fillStyle="rgba(185,255,102,.18)";ctx.fillRect(x(i)-7,h-p.b-barH,14,barH);ctx.fillStyle="#7d8b81";ctx.textAlign="center";ctx.fillText(row.year.slice(2),x(i),h-12)});
+      function line(key,color){
+        ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();d.yearly.forEach(function(row,i){if(i===0)ctx.moveTo(x(i),y(row[key]));else ctx.lineTo(x(i),y(row[key]))});ctx.stroke();
+        d.yearly.forEach(function(row,i){ctx.fillStyle=color;ctx.beginPath();ctx.arc(x(i),y(row[key]),3.4,0,Math.PI*2);ctx.fill()});
+      }
+      line("hi","#ff8b4a");line("lo","#82caff");
+      chartState.points=d.yearly.map(function(row,i){return {x:x(i),row:row}});
+    }
+    var canvas=document.getElementById("weatherChart"),tip=document.getElementById("chartTip");
+    canvas.addEventListener("pointermove",function(e){
+      if(!chartState.points.length)return;var r=canvas.getBoundingClientRect(),px=e.clientX-r.left,nearest=chartState.points.reduce(function(a,b){return Math.abs(b.x-px)<Math.abs(a.x-px)?b:a});
+      tip.style.display="block";tip.style.left=nearest.x+"px";tip.style.top=(e.clientY-r.top)+"px";tip.textContent=nearest.row.year+" · "+nearest.row.hi+" / "+nearest.row.lo+"℃ · 雨日 "+nearest.row.rainDays+" 天";
+    });
+    canvas.addEventListener("pointerleave",function(){tip.style.display="none"});
+    window.addEventListener("resize",function(){if(chartState.selected)drawChart(chartState.selected)});
+    setupWeather();
+
+    var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("in")})},{threshold:.08});
+    document.querySelectorAll(".reveal").forEach(function(x){observer.observe(x)});
+    window.addEventListener("scroll",function(){var max=document.documentElement.scrollHeight-innerHeight,p=max>0?scrollY/max*100:0;document.getElementById("progress").style.width=p+"%"},{passive:true});
+    document.addEventListener("pointermove",function(e){document.documentElement.style.setProperty("--mx",e.clientX+"px");document.documentElement.style.setProperty("--my",e.clientY+"px")},{passive:true});
+  </script>
+</body>
+</html>
