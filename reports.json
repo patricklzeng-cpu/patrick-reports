@@ -56,7 +56,7 @@
     "curated": 1
   },
   {
-    "title": "🌌 2017zyl.xyz 站点星图 · SITE ATLAS · 1123 页 HTML 知识宇宙 · 25 个内容星系 · 可缩放交互导航",
+    "title": "🌌 2017zyl.xyz 站点星图 · SITE ATLAS · 1110 页 HTML 知识宇宙 · 25 个内容星系 · 可缩放交互导航",
     "file": "daily-reports/2017zyl-site-atlas-2026-09-16.html",
     "date": "2026-09-16",
     "category": "interactive-experience",
@@ -64,8 +64,8 @@
     "tag": "site-atlas · data-visualization · interactive-map · 全站导航",
     "practical": 92,
     "time": 10,
-    "summary": "把整个 2017zyl.xyz HTML 库渲染成一片可探索的星系：25 个内容星系、1118 个页面星点。拖拽平移、滚轮缩放、悬停预览、搜索高亮，点击任意星点直达线上页面。",
-    "desc": "把整个 2017zyl.xyz HTML 库渲染成一片可探索的星系：25 个内容星系、1118 个页面星点。拖拽平移、滚轮缩放、悬停预览、搜索高亮，点击任意星点直达线上页面。",
+    "summary": "把整个 2017zyl.xyz HTML 库渲染成一片可探索的星系：25 个内容星系、1110 个页面星点。拖拽平移、滚轮缩放、悬停预览、搜索高亮，点击任意星点直达线上页面。",
+    "desc": "把整个 2017zyl.xyz HTML 库渲染成一片可探索的星系：25 个内容星系、1110 个页面星点。拖拽平移、滚轮缩放、悬停预览、搜索高亮，点击任意星点直达线上页面。",
     "featured": true,
     "curated": 1
   },
@@ -2088,32 +2088,6 @@
     "added_at": "2026-07-14"
   },
   {
-    "title": "Patrick's Picks · Q2 2026 · 季度精选 (HTML 免费 · 印刷版限量 100 本预约)",
-    "track": "product",
-    "tag": "Quarterly 季选",
-    "practical": 88,
-    "time": 20,
-    "desc": "从 264 daily reports 挑本季最值得重读的 30 条 + Patrick 当季思考 · 4 track 分布 (ai/dev/product/market) · 每条 5 注解 + 5 cross-ref · HTML 公网免费 · 印刷版限量 100 本实物预约 (非订阅)",
-    "file": "quarterly.html",
-    "date": "2026-07-14",
-    "curated": true,
-    "annotation_count": 5,
-    "cross_ref_count": 5,
-    "category": "page",
-    "featured": true,
-    "summary": "✓ Patrick 担保 · 5 注解 + 5 cross-ref · Q2 季选 landing ship · HTML 免费 + 印刷版预约制 · 7-25 HTML 终稿 · 8-1 EPUB · 8-5 印刷预约开放",
-    "tags": [
-      "quarterly",
-      "Q2-2026",
-      "季选",
-      "印刷版",
-      "5+5+5",
-      "anti-paywall",
-      "Patrick-担保"
-    ],
-    "added_at": "2026-07-14"
-  },
-  {
     "title": "🏁 Kokotajlo × Bartlett Diary Of A CEO · AI 2027 race forecast · 70% extinction probability (subjective) · 9章 race-aware audit · 12 loops race exposure · M10 v1.7.0 base framework · source 1 of 4 race-aware synthesis",
     "file": "daily-reports/kokotajlo-ai-2027-diary-of-ceo-2026-07-13-dashboard.html",
     "date": "2026-07-13",
@@ -3776,17 +3750,6 @@
     "featured": false
   },
   {
-    "title": "cron config 2026 06 14",
-    "file": "cron-config-2026-06-14.html",
-    "date": "2026-06-14",
-    "tags": [],
-    "category": "reports",
-    "added_at": "2026-06-15",
-    "track": "brief",
-    "summary": "cron config 2026 06 14",
-    "featured": false
-  },
-  {
     "title": "Hacker News Top 5 (AI)",
     "file": "hackernews-top5-2026-06-14.html",
     "date": "2026-06-14",
@@ -3985,17 +3948,6 @@
     "featured": false
   },
   {
-    "title": "patrick timeline 2026 06 13",
-    "file": "patrick-timeline-2026-06-13.html",
-    "date": "2026-06-13",
-    "tags": [],
-    "category": "reports",
-    "added_at": "2026-06-13",
-    "track": "brief",
-    "summary": "patrick timeline 2026 06 13",
-    "featured": false
-  },
-  {
     "title": "neo labs top 20",
     "file": "2026-06-13-neo-labs-top-20.html",
     "date": "2026-06-13",
@@ -4025,17 +3977,6 @@
     "category": "quant",
     "track": "quant",
     "summary": "exp18_ibkr_setup",
-    "featured": false,
-    "added_at": "2026-06-12"
-  },
-  {
-    "title": "gcp2 roadmap dashboard",
-    "file": "gcp2-roadmap-dashboard.html",
-    "date": "2026-06-12",
-    "tags": [],
-    "category": "video",
-    "track": "video",
-    "summary": "gcp2 roadmap dashboard",
     "featured": false,
     "added_at": "2026-06-12"
   },
@@ -4095,28 +4036,6 @@
     "featured": false
   },
   {
-    "title": "cron config 2026 06 12",
-    "file": "cron-config-2026-06-12.html",
-    "date": "2026-06-12",
-    "tags": [],
-    "category": "reports",
-    "added_at": "2026-06-13",
-    "track": "brief",
-    "summary": "cron config 2026 06 12",
-    "featured": false
-  },
-  {
-    "title": "Cron 快照",
-    "file": "cron-snapshot-2026-06-12.html",
-    "date": "2026-06-12",
-    "tags": [],
-    "category": "reports",
-    "added_at": "2026-06-13",
-    "track": "brief",
-    "summary": "Cron 快照",
-    "featured": false
-  },
-  {
     "title": "EMAI /closeday 日复盘",
     "file": "emai-closeday-2026-06-12-eod.html",
     "date": "2026-06-12",
@@ -4139,17 +4058,6 @@
     "featured": false
   },
   {
-    "title": "HermesMac 状态",
-    "file": "hermesmac-status-2026-06-12.html",
-    "date": "2026-06-12",
-    "tags": [],
-    "category": "reports",
-    "added_at": "2026-06-13",
-    "track": "brief",
-    "summary": "HermesMac 状态",
-    "featured": false
-  },
-  {
     "title": "SpaceX IPO 解析",
     "file": "spacex-ipo-analysis-2026-06-12.html",
     "date": "2026-06-12",
@@ -4169,17 +4077,6 @@
     "added_at": "2026-06-13",
     "track": "brief",
     "summary": "SpaceX IPO 解析",
-    "featured": false
-  },
-  {
-    "title": "Hermes 状态页",
-    "file": "status-2026-06-12.html",
-    "date": "2026-06-12",
-    "tags": [],
-    "category": "reports",
-    "added_at": "2026-06-13",
-    "track": "brief",
-    "summary": "Hermes 状态页",
     "featured": false
   },
   {
@@ -4410,17 +4307,6 @@
     "added_at": "2026-06-11"
   },
   {
-    "title": "patrick handbook 2026 06 11",
-    "file": "patrick-handbook-2026-06-11.html",
-    "date": "2026-06-11",
-    "tags": [],
-    "category": "brief",
-    "track": "brief",
-    "summary": "patrick handbook 2026 06 11",
-    "featured": false,
-    "added_at": "2026-06-11"
-  },
-  {
     "title": "plan e deep dive v2",
     "file": "plan-e-deep-dive-v2.html",
     "date": "2026-06-11",
@@ -4507,17 +4393,6 @@
     "track": "brief",
     "summary": "open design yihui 2026 06 11",
     "featured": false
-  },
-  {
-    "title": "diary dashboard 2026 06 10",
-    "file": "diary-dashboard-2026-06-10.html",
-    "date": "2026-06-10",
-    "tags": [],
-    "category": "video",
-    "track": "video",
-    "summary": "diary dashboard 2026 06 10",
-    "featured": false,
-    "added_at": "2026-06-10"
   },
   {
     "title": "mo gawdat ai future warning cn",
@@ -4723,17 +4598,6 @@
     "added_at": "2026-06-09"
   },
   {
-    "title": "skills audit report",
-    "file": "skills-audit-report.html",
-    "date": "2026-06-09",
-    "tags": [],
-    "category": "brief",
-    "track": "brief",
-    "summary": "skills audit report",
-    "featured": false,
-    "added_at": "2026-06-09"
-  },
-  {
     "title": "think quest",
     "file": "think-quest.html",
     "date": "2026-06-09",
@@ -4763,17 +4627,6 @@
     "category": "brief",
     "track": "brief",
     "summary": "yc ai native company",
-    "featured": false,
-    "added_at": "2026-06-09"
-  },
-  {
-    "title": "research log dashboard 2026 06 09",
-    "file": "research-log-dashboard-2026-06-09.html",
-    "date": "2026-06-09",
-    "tags": [],
-    "category": "video",
-    "track": "video",
-    "summary": "research log dashboard 2026 06 09",
     "featured": false,
     "added_at": "2026-06-09"
   },
