@@ -2423,17 +2423,6 @@
     "added_at": "2026-07-04"
   },
   {
-    "title": "Mission Control · Agent Fleet · 16KB · Reactor Core orbit",
-    "file": "mission-control.html",
-    "date": "2026-07-04",
-    "category": "brief",
-    "track": "brief",
-    "summary": "Mission Control · Agent Fleet · 16KB · Reactor Core orbit",
-    "featured": false,
-    "tags": [],
-    "added_at": "2026-07-04"
-  },
-  {
     "title": "AI 热门追踪 · 2026-07-04",
     "file": "ai-trending/2026-07-04.html",
     "date": "2026-07-04",
@@ -2473,17 +2462,6 @@
     "category": "brief",
     "track": "brief",
     "summary": "Agentic OS Dashboard v1 · 23KB · 7 active domain + 18 cron 总览 (📌 已被 v2 取代 → /agentic-os-dashboard/)",
-    "featured": false,
-    "tags": [],
-    "added_at": "2026-07-04"
-  },
-  {
-    "title": "Mission Control · Agent Fleet · 16KB · Reactor Core orbit",
-    "file": "mission-control.html",
-    "date": "2026-07-04",
-    "category": "brief",
-    "track": "brief",
-    "summary": "Mission Control · Agent Fleet · 16KB · Reactor Core orbit",
     "featured": false,
     "tags": [],
     "added_at": "2026-07-04"
@@ -3968,17 +3946,6 @@
     "track": "brief",
     "summary": "SpaceX IPO 10 大漏洞 (Patrick review)",
     "featured": false
-  },
-  {
-    "title": "exp18_ibkr_setup",
-    "file": "exp18_ibkr_setup.md",
-    "date": "2026-06-12",
-    "tags": [],
-    "category": "quant",
-    "track": "quant",
-    "summary": "exp18_ibkr_setup",
-    "featured": false,
-    "added_at": "2026-06-12"
   },
   {
     "title": "Hacker News Top 5 (AI)",

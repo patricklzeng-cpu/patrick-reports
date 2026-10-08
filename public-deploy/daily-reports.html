@@ -416,7 +416,7 @@
         <textarea id="feedbackText" rows="4" placeholder="如果愿意，多说一句：你还想在这里探索什么？"></textarea>
         <button class="primary" id="submitFeedback" style="margin-top:12px">发送这个信号</button>
       </div>
-      <div class="success" id="feedbackDraft" style="display:none"><h2 id="draftSavedTitle">草稿已保存在此设备。</h2><p id="draftSavedCopy">反馈发送已暂停，尚未发送。清理浏览器数据会丢失。谢谢你帮 Patrick 把下一条路线调得更准。</p><button class="secondary" id="deleteDraft">删除草稿</button><button class="secondary" data-close="feedbackOverlay">完成</button></div>
+      <div class="success" id="feedbackDraft" style="display:none"><h2 id="draftSavedTitle">草稿已保存在此设备。</h2><p id="draftSavedCopy">反馈发送已暂停，尚未发送。清理浏览器数据会丢失。谢谢你帮 Patrick 把下一条路线调得更准。</p><button class="secondary" id="editDraft">编辑草稿</button><button class="secondary" id="deleteDraft">删除草稿</button><button class="secondary" data-close="feedbackOverlay">完成</button></div>
       <div class="success" id="feedbackNotSent" style="display:none"><h2 id="notSentTitle">尚未发送，也未保存。</h2><p id="notSentCopy">此设备无法使用本地存储。请复制下方内容，通过其他方式发给 Patrick。</p><textarea id="notSentCopyText" rows="4" readonly style="width:100%;margin-top:10px"></textarea><button class="secondary" data-close="feedbackOverlay">完成</button></div>
       <div class="success" id="feedbackSuccess"><h2>反馈发送已暂停，尚未发送。</h2><p>你的反馈已保存在此设备。清理浏览器数据会丢失。谢谢你帮 Patrick 把下一条路线调得更准。</p><button class="secondary" data-close="feedbackOverlay">完成</button></div>
     </section>
@@ -701,12 +701,10 @@
       {title:'Julian Goldie · Agentic OS Distilled · 11KB · 5 核心要素 + 3 架构模式',track:'brief',tag:'',practical:70,time:10,desc:'Julian Goldie · Agentic OS Distilled · 11KB · 5 核心要素 + 3 架构模式',file:'julian-agentic-os-distilled.html',date:'2026-07-04'},
       {title:'Orbital Console · 33KB · 卫星轨道实时追踪',track:'video',tag:'',practical:70,time:10,desc:'Orbital Console · 33KB · 卫星轨道实时追踪',file:'orbital-console.html',date:'2026-07-04'},
       {title:'Agentic OS Dashboard v1 · 23KB · 7 active domain + 18 cron 总览 (📌 已被 v2 取代 → /agentic-os-dashboard/)',track:'brief',tag:'',practical:70,time:10,desc:'Agentic OS Dashboard v1 · 23KB · 7 active domain + 18 cron 总览 (📌 已被 v2 取代 → /agentic-os-dashboard/)',file:'daily-reports/agentic-os-dashboard',date:'2026-07-04'},
-      {title:'Mission Control · Agent Fleet · 16KB · Reactor Core orbit',track:'brief',tag:'',practical:70,time:10,desc:'Mission Control · Agent Fleet · 16KB · Reactor Core orbit',file:'mission-control.html',date:'2026-07-04'},
       {title:'AI 热门追踪 · 2026-07-04',track:'radar',tag:'',practical:70,time:10,desc:'AI 热门追踪 · 2026-07-04',file:'ai-trending/2026-07-04.html',date:'2026-07-04'},
       {title:'硬科技热门追踪 · 2026-07-04',track:'other',tag:'',practical:70,time:10,desc:'硬科技热门追踪 · 2026-07-04',file:'hardtech/2026-07-04.html',date:'2026-07-04'},
       {title:'Orbital Console · 33KB · 卫星轨道实时追踪',track:'video',tag:'',practical:70,time:10,desc:'Orbital Console · 33KB · 卫星轨道实时追踪',file:'orbital-console.html',date:'2026-07-04'},
       {title:'Agentic OS Dashboard v1 · 23KB · 7 active domain + 18 cron 总览 (📌 已被 v2 取代 → /agentic-os-dashboard/)',track:'brief',tag:'',practical:70,time:10,desc:'Agentic OS Dashboard v1 · 23KB · 7 active domain + 18 cron 总览 (📌 已被 v2 取代 → /agentic-os-dashboard/)',file:'daily-reports/agentic-os-dashboard',date:'2026-07-04'},
-      {title:'Mission Control · Agent Fleet · 16KB · Reactor Core orbit',track:'brief',tag:'',practical:70,time:10,desc:'Mission Control · Agent Fleet · 16KB · Reactor Core orbit',file:'mission-control.html',date:'2026-07-04'},
       {title:'AI 热门追踪 · 2026-07-04',track:'radar',tag:'',practical:70,time:10,desc:'AI 热门追踪 · 2026-07-04',file:'ai-trending/2026-07-04.html',date:'2026-07-04'},
       {title:'硬科技热门追踪 · 2026-07-04',track:'other',tag:'',practical:70,time:10,desc:'硬科技热门追踪 · 2026-07-04',file:'hardtech/2026-07-04.html',date:'2026-07-04'},
       {title:'AI 热门追踪 · 2026-07-03',track:'radar',tag:'',practical:70,time:10,desc:'AI 热门追踪 · 2026-07-03',file:'ai-trending/2026-07-03.html',date:'2026-07-03'},
@@ -828,7 +826,6 @@
       {title:'all in fable nationalizing ai 2026 06 13',track:'video',tag:'',practical:70,time:10,desc:'all in fable nationalizing ai 2026 06 13',file:'all-in-fable-nationalizing-ai-2026-06-13.html',date:'2026-06-13'},
       {title:'neo labs top 20',track:'brief',tag:'',practical:70,time:10,desc:'neo labs top 20',file:'2026-06-13-neo-labs-top-20.html',date:'2026-06-13'},
       {title:'SpaceX IPO 10 大漏洞 (Patrick review)',track:'brief',tag:'',practical:70,time:10,desc:'SpaceX IPO 10 大漏洞 (Patrick review)',file:'spacex-ipo-10-red-flags.md',date:'2026-06-12'},
-      {title:'exp18_ibkr_setup',track:'quant',tag:'',practical:70,time:10,desc:'exp18_ibkr_setup',file:'exp18_ibkr_setup.md',date:'2026-06-12'},
       {title:'Hacker News Top 5 (AI)',track:'brief',tag:'',practical:70,time:10,desc:'Hacker News Top 5 (AI)',file:'hackernews-top5-2026-06-12.html',date:'2026-06-12'},
       {title:'World Model 每日追踪',track:'papers',tag:'',practical:70,time:10,desc:'World Model 每日追踪',file:'world-model-2026-06-12.html',date:'2026-06-12'},
       {title:'Hermes Router Bench 漂移检测',track:'quant',tag:'',practical:70,time:10,desc:'Hermes Router Bench 漂移检测',file:'router-bench-2026-06-12.html',date:'2026-06-12'},
@@ -1317,11 +1314,11 @@
     function renderFeedbackState(){
       const draft=feedbackDraftPayload();
       const isDraft=feedbackState===FeedbackState.DRAFT_LOCAL&&draft;
-      $('#feedbackDraft').style.display=isDraft?'':'none';
-      $('#feedbackNotSent').style.display=feedbackState===FeedbackState.NOT_SENT?'':'none';
+      $('#feedbackDraft').style.display=isDraft?'block':'none';
+      $('#feedbackNotSent').style.display=feedbackState===FeedbackState.NOT_SENT?'block':'none';
       $('#feedbackSuccess').classList.remove('show');
       if(feedbackState===FeedbackState.NOT_SENT){
-        $('#feedbackForm').style.display='';
+        $('#feedbackForm').style.display='none';
         const d=feedbackDraftPayload();
         $('#notSentCopyText').value=d?('score: '+d.score+'\n'+String(d.text||'')+'\n'+d.ts):($('#feedbackText').value||'');
       } else if(isDraft){
@@ -1567,7 +1564,8 @@ $$('.filter-chip').forEach(chip=>{
     $('#feedbackOpen').onclick=()=>$('#feedbackOverlay').classList.add('open');
     $('#quickFeedback').onclick=e=>{if(!e.target.dataset.score)return;state.feedback=e.target.dataset.score;$$('#quickFeedback button').forEach(b=>b.classList.toggle('selected',b===e.target));sendFeedback({score:state.feedback,text:''})};
     $('#feedbackOptions').onclick=e=>{if(!e.target.dataset.score)return;state.feedback=e.target.dataset.score;$$('#feedbackOptions button').forEach(b=>b.classList.toggle('selected',b===e.target))};
-    $('#submitFeedback').onclick=async()=>{if(!state.feedback){showToast('chooseFeedback');return}const txt=$('#feedbackText').value;const btn=$('#submitFeedback');btn.disabled=true;btn.textContent='保存中…';const result=await sendFeedback({score:state.feedback,text:txt,onPending:false});btn.disabled=false;btn.textContent=tr().submit;if(result===FeedbackState.SERVER_RECEIVED){$('#feedbackForm').style.display='none';$('#feedbackSuccess').classList.add('show')}};
+    $('#submitFeedback').onclick=async()=>{if(!state.feedback){showToast('chooseFeedback');return}const txt=$('#feedbackText').value;const btn=$('#submitFeedback');btn.disabled=true;btn.textContent='保存中…';const result=await sendFeedback({score:state.feedback,text:txt,onPending:false});btn.disabled=false;btn.textContent=tr().submit;renderFeedbackState();};
+    $('#editDraft').onclick=()=>{feedbackState=FeedbackState.DRAFT;renderFeedbackState();$('#feedbackText').focus();};
     $('#deleteDraft').onclick=()=>{try{localStorage.removeItem('patrick-feedback-draft-v1')}catch(e){}feedbackState=FeedbackState.PAUSED;showToast(tr().draftDeleted||'草稿已删除');renderFeedbackState()};
     $('#feedbackOpen').addEventListener('click',()=>{if(feedbackState===FeedbackState.PAUSED&&feedbackDraftPayload())feedbackState=FeedbackState.DRAFT_LOCAL;renderFeedbackState()});
     // Restore draft state on load if a previous session saved one
