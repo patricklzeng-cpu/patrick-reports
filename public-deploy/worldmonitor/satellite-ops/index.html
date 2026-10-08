@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Satellite Ops · 全球卫星实时看板</title>
+<link rel="canonical" href="https://2017zyl.xyz/worldmonitor/satellite-ops/">
+<meta property="og:title" content="Satellite Ops · 全球卫星实时看板">
+<meta property="og:description" content="Satellite Ops · 全球卫星实时看板：ISS、Starlink、GPS、气象卫星、NASA GIBS 影像与活跃火点监测。">
+<meta property="og:url" content="https://2017zyl.xyz/worldmonitor/satellite-ops/">
+<meta property="og:type" content="article">
+<meta name="date" content="2026-06-26">
+<meta name="source" content="https://2017zyl.xyz/worldmonitor/">
   <meta name="description" content="Live satellite tracker and Earth observation dashboard. ISS, Starlink, GPS, weather satellites, NASA GIBS imagery, active fires." />
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
   <style>
@@ -283,6 +290,7 @@
     <div class="source"><span class="name">FIRMS</span><span class="badge badge-neutral" id="src-firms">--</span></div>
     <div class="source"><span class="name">STAC</span><span class="badge badge-good" id="src-stac">--</span></div>
     <div class="source" style="margin-left: auto;"><span class="name">lat</span><span class="lat" id="propLatency">--</span></div>
+    <div class="source" id="loadEvidence"><span class="name">数据</span><span class="badge badge-neutral" id="loadEvidenceBadge">loading…</span><button id="loadRetry" style="display:none;margin-left:6px" onclick="retryLoad()">重试</button></div>
   </div>
 
   <div id="map"></div>
@@ -415,7 +423,11 @@
   }
 
   // ====== MapLibre setup ======
-  const map = new maplibregl.Map({
+  // THU-6: if WebGL/map init fails, still surface a visible load-failed state
+  // with a retry path instead of dying silently before the evidence widgets exist.
+  let map = null;
+  try {
+    map = new maplibregl.Map({
     container: 'map',
     style: {
       version: 8,
@@ -442,6 +454,12 @@
   });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
   map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-right');
+  } catch (e) {
+    console.error('[map] init failed', e);
+    setLoadEvidence('bad', '地图初始化失败 (需要 WebGL)');
+    const sp = document.getElementById('splash');
+    if (sp) sp.style.display = 'none';
+  }
 
   // ====== Satellite state ======
   const satState = {
@@ -469,8 +487,15 @@
       satState.weather = await fetchCelestrakGroup('weather');
     } catch (e) { log('weather failed', e); }
     setProgress(75, 'ready (starlink lazy)');
-    setSrcStatus('celestrak', 'good',
-      `${satState.stations.length + satState.gps.length + satState.weather.length}`);
+    const totalLoaded = satState.stations.length + satState.gps.length + satState.weather.length;
+    setSrcStatus('celestrak', totalLoaded > 0 ? 'good' : 'bad',
+      `${totalLoaded}`);
+    if (totalLoaded > 0) {
+      satState.loadedAt = new Date();
+      setLoadEvidence('good', '已加载 ' + totalLoaded + ' 颗 · ' + satState.loadedAt.toLocaleTimeString());
+    } else {
+      setLoadEvidence('bad', 'CelesTrak 无数据');
+    }
     repropagateAll();
   }
 
@@ -480,8 +505,34 @@
     el.textContent = text;
   }
 
+  // ====== Load evidence (THU-6): visible load-complete / load-failed state ======
+  function setLoadEvidence(status, detail) {
+    const badge = $('loadEvidenceBadge');
+    if (!badge) return;
+    badge.className = 'badge badge-' + (status === 'good' ? 'good' : status === 'bad' ? 'bad' : 'neutral');
+    badge.textContent = detail;
+    $('loadRetry').style.display = status === 'bad' ? '' : 'none';
+  }
+  window.retryLoad = async function () {
+    setLoadEvidence('neutral', '重试中…');
+    try {
+      await loadAllCelestrak();
+      const total = satState.stations.length + satState.gps.length + satState.weather.length;
+      if (total > 0) {
+        satState.loadedAt = new Date();
+        setLoadEvidence('good', '已加载 ' + total + ' 颗 · ' + satState.loadedAt.toLocaleTimeString());
+      } else {
+        setLoadEvidence('bad', '重试后仍无数据');
+      }
+    } catch (e) {
+      log('retry failed', e);
+      setLoadEvidence('bad', '加载失败: ' + String(e.message || e).slice(0, 40));
+    }
+  };
+
   // ====== Recompute all positions for current time ======
   function repropagateAll() {
+    if (!map) return;
     const now = new Date();
     const all = [
       ...satState.stations.map(s => ({ ...s, group: 'stations' })),
@@ -961,7 +1012,7 @@
 
   // ====== INIT ======
   window._t0 = performance.now();
-  map.on('load', async () => {
+  if (map) map.on('load', async () => {
     try {
       setProgress(5, 'map ready');
       wireUI();
@@ -975,6 +1026,7 @@
     } catch (e) {
       console.error('[init] error', e);
       $('splashStatus').textContent = '部分初始化失败 (tiles 可能受限): ' + e.message.slice(0, 60);
+      setLoadEvidence('bad', '初始化失败: ' + String(e.message || e).slice(0, 40));
     } finally {
       // Always hide splash after 5s max, even if a step stalls
       setTimeout(hideSplash, 800);
@@ -988,6 +1040,8 @@
     if ($('splash').style.display !== 'none') {
       console.warn('[init] splash kill-switch fired (12s)');
       hideSplash();
+      const total = satState.stations.length + satState.gps.length + satState.weather.length;
+      if (total === 0) setLoadEvidence('bad', '12s 内无数据，请重试');
     }
   }, 12000);
 
