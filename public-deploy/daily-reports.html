@@ -416,6 +416,8 @@
         <textarea id="feedbackText" rows="4" placeholder="如果愿意，多说一句：你还想在这里探索什么？"></textarea>
         <button class="primary" id="submitFeedback" style="margin-top:12px">发送这个信号</button>
       </div>
+      <div class="success" id="feedbackDraft" style="display:none"><h2 id="draftSavedTitle">草稿已保存在此设备。</h2><p id="draftSavedCopy">反馈发送已暂停，尚未发送。清理浏览器数据会丢失。谢谢你帮 Patrick 把下一条路线调得更准。</p><button class="secondary" id="deleteDraft">删除草稿</button><button class="secondary" data-close="feedbackOverlay">完成</button></div>
+      <div class="success" id="feedbackNotSent" style="display:none"><h2 id="notSentTitle">尚未发送，也未保存。</h2><p id="notSentCopy">此设备无法使用本地存储。请复制下方内容，通过其他方式发给 Patrick。</p><textarea id="notSentCopyText" rows="4" readonly style="width:100%;margin-top:10px"></textarea><button class="secondary" data-close="feedbackOverlay">完成</button></div>
       <div class="success" id="feedbackSuccess"><h2>反馈发送已暂停，尚未发送。</h2><p>你的反馈已保存在此设备。清理浏览器数据会丢失。谢谢你帮 Patrick 把下一条路线调得更准。</p><button class="secondary" data-close="feedbackOverlay">完成</button></div>
     </section>
   </div>
@@ -1171,6 +1173,9 @@
       placeholder:'如果愿意，多说一句：你还想在这里探索什么？',
       submit:'发送这个信号',successTitle:'信号已收到。',
       successCopy:'谢谢你帮 Patrick 把下一条路线调得更准。',done:'完成',
+      draftSavedTitle:'草稿已保存在此设备。',draftSavedCopy:'反馈发送已暂停，尚未发送。清理浏览器数据会丢失。谢谢你帮 Patrick 把下一条路线调得更准。',
+      deleteDraft:'删除草稿',draftDeleted:'草稿已删除',
+      notSentTitle:'尚未发送，也未保存。',notSentCopy:'此设备无法使用本地存储。请复制下方内容，通过其他方式发给 Patrick。',
       archiveTitle:'全部报告 / 档案探索',search:'搜标题、主题或产线…',
       noResults:'没有找到，试试更宽一点的词。',trackHint:'内容产线',all:'跨产线',
       explored:' · 已探索',newRoute:'一条新路线已生成',archiveRoute:'已从档案生成路线',
@@ -1198,7 +1203,11 @@
       feedbackCopy:'One signal is enough. Your response is stored locally until a live endpoint is connected.',
       placeholder:'Optional: what else would you like to explore here?',submit:'Send this signal',
       successTitle:'Signal received.',successCopy:'Thanks for helping Patrick tune the next route.',
-      done:'Done',archiveTitle:'ALL REPORTS / ARCHIVE',
+      done:'Done',
+      draftSavedTitle:'Draft saved on this device.',draftSavedCopy:'Sending is paused; nothing was sent. Clearing browser data will lose it. Thanks for helping Patrick tune the next route.',
+      deleteDraft:'Delete draft',draftDeleted:'Draft deleted',
+      notSentTitle:'Not sent, and not saved.',notSentCopy:'Local storage is unavailable on this device. Copy the text below and send it to Patrick another way.',
+      archiveTitle:'ALL REPORTS / ARCHIVE',
       search:'Search titles, topics, or tracks…',noResults:'Nothing found. Try a broader term.',
       trackHint:'CONTENT TRACK',all:'Cross-track',explored:' · Explored',
       newRoute:'A new route is ready',archiveRoute:'Route created from the archive',
@@ -1295,14 +1304,32 @@
     // Current state - starts as paused since backend is paused
     let feedbackState = FeedbackState.PAUSED;
 
-    // THU-5: Feedback state machine — backend is paused, so we never send POST.
+    // THU-5/THU-6: Feedback state machine — backend is paused, so we never send POST.
     // PAUSED (default): Don't send POST. Show paused message. Allow editing/copying text.
     //   Try to save to localStorage → DRAFT_LOCAL on success, NOT_SENT on failure.
     // DRAFT_LOCAL: localStorage succeeded. Show saved-locally message + delete draft button.
-    // NOT_SENT: localStorage failed. Show not-sent message, keep input visible.
+    //   Editing again UPDATES the draft (no early return).
+    // NOT_SENT: localStorage failed. Show not-sent message, keep input visible, NEVER show success.
     // SENDING: Only if backend is restored (not currently reachable).
     // RECEIPT_UNKNOWN: Timeout/disconnect after attempt. Show unknown-receipt message.
-    // SERVER_RECEIVED: Only when server returns receiptId + acceptedAt.
+    // SERVER_RECEIVED: Only when server returns receiptId + acceptedAt. Only state that shows feedbackSuccess.
+    function feedbackDraftPayload(){try{return JSON.parse(localStorage.getItem('patrick-feedback-draft-v1')||'null')}catch(e){return null}}
+    function renderFeedbackState(){
+      const draft=feedbackDraftPayload();
+      const isDraft=feedbackState===FeedbackState.DRAFT_LOCAL&&draft;
+      $('#feedbackDraft').style.display=isDraft?'':'none';
+      $('#feedbackNotSent').style.display=feedbackState===FeedbackState.NOT_SENT?'':'none';
+      $('#feedbackSuccess').classList.remove('show');
+      if(feedbackState===FeedbackState.NOT_SENT){
+        $('#feedbackForm').style.display='';
+        const d=feedbackDraftPayload();
+        $('#notSentCopyText').value=d?('score: '+d.score+'\n'+String(d.text||'')+'\n'+d.ts):($('#feedbackText').value||'');
+      } else if(isDraft){
+        $('#feedbackForm').style.display='none';
+      } else {
+        $('#feedbackForm').style.display='';
+      }
+    }
     async function sendFeedback({score,text,onPending=true}){
       const payload={
         score,
@@ -1315,38 +1342,36 @@
       };
 
       // Backend is paused — do not send POST
-      if (feedbackState === FeedbackState.PAUSED) {
-        // Try to save to localStorage
+      if (feedbackState === FeedbackState.PAUSED || feedbackState === FeedbackState.DRAFT_LOCAL) {
+        // Try to save (or update) the draft in localStorage
         try {
           localStorage.setItem('patrick-feedback-draft-v1', JSON.stringify({...payload, kind:onPending?'chip':'modal'}));
+          const wasDraft=feedbackState===FeedbackState.DRAFT_LOCAL;
           feedbackState = FeedbackState.DRAFT_LOCAL;
-          showToast('反馈发送已暂停，尚未发送');
+          showToast(wasDraft?'草稿已更新':'反馈发送已暂停，尚未发送');
           console.info('[feedback] paused → draft_local', payload.score);
         } catch(e) {
           feedbackState = FeedbackState.NOT_SENT;
           showToast('未发送，且未能在此设备保存，请复制内容');
           console.warn('[feedback] paused → not_sent', e?.message);
         }
-        return;
+        renderFeedbackState();
+        return feedbackState;
       }
 
-      // DRAFT_LOCAL: already saved locally, still paused
-      if (feedbackState === FeedbackState.DRAFT_LOCAL) {
-        showToast('仅保存在此设备，未发送；清理浏览器数据会丢失');
-        console.info('[feedback] draft_local (already saved)');
-        return;
-      }
-
-      // NOT_SENT: localStorage failed, still paused
+      // NOT_SENT: localStorage failed, still paused. Keep input visible, show copy prompt.
       if (feedbackState === FeedbackState.NOT_SENT) {
         showToast('未发送，且未能在此设备保存，请复制内容');
         console.info('[feedback] not_sent (still paused)');
-        return;
+        renderFeedbackState();
+        return feedbackState;
       }
 
       // SENDING / RECEIPT_UNKNOWN / SERVER_RECEIVED: backend not restored, treat as paused
       // These states are only reachable when the backend is un-paused.
       showToast('反馈发送已暂停，尚未发送');
+      renderFeedbackState();
+      return feedbackState;
     }
 
     const trackName=id=>tracks.find(x=>x.id===id)?.[state.lang]||tr().all;
@@ -1527,6 +1552,9 @@ $$('.filter-chip').forEach(chip=>{
       $('#feedbackText').placeholder=x.placeholder;$('#submitFeedback').textContent=x.submit;
       $('#feedbackSuccess h2').textContent=x.successTitle;$('#feedbackSuccess p').textContent=x.successCopy;
       $('#feedbackSuccess button').textContent=x.done;$('#archiveTitle').textContent=x.archiveTitle;
+      $('#draftSavedTitle').textContent=x.draftSavedTitle;$('#draftSavedCopy').textContent=x.draftSavedCopy;
+      $('#deleteDraft').textContent=x.deleteDraft;
+      $('#notSentTitle').textContent=x.notSentTitle;$('#notSentCopy').textContent=x.notSentCopy;
       $('#archiveSearch').placeholder=x.search;$$('.lang-switch button').forEach(b=>b.classList.toggle('active',b.dataset.lang===state.lang));
       renderTracks();updateDial();renderRoute();if($('#archiveOverlay').classList.contains('open'))renderArchive($('#archiveSearch').value);
       save();
@@ -1539,7 +1567,11 @@ $$('.filter-chip').forEach(chip=>{
     $('#feedbackOpen').onclick=()=>$('#feedbackOverlay').classList.add('open');
     $('#quickFeedback').onclick=e=>{if(!e.target.dataset.score)return;state.feedback=e.target.dataset.score;$$('#quickFeedback button').forEach(b=>b.classList.toggle('selected',b===e.target));sendFeedback({score:state.feedback,text:''})};
     $('#feedbackOptions').onclick=e=>{if(!e.target.dataset.score)return;state.feedback=e.target.dataset.score;$$('#feedbackOptions button').forEach(b=>b.classList.toggle('selected',b===e.target))};
-    $('#submitFeedback').onclick=async()=>{if(!state.feedback){showToast('chooseFeedback');return}const txt=$('#feedbackText').value;const btn=$('#submitFeedback');btn.disabled=true;btn.textContent='保存中…';await sendFeedback({score:state.feedback,text:txt,onPending:false});btn.disabled=false;btn.textContent='发送这个信号';$('#feedbackForm').style.display='none';$('#feedbackSuccess').classList.add('show')};
+    $('#submitFeedback').onclick=async()=>{if(!state.feedback){showToast('chooseFeedback');return}const txt=$('#feedbackText').value;const btn=$('#submitFeedback');btn.disabled=true;btn.textContent='保存中…';const result=await sendFeedback({score:state.feedback,text:txt,onPending:false});btn.disabled=false;btn.textContent=tr().submit;if(result===FeedbackState.SERVER_RECEIVED){$('#feedbackForm').style.display='none';$('#feedbackSuccess').classList.add('show')}};
+    $('#deleteDraft').onclick=()=>{try{localStorage.removeItem('patrick-feedback-draft-v1')}catch(e){}feedbackState=FeedbackState.PAUSED;showToast(tr().draftDeleted||'草稿已删除');renderFeedbackState()};
+    $('#feedbackOpen').addEventListener('click',()=>{if(feedbackState===FeedbackState.PAUSED&&feedbackDraftPayload())feedbackState=FeedbackState.DRAFT_LOCAL;renderFeedbackState()});
+    // Restore draft state on load if a previous session saved one
+    if(feedbackDraftPayload()){feedbackState=FeedbackState.DRAFT_LOCAL;renderFeedbackState();}
     $('#archiveOpen').onclick=()=>{_activeTrack='all';_activeSort='date-desc';_selectedReport=null;$('#archiveSort').value='date-desc';$$('.filter-chip').forEach(c=>c.classList.toggle('active',c.dataset.track==='all'));renderArchive();$('#archiveOverlay').classList.add('open');setTimeout(()=>$('#archiveSearch').focus(),80)};
 // Filter chips
 $$('.filter-chip').forEach(chip=>chip.onclick=()=>{_activeTrack=chip.dataset.track;$$('.filter-chip').forEach(c=>c.classList.toggle('active',c===chip));renderArchiveList()});
